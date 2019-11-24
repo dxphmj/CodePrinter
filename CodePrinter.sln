@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CodePrinter", "CodePrinter\CodePrinter.vcproj", "{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|CHSINT SDK For WinCE 6.0 (ARMV4I) = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		Release|CHSINT SDK For WinCE 6.0 (ARMV4I) = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}.Debug|CHSINT SDK For WinCE 6.0 (ARMV4I).ActiveCfg = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}.Debug|CHSINT SDK For WinCE 6.0 (ARMV4I).Build.0 = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}.Debug|CHSINT SDK For WinCE 6.0 (ARMV4I).Deploy.0 = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}.Release|CHSINT SDK For WinCE 6.0 (ARMV4I).ActiveCfg = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}.Release|CHSINT SDK For WinCE 6.0 (ARMV4I).Build.0 = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}.Release|CHSINT SDK For WinCE 6.0 (ARMV4I).Deploy.0 = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

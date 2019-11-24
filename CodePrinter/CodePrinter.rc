@@ -1,0 +1,425 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\CodePrinter.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\CodePrinter.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CODEPRINTER_DIALOG DIALOG  0, 0, 371, 265
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW | 0x80000000L
+FONT 9, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "System_Button",IDC_SYSTEM_BUTTON,231,52,56,28
+    PUSHBUTTON      "Fault_Button",IDC_FAULT_BUTTON,231,17,56,28
+    PUSHBUTTON      "User_Button",IDC_USER_BUTTON,231,93,56,28
+    PUSHBUTTON      "Label_Button",IDC_LABEL_BUTTON,231,128,56,28
+    PUSHBUTTON      "Configuration_Button",IDC_CONFIGURATION_BUTTON,213,163,89,28
+    PUSHBUTTON      "FileMana_Button",IDC_FILEMANA_BUTTON,228,197,65,28
+    PUSHBUTTON      "Ink_Button",IDC_INK_BUTTON,231,230,56,28
+END
+
+IDD_DATE_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,31,101,50,14
+END
+
+IDD_EDITTEXT_DIALOG DIALOG  0, 0, 388, 232
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "返回",IDCANCEL,7,146,50,14
+    LTEXT           "Text",Static_Text,49,34,16,8
+    LTEXT           "Font",Static_Font,49,55,16,8
+    LTEXT           "DataField",Static_DataField,42,76,31,8
+    EDITTEXT        IDC_EDIT1,85,32,194,14,ES_AUTOHSCROLL
+    COMBOBOX        Combo_Font,85,54,48,71,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_BARCODE_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,35,119,50,14
+END
+
+IDD_CONFIGURATION_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,7,113,50,14
+END
+
+IDD_FAULT_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,7,68,50,14
+END
+
+IDD_EDITFIGURE_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,23,84,50,14
+END
+
+IDD_FILEMANA_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,7,126,50,14
+END
+
+IDD_INKSYSTEM_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,7,92,50,14
+END
+
+IDD_INPUT_DIALOG DIALOG  0, 0, 373, 226
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "返回",IDCANCEL,7,160,50,14
+    PUSHBUTTON      "EditText_Button",IDC_EDITTEXT_BUTTON,55,34,65,14
+    PUSHBUTTON      "EditFigure_Button",IDC_EDITFIGURE_BUTTON,134,35,65,14
+    PUSHBUTTON      "EditDate_Button",IDC_EDITDATE_BUTTON,213,34,65,14
+    PUSHBUTTON      "EditPicture_Button",IDC_EDITPICTURE_BUTTON,55,74,65,14
+    PUSHBUTTON      "BarCode_Button",IDC_BARCODE_BUTTON,134,73,65,14
+    PUSHBUTTON      "Odbc_Button",IDC_ODBC_BUTTON,213,73,65,14
+END
+
+IDD_LABEL_DIALOG DIALOG  0, 0, 599, 310
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "返回",IDCANCEL,7,236,63,23
+    LTEXT           "矩阵",IDC_MATRIX_STATIC,21,124,17,8
+    LTEXT           "像素高度",IDC_PIXEL_STATIC,21,141,33,8
+    COMBOBOX        IDC_COMBO2,63,139,48,57,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "翻转",IDC_REVERSAL_STATIC,21,158,17,8
+    COMBOBOX        IDC_COMBO3,63,157,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "颠倒",IDC_PERVERSION_STATIC,21,175,17,8
+    COMBOBOX        IDC_COMBO4,63,174,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Input_Button",IDC_INPUT_BUTTON,127,110,63,23
+    EDITTEXT        IDC_SHOW_EDIT,7,21,585,69,ES_MULTILINE | ES_AUTOHSCROLL | WS_HSCROLL
+    PUSHBUTTON      "Copy_Button",IDC_COPY_BUTTON,267,110,63,23
+    PUSHBUTTON      "Delete_Button",IDC_DELETE_BUTTON,337,110,63,23
+    PUSHBUTTON      "Repeat_Button",IDC_REPEAT_BUTTON,197,110,63,23
+    PUSHBUTTON      "Shrink_Button",IDC_SHRINK_BUTTON,127,142,53,23
+    PUSHBUTTON      "Zoom_Button",IDC_ZOOM_BUTTON,207,142,53,23
+    PUSHBUTTON      "Close_Button",IDC_CLOSE_BUTTON,127,175,53,23
+    PUSHBUTTON      "Far_Button",IDC_FAR_BUTTON,207,175,53,23
+    PUSHBUTTON      "无背景ABC",Button1,267,142,53,23
+    PUSHBUTTON      "有背景ABC",Button2,347,142,53,23
+    PUSHBUTTON      "UD_Mirror_Button",IDC_UDMIRROR_BUTTON,267,175,53,23
+    PUSHBUTTON      "LR_Mirror_Button",IDC_LRMIRROR_BUTTON,347,175,53,23
+    PUSHBUTTON      "L_Select_Button",IDC_LSELECT_BUTTON,434,169,61,14
+    PUSHBUTTON      "R_Select_Button",IDC_RSELECT_BUTTON,504,169,61,14
+    PUSHBUTTON      "U_Shift_Button",IDC_USHIFT_BUTTON,434,194,61,14
+    PUSHBUTTON      "D_Shift_Button",IDC_DSHIFT_BUTTON,504,194,61,14
+    PUSHBUTTON      "L_Shift_Button",IDC_LSHIFT_BUTTON,434,219,61,14
+    PUSHBUTTON      "R_Shift_Button",IDC_RSHIFT_BUTTON,504,219,61,14
+    PUSHBUTTON      "L_Qshift_Button",IDC_LQSHIFT_BUTTON,434,244,61,14
+    PUSHBUTTON      "R_Qshift_Button",IDC_RQSHIFT_BUTTON,504,244,61,14
+    PUSHBUTTON      "Download_Button",IDC_DOWNLOAD_BUTTON,80,236,63,23
+    PUSHBUTTON      "Cls_Button",IDC_CLS_BUTTON,153,236,63,23
+    PUSHBUTTON      "Open_Button",IDC_OPEN_BUTTON,226,236,63,23
+    PUSHBUTTON      "Save_Button",IDC_SAVE_BUTTON,299,236,63,23
+    COMBOBOX        IDC_COMBO_MATRIX,63,121,48,79,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT1,182,143,24,22,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,182,176,24,22,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,322,143,24,22,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT4,322,176,24,22,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT5,434,110,130,48,ES_AUTOHSCROLL
+END
+
+IDD_PICTURE_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,71,102,50,14
+END
+
+IDD_SYSTEM_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,7,50,50,14
+END
+
+IDD_USER_DIALOG DIALOG  0, 0, 316, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,7,65,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "CodePrinter.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "CodePrinter.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_CODEPRINTER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 364
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 258
+    END
+
+    IDD_DATE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_EDITTEXT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 381
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 225
+    END
+
+    IDD_BARCODE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_CONFIGURATION_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_FAULT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_EDITFIGURE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_FILEMANA_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_INKSYSTEM_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_INPUT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 366
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 219
+    END
+
+    IDD_LABEL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 592
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 303
+    END
+
+    IDD_PICTURE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_SYSTEM_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_USER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDP_SOCKETS_INIT_FAILED "Windows 套接字初始化失败。"
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\CodePrinter.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

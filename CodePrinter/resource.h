@@ -1,0 +1,122 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by CodePrinter.rc
+//
+#define IDD_CODEPRINTER_DIALOG          102
+#define IDP_SOCKETS_INIT_FAILED         103
+#define IDR_MAINFRAME                   128
+#define IDD_FAULT_DIALOG                129
+#define IDD_SYSTEM_DIALOG               130
+#define IDD_USER_DIALOG                 131
+#define IDD_LABEL_DIALOG                132
+#define IDD_CONFIGURATION_DIALOG        133
+#define IDD_FILEMANA_DIALOG             134
+#define IDD_INKSYSTEM_DIALOG            135
+#define IDD_INPUT_DIALOG                136
+#define IDD_EDITTEXT_DIALOG             137
+#define IDD_EDITFIGURE_DIALOG           138
+#define IDD_DATE_DLG                    139
+#define IDD_DATE_DIALOG                 139
+#define IDD_PICTURE_DIALOG              140
+#define IDD_BARCODE_DIALOG              141
+#define IDC_FAULT_BUTTON                1001
+#define IDC_USER_BUTTON                 1002
+#define IDC_LABEL_BUTTON                1003
+#define IDC_CONFIGURATION_BUTTON        1004
+#define IDC_FILEMANA_BUTTON             1005
+#define IDC_INK_BUTTON                  1006
+#define L_Select_Button                 1006
+#define IDC_LSELECT_BUTTON              1006
+#define R_Select_Button                 1007
+#define IDC_RSELECT_BUTTON              1007
+#define IDC_SYSTEM_BUTTON               1008
+#define IDC_COMBOMATRIX                 1008
+#define Static_Matrix                   1009
+#define IDC_MATRIX                      1009
+#define IDC_MATRIX_STATIC               1009
+#define Static_Pixel                    1010
+#define IDC_PIXEL_STATIC                1010
+#define IDC_COMBO2                      1011
+#define Static_Reversal                 1012
+#define IDC_REVERSAL_STATIC             1012
+#define IDC_COMBO3                      1013
+#define Static_Perversion               1014
+#define IDC_PERVERSION_STATIC           1014
+#define IDC_COMBO4                      1015
+#define Input_Button                    1016
+#define IDC_INPUT_BUTTON                1016
+#define Edit_Show                       1017
+#define IDC_SHOW_EDIT                   1017
+#define Abc_Button                      1018
+#define U_Shift_Button                  1018
+#define IDC_USHIFT_BUTTON               1018
+#define IDC_EDITTEXT_BUTTON             1018
+#define Figure_Button                   1019
+#define D_Shift_Button                  1019
+#define IDC_DSHIFT_BUTTON               1019
+#define IDC_EDITFIGURE_BUTTON           1019
+#define Date_Button                     1020
+#define L_Shift_Button                  1020
+#define IDC_LSHIFT_BUTTON               1020
+#define IDC_EDITDATE_BUTTON             1020
+#define Picture_Button                  1021
+#define R_Shift_Button                  1021
+#define IDC_RSHIFT_BUTTON               1021
+#define IDC_EDITPICTURE_BUTTON          1021
+#define Bar_Code_Button                 1022
+#define L_Qshift_Button                 1022
+#define IDC_LQSHIFT_BUTTON              1022
+#define IDC_BARCODE_BUTTON              1022
+#define Odbc_Button                     1023
+#define R_QShift_Button                 1023
+#define IDC_RQSHIFT_BUTTON              1023
+#define Copy_Button                     1024
+#define IDC_COPY_BUTTON                 1024
+#define Delete_Button                   1025
+#define IDC_DELETE_BUTTON               1025
+#define Repeat_Button                   1026
+#define IDC_REPEAT_BUTTON               1026
+#define Shrink_Button                   1027
+#define IDC_SHRINK_BUTTON               1027
+#define Zoom_Button                     1028
+#define IDC_ZOOM_BUTTON                 1028
+#define Close_Button                    1029
+#define IDC_CLOSE_BUTTON                1029
+#define Far_Button                      1030
+#define IDC_FAR_BUTTON                  1030
+#define Button1                         1031
+#define Button2                         1032
+#define UD_Mirror_Button                1033
+#define IDC_UDMIRROR_BUTTON             1033
+#define LR_Mirror_Button                1034
+#define IDC_LRMIRROR_BUTTON             1034
+#define Download_Button                 1035
+#define IDC_DOWNLOAD_BUTTON             1035
+#define Cls_Button                      1036
+#define IDC_CLS_BUTTON                  1036
+#define Open_Button                     1037
+#define IDC_OPEN_BUTTON                 1037
+#define IDC_ODBC_BUTTON                 1037
+#define Save_Button                     1038
+#define IDC_SAVE_BUTTON                 1038
+#define Static_Text                     1039
+#define IDC_COMBO_MATRIX                1039
+#define Static_Font                     1040
+#define Static_DataField                1041
+#define IDC_EDIT5                       1041
+#define IDC_EDIT1                       1042
+#define Combo_Font                      1043
+#define IDC_EDIT2                       1043
+#define IDC_EDIT3                       1044
+#define IDC_EDIT4                       1045
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        129
+#define _APS_NEXT_COMMAND_VALUE         32771
+#define _APS_NEXT_CONTROL_VALUE         1042
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif
