@@ -2,3 +2,12 @@
 *.aps
 *.user
 *.scc
+*.ncb
+*.obj
+*.htm
+*.pch
+*.pdb
+*.exe
+*.res
+*.idb
+*.exp
