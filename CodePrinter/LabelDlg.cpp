@@ -6,6 +6,8 @@
 #include "LabelDlg.h"
 #include "InputDlg.h"
 #include <sstream>
+#include <map>
+
 
 LPCWSTR stringToLPCWSTR(std::string orig)
 {
@@ -46,6 +48,14 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_WM_PAINT()
 	ON_CBN_SELCHANGE(IDC_COMBO_MATRIX, &CLabelDlg::OnCbnSelchangeComboMatrix)
 	ON_CBN_SELCHANGE(IDC_COMBO2, &CLabelDlg::OnCbnSelchangeCombo2)
+	ON_BN_CLICKED(IDC_USHIFT_BUTTON, &CLabelDlg::OnBnClickedUshiftButton)
+	ON_BN_CLICKED(IDC_LSELECT_BUTTON, &CLabelDlg::OnBnClickedLselectButton)
+	ON_BN_CLICKED(IDC_RSELECT_BUTTON, &CLabelDlg::OnBnClickedRselectButton)
+	ON_BN_CLICKED(IDC_DSHIFT_BUTTON, &CLabelDlg::OnBnClickedDshiftButton)
+	ON_BN_CLICKED(IDC_LSHIFT_BUTTON, &CLabelDlg::OnBnClickedLshiftButton)
+	ON_BN_CLICKED(IDC_RSHIFT_BUTTON, &CLabelDlg::OnBnClickedRshiftButton)
+	ON_BN_CLICKED(IDC_LQSHIFT_BUTTON, &CLabelDlg::OnBnClickedLqshiftButton)
+	ON_BN_CLICKED(IDC_RQSHIFT_BUTTON, &CLabelDlg::OnBnClickedRqshiftButton)
 END_MESSAGE_MAP()
 
 
@@ -72,6 +82,27 @@ BOOL CLabelDlg::OnInitDialog()
 	ComboMatrix.SetCurSel(-1);
 
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
+
+
+	//test
+
+	OBJ_Control myOBJ_Control;
+	myOBJ_Control.intLineSize=7;
+	myOBJ_Control.intRowSize=18;
+	myOBJ_Control.strFont="7x5";
+	myOBJ_Control.strText="ABf";
+	myOBJ_Control.booFocus=false;
+	myclassMessage.OBJ_Vec.push_back(myOBJ_Control);
+	OBJ_Control myNewOBJ;
+	myNewOBJ.intLineStart=0;
+	myNewOBJ.intRowStart=18;
+	myNewOBJ.intLineSize=7;
+	myNewOBJ.intRowSize=18;
+	myNewOBJ.strFont="7x5";
+	myNewOBJ.strText="987";
+	myclassMessage.OBJ_Vec.push_back(myNewOBJ);
+
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -124,7 +155,7 @@ void CLabelDlg::OnPaint()
 		pDC->SelectObject(pOldPen);
 		cPen.DeleteObject();
 		pOldPen->DeleteObject();
-		isFrame=false;
+		//isFrame=false;
 	}
 
 
@@ -168,7 +199,13 @@ void CLabelDlg::OnPaint()
 		//pBrush->DeleteObject();
 	}
 
+	myclassMessage.DrowDot(pDC);
+
+	//myOBJ_Control.DrowDot(pDC);
+	//myOBJ_Control.DrawFrame(pDC);
 	ReleaseDC(pDC); 
+
+
 }
 
 void CLabelDlg::OnCbnSelchangeComboMatrix()
@@ -256,4 +293,161 @@ void CLabelDlg::OnCbnSelchangeCombo2()
 	//ss<<strText;
 	//ss>>pixel;
 	isFrame=true;
+}
+
+void CLabelDlg::OnBnClickedUshiftButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if ((myclassMessage.OBJ_Vec[i].intLineStart+myclassMessage.OBJ_Vec[i].intLineSize)>=pixel)
+			{
+				break;
+			}
+			myclassMessage.OBJ_Vec[i].intLineStart++;
+			OnPaint();
+			break;
+		}
+	}
+}
+
+void CLabelDlg::OnBnClickedLselectButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if (i>0)
+			{
+				myclassMessage.OBJ_Vec[i].booFocus=false;
+				myclassMessage.OBJ_Vec[i-1].booFocus=true;
+			}
+			else
+			{
+				break;
+			}
+			OnPaint();
+			break;
+		}
+	}
+}
+
+void CLabelDlg::OnBnClickedRselectButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if (i<myclassMessage.OBJ_Vec.size()-1)
+			{
+				myclassMessage.OBJ_Vec[i].booFocus=false;
+				myclassMessage.OBJ_Vec[i+1].booFocus=true;
+			}
+			else
+			{
+				break;
+			}
+			OnPaint();
+			break;
+		}
+	}
+}
+
+void CLabelDlg::OnBnClickedDshiftButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if ((myclassMessage.OBJ_Vec[i].intLineStart)<=0)
+			{
+				break;
+			}
+			myclassMessage.OBJ_Vec[i].intLineStart--;
+			OnPaint();
+			break;
+		}
+	}
+}
+
+void CLabelDlg::OnBnClickedLshiftButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=0)
+			{
+				break;
+			}
+			myclassMessage.OBJ_Vec[i].intRowStart--;
+			OnPaint();
+			break;
+		}
+	}
+}
+
+void CLabelDlg::OnBnClickedRshiftButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			myclassMessage.OBJ_Vec[i].intRowStart++;
+			OnPaint();
+			break;
+		}
+	}
+}
+
+void CLabelDlg::OnBnClickedLqshiftButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=0)
+			{
+				break;
+			}
+			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=1)
+			{
+				myclassMessage.OBJ_Vec[i].intRowStart--;
+				OnPaint();
+				break;
+			}
+			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=2)
+			{
+				myclassMessage.OBJ_Vec[i].intRowStart=myclassMessage.OBJ_Vec[i].intRowStart-2;
+				OnPaint();
+				break;
+			}
+			myclassMessage.OBJ_Vec[i].intRowStart=myclassMessage.OBJ_Vec[i].intRowStart-3;
+			OnPaint();
+			break;
+		}
+	}
+}
+
+void CLabelDlg::OnBnClickedRqshiftButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			myclassMessage.OBJ_Vec[i].intRowStart=myclassMessage.OBJ_Vec[i].intRowStart+3;
+			OnPaint();
+			break;
+		}
+	}
 }

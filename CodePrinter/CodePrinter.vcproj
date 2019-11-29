@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="E:\gitTEST\MessageEdit\MessageEdit\MessageEdit"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
@@ -219,6 +219,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CSTPSerialPort.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DateDlg.cpp"
 				>
 			</File>
@@ -247,7 +251,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IOVsd.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LabelDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MyLogCpp.cpp"
 				>
 			</File>
 			<File
@@ -290,6 +302,14 @@
 			>
 			<File
 				RelativePath=".\BarCodeDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BCMenu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BtnST.h"
 				>
 			</File>
 			<File
@@ -337,6 +357,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MyLogCpp.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PictureDlg.h"
 				>
 			</File>
@@ -372,6 +396,34 @@
 			</File>
 			<File
 				RelativePath=".\res\CodePrinter.rc2"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="xml"
+			>
+			<File
+				RelativePath=".\xml\tinystr.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\xml\tinystr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\xml\tinyxml.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\xml\tinyxml.h"
+				>
+			</File>
+			<File
+				RelativePath=".\xml\tinyxmlerror.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\xml\tinyxmlparser.cpp"
 				>
 			</File>
 		</Filter>

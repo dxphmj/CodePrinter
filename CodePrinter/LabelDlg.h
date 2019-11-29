@@ -40,4 +40,12 @@ public:
 	
 	afx_msg void OnCbnSelchangeCombo2();
 
+	afx_msg void OnBnClickedUshiftButton();
+	afx_msg void OnBnClickedLselectButton();
+	afx_msg void OnBnClickedRselectButton();
+	afx_msg void OnBnClickedDshiftButton();
+	afx_msg void OnBnClickedLshiftButton();
+	afx_msg void OnBnClickedRshiftButton();
+	afx_msg void OnBnClickedLqshiftButton();
+	afx_msg void OnBnClickedRqshiftButton();
 };
