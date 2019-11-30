@@ -596,6 +596,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ImageButton.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InkSystemDlg.cpp"
 				>
 			</File>
@@ -710,6 +714,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CommonType.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.h"
 				>
 			</File>
@@ -731,6 +739,10 @@
 			</File>
 			<File
 				RelativePath=".\FileManaDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.h"
 				>
 			</File>
 			<File
@@ -780,6 +792,14 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\bitmap2.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bitmap3.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\CodePrinter.ico"
 				>
 			</File>
@@ -789,6 +809,14 @@
 			</File>
 			<File
 				RelativePath=".\res\CodePrinter.rc2"
+				>
+			</File>
+			<File
+				RelativePath=".\res\test.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\ÎÞ±êÌâ.bmp"
 				>
 			</File>
 		</Filter>

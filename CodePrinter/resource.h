@@ -7,8 +7,11 @@
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
 #define IDD_FAULT_DIALOG                129
+#define IDB_BITMAP1                     129
 #define IDD_SYSTEM_DIALOG               130
+#define IDB_BITMAP2                     130
 #define IDD_USER_DIALOG                 131
+#define IDB_BITMAP3                     131
 #define IDD_LABEL_DIALOG                132
 #define IDD_CONFIGURATION_DIALOG        133
 #define IDD_FILEMANA_DIALOG             134
@@ -137,7 +140,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        129
+#define _APS_NEXT_RESOURCE_VALUE        132
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1063
 #define _APS_NEXT_SYMED_VALUE           101
