@@ -110,6 +110,12 @@
 #define IDC_EDIT3                       1044
 #define IDC_EDIT4                       1045
 #define IDC_STATIC_DESIGN_AREA          1046
+#define IDC_LIST2                       1048
+#define IDC_PRINT_PRE_STATIC            1051
+#define IDC_TIME_STATIC                 1052
+#define IDC_RESET_COUNT_BTN             1053
+#define IDC_BUTTON2                     1054
+#define IDC_RESET_SERIAL_BTN            1054
 
 // Next default values for new objects
 // 
@@ -117,7 +123,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        129
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1047
+#define _APS_NEXT_CONTROL_VALUE         1054
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
