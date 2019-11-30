@@ -7,7 +7,7 @@
 #include "InputDlg.h"
 #include <sstream>
 #include <map>
-#include "..\KEYBOARD\KEYBOARD\MainDlg.h"
+#include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
 
 
 LPCWSTR stringToLPCWSTR(std::string orig)
@@ -72,6 +72,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_SAVE_BUTTON, &CLabelDlg::OnBnClickedSaveButton)
 	ON_BN_CLICKED(IDC_OPEN_BUTTON, &CLabelDlg::OnBnClickedOpenButton)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -538,9 +539,17 @@ void CLabelDlg::OnBnClickedOpenButton()
 void CLabelDlg::OnBnClickedRepeatButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CMainDlg myCMainDlg;
-	myCMainDlg.DoModal();
+    CExportDlg myCExportDlg;
+	CString ts;
+	myCExportDlg.GetInputText(ts);
 
 
 
+}
+
+void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CDialog::OnLButtonDown(nFlags, point);
 }
