@@ -96,7 +96,7 @@ BEGIN
     LTEXT           "产品检测:",IDC_STATIC,92,211,37,8
     LTEXT           "产品喷印:",IDC_STATIC,92,243,37,8
     LTEXT           "序列号:",IDC_STATIC,195,211,29,8
-    PUSHBUTTON      "ResetCount",IDC_RESET_COUNT_BTN,16,229,47,28
+    PUSHBUTTON      "ResetCount",IDC_RESET_COUNT_BTN,16,249,47,28
     LTEXT           "0",IDC_STATIC,92,227,10,8
     LTEXT           "0",IDC_STATIC,92,259,10,8
     PUSHBUTTON      "ResetSerial",IDC_RESET_SERIAL_BTN,213,229,47,28
@@ -448,6 +448,15 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "res\\test.bmp"
+IDB_BITMAP2             BITMAP                  "res\\bitmap2.bmp"
+IDB_BITMAP3             BITMAP                  "res\\bitmap3.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

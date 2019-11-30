@@ -792,6 +792,14 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\bitmap2.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bitmap3.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\CodePrinter.ico"
 				>
 			</File>
@@ -801,6 +809,14 @@
 			</File>
 			<File
 				RelativePath=".\res\CodePrinter.rc2"
+				>
+			</File>
+			<File
+				RelativePath=".\res\test.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\ÎÞ±êÌâ.bmp"
 				>
 			</File>
 		</Filter>

@@ -39,4 +39,5 @@ public:
 	afx_msg void OnBnClickedFilemanaButton();
 	afx_msg void OnBnClickedInkButton();
 	CImageButton m_ButFault;
+	CImageButton m_ButRestCount;
 };
