@@ -24,7 +24,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)"
-			OutputDirectory="..\..\CodePrinter"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="1"
@@ -71,7 +71,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
-				OutputFile="$(OutDir)/KEYBOARD.dll"
+				OutputFile="../../CodePrinter/dll/KEYBOARD.dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile=".\KEYBOARD.def"
 				GenerateDebugInformation="true"
@@ -79,7 +79,7 @@
 				StackCommitSize="4096"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/KEYBOARD.lib"
+				ImportLibrary="../../CodePrinter/lib/KEYBOARD.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -98,6 +98,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine=""
+				ExcludedFromBuild="true"
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
