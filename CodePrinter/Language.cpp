@@ -48,7 +48,7 @@ void Language::readLanguageXml(string xmlName)
 
 
 		}
-		else if(strcmp(str,"OBJ") == 0)//语言
+		else if(strcmp(str,"LAN") == 0)//语言
 		{
 			//读入属性信息
 			TiXmlNode* nodeTmp = 0;
