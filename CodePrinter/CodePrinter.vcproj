@@ -616,6 +616,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Language.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MyLogCpp.cpp"
 				>
 			</File>
@@ -751,6 +755,10 @@
 			</File>
 			<File
 				RelativePath=".\LabelDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Language.h"
 				>
 			</File>
 			<File

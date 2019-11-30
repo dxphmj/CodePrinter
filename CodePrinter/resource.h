@@ -2,6 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by CodePrinter.rc
 //
+#define IDCANCEL2                       3
 #define IDD_CODEPRINTER_DIALOG          102
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
@@ -118,8 +119,19 @@
 #define IDC_BUTTON1                     1055
 #define IDC_BUTTON2                     1056
 #define IDC_EDIT6                       1057
+#define IDC_BUTTON8                     1057
 #define IDC_EDIT7                       1058
-#define IDC_EDIT8                       1059
+#define IDC_BUTTON11                    1058
+#define IDC_BUTTON12                    1059
+#define IDC_BUTTON3                     1060
+#define IDC_BUTTON13                    1060
+#define IDC_BUTTON10                    1061
+#define IDC_LIST1                       1062
+#define IDC_BUTTON4                     1063
+#define IDC_BUTTON5                     1064
+#define IDC_BUTTON6                     1065
+#define IDC_BUTTON7                     1066
+#define IDC_BUTTON9                     1068
 
 // Next default values for new objects
 // 
@@ -127,7 +139,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        129
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1060
+#define _APS_NEXT_CONTROL_VALUE         1063
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
