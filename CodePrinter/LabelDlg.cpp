@@ -541,6 +541,7 @@ void CLabelDlg::OnBnClickedRepeatButton()
 	// TODO: 在此添加控件通知处理程序代码
     CExportDlg myCExportDlg;
 	CString ts;
+	ts.Format(L"%s",_T("sdfsa"));
 	myCExportDlg.GetInputText(ts);
 
 
@@ -550,6 +551,30 @@ void CLabelDlg::OnBnClickedRepeatButton()
 void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
+	CRect lRect;
+	m_designArea.GetWindowRect(&lRect);  //获取控件相对于屏幕的位置
+	ScreenToClient(&lRect);
+	//m_nSelectObjIndex = -1;
+	if((point.x >= lRect.left && point.x <= lRect.right) && (point.y >= lRect.top && point.y <= lRect.bottom))
+	{
+		point.x -= lRect.left;
+		point.y -= lRect.top;
+		int nRow;
+		int nCol;	 
+		nRow = (161-point.y) / 5;
+		nCol = point.x / 5;
+		vector<OBJ_Control>::iterator itr = myclassMessage.OBJ_Vec.begin();
+		while (itr != myclassMessage.OBJ_Vec.end())
+		{		
+			itr->booFocus = false;
+			if (nRow>=itr->intLineStart&&nRow<=(itr->intLineStart+itr->intLineSize)
+				&&nCol>=itr->intRowStart&&nCol<=(itr->intRowStart+itr->intRowSize))
+			{
+				itr->booFocus=true;
+			}
+			++itr;
+		}
+	}
+	OnPaint();
 	CDialog::OnLButtonDown(nFlags, point);
 }
