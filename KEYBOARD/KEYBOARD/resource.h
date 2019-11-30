@@ -9,8 +9,7 @@
 #define IDD_KEYBOARD_LAN                131
 #define IDD_KEYBOARD_MAIN               132
 #define IDD_DIALOG_MAIN                 133
-#define IDC_EDIT1                       1000
-#define IDC_BUTTON1                     1001
+#define IDC_EDIT_INPUT                  1000
 #define IDC_D_BTN                       10000
 #define IDC_MIAN_PGDN                   10001
 #define IDC_MIAN_PGUP                   10002

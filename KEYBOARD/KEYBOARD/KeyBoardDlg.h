@@ -12,7 +12,7 @@ private:
 	CKeyBoMain *pMain;
 // 构造
 public:
-	CKeyBoardDlg(CWnd* pParent = NULL);	// 标准构造函数
+	CKeyBoardDlg(CString strIn,CWnd* pParent = NULL);	// 标准构造函数
 // 对话框数据
 	enum { IDD = IDD_KEYBOARD_DIALOG };
 
@@ -34,8 +34,12 @@ public:
 	afx_msg void OnEnSetfocusEdit1();
 	afx_msg void OnBnClickedButton1();
 
-
+public:
+	CString m_strRet;
+    CString m_strOld;
 public:
 	 void setEditText(CString &str);
+	 void getEditText();
+	 afx_msg void OnClose();
 };
 

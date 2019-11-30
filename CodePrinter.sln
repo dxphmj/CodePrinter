@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CodePrinter", "CodePrinter\CodePrinter.vcproj", "{1BC5D64D-339E-4C82-8E88-FF8A24236DC2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA5054ED-16C6-40C3-A70B-DC5AB4519ECC} = {CA5054ED-16C6-40C3-A70B-DC5AB4519ECC}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KEYBOARD", "KEYBOARD\KEYBOARD\KEYBOARD.vcproj", "{CA5054ED-16C6-40C3-A70B-DC5AB4519ECC}"
 EndProject

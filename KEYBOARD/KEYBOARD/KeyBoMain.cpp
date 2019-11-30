@@ -37,6 +37,7 @@ BEGIN_MESSAGE_MAP(CKeyBoMain, CDialog)
 	ON_BN_CLICKED(IDC_MIAN_LAN, &CKeyBoMain::OnBnClickedMainLan)
 	ON_BN_CLICKED(IDC_MIAN_P, &CKeyBoMain::OnBnClickedMainP)
 	ON_BN_CLICKED(IDC_MIAN_Y, &CKeyBoMain::OnBnClickedMainY)
+	ON_BN_CLICKED(IDC_MIAN_ENTER, &CKeyBoMain::OnBnClickedMainEnter)
 END_MESSAGE_MAP()
 
 
@@ -158,20 +159,11 @@ void CKeyBoMain::OnBnClickedMainLan()
 }
 void CKeyBoMain::OnBnClickedMainP()
 {
-	//if (NULL == pLan)   
-	//{   
-	//	// 创建非模态对话框实例   
-	//	pLan = new CKeyBoLan();
-	//	pLan->Create( IDD_KEYBOARD_LAN,this);
-	//}  
-	//pLan->ShowWindow(SW_SHOW);
-	// TODO: 在此添加控件通知处理程序代码
-	//CString tempstr;
-	//GetDlgItem(IDC_MIAN_P)->GetWindowText(tempstr);
-	//GetDlgItem(IDC_EDIT1)->SetWindowText(L"仿真恢复");
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_P)->GetWindowText(tempstr);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->setEditText(tempstr);
 
-	CWnd* pWnd = this->GetParent()->GetDlgItem(IDC_EDIT1);
-	pWnd->SetWindowText(_T("Hockey is best!"));
 }
 
 void CKeyBoMain::OnBnClickedMainY()
@@ -179,6 +171,13 @@ void CKeyBoMain::OnBnClickedMainY()
 	CString tempstr;
 	GetDlgItem(IDC_MIAN_Y)->GetWindowText(tempstr);
 	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	//CKeyBoardDlg ckb;
 	pWnd->setEditText(tempstr);
+}
+
+void CKeyBoMain::OnBnClickedMainEnter()
+{
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+    pWnd->getEditText();
+
+    pWnd->SendMessage(WM_CLOSE); 
 }
