@@ -12,6 +12,7 @@
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -27,6 +28,7 @@ CCodePrinterDlg::CCodePrinterDlg(CWnd* pParent /*=NULL*/)
 void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_FAULT_BUTTON, m_ButFault);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -59,6 +61,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
+
+	m_ButFault.LoadBitmaps(IDB_BITMAP1,IDB_BITMAP2,0,0,IDB_BITMAP4);
+	m_ButFault.SizeToContent(); 
 	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

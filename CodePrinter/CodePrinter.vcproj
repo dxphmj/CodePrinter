@@ -596,6 +596,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ImageButton.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InkSystemDlg.cpp"
 				>
 			</File>
@@ -706,6 +710,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CommonType.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.h"
 				>
 			</File>
@@ -727,6 +735,10 @@
 			</File>
 			<File
 				RelativePath=".\FileManaDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.h"
 				>
 			</File>
 			<File
