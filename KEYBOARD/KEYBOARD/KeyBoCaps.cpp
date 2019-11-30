@@ -115,12 +115,6 @@ BOOL CKeyBoCaps::OnInitDialog()
 }
 void CKeyBoCaps::OnBnClickedCAPS_CAPS()
 {
-	if (NULL == pMainCaps)   
-	{   
-		// 创建非模态对话框实例   
-		pMainCaps = new CKeyBoMain();
-		pMainCaps->Create( IDD_KEYBOARD_MAIN,this);
-	}  
-	pMainCaps->ShowWindow(SW_SHOW);
-	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE); 
+	 
 }

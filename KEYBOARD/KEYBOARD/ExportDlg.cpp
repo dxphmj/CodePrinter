@@ -16,10 +16,15 @@ CString CExportDlg::GetInputText(CString strIn)
 
 	CString str;
 
-	CKeyBoardDlg dlg;
-	if(dlg.DoModal() == IDOK)
+	CKeyBoardDlg dlg(strIn);
+	int nRet = dlg.DoModal();
+	if(nRet == 2)
 	{
-		return str;
+		return dlg.m_strRet;
 	}
+	//CWnd* pWnd = GetDlgItem(IDC_EDIT1);
+	//pWnd->SetWindowText(strIn);
+
 	return str;
+
 }

@@ -541,6 +541,7 @@ void CLabelDlg::OnBnClickedRepeatButton()
 	// TODO: 在此添加控件通知处理程序代码
     CExportDlg myCExportDlg;
 	CString ts;
+	ts.Format(L"%s",_T("sdfsa"));
 	myCExportDlg.GetInputText(ts);
 
 

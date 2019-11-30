@@ -11,9 +11,10 @@
 #endif
 // CKeyBoardDlg 对话框
 
-CKeyBoardDlg::CKeyBoardDlg(CWnd* pParent /*=NULL*/)
+CKeyBoardDlg::CKeyBoardDlg(CString strIn,CWnd* pParent /*=NULL*/)
 	: CDialog(CKeyBoardDlg::IDD, pParent)
 {
+	m_strRet = m_strOld = strIn;
 	pMain = NULL;
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -28,8 +29,8 @@ BEGIN_MESSAGE_MAP(CKeyBoardDlg, CDialog)
 	ON_WM_SIZE()
 #endif
 	//}}AFX_MSG_MAP
-	ON_EN_SETFOCUS(IDC_EDIT1, &CKeyBoardDlg::OnEnSetfocusEdit1)
-	ON_BN_CLICKED(IDC_BUTTON1, &CKeyBoardDlg::OnBnClickedButton1)
+	ON_EN_SETFOCUS(IDC_EDIT_INPUT, &CKeyBoardDlg::OnEnSetfocusEdit1)
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -49,9 +50,27 @@ BOOL CKeyBoardDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
+	////////////初始化创建主键盘窗口
+	if (NULL == pMain)   
+	{   
+		// 创建非模态对话框实例   
+		pMain = new CKeyBoMain();
+		pMain->Create( IDD_KEYBOARD_MAIN,this);
+	}  
+	pMain->ShowWindow(SW_SHOW);
 	//开始时对话框获得焦点
-	GetDlgItem(IDD_KEYBOARD_DIALOG)->SetFocus();
+	if (NULL == pMain)   
+	{   
+		// 创建非模态对话框实例   
+		pMain = new CKeyBoMain();
+		pMain->Create( IDD_KEYBOARD_MAIN,this);
+	}  
+   
+	CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
+	pWnd->SetWindowText(m_strRet);
 
+	pMain->ShowWindow(SW_SHOW);
+	GetDlgItem(IDD_KEYBOARD_DIALOG)->SetFocus();
 	
 	return FALSE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -76,13 +95,13 @@ void CKeyBoardDlg::OnEnSetfocusEdit1()
 {
 
 
-	if (NULL == pMain)   
-	{   
-		// 创建非模态对话框实例   
-		pMain = new CKeyBoMain();
-		pMain->Create( IDD_KEYBOARD_MAIN,this);
-	}  
-	pMain->ShowWindow(SW_SHOW);
+	//if (NULL == pMain)   
+	//{   
+	//	// 创建非模态对话框实例   
+	//	pMain = new CKeyBoMain();
+	//	pMain->Create( IDD_KEYBOARD_MAIN,this);
+	//}  
+	//pMain->ShowWindow(SW_SHOW);
 	//CKeyBoMain mian;
 	//mian.DoModal();
 	// TODO: 在此添加控件通知处理程序代码
@@ -97,8 +116,22 @@ void CKeyBoardDlg::OnBnClickedButton1()
 void CKeyBoardDlg::setEditText(CString &str)
 {
 	CString allstr,str1;
-	CWnd* pWnd = GetDlgItem(IDC_EDIT1);
+	CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
 	pWnd->GetWindowText(str1);
 	allstr = str1+str;
 	pWnd->SetWindowText(allstr);
+}
+
+void CKeyBoardDlg::getEditText()
+{	 
+	CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
+	pWnd->GetWindowText(m_strRet);	 
+}
+void CKeyBoardDlg::OnClose()
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+    delete pMain;
+
+	CDialog::OnClose();
 }
