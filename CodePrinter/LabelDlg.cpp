@@ -7,6 +7,7 @@
 #include "InputDlg.h"
 #include <sstream>
 #include <map>
+#include "..\KEYBOARD\KEYBOARD\MainDlg.h"
 
 
 LPCWSTR stringToLPCWSTR(std::string orig)
@@ -70,6 +71,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_RQSHIFT_BUTTON, &CLabelDlg::OnBnClickedRqshiftButton)
 	ON_BN_CLICKED(IDC_SAVE_BUTTON, &CLabelDlg::OnBnClickedSaveButton)
 	ON_BN_CLICKED(IDC_OPEN_BUTTON, &CLabelDlg::OnBnClickedOpenButton)
+	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
 END_MESSAGE_MAP()
 
 
@@ -478,4 +480,14 @@ void CLabelDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
+}
+
+void CLabelDlg::OnBnClickedRepeatButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CMainDlg myCMainDlg;
+	myCMainDlg.DoModal();
+
+
+
 }

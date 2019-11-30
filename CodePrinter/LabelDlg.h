@@ -50,4 +50,5 @@ public:
 	afx_msg void OnBnClickedRqshiftButton();
 	afx_msg void OnBnClickedSaveButton();
 	afx_msg void OnBnClickedOpenButton();
+	afx_msg void OnBnClickedRepeatButton();
 };

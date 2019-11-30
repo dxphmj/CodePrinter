@@ -15,7 +15,7 @@
 
 
 
-class CKEYBOARDApp : public CWinApp
+class  CKEYBOARDApp : public CWinApp
 {
 public:
 	CKEYBOARDApp();
