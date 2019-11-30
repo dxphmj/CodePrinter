@@ -7,7 +7,7 @@
 #include "InputDlg.h"
 #include <sstream>
 #include <map>
-#include "..\KEYBOARD\KEYBOARD\MainDlg.h"
+#include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
 
 
 LPCWSTR stringToLPCWSTR(std::string orig)
@@ -72,6 +72,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_SAVE_BUTTON, &CLabelDlg::OnBnClickedSaveButton)
 	ON_BN_CLICKED(IDC_OPEN_BUTTON, &CLabelDlg::OnBnClickedOpenButton)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -103,6 +104,8 @@ BOOL CLabelDlg::OnInitDialog()
 	//test
 
 	OBJ_Control myOBJ_Control;
+	myOBJ_Control.strType1="text";
+	myOBJ_Control.strType2="text";
 	myOBJ_Control.intLineSize=7;
 	myOBJ_Control.intRowSize=18;
 	myOBJ_Control.strFont="7x5";
@@ -110,6 +113,8 @@ BOOL CLabelDlg::OnInitDialog()
 	myOBJ_Control.booFocus=false;
 	myclassMessage.OBJ_Vec.push_back(myOBJ_Control);
 	OBJ_Control myNewOBJ;
+	myNewOBJ.strType1="text";
+	myNewOBJ.strType2="text";
 	myNewOBJ.intLineStart=0;
 	myNewOBJ.intRowStart=18;
 	myNewOBJ.intLineSize=7;
@@ -117,6 +122,8 @@ BOOL CLabelDlg::OnInitDialog()
 	myNewOBJ.strFont="7x5";
 	myNewOBJ.strText="987";
 	myclassMessage.OBJ_Vec.push_back(myNewOBJ);
+	myclassMessage.Reverse="GLOBAL";
+	myclassMessage.Inverse="GLOBAL";
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -230,6 +237,8 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 	CString  strText;
 	int nIndex = ComboMatrix.GetCurSel();  //当前选中的项
 	ComboMatrix.GetLBText(nIndex,strText);
+	myclassMessage.strMatrix=WcharToChar(strText);
+	
 	switch(nIndex)
 	{
 	case 0:
@@ -294,6 +303,8 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
         pixelComboBox.SetCurSel(13);
 
 	}
+	//myclassMessage.Pixel=pixelComboBox.GetCurSel()+1;
+	myclassMessage.Matrix=matrix;
     isFrame=true;
 	this->OnCbnSelchangeCombo2();
 }
@@ -305,6 +316,7 @@ void CLabelDlg::OnCbnSelchangeCombo2()
 	CString  strText;
 	int nIndex = pixelComboBox.GetCurSel();  //当前选中的项
 	pixel=nIndex+1;
+	myclassMessage.Pixel=pixel;
 	//pixelComboBox.GetLBText(nIndex,strText);
 	//ss<<strText;
 	//ss>>pixel;
@@ -480,14 +492,64 @@ void CLabelDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
+	if (myclassMessage.strMatrix=="1L5M")
+	{
+		ComboMatrix.SetCurSel(0);
+		OnCbnSelchangeComboMatrix();
+
+	} 
+	else if(myclassMessage.strMatrix=="1L7M")
+	{
+		ComboMatrix.SetCurSel(1);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(myclassMessage.strMatrix=="1L9M")
+	{
+		ComboMatrix.SetCurSel(2);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(myclassMessage.strMatrix=="1L12M")
+	{
+		ComboMatrix.SetCurSel(3);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(myclassMessage.strMatrix=="1L19M")
+	{
+		ComboMatrix.SetCurSel(4);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(myclassMessage.strMatrix=="1L25M")
+	{
+		ComboMatrix.SetCurSel(5);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(myclassMessage.strMatrix=="2L7M")
+	{
+		ComboMatrix.SetCurSel(6);
+		OnCbnSelchangeComboMatrix();
+	}
+	else
+	{
+		ComboMatrix.SetCurSel(5);
+		OnCbnSelchangeComboMatrix();
+	}
+	OnPaint();
 }
 
 void CLabelDlg::OnBnClickedRepeatButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CMainDlg myCMainDlg;
-	myCMainDlg.DoModal();
+    CExportDlg myCExportDlg;
+	CString ts;
+	myCExportDlg.GetInputText(ts);
 
 
 
+}
+
+void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CDialog::OnLButtonDown(nFlags, point);
 }

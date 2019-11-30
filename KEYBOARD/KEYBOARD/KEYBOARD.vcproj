@@ -24,7 +24,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\..\CodePrinter"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="1"
@@ -540,6 +540,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\ExportDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\KEYBOARD.cpp"
 				>
 			</File>
@@ -548,7 +552,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MainDlg.cpp"
+				RelativePath=".\KeyBoardDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoCaps.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoLan.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoMain.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoSym.cpp"
 				>
 			</File>
 			<File
@@ -610,11 +630,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\ExportDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\KEYBOARD.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MainDlg.h"
+				RelativePath=".\KeyBoardDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoCaps.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoLan.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoMain.h"
+				>
+			</File>
+			<File
+				RelativePath=".\KeyBoSym.h"
 				>
 			</File>
 			<File

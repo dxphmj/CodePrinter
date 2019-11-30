@@ -82,6 +82,7 @@ namespace MyNameSpace
 	public:
 		vector<OBJ_Control> OBJ_Vec;
 		int Matrix;
+		string strMatrix;
 		int Pixel;
 		string Reverse;
 		string Inverse;

@@ -51,4 +51,5 @@ public:
 	afx_msg void OnBnClickedSaveButton();
 	afx_msg void OnBnClickedOpenButton();
 	afx_msg void OnBnClickedRepeatButton();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
