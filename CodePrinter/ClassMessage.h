@@ -81,6 +81,11 @@ namespace MyNameSpace
 		 ~ClassMessage(void);
 	public:
 		vector<OBJ_Control> OBJ_Vec;
+		int Matrix;
+		int Pixel;
+		string Reverse;
+		string Inverse;
+
 
 
 	public:
@@ -88,8 +93,11 @@ namespace MyNameSpace
 		 string to_String(int n);
 		 long long BIN_to_DEC(string Bin);
 		 bool readBin(string FontName,int offset,char *arr, int DataLen );//此处先用char来代替BYTE
-
 		 void DrowDot(CDC* pDC);//
+
+	public://XML
+		void ReadObjectsFromXml(char* strFileName);
+		void SaveObjectsToXml(char* strFileName);
 	};
 
 

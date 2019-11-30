@@ -48,4 +48,6 @@ public:
 	afx_msg void OnBnClickedRshiftButton();
 	afx_msg void OnBnClickedLqshiftButton();
 	afx_msg void OnBnClickedRqshiftButton();
+	afx_msg void OnBnClickedSaveButton();
+	afx_msg void OnBnClickedOpenButton();
 };
