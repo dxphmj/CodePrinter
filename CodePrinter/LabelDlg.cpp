@@ -230,7 +230,7 @@ void CLabelDlg::OnPaint()
 
 
 }
-
+//
 void CLabelDlg::OnCbnSelchangeComboMatrix()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -308,7 +308,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
     isFrame=true;
 	this->OnCbnSelchangeCombo2();
 }
-
+//选择pixel
 void CLabelDlg::OnCbnSelchangeCombo2()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -479,7 +479,7 @@ void CLabelDlg::OnBnClickedRqshiftButton()
 		}
 	}
 }
-
+//保存xml
 void CLabelDlg::OnBnClickedSaveButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -487,7 +487,7 @@ void CLabelDlg::OnBnClickedSaveButton()
 		myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
 	
 }
-
+//打开xml
 void CLabelDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
