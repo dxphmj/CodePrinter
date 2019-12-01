@@ -9,5 +9,5 @@ public:
 
 public:
 	std::map<std::string,std::string> LanguageMap;
-	void readLanguageXml(std::string xmlName);
+	bool readLanguageXml(std::string xmlName);
 };
