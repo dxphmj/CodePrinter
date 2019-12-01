@@ -24,6 +24,7 @@ public:
 public:
 	virtual BOOL InitInstance();
 	LPCWSTR stringToLPCWSTR(std::string orig);
+	std::string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP);
 
 // й╣ож
 	Language myLanguage;
