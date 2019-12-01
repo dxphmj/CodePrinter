@@ -44,8 +44,8 @@ BOOL CEnvDlg::OnInitDialog()
 	CRect rect;
 	GetWindowRect(&rect);
 
-	m_LanguageComboBox.AddString(_T("English"));
 	m_LanguageComboBox.AddString(_T("ÖÐÎÄ¼òÌå"));
+	m_LanguageComboBox.AddString(_T("English"));
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -65,8 +65,6 @@ void CEnvDlg::OnCbnSelchangeLanguageCombo()
 		{
             string lantest=theApp.myLanguage.LanguageMap["IDC_LANGUAGE_STATIC"];
 			GetDlgItem(IDC_LANGUAGE_STATIC)->SetWindowText(theApp.stringToLPCWSTR(lantest));
-	
-
 		}
 		break;
 	case 1:
