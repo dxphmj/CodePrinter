@@ -74,3 +74,15 @@ LPCWSTR CCodePrinterApp::stringToLPCWSTR(std::string orig)
 
 	return wcstring;
 }
+
+std::string CCodePrinterApp::WcharToChar(const wchar_t* wp, size_t m_encode)
+{
+	std::string str;
+	int len = WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), NULL, 0, NULL, NULL);
+	char	*m_char = new char[len + 1];
+	WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
+	m_char[len] = '\0';
+	str = m_char;
+	delete m_char;
+	return str;
+}

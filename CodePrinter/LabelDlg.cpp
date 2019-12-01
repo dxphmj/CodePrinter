@@ -22,17 +22,17 @@ LPCWSTR stringToLPCWSTR(std::string orig)
 }
 
 
-std::string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP)
-{
-	std::string str;
-	int len = WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), NULL, 0, NULL, NULL);
-	char	*m_char = new char[len + 1];
-	WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
-	m_char[len] = '\0';
-	str = m_char;
-	delete m_char;
-	return str;
-}
+//std::string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP)
+//{
+//	std::string str;
+//	int len = WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), NULL, 0, NULL, NULL);
+//	char	*m_char = new char[len + 1];
+//	WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
+//	m_char[len] = '\0';
+//	str = m_char;
+//	delete m_char;
+//	return str;
+//}
 
 IMPLEMENT_DYNAMIC(CLabelDlg, CDialog)
 
@@ -248,7 +248,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 	CString  strText;
 	int nIndex = ComboMatrix.GetCurSel();  //当前选中的项
 	ComboMatrix.GetLBText(nIndex,strText);
-	myclassMessage.strMatrix=WcharToChar(strText);
+	myclassMessage.strMatrix=theApp.WcharToChar(strText);
 	
 	switch(nIndex)
 	{

@@ -86,7 +86,7 @@ namespace MyNameSpace
 		int Pixel;
 		string Reverse;
 		string Inverse;
-
+        bool boDotMes[32][255];
 
 
 	public:
@@ -95,6 +95,7 @@ namespace MyNameSpace
 		 long long BIN_to_DEC(string Bin);
 		 bool readBin(string FontName,int offset,char *arr, int DataLen );//此处先用char来代替BYTE
 		 void DrowDot(CDC* pDC);//
+		 void getdot(string tempfont, bool tempBWDy, bool tempBWDx , bool tempNEG, string tempsetTEXT , int tempRowSize, int tempLineSize, int tempLineStart , int tempRowStart , int tempSS , int tempSW );
 
 	public://XML
 		void ReadObjectsFromXml(char* strFileName);
