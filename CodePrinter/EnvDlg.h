@@ -22,4 +22,5 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	CComboBox m_LanguageComboBox;
+	afx_msg void OnCbnSelchangeLanguageCombo();
 };

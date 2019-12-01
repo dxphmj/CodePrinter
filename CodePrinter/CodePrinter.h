@@ -23,6 +23,7 @@ public:
 // ÷ÿ–¥
 public:
 	virtual BOOL InitInstance();
+	LPCWSTR stringToLPCWSTR(std::string orig);
 
 //  µœ÷
 	Language myLanguage;

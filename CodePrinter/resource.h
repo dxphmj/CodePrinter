@@ -139,6 +139,7 @@
 #define IDC_EVN_BTN                     1074
 #define IDC_COMBO1                      1075
 #define IDC_LANGUAGE_COMBO              1075
+#define IDC_LANGUAGE_STATIC             1076
 
 // Next default values for new objects
 // 
@@ -146,7 +147,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        143
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1076
+#define _APS_NEXT_CONTROL_VALUE         1077
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
