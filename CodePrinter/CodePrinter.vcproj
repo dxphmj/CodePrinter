@@ -588,6 +588,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EnvDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FaultDlg.cpp"
 				>
 			</File>
@@ -731,6 +735,10 @@
 			</File>
 			<File
 				RelativePath=".\EditTextDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\EnvDlg.h"
 				>
 			</File>
 			<File

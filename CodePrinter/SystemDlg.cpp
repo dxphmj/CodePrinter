@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "SystemDlg.h"
+#include "EnvDlg.h"
 
 
 // CSystemDlg 对话框
@@ -27,6 +28,7 @@ void CSystemDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CSystemDlg, CDialog)
+	ON_BN_CLICKED(IDC_EVN_BTN, &CSystemDlg::OnBnClickedEvnButton)
 END_MESSAGE_MAP()
 
 
@@ -43,4 +45,11 @@ BOOL CSystemDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CSystemDlg::OnBnClickedEvnButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEnvDlg m_Evn;
+	m_Evn.DoModal();
 }
