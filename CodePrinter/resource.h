@@ -24,6 +24,7 @@
 #define IDD_PICTURE_DIALOG              140
 #define IDD_BARCODE_DIALOG              141
 #define IDD_ENV_DIALOG                  142
+#define IDD_COM_DIALOG                  143
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -140,14 +141,16 @@
 #define IDC_COMBO1                      1075
 #define IDC_LANGUAGE_COMBO              1075
 #define IDC_LANGUAGE_STATIC             1076
+#define IDC_SYSTEM_CANCEL_BTN           1077
+#define IDC_SPIN2                       1080
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        143
+#define _APS_NEXT_RESOURCE_VALUE        144
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1077
+#define _APS_NEXT_CONTROL_VALUE         1081
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

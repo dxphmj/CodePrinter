@@ -568,6 +568,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.cpp"
 				>
 			</File>
@@ -715,6 +719,10 @@
 			</File>
 			<File
 				RelativePath=".\CodePrinterDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ComDlg.h"
 				>
 			</File>
 			<File
