@@ -65,7 +65,7 @@ namespace MyNameSpace
 		char objbytTex12x12Line[25];
 		char objbytTex16x12Line[29];
 		void DrawFrame(CDC* pDC);
-        void DrowDot(CDC* pDC);
+        void DrawDot(CDC* pDC);
 
 	private:
 		//ClassMessage objClassMessage;
@@ -84,19 +84,23 @@ namespace MyNameSpace
 		int Matrix;
 		string strMatrix;
 		int Pixel;
-		string Reverse;
+		string Reverse;//是否群体控制
 		string Inverse;
+		bool boReverse;//翻转，颠倒，由喷印设置中更改
+		bool boInverse;
         bool boDotMes[32][255];
-
+		int bytRowByteMul;//一列由几个byte表示
+		//vector<BYTE> bytTempDataVec;
 
 	public:
+		 BYTE getByteFromDot(bool boDot,int moveNum); 
 		 string DEC_to_BIN(long long Dec);
 		 string to_String(int n);
 		 long long BIN_to_DEC(string Bin);
 		 bool readBin(string FontName,int offset,char *arr, int DataLen );//此处先用char来代替BYTE
-		 void DrowDot(CDC* pDC);//
+		 void DrawDot(CDC* pDC);//
 		 void getdot(string tempfont, bool tempBWDy, bool tempBWDx , bool tempNEG, string tempsetTEXT , int tempRowSize, int tempLineSize, int tempLineStart , int tempRowStart , int tempSS , int tempSW );
-
+		 vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
 	public://XML
 		void ReadObjectsFromXml(char* strFileName);
 		void SaveObjectsToXml(char* strFileName);

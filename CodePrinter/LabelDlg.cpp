@@ -73,6 +73,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_OPEN_BUTTON, &CLabelDlg::OnBnClickedOpenButton)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
 	ON_WM_LBUTTONDOWN()
+	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
 END_MESSAGE_MAP()
 
 
@@ -222,7 +223,7 @@ void CLabelDlg::OnPaint()
 		//pBrush->DeleteObject();
 	}
 
-	myclassMessage.DrowDot(pDC);
+	myclassMessage.DrawDot(pDC);
 
 	//myOBJ_Control.DrowDot(pDC);
 	//myOBJ_Control.DrawFrame(pDC);
@@ -230,7 +231,7 @@ void CLabelDlg::OnPaint()
 
 
 }
-//
+//选择Matrix
 void CLabelDlg::OnCbnSelchangeComboMatrix()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -536,6 +537,7 @@ void CLabelDlg::OnBnClickedOpenButton()
 	OnPaint();
 }
 
+//修改，弹出键盘
 void CLabelDlg::OnBnClickedRepeatButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -548,6 +550,7 @@ void CLabelDlg::OnBnClickedRepeatButton()
 
 }
 
+//重写鼠标点击
 void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
@@ -577,4 +580,21 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	OnPaint();
 	CDialog::OnLButtonDown(nFlags, point);
+}
+
+//开始打印
+void CLabelDlg::OnBnClickedDownloadButton()
+{
+	 //TODO: 在此添加控件通知处理程序代码
+	memset(myclassMessage.boDotMes,false,sizeof(myclassMessage.boDotMes));
+	for(vector<OBJ_Control>::iterator objIter=myclassMessage.OBJ_Vec.begin();objIter!=myclassMessage.OBJ_Vec.end();objIter++)
+	{
+		myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
+			objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
+	}
+	
+	vector<BYTE> testByteVec;
+	testByteVec=myclassMessage.DotToByte(0,36);
+	BYTE ssss=testByteVec[34];
+    ssss=testByteVec[0];
 }
