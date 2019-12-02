@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-
+#include "ModuleMain.h"
 
 // CEnvDlg 对话框
 
@@ -11,7 +11,7 @@ class CEnvDlg : public CDialog
 public:
 	CEnvDlg(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CEnvDlg();
-
+    ModuleMain envModule;
 // 对话框数据
 	enum { IDD = IDD_ENV_DIALOG };
 

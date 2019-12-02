@@ -8,7 +8,7 @@
 #include <sstream>
 #include <map>
 #include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
-
+#include "PathDlgDll.h"
 
 LPCWSTR stringToLPCWSTR(std::string orig)
 {
@@ -249,7 +249,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 	CString  strText;
 	int nIndex = ComboMatrix.GetCurSel();  //当前选中的项
 	ComboMatrix.GetLBText(nIndex,strText);
-	myclassMessage.strMatrix=theApp.WcharToChar(strText);
+	myclassMessage.strMatrix=labModule.WcharToChar(strText);
 	
 	switch(nIndex)
 	{
@@ -495,8 +495,19 @@ void CLabelDlg::OnBnClickedRqshiftButton()
 void CLabelDlg::OnBnClickedSaveButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-        
-		myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+	//string testpath="\\Storage Card\\user\\Label";
+	TCHAR path[MAX_PATH];
+	//labModule.string2tchar(testpath,path);
+
+    string xmlPath;
+	if(ShowPathDlg(path, MAX_PATH))
+	{
+		//AfxMessageBox(path);
+		xmlPath=labModule.TCHAR2STRING(path);
+	}
+	xmlPath+="\\sss.xml";
+	//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+	myclassMessage.SaveObjectsToXml(const_cast<char*>(xmlPath.c_str()));
 	
 }
 //打开xml
@@ -597,6 +608,13 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 void CLabelDlg::OnBnClickedDownloadButton()
 {
 	 //TODO: 在此添加控件通知处理程序代码
+	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
+	//2、取值并发送至下位机 download_pcf()
+	//3、关闭动态打印线程（若有）
+    //信息重新发送，序列号按信息里面的开始值喷，如只改变喷印参数则按计数器的值继续喷
+	//动态文本关
+
+	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
 	memset(myclassMessage.boDotMes,false,sizeof(myclassMessage.boDotMes));
 	for(vector<OBJ_Control>::iterator objIter=myclassMessage.OBJ_Vec.begin();objIter!=myclassMessage.OBJ_Vec.end();objIter++)
 	{
@@ -608,4 +626,10 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	testByteVec=myclassMessage.DotToByte(0,36);
 	BYTE ssss=testByteVec[34];
     ssss=testByteVec[0];
+}
+
+
+void CLabelDlg::getMessageDot()
+{
+
 }

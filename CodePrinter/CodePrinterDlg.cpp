@@ -12,7 +12,6 @@
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
 
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif

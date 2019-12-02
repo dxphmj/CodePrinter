@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
-				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib"
+				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib PathDlgDll.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
@@ -628,6 +628,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ModuleMain.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MyLogCpp.cpp"
 				>
 			</File>
@@ -775,6 +779,10 @@
 			</File>
 			<File
 				RelativePath=".\Language.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ModuleMain.h"
 				>
 			</File>
 			<File

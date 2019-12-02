@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "ClassMessage.h"
+#include "ModuleMain.h"
 using namespace MyNameSpace;
 // CLabelDlg 对话框
 
@@ -11,7 +12,9 @@ public:
 	int matrix;
 	int pixel;
 	ClassMessage myclassMessage;
+	ModuleMain labModule;
 	bool isFrame;
+	void getMessageDot();
 
 public:
 	CLabelDlg(CWnd* pParent = NULL);   // 标准构造函数
