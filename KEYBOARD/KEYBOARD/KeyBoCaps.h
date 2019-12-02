@@ -10,8 +10,7 @@ class CKeyBoCaps : public CDialog
 {
 	DECLARE_DYNAMIC(CKeyBoCaps)
 
-private:
-	CKeyBoMain * pMainCaps;
+
 
 public:
 	CKeyBoCaps(CWnd* pParent = NULL);   // 标准构造函数

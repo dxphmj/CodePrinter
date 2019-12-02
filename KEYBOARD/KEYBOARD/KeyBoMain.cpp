@@ -14,9 +14,7 @@ IMPLEMENT_DYNAMIC(CKeyBoMain, CDialog)
 CKeyBoMain::CKeyBoMain(CWnd* pParent /*=NULL*/)
 	: CDialog(CKeyBoMain::IDD, pParent)
 {
-	pLan = NULL;
-	pSym = NULL;
-	pCaps = NULL;
+
 }
 
 CKeyBoMain::~CKeyBoMain()
@@ -118,45 +116,43 @@ BOOL CKeyBoMain::OnInitDialog()
 	btn[60].Create(_T("`"), dwStyle,CRect(4,4,4+50,4+60),this,IDC_MIAN_SYM_1);
 
 
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
+/////////////////////////////////键值响应///////////////////////////////////
 void CKeyBoMain::OnBnClickedMainCaps()
-{
-	if (NULL == pCaps)   
-	{   
-		// 创建非模态对话框实例   
-		pCaps = new CKeyBoCaps();
-		pCaps->Create( IDD_KEYBOARD_CAPS,this);
-	}  
-	pCaps->ShowWindow(SW_SHOW);
+{//打开Caps窗口
+
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pLan->ShowWindow(SW_HIDE);
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pCaps->ShowWindow(SW_SHOW);
 
 	// TODO: 在此添加控件通知处理程序代码
 }
 
 void CKeyBoMain::OnBnClickedMainSym()
-{
-	if (NULL == pSym)   
-	{   
-		// 创建非模态对话框实例   
-		pSym = new CKeyBoSym();
-		pSym->Create( IDD_KEYBOARD_SYM,this);
-	}  
-	pSym->ShowWindow(SW_SHOW);
-
+{//打开符号Sym窗口
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pLan->ShowWindow(SW_HIDE);
+	pWnd->m_pSym->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	
 	// TODO: 在此添加控件通知处理程序代码
 }
 void CKeyBoMain::OnBnClickedMainLan()
-{
-	if (NULL == pLan)   
-	{   
-		// 创建非模态对话框实例   
-		pLan = new CKeyBoLan();
-		pLan->Create( IDD_KEYBOARD_LAN,this);
-	}  
-	pLan->ShowWindow(SW_SHOW);
+{//打开语言Lan窗口
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pLan->ShowWindow(SW_SHOW);
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
 	// TODO: 在此添加控件通知处理程序代码
 }
+
 void CKeyBoMain::OnBnClickedMainP()
 {
 	CString tempstr;

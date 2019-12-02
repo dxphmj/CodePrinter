@@ -15,12 +15,6 @@ class CKeyBoMain : public CDialog
 {
 	DECLARE_DYNAMIC(CKeyBoMain)
 
-private:
-	CKeyBoLan *pLan;
-	CKeyBoCaps *pCaps;
-	CKeyBoSym *pSym;
-
-
 public:
 	CKeyBoMain(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CKeyBoMain();

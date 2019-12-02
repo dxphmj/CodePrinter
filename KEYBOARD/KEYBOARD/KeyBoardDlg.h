@@ -2,14 +2,25 @@
 //
 #pragma once
 #include "KeyBoMain.h"
+#include "KeyBoCaps.h"
+#include "KeyBoLan.h"
+#include "KeyBoSym.h"
+#include <Map>
 
 #include "Resource.h"
+#include "afxwin.h"
+
+using namespace std;
 // CKeyBoardDlg 对话框
 class CKeyBoardDlg : public CDialog
 {
 
-private:
-	CKeyBoMain *pMain;
+public:
+	CKeyBoMain *m_pMain;
+	CKeyBoLan *m_pLan;
+	CKeyBoSym *m_pSym;
+	CKeyBoCaps *m_pCaps;
+	
 // 构造
 public:
 	CKeyBoardDlg(CString strIn,CWnd* pParent = NULL);	// 标准构造函数
@@ -33,13 +44,23 @@ protected:
 public:
 	afx_msg void OnEnSetfocusEdit1();
 	afx_msg void OnBnClickedButton1();
-
+	afx_msg void OnClose();
 public:
 	CString m_strRet;
     CString m_strOld;
+	CEdit m_zrh_edit;
+	char arr[50];
+	int j1,i1;
+	map< CString,CString >ChineseLanMap;
+	int LanType;
+	enum LanTypeEnum{ Chinese = 0,Japanese,Korean };
 public:
 	 void setEditText(CString &str);
 	 void getEditText();
-	 afx_msg void OnClose();
+	 void btnHide();
+	 void btnShow();
+	 void CreateChineseMapLan();
+	 void Language();
+	 void FontSelect();	 
 };
 

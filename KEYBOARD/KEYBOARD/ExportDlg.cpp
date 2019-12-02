@@ -22,9 +22,6 @@ CString CExportDlg::GetInputText(CString strIn)
 	{
 		return dlg.m_strRet;
 	}
-	//CWnd* pWnd = GetDlgItem(IDC_EDIT1);
-	//pWnd->SetWindowText(strIn);
-
 	return str;
 
 }

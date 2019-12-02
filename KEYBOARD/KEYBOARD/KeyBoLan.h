@@ -8,8 +8,7 @@ class CKeyBoMain;//类的前置声明
 class CKeyBoLan : public CDialog
 {
 	DECLARE_DYNAMIC(CKeyBoLan)
-private:
-	CKeyBoMain *pLanMain;
+
 
 public:
 	CKeyBoLan(CWnd* pParent = NULL);   // 标准构造函数
@@ -25,4 +24,5 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedLanEsc();
+	afx_msg void OnBnClickedLanChinese();
 };
