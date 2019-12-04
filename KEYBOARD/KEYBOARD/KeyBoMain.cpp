@@ -35,6 +35,9 @@ BEGIN_MESSAGE_MAP(CKeyBoMain, CDialog)
 	ON_BN_CLICKED(IDC_MIAN_LAN, &CKeyBoMain::OnBnClickedMainLan)
 	ON_BN_CLICKED(IDC_MIAN_P, &CKeyBoMain::OnBnClickedMainP)
 	ON_BN_CLICKED(IDC_MIAN_Y, &CKeyBoMain::OnBnClickedMainY)
+	ON_BN_CLICKED(IDC_MIAN_A, &CKeyBoMain::OnBnClickedMainA)
+	ON_BN_CLICKED(IDC_MIAN_N, &CKeyBoMain::OnBnClickedMainN)
+	ON_BN_CLICKED(IDC_MIAN_I, &CKeyBoMain::OnBnClickedMainI)
 	ON_BN_CLICKED(IDC_MIAN_ENTER, &CKeyBoMain::OnBnClickedMainEnter)
 END_MESSAGE_MAP()
 
@@ -166,6 +169,31 @@ void CKeyBoMain::OnBnClickedMainY()
 {
 	CString tempstr;
 	GetDlgItem(IDC_MIAN_Y)->GetWindowText(tempstr);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->setEditText(tempstr);
+}
+
+void CKeyBoMain::OnBnClickedMainA()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_A)->GetWindowText(tempstr);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->setEditText(tempstr);
+}
+
+void CKeyBoMain::OnBnClickedMainN()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_N)->GetWindowText(tempstr);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->setEditText(tempstr);
+}
+
+
+void CKeyBoMain::OnBnClickedMainI()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_I)->GetWindowText(tempstr);
 	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
 	pWnd->setEditText(tempstr);
 }

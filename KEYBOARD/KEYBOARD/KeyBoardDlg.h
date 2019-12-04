@@ -6,6 +6,7 @@
 #include "KeyBoLan.h"
 #include "KeyBoSym.h"
 #include <Map>
+#include <vector>
 
 #include "Resource.h"
 #include "afxwin.h"
@@ -43,24 +44,34 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnEnSetfocusEdit1();
-	afx_msg void OnBnClickedButton1();
 	afx_msg void OnClose();
+	afx_msg void OnBnClickedMainFont1();
+	afx_msg void OnEnChangeEditZrh();
+	afx_msg void OnBnClickedMainLeftpage();
+	afx_msg void OnBnClickedMainRightpage();
 public:
 	CString m_strRet;
     CString m_strOld;
 	CEdit m_zrh_edit;
-	char arr[50];
+	CEdit m_edit_input;
 	int j1,i1;
 	map< CString,CString >ChineseLanMap;
+	vector<CString>splitOut;
+	enum LanTypeEnum{ Chinese = 0,Japanese,Korean,Others};
 	int LanType;
-	enum LanTypeEnum{ Chinese = 0,Japanese,Korean };
 public:
-	 void setEditText(CString &str);
-	 void getEditText();
-	 void btnHide();
-	 void btnShow();
+	 void setEditText(CString &str);//设置主编辑框文本
+	 void setEditText_Font(CString &str);
+	 void getEditText();//获取主编辑框文本
+	 void btnHide();//Font按钮隐藏
+	 void btnShow();//Font按钮显示
 	 void CreateChineseMapLan();
-	 void Language();
-	 void FontSelect();	 
+	 void Language();//中日韩
+	 void FontSelect();//Font按钮文本获取
+	 vector<CString> split(CString str);//字符串分割
+
+public:
+
+	
 };
 

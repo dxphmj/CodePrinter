@@ -33,5 +33,8 @@ public:
 	afx_msg void OnBnClickedMainLan();
 	afx_msg void OnBnClickedMainP();
 	afx_msg void OnBnClickedMainY();
+	afx_msg void OnBnClickedMainA();
+	afx_msg void OnBnClickedMainN();
+	afx_msg void OnBnClickedMainI();
 	afx_msg void OnBnClickedMainEnter();
 };

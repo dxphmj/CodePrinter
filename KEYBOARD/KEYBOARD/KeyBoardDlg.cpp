@@ -26,6 +26,7 @@ void CKeyBoardDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_EDIT_ZRH, m_zrh_edit);
+	DDX_Control(pDX, IDC_EDIT_INPUT, m_edit_input);
 }
 
 BEGIN_MESSAGE_MAP(CKeyBoardDlg, CDialog)
@@ -33,8 +34,11 @@ BEGIN_MESSAGE_MAP(CKeyBoardDlg, CDialog)
 	ON_WM_SIZE()
 #endif
 	//}}AFX_MSG_MAP
-	ON_EN_SETFOCUS(IDC_EDIT_INPUT, &CKeyBoardDlg::OnEnSetfocusEdit1)
+	ON_BN_CLICKED(IDC_MIAN_FONT1, &CKeyBoardDlg::OnBnClickedMainFont1)
 	ON_WM_CLOSE()
+	ON_EN_CHANGE(IDC_EDIT_ZRH, &CKeyBoardDlg::OnEnChangeEditZrh)
+	ON_BN_CLICKED(IDC_MIAN_LEFTPAGE, &CKeyBoardDlg::OnBnClickedMainLeftpage)
+	ON_BN_CLICKED(IDC_MIAN_RIGHTPAGE, &CKeyBoardDlg::OnBnClickedMainRightpage)
 END_MESSAGE_MAP()
 
 
@@ -54,7 +58,7 @@ BOOL CKeyBoardDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
-
+	LanType = 3;
 	//////中日韩文字选择按键
 	CButton* btnFont = new CButton[17];  
 	DWORD dwStyle = WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON;
@@ -141,30 +145,68 @@ void CKeyBoardDlg::OnSize(UINT /*nType*/, int /*cx*/, int /*cy*/)
 #endif
 
 
-void CKeyBoardDlg::OnEnSetfocusEdit1()
-{
 
-}
-
-void CKeyBoardDlg::OnBnClickedButton1()
-{
-
-	// TODO: 在此添加控件通知处理程序代码
-}
 
 void CKeyBoardDlg::setEditText(CString &str)
 {//设置文本编辑框文本
-	CString allstr,str1;
-	CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
-	pWnd->GetWindowText(str1);
-	allstr = str1+str;
-	pWnd->SetWindowText(allstr);
+	switch (LanType)
+	{
+	case Others:  
+		{	
+			//POINT cp = GetCaretPos();//获取光标相对于控件的位置
+			//int xy = m_edit_input.CharFromPos(cp);//获取光标位置
+			//int CharIndex = LOWORD(xy);//获取光标所在的字符
+			//CString allstr,str1;
+			//CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
+			//pWnd->GetWindowText(str1);
+			//allstr = str1+str;
+			//pWnd->SetWindowText(allstr);
+			//break;
+			//POINT cp = GetCaretPos();//获取光标相对于控件的位置
+			//int xy = CharFromPos(cp);//获取光标位置
+			//int CharIndex = LOWORD(xy);//获取光标所在的字符
+			//m_edit_input.SetSel(5,5,TRUE); //设置
+			//int n ,m;
+			//m_edit_input.GetSel(n,m);//获得
+			//m_edit_input.SetSel(3, 5);                            // 选择起始索引为3，终止索引为5（不包括在选择范围内）的正文，即“博客”   
+			//m_edit_input.ReplaceSel(_T("\r\nwww.jizhuomi.com"));  // 将选择的“博客”替换为“\r\nwww.jizhuomi.com”
+			CString allstr,str1;
+			m_edit_input.GetWindowText(str1);
+			allstr = str1+str;
+			m_edit_input.SetWindowText(allstr);
+			break;
+
+		}
+	case Chinese: 
+		{
+			//CString allstr,str1;
+			//CWnd* pWnd = GetDlgItem(IDC_EDIT_ZRH);
+			//pWnd->GetWindowText(str1);
+			//allstr = str1+str;
+			//pWnd->SetWindowText(allstr);
+			//break;
+			CString allstr,str1;
+			m_zrh_edit.GetWindowText(str1);
+			allstr = str1+str;
+			m_zrh_edit.SetWindowText(allstr);
+			break;
+		}
+	}
 }
+void CKeyBoardDlg::setEditText_Font(CString &str)
+{
+	CString allstr,str1;
+	m_edit_input.GetWindowText(str1);
+	allstr = str1+str;
+	m_edit_input.SetWindowText(allstr);
+}
+
 
 void CKeyBoardDlg::getEditText()
 {//获取文本编辑框文本 
-	CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
-	pWnd->GetWindowText(m_strRet);	 
+/*	CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
+	pWnd->GetWindowText(m_strRet);*/	
+	m_edit_input.GetWindowText(m_strRet);
 }
 void CKeyBoardDlg::OnClose()
 {
@@ -219,79 +261,138 @@ void CKeyBoardDlg::btnShow()
 void CKeyBoardDlg::CreateChineseMapLan()
 {
 	ChineseLanMap[_T("an")] = _T("安,氨,鞍,俺,岸,按,案,胺,暗, , , , , , ");
+	ChineseLanMap[_T("yi")] = _T("一,伊,衣,医,依,铱,壹,揖,仪,夷,沂,宜,姨,胰,移,遗,颐,疑,彝,乙,已,以,矣,蚁,倚,椅,义,亿,忆,艺,议,亦,屹,异,役,抑,译,邑,易,绎,诣,疫,益,谊,翌,逸,意,溢,肄,裔,毅,翼,臆, , , , , , , , , ");
 }
 
-//void CKeyBoardDlg::FontSelect()
-//{
-//	//GetDlgItem(IDC_MIAN_FONT1)->SetWindowText(arr[j1]);
-//	//GetDlgItem(IDC_MIAN_FONT2)->SetWindowText(arr[j1 + 1]);
-//	//GetDlgItem(IDC_MIAN_FONT3)->SetWindowText(arr[j1 + 2]);
-//	//GetDlgItem(IDC_MIAN_FONT4)->SetWindowText(arr[j1 + 3]);
-//	//GetDlgItem(IDC_MIAN_FONT5)->SetWindowText(arr[j1 + 4]);
-//	//GetDlgItem(IDC_MIAN_FONT6)->SetWindowText(arr[j1 + 5]);
-//	//GetDlgItem(IDC_MIAN_FONT7)->SetWindowText(arr[j1 + 6]);
-//	//GetDlgItem(IDC_MIAN_FONT8)->SetWindowText(arr[j1 + 7]);
-//	//GetDlgItem(IDC_MIAN_FONT9)->SetWindowText(arr[j1 + 8]);
-//	//GetDlgItem(IDC_MIAN_FONT10)->SetWindowText(arr[j1 + 9]);
-//	//GetDlgItem(IDC_MIAN_FONT11)->SetWindowText(arr[j1 + 10]);
-//	//GetDlgItem(IDC_MIAN_FONT12)->SetWindowText(arr[j1 + 11]);
-//	//GetDlgItem(IDC_MIAN_FONT13)->SetWindowText(arr[j1 + 12]);
-//	//GetDlgItem(IDC_MIAN_FONT14)->SetWindowText(arr[j1 + 13]);
-//	//GetDlgItem(IDC_MIAN_FONT15)->SetWindowText(arr[j1 + 14]);
-//}
-//
-//void CKeyBoardDlg::Language()
-//{
-//
-//
-//
-//	switch (LanType)
-//	{
-//	case Chinese: 
-//		{	
-//
-//			CString value = ChineseLanMap[m_zrh_edit.GetWindowText()];
-//			if ( value == "" )
-//			{	
-//				arr = SplitSymbols(" , , , , , , , , , , , , , , ", ",");
-//				j1 = 0;
-//				i1 = 1;
-//				FontSelect();
-//				break;
-//			}
-//			else
-//			{
-//				j1 = 0
-//				arr = SplitSymbols(value, ",");
-//				if ( sizeof(arr) < 16 )sizeof()
-//				{
-//					i1 = 1
-//				} 
-//				else if( sizeof(arr) < 31)
-//				{
-//					i1 = 16
-//				}
-//				else if( sizeof(arr) < 46)
-//				{
-//					i1 = 31
-//				}
-//				else
-//				{
-//					i1 = 46
-//				}
-//				FontSelect();
-//				break;
-//			}
-//		}
-//	case Japanese:  
-//		{	
-//
-//			break;
-//		}
-//	case Korean:   
-//		{
-//
-//			break;
-//		}
-//	}
-//}
+std::vector<CString> CKeyBoardDlg::split(CString str)
+{
+	int length = str.GetLength();
+	vector< CString >SplitOut;
+	for ( int i =0 ;i < length;i++)
+	{
+		CString temp;
+		temp = str.GetAt(i);
+		if ( temp != ',')
+		{
+			SplitOut.push_back(temp);
+		}
+	}
+	return SplitOut;
+}
+void CKeyBoardDlg::OnEnChangeEditZrh()
+{
+	Language();
+}
+
+
+
+
+
+void CKeyBoardDlg::FontSelect()
+{
+	GetDlgItem(IDC_MIAN_FONT1)->SetWindowText(splitOut[j1]);
+	GetDlgItem(IDC_MIAN_FONT2)->SetWindowText(splitOut[j1 + 1]);
+	GetDlgItem(IDC_MIAN_FONT3)->SetWindowText(splitOut[j1 + 2]);
+	GetDlgItem(IDC_MIAN_FONT4)->SetWindowText(splitOut[j1 + 3]);
+	GetDlgItem(IDC_MIAN_FONT5)->SetWindowText(splitOut[j1 + 4]);
+	GetDlgItem(IDC_MIAN_FONT6)->SetWindowText(splitOut[j1 + 5]);
+	GetDlgItem(IDC_MIAN_FONT7)->SetWindowText(splitOut[j1 + 6]);
+	GetDlgItem(IDC_MIAN_FONT8)->SetWindowText(splitOut[j1 + 7]);
+	GetDlgItem(IDC_MIAN_FONT9)->SetWindowText(splitOut[j1 + 8]);
+	GetDlgItem(IDC_MIAN_FONT10)->SetWindowText(splitOut[j1 + 9]);
+	GetDlgItem(IDC_MIAN_FONT11)->SetWindowText(splitOut[j1 + 10]);
+	GetDlgItem(IDC_MIAN_FONT12)->SetWindowText(splitOut[j1 + 11]);
+	GetDlgItem(IDC_MIAN_FONT13)->SetWindowText(splitOut[j1 + 12]);
+	GetDlgItem(IDC_MIAN_FONT14)->SetWindowText(splitOut[j1 + 13]);
+	GetDlgItem(IDC_MIAN_FONT15)->SetWindowText(splitOut[j1 + 14]);
+}
+
+void CKeyBoardDlg::Language()
+{
+	switch (LanType)
+	{
+	case Chinese: 
+		{	
+			CString key;
+			GetDlgItem(IDC_EDIT_ZRH)->GetWindowText(key);
+			CString value = ChineseLanMap[key];
+			if ( value == "" )
+			{	
+				splitOut = split(_T(" , , , , , , , , , , , , , , ,"));
+				j1 = 0;
+				i1 = 1;
+				FontSelect();
+				break;
+			}
+			else
+			{
+				j1 = 0;
+				value +=_T(",");
+				splitOut = split(value);
+				if ( splitOut.size() < 16 )
+				{
+					i1 = 1;
+				} 
+				else if( splitOut.size() < 31)
+				{
+					i1 = 16;
+				}
+				else if( splitOut.size() < 46)
+				{
+					i1 = 31;
+				}
+				else
+				{
+					i1 = 46;
+				}
+				FontSelect();
+				break;
+			}
+		}
+	case Japanese:  
+		{	
+
+			break;
+		}
+	case Korean:   
+		{
+
+			break;
+		}
+	}
+}
+
+
+void CKeyBoardDlg::OnBnClickedMainFont1()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT1)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+}
+void CKeyBoardDlg::OnBnClickedMainLeftpage()
+{
+	j1 = j1 - 15;
+
+	if ( j1 >= 0 )
+	{
+		FontSelect();
+	} 
+	else if( j1 < 1 )
+	{
+		j1 = 0;
+	}
+}
+
+void CKeyBoardDlg::OnBnClickedMainRightpage()
+{
+	j1 = j1 + 15;
+	if ( j1 < i1  )
+	{
+		FontSelect();
+	} 
+	else if( j1 > i1 )
+	{
+		j1 = i1 - 1;
+		j1 = j1 - 15;
+	}
+}

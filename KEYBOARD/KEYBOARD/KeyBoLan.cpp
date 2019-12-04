@@ -106,6 +106,5 @@ void CKeyBoLan::OnBnClickedLanChinese()
 	pWnd->m_pMain->ShowWindow(SW_SHOW);
 	pWnd->m_pCaps->ShowWindow(SW_HIDE);
 	pWnd->btnShow();
-	
 	pWnd->LanType = 0;
 }
