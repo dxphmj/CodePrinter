@@ -27,6 +27,8 @@ CCodePrinterDlg::CCodePrinterDlg(CWnd* pParent /*=NULL*/)
 void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_FAULT_BUTTON, m_ButFault);
+	DDX_Control(pDX, IDC_RESET_COUNT_BTN, m_ButRestCount);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -59,6 +61,24 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
+	
+	//右侧一列设置按钮的位置及大小
+	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,700,50,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_SYSTEM_BUTTON)->SetWindowPos(NULL,670,130,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_USHIFT_BUTTON)->SetWindowPos(NULL,670,200,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_LABEL_BUTTON)->SetWindowPos(NULL,670,270,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFIGURATION_BUTTON)->SetWindowPos(NULL,670,340,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FILEMANA_BUTTON)->SetWindowPos(NULL,670,410,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,670,480,80,55,SWP_SHOWWINDOW);
+	//下面两个按钮
+	GetDlgItem(IDC_RESET_COUNT_BTN)->SetWindowPos(NULL,40,400,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_RESET_SERIAL_BTN)->SetWindowPos(NULL,360,400,80,50,SWP_SHOWWINDOW);
+
+	//彩色按钮
+	m_ButFault.LoadBitmaps(IDB_BITMAP1,IDB_BITMAP2,0,0,IDB_BITMAP3);
+	m_ButFault.SizeToContent(); 
+	m_ButRestCount.LoadBitmaps(IDB_BITMAP1,IDB_BITMAP2,0,0,IDB_BITMAP3);
+	m_ButRestCount.SizeToContent(); 
 	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
-				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib"
+				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib PathDlgDll.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
@@ -568,6 +568,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.cpp"
 				>
 			</File>
@@ -588,11 +592,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EnvDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FaultDlg.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\FileManaDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.cpp"
 				>
 			</File>
 			<File
@@ -609,6 +621,14 @@
 			</File>
 			<File
 				RelativePath=".\LabelDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Language.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ModuleMain.cpp"
 				>
 			</File>
 			<File
@@ -706,6 +726,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CommonType.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.h"
 				>
 			</File>
@@ -722,11 +750,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EnvDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FaultDlg.h"
 				>
 			</File>
 			<File
 				RelativePath=".\FileManaDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.h"
 				>
 			</File>
 			<File
@@ -739,6 +775,14 @@
 			</File>
 			<File
 				RelativePath=".\LabelDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Language.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ModuleMain.h"
 				>
 			</File>
 			<File
@@ -772,6 +816,14 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\bitmap2.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bitmap3.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\CodePrinter.ico"
 				>
 			</File>
@@ -781,6 +833,14 @@
 			</File>
 			<File
 				RelativePath=".\res\CodePrinter.rc2"
+				>
+			</File>
+			<File
+				RelativePath=".\res\test.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\ÎÞ±êÌâ.bmp"
 				>
 			</File>
 		</Filter>

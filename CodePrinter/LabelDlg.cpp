@@ -8,8 +8,8 @@
 #include <sstream>
 #include <map>
 #include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
-
-
+//#include "PathDlgDll.h"
+#include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
 LPCWSTR stringToLPCWSTR(std::string orig)
 {
 	size_t origsize = orig.length() + 1;
@@ -22,17 +22,17 @@ LPCWSTR stringToLPCWSTR(std::string orig)
 }
 
 
-std::string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP)
-{
-	std::string str;
-	int len = WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), NULL, 0, NULL, NULL);
-	char	*m_char = new char[len + 1];
-	WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
-	m_char[len] = '\0';
-	str = m_char;
-	delete m_char;
-	return str;
-}
+//std::string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP)
+//{
+//	std::string str;
+//	int len = WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), NULL, 0, NULL, NULL);
+//	char	*m_char = new char[len + 1];
+//	WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
+//	m_char[len] = '\0';
+//	str = m_char;
+//	delete m_char;
+//	return str;
+//}
 
 IMPLEMENT_DYNAMIC(CLabelDlg, CDialog)
 
@@ -73,6 +73,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_OPEN_BUTTON, &CLabelDlg::OnBnClickedOpenButton)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
 	ON_WM_LBUTTONDOWN()
+	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
 END_MESSAGE_MAP()
 
 
@@ -86,6 +87,17 @@ BOOL CLabelDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
+	//设置按钮的位置及大小
+	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,200,200,65,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_REPEAT_BUTTON)->SetWindowPos(NULL,290,200,65,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_COPY_BUTTON)->SetWindowPos(NULL,380,200,65,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_DELETE_BUTTON)->SetWindowPos(NULL,470,200,65,40,SWP_SHOWWINDOW);
+	
+	//中间两行
+	GetDlgItem(IDC_SHRINK_BUTTON)->SetWindowPos(NULL,200,260,45,40,SWP_SHOWWINDOW);
+
+	//右侧两列
+	GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
 
 	//为矩阵组合框添加元素
 	//combo_matrix.SetDroppedWidth(10);  //改变下拉列表下的宽度 
@@ -222,7 +234,7 @@ void CLabelDlg::OnPaint()
 		//pBrush->DeleteObject();
 	}
 
-	myclassMessage.DrowDot(pDC);
+	myclassMessage.DrawDot(pDC);
 
 	//myOBJ_Control.DrowDot(pDC);
 	//myOBJ_Control.DrawFrame(pDC);
@@ -230,14 +242,14 @@ void CLabelDlg::OnPaint()
 
 
 }
-
+//选择Matrix
 void CLabelDlg::OnCbnSelchangeComboMatrix()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CString  strText;
 	int nIndex = ComboMatrix.GetCurSel();  //当前选中的项
 	ComboMatrix.GetLBText(nIndex,strText);
-	myclassMessage.strMatrix=WcharToChar(strText);
+	myclassMessage.strMatrix=labModule.WcharToChar(strText);
 	
 	switch(nIndex)
 	{
@@ -308,7 +320,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
     isFrame=true;
 	this->OnCbnSelchangeCombo2();
 }
-
+//选择pixel
 void CLabelDlg::OnCbnSelchangeCombo2()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -479,19 +491,48 @@ void CLabelDlg::OnBnClickedRqshiftButton()
 		}
 	}
 }
-
+//保存xml
 void CLabelDlg::OnBnClickedSaveButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-        
-		myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+	//string testpath="\\Storage Card\\user\\Label";
+	TCHAR path[MAX_PATH];
+	//labModule.string2tchar(testpath,path);
+
+    string xmlPath;
+	if(ShowPathDlg(path, MAX_PATH))
+	{
+		//AfxMessageBox(path);
+		xmlPath=labModule.TCHAR2STRING(path);
+		//xmlPath+="sss1";
+		if (xmlPath[xmlPath.length()-4]!='.')
+		{
+			xmlPath+=".xml";
+		}
+		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+		myclassMessage.SaveObjectsToXml(const_cast<char*>(xmlPath.c_str()));
+	}
+
 	
 }
-
+//打开xml
 void CLabelDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
+	TCHAR path[MAX_PATH];
+	//labModule.string2tchar(testpath,path);
+
+	string xmlPath;
+	if(ShowPathDlg(path, MAX_PATH))
+	{
+		//AfxMessageBox(path);
+		xmlPath=labModule.TCHAR2STRING(path);
+		//xmlPath+="sss.xml";
+		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+		myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
+	}
+
+	//myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
 	if (myclassMessage.strMatrix=="1L5M")
 	{
 		ComboMatrix.SetCurSel(0);
@@ -536,6 +577,7 @@ void CLabelDlg::OnBnClickedOpenButton()
 	OnPaint();
 }
 
+//修改，弹出键盘
 void CLabelDlg::OnBnClickedRepeatButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -548,6 +590,7 @@ void CLabelDlg::OnBnClickedRepeatButton()
 
 }
 
+//重写鼠标点击
 void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
@@ -577,4 +620,34 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	OnPaint();
 	CDialog::OnLButtonDown(nFlags, point);
+}
+
+//开始打印
+void CLabelDlg::OnBnClickedDownloadButton()
+{
+	 //TODO: 在此添加控件通知处理程序代码
+	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
+	//2、取值并发送至下位机 download_pcf()
+	//3、关闭动态打印线程（若有）
+    //信息重新发送，序列号按信息里面的开始值喷，如只改变喷印参数则按计数器的值继续喷
+	//动态文本关
+
+	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
+	memset(myclassMessage.boDotMes,false,sizeof(myclassMessage.boDotMes));
+	for(vector<OBJ_Control>::iterator objIter=myclassMessage.OBJ_Vec.begin();objIter!=myclassMessage.OBJ_Vec.end();objIter++)
+	{
+		myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
+			objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
+	}
+	
+	vector<BYTE> testByteVec;
+	testByteVec=myclassMessage.DotToByte(0,36);
+	BYTE ssss=testByteVec[34];
+    ssss=testByteVec[0];
+}
+
+
+void CLabelDlg::getMessageDot()
+{
+
 }

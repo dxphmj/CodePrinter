@@ -20,4 +20,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedEvnButton();
+	afx_msg void OnBnClickedButton4();
 };

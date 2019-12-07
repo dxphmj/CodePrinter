@@ -2,6 +2,9 @@
 //
 
 #pragma once
+#include "afxwin.h"
+#include "ImageButton.h"
+
 
 // CCodePrinterDlg ¶Ô»°¿ò
 class CCodePrinterDlg : public CDialog
@@ -35,4 +38,6 @@ public:
 	afx_msg void OnBnClickedConfigurationButton();
 	afx_msg void OnBnClickedFilemanaButton();
 	afx_msg void OnBnClickedInkButton();
+	CImageButton m_ButFault;
+	CImageButton m_ButRestCount;
 };

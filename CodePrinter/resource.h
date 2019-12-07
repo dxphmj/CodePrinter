@@ -2,12 +2,16 @@
 // Microsoft Visual C++ generated include file.
 // Used by CodePrinter.rc
 //
+#define IDCANCEL2                       3
 #define IDD_CODEPRINTER_DIALOG          102
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
 #define IDD_FAULT_DIALOG                129
+#define IDB_BITMAP1                     129
 #define IDD_SYSTEM_DIALOG               130
+#define IDB_BITMAP2                     130
 #define IDD_USER_DIALOG                 131
+#define IDB_BITMAP3                     131
 #define IDD_LABEL_DIALOG                132
 #define IDD_CONFIGURATION_DIALOG        133
 #define IDD_FILEMANA_DIALOG             134
@@ -19,6 +23,8 @@
 #define IDD_DATE_DIALOG                 139
 #define IDD_PICTURE_DIALOG              140
 #define IDD_BARCODE_DIALOG              141
+#define IDD_ENV_DIALOG                  142
+#define IDD_COM_DIALOG                  143
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -118,16 +124,33 @@
 #define IDC_BUTTON1                     1055
 #define IDC_BUTTON2                     1056
 #define IDC_EDIT6                       1057
+#define IDC_BUTTON8                     1057
 #define IDC_EDIT7                       1058
-#define IDC_EDIT8                       1059
+#define IDC_BUTTON11                    1058
+#define IDC_BUTTON12                    1059
+#define IDC_BUTTON3                     1060
+#define IDC_BUTTON13                    1060
+#define IDC_BUTTON10                    1061
+#define IDC_LIST1                       1062
+#define IDC_BUTTON4                     1063
+#define IDC_BUTTON5                     1064
+#define IDC_BUTTON6                     1065
+#define IDC_BUTTON7                     1066
+#define IDC_BUTTON9                     1068
+#define IDC_EVN_BTN                     1074
+#define IDC_COMBO1                      1075
+#define IDC_LANGUAGE_COMBO              1075
+#define IDC_LANGUAGE_STATIC             1076
+#define IDC_SYSTEM_CANCEL_BTN           1077
+#define IDC_SPIN2                       1080
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        129
+#define _APS_NEXT_RESOURCE_VALUE        144
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1060
+#define _APS_NEXT_CONTROL_VALUE         1081
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
