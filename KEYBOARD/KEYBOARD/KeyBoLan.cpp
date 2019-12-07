@@ -32,6 +32,8 @@ BEGIN_MESSAGE_MAP(CKeyBoLan, CDialog)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_LAN_ESC, &CKeyBoLan::OnBnClickedLanEsc)
 	ON_BN_CLICKED(IDC_LAN_CHINESE, &CKeyBoLan::OnBnClickedLanChinese)
+	ON_BN_CLICKED(IDC_LAN_ARABIC, &CKeyBoLan::OnBnClickedLanArabic)
+	ON_BN_CLICKED(IDC_LAN_GERMAN, &CKeyBoLan::OnBnClickedLanGerman)
 
 END_MESSAGE_MAP()
 
@@ -107,4 +109,25 @@ void CKeyBoLan::OnBnClickedLanChinese()
 	pWnd->m_pCaps->ShowWindow(SW_HIDE);
 	pWnd->btnShow();
 	pWnd->LanType = 0;
+}
+
+void CKeyBoLan::OnBnClickedLanArabic()
+{//°¢À­²®ÓïArabic
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	pWnd->LanType = 5;
+}
+
+void CKeyBoLan::OnBnClickedLanGerman()
+{//µÂÓïGerman
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	pWnd->LanType = 10;
+	pWnd->m_pMain->InitBtnText(pWnd->LanType);
 }

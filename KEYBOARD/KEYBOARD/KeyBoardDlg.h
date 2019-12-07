@@ -43,12 +43,7 @@ protected:
 #endif
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnEnSetfocusEdit1();
-	afx_msg void OnClose();
-	afx_msg void OnBnClickedMainFont1();
-	afx_msg void OnEnChangeEditZrh();
-	afx_msg void OnBnClickedMainLeftpage();
-	afx_msg void OnBnClickedMainRightpage();
+
 public:
 	CString m_strRet;
     CString m_strOld;
@@ -57,7 +52,12 @@ public:
 	int j1,i1;
 	map< CString,CString >ChineseLanMap;
 	vector<CString>splitOut;
-	enum LanTypeEnum{ Chinese = 0,Japanese,Korean,Others};
+	enum LanTypeEnum{ Chinese = 0,Japanese=1,Korean=2,Chinese_others=3,
+					  Others=4,Arabic=5,Farsi=6,English=7,
+					  Czech=8,Dutch=9,German=10,Finnish=11,
+					  Hindi=12,Hungarian=13,Italian=14,Portuguese=15,
+					  Russian=16,Spanish=17,Swedish=18,
+					  Thai=19,Turkish=20};
 	int LanType;
 public:
 	 void setEditText(CString &str);//设置主编辑框文本
@@ -71,7 +71,13 @@ public:
 	 vector<CString> split(CString str);//字符串分割
 
 public:
-
-	
+	afx_msg void OnEnSetfocusEdit1();
+	afx_msg void OnClose();
+	afx_msg void OnBnClickedMainFont1();
+	afx_msg void OnEnChangeEditZrh();
+	afx_msg void OnBnClickedMainLeftpage();
+	afx_msg void OnBnClickedMainRightpage();
+	afx_msg void OnEnSetfocusEditInput();
+	afx_msg void OnEnSetfocusEditZrh();
 };
 

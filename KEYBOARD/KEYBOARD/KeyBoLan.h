@@ -25,4 +25,6 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedLanEsc();
 	afx_msg void OnBnClickedLanChinese();
+	afx_msg void OnBnClickedLanArabic();
+	afx_msg void OnBnClickedLanGerman();
 };

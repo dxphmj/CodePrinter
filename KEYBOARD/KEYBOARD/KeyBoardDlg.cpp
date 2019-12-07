@@ -39,6 +39,8 @@ BEGIN_MESSAGE_MAP(CKeyBoardDlg, CDialog)
 	ON_EN_CHANGE(IDC_EDIT_ZRH, &CKeyBoardDlg::OnEnChangeEditZrh)
 	ON_BN_CLICKED(IDC_MIAN_LEFTPAGE, &CKeyBoardDlg::OnBnClickedMainLeftpage)
 	ON_BN_CLICKED(IDC_MIAN_RIGHTPAGE, &CKeyBoardDlg::OnBnClickedMainRightpage)
+	ON_EN_SETFOCUS(IDC_EDIT_INPUT, &CKeyBoardDlg::OnEnSetfocusEditInput)
+	ON_EN_SETFOCUS(IDC_EDIT_ZRH, &CKeyBoardDlg::OnEnSetfocusEditZrh)
 END_MESSAGE_MAP()
 
 
@@ -58,7 +60,7 @@ BOOL CKeyBoardDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
-	LanType = 3;
+	LanType = English;
 	//////中日韩文字选择按键
 	CButton* btnFont = new CButton[17];  
 	DWORD dwStyle = WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON;
@@ -151,54 +153,51 @@ void CKeyBoardDlg::setEditText(CString &str)
 {//设置文本编辑框文本
 	switch (LanType)
 	{
-	case Others:  
+	case Others :
+	case Chinese_others:
+	case English:
+	case Russian:
+	case German:
 		{	
-			//POINT cp = GetCaretPos();//获取光标相对于控件的位置
-			//int xy = m_edit_input.CharFromPos(cp);//获取光标位置
-			//int CharIndex = LOWORD(xy);//获取光标所在的字符
-			//CString allstr,str1;
-			//CWnd* pWnd = GetDlgItem(IDC_EDIT_INPUT);
-			//pWnd->GetWindowText(str1);
-			//allstr = str1+str;
-			//pWnd->SetWindowText(allstr);
-			//break;
-			//POINT cp = GetCaretPos();//获取光标相对于控件的位置
-			//int xy = CharFromPos(cp);//获取光标位置
-			//int CharIndex = LOWORD(xy);//获取光标所在的字符
-			//m_edit_input.SetSel(5,5,TRUE); //设置
-			//int n ,m;
-			//m_edit_input.GetSel(n,m);//获得
-			//m_edit_input.SetSel(3, 5);                            // 选择起始索引为3，终止索引为5（不包括在选择范围内）的正文，即“博客”   
-			//m_edit_input.ReplaceSel(_T("\r\nwww.jizhuomi.com"));  // 将选择的“博客”替换为“\r\nwww.jizhuomi.com”
-			CString allstr,str1;
-			m_edit_input.GetWindowText(str1);
-			allstr = str1+str;
-			m_edit_input.SetWindowText(allstr);
+			int nPosStart;
+			int nPosEnd  = 0; 
+			m_edit_input.GetSel(nPosStart, nPosEnd); 
+			m_edit_input.SetSel(nPosStart, nPosStart); 
+			m_edit_input.ReplaceSel(str);
 			break;
 
 		}
-	case Chinese: 
+	case Chinese:
+	case Korean:
+	case Japanese:
 		{
-			//CString allstr,str1;
-			//CWnd* pWnd = GetDlgItem(IDC_EDIT_ZRH);
-			//pWnd->GetWindowText(str1);
-			//allstr = str1+str;
-			//pWnd->SetWindowText(allstr);
-			//break;
-			CString allstr,str1;
-			m_zrh_edit.GetWindowText(str1);
-			allstr = str1+str;
-			m_zrh_edit.SetWindowText(allstr);
+			int nPosStart;
+			int nPosEnd  = 0; 
+			m_zrh_edit.GetSel(nPosStart, nPosEnd); 
+			m_zrh_edit.SetSel(nPosStart, nPosStart); 
+			m_zrh_edit.ReplaceSel(str);
+			break;
+		}
+	case Arabic:
+	case Farsi:
+		{
+			int nPosStart;
+			int nPosEnd  = 0; 
+			m_edit_input.GetSel(nPosStart, nPosEnd); 
+			m_edit_input.SetSel(nPosStart, nPosStart); 
+			m_edit_input.ReplaceSel(str);
+			m_edit_input.SetSel(nPosStart, nPosStart); 
 			break;
 		}
 	}
 }
 void CKeyBoardDlg::setEditText_Font(CString &str)
 {
-	CString allstr,str1;
-	m_edit_input.GetWindowText(str1);
-	allstr = str1+str;
-	m_edit_input.SetWindowText(allstr);
+	int nPosStart;
+	int nPosEnd  = 0; 
+	m_edit_input.GetSel(nPosStart, nPosEnd); 
+	m_edit_input.SetSel(nPosStart, nPosStart); 
+	m_edit_input.ReplaceSel(str);
 }
 
 
@@ -263,6 +262,7 @@ void CKeyBoardDlg::CreateChineseMapLan()
 	ChineseLanMap[_T("an")] = _T("安,氨,鞍,俺,岸,按,案,胺,暗, , , , , , ");
 	ChineseLanMap[_T("yi")] = _T("一,伊,衣,医,依,铱,壹,揖,仪,夷,沂,宜,姨,胰,移,遗,颐,疑,彝,乙,已,以,矣,蚁,倚,椅,义,亿,忆,艺,议,亦,屹,异,役,抑,译,邑,易,绎,诣,疫,益,谊,翌,逸,意,溢,肄,裔,毅,翼,臆, , , , , , , , , ");
 }
+
 
 std::vector<CString> CKeyBoardDlg::split(CString str)
 {
@@ -395,4 +395,19 @@ void CKeyBoardDlg::OnBnClickedMainRightpage()
 		j1 = i1 - 1;
 		j1 = j1 - 15;
 	}
+}
+
+void CKeyBoardDlg::OnEnSetfocusEditInput()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if ( LanType== Chinese )
+	{
+		LanType = Chinese_others;
+	}
+}
+
+void CKeyBoardDlg::OnEnSetfocusEditZrh()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	LanType = Chinese;
 }

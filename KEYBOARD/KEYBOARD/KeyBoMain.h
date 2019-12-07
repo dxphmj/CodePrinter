@@ -37,4 +37,10 @@ public:
 	afx_msg void OnBnClickedMainN();
 	afx_msg void OnBnClickedMainI();
 	afx_msg void OnBnClickedMainEnter();
+	afx_msg void OnBnClickedMainBackspace();
+	afx_msg void OnBnClickedMainLeft();
+	afx_msg void OnBnClickedMainRight();
+	afx_msg void OnBnClickedMainDel();
+public:
+	void InitBtnText(int inputlanguage);
 };
