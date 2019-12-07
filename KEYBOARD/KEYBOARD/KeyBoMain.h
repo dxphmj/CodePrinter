@@ -15,12 +15,6 @@ class CKeyBoMain : public CDialog
 {
 	DECLARE_DYNAMIC(CKeyBoMain)
 
-private:
-	CKeyBoLan *pLan;
-	CKeyBoCaps *pCaps;
-	CKeyBoSym *pSym;
-
-
 public:
 	CKeyBoMain(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CKeyBoMain();
@@ -39,5 +33,14 @@ public:
 	afx_msg void OnBnClickedMainLan();
 	afx_msg void OnBnClickedMainP();
 	afx_msg void OnBnClickedMainY();
+	afx_msg void OnBnClickedMainA();
+	afx_msg void OnBnClickedMainN();
+	afx_msg void OnBnClickedMainI();
 	afx_msg void OnBnClickedMainEnter();
+	afx_msg void OnBnClickedMainBackspace();
+	afx_msg void OnBnClickedMainLeft();
+	afx_msg void OnBnClickedMainRight();
+	afx_msg void OnBnClickedMainDel();
+public:
+	void InitBtnText(int inputlanguage);
 };

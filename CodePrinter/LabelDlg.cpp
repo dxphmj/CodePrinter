@@ -8,8 +8,8 @@
 #include <sstream>
 #include <map>
 #include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
-#include "PathDlgDll.h"
-
+//#include "PathDlgDll.h"
+#include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
 LPCWSTR stringToLPCWSTR(std::string orig)
 {
 	size_t origsize = orig.length() + 1;
@@ -502,17 +502,35 @@ void CLabelDlg::OnBnClickedSaveButton()
 	{
 		//AfxMessageBox(path);
 		xmlPath=labModule.TCHAR2STRING(path);
+		//xmlPath+="sss1";
+		if (xmlPath[xmlPath.length()-4]!='.')
+		{
+			xmlPath+=".xml";
+		}
+		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+		myclassMessage.SaveObjectsToXml(const_cast<char*>(xmlPath.c_str()));
 	}
-	xmlPath+="\\sss.xml";
-	//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
-	myclassMessage.SaveObjectsToXml(const_cast<char*>(xmlPath.c_str()));
+
 	
 }
 //打开xml
 void CLabelDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
+	TCHAR path[MAX_PATH];
+	//labModule.string2tchar(testpath,path);
+
+	string xmlPath;
+	if(ShowPathDlg(path, MAX_PATH))
+	{
+		//AfxMessageBox(path);
+		xmlPath=labModule.TCHAR2STRING(path);
+		//xmlPath+="sss.xml";
+		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+		myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
+	}
+
+	//myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
 	if (myclassMessage.strMatrix=="1L5M")
 	{
 		ComboMatrix.SetCurSel(0);

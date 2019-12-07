@@ -9,8 +9,7 @@ class CKeyBoSym : public CDialog
 {
 	DECLARE_DYNAMIC(CKeyBoSym)
 
-private:
-	CKeyBoMain *pSymMain;
+
 public:
 	CKeyBoSym(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CKeyBoSym();

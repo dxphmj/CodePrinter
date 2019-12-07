@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "KeyBoard.h"
 #include "KeyBoLan.h"
+#include "KeyBoardDlg.h"
 
 
 // CKeyBoLan 对话框
@@ -13,7 +14,7 @@ IMPLEMENT_DYNAMIC(CKeyBoLan, CDialog)
 CKeyBoLan::CKeyBoLan(CWnd* pParent /*=NULL*/)
 	: CDialog(CKeyBoLan::IDD, pParent)
 {
-	pLanMain = NULL;
+
 }
 
 CKeyBoLan::~CKeyBoLan()
@@ -30,6 +31,10 @@ BEGIN_MESSAGE_MAP(CKeyBoLan, CDialog)
 
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_LAN_ESC, &CKeyBoLan::OnBnClickedLanEsc)
+	ON_BN_CLICKED(IDC_LAN_CHINESE, &CKeyBoLan::OnBnClickedLanChinese)
+	ON_BN_CLICKED(IDC_LAN_ARABIC, &CKeyBoLan::OnBnClickedLanArabic)
+	ON_BN_CLICKED(IDC_LAN_GERMAN, &CKeyBoLan::OnBnClickedLanGerman)
+
 END_MESSAGE_MAP()
 
 
@@ -85,14 +90,44 @@ BOOL CKeyBoLan::OnInitDialog()
 	// 异常: OCX 属性页应返回 FALSE
 }
 void CKeyBoLan::OnBnClickedLanEsc()
-{
-	if (NULL == pLanMain)   
-	{   
-		// 创建非模态对话框实例   
-		pLanMain = new CKeyBoMain();
-		pLanMain->Create( IDD_KEYBOARD_MAIN,this);
-	}  
-	pLanMain->ShowWindow(SW_SHOW);
+{//打开主Main窗口
 
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);  
 	// TODO: 在此添加控件通知处理程序代码
+}
+
+void CKeyBoLan::OnBnClickedLanChinese()
+{
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	pWnd->btnShow();
+	pWnd->LanType = 0;
+}
+
+void CKeyBoLan::OnBnClickedLanArabic()
+{//阿拉伯语Arabic
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	pWnd->LanType = 5;
+}
+
+void CKeyBoLan::OnBnClickedLanGerman()
+{//德语German
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	pWnd->LanType = 10;
+	pWnd->m_pMain->InitBtnText(pWnd->LanType);
 }

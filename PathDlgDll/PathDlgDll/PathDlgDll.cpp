@@ -75,3 +75,18 @@ extern "C" __declspec(dllexport) BOOL ShowPathDlg(LPTSTR szPath, int size)
 	
 	return FALSE;
 }
+
+//extern "C" __declspec(dllexport) BOOL ShowReadPathDlg(LPTSTR szPath, int size)
+//{
+//	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+//	CPathDialog		pathDlg;
+//
+//	if(IDOK == pathDlg.DoModal())
+//	{
+//		lstrcpy(szPath, pathDlg.m_path);
+//		//lstrcpy(szPath, pathDlg.m_path);
+//		return TRUE;
+//	}
+//
+//	return FALSE;
+//}
