@@ -17,8 +17,18 @@ static char THIS_FILE[] = __FILE__;
 CPathDialog::CPathDialog(CWnd* pParent /*=NULL*/)
 	: CDialog(CPathDialog::IDD, pParent)
 {
+	mySize = 0;
 	//{{AFX_DATA_INIT(CPathDialog)
 		// NOTE: the ClassWizard will add member initialization here
+	//}}AFX_DATA_INIT
+}
+
+CPathDialog::CPathDialog(int theSize,CWnd* pParent /*=NULL*/)
+: CDialog(CPathDialog::IDD, pParent)
+{
+	mySize = theSize;
+	//{{AFX_DATA_INIT(CPathDialog)
+	// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 }
 
@@ -29,6 +39,7 @@ void CPathDialog::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CPathDialog)
 	DDX_Control(pDX, IDC_TREE_DIRVIEW, m_tree);
 	//}}AFX_DATA_MAP
+	//DDX_Control(pDX, IDC_EDIT_FULLPATH, m_editPath);
 }
 
 
@@ -38,6 +49,8 @@ BEGIN_MESSAGE_MAP(CPathDialog, CDialog)
 	ON_NOTIFY(TVN_SELCHANGED, IDC_TREE_DIRVIEW, OnSelchangedTreeDirview)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDOK, &CPathDialog::OnBnClickedOk)
+//	ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
+ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
 END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPathDialog message handlers
@@ -45,7 +58,23 @@ END_MESSAGE_MAP()
 BOOL CPathDialog::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	
+	switch(mySize)
+	{
+	case 0:
+		break;
+	case 1:
+		//SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );	
+		break;
+	case 2:
+		break;
+
+	}
+	SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );	
+	CRect rect;
+	//GetWindowRect(&rect);
+	GetClientRect(&rect);
+	//设置按钮的位置及大小
+	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+10,rect.top+10,90,20,SWP_SHOWWINDOW);
 	// TODO: Add extra initialization here
 	m_ImageList.Create(IDB_FILE, 16, 16, RGB(0, 255, 0));
 	m_tree.SetImageList(&m_ImageList, LVSIL_NORMAL);
@@ -66,7 +95,7 @@ BOOL CPathDialog::CreateDriveList()
 	if(hRoot == NULL)
 		return FALSE;
 #ifdef ON_EMUL
-	HTREEITEM hItem = m_tree.InsertItem(_T("\\Storage Card\\"), 3, 3, hRoot, TVI_LAST);
+	HTREEITEM hItem = m_tree.InsertItem(_T("Storage Card"), 3, 3, hRoot, TVI_LAST);
 	if(HasSubDirectory(GetFullPath(hItem)))
 		ShowTreeButton(hItem, STB_SHOW);
 	else
@@ -132,6 +161,14 @@ BOOL CPathDialog::HasSubDirectory(LPCTSTR szCurDir)
 				return TRUE;
 			}
 		}
+		else if(wfd.dwFileAttributes & FILE_ATTRIBUTE_ARCHIVE)
+		{
+			if(wfd.cFileName[0] != _T('.'))
+			{
+				FindClose(hFind);
+				return TRUE;
+			}
+		}
 		bRet = FindNextFile(hFind, &wfd);
 	}
 
@@ -152,7 +189,15 @@ CString CPathDialog::GetFullPath(HTREEITEM hCurrent)
 	{
 		strTemp = m_tree.GetItemText(hCurrent);
 		if(strTemp.Right(1) != _T("\\"))
-			strTemp += _T("\\");
+			if (strTemp[strTemp.GetLength()-4] == _T('.'))
+			{
+				fileName=strTemp;
+			} 
+			else
+			{
+				strTemp += _T("\\");
+			}
+			
 
 		strFullPath = strTemp + strFullPath;
 		hCurrent = m_tree.GetParentItem(hCurrent);
@@ -192,6 +237,32 @@ BOOL CPathDialog::CreateSubDirectory(HTREEITEM hParent)
 			{
 				bHasChild = TRUE;
 				hti = m_tree.InsertItem(wfd.cFileName, 6, 6, hParent, TVI_LAST);
+				str = GetFullPath(hti);
+				if(HasSubDirectory(str))
+					ShowTreeButton(hti, STB_SHOW);
+				else
+					ShowTreeButton(hti, STB_HIDE);
+			}
+		}
+		else if(wfd.dwFileAttributes & FILE_ATTRIBUTE_ARCHIVE)
+		{
+			if(wfd.cFileName[0] != _T('.'))
+			{
+				bHasChild = TRUE;
+				hti = m_tree.InsertItem(wfd.cFileName, 7, 7, hParent, TVI_LAST);
+				str = GetFullPath(hti);
+				if(HasSubDirectory(str))
+					ShowTreeButton(hti, STB_SHOW);
+				else
+					ShowTreeButton(hti, STB_HIDE);
+			}
+		}
+		else if (wfd.cFileName[4] != _T('')&&wfd.dwFileAttributes==0)
+		{
+			if(wfd.cFileName[0] != _T('.'))
+			{
+				bHasChild = TRUE;
+				hti = m_tree.InsertItem(wfd.cFileName, 7, 7, hParent, TVI_LAST);
 				str = GetFullPath(hti);
 				if(HasSubDirectory(str))
 					ShowTreeButton(hti, STB_SHOW);
@@ -263,4 +334,40 @@ void CPathDialog::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	OnOK();
+}
+
+//void CPathDialog::OnEnChangeEditFullpath()
+//{
+//	// TODO:  如果该控件是 RICHEDIT 控件，则它将不会
+//	// 发送该通知，除非重写 CDialog::OnInitDialog()
+//	// 函数并调用 CRichEditCtrl().SetEventMask()，
+//	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+//
+//	// TODO:  在此添加控件通知处理程序代码
+//	CString textPath;
+//	GetDlgItemText(IDC_EDIT_FULLPATH,textPath);
+//    
+//	//更改m_path
+//
+//
+//	_tcscpy(m_path, textPath);
+//	SetDlgItemText(IDC_EDIT_FULLPATH, m_path);
+//}
+
+void CPathDialog::OnEnChangeEditFullpath()
+{
+	// TODO:  如果该控件是 RICHEDIT 控件，则它将不会
+	// 发送该通知，除非重写 CDialog::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
+
+		CString textPath;		GetDlgItemText(IDC_EDIT_FULLPATH,textPath);
+	    
+		//更改m_path
+	
+	
+		_tcscpy(m_path, textPath);
+		//SetDlgItemText(IDC_EDIT_FULLPATH, m_path);
 }
