@@ -696,7 +696,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UserDeleteDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\UserDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserFreshDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserNewDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserOpenDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Version.cpp"
 				>
 			</File>
 		</Filter>
@@ -806,7 +826,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UserDeleteDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\UserDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserFreshDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserNewDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserOpenDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Version.h"
 				>
 			</File>
 		</Filter>

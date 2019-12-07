@@ -4,7 +4,14 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
-
+#include "CodePrinterDlg.h"
+#include "LabelDlg.h"
+#include "FaultDlg.h"
+#include "SystemDlg.h"
+#include "UserDlg.h"
+#include "ConfigurationDlg.h"
+#include "FileManaDlg.h"
+#include "InkSystemDlg.h"
 
 // CCodePrinterDlg ¶Ô»°¿ò
 class CCodePrinterDlg : public CDialog
@@ -40,4 +47,13 @@ public:
 	afx_msg void OnBnClickedInkButton();
 	CImageButton m_ButFault;
 	CImageButton m_ButRestCount;
+	CSystemDlg *m_System;
+	CUserDlg *m_User;
+	CLabelDlg *m_Label;
+	CConfigurationDlg *m_Confi;
+	CFileManaDlg *m_FileMan;
+	CInkSystemDlg *m_Ink;
+
+public:
+	void showDlg(int ID);
 };

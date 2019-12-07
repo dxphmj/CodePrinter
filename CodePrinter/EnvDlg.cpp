@@ -40,9 +40,9 @@ BOOL CEnvDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	SetWindowPos(NULL,0,0,800,450,SWP_SHOWWINDOW );	
-	CRect rect;
-	GetWindowRect(&rect);
+	//SetWindowPos(NULL,0,0,800,450,SWP_SHOWWINDOW );	
+	//CRect rect;
+	//GetWindowRect(&rect);
 
 	m_LanguageComboBox.AddString(_T("中文简体"));
 	m_LanguageComboBox.AddString(_T("English"));
