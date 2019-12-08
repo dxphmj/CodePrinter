@@ -96,6 +96,9 @@ void CSystemDlg::OnBnClickedSystemCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
+	pEvn->ShowWindow(SW_HIDE);
+	pCom->ShowWindow(SW_HIDE);
+	pVersion->ShowWindow(SW_HIDE);
 }
 
 

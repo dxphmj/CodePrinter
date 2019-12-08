@@ -30,6 +30,8 @@ BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
 	
 
 	ON_BN_CLICKED(IDC_BARCODE_CLOSE_BTN, &CBarCodeDlg::OnBnClickedBarcodeCloseBtn)
+	ON_BN_CLICKED(IDC_QR_CODE_BTN, &CBarCodeDlg::OnBnClickedQrCodeBtn)
+	ON_BN_CLICKED(IDC_DATA_MATRIX_BTN, &CBarCodeDlg::OnBnClickedDataMatrixBtn)
 END_MESSAGE_MAP()
 
 
@@ -40,9 +42,6 @@ BOOL CBarCodeDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
-	CRect rect;
-	GetWindowRect(&rect);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -53,4 +52,14 @@ void CBarCodeDlg::OnBnClickedBarcodeCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
+}
+
+void CBarCodeDlg::OnBnClickedQrCodeBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+void CBarCodeDlg::OnBnClickedDataMatrixBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }
