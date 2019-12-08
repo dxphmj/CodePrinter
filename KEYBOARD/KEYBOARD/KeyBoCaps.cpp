@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "KeyBoard.h"
 #include "KeyBoCaps.h"
+#include "KeyBoardDlg.h"
 
 
 // CKeyBoCaps 对话框
@@ -13,7 +14,7 @@ IMPLEMENT_DYNAMIC(CKeyBoCaps, CDialog)
 CKeyBoCaps::CKeyBoCaps(CWnd* pParent /*=NULL*/)
 	: CDialog(CKeyBoCaps::IDD, pParent)
 {
-	pMainCaps = NULL;
+
 }
 
 CKeyBoCaps::~CKeyBoCaps()
@@ -114,7 +115,10 @@ BOOL CKeyBoCaps::OnInitDialog()
 	// 异常: OCX 属性页应返回 FALSE
 }
 void CKeyBoCaps::OnBnClickedCAPS_CAPS()
-{
-	this->ShowWindow(SW_HIDE); 
-	 
+{//打开Main窗口
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pLan->ShowWindow(SW_HIDE);
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
 }

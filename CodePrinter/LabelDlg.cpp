@@ -82,11 +82,9 @@ END_MESSAGE_MAP()
 BOOL CLabelDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-    isFrame=false;
+    isFrame = false;
 	// TODO:  在此添加额外的初始化
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
-	CRect rect;
-	GetWindowRect(&rect);
+
 	//设置按钮的位置及大小
 	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,200,200,65,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_REPEAT_BUTTON)->SetWindowPos(NULL,290,200,65,40,SWP_SHOWWINDOW);

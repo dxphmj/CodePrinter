@@ -692,5 +692,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="KEYBOARD.rc"
+		/>
 	</Globals>
 </VisualStudioProject>

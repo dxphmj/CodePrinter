@@ -27,6 +27,7 @@ void CBarCodeDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
+	
 END_MESSAGE_MAP()
 
 

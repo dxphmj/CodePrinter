@@ -10,6 +10,7 @@
 #define IDD_KEYBOARD_MAIN               132
 #define IDD_DIALOG_MAIN                 133
 #define IDC_EDIT_INPUT                  1000
+#define IDC_EDIT_ZRH                    1001
 #define IDC_D_BTN                       10000
 #define IDC_MIAN_PGDN                   10001
 #define IDC_MIAN_PGUP                   10002
@@ -214,6 +215,24 @@
 #define IDC_LAN_FINNISH                 10203
 #define IDC_LAN_TURKISH                 10204
 #define IDC_LAN_NU6                     10205
+#define IDC_MIAN_LEFTPAGE               10206
+#define IDC_MIAN_RIGHTPAGE              10207
+
+#define IDC_MIAN_FONT1                  10208
+#define IDC_MIAN_FONT2                  10209
+#define IDC_MIAN_FONT3                  10210
+#define IDC_MIAN_FONT4                  10211
+#define IDC_MIAN_FONT5                  10212
+#define IDC_MIAN_FONT6                  10213
+#define IDC_MIAN_FONT7                  10214
+#define IDC_MIAN_FONT8                  10215
+#define IDC_MIAN_FONT9                  10216
+#define IDC_MIAN_FONT10                 10217
+#define IDC_MIAN_FONT11                 10218
+#define IDC_MIAN_FONT12                 10219
+#define IDC_MIAN_FONT13                 10220
+#define IDC_MIAN_FONT14                 10221
+#define IDC_MIAN_FONT15                 10222
 
 // Next default values for new objects
 // 
@@ -221,7 +240,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        134
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         10206
-#define _APS_NEXT_SYMED_VALUE           10206
+#define _APS_NEXT_CONTROL_VALUE         10208
+#define _APS_NEXT_SYMED_VALUE           10207
 #endif
 #endif
