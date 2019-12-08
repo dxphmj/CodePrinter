@@ -27,6 +27,7 @@ void CPictureDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CPictureDlg, CDialog)
+	ON_BN_CLICKED(IDC_PICTURE_CLOSE_BUTTON, &CPictureDlg::OnBnClickedPictureCloseButton)
 END_MESSAGE_MAP()
 
 
@@ -37,10 +38,13 @@ BOOL CPictureDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
-	CRect rect;
-	GetWindowRect(&rect);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CPictureDlg::OnBnClickedPictureCloseButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
 }

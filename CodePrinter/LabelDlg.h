@@ -2,6 +2,7 @@
 #include "afxwin.h"
 #include "ClassMessage.h"
 #include "ModuleMain.h"
+#include "InputDlg.h"
 using namespace MyNameSpace;
 // CLabelDlg 对话框
 
@@ -15,6 +16,7 @@ public:
 	ModuleMain labModule;
 	bool isFrame;
 	void getMessageDot();
+	CInputDlg *pInput;
 
 public:
 	CLabelDlg(CWnd* pParent = NULL);   // 标准构造函数
@@ -56,4 +58,6 @@ public:
 	afx_msg void OnBnClickedRepeatButton();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnBnClickedDownloadButton();
+	afx_msg void OnBnClickedLabelCloseBtn();
+	void showInputDlg(int ID);
 };

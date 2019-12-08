@@ -1,5 +1,9 @@
 #pragma once
-
+#include "EditTextDlg.h"
+#include "EditFigureDlg.h"
+#include "DateDlg.h"
+#include "PictureDlg.h"
+#include "BarCodeDlg.h"
 
 // CInputDlg ¶Ô»°¿ò
 
@@ -25,4 +29,14 @@ public:
 	afx_msg void OnBnClickedEditdateButton();
 	afx_msg void OnBnClickedEditpictureButton();
 	afx_msg void OnBnClickedBarcodeButton();
+	afx_msg void OnBnClickedInputCloseBtn();
+	void showInputDlg(int ID);
+
+public:
+	CEditTextDlg *pEditText;
+	CEditFigureDlg *pEditFigure;
+	CDateDlg *pDate;
+	CPictureDlg *pPic;
+	CBarCodeDlg *pBarCode;
+
 };

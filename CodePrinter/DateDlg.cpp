@@ -27,6 +27,7 @@ void CDateDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CDateDlg, CDialog)
+	ON_BN_CLICKED(IDC_DATE_CLOSE_BTN, &CDateDlg::OnBnClickedDateCloseBtn)
 END_MESSAGE_MAP()
 
 
@@ -43,4 +44,10 @@ BOOL CDateDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CDateDlg::OnBnClickedDateCloseBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
 }

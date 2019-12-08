@@ -74,6 +74,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
 	ON_WM_LBUTTONDOWN()
 	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
+	ON_BN_CLICKED(IDC_LABEL_CLOSE_BTN, &CLabelDlg::OnBnClickedLabelCloseBtn)
 END_MESSAGE_MAP()
 
 
@@ -84,6 +85,11 @@ BOOL CLabelDlg::OnInitDialog()
 	CDialog::OnInitDialog();
     isFrame = false;
 	// TODO:  在此添加额外的初始化
+
+	pInput = new CInputDlg;
+	pInput->Create(IDD_INPUT_DIALOG,this);
+	pInput->MoveWindow(0,200,800,400);
+	pInput->ShowWindow(SW_HIDE);
 
 	//设置按钮的位置及大小
 	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,200,200,65,40,SWP_SHOWWINDOW);
@@ -143,8 +149,7 @@ BOOL CLabelDlg::OnInitDialog()
 void CLabelDlg::OnBnClickedInputButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CInputDlg Input;
-	Input.DoModal();
+	showInputDlg(IDD_INPUT_DIALOG);
 }
 
 
@@ -647,5 +652,21 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 void CLabelDlg::getMessageDot()
 {
+
+}
+void CLabelDlg::OnBnClickedLabelCloseBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
+}
+
+void CLabelDlg::showInputDlg(int ID)
+{
+	pInput->ShowWindow(SW_HIDE);
+
+	if (ID == IDD_INPUT_DIALOG)
+	{
+		pInput->ShowWindow(SW_SHOW);
+	}
 
 }

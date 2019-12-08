@@ -98,6 +98,9 @@
 #define IDC_BUTTON9                     1068
 #define IDC_EVN_BTN                     1074
 #define IDC_COMBO1                      1075
+#define IDC_COUNTER_COMBO               1075
+#define IDC_DATE_FONT_COMBO             1075
+#define IDC_BARCODE_VERSION_COMBO       1075
 #define IDC_LANGUAGE_STATIC             1076
 #define IDC_SYSTEM_CANCEL_BTN           1077
 #define IDC_SYSTEM_CLOSE_BTN            1077
@@ -160,8 +163,55 @@
 #define IDC_OPEN_BTN                    1130
 #define IDC_COM_BTN                     1131
 #define IDC_CLOSE_USER_BTN              1132
-#define IDC_NET_BUTTON                  1133
 #define IDC_NET_BTN                     1133
+#define IDC_LABEL_CLOSE_BTN             1134
+#define IDC_INPUT_CLOSE_BTN             1135
+#define IDC_EDITTEXT_CLOSE_BTN          1136
+#define IDC_EDITFIG_CLOSE_BTN           1137
+#define IDC_PREVIEW_STATIC              1138
+#define IDC_FIRST_QUARTILE_STATIC       1139
+#define IDC_FOUR_QUARTILE_STATIC        1140
+#define IDC_START_STATIC                1141
+#define IDC_STEP_SIZE_STATIC            1142
+#define IDC_PREVIEW_EDIT                1144
+#define IDC_FIRST_QUARTILE_EDIT         1145
+#define IDC_FOUR_QUARTILE_EDIT          1146
+#define IDC_START_EDIT                  1147
+#define IDC_STEP_SIZE_EDIT              1148
+#define IDC_REPEAT_COUNT_STATIC         1149
+#define IDC_REPEAT_COUNT_EDIT           1150
+#define IDC_BIT_DATA_EDIT               1151
+#define IDC_BIT_DATA_STATIC             1152
+#define IDC_COUNTER_STATIC              1153
+#define IDC_FONT_STATIC                 1155
+#define IDC_FONT_COMBO                  1156
+#define IDC_FORMAT_STATIC               1157
+#define IDC_FORMAT_COMBO                1158
+#define IDC_DATE_PREVIEW_STATIC         1159
+#define IDC_DATE_FORMAT_STATIC          1160
+#define IDC_DATE_ADD_BTN                1161
+#define IDC_DATE_FONT_STATIC            1162
+#define IDC_DATE_SKEW_STATIC            1163
+#define IDC_DATE_SKEW_COMBO             1164
+#define IDC_DATE_SKEW_VALUE_STATIC      1165
+#define IDC_DATE_SKEW_VALUE_EDIT        1166
+#define IDC_DATE_SKEW_UNIT_STATIC       1167
+#define IDC_DATE_CLOSE_BTN              1168
+#define IDC_DATE_REFRESH_BTN            1169
+#define IDC_DATE_OK_BTN                 1170
+#define IDC_PICTURE_CLOSE_BUTTON        1171
+#define IDC_BARCODE_BTN                 1172
+#define IDC_BARCODE_CLOSE_BTN           1172
+#define IDC_BARCODE_TEXT_STATIC         1173
+#define IDC_BARCODE_TEXT_EDIT           1174
+#define IDC_BARCODE_SET_STATIC          1175
+#define IDC_ECC_LEVEL_STATIC            1176
+#define IDC_QUIET_ZONE_STATIC           1177
+#define IDC_BARCODE_ECC_LEV_COMBO       1178
+#define IDC_BARCODE_ZONE_COMBO          1179
+#define IDC_BARCODE_FIGURE_BTN          1180
+#define IDC_BARCODE_DATE_BTN            1181
+#define IDC_BARCODE_OK_BTN              1182
 
 // Next default values for new objects
 // 
@@ -169,7 +219,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        153
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1134
+#define _APS_NEXT_CONTROL_VALUE         1183
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
