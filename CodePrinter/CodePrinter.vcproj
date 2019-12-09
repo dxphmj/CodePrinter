@@ -55,7 +55,7 @@
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>

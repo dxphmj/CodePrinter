@@ -9,7 +9,8 @@
 #include "DateDlg.h"
 #include "PictureDlg.h"
 #include "BarCodeDlg.h"
-
+#include <atlimage.h>
+#include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
 // CInputDlg 对话框
 
 IMPLEMENT_DYNAMIC(CInputDlg, CDialog)
@@ -100,7 +101,49 @@ void CInputDlg::OnBnClickedEditdateButton()
 void CInputDlg::OnBnClickedEditpictureButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	showInputDlg(IDD_PICTURE_DIALOG);
+	//showInputDlg(IDD_PICTURE_DIALOG);
+	TCHAR path[MAX_PATH];
+	//labModule.string2tchar(testpath,path);
+
+	string xmlPath;
+	if(ShowPathDlg(path, MAX_PATH))
+	{
+		int xPos=0;
+		int yPos=0;
+		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+		{
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			{
+				theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
+				yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
+				xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
+			}
+		}
+		xmlPath=inPutModule.TCHAR2STRING(path);
+		//CImage myImage;
+		//myImage.Load(NULL);
+		OBJ_Control bmpObj;
+		bmpObj.intLineStart=yPos;
+		bmpObj.intRowStart=xPos;
+		bmpObj.ReadBmp(const_cast<char*>(xmlPath.c_str()));
+       
+		bmpObj.strType1="text";
+		bmpObj.strType2="logo";
+
+		bmpObj.intLineSize=bmpObj.yMaxBmp;
+		bmpObj.intRowSize=bmpObj.xMaxBmp;
+		//以下写实
+		bmpObj.intSW=1;
+		bmpObj.intSS=0;
+		bmpObj.booNEG=false;
+		bmpObj.booBWDx=false;
+		bmpObj.booBWDy=false;
+
+		//bmpObj.strFont="7x5";
+		bmpObj.strText=xmlPath;
+		bmpObj.booFocus=true;
+		theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
+	}
 }
 
 void CInputDlg::OnBnClickedBarcodeButton()

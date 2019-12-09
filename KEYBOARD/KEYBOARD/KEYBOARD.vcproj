@@ -52,7 +52,7 @@
 				ExecutionBucket="7"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;_USRDLL;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL;KEYBOARD_EXPORTS"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>

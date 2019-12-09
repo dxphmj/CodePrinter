@@ -5,7 +5,7 @@
 using namespace std;
 typedef unsigned char BYTE;
 #define max 100
-
+//#include <atlimage.h>
 #ifdef MESSAGEEDIT_EXPORTS
 #define MESSAGEEDIT_API  _declspec(dllexport)
 #else
@@ -55,10 +55,14 @@ namespace MyNameSpace
 		bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框
 	public://参数，待定
 		string img;//此为logo图片，vb中为Image类型
-        vector<vector<bool>> logobmp;//不明
+        //vector<vector<bool>> logobmp;//不明
 
-        vector<vector<bool>> LogoDotToMes;//改变后的Logo图片点阵用于下发数据用
-        vector<vector<bool>> LogoDot;//logo点阵
+        //vector<vector<bool>> LogoDotToMes;//改变后的Logo图片点阵用于下发数据用
+        //vector<vector<bool>> LogoDot;//logo点阵
+
+
+		bool boDotBmp[32][255];//加载bmp用
+		int xMaxBmp,yMaxBmp;//用来记录本次加载图片的大小
 	public://方法
 		char objbytTex5x5Line[7];
 		char objbytTex7x5Line[8];
@@ -66,7 +70,7 @@ namespace MyNameSpace
 		char objbytTex16x12Line[29];
 		void DrawFrame(CDC* pDC);
         void DrawDot(CDC* pDC);
-
+        void ReadBmp(char* strFileName);
 	private:
 		//ClassMessage objClassMessage;
 		map<string,int> fntMap;
@@ -91,7 +95,7 @@ namespace MyNameSpace
         bool boDotMes[32][255];
 		int bytRowByteMul;//一列由几个byte表示
 		//vector<BYTE> bytTempDataVec;
-
+       
 	public:
 		 BYTE getByteFromDot(bool boDot,int moveNum); 
 		 string DEC_to_BIN(long long Dec);
@@ -104,6 +108,7 @@ namespace MyNameSpace
 	public://XML
 		void ReadObjectsFromXml(char* strFileName);
 		void SaveObjectsToXml(char* strFileName);
+		
 	};
 
 

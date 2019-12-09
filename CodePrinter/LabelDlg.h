@@ -1,9 +1,9 @@
 #pragma once
 #include "afxwin.h"
-#include "ClassMessage.h"
+//#include "ClassMessage.h"
 #include "ModuleMain.h"
 #include "InputDlg.h"
-using namespace MyNameSpace;
+
 // CLabelDlg ¶Ô»°¿ò
 
 class CLabelDlg : public CDialog
@@ -12,7 +12,7 @@ class CLabelDlg : public CDialog
 public:
 	int matrix;
 	int pixel;
-	ClassMessage myclassMessage;
+	
 	ModuleMain labModule;
 	bool isFrame;
 	void getMessageDot();

@@ -3,10 +3,11 @@
 
 #pragma once
 #include "Language.h"
+#include "ClassMessage.h"
 #ifndef __AFXWIN_H__
 	#error "在包含此文件之前包含“stdafx.h”以生成 PCH 文件"
 #endif
-
+using namespace MyNameSpace;
 #ifdef STANDARDSHELL_UI_MODEL
 #include "resource.h"
 #endif
@@ -26,6 +27,7 @@ public:
 
 // 实现
 	Language myLanguage;
+	ClassMessage myclassMessage;
 	DECLARE_MESSAGE_MAP()
 };
 
