@@ -21,4 +21,6 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedBarcodeCloseBtn();
+	afx_msg void OnBnClickedQrCodeBtn();
+	afx_msg void OnBnClickedDataMatrixBtn();
 };

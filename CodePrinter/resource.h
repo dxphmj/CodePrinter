@@ -200,7 +200,6 @@
 #define IDC_DATE_REFRESH_BTN            1169
 #define IDC_DATE_OK_BTN                 1170
 #define IDC_PICTURE_CLOSE_BUTTON        1171
-#define IDC_BARCODE_BTN                 1172
 #define IDC_BARCODE_CLOSE_BTN           1172
 #define IDC_BARCODE_TEXT_STATIC         1173
 #define IDC_BARCODE_TEXT_EDIT           1174
@@ -212,6 +211,11 @@
 #define IDC_BARCODE_FIGURE_BTN          1180
 #define IDC_BARCODE_DATE_BTN            1181
 #define IDC_BARCODE_OK_BTN              1182
+#define IDC_QR_CODE_BTN                 1183
+#define IDC_                            1184
+#define IDC_DATA_MATRIX_BTN             1184
+#define IDC_CODE_39_BTN                 1185
+#define IDC_CODE_128_BTN                1186
 
 // Next default values for new objects
 // 
@@ -219,7 +223,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        153
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1183
+#define _APS_NEXT_CONTROL_VALUE         1187
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
