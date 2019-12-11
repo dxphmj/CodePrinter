@@ -119,28 +119,28 @@ BOOL CLabelDlg::OnInitDialog()
 
 	//test
 
-	OBJ_Control myOBJ_Control;
-	myOBJ_Control.strType1="text";
-	myOBJ_Control.strType2="text";
-	myOBJ_Control.intLineSize=7;
-	myOBJ_Control.intRowSize=18;
-	myOBJ_Control.strFont="7x5";
-	myOBJ_Control.strText="ABf";
-	myOBJ_Control.booFocus=false;
-	theApp.myclassMessage.OBJ_Vec.push_back(myOBJ_Control);
-	OBJ_Control myNewOBJ;
-	myNewOBJ.strType1="text";
-	myNewOBJ.strType2="text";
-	myNewOBJ.intLineStart=0;
-	myNewOBJ.intRowStart=18;
-	myNewOBJ.intLineSize=7;
-	myNewOBJ.intRowSize=18;
-	myNewOBJ.strFont="7x5";
-	myNewOBJ.strText="987";
-	theApp.myclassMessage.OBJ_Vec.push_back(myNewOBJ);
+	//OBJ_Control myOBJ_Control;
+	//myOBJ_Control.strType1="text";
+	//myOBJ_Control.strType2="text";
+	//myOBJ_Control.intLineSize=7;
+	//myOBJ_Control.intRowSize=18;
+	//myOBJ_Control.strFont="7x5";
+	//myOBJ_Control.strText="ABf";
+	//myOBJ_Control.booFocus=false;
+	//theApp.myclassMessage.OBJ_Vec.push_back(myOBJ_Control);
+	//OBJ_Control myNewOBJ;
+	//myNewOBJ.strType1="text";
+	//myNewOBJ.strType2="text";
+	//myNewOBJ.intLineStart=0;
+	//myNewOBJ.intRowStart=18;
+	//myNewOBJ.intLineSize=7;
+	//myNewOBJ.intRowSize=18;
+	//myNewOBJ.strFont="7x5";
+	//myNewOBJ.strText="987";
+	//theApp.myclassMessage.OBJ_Vec.push_back(myNewOBJ);
 	theApp.myclassMessage.Reverse="GLOBAL";
 	theApp.myclassMessage.Inverse="GLOBAL";
-
+    //labModule.InitCommMsg();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -629,6 +629,8 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 void CLabelDlg::OnBnClickedDownloadButton()
 {
 	 //TODO: 在此添加控件通知处理程序代码
+	BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
+
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	//2、取值并发送至下位机 download_pcf()
 	//3、关闭动态打印线程（若有）
@@ -636,17 +638,72 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//动态文本关
 
 	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
+	int rowMax=0;
 	memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
 	for(vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();objIter!=theApp.myclassMessage.OBJ_Vec.end();objIter++)
 	{
 		theApp.myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
 			objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
+		if (rowMax<(objIter->intRowSize+objIter->intRowStart))
+		{
+			rowMax=objIter->intRowSize+objIter->intRowStart;
+		}
+
 	}
+	//以上都要放到getMessageDot中，
+	//drawPrevFirst（）
+
+	if (theApp.myclassMessage.boDynamic)//是否动态打印
+	{
+	} 
+	else
+	{
+		vector<BYTE> testByteVec;
+		testByteVec=theApp.myclassMessage.DotToByte(0,rowMax);
+		dotDataLen_l=testByteVec.size()%256;
+		dotDataLen_h=testByteVec.size()/256;
+		pixelMes=(BYTE)pixel;
+		matrix_name=pixelMes<<2;//低二位为模式，原程序没用到
+		pixelAll=pixelMes | 0x80;
+
+		theApp.boPrintNowLock.Lock();
+        theApp.myclassMessage.bytPrintDataAll.clear();
+		theApp.myclassMessage.bytPrintDataAllOrder.clear();
+
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x80);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x6);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x11);
+		theApp.myclassMessage.bytPrintDataAll.push_back(matrix_name);
+		theApp.myclassMessage.bytPrintDataAll.push_back(pixelMes);
+		theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_l);
+		theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_h);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+		//theApp.myclassMessage.bytPrintDataAllOrder={0x1,0x80,0x6,0x1,0x11,matrix_name,pixelMes,dotDataLen_l,dotDataLen_h,0xff,0xff};
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x80);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x6);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x11);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(matrix_name);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(pixelAll);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_l);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_h);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
 	
-	vector<BYTE> testByteVec;
-	testByteVec=theApp.myclassMessage.DotToByte(0,36);
-	BYTE ssss=testByteVec[34];
-    ssss=testByteVec[0];
+		testByteVec.push_back(0xff);
+		testByteVec.push_back(0xff);
+
+		theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),testByteVec.begin(),testByteVec.end());
+		theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),testByteVec.begin(),testByteVec.end());
+		theApp.boPrintNowLock.Unlock();
+	}
+
+	//BYTE ssss=testByteVec[34];
+    //ssss=testByteVec[0];
 }
 
 

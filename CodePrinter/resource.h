@@ -216,6 +216,7 @@
 #define IDC_DATA_MATRIX_BTN             1184
 #define IDC_CODE_39_BTN                 1185
 #define IDC_CODE_128_BTN                1186
+#define IDC_BUTTON_EDITOK               1187
 
 // Next default values for new objects
 // 
@@ -223,7 +224,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        153
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1187
+#define _APS_NEXT_CONTROL_VALUE         1188
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

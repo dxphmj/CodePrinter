@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include<map>
+#include <queue>
 using namespace std;
 typedef unsigned char BYTE;
 #define max 100
@@ -94,8 +95,16 @@ namespace MyNameSpace
 		bool boInverse;
         bool boDotMes[32][255];
 		int bytRowByteMul;//一列由几个byte表示
+		bool boDynamic;//是否动态打印
+		bool boPrintNow;//是否即时打印
 		//vector<BYTE> bytTempDataVec;
-       
+
+       /////////////////////////////////////////////
+        queue<vector<BYTE>> forPreQue;//序列号队列
+		vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
+		vector<BYTE> bytPrintDataAll;//空时自动发送BUF
+		////////////////////////////////////
+
 	public:
 		 BYTE getByteFromDot(bool boDot,int moveNum); 
 		 string DEC_to_BIN(long long Dec);

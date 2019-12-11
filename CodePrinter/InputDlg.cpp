@@ -125,14 +125,14 @@ void CInputDlg::OnBnClickedEditpictureButton()
 		OBJ_Control bmpObj;
 		bmpObj.intLineStart=yPos;
 		bmpObj.intRowStart=xPos;
-		bmpObj.ReadBmp(const_cast<char*>(xmlPath.c_str()));
-       
+		bmpObj.ReadBmp(const_cast<char*>(xmlPath.c_str()));//这个最好返回一个bool变量,就能省去if了
+        if (bmpObj.intLineSize<=0||bmpObj.intRowSize<=0)
+        {
+			return;
+        }
 		bmpObj.strType1="text";
 		bmpObj.strType2="logo";
-
-		bmpObj.intLineSize=bmpObj.yMaxBmp;
-		bmpObj.intRowSize=bmpObj.xMaxBmp;
-		//以下写实
+		//以下先写死
 		bmpObj.intSW=1;
 		bmpObj.intSS=0;
 		bmpObj.booNEG=false;

@@ -3,8 +3,12 @@
 #include "xml\tinyxml.h"
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
+UINT TTLcomLoop(LPVOID pParam);
+BYTE* VEC2ARRAY(vector<BYTE> tempVec,int n);
+CString GETnBIT_from_bytReadData(int I , int m , int n );
 class ModuleMain//Õ®”√À„∑®ø‚
 {
 public:
@@ -16,4 +20,8 @@ public:
     bool writeXml(string xmlFileName,string valueStr,string textStr,string path);
 	void string2tchar(std::string &src, TCHAR* buf);
 	string TCHAR2STRING(TCHAR *STR);
+   
+public:
+	void InitCommMsg();
 };
+

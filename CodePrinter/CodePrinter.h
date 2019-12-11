@@ -2,8 +2,11 @@
 //
 
 #pragma once
+#include <queue>
+#include "IOVsd.h"
 #include "Language.h"
 #include "ClassMessage.h"
+#include "afxmt.h"
 #ifndef __AFXWIN_H__
 	#error "在包含此文件之前包含“stdafx.h”以生成 PCH 文件"
 #endif
@@ -24,10 +27,21 @@ public:
 // 重写
 public:
 	virtual BOOL InitInstance();
+//
+	BYTE bytSlaveStatus[37];
+	queue<vector<BYTE>> queCtr;//命令队列
+	int readCount;
 
 // 实现
+	bool boTTL;
+	CWinThread* TTLcom;//ttl线程句柄
+	DWORD TTLcomID;
 	Language myLanguage;
 	ClassMessage myclassMessage;
+	CCriticalSection bytSlaveStatusLock;//读取状态
+	CCriticalSection boPrintNowLock;//打印
+	CCriticalSection boQueCtrLock;//命令
+	CIOVsd myCIOVsd;
 	DECLARE_MESSAGE_MAP()
 };
 

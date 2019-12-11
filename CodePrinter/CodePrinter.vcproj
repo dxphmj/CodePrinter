@@ -794,6 +794,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IOVsd.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LabelDlg.h"
 				>
 			</File>

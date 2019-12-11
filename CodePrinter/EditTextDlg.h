@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CEditTextDlg ¶Ô»°¿ò
@@ -21,4 +22,9 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedEdittextCloseBtn();
+	afx_msg void OnEnChangeEdit1();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	CComboBox fontComboBox;
+	afx_msg void OnCbnSelchangeFont();
+	afx_msg void OnBnClickedButtonEditok();
 };

@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "ModuleMain.h"
-
+#include "CodePrinter.h"
 ModuleMain::ModuleMain(void)
 {
 }
@@ -127,4 +127,214 @@ string ModuleMain::TCHAR2STRING(TCHAR *STR)
 
 	return str;
 
+}
+
+void ModuleMain::InitCommMsg()
+{
+	MyDcb tempDcb;
+	tempDcb.nComPort=4;
+	tempDcb.BaudRate=115200;
+	tempDcb.ByteSize=(BYTE)8;
+	tempDcb.Parity=(BYTE)0;
+	tempDcb.StopBits=(BYTE)1;
+	tempDcb.bIsSave=false;
+	theApp.myCIOVsd.SetComIndx(tempDcb.nComPort);
+	if (!theApp.myCIOVsd.OpenComm(tempDcb))
+	{
+		CString csMsg = _T("串口4打开失败!");
+		//csMsg.Format("串口%d打开失败!",tempDcb.nComPort);
+		AfxMessageBox(csMsg);
+	}
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+BYTE* VEC2ARRAY(vector<BYTE> tempVec,int n)
+{
+	//BYTE charary[n];
+	BYTE *arr = new BYTE[n];
+	memcpy(arr, &tempVec[0], tempVec.size() * sizeof(tempVec[0]));
+	return arr;
+}
+
+CString GETnBIT_from_bytReadData(int I , int m , int n )
+{
+	string tempCstr="";
+	ModuleMain tempstringToLPCWSTR;
+	tempCstr="00000000"+theApp.myclassMessage.DEC_to_BIN(theApp.myCIOVsd.m_pRecvBuf[I+4]);
+
+    //tempCstr=tempCstr.Mid(tempCstr.GetLength()-m,n);
+	CString cstringStr= tempstringToLPCWSTR.stringToLPCWSTR(tempCstr);
+	return cstringStr.Mid(cstringStr.GetLength()-m,n);
+}
+UINT TTLcomLoop(LPVOID pParam)
+{
+	theApp.boTTL=true;
+	int bytComErr=0;
+	int strTempCmdLen=0;
+	LPTSTR strTempCmd;
+	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
+	while(theApp.boTTL)
+	{
+		if (theApp.readCount==43)
+		{
+			theApp.readCount=0;
+			strTempCmdLen=0;
+			//BYTE bytReadData[43];
+			//theApp.myCIOVsd.Read()
+			if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[2]==0x26)
+			{
+				bytComErr=0;
+				theApp.boQueCtrLock.Lock();
+					if (theApp.queCtr.size()>0)
+					{
+						vector<BYTE> tempQueVec=theApp.queCtr.front();
+						theApp.queCtr.pop();
+						strTempCmdLen=tempQueVec.size();
+						strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+					}
+					else if (theApp.myclassMessage.boPrintNow)
+					{
+						theApp.boPrintNowLock.Lock();
+						if (theApp.myclassMessage.bytPrintDataAllOrder.size()>11)
+						{
+							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
+							strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
+							theApp.myclassMessage.boPrintNow=false;
+						} 
+						else
+						{
+							strTempCmd=(LPTSTR)readArr;
+							strTempCmdLen=8;
+						}
+						theApp.boPrintNowLock.Unlock();
+					}
+					else if (!theApp.myclassMessage.boPrintNow)
+					{
+						if (GETnBIT_from_bytReadData(6,2,1)==_T("1"))
+						{
+							if (theApp.myclassMessage.boDynamic)
+							{
+								if (theApp.myclassMessage.forPreQue.size()>0)
+								{
+									vector<BYTE> tempQueVec=theApp.myclassMessage.forPreQue.front();
+									theApp.myclassMessage.forPreQue.pop();
+									strTempCmdLen=tempQueVec.size();
+									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+									if (strTempCmdLen>11)
+									{////动态显示相关
+									} 
+									else
+									{
+										strTempCmd=(LPTSTR)readArr;
+										strTempCmdLen=8;
+									}
+								} 
+								else
+								{
+									strTempCmd=(LPTSTR)readArr;
+									strTempCmdLen=8;
+								}
+							} 
+							else
+							{
+								strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
+								strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
+								if (strTempCmdLen<12)
+								{
+									strTempCmd=(LPTSTR)readArr;
+									strTempCmdLen=8;
+								}
+							}
+						} 
+						else
+						{
+							strTempCmd=(LPTSTR)readArr;
+							strTempCmdLen=8;
+						}
+					}
+					else
+					{
+						strTempCmd=(LPTSTR)readArr;
+						strTempCmdLen=8;
+					}
+				theApp.boQueCtrLock.Unlock();
+
+				//同步状态数据
+				theApp.bytSlaveStatusLock.Lock();
+					for (int i=0;i<37;i++)
+					{
+						theApp.bytSlaveStatus[i]=theApp.myCIOVsd.m_pRecvBuf[i+4];
+					}
+				theApp.bytSlaveStatusLock.Unlock();
+			} 
+		}
+
+		if (theApp.readCount==6)
+		{
+			theApp.readCount=0;
+			strTempCmdLen=0;
+			if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[3]==0x10)
+			{
+				bytComErr=0;
+				theApp.boQueCtrLock.Lock();
+				if (theApp.queCtr.size()>0)
+				{
+					vector<BYTE> tempQueVec=theApp.queCtr.front();
+					theApp.queCtr.pop();
+					strTempCmdLen=tempQueVec.size();
+					strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,strTempCmdLen);
+				} 
+				else if(theApp.myclassMessage.boPrintNow)
+				{
+					theApp.boPrintNowLock.Lock();
+					if (theApp.myclassMessage.bytPrintDataAllOrder.size()>11)
+					{
+						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
+						strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
+						theApp.myclassMessage.boPrintNow=false;
+					} 
+					else
+					{
+						strTempCmd=(LPTSTR)readArr;
+						strTempCmdLen=8;
+					}
+					theApp.boPrintNowLock.Unlock();
+				}
+				else if (!theApp.myclassMessage.boPrintNow)
+				{
+					strTempCmd=(LPTSTR)readArr;
+					strTempCmdLen=8;
+				}
+				theApp.boQueCtrLock.Unlock();
+			}
+		} 
+		else if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[3]==0x20)
+		{
+			bytComErr++;
+			if (bytComErr>10)
+			{/////弹出对话框
+				int result =MessageBox( NULL,TEXT("是否继续") , TEXT("选择") ,MB_YESNO);
+				switch(result)
+				{
+				case IDYES:
+					bytComErr=0;
+					strTempCmd=(LPTSTR)readArr;
+					strTempCmdLen=8;
+					break;
+				case IDNO:
+					AfxMessageBox(_T("串口通讯故障！\n请联系管理员！"));
+					break;
+				}
+			} 
+		}
+        theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
+
+		Sleep(10);
+		
+		theApp.readCount=theApp.myCIOVsd.Read();
+	}
+
+
+	return 0;
 }

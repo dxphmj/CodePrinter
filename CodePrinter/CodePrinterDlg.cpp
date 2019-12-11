@@ -110,6 +110,20 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButRestCount.LoadBitmaps(IDB_BITMAP1,IDB_BITMAP2,0,0,IDB_BITMAP3);
 	m_ButRestCount.SizeToContent(); 
 
+///////////////////////
+	////LPTSTR strTempCmd;
+	////BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
+	////strTempCmd=(LPTSTR)readArr;
+	////theApp.myCIOVsd.Send(strTempCmd,8);
+	////Sleep(10);
+	////theApp.readCount=theApp.myCIOVsd.Read();
+ ////   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
+
+
+
+	//theApp.TTLcom=CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)TTLcomLoop,NULL,CREATE_SUSPENDED,&theApp.TTLcomID);
+	
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
