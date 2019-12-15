@@ -27,4 +27,6 @@ public:
 	afx_msg void OnBnClickedLanChinese();
 	afx_msg void OnBnClickedLanArabic();
 	afx_msg void OnBnClickedLanGerman();
+	afx_msg void OnBnClickedLanKorean();
+	afx_msg void OnBnClickedLanEnglish();
 };

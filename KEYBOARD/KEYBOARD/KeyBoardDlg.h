@@ -59,6 +59,7 @@ public:
 					  Russian=16,Spanish=17,Swedish=18,
 					  Thai=19,Turkish=20};
 	int LanType;
+	int LanTurn;
 public:
 	 void setEditText(CString &str);//设置主编辑框文本
 	 void setEditText_Font(CString &str);

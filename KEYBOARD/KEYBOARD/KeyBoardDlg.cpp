@@ -61,6 +61,7 @@ BOOL CKeyBoardDlg::OnInitDialog()
 	CRect rect;
 	GetWindowRect(&rect);
 	LanType = English;
+	LanTurn = English;
 	//////中日韩文字选择按键
 	CButton* btnFont = new CButton[17];  
 	DWORD dwStyle = WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON;
@@ -411,3 +412,4 @@ void CKeyBoardDlg::OnEnSetfocusEditZrh()
 	// TODO: 在此添加控件通知处理程序代码
 	LanType = Chinese;
 }
+
