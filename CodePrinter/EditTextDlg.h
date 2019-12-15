@@ -1,7 +1,6 @@
 #pragma once
 #include "afxwin.h"
 
-
 // CEditTextDlg ¶Ô»°¿ò
 
 class CEditTextDlg : public CDialog

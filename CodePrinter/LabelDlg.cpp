@@ -112,7 +112,7 @@ BOOL CLabelDlg::OnInitDialog()
 	ComboMatrix.AddString(_T("1L19M"));
 	ComboMatrix.AddString(_T("1L25M"));
 	ComboMatrix.AddString(_T("2L7M"));
-	ComboMatrix.SetCurSel(-1);
+	ComboMatrix.SetCurSel(1);
 
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
 

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ConfigPrintModeDlg.h"
 
 // CConfigurationDlg ¶Ô»°¿ò
 
@@ -20,4 +20,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	CConfigPrintModeDlg *m_ConfigPM;
+
+	afx_msg void OnBnClickedConfiCloseBtn();
+	void showConfigDlg(int ID);
+	afx_msg void OnBnClickedPrintSetBtn();
 };

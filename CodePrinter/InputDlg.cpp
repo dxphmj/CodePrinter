@@ -83,6 +83,7 @@ BOOL CInputDlg::OnInitDialog()
 void CInputDlg::OnBnClickedEdittextButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_EDITTEXT_DIALOG);
 }
 
@@ -150,6 +151,7 @@ void CInputDlg::OnBnClickedBarcodeButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showInputDlg(IDD_BARCODE_DIALOG);
+	this->ShowWindow(SW_HIDE);
 }
 
 void CInputDlg::OnBnClickedInputCloseBtn()

@@ -117,6 +117,7 @@ BOOL CBarCodeDlg::PreTranslateMessage(MSG* pMsg)
 void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_BARCODE_TEXT_EDIT);
 	CString str;
 	pEdit-> GetWindowText(str);
@@ -193,6 +194,7 @@ void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 	bmpObj.strText=bQModule.CString2string(str);
 	bmpObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
+
 }
 
 void CBarCodeDlg::OnCbnSelchangeBarcodeVersionCombo()

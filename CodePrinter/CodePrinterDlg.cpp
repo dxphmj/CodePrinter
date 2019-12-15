@@ -28,7 +28,12 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_FAULT_BUTTON, m_ButFault);
-	DDX_Control(pDX, IDC_RESET_COUNT_BTN, m_ButRestCount);
+	DDX_Control(pDX, IDC_SYSTEM_BUTTON, m_ButSystem);
+	DDX_Control(pDX, IDC_USER_BUTTON, m_ButUser);
+	DDX_Control(pDX, IDC_LABEL_BUTTON, m_ButLabel);
+	DDX_Control(pDX, IDC_CONFIGURATION_BUTTON, m_ButConfig);
+	DDX_Control(pDX, IDC_FILEMANA_BUTTON, m_ButFileMana);
+	DDX_Control(pDX, IDC_INK_BUTTON, m_ButInk);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -62,6 +67,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CRect rect;
 	GetWindowRect(&rect);
 
+	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
 	m_User = new CUserDlg;
 	m_Label = new CLabelDlg;
@@ -73,6 +79,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	int nY = 0;
 	int nWidth = 800;
 	int nHeight = 600;
+	m_Fault->Create(IDD_FAULT_DIALOG,this);
+	m_Fault->MoveWindow(nX,nY,nWidth,nHeight);
+
 	m_System->Create(IDD_SYSTEM_DIALOG,this);
 	m_System->MoveWindow(nX,nY,nWidth,nHeight);
 
@@ -99,16 +108,27 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_LABEL_BUTTON)->SetWindowPos(NULL,670,270,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CONFIGURATION_BUTTON)->SetWindowPos(NULL,670,340,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_FILEMANA_BUTTON)->SetWindowPos(NULL,670,410,80,55,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,670,480,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_INK_BUTTON)->SetWindowPos(NULL,670,480,80,55,SWP_SHOWWINDOW);
 	//下面两个按钮
 	GetDlgItem(IDC_RESET_COUNT_BTN)->SetWindowPos(NULL,40,400,80,50,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_RESET_SERIAL_BTN)->SetWindowPos(NULL,360,400,80,50,SWP_SHOWWINDOW);
 	
 	//彩色按钮
-	m_ButFault.LoadBitmaps(IDB_BITMAP1,IDB_BITMAP2,0,0,IDB_BITMAP3);
+	m_ButFault.LoadBitmaps(IDB_FAULT_BITMAP,IDB_FAULT_BITMAP,0,0,IDB_FAULT_BITMAP);
 	m_ButFault.SizeToContent(); 
-	m_ButRestCount.LoadBitmaps(IDB_BITMAP1,IDB_BITMAP2,0,0,IDB_BITMAP3);
-	m_ButRestCount.SizeToContent(); 
+	m_ButSystem.LoadBitmaps(IDB_SYSTEM_BITMAP,IDB_SYSTEM_BITMAP,0,0,IDB_SYSTEM_BITMAP);
+	m_ButSystem.SizeToContent(); 
+	m_ButUser.LoadBitmaps(IDB_USER_BITMAP,IDB_USER_BITMAP,0,0,IDB_USER_BITMAP);
+	m_ButUser.SizeToContent(); 
+	m_ButLabel.LoadBitmaps(IDB_LABEL_BITMAP,IDB_LABEL_BITMAP,0,0,IDB_LABEL_BITMAP);
+	m_ButLabel.SizeToContent(); 
+	m_ButConfig.LoadBitmaps(IDB_CONFIG_BITMAP,IDB_CONFIG_BITMAP,0,0,IDB_CONFIG_BITMAP);
+	m_ButConfig.SizeToContent(); 
+	m_ButFileMana.LoadBitmaps(IDB_FILEMANA_BITMAP,IDB_FILEMANA_BITMAP,0,0,IDB_FILEMANA_BITMAP);
+	m_ButFileMana.SizeToContent(); 
+	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
+	m_ButInk.SizeToContent(); 
+
 
 ///////////////////////
 	//LPTSTR strTempCmd;
@@ -151,8 +171,7 @@ void CCodePrinterDlg::OnBnClickedLabelButton()
 void CCodePrinterDlg::OnBnClickedFaultButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CFaultDlg Fault;
-	Fault.DoModal();
+	showDlg(IDD_FAULT_DIALOG);
 }
 
 void CCodePrinterDlg::OnBnClickedSystemButton()
@@ -187,9 +206,9 @@ void CCodePrinterDlg::OnBnClickedInkButton()
 
 void CCodePrinterDlg::showDlg(int ID)
 {
+	m_Fault->ShowWindow(SW_HIDE);
 	m_System->ShowWindow(SW_HIDE);
 	m_User->ShowWindow(SW_HIDE);
-
 	m_Label->ShowWindow(SW_HIDE);
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
@@ -218,5 +237,9 @@ void CCodePrinterDlg::showDlg(int ID)
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
+	}
+	else if (ID == IDD_FAULT_DIALOG)
+	{
+		m_Fault->ShowWindow(SW_SHOW);
 	}
 }
