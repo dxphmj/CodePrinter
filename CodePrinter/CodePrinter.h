@@ -6,6 +6,7 @@
 #include "IOVsd.h"
 #include "Language.h"
 #include "ClassMessage.h"
+#include "ModuleMain.h"
 #include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
 #include "afxmt.h"
 #ifndef __AFXWIN_H__
@@ -32,10 +33,11 @@ public:
 	BYTE bytSlaveStatus[37];
 	queue<vector<BYTE>> queCtr;//命令队列
 	int readCount;
-
+	BYTE bytStatus[37];
 // 实现
 	bool boTTL;
 	CWinThread* TTLcom;//ttl线程句柄
+	StatusClass myStatusClass;
 	DWORD TTLcomID;
 	Language myLanguage;
 	ClassMessage myclassMessage;
