@@ -53,6 +53,12 @@ namespace MyNameSpace
 		string strqrcodeVersion;//二维码的版本类型
 		string strqrcodeECCLevel;//二维码的容错率等级
 		int intqrcodeQuietZone;//二维码空白框层数
+
+
+        bool boQRBig;
+		int intQRVersion;
+		int intQRErrLevel;
+		int intQREncodingMode;
 		bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框
 	public://参数，待定
 		string img;//此为logo图片，vb中为Image类型

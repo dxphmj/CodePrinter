@@ -103,6 +103,7 @@ public:
 	//ÉèÖÃ´®¿ÚºÅ
 	void SetComIndx(int nComIndx);
 	unsigned short CRC16(unsigned char *puchMsg,unsigned short usDataLen);
+	void ClearInOutBuf();
 
 };
 

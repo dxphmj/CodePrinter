@@ -143,11 +143,11 @@ int CSTPSerialPort::Open(UINT32 nPortNo, UINT32 nBaudRate, BYTE byDataBit, BYTE 
 	dcb.fParity = 1;
 	
 	//对配置进行修改，并且指定发送和接收缓冲区的大小，如果失败则关闭串口
-	if(!SetCommState(m_hCOM, &dcb) )    //   || !SetupComm(m_hCOM, 10, 10)   设置缓存区失败
-	{
-		CloseHandle(m_hCOM);
-		return -1;
-	}
+	//if(!SetCommState(m_hCOM, &dcb) )    //   || !SetupComm(m_hCOM, 10, 10)   设置缓存区失败
+	//{
+	//	CloseHandle(m_hCOM);
+	//	return -1;
+	//}
 	
 	//------------------------------------------------------------
 	//串口读写事件
@@ -318,7 +318,7 @@ int CSTPSerialPort::Receive(BYTE* pRecvBuf, UINT32 nRecvSize, UINT32* pRecvLen)
 	DWORD dwBytesToRead = 0;	//期望从串口读到的字节数
 	DWORD dwBytesRead = 0;		//实际从串口读到的字节数
 	BOOL bReturnValue = FALSE;
-
+    *pRecvLen = 0;
 	//------------------------------------------------------------
 	//检查输入参数
 	if (pRecvBuf == NULL || nRecvSize <= 0)
@@ -335,6 +335,8 @@ int CSTPSerialPort::Receive(BYTE* pRecvBuf, UINT32 nRecvSize, UINT32* pRecvLen)
 	
 	//------------------------------------------------------------
 	//从串口中读取数据
+//    memset(pRecvBuf,'\0',(BYTE)nRecvSize*sizeof(BYTE));//清空数组
+
 	memset(&stComStat, 0x00, sizeof(stComStat));
 	BOOL bTest = ClearCommError(m_hCOM, &dwErrFlags, &stComStat);
 	if (stComStat.cbInQue > 0)
@@ -366,6 +368,10 @@ int CSTPSerialPort::Receive(BYTE* pRecvBuf, UINT32 nRecvSize, UINT32* pRecvLen)
 			}
 		}
 	}
+	//else///增加返回0长度
+	//{
+	//	*pRecvLen = 0;
+	//}
 
 	return 0;
 }

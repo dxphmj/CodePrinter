@@ -699,6 +699,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 		theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),testByteVec.begin(),testByteVec.end());
 		theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),testByteVec.begin(),testByteVec.end());
+		theApp.myclassMessage.boPrintNow=true;
 		theApp.boPrintNowLock.Unlock();
 	}
 

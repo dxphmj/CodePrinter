@@ -38,7 +38,8 @@
 
 #define isdigit(__c__) ((unsigned char)((signed char)(__c__) - '0') < 10)
 #define isalnum(__c__) (QRinput_lookAnTable(__c__) >= 0)
-
+extern int errno;
+extern char *strdup(char *s);
 #if !HAVE_STRDUP
 #undef strdup
 char *strdup(const char *s)
@@ -276,10 +277,12 @@ static int Split_splitString(const char *string, QRinput *input,
 
 static char *dupAndToUpper(const char *str, QRencodeMode hint)
 {
-	char *newstr, *p;
+	char  *p;
 	QRencodeMode mode;
 
-	newstr = strdup(str);
+	//newstr = strdup(str);
+	char* newstr=new char[100];
+	strcpy(newstr,str);
 	if(newstr == NULL) return NULL;
 
 	p = newstr;

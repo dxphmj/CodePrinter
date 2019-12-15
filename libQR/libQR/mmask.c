@@ -30,7 +30,7 @@
 #include "qrencode.h"
 #include "mqrspec.h"
 #include "mmask.h"
-
+extern int errno;
 void MMask_writeFormatInformation(int version, int width, unsigned char *frame, int mask, QRecLevel level)
 {
 	unsigned int format;

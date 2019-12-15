@@ -233,8 +233,8 @@
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
-				WarningLevel="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="4"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -252,7 +252,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
-				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib"
+				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib libQR.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				StackReserveSize="65536"

@@ -30,7 +30,7 @@
 #include "qrencode.h"
 #include "qrspec.h"
 #include "mask.h"
-
+extern int errno;
 int Mask_writeFormatInformation(int width, unsigned char *frame, int mask, QRecLevel level)
 {
 	unsigned int format;

@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "EditTextDlg.h"
-#include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
+//#include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
 #include "ModuleMain.h"
 // CEditTextDlg ¶Ô»°¿ò
 

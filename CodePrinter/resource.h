@@ -206,6 +206,7 @@
 #define IDC_BARCODE_SET_STATIC          1175
 #define IDC_ECC_LEVEL_STATIC            1176
 #define IDC_QUIET_ZONE_STATIC           1177
+#define IDC_ENCODING_MODE_STATIC        1177
 #define IDC_BARCODE_ECC_LEV_COMBO       1178
 #define IDC_BARCODE_ZONE_COMBO          1179
 #define IDC_BARCODE_FIGURE_BTN          1180

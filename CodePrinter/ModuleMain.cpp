@@ -129,6 +129,31 @@ string ModuleMain::TCHAR2STRING(TCHAR *STR)
 
 }
 
+
+const char* ModuleMain::CString2ConstChar(CString str)
+{
+	//CStringA     stra(str.GetBuffer(0));
+	//str.ReleaseBuffer();
+	//string          st(stra.GetBuffer(0));
+	//const char*  cs = st.c_str();
+	char szStr[256] = {};  
+	wcstombs(szStr, str, str.GetLength());//将宽字符转换成多字符  
+	const char* pBuf = szStr; 
+	return pBuf;
+}
+
+string ModuleMain::CString2string(CString csStrData)
+{
+	string strRet ;
+
+	char ss[2048];
+	memset(ss, 0, sizeof(char)*2048);
+	sprintf(ss, "%s", csStrData);
+
+	strRet = ss;
+	return strRet;
+}
+
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
@@ -328,6 +353,26 @@ UINT TTLcomLoop(LPVOID pParam)
 				}
 			} 
 		}
+		else    ///////////////认为应该增加无应答情况
+		{
+			bytComErr++;
+			if (bytComErr>10)
+			{/////弹出对话框
+				int result =MessageBox( NULL,TEXT("无应答，是否继续") , TEXT("选择") ,MB_YESNO);
+				switch(result)
+				{
+				case IDYES:
+					bytComErr=0;
+					strTempCmd=(LPTSTR)readArr;
+					strTempCmdLen=8;
+					break;
+				case IDNO:
+					AfxMessageBox(_T("串口无应答！\n请联系管理员！"));
+					break;
+				}
+			} 
+		}
+		//theApp.myCIOVsd.ClearInOutBuf();
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
 
 		Sleep(10);

@@ -63,6 +63,7 @@ class CSTPSerialPort
 		int Receive(BYTE* pRecvBuf, UINT32 nRecvSize, UINT32* pRecvLen);
 		BOOL IsOpened();
 		void GetPortInfo(TSTPSPInfo* pInfo);
+		HANDLE GetHandle(){return m_hCOM;}
 	private:
 	protected:
 	

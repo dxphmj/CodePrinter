@@ -20,7 +20,8 @@ public:
     bool writeXml(string xmlFileName,string valueStr,string textStr,string path);
 	void string2tchar(std::string &src, TCHAR* buf);
 	string TCHAR2STRING(TCHAR *STR);
-   
+   const char* CString2ConstChar(CString str);
+   string CString2string(CString csStrData);
 public:
 	void InitCommMsg();
 };
