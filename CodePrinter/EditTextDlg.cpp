@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "EditTextDlg.h"
+
 //#include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
 #include "ModuleMain.h"
 // CEditTextDlg 对话框
@@ -111,6 +112,7 @@ void CEditTextDlg::OnCbnSelchangeFont()
 void CEditTextDlg::OnBnClickedButtonEditok()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
 	ModuleMain fontModule;
 
 	int xPos=0;

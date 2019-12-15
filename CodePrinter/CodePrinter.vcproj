@@ -572,6 +572,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ConfigPrintModeDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.cpp"
 				>
 			</File>
@@ -605,6 +609,22 @@
 			</File>
 			<File
 				RelativePath=".\ImageButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkAdvanceDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkParDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkPhasingDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkSetupDlg.cpp"
 				>
 			</File>
 			<File
@@ -754,6 +774,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ConfigPrintModeDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.h"
 				>
 			</File>
@@ -783,6 +807,22 @@
 			</File>
 			<File
 				RelativePath=".\ImageButton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkAdvanceDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkParDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkPhasingDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkSetupDlg.h"
 				>
 			</File>
 			<File
@@ -868,6 +908,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\bitmap4.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\CodePrinter.ico"
 				>
 			</File>
@@ -880,7 +924,39 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\Config.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Fault.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\FileMana.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\im017.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\InkSystem.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Label.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\System.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\test.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\User.bmp"
 				>
 			</File>
 			<File
