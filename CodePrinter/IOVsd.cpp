@@ -224,3 +224,9 @@ unsigned short CIOVsd::CRC16(unsigned char *puchMsg,unsigned short usDataLen)
 	}
 	return (uchCRCHi << 8 | uchCRCLo) ;
 }
+
+void CIOVsd::ClearInOutBuf()
+{
+	PurgeComm(m_pSerialPort->GetHandle(), PURGE_RXCLEAR);	//清空接收缓冲区
+	PurgeComm(m_pSerialPort->GetHandle(), PURGE_TXCLEAR);	//情况发送缓冲区
+}

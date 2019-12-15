@@ -74,6 +74,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
 	ON_WM_LBUTTONDOWN()
 	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
+	ON_BN_CLICKED(IDC_LABEL_CLOSE_BTN, &CLabelDlg::OnBnClickedLabelCloseBtn)
 END_MESSAGE_MAP()
 
 
@@ -82,11 +83,14 @@ END_MESSAGE_MAP()
 BOOL CLabelDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-    isFrame=false;
+    isFrame = false;
 	// TODO:  在此添加额外的初始化
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
-	CRect rect;
-	GetWindowRect(&rect);
+
+	pInput = new CInputDlg;
+	pInput->Create(IDD_INPUT_DIALOG,this);
+	pInput->MoveWindow(0,200,800,400);
+	pInput->ShowWindow(SW_HIDE);
+
 	//设置按钮的位置及大小
 	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,200,200,65,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_REPEAT_BUTTON)->SetWindowPos(NULL,290,200,65,40,SWP_SHOWWINDOW);
@@ -108,35 +112,35 @@ BOOL CLabelDlg::OnInitDialog()
 	ComboMatrix.AddString(_T("1L19M"));
 	ComboMatrix.AddString(_T("1L25M"));
 	ComboMatrix.AddString(_T("2L7M"));
-	ComboMatrix.SetCurSel(-1);
+	ComboMatrix.SetCurSel(1);
 
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
 
 
 	//test
 
-	OBJ_Control myOBJ_Control;
-	myOBJ_Control.strType1="text";
-	myOBJ_Control.strType2="text";
-	myOBJ_Control.intLineSize=7;
-	myOBJ_Control.intRowSize=18;
-	myOBJ_Control.strFont="7x5";
-	myOBJ_Control.strText="ABf";
-	myOBJ_Control.booFocus=false;
-	myclassMessage.OBJ_Vec.push_back(myOBJ_Control);
-	OBJ_Control myNewOBJ;
-	myNewOBJ.strType1="text";
-	myNewOBJ.strType2="text";
-	myNewOBJ.intLineStart=0;
-	myNewOBJ.intRowStart=18;
-	myNewOBJ.intLineSize=7;
-	myNewOBJ.intRowSize=18;
-	myNewOBJ.strFont="7x5";
-	myNewOBJ.strText="987";
-	myclassMessage.OBJ_Vec.push_back(myNewOBJ);
-	myclassMessage.Reverse="GLOBAL";
-	myclassMessage.Inverse="GLOBAL";
-
+	//OBJ_Control myOBJ_Control;
+	//myOBJ_Control.strType1="text";
+	//myOBJ_Control.strType2="text";
+	//myOBJ_Control.intLineSize=7;
+	//myOBJ_Control.intRowSize=18;
+	//myOBJ_Control.strFont="7x5";
+	//myOBJ_Control.strText="ABf";
+	//myOBJ_Control.booFocus=false;
+	//theApp.myclassMessage.OBJ_Vec.push_back(myOBJ_Control);
+	//OBJ_Control myNewOBJ;
+	//myNewOBJ.strType1="text";
+	//myNewOBJ.strType2="text";
+	//myNewOBJ.intLineStart=0;
+	//myNewOBJ.intRowStart=18;
+	//myNewOBJ.intLineSize=7;
+	//myNewOBJ.intRowSize=18;
+	//myNewOBJ.strFont="7x5";
+	//myNewOBJ.strText="987";
+	//theApp.myclassMessage.OBJ_Vec.push_back(myNewOBJ);
+	theApp.myclassMessage.Reverse="GLOBAL";
+	theApp.myclassMessage.Inverse="GLOBAL";
+    //labModule.InitCommMsg();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -145,8 +149,7 @@ BOOL CLabelDlg::OnInitDialog()
 void CLabelDlg::OnBnClickedInputButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CInputDlg Input;
-	Input.DoModal();
+	showInputDlg(IDD_INPUT_DIALOG);
 }
 
 
@@ -234,7 +237,7 @@ void CLabelDlg::OnPaint()
 		//pBrush->DeleteObject();
 	}
 
-	myclassMessage.DrawDot(pDC);
+	theApp.myclassMessage.DrawDot(pDC);
 
 	//myOBJ_Control.DrowDot(pDC);
 	//myOBJ_Control.DrawFrame(pDC);
@@ -249,7 +252,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 	CString  strText;
 	int nIndex = ComboMatrix.GetCurSel();  //当前选中的项
 	ComboMatrix.GetLBText(nIndex,strText);
-	myclassMessage.strMatrix=labModule.WcharToChar(strText);
+	theApp.myclassMessage.strMatrix=labModule.WcharToChar(strText);
 	
 	switch(nIndex)
 	{
@@ -258,7 +261,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
         pixelComboBox.ResetContent();
 		for (int i=1;i<=5;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
 		}
 		pixelComboBox.SetCurSel(4);
         break;
@@ -268,7 +271,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=7;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
 		}
 		pixelComboBox.SetCurSel(6);
         break;
@@ -277,7 +280,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=9;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
 		}
 		pixelComboBox.SetCurSel(8);
 		break;
@@ -286,7 +289,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=12;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
 		}
 		pixelComboBox.SetCurSel(11);
 		break;
@@ -295,7 +298,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=19;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
 		}
 		pixelComboBox.SetCurSel(18);
         break;
@@ -304,19 +307,19 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=25;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
 		}
 		pixelComboBox.SetCurSel(24);
 		break;
 	case 6:
 		matrix = 14;
 		pixelComboBox.ResetContent();
-		pixelComboBox.AddString(stringToLPCWSTR(myclassMessage.to_String(14)));
+		pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(14)));
         pixelComboBox.SetCurSel(13);
 
 	}
 	//myclassMessage.Pixel=pixelComboBox.GetCurSel()+1;
-	myclassMessage.Matrix=matrix;
+	theApp.myclassMessage.Matrix=matrix;
     isFrame=true;
 	this->OnCbnSelchangeCombo2();
 }
@@ -328,7 +331,7 @@ void CLabelDlg::OnCbnSelchangeCombo2()
 	CString  strText;
 	int nIndex = pixelComboBox.GetCurSel();  //当前选中的项
 	pixel=nIndex+1;
-	myclassMessage.Pixel=pixel;
+	theApp.myclassMessage.Pixel=pixel;
 	//pixelComboBox.GetLBText(nIndex,strText);
 	//ss<<strText;
 	//ss>>pixel;
@@ -339,15 +342,15 @@ void CLabelDlg::OnBnClickedUshiftButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if ((myclassMessage.OBJ_Vec[i].intLineStart+myclassMessage.OBJ_Vec[i].intLineSize)>=pixel)
+			if ((theApp.myclassMessage.OBJ_Vec[i].intLineStart+theApp.myclassMessage.OBJ_Vec[i].intLineSize)>=pixel)
 			{
 				break;
 			}
-			myclassMessage.OBJ_Vec[i].intLineStart++;
+			theApp.myclassMessage.OBJ_Vec[i].intLineStart++;
 			OnPaint();
 			break;
 		}
@@ -357,14 +360,14 @@ void CLabelDlg::OnBnClickedUshiftButton()
 void CLabelDlg::OnBnClickedLselectButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
 			if (i>0)
 			{
-				myclassMessage.OBJ_Vec[i].booFocus=false;
-				myclassMessage.OBJ_Vec[i-1].booFocus=true;
+				theApp.myclassMessage.OBJ_Vec[i].booFocus=false;
+				theApp.myclassMessage.OBJ_Vec[i-1].booFocus=true;
 			}
 			else
 			{
@@ -379,14 +382,14 @@ void CLabelDlg::OnBnClickedLselectButton()
 void CLabelDlg::OnBnClickedRselectButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if (i<myclassMessage.OBJ_Vec.size()-1)
+			if (i<theApp.myclassMessage.OBJ_Vec.size()-1)
 			{
-				myclassMessage.OBJ_Vec[i].booFocus=false;
-				myclassMessage.OBJ_Vec[i+1].booFocus=true;
+				theApp.myclassMessage.OBJ_Vec[i].booFocus=false;
+				theApp.myclassMessage.OBJ_Vec[i+1].booFocus=true;
 			}
 			else
 			{
@@ -401,15 +404,15 @@ void CLabelDlg::OnBnClickedRselectButton()
 void CLabelDlg::OnBnClickedDshiftButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if ((myclassMessage.OBJ_Vec[i].intLineStart)<=0)
+			if ((theApp.myclassMessage.OBJ_Vec[i].intLineStart)<=0)
 			{
 				break;
 			}
-			myclassMessage.OBJ_Vec[i].intLineStart--;
+			theApp.myclassMessage.OBJ_Vec[i].intLineStart--;
 			OnPaint();
 			break;
 		}
@@ -419,15 +422,15 @@ void CLabelDlg::OnBnClickedDshiftButton()
 void CLabelDlg::OnBnClickedLshiftButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=0)
+			if ((theApp.myclassMessage.OBJ_Vec[i].intRowStart)<=0)
 			{
 				break;
 			}
-			myclassMessage.OBJ_Vec[i].intRowStart--;
+			theApp.myclassMessage.OBJ_Vec[i].intRowStart--;
 			OnPaint();
 			break;
 		}
@@ -437,11 +440,11 @@ void CLabelDlg::OnBnClickedLshiftButton()
 void CLabelDlg::OnBnClickedRshiftButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			myclassMessage.OBJ_Vec[i].intRowStart++;
+			theApp.myclassMessage.OBJ_Vec[i].intRowStart++;
 			OnPaint();
 			break;
 		}
@@ -451,27 +454,27 @@ void CLabelDlg::OnBnClickedRshiftButton()
 void CLabelDlg::OnBnClickedLqshiftButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=0)
+			if ((theApp.myclassMessage.OBJ_Vec[i].intRowStart)<=0)
 			{
 				break;
 			}
-			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=1)
+			if ((theApp.myclassMessage.OBJ_Vec[i].intRowStart)<=1)
 			{
-				myclassMessage.OBJ_Vec[i].intRowStart--;
+				theApp.myclassMessage.OBJ_Vec[i].intRowStart--;
 				OnPaint();
 				break;
 			}
-			if ((myclassMessage.OBJ_Vec[i].intRowStart)<=2)
+			if ((theApp.myclassMessage.OBJ_Vec[i].intRowStart)<=2)
 			{
-				myclassMessage.OBJ_Vec[i].intRowStart=myclassMessage.OBJ_Vec[i].intRowStart-2;
+				theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intRowStart-2;
 				OnPaint();
 				break;
 			}
-			myclassMessage.OBJ_Vec[i].intRowStart=myclassMessage.OBJ_Vec[i].intRowStart-3;
+			theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intRowStart-3;
 			OnPaint();
 			break;
 		}
@@ -481,11 +484,11 @@ void CLabelDlg::OnBnClickedLqshiftButton()
 void CLabelDlg::OnBnClickedRqshiftButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	for (int i=0;i<myclassMessage.OBJ_Vec.size();i++)
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (myclassMessage.OBJ_Vec[i].booFocus)
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			myclassMessage.OBJ_Vec[i].intRowStart=myclassMessage.OBJ_Vec[i].intRowStart+3;
+			theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intRowStart+3;
 			OnPaint();
 			break;
 		}
@@ -510,7 +513,7 @@ void CLabelDlg::OnBnClickedSaveButton()
 			xmlPath+=".xml";
 		}
 		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
-		myclassMessage.SaveObjectsToXml(const_cast<char*>(xmlPath.c_str()));
+		theApp.myclassMessage.SaveObjectsToXml(const_cast<char*>(xmlPath.c_str()));
 	}
 
 	
@@ -529,42 +532,42 @@ void CLabelDlg::OnBnClickedOpenButton()
 		xmlPath=labModule.TCHAR2STRING(path);
 		//xmlPath+="sss.xml";
 		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
-		myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
+		theApp.myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
 	}
 
 	//myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
-	if (myclassMessage.strMatrix=="1L5M")
+	if (theApp.myclassMessage.strMatrix=="1L5M")
 	{
 		ComboMatrix.SetCurSel(0);
 		OnCbnSelchangeComboMatrix();
 
 	} 
-	else if(myclassMessage.strMatrix=="1L7M")
+	else if(theApp.myclassMessage.strMatrix=="1L7M")
 	{
 		ComboMatrix.SetCurSel(1);
 		OnCbnSelchangeComboMatrix();
 	}
-	else if(myclassMessage.strMatrix=="1L9M")
+	else if(theApp.myclassMessage.strMatrix=="1L9M")
 	{
 		ComboMatrix.SetCurSel(2);
 		OnCbnSelchangeComboMatrix();
 	}
-	else if(myclassMessage.strMatrix=="1L12M")
+	else if(theApp.myclassMessage.strMatrix=="1L12M")
 	{
 		ComboMatrix.SetCurSel(3);
 		OnCbnSelchangeComboMatrix();
 	}
-	else if(myclassMessage.strMatrix=="1L19M")
+	else if(theApp.myclassMessage.strMatrix=="1L19M")
 	{
 		ComboMatrix.SetCurSel(4);
 		OnCbnSelchangeComboMatrix();
 	}
-	else if(myclassMessage.strMatrix=="1L25M")
+	else if(theApp.myclassMessage.strMatrix=="1L25M")
 	{
 		ComboMatrix.SetCurSel(5);
 		OnCbnSelchangeComboMatrix();
 	}
-	else if(myclassMessage.strMatrix=="2L7M")
+	else if(theApp.myclassMessage.strMatrix=="2L7M")
 	{
 		ComboMatrix.SetCurSel(6);
 		OnCbnSelchangeComboMatrix();
@@ -606,8 +609,8 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 		int nCol;	 
 		nRow = (161-point.y) / 5;
 		nCol = point.x / 5;
-		vector<OBJ_Control>::iterator itr = myclassMessage.OBJ_Vec.begin();
-		while (itr != myclassMessage.OBJ_Vec.end())
+		vector<OBJ_Control>::iterator itr = theApp.myclassMessage.OBJ_Vec.begin();
+		while (itr != theApp.myclassMessage.OBJ_Vec.end())
 		{		
 			itr->booFocus = false;
 			if (nRow>=itr->intLineStart&&nRow<=(itr->intLineStart+itr->intLineSize)
@@ -626,6 +629,8 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 void CLabelDlg::OnBnClickedDownloadButton()
 {
 	 //TODO: 在此添加控件通知处理程序代码
+	BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
+
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	//2、取值并发送至下位机 download_pcf()
 	//3、关闭动态打印线程（若有）
@@ -633,21 +638,93 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//动态文本关
 
 	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
-	memset(myclassMessage.boDotMes,false,sizeof(myclassMessage.boDotMes));
-	for(vector<OBJ_Control>::iterator objIter=myclassMessage.OBJ_Vec.begin();objIter!=myclassMessage.OBJ_Vec.end();objIter++)
+	int rowMax=0;
+	memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
+	for(vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();objIter!=theApp.myclassMessage.OBJ_Vec.end();objIter++)
 	{
-		myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
+		theApp.myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
 			objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
+		if (rowMax<(objIter->intRowSize+objIter->intRowStart))
+		{
+			rowMax=objIter->intRowSize+objIter->intRowStart;
+		}
+
 	}
+	//以上都要放到getMessageDot中，
+	//drawPrevFirst（）
+
+	if (theApp.myclassMessage.boDynamic)//是否动态打印
+	{
+	} 
+	else
+	{
+		vector<BYTE> testByteVec;
+		testByteVec=theApp.myclassMessage.DotToByte(0,rowMax);
+		dotDataLen_l=testByteVec.size()%256;
+		dotDataLen_h=testByteVec.size()/256;
+		pixelMes=(BYTE)pixel;
+		matrix_name=pixelMes<<2;//低二位为模式，原程序没用到
+		pixelAll=pixelMes | 0x80;
+
+		theApp.boPrintNowLock.Lock();
+        theApp.myclassMessage.bytPrintDataAll.clear();
+		theApp.myclassMessage.bytPrintDataAllOrder.clear();
+
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x80);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x6);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x11);
+		theApp.myclassMessage.bytPrintDataAll.push_back(matrix_name);
+		theApp.myclassMessage.bytPrintDataAll.push_back(pixelMes);
+		theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_l);
+		theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_h);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+		//theApp.myclassMessage.bytPrintDataAllOrder={0x1,0x80,0x6,0x1,0x11,matrix_name,pixelMes,dotDataLen_l,dotDataLen_h,0xff,0xff};
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x80);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x6);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x11);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(matrix_name);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(pixelAll);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_l);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_h);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
 	
-	vector<BYTE> testByteVec;
-	testByteVec=myclassMessage.DotToByte(0,36);
-	BYTE ssss=testByteVec[34];
-    ssss=testByteVec[0];
+		testByteVec.push_back(0xff);
+		testByteVec.push_back(0xff);
+
+		theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),testByteVec.begin(),testByteVec.end());
+		theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),testByteVec.begin(),testByteVec.end());
+		theApp.myclassMessage.boPrintNow=true;
+		theApp.boPrintNowLock.Unlock();
+	}
+
+	//BYTE ssss=testByteVec[34];
+    //ssss=testByteVec[0];
 }
 
 
 void CLabelDlg::getMessageDot()
 {
+
+}
+void CLabelDlg::OnBnClickedLabelCloseBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
+}
+
+void CLabelDlg::showInputDlg(int ID)
+{
+	pInput->ShowWindow(SW_HIDE);
+
+	if (ID == IDD_INPUT_DIALOG)
+	{
+		pInput->ShowWindow(SW_SHOW);
+	}
 
 }

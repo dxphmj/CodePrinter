@@ -1,5 +1,9 @@
 #pragma once
-
+#include "UserOpenDlg.h"
+#include "UserNewDlg.h"
+#include "UserDeleteDlg.h"
+#include "UserFreshDlg.h"
+#include "UserDlg.h"
 
 // CUserDlg ¶Ô»°¿ò
 
@@ -20,4 +24,16 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedOpenButton();
+	afx_msg void OnBnClickedNewBtn();
+	afx_msg void OnBnClickedDeleteBtn();
+	afx_msg void OnBnClickedUserFreshBtn();
+	afx_msg void OnBnClickedCloseUserBtn();
+	void showUserDlg(int ID);
+public:
+	CUserOpenDlg *pUserOpen;
+	CUserNewDlg *pUserNew;
+	CUserDeleteDlg *pUserDelete;
+	CUserFreshDlg *pUserFresh;
+	CUserDlg *pUser;
 };
