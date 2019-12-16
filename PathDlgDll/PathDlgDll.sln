@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathDlgDll", "PathDlgDll\PathDlgDll.vcproj", "{F466948F-4170-4E11-A387-2CA95EF20649}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|CHSINT SDK For WinCE 6.0 (ARMV4I) = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		Release|CHSINT SDK For WinCE 6.0 (ARMV4I) = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F466948F-4170-4E11-A387-2CA95EF20649}.Debug|CHSINT SDK For WinCE 6.0 (ARMV4I).ActiveCfg = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{F466948F-4170-4E11-A387-2CA95EF20649}.Debug|CHSINT SDK For WinCE 6.0 (ARMV4I).Build.0 = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{F466948F-4170-4E11-A387-2CA95EF20649}.Debug|CHSINT SDK For WinCE 6.0 (ARMV4I).Deploy.0 = Debug|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{F466948F-4170-4E11-A387-2CA95EF20649}.Release|CHSINT SDK For WinCE 6.0 (ARMV4I).ActiveCfg = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{F466948F-4170-4E11-A387-2CA95EF20649}.Release|CHSINT SDK For WinCE 6.0 (ARMV4I).Build.0 = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+		{F466948F-4170-4E11-A387-2CA95EF20649}.Release|CHSINT SDK For WinCE 6.0 (ARMV4I).Deploy.0 = Release|CHSINT SDK For WinCE 6.0 (ARMV4I)
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

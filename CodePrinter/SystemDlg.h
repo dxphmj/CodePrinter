@@ -1,5 +1,8 @@
 #pragma once
-
+#include "SystemDlg.h"
+#include "EnvDlg.h"
+#include "ComDlg.h"
+#include "Version.h"
 
 // CSystemDlg ¶Ô»°¿ò
 
@@ -20,4 +23,15 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedEvnBtn();
+	afx_msg void OnBnClickedComBtn();
+	afx_msg void OnBnClickedVersionBtn();
+	afx_msg void OnBnClickedNetBtn();
+	afx_msg void OnBnClickedSystemCloseBtn();
+	void showSystemDlg(int ID);
+
+public:
+	CEnvDlg *pEvn;
+	CComDlg *pCom;
+	CVersion *pVersion;
 };

@@ -63,9 +63,3 @@ BOOL CKEYBOARDApp::InitInstance()
 
 	return TRUE;
 }
-
-void showdlg::dlgShow()
-{
-	CMainDlg dlg;
-	INT_PTR nResponse = dlg.DoModal();
-}

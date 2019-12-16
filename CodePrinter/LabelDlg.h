@@ -1,7 +1,9 @@
 #pragma once
 #include "afxwin.h"
-#include "ClassMessage.h"
-using namespace MyNameSpace;
+//#include "ClassMessage.h"
+//#include "ModuleMain.h"
+#include "InputDlg.h"
+
 // CLabelDlg 对话框
 
 class CLabelDlg : public CDialog
@@ -10,8 +12,11 @@ class CLabelDlg : public CDialog
 public:
 	int matrix;
 	int pixel;
-	ClassMessage myclassMessage;
+	
+	//ModuleMain labModule;
 	bool isFrame;
+	void getMessageDot();
+	CInputDlg *pInput;
 
 public:
 	CLabelDlg(CWnd* pParent = NULL);   // 标准构造函数
@@ -50,4 +55,9 @@ public:
 	afx_msg void OnBnClickedRqshiftButton();
 	afx_msg void OnBnClickedSaveButton();
 	afx_msg void OnBnClickedOpenButton();
+	afx_msg void OnBnClickedRepeatButton();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnBnClickedDownloadButton();
+	afx_msg void OnBnClickedLabelCloseBtn();
+	void showInputDlg(int ID);
 };

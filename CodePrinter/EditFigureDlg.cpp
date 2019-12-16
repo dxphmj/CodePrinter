@@ -27,6 +27,7 @@ void CEditFigureDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CEditFigureDlg, CDialog)
+	ON_BN_CLICKED(IDC_EDITFIG_CLOSE_BTN, &CEditFigureDlg::OnBnClickedEditfigCloseBtn)
 END_MESSAGE_MAP()
 
 
@@ -43,4 +44,10 @@ BOOL CEditFigureDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CEditFigureDlg::OnBnClickedEditfigCloseBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
 }

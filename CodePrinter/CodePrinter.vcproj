@@ -12,6 +12,12 @@
 		<Platform
 			Name="CHSINT SDK For WinCE 6.0 (ARMV4I)"
 		/>
+		<Platform
+			Name="Pocket PC 2003 (ARMV4)"
+		/>
+		<Platform
+			Name="Win32"
+		/>
 	</Platforms>
 	<ToolFiles>
 	</ToolFiles>
@@ -45,11 +51,11 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="..\KEYBOARD\KEYBOARD"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -68,8 +74,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
-				AdditionalDependencies="MessageEdit.lib"
+				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib PathDlgDll.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
 				StackReserveSize="65536"
 				StackCommitSize="4096"
@@ -102,6 +109,178 @@
 				AdditionalFiles=""
 			/>
 			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Pocket PC 2003 (ARMV4)"
+			OutputDirectory="Pocket PC 2003 (ARMV4)\$(ConfigurationName)"
+			IntermediateDirectory="Pocket PC 2003 (ARMV4)\$(ConfigurationName)"
+			ConfigurationType="1"
+			UseOfMFC="1"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				MkTypLibCompatible="false"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
+				MinimalRebuild="true"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				Culture="2052"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions=" /subsystem:windowsce,6.00"
+				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib"
+				LinkIncremental="2"
+				GenerateDebugInformation="true"
+				StackReserveSize="65536"
+				StackCommitSize="4096"
+				EntryPointSymbol="WinMainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			UseOfMFC="1"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				MkTypLibCompatible="false"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
+				MinimalRebuild="true"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
+				WarningLevel="4"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				Culture="2052"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions=" /subsystem:windowsce,6.00"
+				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib libQR.lib"
+				LinkIncremental="2"
+				GenerateDebugInformation="true"
+				StackReserveSize="65536"
+				StackCommitSize="4096"
+				EntryPointSymbol="WinMainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
@@ -193,6 +372,180 @@
 			<DebuggerTool
 			/>
 		</Configuration>
+		<Configuration
+			Name="Release|Pocket PC 2003 (ARMV4)"
+			OutputDirectory="Pocket PC 2003 (ARMV4)\$(ConfigurationName)"
+			IntermediateDirectory="Pocket PC 2003 (ARMV4)\$(ConfigurationName)"
+			ConfigurationType="1"
+			UseOfMFC="1"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				MkTypLibCompatible="false"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="2"
+				FavorSizeOrSpeed="2"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
+				MinimalRebuild="false"
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				Culture="2052"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions=" /subsystem:windowsce,6.00"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				StackReserveSize="65536"
+				StackCommitSize="4096"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				EntryPointSymbol="WinMainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			UseOfMFC="1"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				MkTypLibCompatible="false"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				FavorSizeOrSpeed="2"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
+				MinimalRebuild="false"
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE"
+				Culture="2052"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions=" /subsystem:windowsce,6.00"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				StackReserveSize="65536"
+				StackCommitSize="4096"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				EntryPointSymbol="WinMainCRTStartup"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -212,6 +565,14 @@
 			</File>
 			<File
 				RelativePath=".\CodePrinterDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ComDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ConfigPrintModeDlg.cpp"
 				>
 			</File>
 			<File
@@ -235,11 +596,35 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EnvDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FaultDlg.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\FileManaDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkAdvanceDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkParDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkPhasingDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InkSetupDlg.cpp"
 				>
 			</File>
 			<File
@@ -256,6 +641,14 @@
 			</File>
 			<File
 				RelativePath=".\LabelDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Language.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ModuleMain.cpp"
 				>
 			</File>
 			<File
@@ -278,7 +671,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Debug|Pocket PC 2003 (ARMV4)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Release|CHSINT SDK For WinCE 6.0 (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Pocket PC 2003 (ARMV4)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -291,7 +716,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UserDeleteDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\UserDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserFreshDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserNewDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserOpenDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Version.cpp"
 				>
 			</File>
 		</Filter>
@@ -321,6 +766,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CommonType.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ConfigPrintModeDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigurationDlg.h"
 				>
 			</File>
@@ -337,11 +794,35 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EnvDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FaultDlg.h"
 				>
 			</File>
 			<File
 				RelativePath=".\FileManaDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkAdvanceDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkParDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkPhasingDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkSetupDlg.h"
 				>
 			</File>
 			<File
@@ -353,7 +834,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IOVsd.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LabelDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Language.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ModuleMain.h"
 				>
 			</File>
 			<File
@@ -377,7 +870,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UserDeleteDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\UserDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserFreshDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserNewDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserOpenDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Version.h"
 				>
 			</File>
 		</Filter>
@@ -386,6 +899,18 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\res\bitmap2.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bitmap3.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\bitmap4.bmp"
+				>
+			</File>
 			<File
 				RelativePath=".\res\CodePrinter.ico"
 				>
@@ -396,6 +921,46 @@
 			</File>
 			<File
 				RelativePath=".\res\CodePrinter.rc2"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Config.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Fault.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\FileMana.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\im017.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\InkSystem.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Label.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\System.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\test.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\User.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\ÎÞ±êÌâ.bmp"
 				>
 			</File>
 		</Filter>

@@ -2,10 +2,11 @@
 #include <string>
 #include <vector>
 #include<map>
+#include <queue>
 using namespace std;
 typedef unsigned char BYTE;
 #define max 100
-
+//#include <atlimage.h>
 #ifdef MESSAGEEDIT_EXPORTS
 #define MESSAGEEDIT_API  _declspec(dllexport)
 #else
@@ -52,21 +53,31 @@ namespace MyNameSpace
 		string strqrcodeVersion;//二维码的版本类型
 		string strqrcodeECCLevel;//二维码的容错率等级
 		int intqrcodeQuietZone;//二维码空白框层数
+
+
+        bool boQRBig;
+		int intQRVersion;
+		int intQRErrLevel;
+		int intQREncodingMode;
 		bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框
 	public://参数，待定
 		string img;//此为logo图片，vb中为Image类型
-        vector<vector<bool>> logobmp;//不明
+        //vector<vector<bool>> logobmp;//不明
 
-        vector<vector<bool>> LogoDotToMes;//改变后的Logo图片点阵用于下发数据用
-        vector<vector<bool>> LogoDot;//logo点阵
+        //vector<vector<bool>> LogoDotToMes;//改变后的Logo图片点阵用于下发数据用
+        //vector<vector<bool>> LogoDot;//logo点阵
+
+
+		bool boDotBmp[32][255];//加载bmp用
+		int xMaxBmp,yMaxBmp;//用来记录本次加载图片的大小
 	public://方法
 		char objbytTex5x5Line[7];
 		char objbytTex7x5Line[8];
 		char objbytTex12x12Line[25];
 		char objbytTex16x12Line[29];
 		void DrawFrame(CDC* pDC);
-        void DrowDot(CDC* pDC);
-
+        void DrawDot(CDC* pDC);
+        void ReadBmp(char* strFileName);
 	private:
 		//ClassMessage objClassMessage;
 		map<string,int> fntMap;
@@ -82,22 +93,37 @@ namespace MyNameSpace
 	public:
 		vector<OBJ_Control> OBJ_Vec;
 		int Matrix;
+		string strMatrix;
 		int Pixel;
-		string Reverse;
+		string Reverse;//是否群体控制
 		string Inverse;
+		bool boReverse;//翻转，颠倒，由喷印设置中更改
+		bool boInverse;
+        bool boDotMes[32][255];
+		int bytRowByteMul;//一列由几个byte表示
+		bool boDynamic;//是否动态打印
+		bool boPrintNow;//是否即时打印
+		//vector<BYTE> bytTempDataVec;
 
-
+       /////////////////////////////////////////////
+        queue<vector<BYTE>> forPreQue;//序列号队列
+		vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
+		vector<BYTE> bytPrintDataAll;//空时自动发送BUF
+		////////////////////////////////////
 
 	public:
+		 BYTE getByteFromDot(bool boDot,int moveNum); 
 		 string DEC_to_BIN(long long Dec);
 		 string to_String(int n);
 		 long long BIN_to_DEC(string Bin);
 		 bool readBin(string FontName,int offset,char *arr, int DataLen );//此处先用char来代替BYTE
-		 void DrowDot(CDC* pDC);//
-
+		 void DrawDot(CDC* pDC);//
+		 void getdot(string tempfont, bool tempBWDy, bool tempBWDx , bool tempNEG, string tempsetTEXT , int tempRowSize, int tempLineSize, int tempLineStart , int tempRowStart , int tempSS , int tempSW );
+		 vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
 	public://XML
 		void ReadObjectsFromXml(char* strFileName);
 		void SaveObjectsToXml(char* strFileName);
+		
 	};
 
 

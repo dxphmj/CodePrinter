@@ -1,5 +1,8 @@
 #pragma once
-
+#include"InkAdvanceDlg.h"
+#include "InkSetupDlg.h"
+#include "InkParDlg.h"
+#include "InkPhasingDlg.h"
 
 // CInkSystemDlg ¶Ô»°¿ò
 
@@ -20,4 +23,16 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	void showInkDlg(int ID);
+public:
+	CInkAdvanceDlg *m_inkAdv;
+	CInkSetupDlg *m_setup;
+	CInkParDlg *m_par;
+	CInkPhasingDlg *m_phas;
+	afx_msg void OnBnClickedAdvanceBtn();
+	afx_msg void OnBnClickedInkCloseBtn();
+	afx_msg void OnBnClickedUsualBtn();
+	afx_msg void OnBnClickedSetupBtn();
+	afx_msg void OnBnClickedParameterBtn();
+	afx_msg void OnBnClickedPhasingBtn();
 };
