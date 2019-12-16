@@ -6,7 +6,7 @@
 #include "EditTextDlg.h"
 
 //#include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
-#include "ModuleMain.h"
+//#include "ModuleMain.h"
 // CEditTextDlg 对话框
 
 IMPLEMENT_DYNAMIC(CEditTextDlg, CDialog)
@@ -113,7 +113,7 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
-	ModuleMain fontModule;
+	//ModuleMain fontModule;
 
 	int xPos=0;
 	int yPos=0;
@@ -140,7 +140,7 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
 	CString strText;
 	pEdit-> GetWindowText(strText);
-	tempObj.strText=fontModule.WcharToChar(strText);
+	tempObj.strText=theApp.myModuleMain.WcharToChar(strText);
 	CString  fontText;
 	int nIndex = fontComboBox.GetCurSel();  //当前选中的项
 	switch(nIndex)
@@ -163,7 +163,7 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 		break;
 	}
 	fontComboBox.GetLBText(nIndex,fontText);
-	tempObj.strFont=fontModule.WcharToChar(fontText);
+	tempObj.strFont=theApp.myModuleMain.WcharToChar(fontText);
 
 
 

@@ -45,6 +45,7 @@ public:
 	CCriticalSection boPrintNowLock;//¥Ú”°
 	CCriticalSection boQueCtrLock;//√¸¡Ó
 	CIOVsd myCIOVsd;
+	ModuleMain myModuleMain;
 	DECLARE_MESSAGE_MAP()
 };
 

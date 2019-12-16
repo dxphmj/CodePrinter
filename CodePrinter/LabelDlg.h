@@ -1,7 +1,7 @@
 #pragma once
 #include "afxwin.h"
 //#include "ClassMessage.h"
-#include "ModuleMain.h"
+//#include "ModuleMain.h"
 #include "InputDlg.h"
 
 // CLabelDlg ¶Ô»°¿ò
@@ -13,7 +13,7 @@ public:
 	int matrix;
 	int pixel;
 	
-	ModuleMain labModule;
+	//ModuleMain labModule;
 	bool isFrame;
 	void getMessageDot();
 	CInputDlg *pInput;

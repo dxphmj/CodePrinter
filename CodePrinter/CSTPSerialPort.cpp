@@ -143,11 +143,11 @@ int CSTPSerialPort::Open(UINT32 nPortNo, UINT32 nBaudRate, BYTE byDataBit, BYTE 
 	dcb.fParity = 1;
 	
 	//对配置进行修改，并且指定发送和接收缓冲区的大小，如果失败则关闭串口
-	//if(!SetCommState(m_hCOM, &dcb) )    //   || !SetupComm(m_hCOM, 10, 10)   设置缓存区失败
-	//{
-	//	CloseHandle(m_hCOM);
-	//	return -1;
-	//}
+	if(!SetCommState(m_hCOM, &dcb) )    //   || !SetupComm(m_hCOM, 10, 10)   设置缓存区失败
+	{
+		CloseHandle(m_hCOM);
+		return -1;
+	}
 	
 	//------------------------------------------------------------
 	//串口读写事件
