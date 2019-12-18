@@ -37,6 +37,7 @@ public:
 // 实现
 	bool boTTL;
 	CWinThread* TTLcom;//ttl线程句柄
+	PcfClass myPcfClass;
 	StatusClass myStatusClass;
 	DWORD TTLcomID;
 	Language myLanguage;
