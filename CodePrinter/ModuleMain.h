@@ -74,6 +74,9 @@ public:
 		int staInkTem ;
 		int staProCou, staPriCou, staInkLifeTime ;
 		BYTE staPixDotNee, staAutModVol ;
+		bool staFanFauLas, staChaFauLas, staPhaFauLas, staHigVolFauLas ;
+		bool staProSenFasLas, staAutModFauLas, staValFauLas, staLinFasLas, staPriHeaHotFauLas ;
+		bool staInkTemSenFauLas, staPriHeaTemFauLas, staBumSpeOveFauLas, staPreOveFauLas, staVisAbnFauLas, staVisSenFauLas, staInkFloFauLas ;
 
 
 			BYTE ctr0X00, ctr0X01, ctr0X02, ctr0X03, ctr0X04 ;
