@@ -41,8 +41,8 @@ public:
 	afx_msg void OnBnClickedPhasingBtn();
 
 	afx_msg void OnEnChangePressureEdit();
-	CEdit m_Pressure;
-	//int m_Pressure;   		 //压力
+	CEdit m_Pressure;         //压力
+	   		
 	int m_Pumpspeed;  		 //泵速
 	int m_InkTemp;           //墨水温度
 	int m_PrintheadTemp;	 //喷头温度

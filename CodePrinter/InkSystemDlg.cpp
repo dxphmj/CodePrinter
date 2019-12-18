@@ -193,15 +193,25 @@ void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
 		
 		
 		GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
-		//m_Pressure=theApp.myStatusClass.staPressure;
-		m_Pumpspeed=theApp.myStatusClass.staBumSpe;
-		m_InkTemp=theApp.myStatusClass.staInkTem;
-		m_PrintheadTemp=theApp.myStatusClass.staPriHeaTem;
-		m_InkLev=theApp.myStatusClass.staInkLev;       
-		m_SolventLev=theApp.myStatusClass.staSolLev;   
-		m_TargetVisco=theApp.myStatusClass.staTarVis;  
-		m_ActualVisco=theApp.myStatusClass.staActVis;  
-		m_HighVol=theApp.myStatusClass.staHigVol;
+		GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
+		GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
+
+	GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriHeaTem)));
+		GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLev)));
+		GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staSolLev)));
+		GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
+		GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
+		GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staHigVol)));
+
+		//m_Pressure=theApp.myStatusClass.staPressure;IDC_INKFLOW_EDIT
+		//m_Pumpspeed=theApp.myStatusClass.staBumSpe;
+		//m_InkTemp=theApp.myStatusClass.staInkTem;
+		//m_PrintheadTemp=theApp.myStatusClass.staPriHeaTem;
+		//m_InkLev=theApp.myStatusClass.staInkLev;       
+		//m_SolventLev=theApp.myStatusClass.staSolLev;   
+		//m_TargetVisco=theApp.myStatusClass.staTarVis;  
+		//m_ActualVisco=theApp.myStatusClass.staActVis;  
+		//m_HighVol=theApp.myStatusClass.staHigVol;
 		
 		break;
 		//m_Inkflow=; 
