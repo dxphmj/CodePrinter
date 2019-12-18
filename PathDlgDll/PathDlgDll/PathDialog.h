@@ -60,6 +60,7 @@ public:
 	/*afx_msg void OnEnChangeEditFullpath();*/
 	//CEdit m_editPath;
 	afx_msg void OnEnChangeEditFullpath();
+	CStatic m_Select;
 };
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

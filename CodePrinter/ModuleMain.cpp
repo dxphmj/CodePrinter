@@ -189,13 +189,13 @@ void ModuleMain::InitCommMsg()
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
-	tempDcb.StopBits=(BYTE)1;
-	tempDcb.bIsSave=false;
+	tempDcb.StopBits=(BYTE)0;
+	tempDcb.bIsSave=true;
 	theApp.myCIOVsd.SetComIndx(tempDcb.nComPort);
 	if (!theApp.myCIOVsd.OpenComm(tempDcb))
 	{
-		CString csMsg = _T("串口4打开失败!");
-		//csMsg.Format("串口%d打开失败!",tempDcb.nComPort);
+		CString csMsg ;//= _T("串口4打开失败!");
+		csMsg.Format(_T("串口%d打开失败!"),tempDcb.nComPort);
 		AfxMessageBox(csMsg);
 	}
 }
@@ -316,6 +316,116 @@ void StatusClass::getstatu()
 		staInkLifeTime = (theApp.bytStatus[36] & 31) * pow(256 , 3) + theApp.bytStatus[35] * pow(256 , 2) + theApp.bytStatus[34] * 256 + theApp.bytStatus[33];   // '墨水时间
 		staRFID =  theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(36, 7, 1)==_T("1")?true:false) + theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(36, 6, 1)==_T("1")?true:false); //'RFID状态
 	}
+}
+
+
+void StatusClass::us_button_onoff(HWND hwnd)
+{
+	CWnd* pWnd = CWnd::FromHandle(hwnd);
+
+	if (theApp.myStatusClass.staSysBus && theApp.myStatusClass.ctr0X02bit3 == 0 && theApp.myStatusClass.ctr0X02bit4 == 0 &&
+		theApp.myStatusClass.ctr0X02bit5 == 0 && theApp.myStatusClass.ctr0X02bit6 == 0 && theApp.myStatusClass.ctr0X02bit7 == 0 )
+	{
+		pWnd->GetDlgItem(IDC_SPEED_MODE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_PRESSURE_MODE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_BLEED_VALVE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_PUMP_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_WASH_VALVE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_NOZZLE_VALVE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_FEED_VALVE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_SOLVENT_VALVE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_VISCO_VALVE_BTN)->EnableWindow(true);
+		pWnd->GetDlgItem(IDC_FLUSH_VALVE_BTN)->EnableWindow(true);
+	} 
+	else
+	{
+		pWnd->GetDlgItem(IDC_SPEED_MODE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_PRESSURE_MODE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_BLEED_VALVE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_PUMP_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_WASH_VALVE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_NOZZLE_VALVE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_FEED_VALVE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_SOLVENT_VALVE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_VISCO_VALVE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_FLUSH_VALVE_BTN)->EnableWindow(false);
+	}
+}
+
+void StatusClass::ad_button_onoff(HWND hwnd)
+{
+	CWnd* pWnd = CWnd::FromHandle(hwnd);
+	if (theApp.myStatusClass.staSysBus)
+	{
+		if (theApp.myStatusClass.ctr0X02bit3==1)
+		{
+			pWnd->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(false);
+		} 
+		else if(theApp.myStatusClass.ctr0X02bit4==1)
+		{
+			pWnd->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(false);
+		}
+		else if(theApp.myStatusClass.ctr0X02bit5==1)
+		{
+			pWnd->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(false);
+		}
+		else if(theApp.myStatusClass.ctr0X02bit6==1)
+		{
+			pWnd->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(false);
+		}
+		else if(theApp.myStatusClass.ctr0X02bit7==1)
+		{
+			pWnd->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(false);
+		}
+		else if(theApp.myStatusClass.ctr0X03bit3==1)
+		{
+			pWnd->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(false);
+			pWnd->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(false);
+		}
+		else if(theApp.myStatusClass.ctr0X02bit3 == 0 && theApp.myStatusClass.ctr0X02bit4 == 0 && theApp.myStatusClass.ctr0X02bit5 == 0 &&
+			theApp.myStatusClass.ctr0X02bit6 == 0 && theApp.myStatusClass.ctr0X02bit7 == 0 && theApp.myStatusClass.ctr0X03bit3 == 0)
+		{
+			pWnd->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(true);
+			pWnd->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(true);
+			pWnd->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(true);
+			pWnd->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(true);
+			pWnd->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(true);
+			pWnd->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(true);
+		}
+	} 
+	else
+	{
+		pWnd->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(false);
+		pWnd->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(false);
+	}
+
 }
 
 void StatusClass::download_inksystem_control00()
@@ -578,27 +688,29 @@ UINT TTLcomLoop(LPVOID pParam)
 				}
 			} 
 		}
-		////else    ///////////////认为应该增加无应答情况
-		////{
-		////	bytComErr++;
-		////	if (bytComErr>10)
-		////	{/////弹出对话框
-		////		int result =MessageBox( NULL,TEXT("无应答，是否继续") , TEXT("选择") ,MB_YESNO);
-		////		switch(result)
-		////		{
-		////		case IDYES:
-		////			bytComErr=0;
-		////			strTempCmd=(LPTSTR)readArr;
-		////			strTempCmdLen=8;
-		////			break;
-		////		case IDNO:
-		////			AfxMessageBox(_T("串口无应答！\n请联系管理员！"));
-		////			break;
-		////		}
-		////	} 
-		////}
+		else    ///////////////认为应该增加无应答情况
+		{
+			bytComErr++;
+			if (bytComErr>10)
+			{/////弹出对话框
+				int result =MessageBox( NULL,TEXT("无应答，是否继续") , TEXT("选择") ,MB_YESNO);
+				switch(result)
+				{
+				case IDYES:
+					bytComErr=0;
+					strTempCmd=(LPTSTR)readArr;
+					strTempCmdLen=8;
+					break;
+				case IDNO:
+					AfxMessageBox(_T("串口无应答！\n请联系管理员！"));
+					break;
+				}
+			} 
+			strTempCmd=(LPTSTR)readArr;
+			strTempCmdLen=8;
+		}
 
-		theApp.myCIOVsd.ClearInOutBuf();
+		//theApp.myCIOVsd.ClearInOutBuf();
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
 
 		Sleep(10);

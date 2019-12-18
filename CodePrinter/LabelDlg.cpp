@@ -38,6 +38,8 @@ IMPLEMENT_DYNAMIC(CLabelDlg, CDialog)
 
 CLabelDlg::CLabelDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CLabelDlg::IDD, pParent)
+	, m_zoomLevel(0)
+	, m_ssValue(0)
 {
 
 }
@@ -52,6 +54,10 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_MATRIX, ComboMatrix);
 	DDX_Control(pDX, IDC_COMBO2, pixelComboBox);
 	DDX_Control(pDX, IDC_STATIC_DESIGN_AREA, m_designArea);
+	DDX_Text(pDX, IDC_EDIT1, m_zoomLevel);
+	DDV_MinMaxInt(pDX, m_zoomLevel, 1, 4);
+	DDX_Text(pDX, IDC_EDIT2, m_ssValue);
+	DDV_MinMaxInt(pDX, m_ssValue, 0, 4);
 }
 
 
@@ -75,6 +81,8 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_WM_LBUTTONDOWN()
 	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
 	ON_BN_CLICKED(IDC_LABEL_CLOSE_BTN, &CLabelDlg::OnBnClickedLabelCloseBtn)
+	ON_BN_CLICKED(IDC_CLS_BUTTON, &CLabelDlg::OnBnClickedClsButton)
+	ON_BN_CLICKED(IDC_SHRINK_BUTTON, &CLabelDlg::OnBnClickedShrinkButton)
 END_MESSAGE_MAP()
 
 
@@ -141,7 +149,7 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.Inverse="GLOBAL";
 
 	//串口初始化
-    //theApp.myModuleMain.InitCommMsg();
+    theApp.myModuleMain.InitCommMsg();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -777,4 +785,32 @@ void CLabelDlg::showInputDlg(int ID)
 		pInput->ShowWindow(SW_SHOW);
 	}
 
+}
+
+void CLabelDlg::OnBnClickedClsButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myclassMessage.OBJ_Vec.clear();
+	m_ssValue=0;
+	m_zoomLevel=1;
+
+	OnPaint();
+}
+
+void CLabelDlg::OnBnClickedShrinkButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if(theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW>1)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW--;
+				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW;
+			}
+			OnPaint();
+			break;
+		}
+	}
 }

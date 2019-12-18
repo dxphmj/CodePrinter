@@ -131,13 +131,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 
 ///////////////////////
-	//LPTSTR strTempCmd;
-	//BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
-	//strTempCmd=(LPTSTR)readArr;
-	//bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
-	//Sleep(1000);
-	//theApp.readCount=theApp.myCIOVsd.Read();
- //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
+	LPTSTR strTempCmd;
+	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
+	strTempCmd=(LPTSTR)readArr;
+	bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
+	Sleep(10);
+	theApp.readCount=theApp.myCIOVsd.Read();
+    theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 
 
 

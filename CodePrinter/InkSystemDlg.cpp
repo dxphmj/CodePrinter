@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CInkSystemDlg, CDialog)
 	ON_BN_CLICKED(IDC_SETUP_BTN, &CInkSystemDlg::OnBnClickedSetupBtn)
 	ON_BN_CLICKED(IDC_PARAMETER_BTN, &CInkSystemDlg::OnBnClickedParameterBtn)
 	ON_BN_CLICKED(IDC_PHASING_BTN, &CInkSystemDlg::OnBnClickedPhasingBtn)
+	ON_BN_CLICKED(IDC_SPEED_MODE_BTN, &CInkSystemDlg::OnBnClickedSpeedModeBtn)
 END_MESSAGE_MAP()
 
 
@@ -141,4 +142,12 @@ void CInkSystemDlg::OnBnClickedPhasingBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showInkDlg(IDD_INK_PHASING_DIALOG);
+}
+
+void CInkSystemDlg::OnBnClickedSpeedModeBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X00bit2=(theApp.myStatusClass.ctr0X00bit2==1?0:1);
+	theApp.myStatusClass.download_inksystem_control00();
+
 }

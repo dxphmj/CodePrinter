@@ -35,4 +35,5 @@ public:
 	afx_msg void OnBnClickedSetupBtn();
 	afx_msg void OnBnClickedParameterBtn();
 	afx_msg void OnBnClickedPhasingBtn();
+	afx_msg void OnBnClickedSpeedModeBtn();
 };

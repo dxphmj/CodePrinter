@@ -52,6 +52,9 @@ public:
 	void getstatu();
 	void byStatusFromSlaveState();
 
+	void us_button_onoff(HWND hwnd);//墨水普通句柄
+	void ad_button_onoff(HWND hwnd);//墨水高级句柄
+
 	void download_inksystem_control00();
 	void download_inksystem_control01();
 	void download_inksystem_control02();

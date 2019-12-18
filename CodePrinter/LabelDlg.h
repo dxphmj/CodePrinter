@@ -60,4 +60,8 @@ public:
 	afx_msg void OnBnClickedDownloadButton();
 	afx_msg void OnBnClickedLabelCloseBtn();
 	void showInputDlg(int ID);
+	afx_msg void OnBnClickedClsButton();
+	int m_zoomLevel;
+	int m_ssValue;
+	afx_msg void OnBnClickedShrinkButton();
 };
