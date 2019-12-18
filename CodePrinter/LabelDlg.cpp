@@ -74,7 +74,7 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_MATRIX, ComboMatrix);
 	DDX_Control(pDX, IDC_COMBO2, pixelComboBox);
 	DDX_Control(pDX, IDC_STATIC_DESIGN_AREA, m_designArea);
-<<<<<<< HEAD
+
 	DDX_Control(pDX, IDC_SHRINK_BUTTON, m_shrink);
 	DDX_Control(pDX, IDC_ZOOM_BUTTON, m_zoom);
 	DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_notback);
@@ -97,12 +97,12 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SAVE_BUTTON, m_save);
 	DDX_Control(pDX, IDC_LABEL_CLOSE_BTN, m_return);
 
-=======
+
 	DDX_Text(pDX, IDC_EDIT1, m_zoomLevel);
 	DDV_MinMaxInt(pDX, m_zoomLevel, 1, 4);
 	DDX_Text(pDX, IDC_EDIT2, m_ssValue);
 	DDV_MinMaxInt(pDX, m_ssValue, 0, 4);
->>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
+
 }
 
 
@@ -236,13 +236,10 @@ BOOL CLabelDlg::OnInitDialog()
 	//theApp.myclassMessage.OBJ_Vec.push_back(myNewOBJ);
 	theApp.myclassMessage.Reverse="GLOBAL";
 	theApp.myclassMessage.Inverse="GLOBAL";
-<<<<<<< HEAD
-    labModule.InitCommMsg();
-=======
 
 	//串口初始化
     theApp.myModuleMain.InitCommMsg();
->>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

@@ -24,8 +24,8 @@ CConfigOutSetDlg::~CConfigOutSetDlg()
 void CConfigOutSetDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX,IDC_FREQ_MULTI_COMBO,FreqMulti);
 	DDX_Control(pDX,IDC_PRINT_DIRE_LIST,m_printDire);
+	DDX_Control(pDX,IDC_ENCODE_SIGN_LIST,m_encodeSign);
 	DDX_Control(pDX,IDC_FREQ_MULTI_COMBO,FreqMulti);
 	DDX_Control(pDX,IDC_PRODUCT_DETE_LIST,m_productDete);
 	DDX_Control(pDX,IDC_ACTIVE_LEV_LIST,m_activeLev);

@@ -12,7 +12,7 @@ IMPLEMENT_DYNAMIC(CInkSystemDlg, CDialog)
 
 CInkSystemDlg::CInkSystemDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkSystemDlg::IDD, pParent)
-	, m_Pressure(0)
+	
 	, m_Pumpspeed(0)
 	, m_InkTemp(0)
 	, m_PrintheadTemp(0)
@@ -33,7 +33,7 @@ CInkSystemDlg::~CInkSystemDlg()
 void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_PRESSURE_EDIT, m_Pressure);
+//	DDX_Text(pDX, IDC_PRESSURE_EDIT, m_Pressure);
 	DDX_Text(pDX, IDC_PUMP_SPEED_EDIT, m_Pumpspeed);
 	DDX_Text(pDX, IDC_INK_TEMP_EDIT, m_InkTemp);
 	DDX_Text(pDX, IDC_PRINTHEAD_TEMP_EDIT, m_PrintheadTemp);
@@ -53,11 +53,8 @@ BEGIN_MESSAGE_MAP(CInkSystemDlg, CDialog)
 	ON_BN_CLICKED(IDC_SETUP_BTN, &CInkSystemDlg::OnBnClickedSetupBtn)
 	ON_BN_CLICKED(IDC_PARAMETER_BTN, &CInkSystemDlg::OnBnClickedParameterBtn)
 	ON_BN_CLICKED(IDC_PHASING_BTN, &CInkSystemDlg::OnBnClickedPhasingBtn)
-<<<<<<< HEAD
 	ON_EN_CHANGE(IDC_PRESSURE_EDIT, &CInkSystemDlg::OnEnChangePressureEdit)
 	ON_WM_TIMER()
-=======
->>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
 	ON_BN_CLICKED(IDC_SPEED_MODE_BTN, &CInkSystemDlg::OnBnClickedSpeedModeBtn)
 END_MESSAGE_MAP()
 
@@ -171,7 +168,7 @@ void CInkSystemDlg::OnBnClickedPhasingBtn()
 	showInkDlg(IDD_INK_PHASING_DIALOG);
 }
 
-<<<<<<< HEAD
+
 void CInkSystemDlg::OnEnChangePressureEdit()
 {
 	// TODO:  如果该控件是 RICHEDIT 控件，则它将不会
@@ -193,7 +190,10 @@ void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
 	{
 		theApp.myStatusClass.byStatusFromSlaveState();
 		theApp.myStatusClass.getstatu();
-		m_Pressure=theApp.myStatusClass.staPressure;
+		
+		
+		GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
+		//m_Pressure=theApp.myStatusClass.staPressure;
 		m_Pumpspeed=theApp.myStatusClass.staBumSpe;
 		m_InkTemp=theApp.myStatusClass.staInkTem;
 		m_PrintheadTemp=theApp.myStatusClass.staPriHeaTem;
@@ -202,6 +202,8 @@ void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
 		m_TargetVisco=theApp.myStatusClass.staTarVis;  
 		m_ActualVisco=theApp.myStatusClass.staActVis;  
 		m_HighVol=theApp.myStatusClass.staHigVol;
+		
+		break;
 		//m_Inkflow=; 
 			/*回收故障
 		If staInkFloSenOff = True Then  '回收关
@@ -236,15 +238,12 @@ void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
 	}
 }
 
-void CInkSystemDlg::OnBnClickedSpeedModeBtn()
-{
-	// TODO: 在此添加控件通知处理程序代码
-=======
+
 void CInkSystemDlg::OnBnClickedSpeedModeBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.myStatusClass.ctr0X00bit2=(theApp.myStatusClass.ctr0X00bit2==1?0:1);
 	theApp.myStatusClass.download_inksystem_control00();
 
->>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
+
 }
