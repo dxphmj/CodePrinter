@@ -237,8 +237,7 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.Reverse="GLOBAL";
 	theApp.myclassMessage.Inverse="GLOBAL";
 
-	//´®¿Ú³õÊ¼»¯
-    theApp.myModuleMain.InitCommMsg();
+
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control

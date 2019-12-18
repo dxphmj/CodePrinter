@@ -138,7 +138,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
 	m_PausePrint.SizeToContent(); 
 
-
+	//´®¿Ú³õÊ¼»¯
+	theApp.myModuleMain.InitCommMsg();
 ///////////////////////
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};

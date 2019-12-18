@@ -56,6 +56,15 @@ BEGIN_MESSAGE_MAP(CInkSystemDlg, CDialog)
 	ON_EN_CHANGE(IDC_PRESSURE_EDIT, &CInkSystemDlg::OnEnChangePressureEdit)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_SPEED_MODE_BTN, &CInkSystemDlg::OnBnClickedSpeedModeBtn)
+	ON_BN_CLICKED(IDC_PRESSURE_MODE_BTN, &CInkSystemDlg::OnBnClickedPressureModeBtn)
+	ON_BN_CLICKED(IDC_PUMP_BTN, &CInkSystemDlg::OnBnClickedPumpBtn)
+	ON_BN_CLICKED(IDC_BLEED_VALVE_BTN, &CInkSystemDlg::OnBnClickedBleedValveBtn)
+	ON_BN_CLICKED(IDC_WASH_VALVE_BTN, &CInkSystemDlg::OnBnClickedWashValveBtn)
+	ON_BN_CLICKED(IDC_NOZZLE_VALVE_BTN, &CInkSystemDlg::OnBnClickedNozzleValveBtn)
+	ON_BN_CLICKED(IDC_FEED_VALVE_BTN, &CInkSystemDlg::OnBnClickedFeedValveBtn)
+	ON_BN_CLICKED(IDC_SOLVENT_VALVE_BTN, &CInkSystemDlg::OnBnClickedSolventValveBtn)
+	ON_BN_CLICKED(IDC_VISCO_VALVE_BTN, &CInkSystemDlg::OnBnClickedViscoValveBtn)
+	ON_BN_CLICKED(IDC_FLUSH_VALVE_BTN, &CInkSystemDlg::OnBnClickedFlushValveBtn)
 END_MESSAGE_MAP()
 
 
@@ -191,7 +200,6 @@ void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
 		theApp.myStatusClass.byStatusFromSlaveState();
 		theApp.myStatusClass.getstatu();
 		
-		
 		GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
 		GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
 		GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
@@ -248,12 +256,73 @@ void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
 	}
 }
 
-
+//泵速模式
 void CInkSystemDlg::OnBnClickedSpeedModeBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.myStatusClass.ctr0X00bit2=(theApp.myStatusClass.ctr0X00bit2==1?0:1);
 	theApp.myStatusClass.download_inksystem_control00();
-
-
+}
+//压力模式
+void CInkSystemDlg::OnBnClickedPressureModeBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X00bit2 = (theApp.myStatusClass.ctr0X00bit2==1?0:1);
+	theApp.myStatusClass.download_inksystem_control00();
+}
+//泵
+void CInkSystemDlg::OnBnClickedPumpBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X00bit3 = (theApp.myStatusClass.ctr0X00bit3==1?0:1);
+	theApp.myStatusClass.download_inksystem_control00();
+}
+//排气阀
+void CInkSystemDlg::OnBnClickedBleedValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X01bit2 = (theApp.myStatusClass.ctr0X01bit2==1?0:1);
+	theApp.myStatusClass.download_inksystem_control01();
+}
+//冲洗阀
+void CInkSystemDlg::OnBnClickedWashValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X01bit6 = (theApp.myStatusClass.ctr0X01bit6==1?0:1);
+	theApp.myStatusClass.download_inksystem_control01();
+}
+//喷嘴阀
+void CInkSystemDlg::OnBnClickedNozzleValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X01bit0 = (theApp.myStatusClass.ctr0X01bit0==1?0:1);
+	theApp.myStatusClass.download_inksystem_control01();
+}
+//供墨阀
+void CInkSystemDlg::OnBnClickedFeedValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X01bit1 = (theApp.myStatusClass.ctr0X01bit1==1?0:1);
+	theApp.myStatusClass.download_inksystem_control01();
+}
+//溶剂阀
+void CInkSystemDlg::OnBnClickedSolventValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X01bit4 = (theApp.myStatusClass.ctr0X01bit4==1?0:1);
+	theApp.myStatusClass.download_inksystem_control01();
+}
+//粘度阀
+void CInkSystemDlg::OnBnClickedViscoValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X01bit5 = (theApp.myStatusClass.ctr0X01bit5==1?0:1);
+	theApp.myStatusClass.download_inksystem_control01();
+}
+//清洗阀
+void CInkSystemDlg::OnBnClickedFlushValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X01bit3 = (theApp.myStatusClass.ctr0X01bit3==1?0:1);
+	theApp.myStatusClass.download_inksystem_control01();
 }

@@ -185,7 +185,7 @@ string ModuleMain::CString2string(CString csStrData)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=4;
+	tempDcb.nComPort=1;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -690,29 +690,41 @@ UINT TTLcomLoop(LPVOID pParam)
 		}
 		else    ///////////////认为应该增加无应答情况
 		{
-			bytComErr++;
-			if (bytComErr>10)
-			{/////弹出对话框
-				int result =MessageBox( NULL,TEXT("无应答，是否继续") , TEXT("选择") ,MB_YESNO);
-				switch(result)
-				{
-				case IDYES:
-					bytComErr=0;
-					strTempCmd=(LPTSTR)readArr;
-					strTempCmdLen=8;
-					break;
-				case IDNO:
-					AfxMessageBox(_T("串口无应答！\n请联系管理员！"));
-					break;
-				}
-			} 
-			strTempCmd=(LPTSTR)readArr;
-			strTempCmdLen=8;
+			//bytComErr++;
+			//if (bytComErr>10)
+			//{/////弹出对话框
+			//	int result =MessageBox( NULL,TEXT("无应答，是否继续") , TEXT("选择") ,MB_YESNO);
+			//	switch(result)
+			//	{
+			//	case IDYES:
+			//		bytComErr=0;
+			//		strTempCmd=(LPTSTR)readArr;
+			//		strTempCmdLen=8;
+			//		break;
+			//	case IDNO:
+			//		AfxMessageBox(_T("串口无应答！\n请联系管理员！"));
+			//		break;
+			//	}
+			//} 
+			//strTempCmd=(LPTSTR)readArr;
+			//strTempCmdLen=8;
+
+			/////////以下代码测试用
+			theApp.boQueCtrLock.Lock();
+			if (theApp.queCtr.size()>0)
+			{
+				vector<BYTE> tempQueVec=theApp.queCtr.front();
+				theApp.queCtr.pop();
+				strTempCmdLen=tempQueVec.size();
+				strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+			}
+			theApp.boQueCtrLock.Unlock();
 		}
 
 		//theApp.myCIOVsd.ClearInOutBuf();
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
-
+		strTempCmdLen=0;
+		strTempCmd=(LPTSTR)"";
 		Sleep(10);
 		
 		theApp.readCount=theApp.myCIOVsd.Read();

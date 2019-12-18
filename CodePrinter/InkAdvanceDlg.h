@@ -18,4 +18,14 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedInkflowOffBtn();
+	afx_msg void OnBnClickedCloseInklineBtn();
+	afx_msg void OnBnClickedAddSolventBtn();
+	afx_msg void OnBnClickedHighVoltageBtn();
+	afx_msg void OnBnClickedBetectViscoBtn();
+	afx_msg void OnBnClickedWashNozzleBtn();
+	afx_msg void OnBnClickedSuckNozzleBtn();
+	afx_msg void OnBnClickedAdjustInklineBtn();
+	afx_msg void OnBnClickedInkCirBtn();
 };
