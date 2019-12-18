@@ -53,8 +53,11 @@ BEGIN_MESSAGE_MAP(CInkSystemDlg, CDialog)
 	ON_BN_CLICKED(IDC_SETUP_BTN, &CInkSystemDlg::OnBnClickedSetupBtn)
 	ON_BN_CLICKED(IDC_PARAMETER_BTN, &CInkSystemDlg::OnBnClickedParameterBtn)
 	ON_BN_CLICKED(IDC_PHASING_BTN, &CInkSystemDlg::OnBnClickedPhasingBtn)
+<<<<<<< HEAD
 	ON_EN_CHANGE(IDC_PRESSURE_EDIT, &CInkSystemDlg::OnEnChangePressureEdit)
 	ON_WM_TIMER()
+=======
+>>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
 	ON_BN_CLICKED(IDC_SPEED_MODE_BTN, &CInkSystemDlg::OnBnClickedSpeedModeBtn)
 END_MESSAGE_MAP()
 
@@ -168,6 +171,7 @@ void CInkSystemDlg::OnBnClickedPhasingBtn()
 	showInkDlg(IDD_INK_PHASING_DIALOG);
 }
 
+<<<<<<< HEAD
 void CInkSystemDlg::OnEnChangePressureEdit()
 {
 	// TODO:  如果该控件是 RICHEDIT 控件，则它将不会
@@ -235,4 +239,12 @@ void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
 void CInkSystemDlg::OnBnClickedSpeedModeBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+=======
+void CInkSystemDlg::OnBnClickedSpeedModeBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X00bit2=(theApp.myStatusClass.ctr0X00bit2==1?0:1);
+	theApp.myStatusClass.download_inksystem_control00();
+
+>>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
 }

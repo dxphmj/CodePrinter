@@ -39,6 +39,7 @@ public:
 	afx_msg void OnBnClickedSetupBtn();
 	afx_msg void OnBnClickedParameterBtn();
 	afx_msg void OnBnClickedPhasingBtn();
+<<<<<<< HEAD
 	afx_msg void OnEnChangePressureEdit();
 	int m_Pressure;   		 //压力
 	int m_Pumpspeed;  		 //泵速
@@ -51,5 +52,7 @@ public:
 	int m_HighVol;           //高压
 	CString m_Inkflow;        //回收检测
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+=======
+>>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
 	afx_msg void OnBnClickedSpeedModeBtn();
 };

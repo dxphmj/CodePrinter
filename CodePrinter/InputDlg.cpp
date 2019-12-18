@@ -120,7 +120,7 @@ void CInputDlg::OnBnClickedEditpictureButton()
 				xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
 			}
 		}
-		xmlPath=inPutModule.TCHAR2STRING(path);
+		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
 		//CImage myImage;
 		//myImage.Load(NULL);
 		OBJ_Control bmpObj;

@@ -4,7 +4,7 @@
 #include "DateDlg.h"
 #include "PictureDlg.h"
 #include "BarCodeDlg.h"
-#include "ModuleMain.h"
+//#include "ModuleMain.h"
 // CInputDlg ¶Ô»°¿ò
 
 class CInputDlg : public CDialog
@@ -38,5 +38,5 @@ public:
 	CDateDlg *pDate;
 	CPictureDlg *pPic;
 	CBarCodeDlg *pBarCode;
-    ModuleMain inPutModule;
+    //ModuleMain inPutModule;
 };

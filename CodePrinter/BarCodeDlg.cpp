@@ -5,7 +5,7 @@
 #include "CodePrinter.h"
 #include "BarCodeDlg.h"
 #include "qrencode.h"
-#include "ModuleMain.h"
+//#include "ModuleMain.h"
 #pragma comment(lib,"lib\\QRlib.lib")
 // CBarCodeDlg 对话框
 
@@ -121,7 +121,7 @@ void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_BARCODE_TEXT_EDIT);
 	CString str;
 	pEdit-> GetWindowText(str);
-    ModuleMain bQModule;
+    //ModuleMain bQModule;
 
 	//char szStr[256] = {};  
 	//wcstombs(szStr, str, str.GetLength());//将宽字符转换成多字符  
@@ -191,7 +191,7 @@ void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 		}
     }
 	//bmpObj.strFont="7x5";
-	bmpObj.strText=bQModule.CString2string(str);
+	bmpObj.strText=theApp.myModuleMain.CString2string(str);
 	bmpObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
 

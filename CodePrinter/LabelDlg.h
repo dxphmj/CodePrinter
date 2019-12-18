@@ -2,7 +2,7 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 //#include "ClassMessage.h"
-#include "ModuleMain.h"
+//#include "ModuleMain.h"
 #include "InputDlg.h"
 
 // CLabelDlg ¶Ô»°¿ò
@@ -14,7 +14,7 @@ public:
 	int matrix;
 	int pixel;
 	
-	ModuleMain labModule;
+	//ModuleMain labModule;
 	bool isFrame;
 	void getMessageDot();
 	CInputDlg *pInput;
@@ -82,5 +82,12 @@ public:
 	afx_msg void OnBnClickedDownloadButton();
 	afx_msg void OnBnClickedLabelCloseBtn();
 	void showInputDlg(int ID);
+<<<<<<< HEAD
 	afx_msg void OnBnClickedZoomButton();
+=======
+	afx_msg void OnBnClickedClsButton();
+	int m_zoomLevel;
+	int m_ssValue;
+	afx_msg void OnBnClickedShrinkButton();
+>>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
 };

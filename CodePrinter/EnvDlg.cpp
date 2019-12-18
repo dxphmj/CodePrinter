@@ -64,7 +64,7 @@ void CEnvDlg::OnCbnSelchangeLanguageCombo()
 		if (isRead)
 		{
             string lantest=theApp.myLanguage.LanguageMap["IDC_LANGUAGE_STATIC"];
-			GetDlgItem(IDC_LANGUAGE_STATIC)->SetWindowText(envModule.stringToLPCWSTR(lantest));
+			GetDlgItem(IDC_LANGUAGE_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(lantest));
 		}
 		break;
 	case 1:
@@ -72,7 +72,7 @@ void CEnvDlg::OnCbnSelchangeLanguageCombo()
 		if (isRead)
 		{
 			string lantest=theApp.myLanguage.LanguageMap["IDC_LANGUAGE_STATIC"];
-			GetDlgItem(IDC_LANGUAGE_STATIC)->SetWindowText(envModule.stringToLPCWSTR(lantest));
+			GetDlgItem(IDC_LANGUAGE_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(lantest));
 		}
 		break;
 	default:

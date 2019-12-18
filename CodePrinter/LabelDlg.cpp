@@ -38,6 +38,8 @@ IMPLEMENT_DYNAMIC(CLabelDlg, CDialog)
 
 CLabelDlg::CLabelDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CLabelDlg::IDD, pParent)
+	, m_zoomLevel(0)
+	, m_ssValue(0)
 {
 
 }
@@ -72,6 +74,7 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_MATRIX, ComboMatrix);
 	DDX_Control(pDX, IDC_COMBO2, pixelComboBox);
 	DDX_Control(pDX, IDC_STATIC_DESIGN_AREA, m_designArea);
+<<<<<<< HEAD
 	DDX_Control(pDX, IDC_SHRINK_BUTTON, m_shrink);
 	DDX_Control(pDX, IDC_ZOOM_BUTTON, m_zoom);
 	DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_notback);
@@ -94,6 +97,12 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SAVE_BUTTON, m_save);
 	DDX_Control(pDX, IDC_LABEL_CLOSE_BTN, m_return);
 
+=======
+	DDX_Text(pDX, IDC_EDIT1, m_zoomLevel);
+	DDV_MinMaxInt(pDX, m_zoomLevel, 1, 4);
+	DDX_Text(pDX, IDC_EDIT2, m_ssValue);
+	DDV_MinMaxInt(pDX, m_ssValue, 0, 4);
+>>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
 }
 
 
@@ -118,6 +127,8 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_WM_LBUTTONDOWN()
 	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
 	ON_BN_CLICKED(IDC_LABEL_CLOSE_BTN, &CLabelDlg::OnBnClickedLabelCloseBtn)
+	ON_BN_CLICKED(IDC_CLS_BUTTON, &CLabelDlg::OnBnClickedClsButton)
+	ON_BN_CLICKED(IDC_SHRINK_BUTTON, &CLabelDlg::OnBnClickedShrinkButton)
 END_MESSAGE_MAP()
 
 
@@ -128,7 +139,6 @@ BOOL CLabelDlg::OnInitDialog()
 	CDialog::OnInitDialog();
     isFrame = false;
 	// TODO:  在此添加额外的初始化
-
 	pInput = new CInputDlg;
 	pInput->Create(IDD_INPUT_DIALOG,this);
 	pInput->MoveWindow(0,200,800,400);
@@ -156,7 +166,7 @@ BOOL CLabelDlg::OnInitDialog()
 	ComboMatrix.AddString(_T("1L25M"));
 	ComboMatrix.AddString(_T("2L7M"));
 	ComboMatrix.SetCurSel(1);
-
+	this->OnCbnSelchangeComboMatrix();
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
    
 	//彩色按钮
@@ -226,7 +236,13 @@ BOOL CLabelDlg::OnInitDialog()
 	//theApp.myclassMessage.OBJ_Vec.push_back(myNewOBJ);
 	theApp.myclassMessage.Reverse="GLOBAL";
 	theApp.myclassMessage.Inverse="GLOBAL";
+<<<<<<< HEAD
     labModule.InitCommMsg();
+=======
+
+	//串口初始化
+    theApp.myModuleMain.InitCommMsg();
+>>>>>>> 8182bf51fb697132e6c544b13cb48cb51f1aa2a6
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -242,6 +258,54 @@ void CLabelDlg::OnBnClickedInputButton()
 
 void CLabelDlg::OnPaint()
 {
+	CPaintDC dc(this); // device context for painting
+	CDC* pDC = m_designArea.GetDC();
+	CRect rectClient;
+	CDC dcMem,dcBkgnd;
+	CBitmap bitmapTemp;//, *pOldBitmap;
+	//GetClientRect(&rectClient);//获取窗口信息
+	bitmapTemp.CreateCompatibleBitmap(pDC, 781, 161);//创建内存位图
+	dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
+	//pOldBitmap = dcMem.SelectObject(&bitmapTemp);//将内存位图选入内存dc
+	dcMem.SelectObject(&bitmapTemp);
+	//填充颜色
+	m_designArea.GetClientRect(&rectClient);
+	dcMem.FillSolidRect(rectClient,RGB(255,255,255));   //填充颜色
+	
+	CBrush cbrush;
+	CBrush* pBrush; //旧笔刷
+	if(isFrame)
+	{//画网格
+		CPen cPen; 
+		cPen.CreatePen(PS_SOLID,1,RGB(220,220,220)); 
+		CPen* pOldPen; 
+		pOldPen = dcMem.SelectObject(&cPen); //载入笔刷
+		for (int i=0;i<=rectClient.Width();)//竖
+		{
+			dcMem.MoveTo(i,rectClient.Height()-5*pixel-1);
+			dcMem.LineTo(i,rectClient.Height());
+			i+=5;
+		}
+		for (int j=rectClient.Height()-5*pixel-1;j<=rectClient.Height();)
+		{
+			dcMem.MoveTo(0,j);
+			dcMem.LineTo(rectClient.Width(),j);
+			j+=5;
+		}
+		dcMem.SelectObject(pOldPen);
+		cPen.DeleteObject();
+		pOldPen->DeleteObject();
+		//isFrame=false;
+	}
+	theApp.myclassMessage.DrawDot(&dcMem);
+	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//绘制图片到主dc
+	//dcMem.SelectObject(pOldBitmap);//清理
+	dcMem.DeleteDC();      // 删除内存DC
+	bitmapTemp.DeleteObject();      // 删除内存位图
+	//theApp.myclassMessage.DrawDot(pDC);
+
+	ReleaseDC(pDC); 
+/*
 	CPaintDC dc(this); // device context for painting
 	// TODO: 在此处添加消息处理程序代码
 	// 不为绘图消息调用 CDialogEx::OnPaint()
@@ -328,7 +392,7 @@ void CLabelDlg::OnPaint()
 	//myOBJ_Control.DrowDot(pDC);
 	//myOBJ_Control.DrawFrame(pDC);
 	ReleaseDC(pDC); 
-
+*/
 
 }
 //选择Matrix
@@ -338,7 +402,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 	CString  strText;
 	int nIndex = ComboMatrix.GetCurSel();  //当前选中的项
 	ComboMatrix.GetLBText(nIndex,strText);
-	theApp.myclassMessage.strMatrix=labModule.WcharToChar(strText);
+	theApp.myclassMessage.strMatrix=theApp.myModuleMain.WcharToChar(strText);
 	
 	switch(nIndex)
 	{
@@ -592,7 +656,7 @@ void CLabelDlg::OnBnClickedSaveButton()
 	if(ShowPathDlg(path, MAX_PATH))
 	{
 		//AfxMessageBox(path);
-		xmlPath=labModule.TCHAR2STRING(path);
+		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
 		//xmlPath+="sss1";
 		if (xmlPath[xmlPath.length()-4]!='.')
 		{
@@ -615,7 +679,7 @@ void CLabelDlg::OnBnClickedOpenButton()
 	if(ShowPathDlg(path, MAX_PATH))
 	{
 		//AfxMessageBox(path);
-		xmlPath=labModule.TCHAR2STRING(path);
+		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
 		//xmlPath+="sss.xml";
 		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
 		theApp.myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
@@ -737,6 +801,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 	}
 	//以上都要放到getMessageDot中，
+
 	//drawPrevFirst（）
 
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
@@ -813,4 +878,32 @@ void CLabelDlg::showInputDlg(int ID)
 		pInput->ShowWindow(SW_SHOW);
 	}
 
+}
+
+void CLabelDlg::OnBnClickedClsButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myclassMessage.OBJ_Vec.clear();
+	m_ssValue=0;
+	m_zoomLevel=1;
+
+	OnPaint();
+}
+
+void CLabelDlg::OnBnClickedShrinkButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if(theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW>1)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW--;
+				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW;
+			}
+			OnPaint();
+			break;
+		}
+	}
 }

@@ -40,6 +40,7 @@ void CPathDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TREE_DIRVIEW, m_tree);
 	//}}AFX_DATA_MAP
 	//DDX_Control(pDX, IDC_EDIT_FULLPATH, m_editPath);
+	DDX_Control(pDX, IDC_STATIC_SELECT, m_Select);
 }
 
 
@@ -67,22 +68,30 @@ BOOL CPathDialog::OnInitDialog()
 		break;
 	case 2:
 		break;
-
 	}
-	SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );	
+	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);
 	//设置按钮的位置及大小
-	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+10,rect.top+10,90,20,SWP_SHOWWINDOW);
+	CFont *m_Font;
+	m_Font=new CFont;
+	m_Font->CreatePointFont(160, _T("Arial"), NULL);
+	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+50,rect.top+20,700,60,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_STATIC_SELECT)->SetFont(&m_Font,true);
+	m_Select.SetFont(m_Font,true);
 	// TODO: Add extra initialization here
 	m_ImageList.Create(IDB_FILE, 16, 16, RGB(0, 255, 0));
 	m_tree.SetImageList(&m_ImageList, LVSIL_NORMAL);
-
+	m_tree.SetFont(m_Font);
 	HTREEITEM hRoot = m_tree.InsertItem(_T("我的设备"), 0, 0, TVI_ROOT, TVI_LAST);
 	CreateDriveList();
 	m_tree.Expand(hRoot, TVE_EXPAND);
-	
+	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+80,700,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDIT_FULLPATH)->SetFont(m_Font,true);
+	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+160,700,300,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+500,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+500,100,40,SWP_SHOWWINDOW);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }

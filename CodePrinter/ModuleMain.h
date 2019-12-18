@@ -51,6 +51,14 @@ public:
 	~StatusClass(){}
 	void getstatu();
 	void byStatusFromSlaveState();
+
+	void us_button_onoff(HWND hwnd);//墨水普通句柄
+	void ad_button_onoff(HWND hwnd);//墨水高级句柄
+
+	void download_inksystem_control00();
+	void download_inksystem_control01();
+	void download_inksystem_control02();
+	void download_inksystem_control03();
 public:
 	bool staSysRea, staSysBus, staBumMod, staBum, staHarFin, staCleFauFin;
 		bool staNozVal, staFeeVal, staBleVal, staFluVal, staSolVal, staVisVal, staWasVal ;
@@ -112,8 +120,9 @@ public:
 	~ModuleMain(void);
 	LPCWSTR stringToLPCWSTR(std::string orig);
     string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP);
-	string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);
-    bool writeXml(string xmlFileName,string valueStr,string textStr,string path);
+	string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
+    //bool writeXml(string xmlFileName,string valueStr,string textStr,string path);//增
+	bool changeXml(string xmlFileName,string valueStr,string textStr,string path);//改
 	void string2tchar(std::string &src, TCHAR* buf);
 	string TCHAR2STRING(TCHAR *STR);
    const char* CString2ConstChar(CString str);
