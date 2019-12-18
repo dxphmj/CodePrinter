@@ -499,6 +499,8 @@ UINT TTLcomLoop(LPVOID pParam)
 					break;
 				}
 			} 
+			strTempCmd=(LPTSTR)readArr;
+			strTempCmdLen=8;
 		}
 		//theApp.myCIOVsd.ClearInOutBuf();
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);

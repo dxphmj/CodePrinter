@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "ImageButton.h"
 //#include "ClassMessage.h"
 #include "ModuleMain.h"
 #include "InputDlg.h"
@@ -36,7 +37,28 @@ public:
 	virtual BOOL OnInitDialog();
 	CComboBox ComboMatrix;
 	CComboBox pixelComboBox;
-    
+    CImageButton m_shrink;
+	CImageButton m_zoom;
+	CImageButton m_notback;
+	CImageButton m_addback;
+	CImageButton m_close;
+	CImageButton m_far;
+	CImageButton m_UD_mirror;
+	CImageButton m_LR_mirror;
+	CImageButton m_L_select;
+	CImageButton m_R_select;
+	CImageButton m_U_shift;
+	CImageButton m_D_shift;
+	CImageButton m_L_shift;
+	CImageButton m_R_shift;
+	CImageButton m_L_Qshift;
+	CImageButton m_R_Qshift;
+    CImageButton m_download;
+	CImageButton m_newlyBuilt;
+	CImageButton m_open;
+	CImageButton m_save;
+	CImageButton m_return;
+
 
 	afx_msg void OnBnClickedInputButton();
 	
@@ -60,4 +82,5 @@ public:
 	afx_msg void OnBnClickedDownloadButton();
 	afx_msg void OnBnClickedLabelCloseBtn();
 	void showInputDlg(int ID);
+	afx_msg void OnBnClickedZoomButton();
 };

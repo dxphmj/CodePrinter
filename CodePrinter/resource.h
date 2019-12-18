@@ -43,6 +43,30 @@
 #define IDB_IM017_BITMAP                167
 #define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
+#define IDB_SHRINK_BITMAP               170
+#define IDB_ZOOM_BITMAP                 172
+#define IDB_NOTBACK_BITMAP              173
+#define IDB_ADDBACK_BITMAP              175
+#define IDB_CLOSE_BITMAP                176
+#define IDB_OPEN_BITMAP                 178
+#define IDB_FAR_BITMAP                  179
+#define IDB_UD_MIRROR_BITMAP            180
+#define IDB_LR_MIRROR_BITMAP            181
+#define IDB_L_SELECT_BITMAP             182
+#define IDB_R_SELECT_BITMAP             183
+#define IDB_U_SHIFT_BITMAP              184
+#define IDB_D_SHIFT_BITMAP              185
+#define IDB_L_SHIFT_BITMAP              186
+#define IDB_R_SHIFT_BITMAP              187
+#define IDB_L_QSHIFT_BITMAP             188
+#define IDB_R_QSHIFT_BITMAP             189
+#define IDB_DOWNLOAD_BITMAP             190
+#define IDB_SAVE_BITMAP                 191
+#define IDB_RETURN_BITMAP               193
+#define IDB_ON_OR_OFF_BITMAP            194
+#define IDB_START_PRINT_BITMAP          195
+#define IDB_PAUSE_PRINT_BITMAP          196
+#define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -75,6 +99,7 @@
 #define IDC_FAR_BUTTON                  1030
 #define Button1                         1031
 #define Button2                         1032
+#define IDC_ADDBACK_BTN                 1032
 #define IDC_UDMIRROR_BUTTON             1033
 #define IDC_LRMIRROR_BUTTON             1034
 #define IDC_DOWNLOAD_BUTTON             1035
@@ -177,6 +202,7 @@
 #define IDC_DELETE_BTN                  1125
 #define IDC_BUTTON3                     1126
 #define IDC_CONFI_OPEN_BTN              1126
+#define IDC_PAUSEPRINT_BUTTON           1126
 #define IDC_LANGUAGE_COMBO              1127
 #define IDC_SYSTEM_SOFTWARE_TYPE_STATIC 1128
 #define IDC_SYSTEM_SOFTWARE_UPDATE_TIME_STATIC 1129
@@ -328,14 +354,27 @@
 #define IDC_VIRTUAL_PRINT_COMBO         1276
 #define IDC_CONFIG_CLOSE_BTN            1277
 #define IDC_CONFIG_OK_BTN               1278
+#define IDC_ONOROFF_BUTTON              1279
+#define IDC_STARTPRINT_BUTTON           1280
+#define IDC_PRODUCT_DETE_LIST           1281
+#define IDC_LIST4                       1282
+#define IDC_ACTIVE_LEV_LIST             1282
+#define IDC_CONFIG_OSRETURN_BTN         1283
+#define IDC_PRINT_DIRE_LIST             1284
+#define IDC_ENCODE_SIGN_LIST            1285
+#define IDC_FREQ_MULTI_COMBO            1286
+#define IDC_IMPULSE_EDIT                1287
+#define IDC_LENGTH_EDIT                 1288
+#define IDC_CURRENT_LEV_EDIT            1289
+#define IDC_TRIGGER_LEN_EDIT            1290
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        169
+#define _APS_NEXT_RESOURCE_VALUE        198
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1279
+#define _APS_NEXT_CONTROL_VALUE         1291
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

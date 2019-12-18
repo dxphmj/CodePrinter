@@ -1,6 +1,6 @@
 #pragma once
 #include "ConfigPrintModeDlg.h"
-
+#include "ConfigOutSetDlg.h"
 // CConfigurationDlg ¶Ô»°¿ò
 
 class CConfigurationDlg : public CDialog
@@ -21,8 +21,10 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	CConfigPrintModeDlg *m_ConfigPM;
+	CConfigOutSetDlg *m_ConfigOS;
 
 	afx_msg void OnBnClickedConfiCloseBtn();
 	void showConfigDlg(int ID);
 	afx_msg void OnBnClickedPrintSetBtn();
+	afx_msg void OnBnClickedOutSetBtn();
 };

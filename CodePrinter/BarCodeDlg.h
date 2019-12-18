@@ -32,4 +32,5 @@ public:
 	afx_msg void OnCbnSelchangeBarcodeEccLevCombo();
 	afx_msg void OnCbnSelchangeBarcodeZoneCombo();
 	CComboBox EncodingModeBox;
+	afx_msg void OnEnChangeBarcodeTextEdit();
 };

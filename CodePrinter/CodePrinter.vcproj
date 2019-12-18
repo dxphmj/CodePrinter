@@ -572,6 +572,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ConfigOutSetDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigPrintModeDlg.cpp"
 				>
 			</File>
@@ -774,6 +778,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ConfigOutSetDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigPrintModeDlg.h"
 				>
 			</File>
@@ -900,6 +908,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\addback.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\bitmap2.bmp"
 				>
 			</File>
@@ -909,6 +921,10 @@
 			</File>
 			<File
 				RelativePath=".\res\bitmap4.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\close.bmp"
 				>
 			</File>
 			<File
@@ -928,6 +944,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\D_shift.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\download.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\far.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\Fault.bmp"
 				>
 			</File>
@@ -944,7 +972,67 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\L_Qshift.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\L_Select.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\L_Shift.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\Label.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\LR_Mirror.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\notback.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ON256.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\open.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\PAUSE_PRINT.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\R_Qshift.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\R_Select.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\R_Shift.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\return.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\save.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\Shrink.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\START_PRINT.bmp"
 				>
 			</File>
 			<File
@@ -956,7 +1044,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\U_shift.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\UD_Mirror.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\User.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\zoom.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\¼õÐ¡×ÖÌå´Ö¶È.bmp"
 				>
 			</File>
 			<File

@@ -34,6 +34,9 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFIGURATION_BUTTON, m_ButConfig);
 	DDX_Control(pDX, IDC_FILEMANA_BUTTON, m_ButFileMana);
 	DDX_Control(pDX, IDC_INK_BUTTON, m_ButInk);
+	DDX_Control(pDX, IDC_ONOROFF_BUTTON, m_OnOrOff);
+	DDX_Control(pDX, IDC_STARTPRINT_BUTTON, m_StartPrint);
+	DDX_Control(pDX, IDC_PAUSEPRINT_BUTTON, m_PausePrint);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -102,16 +105,16 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	
 	//右侧一列设置按钮的位置及大小
-	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,700,50,80,55,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_SYSTEM_BUTTON)->SetWindowPos(NULL,670,130,80,55,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_USER_BUTTON)->SetWindowPos(NULL,670,200,80,55,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_LABEL_BUTTON)->SetWindowPos(NULL,670,270,80,55,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_CONFIGURATION_BUTTON)->SetWindowPos(NULL,670,340,80,55,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_FILEMANA_BUTTON)->SetWindowPos(NULL,670,410,80,55,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_INK_BUTTON)->SetWindowPos(NULL,670,480,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,700,10,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_SYSTEM_BUTTON)->SetWindowPos(NULL,670,100,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_USER_BUTTON)->SetWindowPos(NULL,670,170,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_LABEL_BUTTON)->SetWindowPos(NULL,670,240,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFIGURATION_BUTTON)->SetWindowPos(NULL,670,310,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FILEMANA_BUTTON)->SetWindowPos(NULL,670,380,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_INK_BUTTON)->SetWindowPos(NULL,670,450,80,55,SWP_SHOWWINDOW);
 	//下面两个按钮
-	GetDlgItem(IDC_RESET_COUNT_BTN)->SetWindowPos(NULL,40,400,80,50,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_RESET_SERIAL_BTN)->SetWindowPos(NULL,360,400,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_RESET_COUNT_BTN)->SetWindowPos(NULL,40,330,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_RESET_SERIAL_BTN)->SetWindowPos(NULL,360,330,80,50,SWP_SHOWWINDOW);
 	
 	//彩色按钮
 	m_ButFault.LoadBitmaps(IDB_FAULT_BITMAP,IDB_FAULT_BITMAP,0,0,IDB_FAULT_BITMAP);
@@ -128,16 +131,22 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
+	m_OnOrOff.LoadBitmaps(IDB_ON_OR_OFF_BITMAP,IDB_ON_OR_OFF_BITMAP,0,0,IDB_ON_OR_OFF_BITMAP);
+	m_OnOrOff.SizeToContent(); 
+	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
+	m_StartPrint.SizeToContent(); 
+	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
+	m_PausePrint.SizeToContent(); 
 
 
 ///////////////////////
-	//LPTSTR strTempCmd;
-	//BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
-	//strTempCmd=(LPTSTR)readArr;
-	//bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
-	//Sleep(1000);
-	//theApp.readCount=theApp.myCIOVsd.Read();
- //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
+	LPTSTR strTempCmd;
+	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
+	strTempCmd=(LPTSTR)readArr;
+	bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
+	Sleep(1000);
+	theApp.readCount=theApp.myCIOVsd.Read();
+    theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 
 
 

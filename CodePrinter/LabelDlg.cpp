@@ -45,13 +45,55 @@ CLabelDlg::CLabelDlg(CWnd* pParent /*=NULL*/)
 CLabelDlg::~CLabelDlg()
 {
 }
-
+//CImageButton m_shrink;
+//CImageButton m_zoom;
+//CImageButton m_notback;
+//CImageButton m_addback;
+//CImageButton m_close;
+//CImageButton m_far;
+//CImageButton m_UD_mirror;
+//CImageButton m_LR_mirror;
+//CImageButton m_L_select;
+//CImageButton m_R_select;
+//CImageButton m_U_shift;
+//CImageButton m_D_shift;
+//CImageButton m_L_shift;
+//CImageButton m_R_shift;
+//CImageButton m_L_Qshift;
+//CImageButton m_R_Qshift;
+//CImageButton m_download;
+//CImageButton m_newlyBuilt;
+//CImageButton m_open;
+//CImageButton m_save;
+//CImageButton m_return;
 void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_COMBO_MATRIX, ComboMatrix);
 	DDX_Control(pDX, IDC_COMBO2, pixelComboBox);
 	DDX_Control(pDX, IDC_STATIC_DESIGN_AREA, m_designArea);
+	DDX_Control(pDX, IDC_SHRINK_BUTTON, m_shrink);
+	DDX_Control(pDX, IDC_ZOOM_BUTTON, m_zoom);
+	DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_notback);
+	DDX_Control(pDX, IDC_ADDBACK_BTN, m_addback);
+	DDX_Control(pDX, IDC_CLOSE_USER_BTN, m_close);
+	DDX_Control(pDX, IDC_FAR_BUTTON, m_far);
+	DDX_Control(pDX, IDC_UDMIRROR_BUTTON, m_UD_mirror);
+	DDX_Control(pDX, IDC_LRMIRROR_BUTTON, m_LR_mirror);
+	DDX_Control(pDX, IDC_LSELECT_BUTTON, m_L_select);
+	DDX_Control(pDX, IDC_RSELECT_BUTTON, m_R_select);
+	DDX_Control(pDX, IDC_USHIFT_BUTTON, m_U_shift);
+	DDX_Control(pDX, IDC_DSHIFT_BUTTON, m_D_shift);
+	DDX_Control(pDX, IDC_LSHIFT_BUTTON, m_L_shift);
+	DDX_Control(pDX, IDC_RSHIFT_BUTTON, m_R_shift);
+	DDX_Control(pDX, IDC_LQSHIFT_BUTTON, m_L_Qshift);
+	DDX_Control(pDX, IDC_RQSHIFT_BUTTON, m_R_Qshift);
+	DDX_Control(pDX, IDC_DOWNLOAD_BUTTON, m_download);
+	DDX_Control(pDX, IDC_CLS_BUTTON, m_newlyBuilt);
+	DDX_Control(pDX, IDC_OPEN_BUTTON, m_open);
+	DDX_Control(pDX, IDC_SAVE_BUTTON, m_save);
+	DDX_Control(pDX, IDC_LABEL_CLOSE_BTN, m_return);
+
 }
 
 
@@ -72,6 +114,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_SAVE_BUTTON, &CLabelDlg::OnBnClickedSaveButton)
 	ON_BN_CLICKED(IDC_OPEN_BUTTON, &CLabelDlg::OnBnClickedOpenButton)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
+
 	ON_WM_LBUTTONDOWN()
 	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
 	ON_BN_CLICKED(IDC_LABEL_CLOSE_BTN, &CLabelDlg::OnBnClickedLabelCloseBtn)
@@ -115,7 +158,50 @@ BOOL CLabelDlg::OnInitDialog()
 	ComboMatrix.SetCurSel(1);
 
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
-
+   
+	//彩色按钮
+	m_shrink.LoadBitmaps(IDB_SHRINK_BITMAP,IDB_SHRINK_BITMAP,0,0,IDB_SHRINK_BITMAP);
+	m_shrink.SizeToContent(); 
+	m_zoom.LoadBitmaps(IDB_ZOOM_BITMAP,IDB_ZOOM_BITMAP,0,0,IDB_SHRINK_BITMAP);
+	m_zoom.SizeToContent(); 
+	m_notback.LoadBitmaps(IDB_NOTBACK_BITMAP,IDB_NOTBACK_BITMAP,0,0,IDB_NOTBACK_BITMAP);
+	m_notback.SizeToContent(); 
+	m_addback.LoadBitmaps(IDB_ADDBACK_BITMAP,IDB_ADDBACK_BITMAP,0,0,IDB_ADDBACK_BITMAP);
+	m_addback.SizeToContent(); 
+	m_close.LoadBitmaps(IDB_CLOSE_BITMAP,IDB_CLOSE_BITMAP,0,0,IDB_CLOSE_BITMAP);
+	m_close.SizeToContent(); 
+	m_far.LoadBitmaps(IDB_FAR_BITMAP,IDB_FAR_BITMAP,0,0,IDB_FAR_BITMAP);
+	m_far.SizeToContent(); 
+	m_UD_mirror.LoadBitmaps(IDB_UD_MIRROR_BITMAP,IDB_UD_MIRROR_BITMAP,0,0,IDB_UD_MIRROR_BITMAP);
+	m_UD_mirror.SizeToContent(); 
+	m_LR_mirror.LoadBitmaps(IDB_LR_MIRROR_BITMAP,IDB_LR_MIRROR_BITMAP,0,0,IDB_LR_MIRROR_BITMAP);
+	m_LR_mirror.SizeToContent(); 
+	m_L_select.LoadBitmaps(IDB_L_SELECT_BITMAP,IDB_L_SELECT_BITMAP,0,0,IDB_L_SELECT_BITMAP);
+	m_L_select.SizeToContent(); 
+	m_R_select.LoadBitmaps(IDB_R_SELECT_BITMAP,IDB_R_SELECT_BITMAP,0,0,IDB_R_SELECT_BITMAP);
+	m_R_select.SizeToContent(); 
+	m_U_shift.LoadBitmaps(IDB_U_SHIFT_BITMAP,IDB_U_SHIFT_BITMAP,0,0,IDB_U_SHIFT_BITMAP);
+	m_U_shift.SizeToContent(); 
+	m_D_shift.LoadBitmaps(IDB_D_SHIFT_BITMAP,IDB_D_SHIFT_BITMAP,0,0,IDB_D_SHIFT_BITMAP);
+	m_D_shift.SizeToContent(); 
+	m_L_shift.LoadBitmaps(IDB_L_SHIFT_BITMAP,IDB_L_SHIFT_BITMAP,0,0,IDB_L_SHIFT_BITMAP);
+	m_L_shift.SizeToContent(); 
+	m_R_shift.LoadBitmaps(IDB_R_SHIFT_BITMAP,IDB_R_SHIFT_BITMAP,0,0,IDB_R_SHIFT_BITMAP);
+	m_R_shift.SizeToContent(); 
+	m_L_Qshift.LoadBitmaps(IDB_L_QSHIFT_BITMAP,IDB_L_QSHIFT_BITMAP,0,0,IDB_L_QSHIFT_BITMAP);
+	m_L_Qshift.SizeToContent(); 
+	m_R_Qshift.LoadBitmaps(IDB_R_QSHIFT_BITMAP,IDB_R_QSHIFT_BITMAP,0,0,IDB_R_QSHIFT_BITMAP);
+	m_R_Qshift.SizeToContent(); 
+	m_download.LoadBitmaps(IDB_DOWNLOAD_BITMAP,IDB_DOWNLOAD_BITMAP,0,0,IDB_DOWNLOAD_BITMAP);
+	m_download.SizeToContent(); 
+	m_newlyBuilt.LoadBitmaps(IDB_LR_MIRROR_BITMAP,IDB_LR_MIRROR_BITMAP,0,0,IDB_LR_MIRROR_BITMAP);
+	m_newlyBuilt.SizeToContent(); 
+	m_open.LoadBitmaps(IDB_OPEN_BITMAP,IDB_OPEN_BITMAP,0,0,IDB_OPEN_BITMAP);
+	m_open.SizeToContent();
+	m_save.LoadBitmaps(IDB_SAVE_BITMAP,IDB_SAVE_BITMAP,0,0,IDB_SAVE_BITMAP);
+	m_save.SizeToContent();
+	m_return.LoadBitmaps(IDB_RETURN_BITMAP,IDB_RETURN_BITMAP,0,0,IDB_RETURN_BITMAP);
+	m_return.SizeToContent();
 
 	//test
 
@@ -140,7 +226,7 @@ BOOL CLabelDlg::OnInitDialog()
 	//theApp.myclassMessage.OBJ_Vec.push_back(myNewOBJ);
 	theApp.myclassMessage.Reverse="GLOBAL";
 	theApp.myclassMessage.Inverse="GLOBAL";
-    //labModule.InitCommMsg();
+    labModule.InitCommMsg();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
