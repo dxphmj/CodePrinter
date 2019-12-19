@@ -592,6 +592,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DealXml.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\EditFigureDlg.cpp"
 				>
 			</File>
@@ -791,6 +795,10 @@
 			</File>
 			<File
 				RelativePath=".\DateDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DealXml.h"
 				>
 			</File>
 			<File
