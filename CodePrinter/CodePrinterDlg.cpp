@@ -11,6 +11,7 @@
 #include "ConfigurationDlg.h"
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
+#include <fstream>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -138,8 +139,76 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
 	m_PausePrint.SizeToContent(); 
 
+
+	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
+
+	CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
+	string timeErr="Storage Card\\System\\Error\\";
+	timeErr=timeErr+theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay())+".txt";
+	ofstream timeErrout(timeErr.c_str(), ios::out |ios::trunc);
+	timeErrout.close();
+	ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
+	out99.close();
+
 	//串口初始化
 	theApp.myModuleMain.InitCommMsg();
+
+	//墨水维护时间
+
+	//错误日志相关
+
+	//配置相关
+	FILE *testFile;
+	testFile=fopen("Storage Card\\System\\InkSystem.xml", "r");
+	if (testFile)
+	{
+		fclose(testFile);
+	}
+	else
+	{
+		//createParaXML()
+	}
+
+	testFile=fopen("Storage Card\\System\\SoftSystem.xml", "r");
+	if (testFile)
+	{
+		fclose(testFile);
+	}
+	else
+	{
+		//createSoftXML()
+	}
+
+	//多语言,根据softxml选择语言
+
+	testFile=fopen("Storage Card\\System\\PrintConfig.xml", "r");
+	if (testFile)
+	{
+		fclose(testFile);
+	}
+	else
+	{
+		//createPCFXML()
+	}
+
+	testFile=fopen("Storage Card\\System\\PrintMessage.xml", "r");
+	if (testFile)
+	{
+		fclose(testFile);
+	}
+	else
+	{
+		theApp.myclassMessage.labName="Default.lab";
+		theApp.myclassMessage.labPath="Storage Card\\User\\Label";
+		theApp.myclassMessage.createLABXML();
+	}
+	delete testFile;
+
+	theApp.myStatusClass.download_inksystem_control03();
 ///////////////////////
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
@@ -154,7 +223,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	//theApp.TTLcom=CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)TTLcomLoop,NULL,CREATE_SUSPENDED,&theApp.TTLcomID);
 	
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 

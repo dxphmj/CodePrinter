@@ -11,6 +11,7 @@ BYTE* VEC2ARRAY(vector<BYTE> tempVec,int n);
 CString GETnBIT_from_bytReadData(int I , int m , int n );
 CString GETnBIT_from_bytStatus(int I , int m , int n );
 
+//控制变量类
 class PcfClass//控制
 {
 public:
@@ -41,8 +42,6 @@ public:
 		  pcf_external_trilength_temp  = "";
 	}
 	~PcfClass(){}
-
-
 	string pcf_currentname ;
 	string pcf_currentpath ;
 
@@ -82,7 +81,7 @@ public:
 	BYTE pcf0X01bit2 ; //'电眼有效电平，0为低电平，1为高电平
 	BYTE pcf0X01bit3 ; //'喷印模式为单次还是连续，0为单次，1为连续
 };
-
+//状态变量类
 class StatusClass//状态
 {
 public:
@@ -189,6 +188,7 @@ public:
 			BYTE bytModuStep  ; //'固定分裂电压步级
 			int	bytModuVol, SolLevSum, InkLevSum, LevCoun ;
 };
+//通用算法库
 class ModuleMain//通用算法库
 {
 public:
