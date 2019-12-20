@@ -204,7 +204,7 @@ BOOL CLabelDlg::OnInitDialog()
 	m_R_Qshift.SizeToContent(); 
 	m_download.LoadBitmaps(IDB_DOWNLOAD_BITMAP,IDB_DOWNLOAD_BITMAP,0,0,IDB_DOWNLOAD_BITMAP);
 	m_download.SizeToContent(); 
-	m_newlyBuilt.LoadBitmaps(IDB_LR_MIRROR_BITMAP,IDB_LR_MIRROR_BITMAP,0,0,IDB_LR_MIRROR_BITMAP);
+	m_newlyBuilt.LoadBitmaps(IDB_NEWBUILT_BITMAP,IDB_NEWBUILT_BITMAP,0,0,IDB_NEWBUILT_BITMAP);
 	m_newlyBuilt.SizeToContent(); 
 	m_open.LoadBitmaps(IDB_OPEN_BITMAP,IDB_OPEN_BITMAP,0,0,IDB_OPEN_BITMAP);
 	m_open.SizeToContent();

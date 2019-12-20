@@ -660,6 +660,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\OnOffDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PictureDlg.cpp"
 				>
 			</File>
@@ -862,6 +866,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\OnOffDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PictureDlg.h"
 				>
 			</File>
@@ -992,6 +1000,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\newlyBuilt.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\notback.bmp"
 				>
 			</File>
@@ -1057,14 +1069,6 @@
 			</File>
 			<File
 				RelativePath=".\res\zoom.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\减小字体粗度.bmp"
-				>
-			</File>
-			<File
-				RelativePath="C:\Users\Admin\Desktop\无标题.bmp"
 				>
 			</File>
 		</Filter>

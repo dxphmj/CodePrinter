@@ -6,8 +6,7 @@
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
 #define IDB_BITMAP1                     129
-#define IDB_BITMAP2                     130
-#define IDB_BITMAP3                     131
+#define IDB_OFF_BITMAP                  131
 #define IDD_LABEL_DIALOG                132
 #define IDD_CONFIGURATION_DIALOG        133
 #define IDD_FILEMANA_DIALOG             134
@@ -15,7 +14,6 @@
 #define IDD_INPUT_DIALOG                136
 #define IDD_EDITTEXT_DIALOG             137
 #define IDD_EDITFIGURE_DIALOG           138
-#define IDD_DATE_DLG                    139
 #define IDD_DATE_DIALOG                 139
 #define IDD_PICTURE_DIALOG              140
 #define IDD_BARCODE_DIALOG              141
@@ -67,6 +65,10 @@
 #define IDB_START_PRINT_BITMAP          195
 #define IDB_PAUSE_PRINT_BITMAP          196
 #define IDD_CONFIG_OUTSET_DIALOG        197
+#define IDD_ONOFF_DIALOG                199
+#define IDB_BITMAP4                     200
+#define IDB_NEW_BITMAP                  201
+#define IDB_NEWBUILT_BITMAP             201
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -90,6 +92,7 @@
 #define IDC_EDITPICTURE_BUTTON          1021
 #define Bar_Code_Button                 1022
 #define Odbc_Button                     1023
+#define IDB_ON_BITMAP                   1023
 #define IDC_COPY_BUTTON                 1024
 #define IDC_DELETE_BUTTON               1025
 #define IDC_REPEAT_BUTTON               1026
@@ -367,14 +370,21 @@
 #define IDC_LENGTH_EDIT                 1288
 #define IDC_CURRENT_LEV_EDIT            1289
 #define IDC_TRIGGER_LEN_EDIT            1290
+#define IDC_SEQUENCE_BTN                1293
+#define IDC_FAST_BTN                    1294
+#define IDC_FAULT_LIST                  1295
+#define IDC_TYPE_STATIC                 1296
+#define IDC_MESSAGE_STATIC              1297
+#define IDC_DATE_STATIC                 1298
+#define IDC_MUL_LANGV_STATIC            1299
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        198
+#define _APS_NEXT_RESOURCE_VALUE        202
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1291
+#define _APS_NEXT_CONTROL_VALUE         1300
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
