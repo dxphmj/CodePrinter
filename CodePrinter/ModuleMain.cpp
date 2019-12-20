@@ -107,7 +107,7 @@ string ModuleMain::ReadXml(string xmlFileName,string nameStr,string faultText,st
 //	return false;
 //}
 
-bool changeXml(string xmlFileName,string valueStr,string textStr,string path)
+bool ModuleMain::changeXml(string xmlFileName,string valueStr,string textStr,string path)
 {
 	path=path+"\\"+xmlFileName;
 	TiXmlDocument mydoc(path.c_str());//xmlÎÄµµ¶ÔÏó
