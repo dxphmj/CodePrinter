@@ -67,7 +67,6 @@
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
 #define IDB_BITMAP4                     200
-#define IDB_NEW_BITMAP                  201
 #define IDB_NEWBUILT_BITMAP             201
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
@@ -377,6 +376,7 @@
 #define IDC_MESSAGE_STATIC              1297
 #define IDC_DATE_STATIC                 1298
 #define IDC_MUL_LANGV_STATIC            1299
+#define IDC_RETURN_BTN                  1300
 
 // Next default values for new objects
 // 
@@ -384,7 +384,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        202
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1300
+#define _APS_NEXT_CONTROL_VALUE         1301
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

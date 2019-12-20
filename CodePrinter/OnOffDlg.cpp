@@ -32,6 +32,7 @@ BEGIN_MESSAGE_MAP(COnOffDlg, CDialog)
 #endif
 	ON_BN_CLICKED(IDC_SEQUENCE_BTN, &COnOffDlg::OnBnClickedSequenceButton)
 	ON_BN_CLICKED(IDC_FAST_BTN, &COnOffDlg::OnBnClickedFastButton)
+	ON_BN_CLICKED(IDC_RETURN_BTN, &COnOffDlg::OnBnClickedReturnBtn)
 END_MESSAGE_MAP()
 
 
@@ -79,5 +80,10 @@ void COnOffDlg::OnBnClickedFastButton()
 		theApp.myStatusClass.ctr0X00bit0 = 0;
 	}
 	theApp.myStatusClass.download_inksystem_control00();
+	this->ShowWindow(SW_HIDE);
+}
+void COnOffDlg::OnBnClickedReturnBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
 }

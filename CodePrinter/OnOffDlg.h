@@ -21,4 +21,5 @@ protected:
 public:
 	afx_msg void OnBnClickedSequenceButton();
 	afx_msg void OnBnClickedFastButton();
+	afx_msg void OnBnClickedReturnBtn();
 };

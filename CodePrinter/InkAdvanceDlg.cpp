@@ -23,7 +23,7 @@ CInkAdvanceDlg::~CInkAdvanceDlg()
 void CInkAdvanceDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_INK_CLOSE_BTN, m_CIB_InkCir);
+	DDX_Control(pDX, IDC_INK_CIR_BTN, m_CIB_InkCir);
 	DDX_Control(pDX, IDC_INKFLOW_OFF_BTN, m_CIB_InkflowOff);
 	DDX_Control(pDX, IDC_ADJUST_INKLINE_BTN, m_CIB_AdjustInkline);
 	DDX_Control(pDX, IDC_ADD_SOLVENT_BTN, m_CIB_AddSolvent);
