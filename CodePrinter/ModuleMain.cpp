@@ -185,7 +185,7 @@ string ModuleMain::CString2string(CString csStrData)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=1;
+	tempDcb.nComPort=4;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
