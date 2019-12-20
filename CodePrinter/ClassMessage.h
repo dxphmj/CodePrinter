@@ -123,7 +123,9 @@ namespace MyNameSpace
 	public://XML
 		void ReadObjectsFromXml(char* strFileName);
 		void SaveObjectsToXml(char* strFileName);
-		
+		string labPath;
+		string labName;
+		void createLABXML();
 	};
 
 
