@@ -17,6 +17,7 @@ public:
 	//ModuleMain labModule;
 	bool isFrame;
 	void getMessageDot();
+	void selectPixel();
 	CInputDlg *pInput;
 
 public:

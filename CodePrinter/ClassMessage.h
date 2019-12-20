@@ -112,6 +112,7 @@ namespace MyNameSpace
 		////////////////////////////////////
 
 	public:
+		 string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//²é
 		 BYTE getByteFromDot(bool boDot,int moveNum); 
 		 string DEC_to_BIN(long long Dec);
 		 string to_String(int n);
@@ -126,6 +127,7 @@ namespace MyNameSpace
 		string labPath;
 		string labName;
 		void createLABXML();
+		void getLabFromXml();
 	};
 
 

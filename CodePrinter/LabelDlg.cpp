@@ -238,7 +238,8 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.Inverse="GLOBAL";
 
 
-
+	theApp.myclassMessage.getLabFromXml();
+	selectPixel();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -682,47 +683,48 @@ void CLabelDlg::OnBnClickedOpenButton()
 	}
 
 	//myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
-	if (theApp.myclassMessage.strMatrix=="1L5M")
-	{
-		ComboMatrix.SetCurSel(0);
-		OnCbnSelchangeComboMatrix();
+	//if (theApp.myclassMessage.strMatrix=="1L5M")
+	//{
+	//	ComboMatrix.SetCurSel(0);
+	//	OnCbnSelchangeComboMatrix();
 
-	} 
-	else if(theApp.myclassMessage.strMatrix=="1L7M")
-	{
-		ComboMatrix.SetCurSel(1);
-		OnCbnSelchangeComboMatrix();
-	}
-	else if(theApp.myclassMessage.strMatrix=="1L9M")
-	{
-		ComboMatrix.SetCurSel(2);
-		OnCbnSelchangeComboMatrix();
-	}
-	else if(theApp.myclassMessage.strMatrix=="1L12M")
-	{
-		ComboMatrix.SetCurSel(3);
-		OnCbnSelchangeComboMatrix();
-	}
-	else if(theApp.myclassMessage.strMatrix=="1L19M")
-	{
-		ComboMatrix.SetCurSel(4);
-		OnCbnSelchangeComboMatrix();
-	}
-	else if(theApp.myclassMessage.strMatrix=="1L25M")
-	{
-		ComboMatrix.SetCurSel(5);
-		OnCbnSelchangeComboMatrix();
-	}
-	else if(theApp.myclassMessage.strMatrix=="2L7M")
-	{
-		ComboMatrix.SetCurSel(6);
-		OnCbnSelchangeComboMatrix();
-	}
-	else
-	{
-		ComboMatrix.SetCurSel(5);
-		OnCbnSelchangeComboMatrix();
-	}
+	//} 
+	//else if(theApp.myclassMessage.strMatrix=="1L7M")
+	//{
+	//	ComboMatrix.SetCurSel(1);
+	//	OnCbnSelchangeComboMatrix();
+	//}
+	//else if(theApp.myclassMessage.strMatrix=="1L9M")
+	//{
+	//	ComboMatrix.SetCurSel(2);
+	//	OnCbnSelchangeComboMatrix();
+	//}
+	//else if(theApp.myclassMessage.strMatrix=="1L12M")
+	//{
+	//	ComboMatrix.SetCurSel(3);
+	//	OnCbnSelchangeComboMatrix();
+	//}
+	//else if(theApp.myclassMessage.strMatrix=="1L19M")
+	//{
+	//	ComboMatrix.SetCurSel(4);
+	//	OnCbnSelchangeComboMatrix();
+	//}
+	//else if(theApp.myclassMessage.strMatrix=="1L25M")
+	//{
+	//	ComboMatrix.SetCurSel(5);
+	//	OnCbnSelchangeComboMatrix();
+	//}
+	//else if(theApp.myclassMessage.strMatrix=="2L7M")
+	//{
+	//	ComboMatrix.SetCurSel(6);
+	//	OnCbnSelchangeComboMatrix();
+	//}
+	//else
+	//{
+	//	ComboMatrix.SetCurSel(5);
+	//	OnCbnSelchangeComboMatrix();
+	//}
+	selectPixel();
 	OnPaint();
 }
 
@@ -859,6 +861,50 @@ void CLabelDlg::OnBnClickedDownloadButton()
 void CLabelDlg::getMessageDot()
 {
 
+}
+void CLabelDlg::selectPixel()
+{
+	if (theApp.myclassMessage.strMatrix=="1L5M")
+	{
+		ComboMatrix.SetCurSel(0);
+		OnCbnSelchangeComboMatrix();
+
+	} 
+	else if(theApp.myclassMessage.strMatrix=="1L7M")
+	{
+		ComboMatrix.SetCurSel(1);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(theApp.myclassMessage.strMatrix=="1L9M")
+	{
+		ComboMatrix.SetCurSel(2);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(theApp.myclassMessage.strMatrix=="1L12M")
+	{
+		ComboMatrix.SetCurSel(3);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(theApp.myclassMessage.strMatrix=="1L19M")
+	{
+		ComboMatrix.SetCurSel(4);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(theApp.myclassMessage.strMatrix=="1L25M")
+	{
+		ComboMatrix.SetCurSel(5);
+		OnCbnSelchangeComboMatrix();
+	}
+	else if(theApp.myclassMessage.strMatrix=="2L7M")
+	{
+		ComboMatrix.SetCurSel(6);
+		OnCbnSelchangeComboMatrix();
+	}
+	else
+	{
+		ComboMatrix.SetCurSel(5);
+		OnCbnSelchangeComboMatrix();
+	}
 }
 void CLabelDlg::OnBnClickedLabelCloseBtn()
 {
