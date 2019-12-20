@@ -35,7 +35,7 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFIGURATION_BUTTON, m_ButConfig);
 	DDX_Control(pDX, IDC_FILEMANA_BUTTON, m_ButFileMana);
 	DDX_Control(pDX, IDC_INK_BUTTON, m_ButInk);
-	DDX_Control(pDX, IDC_ONOROFF_BUTTON, m_OnOrOff);
+	DDX_Control(pDX, IDC_ONOROFF_BUTTON, m_ButOnOrOff);
 	DDX_Control(pDX, IDC_STARTPRINT_BUTTON, m_StartPrint);
 	DDX_Control(pDX, IDC_PAUSEPRINT_BUTTON, m_PausePrint);
 }
@@ -52,6 +52,10 @@ BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONFIGURATION_BUTTON, &CCodePrinterDlg::OnBnClickedConfigurationButton)
 	ON_BN_CLICKED(IDC_FILEMANA_BUTTON, &CCodePrinterDlg::OnBnClickedFilemanaButton)
 	ON_BN_CLICKED(IDC_INK_BUTTON, &CCodePrinterDlg::OnBnClickedInkButton)
+	ON_BN_CLICKED(IDC_ONOROFF_BUTTON, &CCodePrinterDlg::OnBnClickedOnoroffButton)
+	ON_BN_CLICKED(IDC_STARTPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedStartprintButton)
+	ON_BN_CLICKED(IDC_PAUSEPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedPauseprintButton)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -70,6 +74,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
+	//定时器初始化
+	SetTimer(TIMER1,300,NULL);
 
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
@@ -78,6 +84,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
+	m_OnOff = new COnOffDlg;
 
 	int nX = 0;
 	int nY = 0;
@@ -102,6 +109,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_FileMan->MoveWindow(nX,nY,nWidth,nHeight);
 
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
+	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
+	
+	m_OnOff->Create(IDD_ONOFF_DIALOG,this);
 	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
 
 	
@@ -132,12 +142,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
-	m_OnOrOff.LoadBitmaps(IDB_ON_OR_OFF_BITMAP,IDB_ON_OR_OFF_BITMAP,0,0,IDB_ON_OR_OFF_BITMAP);
-	m_OnOrOff.SizeToContent(); 
+	m_ButOnOrOff.LoadBitmaps(IDB_ON_OR_OFF_BITMAP,IDB_ON_OR_OFF_BITMAP,0,0,IDB_ON_OR_OFF_BITMAP);
+	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
 	m_StartPrint.SizeToContent(); 
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
 	m_PausePrint.SizeToContent(); 
+
 
 
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -282,6 +293,33 @@ void CCodePrinterDlg::OnBnClickedInkButton()
 	// TODO: 在此添加控件通知处理程序代码
 	showDlg(IDD_INKSYSTEM_DIALOG);
 }
+//开关机按钮
+void CCodePrinterDlg::OnBnClickedOnoroffButton()
+{
+	showDlg(IDD_ONOFF_DIALOG);
+	
+}
+//开始喷印
+void CCodePrinterDlg::OnBnClickedStartprintButton()
+{
+ // TODO: 在此添加控件通知处理程序代码
+	if (theApp.myStatusClass.ctr0X03bit0==1 /*& theApphaiqueyixiang*/)
+	{
+		theApp.myStatusClass.ctr0X03bit1 = 1;
+	}
+	else  
+	{
+		theApp.myStatusClass.ctr0X03bit0 = 1;
+	}
+	theApp.myStatusClass.download_inksystem_control03();
+}
+//开暂停喷印
+void CCodePrinterDlg::OnBnClickedPauseprintButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myStatusClass.ctr0X03bit0=0;
+	theApp.myStatusClass.download_inksystem_control03();
+}
 
 void CCodePrinterDlg::showDlg(int ID)
 {
@@ -292,7 +330,7 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
-	
+	m_OnOff->ShowWindow(SW_HIDE);
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
 		m_System->ShowWindow(SW_SHOW);
@@ -320,5 +358,258 @@ void CCodePrinterDlg::showDlg(int ID)
 	else if (ID == IDD_FAULT_DIALOG)
 	{
 		m_Fault->ShowWindow(SW_SHOW);
+	}
+	else if (ID == IDD_ONOFF_DIALOG)
+	{
+		m_OnOff->ShowWindow(SW_SHOW);
+	}
+}
+
+//定时器
+void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	CDialog::OnTimer(nIDEvent);
+	switch(nIDEvent)
+		case TIMER1:
+	{
+		theApp.myStatusClass.byStatusFromSlaveState();
+		theApp.myStatusClass.getstatu();
+
+
+		//更新阀的信息
+		HWND advan;
+		advan=m_Ink->m_inkAdv->GetSafeHwnd();
+		theApp.myStatusClass.ad_button_onoff(advan);
+		HWND usua;
+		usua=m_Ink->GetSafeHwnd();
+		theApp.myStatusClass.us_button_onoff(usua);
+		
+		m_Ink->GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
+//		
+		m_Ink->GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
+		m_Ink->GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
+
+		m_Ink->GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriHeaTem)));
+		m_Ink->GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLev)));
+		m_Ink->GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staSolLev)));
+		m_Ink->GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
+		m_Ink->GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
+		m_Ink->GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staHigVol)));
+       
+		//'泵速或者压力模式
+		if (theApp.myStatusClass.staBumMod==true /*& m_Ink->m_CIB_Pumpspeed.m_tag==1 & m_Ink->m_CIB_Pressure.m_tag==0*/)//泵速模式
+		{
+			/*m_Ink->m_CIB_Pumpspeed.m_tag = 0;
+            m_Ink->m_CIB_Pressure.m_tag = 1;*/
+			m_Ink->m_CIB_SpeedMode.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_SpeedMode.SizeToContent(); 
+			m_Ink->m_CIB_PressureMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_PressureMode.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staBumMod==true/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
+		{
+			/*m_Ink->m_CIB_Pumpspeed.m_tag = 1;
+            m_Ink->m_CIB_Pressure.m_tag = 0;*/
+			m_Ink->m_CIB_PressureMode.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_PressureMode.SizeToContent(); 
+			m_Ink->m_CIB_SpeedMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_SpeedMode.SizeToContent(); 
+		}
+		//开关泵
+		if (theApp.myStatusClass.staBum == true)
+		{
+			m_Ink->m_CIB_Pump.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_Pump.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staBum == false)
+		{
+			m_Ink->m_CIB_Pump.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_Pump.SizeToContent(); 
+		}
+		//开关喷嘴
+		if (theApp.myStatusClass.staNozVal==true)
+		{
+			m_Ink->m_CIB_NozzleValve.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_NozzleValve.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staNozVal==false)
+		{
+			m_Ink->m_CIB_NozzleValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_NozzleValve.SizeToContent(); 
+		}
+        //开关供墨阀
+		if (theApp.myStatusClass.staFeeVal == true)
+		{
+			m_Ink->m_CIB_FeedValve.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_FeedValve.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staFeeVal==false)
+		{
+			m_Ink->m_CIB_FeedValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_FeedValve.SizeToContent(); 
+		}
+		//开关排气阀
+		if (theApp.myStatusClass.staBleVal == true)
+		{
+			m_Ink->m_CIB_BleedValve.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_BleedValve.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staBleVal==false)
+		{
+			m_Ink->m_CIB_BleedValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_BleedValve.SizeToContent(); 
+		}
+		//开关清洗阀
+		if (theApp.myStatusClass.staFluVal == true)
+		{
+			m_Ink->m_CIB_FlushValve.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_FlushValve.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staFluVal==false)
+		{
+			m_Ink->m_CIB_FlushValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_FlushValve.SizeToContent(); 
+		}
+		//开关溶剂阀
+		if (theApp.myStatusClass.staSolVal == true)
+		{
+			m_Ink->m_CIB_SolventValve.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_SolventValve.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staSolVal==false)
+		{
+			m_Ink->m_CIB_SolventValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_SolventValve.SizeToContent(); 
+		}
+		//开关粘度阀
+		if (theApp.myStatusClass.staVisVal == true)
+		{
+			m_Ink->m_CIB_ViscoValve.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_ViscoValve.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staVisVal==false)
+		{
+			m_Ink->m_CIB_ViscoValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_ViscoValve.SizeToContent(); 
+		}
+		//开关冲洗阀
+		if (theApp.myStatusClass.staWasVal == true)
+		{
+			m_Ink->m_CIB_WashValve.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_CIB_WashValve.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staWasVal == false)
+		{
+			m_Ink->m_CIB_WashValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_CIB_WashValve.SizeToContent(); 
+		}
+		//关回收检测
+		if (theApp.myStatusClass.staInkFloSenOff == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_InkflowOff.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_InkflowOff.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staInkFloSenOff == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_InkflowOff.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_InkflowOff.SizeToContent(); 
+		}
+        //关闭墨线
+		if (theApp.myStatusClass.staCloInkLin == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_CloseInkline.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_CloseInkline.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staCloInkLin == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_CloseInkline.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_CloseInkline.SizeToContent(); 
+		}
+        //开添加溶剂
+		if (theApp.myStatusClass.staAddSol == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_AddSolvent.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_AddSolvent.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staAddSol == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_AddSolvent.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_AddSolvent.SizeToContent(); 
+			theApp.myStatusClass.ctr0X02bit2 = 0;
+		    theApp.myStatusClass.download_inksystem_control02();
+		}
+        //开测试粘度
+		if (theApp.myStatusClass.staDetVis == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_BetectVisco.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_BetectVisco.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staDetVis == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_BetectVisco.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_BetectVisco.SizeToContent(); 
+			theApp.myStatusClass.ctr0X02bit3 = 0;
+			theApp.myStatusClass.download_inksystem_control02();
+		}
+		//开冲洗喷嘴
+		if (theApp.myStatusClass.staWasNoz == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_WashNozzle.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_WashNozzle.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staWasNoz == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_WashNozzle.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_WashNozzle.SizeToContent(); 
+			theApp.myStatusClass.ctr0X02bit4 = 0;
+			theApp.myStatusClass.download_inksystem_control02();
+		}
+		//开反吸喷嘴
+		if (theApp.myStatusClass.staSucNoz == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_SuckNozzle.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_SuckNozzle.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staSucNoz == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_SuckNozzle.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_SuckNozzle.SizeToContent(); 
+			theApp.myStatusClass.ctr0X02bit5 = 0;
+			theApp.myStatusClass.download_inksystem_control02();
+		}
+		//开墨线校准
+		if (theApp.myStatusClass.staAdjInkLin == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_AdjustInkline.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_AdjustInkline.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staAdjInkLin == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_AdjustInkline.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_AdjustInkline.SizeToContent(); 
+			theApp.myStatusClass.ctr0X02bit6 = 0;
+			theApp.myStatusClass.download_inksystem_control02();
+		}
+		//开墨路循环
+		if (theApp.myStatusClass.staInkCir == true)
+		{
+			m_Ink->m_inkAdv->m_CIB_InkCir.LoadBitmaps(IDB_ON_BITMAP,IDB_ON_BITMAP,0,0,IDB_ON_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_InkCir.SizeToContent(); 
+		}
+		else if (theApp.myStatusClass.staInkCir == false)
+		{
+			m_Ink->m_inkAdv->m_CIB_InkCir.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+			m_Ink->m_inkAdv->m_CIB_InkCir.SizeToContent(); 
+			theApp.myStatusClass.ctr0X02bit7 = 0;
+			theApp.myStatusClass.download_inksystem_control02();
+		}
+
+
+
+
+
+
+		break;
+
 	}
 }

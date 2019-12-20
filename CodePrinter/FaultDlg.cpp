@@ -38,6 +38,8 @@ BOOL CFaultDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
+	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,520,80,50,SWP_SHOWWINDOW);
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
