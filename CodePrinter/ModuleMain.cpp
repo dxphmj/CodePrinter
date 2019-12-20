@@ -185,7 +185,7 @@ string ModuleMain::CString2string(CString csStrData)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=1;
+	tempDcb.nComPort=4;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -323,7 +323,7 @@ void StatusClass::us_button_onoff(HWND hwnd)
 {
 	CWnd* pWnd = CWnd::FromHandle(hwnd);
 
-	if (theApp.myStatusClass.staSysBus && theApp.myStatusClass.ctr0X02bit3 == 0 && theApp.myStatusClass.ctr0X02bit4 == 0 &&
+	if (!theApp.myStatusClass.staSysBus && theApp.myStatusClass.ctr0X02bit3 == 0 && theApp.myStatusClass.ctr0X02bit4 == 0 &&
 		theApp.myStatusClass.ctr0X02bit5 == 0 && theApp.myStatusClass.ctr0X02bit6 == 0 && theApp.myStatusClass.ctr0X02bit7 == 0 )
 	{
 		pWnd->GetDlgItem(IDC_SPEED_MODE_BTN)->EnableWindow(true);
@@ -355,7 +355,7 @@ void StatusClass::us_button_onoff(HWND hwnd)
 void StatusClass::ad_button_onoff(HWND hwnd)
 {
 	CWnd* pWnd = CWnd::FromHandle(hwnd);
-	if (theApp.myStatusClass.staSysBus)
+	if (!theApp.myStatusClass.staSysBus)
 	{
 		if (theApp.myStatusClass.ctr0X02bit3==1)
 		{
