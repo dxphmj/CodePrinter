@@ -20,6 +20,8 @@ void CInksystemconfig::get_inksystem_from_xml()
 	//m_pCodePrinterDlg->m_Ink->m_setup->
 	//开机默认帕尔贴开关
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Peltier"), _T("OFF"), _T("Storage Card\\System"));
+	int nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
+	m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.SetCurSel(nCur);
 
 	//开机默认睡眠开关
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Sleep"), _T("OFF"), _T("Storage Card\\System"));
@@ -55,8 +57,6 @@ void CInksystemconfig::get_inksystem_from_xml()
 	
 	//开机默认设置的分裂电压模式为固定电压
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("ModulationMode"), _T("0"), _T("Storage Card\\System"));
-	//m_pCodePrinterDlg->m_Ink->m_par->m_printheadTemp = _wtoi(str);
-
 	if (str == _T("0"))
 	{
 		theApp.myStatusClass.ctr0X03bit6 = 0;
