@@ -244,7 +244,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CInksystemconfig pInksysConfig(this);
 
 
-	SetTimer(TIMER1,1000,NULL);	
+
 
 
 	pInksysConfig.get_inksystem_from_xml();
@@ -262,7 +262,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	theApp.readCount=theApp.myCIOVsd.Read();
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	
+	SetTimer(TIMER1,1000,NULL);	
 
 #endif
 
