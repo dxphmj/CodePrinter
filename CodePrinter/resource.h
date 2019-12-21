@@ -377,6 +377,7 @@
 #define IDC_DATE_STATIC                 1298
 #define IDC_MUL_LANGV_STATIC            1299
 #define IDC_RETURN_BTN                  1300
+#define IDC_PRINT_STA_STATIC            1301
 
 // Next default values for new objects
 // 
@@ -384,7 +385,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        202
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1301
+#define _APS_NEXT_CONTROL_VALUE         1302
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
