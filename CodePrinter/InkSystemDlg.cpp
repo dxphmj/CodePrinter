@@ -32,17 +32,17 @@ CInkSystemDlg::~CInkSystemDlg()
 
 void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
-	//CDialog::DoDataExchange(pDX);
-	//DDX_Control(pDX, IDC_SPEED_MODE_BTN, m_CIB_SpeedMode);
-	//DDX_Control(pDX, IDC_PRESSURE_MODE_BTN, m_CIB_PressureMode);
-	//DDX_Control(pDX, IDC_BLEED_VALVE_BTN, m_CIB_BleedValve);
-	//DDX_Control(pDX, IDC_PUMP_BTN, m_CIB_Pump);
-	//DDX_Control(pDX, IDC_WASH_VALVE_BTN, m_CIB_WashValve);
-	//DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_CIB_NozzleValve);
-	//DDX_Control(pDX, IDC_FEED_VALVE_BTN, m_CIB_FeedValve);
-	//DDX_Control(pDX, IDC_SOLVENT_VALVE_BTN, m_CIB_SolventValve);
-	//DDX_Control(pDX, IDC_VISCO_VALVE_BTN, m_CIB_ViscoValve);
-	//DDX_Control(pDX, IDC_FLUSH_VALVE_BTN, m_CIB_FlushValve);
+	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_SPEED_MODE_BTN, m_CIB_SpeedMode);
+	DDX_Control(pDX, IDC_PRESSURE_MODE_BTN, m_CIB_PressureMode);
+	DDX_Control(pDX, IDC_BLEED_VALVE_BTN, m_CIB_BleedValve);
+	DDX_Control(pDX, IDC_PUMP_BTN, m_CIB_Pump);
+	DDX_Control(pDX, IDC_WASH_VALVE_BTN, m_CIB_WashValve);
+	DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_CIB_NozzleValve);
+	DDX_Control(pDX, IDC_FEED_VALVE_BTN, m_CIB_FeedValve);
+	DDX_Control(pDX, IDC_SOLVENT_VALVE_BTN, m_CIB_SolventValve);
+	DDX_Control(pDX, IDC_VISCO_VALVE_BTN, m_CIB_ViscoValve);
+	DDX_Control(pDX, IDC_FLUSH_VALVE_BTN, m_CIB_FlushValve);
 }
 
 
@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CInkSystemDlg, CDialog)
 	ON_BN_CLICKED(IDC_SOLVENT_VALVE_BTN, &CInkSystemDlg::OnBnClickedSolventValveBtn)
 	ON_BN_CLICKED(IDC_VISCO_VALVE_BTN, &CInkSystemDlg::OnBnClickedViscoValveBtn)
 	ON_BN_CLICKED(IDC_FLUSH_VALVE_BTN, &CInkSystemDlg::OnBnClickedFlushValveBtn)
+	ON_BN_CLICKED(IDC_INK_OK_BTN, &CInkSystemDlg::OnBnClickedInkOkBtn)
 END_MESSAGE_MAP()
 
 
@@ -303,4 +304,9 @@ void CInkSystemDlg::OnBnClickedFlushValveBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.myStatusClass.ctr0X01bit3 = (theApp.myStatusClass.ctr0X01bit3==1?0:1);
 	theApp.myStatusClass.download_inksystem_control01();
+}
+
+void CInkSystemDlg::OnBnClickedInkOkBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

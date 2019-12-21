@@ -75,7 +75,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CRect rect;
 	GetWindowRect(&rect);
 	//定时器初始化
-	SetTimer(TIMER1,300,NULL);
 
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
@@ -238,6 +237,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
     theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 
 	
+	SetTimer(TIMER1,1000,NULL);
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -374,7 +375,8 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	CDialog::OnTimer(nIDEvent);
 	switch(nIDEvent)
-		case TIMER1:
+		
+	case TIMER1:
 	{
 		theApp.myStatusClass.byStatusFromSlaveState();
 		theApp.myStatusClass.getstatu();
@@ -628,7 +630,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control02();
 		}
         //当前电平
-		CString m_currentLev;
+	/*	CString m_currentLev;
 		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowText(m_currentLev);
 		if (theApp.myStatusClass.staActProSen == true & m_currentLev == "Low")
 		{
@@ -638,7 +640,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->SetWindowText(_T("Low"));
 		}
-
+*/
 
 
 
