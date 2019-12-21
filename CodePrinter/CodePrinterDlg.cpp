@@ -56,6 +56,8 @@ BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
 	ON_BN_CLICKED(IDC_STARTPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedStartprintButton)
 	ON_BN_CLICKED(IDC_PAUSEPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedPauseprintButton)
 	ON_WM_TIMER()
+	ON_WM_CTLCOLOR()
+
 END_MESSAGE_MAP()
 
 
@@ -64,6 +66,9 @@ END_MESSAGE_MAP()
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	 
+
 
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
@@ -146,7 +151,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
-	m_ButOnOrOff.LoadBitmaps(IDB_ON_OR_OFF_BITMAP,IDB_ON_OR_OFF_BITMAP,0,0,IDB_ON_OR_OFF_BITMAP);
+	m_ButOnOrOff.LoadBitmaps(IDB_BITMAP3,IDB_BITMAP5,0,0,IDB_BITMAP3);
 	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
 	m_StartPrint.SizeToContent(); 
@@ -231,11 +236,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
 	strTempCmd=(LPTSTR)readArr;
-	bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
+	/*bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
 
 	Sleep(10);
 	theApp.readCount=theApp.myCIOVsd.Read();
-    theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
+    theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);*/
 
 	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -616,4 +621,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		break;
 
 	}
+}
+
+
+
+HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);
+	 
+	 
+	return theApp.m_DlgBrush;
 }
