@@ -279,6 +279,9 @@ void CCodePrinterDlg::OnBnClickedLabelButton()
 void CCodePrinterDlg::OnBnClickedFaultButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	m_Fault->get_save_error();
+
+	m_Fault->openfailurefile("\Storage Card\System\Error\99999999.txt");
 	showDlg(IDD_FAULT_DIALOG);
 }
 

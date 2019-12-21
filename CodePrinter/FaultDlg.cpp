@@ -184,8 +184,8 @@ void CFaultDlg::get_save_error()
 	{
 		string timeErr="Storage Card\\System\\Error\\";
 		timeErr=timeErr+Errorlog_name+".txt";
-		ofstream outErr99("Storage Card\\System\\Error\\99999999.TXT", ios::trunc);
-		ofstream outErrNow(timeErr.c_str(), ios::trunc);
+		ofstream outErr99("Storage Card\\System\\Error\\99999999.TXT", ios::app);
+		ofstream outErrNow(timeErr.c_str(), ios::app);
 		for (int i=0;i<m_errBox->GetCount();i++)
 		{
 			CString s;
