@@ -69,6 +69,7 @@ bool comp(const WIN32_FIND_DATA &a, const WIN32_FIND_DATA &b){return a.cFileName
 void CFaultDlg::getAllErrorFile()
 {
 	vector<WIN32_FIND_DATA> allErrVec;
+	vector<WIN32_FIND_DATA> detErrVec;
 	CString szCurDir=_T("Storage Card\\System\\Error\\");
 	HANDLE hFind = INVALID_HANDLE_VALUE;
 	WIN32_FIND_DATA wfd;
@@ -101,20 +102,21 @@ void CFaultDlg::getAllErrorFile()
 				//FindClose(hFind);
 				lstrcpy(szPath, szCurDir);
 				lstrcat(szPath,wfd.cFileName);
-				//ifstream fin(szPath);/////应该删除空文件
-				//if(!fin)
-				//{
-				//	break;
-				//}
-				//string c;
-				//fin >> c;
-				//if(c.empty())
-				//{
-				//	bRet = FindNextFile(hFind, &wfd);
-				//	int tsttt=DeleteFile(szPath);
-				//	tsttt++;
-				//}
-				//fin.close();
+				ifstream fin(szPath);/////应该删除空文件
+				if(!fin)
+				{
+					continue;;
+				}
+				string c;
+				fin >> c;
+				if(c.empty())
+				{
+					fin.close();
+					detErrVec.push_back(wfd);
+					bRet = FindNextFile(hFind, &wfd);
+					continue;
+				}
+				fin.close();
 				allErrVec.push_back(wfd);
 			}
 		}
@@ -123,6 +125,24 @@ void CFaultDlg::getAllErrorFile()
 	FindClose(hFind);
 
 	sort(allErrVec.begin(),allErrVec.end(),comp);
+	for (int i=0;i<detErrVec.size();i++)
+	{
+		WIN32_FIND_DATA tempDet=detErrVec.at(i);
+		lstrcpy(szPath, szCurDir);
+		lstrcat(szPath,tempDet.cFileName);
+		int tsttt=DeleteFile(szPath);
+		tsttt=GetLastError();
+	}
+	if (allErrVec.size()>32)
+	{
+		for (vector<WIN32_FIND_DATA>::iterator iterTemp=allErrVec.begin()+31;iterTemp!=allErrVec.end();iterTemp++)
+		{
+			lstrcpy(szPath, szCurDir);
+			lstrcat(szPath,iterTemp->cFileName);
+			int tsttt=DeleteFile(szPath);
+			tsttt=GetLastError();
+		}
+	}
 }
 //获取所有名字
 void CFaultDlg::get_error_name()
@@ -201,6 +221,7 @@ void CFaultDlg::get_save_error()
 	}
 
 }
+//打开
 void CFaultDlg::openfailurefile(string filePathName)
 {
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
@@ -214,6 +235,7 @@ void CFaultDlg::openfailurefile(string filePathName)
 	}
 	fin.close();
 }
+//删除
 void CFaultDlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -251,6 +273,7 @@ void CFaultDlg::OnBnClickedButton3()
 	outErrNow.close();
 }
 
+//上
 void CFaultDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -261,16 +284,18 @@ void CFaultDlg::OnBnClickedButton1()
 	}
 }
 
+//下
 void CFaultDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
-	if (m_errBox->GetCurSel()>0)
+	if (m_errBox->GetCurSel()<(m_errBox->GetCount()-1))
 	{
 		m_errBox->SetCurSel(m_errBox->GetCurSel()+1);
 	}
 }
 
+//重置
 void CFaultDlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码

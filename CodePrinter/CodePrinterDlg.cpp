@@ -164,7 +164,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
-
+//#define  def_ttl 1
 
 #ifdef def_ttl
 	//串口初始化
@@ -241,7 +241,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 ////墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 
-
+	SetTimer(TIMER1,1000,NULL);	
 	//pInksysConfig.get_inksystem_from_xml();
 	//pInksysConfig.download_inksystem_setup();
 
@@ -255,22 +255,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	theApp.readCount=theApp.myCIOVsd.Read();
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	SetTimer(TIMER1,1000,NULL);	
+	
 
 #endif
 ///////////////////////
 
 
-	
 
-	
-	
-	
-
-
-	CListBox* m_errBox=(CListBox*)m_Fault->GetDlgItem(IDC_FAULT_LIST);
-	m_errBox->AddString(_T("111   111"));
-	m_errBox->AddString(_T("211   211"));
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -453,7 +444,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			m_Ink->m_CIB_PressureMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 			m_Ink->m_CIB_PressureMode.SizeToContent(); */
 		}
-		else if (theApp.myStatusClass.staBumMod==true/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
+		else if (theApp.myStatusClass.staBumMod==false/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
 		{
 			/*m_Ink->m_CIB_Pumpspeed.m_tag = 1;
             m_Ink->m_CIB_Pressure.m_tag = 0;*/
@@ -670,7 +661,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		}
         //当前电平
 		CString m_currentLev;
-		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowText(m_currentLev);
+		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowTextW(m_currentLev);
 		if (theApp.myStatusClass.staActProSen == true && m_currentLev == "Low")
 		{
 			m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->SetWindowText(_T("High"));
