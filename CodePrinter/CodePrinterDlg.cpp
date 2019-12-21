@@ -166,7 +166,10 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 
 
-
+#ifdef def_ttl
+	//串口初始化
+	theApp.myModuleMain.InitCommMsg();
+#endif
 
 	//CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
 	//string timeErr="Storage Card\\System\\Error\\";
@@ -176,8 +179,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
 	//out99.close();
 
-	//串口初始化
-	theApp.myModuleMain.InitCommMsg();
+
 
 	//墨水维护时间
 
@@ -243,7 +245,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//pInksysConfig.get_inksystem_from_xml();
 	//pInksysConfig.download_inksystem_setup();
 
-///////////////////////
+#ifdef def_ttl
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
 	strTempCmd=(LPTSTR)readArr;
@@ -251,15 +253,20 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	Sleep(10);
 	theApp.readCount=theApp.myCIOVsd.Read();
-    theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
-
-	
-
-	
-	
-	
+	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
 	SetTimer(TIMER1,1000,NULL);	
+
+#endif
+///////////////////////
+
+
+	
+
+	
+	
+	
+
 
 	CListBox* m_errBox=(CListBox*)m_Fault->GetDlgItem(IDC_FAULT_LIST);
 	m_errBox->AddString(_T("111   111"));
