@@ -86,6 +86,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Ink = new CInkSystemDlg;
 	m_OnOff = new COnOffDlg;
 
+
+	//创建文件夹
+	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 	int nX = 0;
 	int nY = 0;
 	int nWidth = 800;
@@ -153,21 +160,18 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
 	m_PausePrint.SizeToContent(); 
 
+	
 
 
-	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 
-	CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
-	string timeErr="Storage Card\\System\\Error\\";
-	timeErr=timeErr+theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay())+".txt";
-	ofstream timeErrout(timeErr.c_str(), ios::out |ios::trunc);
-	timeErrout.close();
-	ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
-	out99.close();
+
+	//CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
+	//string timeErr="Storage Card\\System\\Error\\";
+	//timeErr=timeErr+theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay())+".txt";
+	//ofstream timeErrout(timeErr.c_str(), ios::out |ios::trunc);
+	//timeErrout.close();
+	//ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
+	//out99.close();
 
 	//串口初始化
 	theApp.myModuleMain.InitCommMsg();
