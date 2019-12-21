@@ -128,3 +128,29 @@ const char* CDealXml::CStringToConstChar(CString cstr)
 	const char * ch = szStr;
 	return ch;
 }
+
+BYTE CDealXml::CStringToHex(CString str)
+{
+	// 十六进制字符串转十进制
+	int i = 0;
+	int nLen = str.GetLength();
+	if(nLen > 2)
+		nLen = 2;
+	unsigned char chTemp[2];
+	unsigned char ch;
+	BYTE byteData;
+	for(i = 0; i < nLen; i++)
+	{
+		ch = str.GetAt(i);
+		if(ch >= '0' && ch <= '9')
+			chTemp[i] = ch - '0';
+		else if(ch >= 'a' && ch <= 'f')
+			chTemp[i] = ch - 'a' + 10;
+		else if(ch >= 'A' && ch <= 'F')
+			chTemp[i] = ch - 'A' + 10;
+		else
+			chTemp[i] = 0;
+	}
+	byteData = (chTemp[0] << 4) + (chTemp[1]);
+	return byteData;
+}

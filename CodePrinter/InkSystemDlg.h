@@ -41,16 +41,16 @@ public:
 
 	afx_msg void OnEnChangePressureEdit();
 	//彩色按钮
-	CImageButton m_CIB_SpeedMode;    //泵速模式
-	CImageButton m_CIB_PressureMode; //压力模式
-	CImageButton m_CIB_BleedValve;   //排气阀
-	CImageButton m_CIB_Pump;         //压力泵
-	CImageButton m_CIB_WashValve;    //冲洗阀
-	CImageButton m_CIB_NozzleValve;  //喷嘴阀
-	CImageButton m_CIB_FeedValve;    //供墨阀
-	CImageButton m_CIB_SolventValve; //溶剂阀
-	CImageButton m_CIB_ViscoValve;   //粘度阀
-	CImageButton m_CIB_FlushValve  ; //清洗阀
+	CButton m_CIB_SpeedMode;    //泵速模式
+	CButton m_CIB_PressureMode; //压力模式
+	CButton m_CIB_BleedValve;   //排气阀
+	CButton m_CIB_Pump;         //压力泵
+	CButton m_CIB_WashValve;    //冲洗阀
+	CButton m_CIB_NozzleValve;  //喷嘴阀
+	CButton m_CIB_FeedValve;    //供墨阀
+	CButton m_CIB_SolventValve; //溶剂阀
+	CButton m_CIB_ViscoValve;   //粘度阀
+	CButton m_CIB_FlushValve  ; //清洗阀
    
 	//变量
 	CEdit m_Pressure;         //压力
@@ -76,4 +76,6 @@ public:
 	afx_msg void OnBnClickedSolventValveBtn();
 	afx_msg void OnBnClickedViscoValveBtn();
 	afx_msg void OnBnClickedFlushValveBtn();
+
+	afx_msg void OnBnClickedInkOkBtn();
 };

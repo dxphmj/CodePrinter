@@ -12,7 +12,7 @@
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
 #include <fstream>
-
+#include "Inksystemconfig.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -74,8 +74,10 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
+
 	GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Shut Down"));
 	
+
 
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
@@ -87,6 +89,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_OnOff = new COnOffDlg;
 	m_Fault = new CFaultDlg;
 
+
+	//创建文件夹
+	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 	int nX = 0;
 	int nY = 0;
 	int nWidth = 800;
@@ -154,21 +163,18 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
 	m_PausePrint.SizeToContent(); 
 
+	
 
 
-	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
-	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 
-	CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
-	string timeErr="Storage Card\\System\\Error\\";
-	timeErr=timeErr+theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay())+".txt";
-	ofstream timeErrout(timeErr.c_str(), ios::out |ios::trunc);
-	timeErrout.close();
-	ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
-	out99.close();
+
+	//CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
+	//string timeErr="Storage Card\\System\\Error\\";
+	//timeErr=timeErr+theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay())+".txt";
+	//ofstream timeErrout(timeErr.c_str(), ios::out |ios::trunc);
+	//timeErrout.close();
+	//ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
+	//out99.close();
 
 	//串口初始化
 	theApp.myModuleMain.InitCommMsg();
@@ -227,6 +233,15 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	theApp.myStatusClass.download_inksystem_control03();
 
 
+	//Sleep(10);
+	//theApp.readCount=theApp.myCIOVsd.Read();
+ //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
+////墨水配置初始化
+	CInksystemconfig pInksysConfig(this);
+
+
+	pInksysConfig.get_inksystem_from_xml();
+	pInksysConfig.download_inksystem_setup();
 
 ///////////////////////
 	LPTSTR strTempCmd;
@@ -239,11 +254,14 @@ BOOL CCodePrinterDlg::OnInitDialog()
     theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 
 	
+
 	
 	
 	
 	//定时器初始化 (不要在定时器后面初始化)
 	SetTimer(TIMER1,1000,NULL);	
+
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -380,7 +398,8 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	CDialog::OnTimer(nIDEvent);
 	switch(nIDEvent)
-		case TIMER1:
+		
+	case TIMER1:
 	{
 		//临时变量
 		CString m_printStatus;   //记录故障等同于VB的 labPrinterStatusText
@@ -638,7 +657,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control02();
 		}
         //当前电平
-		CString m_currentLev;
+	/*	CString m_currentLev;
 		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowText(m_currentLev);
 		if (theApp.myStatusClass.staActProSen == true && m_currentLev == "Low")
 		{
@@ -648,6 +667,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->SetWindowText(_T("Low"));
 		}
+
 		//墨水温度传感器故障
 		if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
 		{
@@ -866,6 +886,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.staHigVolFauLas = false;
 		}
 		
+
 
 
 
