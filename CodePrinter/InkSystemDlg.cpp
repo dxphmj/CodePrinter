@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CInkSystemDlg, CDialog)
 	ON_BN_CLICKED(IDC_SOLVENT_VALVE_BTN, &CInkSystemDlg::OnBnClickedSolventValveBtn)
 	ON_BN_CLICKED(IDC_VISCO_VALVE_BTN, &CInkSystemDlg::OnBnClickedViscoValveBtn)
 	ON_BN_CLICKED(IDC_FLUSH_VALVE_BTN, &CInkSystemDlg::OnBnClickedFlushValveBtn)
+	ON_BN_CLICKED(IDC_INK_OK_BTN, &CInkSystemDlg::OnBnClickedInkOkBtn)
 END_MESSAGE_MAP()
 
 
@@ -102,7 +103,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_phas->ShowWindow(SW_HIDE);
     //SetTimer(TIMER1,1000,NULL);
 	//彩色按钮 （普通）
-	m_CIB_SpeedMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	/*m_CIB_SpeedMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 	m_CIB_SpeedMode.SizeToContent(); 
 	m_CIB_PressureMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 	m_CIB_PressureMode.SizeToContent(); 
@@ -121,7 +122,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_CIB_ViscoValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 	m_CIB_ViscoValve.SizeToContent(); 
 	m_CIB_FlushValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	m_CIB_FlushValve.SizeToContent(); 
+	m_CIB_FlushValve.SizeToContent(); */
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -303,4 +304,9 @@ void CInkSystemDlg::OnBnClickedFlushValveBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.myStatusClass.ctr0X01bit3 = (theApp.myStatusClass.ctr0X01bit3==1?0:1);
 	theApp.myStatusClass.download_inksystem_control01();
+}
+
+void CInkSystemDlg::OnBnClickedInkOkBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

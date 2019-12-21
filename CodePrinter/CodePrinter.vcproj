@@ -636,6 +636,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Inksystemconfig.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InkSystemDlg.cpp"
 				>
 			</File>
@@ -664,7 +668,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PcfConfig.cpp"
+				>
+			</File>
+			<File
+
+				
+
 				RelativePath=".\OnOffDlg.cpp"
+
 				>
 			</File>
 			<File
@@ -846,6 +858,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Inksystemconfig.h"
+				>
+			</File>
+			<File
 				RelativePath=".\InkSystemDlg.h"
 				>
 			</File>
@@ -874,7 +890,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PcfConfig.h"
+				>
+			</File>
+			<File
+
+				
+
 				RelativePath=".\OnOffDlg.h"
+
 				>
 			</File>
 			<File

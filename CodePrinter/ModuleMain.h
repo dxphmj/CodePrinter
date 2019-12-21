@@ -11,6 +11,41 @@ BYTE* VEC2ARRAY(vector<BYTE> tempVec,int n);
 CString GETnBIT_from_bytReadData(int I , int m , int n );
 CString GETnBIT_from_bytStatus(int I , int m , int n );
 
+//定时器用变量
+class TimClass
+{
+public:
+	TimClass()
+	{
+		staComFau = false;
+		staInkEmpFau = false;
+		staInkOveFau  = false;
+		boStaLock = false;
+		booUExist  = false;
+		staRemPrinSwiLas = false;
+		InkLifeTimeLas = 6000;
+		boInkLifeTime = false;
+		boServiceTime = false;
+		staPhaseLas = "0";
+		staSysReaLas = false;
+	}
+	~TimClass(){}
+	bool staComFau ;
+		bool staInkEmpFau;
+		bool staInkOveFau ;
+		bool boStaLock ;
+		//'  Dim TTLSendNumTim As Byte = 0       '定义串口故障后重发次数
+		bool booUExist ;
+		bool staRemPrinSwiLas ;
+		string staSolLevFauLas, staInkLevFauLas ;
+		int InkLifeTimeLas ;
+		int ServiceTimeLasXML, InkLifeTimeLasXML ;
+		CTime InkDateTimLas, SerDateTimLas, dateTimLasWri ;
+		bool boInkLifeTime;
+		bool boServiceTime;
+		string staPhaseLas;
+		bool staSysReaLas ;
+};
 //控制变量类
 class PcfClass//控制
 {
@@ -203,6 +238,9 @@ public:
 	string TCHAR2STRING(TCHAR *STR);
    const char* CString2ConstChar(CString str);
    string CString2string(CString csStrData);
+
+
+
 public:
 	void InitCommMsg();
 };

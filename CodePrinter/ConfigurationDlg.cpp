@@ -12,6 +12,11 @@ IMPLEMENT_DYNAMIC(CConfigurationDlg, CDialog)
 
 CConfigurationDlg::CConfigurationDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CConfigurationDlg::IDD, pParent)
+	, m_height(70)
+	, m_dotPitch(0.423)
+	, m_delay(100)
+	, m_repeatDis(300)
+	, m_speed(20)
 {
 
 }
@@ -23,6 +28,14 @@ CConfigurationDlg::~CConfigurationDlg()
 void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_HEIGHT_EDIT, m_height);
+	DDX_Control(pDX, IDC_REVERSE_COMBO, m_reverse);
+	DDX_Control(pDX, IDC_INVERSE_COMBO, m_inverse);
+	DDX_Text(pDX, IDC_DOT_PITCH_EDIT, m_dotPitch);
+	DDX_Text(pDX, IDC_DELAY_EDIT, m_delay);
+	DDX_Text(pDX, IDC_REPEAT_DIS_EDIT, m_repeatDis);
+	DDX_Control(pDX, IDC_SPEED_WAY_COMBO, m_speedWay);
+	DDX_Text(pDX, IDC_SPEED_EDIT, m_speed);
 }
 
 
@@ -38,6 +51,10 @@ END_MESSAGE_MAP()
 BOOL CConfigurationDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+    //按钮界面初始化
+	m_ConfigPrintModeDlg = new CConfigPrintModeDlg;
+	m_ConfigOutSetDlg = new CConfigOutSetDlg;
+
 
 	// TODO:  在此添加额外的初始化
 	m_ConfigPM= new CConfigPrintModeDlg;
@@ -52,6 +69,18 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_ConfigOS->Create(IDD_CONFIG_OUTSET_DIALOG,this);
 	m_ConfigOS->MoveWindow(nX,nY,nWidth,nHeight);
 	m_ConfigOS->ShowWindow(SW_HIDE);
+
+	m_reverse.AddString(L"OFF");
+	m_reverse.AddString(L"ON");
+	m_reverse.SetCurSel(0);
+
+	m_inverse.AddString(L"OFF");
+	m_inverse.AddString(L"ON");
+	m_inverse.SetCurSel(0);
+
+	m_speedWay.AddString(L"Fixed");
+	m_speedWay.AddString(L"Variable");
+	m_speedWay.SetCurSel(0);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
