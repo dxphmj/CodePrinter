@@ -4,7 +4,8 @@
 #include "InkParDlg.h"
 #include "InkPhasingDlg.h"
 #include "CodePrinter.h"
-#define TIMER1 1
+#include "ImageButton.h"
+//#define TIMER1 1
 
 // CInkSystemDlg 对话框
 
@@ -26,8 +27,6 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	void showInkDlg(int ID);
-	//添加定时器
-//	afx_msg void OnTimer(UINT nIDEvent);
 public:
 	CInkAdvanceDlg *m_inkAdv;
 	CInkSetupDlg *m_setup;
@@ -41,6 +40,19 @@ public:
 	afx_msg void OnBnClickedPhasingBtn();
 
 	afx_msg void OnEnChangePressureEdit();
+	//彩色按钮
+	CButton m_CIB_SpeedMode;    //泵速模式
+	CButton m_CIB_PressureMode; //压力模式
+	CButton m_CIB_BleedValve;   //排气阀
+	CButton m_CIB_Pump;         //压力泵
+	CButton m_CIB_WashValve;    //冲洗阀
+	CButton m_CIB_NozzleValve;  //喷嘴阀
+	CButton m_CIB_FeedValve;    //供墨阀
+	CButton m_CIB_SolventValve; //溶剂阀
+	CButton m_CIB_ViscoValve;   //粘度阀
+	CButton m_CIB_FlushValve  ; //清洗阀
+   
+	//变量
 	CEdit m_Pressure;         //压力
 	   		
 	int m_Pumpspeed;  		 //泵速
@@ -52,10 +64,9 @@ public:
 	int m_ActualVisco;       //实际粘度
 	int m_HighVol;           //高压
 	CString m_Inkflow;        //回收检测
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	/*afx_msg void OnTimer(UINT_PTR nIDEvent);*/
 
 	afx_msg void OnBnClickedSpeedModeBtn();
-
 	afx_msg void OnBnClickedPressureModeBtn();
 	afx_msg void OnBnClickedPumpBtn();
 	afx_msg void OnBnClickedBleedValveBtn();
@@ -65,4 +76,6 @@ public:
 	afx_msg void OnBnClickedSolventValveBtn();
 	afx_msg void OnBnClickedViscoValveBtn();
 	afx_msg void OnBnClickedFlushValveBtn();
+
+	afx_msg void OnBnClickedInkOkBtn();
 };

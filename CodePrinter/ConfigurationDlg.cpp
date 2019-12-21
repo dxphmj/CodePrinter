@@ -38,6 +38,10 @@ END_MESSAGE_MAP()
 BOOL CConfigurationDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+    //按钮界面初始化
+	m_ConfigPrintModeDlg = new CConfigPrintModeDlg;
+	m_ConfigOutSetDlg = new CConfigOutSetDlg;
+
 
 	// TODO:  在此添加额外的初始化
 	m_ConfigPM= new CConfigPrintModeDlg;

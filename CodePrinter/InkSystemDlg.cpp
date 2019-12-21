@@ -33,16 +33,16 @@ CInkSystemDlg::~CInkSystemDlg()
 void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-//	DDX_Text(pDX, IDC_PRESSURE_EDIT, m_Pressure);
-	DDX_Text(pDX, IDC_PUMP_SPEED_EDIT, m_Pumpspeed);
-	DDX_Text(pDX, IDC_INK_TEMP_EDIT, m_InkTemp);
-	DDX_Text(pDX, IDC_PRINTHEAD_TEMP_EDIT, m_PrintheadTemp);
-	DDX_Text(pDX, IDC_INK_LEV_EDIT, m_InkLev);
-	DDX_Text(pDX, IDC_SOLVENT_LEV_EDIT, m_SolventLev);
-	DDX_Text(pDX, IDC_TARGET_VISCO_EDIT, m_TargetVisco);
-	DDX_Text(pDX, IDC_ACTUAL_VISCO_EDIT, m_ActualVisco);
-	DDX_Text(pDX, IDC_HIGH_VOL_EDIT, m_HighVol);
-	DDX_Text(pDX, IDC_INKFLOW_EDIT, m_Inkflow);
+	DDX_Control(pDX, IDC_SPEED_MODE_BTN, m_CIB_SpeedMode);
+	DDX_Control(pDX, IDC_PRESSURE_MODE_BTN, m_CIB_PressureMode);
+	DDX_Control(pDX, IDC_BLEED_VALVE_BTN, m_CIB_BleedValve);
+	DDX_Control(pDX, IDC_PUMP_BTN, m_CIB_Pump);
+	DDX_Control(pDX, IDC_WASH_VALVE_BTN, m_CIB_WashValve);
+	DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_CIB_NozzleValve);
+	DDX_Control(pDX, IDC_FEED_VALVE_BTN, m_CIB_FeedValve);
+	DDX_Control(pDX, IDC_SOLVENT_VALVE_BTN, m_CIB_SolventValve);
+	DDX_Control(pDX, IDC_VISCO_VALVE_BTN, m_CIB_ViscoValve);
+	DDX_Control(pDX, IDC_FLUSH_VALVE_BTN, m_CIB_FlushValve);
 }
 
 
@@ -65,6 +65,7 @@ BEGIN_MESSAGE_MAP(CInkSystemDlg, CDialog)
 	ON_BN_CLICKED(IDC_SOLVENT_VALVE_BTN, &CInkSystemDlg::OnBnClickedSolventValveBtn)
 	ON_BN_CLICKED(IDC_VISCO_VALVE_BTN, &CInkSystemDlg::OnBnClickedViscoValveBtn)
 	ON_BN_CLICKED(IDC_FLUSH_VALVE_BTN, &CInkSystemDlg::OnBnClickedFlushValveBtn)
+	ON_BN_CLICKED(IDC_INK_OK_BTN, &CInkSystemDlg::OnBnClickedInkOkBtn)
 END_MESSAGE_MAP()
 
 
@@ -100,7 +101,28 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_setup->ShowWindow(SW_HIDE);
 	m_par->ShowWindow(SW_HIDE);
 	m_phas->ShowWindow(SW_HIDE);
-    SetTimer(TIMER1,1000,NULL);
+    //SetTimer(TIMER1,1000,NULL);
+	//彩色按钮 （普通）
+	/*m_CIB_SpeedMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_SpeedMode.SizeToContent(); 
+	m_CIB_PressureMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_PressureMode.SizeToContent(); 
+	m_CIB_BleedValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_BleedValve.SizeToContent(); 
+	m_CIB_Pump.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_Pump.SizeToContent(); 
+	m_CIB_WashValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_WashValve.SizeToContent(); 
+	m_CIB_NozzleValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_NozzleValve.SizeToContent(); 
+	m_CIB_FeedValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_FeedValve.SizeToContent(); 
+	m_CIB_SolventValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_SolventValve.SizeToContent(); 
+	m_CIB_ViscoValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_ViscoValve.SizeToContent(); 
+	m_CIB_FlushValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	m_CIB_FlushValve.SizeToContent(); */
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -189,72 +211,29 @@ void CInkSystemDlg::OnEnChangePressureEdit()
 	//SetDlgItemText(IDC_PRESSURE_EDIT,_T("11"));
 }
 
-void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
-{
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
-	CDialog::OnTimer(nIDEvent);
-	switch(nIDEvent)
-		case TIMER1:
-	{
-		theApp.myStatusClass.byStatusFromSlaveState();
-		theApp.myStatusClass.getstatu();
-		
-		GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
-		GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
-		GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
-
-		GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriHeaTem)));
-		GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLev)));
-		GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staSolLev)));
-		GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
-		GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
-		GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staHigVol)));
-
-		//m_Pressure=theApp.myStatusClass.staPressure;IDC_INKFLOW_EDIT
-		//m_Pumpspeed=theApp.myStatusClass.staBumSpe;
-		//m_InkTemp=theApp.myStatusClass.staInkTem;
-		//m_PrintheadTemp=theApp.myStatusClass.staPriHeaTem;
-		//m_InkLev=theApp.myStatusClass.staInkLev;       
-		//m_SolventLev=theApp.myStatusClass.staSolLev;   
-		//m_TargetVisco=theApp.myStatusClass.staTarVis;  
-		//m_ActualVisco=theApp.myStatusClass.staActVis;  
-		//m_HighVol=theApp.myStatusClass.staHigVol;
-		
-		break;
-		//m_Inkflow=; 
-			/*回收故障
-		If staInkFloSenOff = True Then  '回收关
-		staInkFloFau = False '回收故障
-		labval_inksystem_ua_inkflow.Text = "Disable"
-		Else
-		If staInkFloFau = True And staInkFloFauLas = False Then
-		staInkFloFauLas = True
-		labval_onoff_name.Text = StartingUp
-		labval_onoff_nameText = "Starting Up"
-		ctr0X03bit0 = 0
-		download_inksystem_control03()
-		ctr0X00bit5 = 0
-		ctr0X00bit3 = 0
-		ctr0X00bit2 = 0
-		ctr0X00bit1 = 1
-		ctr0X00bit0 = 0
-		download_inksystem_control00()
-		If Not pangro_infor.Location.X = 126 Then
-		pangro_infor.BringToFront()
-		pangro_infor.Location = New Point(126, 244)
-		labval_infor_mes.Text = "Recyle fault"
-		End If
-		lisbox_error_receive.Items.Add(Format(DateTime.Now, "yyyy/MM/dd") & Space(5) & Format(DateTime.Now, "HH:mm:ss") & Space(10) & "Red" & Space(13) & "Recyle fault")
-		labval_inksystem_ua_inkflow.Text = "Abnormal"
-		ElseIf staInkFloFau = False Then
-		If staInkFloFauLas = True Then staInkFloFauLas = False
-		labval_inksystem_ua_inkflow.Text = "Normal"
-		End If
-		End If
-*/
-	}
-}
+//void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
+//{
+//	// TODO: 在此添加消息处理程序代码和/或调用默认值
+//
+//	CDialog::OnTimer(nIDEvent);
+//	switch(nIDEvent)
+//		case TIMER1:
+//	{
+//		theApp.myStatusClass.byStatusFromSlaveState();
+//		theApp.myStatusClass.getstatu();
+//		
+//		GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
+//		GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
+//		GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
+//
+//		GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriHeaTem)));
+//		GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLev)));
+//		GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staSolLev)));
+//		GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
+//		GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
+//		GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staHigVol)));
+//	}
+//}
 
 //泵速模式
 void CInkSystemDlg::OnBnClickedSpeedModeBtn()
@@ -325,4 +304,9 @@ void CInkSystemDlg::OnBnClickedFlushValveBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.myStatusClass.ctr0X01bit3 = (theApp.myStatusClass.ctr0X01bit3==1?0:1);
 	theApp.myStatusClass.download_inksystem_control01();
+}
+
+void CInkSystemDlg::OnBnClickedInkOkBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

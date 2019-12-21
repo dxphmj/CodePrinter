@@ -49,6 +49,7 @@ protected:
 	CRect m_imageRect;
 	BOOL m_isCreateRgnFromBitmap;
 	BOOL m_isBitmapMaskLoaded;
+	
 	HRGN	m_hClipRgn;
 	BITMAP m_bitmap;
 	AlignStyle m_alignStyle;
@@ -79,6 +80,7 @@ public:
 	DWORD SetMenu(UINT menuId,HWND hParent,BOOL bRepaint = TRUE);
 	DWORD SetMenu(UINT nMenu, HWND hParentWnd, UINT nToolbarID = NULL,BOOL bWinXPStyle = TRUE,CSize sizeToolbarIcon = CSize(16, 16), COLORREF crToolbarBk = RGB(255, 0, 255), BOOL bRepaint = TRUE);
 	//BOOL SetCreateRgnFromBitmap(BOOL isCreateRgnFromBitmap);
+	int m_tag;
 };
 
 

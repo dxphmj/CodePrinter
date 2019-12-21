@@ -58,10 +58,10 @@ BOOL CConfigOutSetDlg::OnInitDialog()
 	FreqMulti.AddString(_T("ON"));
 	FreqMulti.AddString(_T("OFF"));
 	FreqMulti.SetCurSel(1);	
-	m_impulse.SetWindowText(_T(""));	
-	m_length.SetWindowText(_T(""));		
-	m_currentLev.SetWindowText(_T(""));		
-	m_triggerLen.SetWindowText(_T(""));	
+	m_impulse.SetWindowText(_T("2500"));	
+	m_length.SetWindowText(_T("200"));		
+	m_currentLev.SetWindowText(_T("High"));		
+	m_triggerLen.SetWindowText(_T("300"));	
 	
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
