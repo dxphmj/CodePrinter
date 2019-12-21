@@ -2,6 +2,9 @@
 #include "ModuleMain.h"
 #include "CodePrinter.h"
 #include<cmath>
+#include<algorithm>
+#include <fstream>
+#include<cstdio>
 ModuleMain::ModuleMain(void)
 {
 }
@@ -200,6 +203,8 @@ void ModuleMain::InitCommMsg()
 	}
 }
 
+
+////////////////////////////////////////////////
 void StatusClass::byStatusFromSlaveState()
 {
 	theApp.bytSlaveStatusLock.Lock();
