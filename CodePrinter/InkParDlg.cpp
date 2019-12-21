@@ -12,16 +12,16 @@ IMPLEMENT_DYNAMIC(CInkParDlg, CDialog)
 
 CInkParDlg::CInkParDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkParDlg::IDD, pParent)
-	, m_parPressure(0)
-	, m_parPumpSpeed(0)
-	, m_inkFlowLev(0)
-	, m_inkAddLev(0)
-	, m_inkEmptyLev(0)
-	, m_printheadTemp(0)
-	, m_viscoDevia(0)
-	, m_solventFlowLev(0)
-	, m_solAddLev(0)
-	, m_solEmptyLev(0)
+	, m_parPressure(3000)
+	, m_parPumpSpeed(2000)
+	, m_inkFlowLev(100)
+	, m_inkAddLev(30)
+	, m_inkEmptyLev(10)
+	, m_printheadTemp(24)
+	, m_viscoDevia(20)
+	, m_solventFlowLev(100)
+	, m_solAddLev(50)
+	, m_solEmptyLev(10)
 {
 
 }
@@ -51,3 +51,14 @@ END_MESSAGE_MAP()
 
 
 // CInkParDlg 消息处理程序
+
+BOOL CInkParDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	// TODO:  在此添加额外的初始化
+	
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
+}

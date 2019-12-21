@@ -29,4 +29,5 @@ public:
 	int m_solventFlowLev;
 	int m_solAddLev;
 	int m_solEmptyLev;
+	virtual BOOL OnInitDialog();
 };

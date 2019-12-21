@@ -1,6 +1,7 @@
 #pragma once
 #include "ConfigPrintModeDlg.h"
 #include "ConfigOutSetDlg.h"
+#include "afxwin.h"
 // CConfigurationDlg 对话框
 
 class CConfigurationDlg : public CDialog
@@ -31,4 +32,12 @@ public:
 	CConfigPrintModeDlg*  m_ConfigPrintModeDlg;
 	CConfigOutSetDlg* m_ConfigOutSetDlg;
 
+	int m_height;//高度
+	CComboBox m_reverse;//翻转
+	CComboBox m_inverse;//颠倒
+	int m_dotPitch;//列距
+	int m_delay;//延时
+	int m_repeatDis;//重复距离
+	CComboBox m_speedMode;//速度模式
+	int m_speed;//速度
 };

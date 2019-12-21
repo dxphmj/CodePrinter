@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CConfigPrintModeDlg 对话框
@@ -20,4 +21,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedConfigCloseBtn();
+	CListBox m_printModeList;//喷印模式
+	CListBox m_workListList;//工作列表
+	CListBox m_virtualPrintList;//虚拟打印
+	int m_reapeatCount;//重复次数
 };

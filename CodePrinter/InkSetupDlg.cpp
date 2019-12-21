@@ -12,8 +12,8 @@ IMPLEMENT_DYNAMIC(CInkSetupDlg, CDialog)
 
 CInkSetupDlg::CInkSetupDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkSetupDlg::IDD, pParent)
-	, m_nextService(0)
-	, m_inkLifeTime(0)
+	, m_nextService(3000)
+	, m_inkLifeTime(1200)
 {
 
 }
