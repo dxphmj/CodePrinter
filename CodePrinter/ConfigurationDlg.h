@@ -27,4 +27,8 @@ public:
 	void showConfigDlg(int ID);
 	afx_msg void OnBnClickedPrintSetBtn();
 	afx_msg void OnBnClickedOutSetBtn();
+    //喷印界面的几个按钮界面接口
+	CConfigPrintModeDlg*  m_ConfigPrintModeDlg;
+	CConfigOutSetDlg* m_ConfigOutSetDlg;
+
 };

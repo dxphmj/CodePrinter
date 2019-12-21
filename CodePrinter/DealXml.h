@@ -14,5 +14,6 @@ public:
 	bool WriteXml(CString FileName,CString Name,CString Value,CString Path);
 	CString ConstCharToCStirng( const char* ch);
 	const char* CStringToConstChar( CString cstr );
+	BYTE CStringToHex(CString str);
 
 };

@@ -132,39 +132,21 @@
 #define IDC_BUTTON4                     1063
 #define IDC_CONFI_SAVE_BTN              1063
 #define IDC_BUTTON5                     1064
-#define IDC_BUTTON6                     1065
-#define IDC_CUSTONBUTTON                1065
 #define IDC_CUSTON_BUTTON               1065
-#define IDC_PHASING_BTN                 1065
 #define IDC_HIGH_VOLTAGE_BTN            1065
-#define IDC_BUTTON7                     1066
 #define IDC_VERSION_BTN                 1066
-#define IDC_SPEED_MODE_BTN              1066
-#define IDC_WASH_NOZZLE_BTN             1066
 #define IDC_BUTTON9                     1068
 #define IDC_EVN_BTN                     1074
-#define IDC_COMBO1                      1075
-#define IDC_COUNTER_COMBO               1075
-#define IDC_DATE_FONT_COMBO             1075
-#define IDC_BARCODE_VERSION_COMBO       1075
 #define IDC_LANGUAGE_STATIC             1076
 #define IDC_SYSTEM_CANCEL_BTN           1077
-#define IDC_SYSTEM_CLOSE_BTN            1077
 #define IDC_SPIN2                       1080
 #define IDC_INK_BUTTON                  1081
-#define IDC_CODEPRINTER_TYPE_STATIC     1081
 #define IDC_SYSTEM_BUTTON               1082
-#define IDC_CODEPRINTE_ID_RSTATIC       1082
 #define IDC_MATRIX                      1083
-#define IDC_MAINBOARD_ID_STATIC         1083
 #define IDC_MATRIX_STATIC               1084
-#define IDC_MAINBOARD_HARDWARE_TYPE_STATIC 1084
 #define Static_Pixel                    1085
-#define IDC_HARDWARE_UPDATE_TIME_STATIC 1085
 #define IDC_REVERSAL_STATIC             1086
-#define IDC_MAINBOARD_SOFTWARE_TYPE_STATIC 1086
 #define IDC_PERVERSION_STATIC           1087
-#define IDC_SOFTWARE_UPDATE_TIME_STATIC 1087
 #define IDC_INPUT_BUTTON                1088
 #define IDC_SHOW_EDIT                   1089
 #define U_Shift_Button                  1090
@@ -254,15 +236,12 @@
 #define IDC_BARCODE_SET_STATIC          1175
 #define IDC_ECC_LEVEL_STATIC            1176
 #define IDC_QUIET_ZONE_STATIC           1177
-#define IDC_ENCODING_MODE_STATIC        1177
 #define IDC_BARCODE_ECC_LEV_COMBO       1178
 #define IDC_BARCODE_ZONE_COMBO          1179
 #define IDC_BARCODE_FIGURE_BTN          1180
 #define IDC_BARCODE_DATE_BTN            1181
 #define IDC_BARCODE_OK_BTN              1182
 #define IDC_QR_CODE_BTN                 1183
-#define IDC_                            1184
-#define IDC_DATA_MATRIX_BTN             1184
 #define IDC_PRINT_SET_BTN               1184
 #define IDC_CODE_39_BTN                 1185
 #define IDC_CODE_128_BTN                1186
@@ -309,6 +288,8 @@
 #define IDC_SUCK_NOZZLE_BTN             1227
 #define IDC_BETECT_VISCO_BTN            1228
 #define IDC_COMBO5                      1231
+#define IDC_COMBO                       1231
+#define IDC_SIZE_COMBO                  1231
 #define IDC_SOLVENT_CALIB_BTN           1232
 #define IDC_INK_CALIB_BTN               1233
 #define IDC_SOLVENT_FLOW_LEV_EDIT       1234
@@ -361,6 +342,7 @@
 #define IDC_PRODUCT_DETE_LIST           1281
 #define IDC_LIST4                       1282
 #define IDC_ACTIVE_LEV_LIST             1282
+#define IDC_INK_TYPE_LIST               1282
 #define IDC_CONFIG_OSRETURN_BTN         1283
 #define IDC_PRINT_DIRE_LIST             1284
 #define IDC_ENCODE_SIGN_LIST            1285
@@ -377,6 +359,36 @@
 #define IDC_DATE_STATIC                 1298
 #define IDC_MUL_LANGV_STATIC            1299
 #define IDC_RETURN_BTN                  1300
+#define IDC_INK_OK_BTN                  1301
+#define IDC_MODUL_FRE_COMBO             1302
+#define IDC_INK_TYPE_COMBO              1303
+#define IDC_SLEEP_COMBO                 1304
+#define IDC_NEXT_SERVICE_EDIT           1305
+#define IDC_INK_LIFE_TIME_EDIT          1306
+#define IDC_BUTTON6                     1308
+#define IDC_PHASING_BTN                 1309
+#define IDC_SPEED_MODE_BTN              1310
+#define IDC_WASH_NOZZLE_BTN             1311
+#define IDC_COMBO1                      1312
+#define IDC_COUNTER_COMBO               1313
+#define IDC_DATE_FONT_COMBO             1314
+#define IDC_BARCODE_VERSION_COMBO       1315
+#define IDC_PELTIER_COMBO               1316
+#define IDC_SYSTEM_CLOSE_BTN            1317
+#define IDC_CODEPRINTER_TYPE_STATIC     1318
+#define IDC_CODEPRINTE_ID_RSTATIC       1319
+#define IDC_MAINBOARD_ID_STATIC         1320
+#define IDC_MAINBOARD_HARDWARE_TYPE_STATIC 1321
+#define IDC_HARDWARE_UPDATE_TIME_STATIC 1322
+#define IDC_MAINBOARD_SOFTWARE_TYPE_STATIC 1323
+#define IDC_SOFTWARE_UPDATE_TIME_STATIC 1324
+#define IDC_DATA_MATRIX_BTN             1325
+#define IDC_ENCODING_MODE_STATIC        1326
+#define IDC_SIZE_LIST                   1327
+#define IDC_MODUL_FRE_LIST              1328
+#define IDC_PELTIER_LIST                1329
+#define IDC_LIST6                       1330
+#define IDC_SLEEP_LIST                  1330
 
 // Next default values for new objects
 // 
@@ -384,7 +396,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        202
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1301
+#define _APS_NEXT_CONTROL_VALUE         1331
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
