@@ -244,8 +244,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CInksystemconfig pInksysConfig(this);
 
 
-	//pInksysConfig.get_inksystem_from_xml();
-	//pInksysConfig.download_inksystem_setup();
+	pInksysConfig.get_inksystem_from_xml();
+	pInksysConfig.download_inksystem_setup();
 
 
 #ifdef def_ttl
