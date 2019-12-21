@@ -16,25 +16,47 @@ CInksystemconfig::~CInksystemconfig(void)
 void CInksystemconfig::get_inksystem_from_xml()
 {
 	CDealXml dealXml;
+	CString str = NULL;
 	//m_pCodePrinterDlg->m_Ink->m_setup->
 	//开机默认帕尔贴开关
-	CString str = dealXml.ReadXml(_T("inksystem.xml"),_T("Peltier"), _T("OFF"), _T("Storage Card\\System"));
+	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Peltier"), _T("OFF"), _T("Storage Card\\System"));
+
 	//开机默认睡眠开关
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Sleep"), _T("OFF"), _T("Storage Card\\System"));
+	int nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
+	m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SetCurSel(nCur);
+	
 	//开机默认晶振频率
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("ModulationFrequency"), _T("64000"), _T("Storage Card\\System"));
+	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.SelectString(0,str);
+	m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.SetCurSel(nCur);
+	
 	//开机默认喷嘴尺寸
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("NozzleSize"), _T("60"), _T("Storage Card\\System"));
+	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.SelectString(0,str);
+	m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.SetCurSel(nCur);
+	
 	//开机默认墨水型号
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("InkType"), _T("236"), _T("Storage Card\\System"));
+	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_inkTypeList.SelectString(0,str);
+	m_pCodePrinterDlg->m_Ink->m_setup->m_inkTypeList.SetCurSel(nCur);
+	
 	//开机默认设置的压力
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Pressure"), _T("3000"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_parPressure = _wtoi(str);
+	
 	//开机默认设置的泵速
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("BumpSpeed"), _T("1500"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_parPumpSpeed = _wtoi(str);
+
 	//开机默认设置的喷头温度
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("PrintHeadTemp"), _T("24"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_printheadTemp = _wtoi(str);
+	
 	//开机默认设置的分裂电压模式为固定电压
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("ModulationMode"), _T("0"), _T("Storage Card\\System"));
+	//m_pCodePrinterDlg->m_Ink->m_par->m_printheadTemp = _wtoi(str);
+
 	if (str == _T("0"))
 	{
 		theApp.myStatusClass.ctr0X03bit6 = 0;
@@ -65,21 +87,37 @@ void CInksystemconfig::get_inksystem_from_xml()
 	}
 	//开机默认设置的分裂电压
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("ModulationVoltage"), _T("100"), _T("Storage Card\\System"));
-	//theApp.myStatusClass.bytModuVol = CByte(texval_inksystem_pha_mv.Text);
+	m_pCodePrinterDlg->m_Ink->m_phas->m_fixed = _wtoi(str);
+	theApp.myStatusClass.bytModuVol = _wtoi(str);
+	
 	//开机默认设置的墨水高报警液位
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("InkFlowLevel"), _T("150"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_inkFlowLev = _wtoi(str);
+
 	//开机默认设置的墨水添加报警液位
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("InkAddLevel"), _T("30"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_inkAddLev = _wtoi(str);
+
 	//开机默认设置的墨水空报警液位
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("InkEmptyLevel"), _T("10"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_inkEmptyLev = _wtoi(str);
+
 	//开机默认设置的溶剂高报警液位
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("SolventFlowLevel"), _T("150"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_solventFlowLev = _wtoi(str);
+
 	//开机默认设置的溶剂添加报警液位
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("SolventAddLevel"), _T("30"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_solAddLev = _wtoi(str);
+
 	//开机默认设置的溶剂空报警液位
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("SolventEmptyLevel"), _T("10"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_solEmptyLev = _wtoi(str);
+
 	//开机默认设置的墨水粘度允许误差百分比
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("ViscoDeviation"), _T("15"), _T("Storage Card\\System"));
+	m_pCodePrinterDlg->m_Ink->m_par->m_viscoDevia = _wtoi(str);
+	m_pCodePrinterDlg->m_Ink->m_par->UpdateData(FALSE);
 }
 
 void CInksystemconfig::download_inksystem_setup()
@@ -116,13 +154,13 @@ void CInksystemconfig::download_inksystem_setup()
 	inksystem_setup_0x09 = _wtoi(tempStr.GetBuffer(0));
 	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC09"), _T("74"), _T("Storage Card\\System"));
 	inksystem_setup_0x0a = _wtoi(tempStr.GetBuffer(0));
-	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC010"), _T("70"), _T("Storage Card\\System"));
+	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC10"), _T("70"), _T("Storage Card\\System"));
 	inksystem_setup_0x0b = _wtoi(tempStr.GetBuffer(0));
-	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC011"), _T("66"), _T("Storage Card\\System"));
+	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC11"), _T("66"), _T("Storage Card\\System"));
 	inksystem_setup_0x0c = _wtoi(tempStr.GetBuffer(0));
-	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC012"), _T("62"), _T("Storage Card\\System"));
+	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC12"), _T("62"), _T("Storage Card\\System"));
 	inksystem_setup_0x0d = _wtoi(tempStr.GetBuffer(0));
-	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC013"), _T("59"), _T("Storage Card\\System"));
+	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC13"), _T("59"), _T("Storage Card\\System"));
 	inksystem_setup_0x0e = _wtoi(tempStr.GetBuffer(0));
 
 	tempCtrVec.push_back(0x01);

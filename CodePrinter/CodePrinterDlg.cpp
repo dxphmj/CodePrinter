@@ -168,6 +168,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 #ifdef def_ttl
 	//´®¿Ú³õÊ¼»¯
+
 	theApp.myModuleMain.InitCommMsg();
 #endif
 
@@ -178,6 +179,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//timeErrout.close();
 	//ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
 	//out99.close();
+
 
 
 
@@ -242,8 +244,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CInksystemconfig pInksysConfig(this);
 
 
-	//pInksysConfig.get_inksystem_from_xml();
-	//pInksysConfig.download_inksystem_setup();
+	pInksysConfig.get_inksystem_from_xml();
+	pInksysConfig.download_inksystem_setup();
+
 
 #ifdef def_ttl
 	LPTSTR strTempCmd;
@@ -258,7 +261,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetTimer(TIMER1,1000,NULL);	
 
 #endif
-///////////////////////
 
 
 	
