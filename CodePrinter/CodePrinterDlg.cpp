@@ -12,7 +12,7 @@
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
 #include <fstream>
-
+#include "Inksystemconfig.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -218,7 +218,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//Sleep(10);
 	//theApp.readCount=theApp.myCIOVsd.Read();
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
+////Ä«Ë®ÅäÖÃ³õÊ¼»¯
+	CInksystemconfig pInksysConfig(this);
 
+	pInksysConfig.get_inksystem_from_xml();
+	pInksysConfig.download_inksystem_setup();
 
 
 	//theApp.TTLcom=CreateThread(NULL,0,(LPTHREAD_START_ROUTINE)TTLcomLoop,NULL,CREATE_SUSPENDED,&theApp.TTLcomID);

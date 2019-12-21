@@ -13,6 +13,7 @@
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
 
+
 // CCodePrinterDlg ¶Ô»°¿ò
 class CCodePrinterDlg : public CDialog
 {
@@ -66,4 +67,5 @@ public:
 
 public:
 	void showDlg(int ID);
+public:
 };

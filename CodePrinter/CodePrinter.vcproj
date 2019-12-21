@@ -636,6 +636,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Inksystemconfig.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InkSystemDlg.cpp"
 				>
 			</File>
@@ -661,6 +665,10 @@
 			</File>
 			<File
 				RelativePath=".\MyLogCpp.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PcfConfig.cpp"
 				>
 			</File>
 			<File
@@ -842,6 +850,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Inksystemconfig.h"
+				>
+			</File>
+			<File
 				RelativePath=".\InkSystemDlg.h"
 				>
 			</File>
@@ -867,6 +879,10 @@
 			</File>
 			<File
 				RelativePath=".\MyLogCpp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PcfConfig.h"
 				>
 			</File>
 			<File
