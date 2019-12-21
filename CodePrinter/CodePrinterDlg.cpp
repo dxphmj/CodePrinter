@@ -169,10 +169,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	out99.close();
 
 	//串口初始化
-#ifdef  Debug_by_soft
 	theApp.myModuleMain.InitCommMsg();
-
-#endif
 
 	//墨水维护时间
 
@@ -227,7 +224,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	theApp.myStatusClass.download_inksystem_control03();
 
-#ifdef  Debug_by_soft
+
 
 ///////////////////////
 	LPTSTR strTempCmd;
@@ -239,9 +236,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	theApp.readCount=theApp.myCIOVsd.Read();
     theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 
+	
 	SetTimer(TIMER1,1000,NULL);
-
-#endif
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

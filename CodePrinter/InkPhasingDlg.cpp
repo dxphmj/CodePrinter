@@ -12,7 +12,7 @@ IMPLEMENT_DYNAMIC(CInkPhasingDlg, CDialog)
 
 CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkPhasingDlg::IDD, pParent)
-	, m_fixed(100)
+	, m_fixed(0)
 {
 
 }
