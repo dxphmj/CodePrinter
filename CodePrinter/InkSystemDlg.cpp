@@ -32,17 +32,17 @@ CInkSystemDlg::~CInkSystemDlg()
 
 void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialog::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_SPEED_MODE_BTN, m_CIB_SpeedMode);
-	DDX_Control(pDX, IDC_PRESSURE_MODE_BTN, m_CIB_PressureMode);
-	DDX_Control(pDX, IDC_BLEED_VALVE_BTN, m_CIB_BleedValve);
-	DDX_Control(pDX, IDC_PUMP_BTN, m_CIB_Pump);
-	DDX_Control(pDX, IDC_WASH_VALVE_BTN, m_CIB_WashValve);
-	DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_CIB_NozzleValve);
-	DDX_Control(pDX, IDC_FEED_VALVE_BTN, m_CIB_FeedValve);
-	DDX_Control(pDX, IDC_SOLVENT_VALVE_BTN, m_CIB_SolventValve);
-	DDX_Control(pDX, IDC_VISCO_VALVE_BTN, m_CIB_ViscoValve);
-	DDX_Control(pDX, IDC_FLUSH_VALVE_BTN, m_CIB_FlushValve);
+	//CDialog::DoDataExchange(pDX);
+	//DDX_Control(pDX, IDC_SPEED_MODE_BTN, m_CIB_SpeedMode);
+	//DDX_Control(pDX, IDC_PRESSURE_MODE_BTN, m_CIB_PressureMode);
+	//DDX_Control(pDX, IDC_BLEED_VALVE_BTN, m_CIB_BleedValve);
+	//DDX_Control(pDX, IDC_PUMP_BTN, m_CIB_Pump);
+	//DDX_Control(pDX, IDC_WASH_VALVE_BTN, m_CIB_WashValve);
+	//DDX_Control(pDX, IDC_NOZZLE_VALVE_BTN, m_CIB_NozzleValve);
+	//DDX_Control(pDX, IDC_FEED_VALVE_BTN, m_CIB_FeedValve);
+	//DDX_Control(pDX, IDC_SOLVENT_VALVE_BTN, m_CIB_SolventValve);
+	//DDX_Control(pDX, IDC_VISCO_VALVE_BTN, m_CIB_ViscoValve);
+	//DDX_Control(pDX, IDC_FLUSH_VALVE_BTN, m_CIB_FlushValve);
 }
 
 
@@ -102,7 +102,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_phas->ShowWindow(SW_HIDE);
     //SetTimer(TIMER1,1000,NULL);
 	//彩色按钮 （普通）
-	m_CIB_SpeedMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
+	/*m_CIB_SpeedMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 	m_CIB_SpeedMode.SizeToContent(); 
 	m_CIB_PressureMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 	m_CIB_PressureMode.SizeToContent(); 
@@ -121,7 +121,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_CIB_ViscoValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 	m_CIB_ViscoValve.SizeToContent(); 
 	m_CIB_FlushValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	m_CIB_FlushValve.SizeToContent(); 
+	m_CIB_FlushValve.SizeToContent(); */
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
