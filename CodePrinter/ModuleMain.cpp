@@ -2,6 +2,9 @@
 #include "ModuleMain.h"
 #include "CodePrinter.h"
 #include<cmath>
+#include<algorithm>
+#include <fstream>
+#include<cstdio>
 ModuleMain::ModuleMain(void)
 {
 }
@@ -185,7 +188,7 @@ string ModuleMain::CString2string(CString csStrData)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=4;
+	tempDcb.nComPort=1;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -200,6 +203,8 @@ void ModuleMain::InitCommMsg()
 	}
 }
 
+
+////////////////////////////////////////////////
 void StatusClass::byStatusFromSlaveState()
 {
 	theApp.bytSlaveStatusLock.Lock();

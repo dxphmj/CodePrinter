@@ -12,8 +12,13 @@
 #include "ConfigurationDlg.h"
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
+
+
+
+
 #include "OnOffDlg.h"
 #define TIMER1 1
+
 // CCodePrinterDlg 对话框
 class CCodePrinterDlg : public CDialog
 {
@@ -59,6 +64,7 @@ public:
 	CImageButton m_ButOnOrOff;
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
+	
 
 	CSystemDlg *m_System;
 	CUserDlg *m_User;
@@ -70,5 +76,9 @@ public:
 	COnOffDlg *m_OnOff;
 public:
 	void showDlg(int ID);
+
+public:
+
 	afx_msg void OnTimer(UINT_PTR nIDEvent); //定时器
+
 };

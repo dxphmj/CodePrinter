@@ -359,6 +359,7 @@
 #define IDC_DATE_STATIC                 1298
 #define IDC_MUL_LANGV_STATIC            1299
 #define IDC_RETURN_BTN                  1300
+
 #define IDC_INK_OK_BTN                  1301
 #define IDC_MODUL_FRE_COMBO             1302
 #define IDC_INK_TYPE_COMBO              1303
@@ -388,7 +389,8 @@
 #define IDC_MODUL_FRE_LIST              1328
 #define IDC_PELTIER_LIST                1329
 #define IDC_LIST6                       1330
-#define IDC_SLEEP_LIST                  1330
+#define IDC_SLEEP_LIST                  1331
+#define IDC_PRINT_STA_STATIC            1332
 
 // Next default values for new objects
 // 
@@ -396,7 +398,10 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        202
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1331
+
+
+#define _APS_NEXT_CONTROL_VALUE         1333
+
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
