@@ -23,6 +23,7 @@ CFaultDlg::~CFaultDlg()
 void CFaultDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX,IDC_FAULT_LIST,m_faultList);
 }
 
 

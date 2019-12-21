@@ -22,6 +22,8 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedFaultCloseBtn();
+	CListBox m_faultList;
+
 	void get_save_error();
 	void get_error_name();
 	void openfailurefile(string filePathName);

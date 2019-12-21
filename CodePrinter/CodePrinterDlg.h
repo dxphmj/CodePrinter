@@ -64,6 +64,7 @@ public:
 	CImageButton m_ButOnOrOff;
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
+	
 
 	CSystemDlg *m_System;
 	CUserDlg *m_User;
