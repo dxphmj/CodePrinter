@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CConfigPrintModeDlg ¶Ô»°¿ò
@@ -20,4 +21,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedConfigCloseBtn();
+	CListBox m_printMode;
+	CListBox m_workList;
+	int m_repeatCount;
+	CListBox m_virtualPrint;
+	virtual BOOL OnInitDialog();
 };
