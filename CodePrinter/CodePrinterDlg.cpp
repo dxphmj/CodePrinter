@@ -660,7 +660,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control02();
 		}
         //当前电平
-	/*	CString m_currentLev;
+		CString m_currentLev;
 		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowText(m_currentLev);
 		if (theApp.myStatusClass.staActProSen == true && m_currentLev == "Low")
 		{
@@ -677,7 +677,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.staInkTemSenFauLas = true;
 			CString csMsg ;
 			csMsg.Format(_T("Ink temperature sensor fault!"));
-			/*AfxMessageBox(csMsg);*/
+			
             csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -691,7 +691,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.staPriHeaTemFauLas = true;
 			CString csMsg ;
 			csMsg.Format(_T("Printhead temperature sensor fault!"));
-			/*AfxMessageBox(csMsg);*/
+			
 			csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -715,7 +715,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control00();
 			CString csMsg ;
 			csMsg.Format(_T("Pump speed abnormal!"));
-			/*AfxMessageBox(csMsg);*/
+		
 			csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -739,7 +739,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control00();
 			CString csMsg ;
 			csMsg.Format(_T("Pressure abnormal!"));
-			/*AfxMessageBox(csMsg);*/
+		
 			csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
