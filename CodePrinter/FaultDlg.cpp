@@ -57,6 +57,7 @@ BOOL CFaultDlg::OnInitDialog()
 	timeErrout.close();
 	ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::app);
 	out99.close();
+	nowErrDay=0;
 	//openfailurefile("Storage Card\\System\\Error\\99999999.TXT");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -358,9 +359,23 @@ void CFaultDlg::OnBnClickedButton4()
 void CFaultDlg::OnBnClickedButton6()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	if (nowErrDay<(strErrorFileNameArr.size()-1))
+	{
+		nowErrDay++;
+		string timeErr="Storage Card\\System\\Error\\";
+		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
+		openfailurefile(timeErr);
+	}
 }
 
 void CFaultDlg::OnBnClickedButton5()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	if (nowErrDay>0)
+	{
+		nowErrDay--;
+		string timeErr="Storage Card\\System\\Error\\";
+		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
+		openfailurefile(timeErr);
+	}
 }

@@ -778,7 +778,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 {
 	 //TODO: 在此添加控件通知处理程序代码
 	BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
-
+	
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	//2、取值并发送至下位机 download_pcf()

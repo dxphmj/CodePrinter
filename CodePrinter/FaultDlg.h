@@ -30,6 +30,7 @@ public:
 	string Errorlog_name;
 	vector<string> strErrorFileNameArr;
 	int intErrorFileNameArr;
+	int nowErrDay;
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();

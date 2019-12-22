@@ -278,17 +278,17 @@ const char* ModuleMain::CString2ConstChar(CString str)
 	return pBuf;
 }
 
-string ModuleMain::CString2string(CString csStrData)
-{
-	string strRet ;
-
-	char ss[2048];
-	memset(ss, 0, sizeof(char)*2048);
-	sprintf(ss, "%s", csStrData);
-
-	strRet = ss;
-	return strRet;
-}
+//string ModuleMain::CString2string(CString csStrData)
+//{
+//	string strRet ;
+//
+//	char ss[2048];
+//	memset(ss, 0, sizeof(char)*2048);
+//	sprintf(ss, "%s", csStrData);
+//
+//	strRet = ss;
+//	return strRet;
+//}
 
 void ModuleMain::InitCommMsg()
 {
