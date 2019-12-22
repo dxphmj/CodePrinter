@@ -188,7 +188,7 @@ string ModuleMain::CString2string(CString csStrData)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=1;
+	tempDcb.nComPort=4;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -518,18 +518,20 @@ CString GETnBIT_from_bytReadData(int I , int m , int n )
 
     //tempCstr=tempCstr.Mid(tempCstr.GetLength()-m,n);
 	CString cstringStr= tempstringToLPCWSTR.stringToLPCWSTR(tempCstr);
-	return cstringStr.Mid(cstringStr.GetLength()-m,n);
+	return cstringStr.Mid(cstringStr.GetLength()-m-1,n);
 }
 
 CString GETnBIT_from_bytStatus(int I , int m , int n )
 {
 	string tempCstr="";
 	ModuleMain tempstringToLPCWSTR;
-	tempCstr="00000000"+theApp.myclassMessage.DEC_to_BIN(theApp.myCIOVsd.m_pRecvBuf[I]);
+	tempCstr="00000000"+theApp.myclassMessage.DEC_to_BIN(theApp.bytStatus[I]);
 
 	//tempCstr=tempCstr.Mid(tempCstr.GetLength()-m,n);
+
 	CString cstringStr= tempstringToLPCWSTR.stringToLPCWSTR(tempCstr);
-	return cstringStr.Mid(cstringStr.GetLength()-m,n);
+	int dd=cstringStr.GetLength();
+	return cstringStr.Mid(cstringStr.GetLength()-m-1,n);
 }
 
 UINT TTLcomLoop(LPVOID pParam)
@@ -603,13 +605,13 @@ UINT TTLcomLoop(LPVOID pParam)
 							} 
 							else
 							{
-								strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
-								strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
-								if (strTempCmdLen<12)
-								{
-									strTempCmd=(LPTSTR)readArr;
-									strTempCmdLen=8;
-								}
+								//strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
+								//strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
+								//if (strTempCmdLen<12)
+								//{
+								//	strTempCmd=(LPTSTR)readArr;
+								//	strTempCmdLen=8;
+								//}
 							}
 						} 
 						else
@@ -715,15 +717,15 @@ UINT TTLcomLoop(LPVOID pParam)
 			//strTempCmdLen=8;
 
 			/////////以下代码测试用
-			theApp.boQueCtrLock.Lock();
-			if (theApp.queCtr.size()>0)
-			{
-				vector<BYTE> tempQueVec=theApp.queCtr.front();
-				theApp.queCtr.pop();
-				strTempCmdLen=tempQueVec.size();
-				strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-			}
-			theApp.boQueCtrLock.Unlock();
+			//theApp.boQueCtrLock.Lock();
+			//if (theApp.queCtr.size()>0)
+			//{
+			//	vector<BYTE> tempQueVec=theApp.queCtr.front();
+			//	theApp.queCtr.pop();
+			//	strTempCmdLen=tempQueVec.size();
+			//	strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+			//}
+			//theApp.boQueCtrLock.Unlock();
 		}
 
 		//theApp.myCIOVsd.ClearInOutBuf();

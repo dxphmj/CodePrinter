@@ -28,6 +28,9 @@ public:
 	CComboBox FreqMulti;
 	CEdit  m_impulse;
 	CEdit m_length;
-	CEdit m_currentLev;
+	CEdit m_currentLevel;
 	CEdit m_triggerLen;
+
+	CString m_currentLevelStr;
+	
 };
