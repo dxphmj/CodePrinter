@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CComDlg ¶Ô»°¿ò
@@ -20,4 +21,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	CListBox m_com1BaudRate;
+	CListBox m_com2Baudrate;
+	CListBox m_com1Parity;
+	CListBox m_com2Parity;
 };

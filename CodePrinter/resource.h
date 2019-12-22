@@ -344,6 +344,7 @@
 #define IDC_ACTIVE_LEV_LIST             1282
 #define IDC_INK_TYPE_LIST               1282
 #define IDC_VIRTUAL_PRINT_LIST          1282
+#define IDC_COM2_PARITY_LIST            1282
 #define IDC_CONFIG_OSRETURN_BTN         1283
 #define IDC_PRINT_DIRE_LIST             1284
 #define IDC_ENCODE_SIGN_LIST            1285
@@ -360,7 +361,6 @@
 #define IDC_DATE_STATIC                 1298
 #define IDC_MUL_LANGV_STATIC            1299
 #define IDC_RETURN_BTN                  1300
-
 #define IDC_INK_OK_BTN                  1301
 #define IDC_MODUL_FRE_COMBO             1302
 #define IDC_INK_TYPE_COMBO              1303
@@ -390,8 +390,8 @@
 #define IDC_SIZE_LIST                   1327
 #define IDC_MODUL_FRE_LIST              1328
 #define IDC_PELTIER_LIST                1329
-
 #define IDC_SLEEP_LIST                  1330
+#define IDC_LIST6                       1330
 #define IDC_PIC_GREEN_STATIC            1331
 #define IDC_PIC_BLUE_STATIC             1332
 #define IDC_PIC_YELLOW_STATIC           1333
@@ -413,11 +413,22 @@
 #define IDC_PRINT_MODE_LIST             1349
 #define IDC_REPEAT_DIS_STATIC           1350
 #define IDC_REPEAT_DIS_EDIT             1351
-
-#define IDC_LIST6                       1330
-
 #define IDC_PRINT_STA_STATIC            1432
-
+#define IDC_COM1_PARITY_LIST            1452
+#define IDC_COM1_BAUDRATE_LIST          1453
+#define IDC_COM2_BAUDRATE_LIST          1454
+#define IDC_LANGUAGE_LIST               1455
+#define IDC_USER_NAME_STATIC            1456
+#define IDC_USER_NAME_EDIT              1457
+#define IDC_PASSWARD_STATIC             1458
+#define IDC_PASSWARD_EDIT               1459
+#define IDC_NOT_GRANTED_LIST            1460
+#define IDC_GRANTED_LIST                1461
+#define IDC_RIGHT_MOVE_BTN              1462
+#define IDC_LEFT_MOVE_BTN               1463
+#define IDC_FRESH_USER_NAME_LIST        1464
+#define IDC_FRESH_PASSEDIT              1465
+#define IDC_FRESH_PASSWARD_EDIT         1465
 
 // Next default values for new objects
 // 
@@ -425,9 +436,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        202
 #define _APS_NEXT_COMMAND_VALUE         32771
-
-#define _APS_NEXT_CONTROL_VALUE         1452
-
+#define _APS_NEXT_CONTROL_VALUE         1466
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

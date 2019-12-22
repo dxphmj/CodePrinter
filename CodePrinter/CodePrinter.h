@@ -25,7 +25,12 @@ class CCodePrinterApp : public CWinApp
 {
 public:
 	CCodePrinterApp();
-	
+
+public:
+
+	CBrush m_DlgBrush;
+    COLORREF m_BKcolor;
+
 // ÖØÐ´
 public:
 	virtual BOOL InitInstance();

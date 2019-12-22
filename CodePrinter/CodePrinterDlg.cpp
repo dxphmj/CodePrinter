@@ -58,6 +58,8 @@ BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
 	ON_BN_CLICKED(IDC_STARTPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedStartprintButton)
 	ON_BN_CLICKED(IDC_PAUSEPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedPauseprintButton)
 	ON_WM_TIMER()
+	ON_WM_CTLCOLOR()
+
 END_MESSAGE_MAP()
 
 
@@ -66,6 +68,9 @@ END_MESSAGE_MAP()
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	 
+
 
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
@@ -158,7 +163,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
-	m_ButOnOrOff.LoadBitmaps(IDB_ON_OR_OFF_BITMAP,IDB_ON_OR_OFF_BITMAP,0,0,IDB_ON_OR_OFF_BITMAP);
+	m_ButOnOrOff.LoadBitmaps(IDB_BITMAP3,IDB_BITMAP5,0,0,IDB_BITMAP3);
 	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
 	m_StartPrint.SizeToContent(); 
@@ -166,7 +171,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
-
+//#define  def_ttl 1
 
 #ifdef def_ttl
 	//串口初始化
@@ -246,37 +251,30 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 
+
+
+
 	pInksysConfig.get_inksystem_from_xml();
 	pInksysConfig.download_inksystem_setup();
 	pInksysConfig.download_inksystem_parameter();
 	pPcfConfig.get_pcf_from_xml();
 
 
+
 #ifdef def_ttl
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
-	strTempCmd=(LPTSTR)readArr;
-	bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
+	strTempCmd=(LPTSTR)readArr;	 
 
 	Sleep(10);
 	theApp.readCount=theApp.myCIOVsd.Read();
+ 
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
 	SetTimer(TIMER1,1000,NULL);	
 
-#endif
+#endif 
 
-
-	
-
-	
-	
-	
-
-
-	CListBox* m_errBox=(CListBox*)m_Fault->GetDlgItem(IDC_FAULT_LIST);
-	m_errBox->AddString(_T("111   111"));
-	m_errBox->AddString(_T("211   211"));
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -459,7 +457,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			m_Ink->m_CIB_PressureMode.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 			m_Ink->m_CIB_PressureMode.SizeToContent(); */
 		}
-		else if (theApp.myStatusClass.staBumMod==true/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
+		else if (theApp.myStatusClass.staBumMod==false/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
 		{
 			/*m_Ink->m_CIB_Pumpspeed.m_tag = 1;
             m_Ink->m_CIB_Pressure.m_tag = 0;*/
@@ -676,7 +674,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		}
         //当前电平
 		CString m_currentLev;
-		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowText(m_currentLev);
+		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowTextW(m_currentLev);
 		if (theApp.myStatusClass.staActProSen == true && m_currentLev == "Low")
 		{
 			m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->SetWindowText(_T("High"));
@@ -912,4 +910,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		break;
 
 	}
+}
+
+
+
+HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);
+	 
+	 
+	return theApp.m_DlgBrush;
 }
