@@ -163,7 +163,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
-	m_ButOnOrOff.LoadBitmaps(IDB_BITMAP3,IDB_BITMAP5,0,0,IDB_BITMAP3);
+	m_ButOnOrOff.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
 	m_StartPrint.SizeToContent(); 
@@ -251,14 +251,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 
-
-
-
 	pInksysConfig.get_inksystem_from_xml();
 	pInksysConfig.download_inksystem_setup();
 	pInksysConfig.download_inksystem_parameter();
 	pPcfConfig.get_pcf_from_xml();
-
+	pPcfConfig.download_pcf();
 
 
 #ifdef def_ttl

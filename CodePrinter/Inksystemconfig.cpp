@@ -138,9 +138,11 @@ void CInksystemconfig::download_inksystem_setup()
 	vector<BYTE> tempCtrVec;
 	inksystem_setup_0x01 = 0;
 	//开机默认墨水的粘度表
-	CString inksystem_setup_it = _T("236");
+	CString inksystem_setup_it;// = _T("236");
+	inksystem_setup_it.Format(_T("%d"),236);
+
 	//CString inksystem_setup_it  = lisval_inksystem_setup_it.SelectedItem;
-	int nParam = _wtoi(inksystem_setup_it.GetBuffer(0));
+//	int nParam = _wtoi(inksystem_setup_it.GetBuffer(0));
  //   inksystem_setup_0x02 = nParam;
 
 	//inksystem_setup_0x02 = nParam & 0xFF;

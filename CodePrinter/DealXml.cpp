@@ -43,17 +43,15 @@ CString CDealXml::ReadXml(CString FileName,CString Name,CString FaultStr,CString
 			CStringA stra2(nodetext);
 			ValueStr =  CString(stra2);//ConstChar To CStirng
 
-			if ( ValueName == Name )
+			if ( ValueName.CompareNoCase(Name) == 0 )
 			{
 				return ValueStr;
 			}
 		}
 	}
-	else
-	{
-		//MessageBox(L"could not load the file");
-		return FaultStr;
-	}
+	
+	//MessageBox(L"could not load the file");
+	return FaultStr;	
 }
 
 bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path)
