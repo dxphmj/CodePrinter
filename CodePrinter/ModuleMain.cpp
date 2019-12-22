@@ -95,17 +95,27 @@ string ModuleMain::jinzhi10to8(int pre) {
 	return oss.str();
 }
 string ModuleMain::jinzhi10to16(int pre) {
-	ostringstream oss;
-	while(pre!=0){
-		oss<<pre%16;
-		pre/=16;
-	}
-	string res=oss.str();
-	oss.str("");//清空原数据流
-	for(int i=0;i<res.length();i++){
-		oss<<res[res.length()-i-1];
-	}
-	return oss.str();
+	//ostringstream oss;
+	//while(pre!=0){
+	//	oss<<pre%16;
+	//	pre/=16;
+	//}
+	//string res=oss.str();
+	//oss.str("");//清空原数据流
+	//for(int i=0;i<res.length();i++){
+	//	oss<<res[res.length()-i-1];
+	//}
+	//return oss.str();
+	string str;
+	long long Temp = pre / 16;
+	int left = pre % 16;
+	if (Temp > 0)
+		str += jinzhi10to16(Temp);
+	if (left < 10)
+		str += (left + '0');
+	else
+		str += ('A' + left - 10);
+	return str;
 }
 
 LPCWSTR ModuleMain::stringToLPCWSTR(string orig)
