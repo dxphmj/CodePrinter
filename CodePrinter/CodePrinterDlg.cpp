@@ -13,7 +13,10 @@
 #include "InkSystemDlg.h"
 #include <fstream>
 #include "Inksystemconfig.h"
+
 //#include "Tchar.h”
+#include "PcfConfig.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -57,6 +60,8 @@ BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
 	ON_BN_CLICKED(IDC_STARTPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedStartprintButton)
 	ON_BN_CLICKED(IDC_PAUSEPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedPauseprintButton)
 	ON_WM_TIMER()
+	ON_WM_CTLCOLOR()
+
 END_MESSAGE_MAP()
 
 
@@ -65,6 +70,9 @@ END_MESSAGE_MAP()
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	 
+
 
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
@@ -157,7 +165,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
-	m_ButOnOrOff.LoadBitmaps(IDB_ON_OR_OFF_BITMAP,IDB_ON_OR_OFF_BITMAP,0,0,IDB_ON_OR_OFF_BITMAP);
+	m_ButOnOrOff.LoadBitmaps(IDB_BITMAP3,IDB_BITMAP5,0,0,IDB_BITMAP3);
 	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
 	m_StartPrint.SizeToContent(); 
@@ -165,9 +173,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
+//#define  def_ttl 1
 
+#ifdef def_ttl
+	//串口初始化
 
-
+	theApp.myModuleMain.InitCommMsg();
+#endif
 
 	//CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
 	//string timeErr="Storage Card\\System\\Error\\";
@@ -177,8 +189,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
 	//out99.close();
 
-	//串口初始化
-	theApp.myModuleMain.InitCommMsg();
+
+
 
 	//墨水维护时间
 
@@ -239,29 +251,34 @@ BOOL CCodePrinterDlg::OnInitDialog()
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 ////墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
+	CPcfConfig pPcfConfig(this);
+
+
 
 
 	//pInksysConfig.get_inksystem_from_xml();
 	//pInksysConfig.download_inksystem_setup();
+	pInksysConfig.get_inksystem_from_xml();
+	pInksysConfig.download_inksystem_setup();
+	pInksysConfig.download_inksystem_parameter();
+	pPcfConfig.get_pcf_from_xml();
 
-///////////////////////
+
+
+
+#ifdef def_ttl
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
-	strTempCmd=(LPTSTR)readArr;
-	bool bRet = theApp.myCIOVsd.Send(strTempCmd,8);
+	strTempCmd=(LPTSTR)readArr;	 
 
 	Sleep(10);
 	theApp.readCount=theApp.myCIOVsd.Read();
-    theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
-
-	
-
-	
-	
-	
+ 
+	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
 	SetTimer(TIMER1,1000,NULL);	
 
+#endif 
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -290,6 +307,9 @@ void CCodePrinterDlg::OnBnClickedLabelButton()
 void CCodePrinterDlg::OnBnClickedFaultButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	m_Fault->get_save_error();
+
+	m_Fault->openfailurefile("Storage Card\\System\\Error\\99999999.txt");
 	showDlg(IDD_FAULT_DIALOG);
 }
 
@@ -658,7 +678,12 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control02();
 		}
         //当前电平
+
 		/*if (theApp.myStatusClass.staActProSen == true && m_Confi->m_ConfigOutSetDlg->m_currentLevelStr == "Low")
+
+		CString m_currentLev;
+		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowTextW(m_currentLev);
+		if (theApp.myStatusClass.staActProSen == true && m_currentLev == "Low")
 		{
 			m_Confi->m_ConfigOutSetDlg->m_currentLevelStr="High";
             m_Confi->m_ConfigOutSetDlg->UpdateData(FALSE);
@@ -675,7 +700,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.staInkTemSenFauLas = true;
 			CString csMsg ;
 			csMsg.Format(_T("Ink temperature sensor fault!"));
-			AfxMessageBox(csMsg);
+
             csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -688,8 +713,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			theApp.myStatusClass.staPriHeaTemFauLas = true;
 			CString csMsg ;
-			csMsg.Format(_T("Printhead temperature sensor fault!"));
-			/*AfxMessageBox(csMsg);*/
+			csMsg.Format(_T("Printhead temperature sensor fault!"));			
 			csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -713,7 +737,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control00();
 			CString csMsg ;
 			csMsg.Format(_T("Pump speed abnormal!"));
-			/*AfxMessageBox(csMsg);*/
+		
 			csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -737,7 +761,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control00();
 			CString csMsg ;
 			csMsg.Format(_T("Pressure abnormal!"));
-			/*AfxMessageBox(csMsg);*/
+		
 			csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -1041,4 +1065,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		break;
 
 	}
+}
+
+
+
+HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);
+	 
+	 
+	return theApp.m_DlgBrush;
 }

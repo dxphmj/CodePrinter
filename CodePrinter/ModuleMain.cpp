@@ -5,12 +5,117 @@
 #include<algorithm>
 #include <fstream>
 #include<cstdio>
+//#include <iostream>
+#include <math.h>
+#include <sstream>//使用该库函数的ostringstream，将int变成string
 ModuleMain::ModuleMain(void)
 {
 }
 
 ModuleMain::~ModuleMain(void)
 {
+}
+
+//字符转数字
+int ModuleMain::charToDigit(char c)
+{
+	if(c=='A'||c=='a')
+		return 10;
+	else if(c=='B'||c=='b')
+		return 11;
+	else if(c=='C'||c=='c')
+		return 12;
+	else if(c=='D'||c=='d')
+		return 13;
+	else if(c=='E'||c=='e')
+		return 14;
+	else if(c=='F'||c=='f')
+		return 15;
+	else
+		return c-'0';
+}
+
+int ModuleMain::jinzhi16to10(string pre)
+{
+	int length=pre.size();
+	int result=0;
+	for(int i=0; i<length; i++)
+	{
+		result+=((charToDigit(pre[i]))*pow(16.0,length-1-i));
+	}
+	return result;
+}
+
+int ModuleMain::jinzhi8to10(string pre) {
+	int length=pre.size();
+	int result=0;
+	for(int i=0; i<length; i++)
+	{
+		result+=((charToDigit(pre[i]))*pow(8.0,length-1-i));
+	}
+	return result;
+}
+
+int ModuleMain::jinzhi2to10(string pre)
+{
+	// 在此处可以添加验证是否为二进制数字的逻辑
+	int length=pre.size();
+	int result=0;
+	for(int i=0; i<length; i++)
+	{
+		result+=((charToDigit(pre[i]))*pow(2.0,length-1-i));
+	}
+	return result;
+}
+
+string ModuleMain::jinzhi10to2(int pre) {
+	ostringstream oss;
+	while(pre!=0){
+		oss<<pre%2;
+		pre/=2;
+	}
+	string res=oss.str();
+	oss.str("");//清空原数据流
+	for(int i=0;i<res.length();i++){
+		oss<<res[res.length()-i-1];
+	}
+	return oss.str();
+}
+string ModuleMain::jinzhi10to8(int pre) {
+	ostringstream oss;
+	while(pre!=0){
+		oss<<pre%8;
+		pre/=8;
+	}
+	string res=oss.str();
+	oss.str("");//清空原数据流
+	for(int i=0;i<res.length();i++){
+		oss<<res[res.length()-i-1];
+	}
+	return oss.str();
+}
+string ModuleMain::jinzhi10to16(int pre) {
+	//ostringstream oss;
+	//while(pre!=0){
+	//	oss<<pre%16;
+	//	pre/=16;
+	//}
+	//string res=oss.str();
+	//oss.str("");//清空原数据流
+	//for(int i=0;i<res.length();i++){
+	//	oss<<res[res.length()-i-1];
+	//}
+	//return oss.str();
+	string str;
+	long long Temp = pre / 16;
+	int left = pre % 16;
+	if (Temp > 0)
+		str += jinzhi10to16(Temp);
+	if (left < 10)
+		str += (left + '0');
+	else
+		str += ('A' + left - 10);
+	return str;
 }
 
 LPCWSTR ModuleMain::stringToLPCWSTR(string orig)

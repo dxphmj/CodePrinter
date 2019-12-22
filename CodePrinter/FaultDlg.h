@@ -1,6 +1,7 @@
 #pragma once
-
-
+#include <string>
+#include <vector>
+using namespace std;
 // CFaultDlg ¶Ô»°¿ò
 
 class CFaultDlg : public CDialog

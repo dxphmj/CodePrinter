@@ -50,6 +50,9 @@ void CImageButton::PreSubclassWindow()
 	//m_ownerDrawMenu.MakeItemsOwnDraw(TRUE);
 }
 
+
+//#define DRAWTEXT
+
 void CImageButton::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	ASSERT(lpDrawItemStruct != NULL);
@@ -57,12 +60,12 @@ void CImageButton::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	ASSERT(m_bitmapNorm.m_hObject != NULL);     // required
 
 	//Get button state
-	BOOL isFocus = lpDrawItemStruct->itemState & ODS_FOCUS;
+	BOOL isFocus = false;//lpDrawItemStruct->itemState & ODS_FOCUS;
 	BOOL isPush = lpDrawItemStruct->itemState & ODS_SELECTED;
-	if (m_hMenu && m_isMenuDisplayed)
+	/*if (m_hMenu && m_isMenuDisplayed)
 	{
 		isPush = TRUE;
-	}
+	}*/
 	BOOL isDisable = lpDrawItemStruct->itemState & ODS_DISABLED;
 
 	//Get button rect
@@ -141,6 +144,8 @@ void CImageButton::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		memDC.DeleteDC();
 	}	
 
+#ifdef DRAWTEXT
+
 	CString text;
 	GetWindowText(text);
 	if (!text.IsEmpty())
@@ -178,6 +183,7 @@ void CImageButton::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 			pDC->SetBkMode(oldMode);
 		}		
 	}
+#endif
 
 	if (!isDisable && isFocus && !m_isCreateRgnFromBitmap)
 	{
