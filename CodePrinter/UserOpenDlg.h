@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CUserOpenDlg 对话框
@@ -18,4 +19,8 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CListBox m_notGranted;
+	CListBox m_granted;
+	virtual BOOL OnInitDialog();
 };

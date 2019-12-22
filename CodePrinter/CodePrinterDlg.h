@@ -74,11 +74,17 @@ public:
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
 	COnOffDlg *m_OnOff;
+
+//	CBrush m_DlgBrush;
+
 public:
 	void showDlg(int ID);
 
 public:
 
 	afx_msg void OnTimer(UINT_PTR nIDEvent); //¶¨Ê±Æ÷
+ 
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+ 
 
 };
