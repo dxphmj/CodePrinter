@@ -12,6 +12,7 @@
 #include "ConfigurationDlg.h"
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
+#include "ColorButton.h"
 
 
 
@@ -85,6 +86,6 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent); //¶¨Ê±Æ÷
  
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
- 
+	CColorButton m_myButton;   
 
 };

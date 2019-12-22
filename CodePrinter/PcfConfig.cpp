@@ -291,68 +291,68 @@ void CPcfConfig::get_pcf_from_xml()
 	}
 }
 
-void CPcfConfig::download_pcf()//开机一定先getfromxml，再下发。改动后先保存再下发。
-{
-	CDealXml dealXml;
-
-	BYTE pcf0X00bit1_bit0  = 2; //列触发方式：0为编码器1相，1为编码器2相，2为内部一列点数（即等于64K/划速率）
-	BYTE pcf0X00bit2  = 0; //同步器反相，0：A->B，1:B->A
-	BYTE pcf0X00bit4  = 0; //故障运行，正在打印遇到故障时的处理，0打印停止，1 打印继续，但墨点没有喷出来
-	BYTE pcf0X00bit5  = 0; //产品计数器重置，0 不重置，1 重置到设定值
-	BYTE pcf0X00bit6  = 0 ;//打印计数器重置，0 不重置，1 重置到设定值
-
-	//pcf控制0X01
-	BYTE pcf0X01bit0  = 1; //是否启用电眼，0为关闭，1为启用
-	BYTE pcf0X01bit2  = 0; //电眼有效电平，0为低电平，1为高电平
-	BYTE pcf0X01bit3  = 0; //喷印模式为单次还是连续，0为单次，1为连续
-
-	if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0 )//产线运动方式：固定，即内部
-	{
-		pcf0X00bit1_bit0 = 2;
-		//计算延时	
-		try
-		{
-			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-		}
-		catch (CException* e)
-		{
-			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
-			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-		}
-
-		pcf0X02_05 = pcf0X02_05.Mid("00000000" & pcf0X02_05, pcf0X02_05.GetLength() + 1, 8);
-		pcf0X02 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(6, 2));
-		pcf0X03 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(4, 2));
-		pcf0X04 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(2, 2));
-		pcf0X05 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(0, 2));
-		//计算列宽
-		try
-		{
-			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-		}
-		catch (CException* e)
-		{
-			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
-			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-		}
-		
-	} 
-	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )//变速，外部编码器1相
-	{
-		
-	} 
-	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 1 )//变速，外部编码器2相
-	{
-		
-	}
-	else
-	{
-		
-	}
-
-}
+//void CPcfConfig::download_pcf()//开机一定先getfromxml，再下发。改动后先保存再下发。
+//{
+//	CDealXml dealXml;
+//
+//	BYTE pcf0X00bit1_bit0  = 2; //列触发方式：0为编码器1相，1为编码器2相，2为内部一列点数（即等于64K/划速率）
+//	BYTE pcf0X00bit2  = 0; //同步器反相，0：A->B，1:B->A
+//	BYTE pcf0X00bit4  = 0; //故障运行，正在打印遇到故障时的处理，0打印停止，1 打印继续，但墨点没有喷出来
+//	BYTE pcf0X00bit5  = 0; //产品计数器重置，0 不重置，1 重置到设定值
+//	BYTE pcf0X00bit6  = 0 ;//打印计数器重置，0 不重置，1 重置到设定值
+//
+//	//pcf控制0X01
+//	BYTE pcf0X01bit0  = 1; //是否启用电眼，0为关闭，1为启用
+//	BYTE pcf0X01bit2  = 0; //电眼有效电平，0为低电平，1为高电平
+//	BYTE pcf0X01bit3  = 0; //喷印模式为单次还是连续，0为单次，1为连续
+//
+//	if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0 )//产线运动方式：固定，即内部
+//	{
+//		pcf0X00bit1_bit0 = 2;
+//		//计算延时	
+//		try
+//		{
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//		catch (CException* e)
+//		{
+//			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//
+//		pcf0X02_05 = pcf0X02_05.Mid("00000000" & pcf0X02_05, pcf0X02_05.GetLength() + 1, 8);
+//		pcf0X02 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(6, 2));
+//		pcf0X03 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(4, 2));
+//		pcf0X04 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(2, 2));
+//		pcf0X05 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(0, 2));
+//		//计算列宽
+//		try
+//		{
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//		catch (CException* e)
+//		{
+//			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//		
+//	} 
+//	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
+//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )//变速，外部编码器1相
+//	{
+//		
+//	} 
+//	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
+//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 1 )//变速，外部编码器2相
+//	{
+//		
+//	}
+//	else
+//	{
+//		
+//	}
+//
+//}
 
 int CPcfConfig::round(double r)
 {
