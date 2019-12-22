@@ -196,6 +196,8 @@ void CFaultDlg::get_error_name()
 		string errName=tempErrName.substr(0,tempErrName.length()-4);
 		strErrorFileNameArr.push_back(errName);
 	}
+
+	intErrorFileNameArr=strErrorFileNameArr.size();
 }
 //´æ
 void CFaultDlg::get_save_error()
