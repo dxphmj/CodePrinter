@@ -19,17 +19,17 @@ ModuleMain::~ModuleMain(void)
 //×Ö·û×ªÊý×Ö
 int ModuleMain::charToDigit(char c)
 {
-	if(c=='A')
+	if(c=='A'||c=='a')
 		return 10;
-	else if(c=='B')
+	else if(c=='B'||c=='b')
 		return 11;
-	else if(c=='C')
+	else if(c=='C'||c=='c')
 		return 12;
-	else if(c=='D')
+	else if(c=='D'||c=='d')
 		return 13;
-	else if(c=='E')
+	else if(c=='E'||c=='e')
 		return 14;
-	else if(c=='F')
+	else if(c=='F'||c=='f')
 		return 15;
 	else
 		return c-'0';
