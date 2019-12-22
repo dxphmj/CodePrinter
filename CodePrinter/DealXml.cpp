@@ -110,47 +110,14 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 	}
 }
 
-CString CDealXml::ConstCharToCStirng(const char* ch)
-{	
-	char *buf = new char[strlen(ch)+1];
-	memset(buf , 0 , sizeof(ch));
-	strcpy(buf , ch);
-	CString  strName ; 
-	strName = buf;
-	delete []buf;
-	return strName ;
+BYTE CDealXml::HEX_to_DECbyte(CString strHex)
+{
+	USES_CONVERSION;
+	CString strDec;
+	const char* chHex = W2A(strHex.GetBuffer(0));//CString To ConstChar
+	DWORD dwHex = strtoul(chHex, NULL, 16);
+	strDec.Format(_T("%ld"), dwHex);
+	BYTE byte = _wtoi(strDec.GetBuffer(0));
+	return byte;
 }
 
-const char* CDealXml::CStringToConstChar(CString cstr)
-{
-	char szStr[256] = {0};
-	wcstombs(szStr, cstr, cstr.GetLength());
-	const char * ch = szStr;
-	return ch;
-}
-
-BYTE CDealXml::CStringToHex(CString str)
-{
-	// 十六进制字符串转十进制
-	int i = 0;
-	int nLen = str.GetLength();
-	if(nLen > 2)
-		nLen = 2;
-	unsigned char chTemp[2];
-	unsigned char ch;
-	BYTE byteData;
-	for(i = 0; i < nLen; i++)
-	{
-		ch = str.GetAt(i);
-		if(ch >= '0' && ch <= '9')
-			chTemp[i] = ch - '0';
-		else if(ch >= 'a' && ch <= 'f')
-			chTemp[i] = ch - 'a' + 10;
-		else if(ch >= 'A' && ch <= 'F')
-			chTemp[i] = ch - 'A' + 10;
-		else
-			chTemp[i] = 0;
-	}
-	byteData = (chTemp[0] << 4) + (chTemp[1]);
-	return byteData;
-}

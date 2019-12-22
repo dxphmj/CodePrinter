@@ -13,6 +13,8 @@
 #include "InkSystemDlg.h"
 #include <fstream>
 #include "Inksystemconfig.h"
+#include "PcfConfig.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -242,10 +244,12 @@ BOOL CCodePrinterDlg::OnInitDialog()
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 ////Ä«Ë®ÅäÖÃ³õÊ¼»¯
 	CInksystemconfig pInksysConfig(this);
-
+	CPcfConfig pPcfConfig(this);
 
 	pInksysConfig.get_inksystem_from_xml();
 	pInksysConfig.download_inksystem_setup();
+	pInksysConfig.download_inksystem_parameter();
+	pPcfConfig.get_pcf_from_xml();
 
 
 #ifdef def_ttl

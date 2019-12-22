@@ -22,10 +22,13 @@ void CInksystemconfig::get_inksystem_from_xml()
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Peltier"), _T("OFF"), _T("Storage Card\\System"));
 	int nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
 	m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.SetCurSel(nCur);
+	
+	CString hexstr = _T("af");
+	BYTE tempbt = dealXml.HEX_to_DECbyte(hexstr);
 
 	//开机默认睡眠开关
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Sleep"), _T("OFF"), _T("Storage Card\\System"));
-	int nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
+	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
 	m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SetCurSel(nCur);
 	
 	//开机默认晶振频率
@@ -117,7 +120,11 @@ void CInksystemconfig::get_inksystem_from_xml()
 	//开机默认设置的墨水粘度允许误差百分比
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("ViscoDeviation"), _T("15"), _T("Storage Card\\System"));
 	m_pCodePrinterDlg->m_Ink->m_par->m_viscoDevia = _wtoi(str);
+
+
 	m_pCodePrinterDlg->m_Ink->m_par->UpdateData(FALSE);
+	m_pCodePrinterDlg->m_Ink->m_phas->UpdateData(FALSE);
+	m_pCodePrinterDlg->m_Ink->m_setup->UpdateData(FALSE);
 }
 
 void CInksystemconfig::download_inksystem_setup()
@@ -125,7 +132,9 @@ void CInksystemconfig::download_inksystem_setup()
 	CString tempStr;
 	CDealXml dealXml;
 	BYTE inksystem_setup_0x00, inksystem_setup_0x01, inksystem_setup_0x02, inksystem_setup_0x03, inksystem_setup_0x04, inksystem_setup_0x05, inksystem_setup_0x06, inksystem_setup_0x07, inksystem_setup_0x08, inksystem_setup_0x09, inksystem_setup_0x0a, inksystem_setup_0x0b, inksystem_setup_0x0c, inksystem_setup_0x0d, inksystem_setup_0x0e;
-	//inksystem_setup_0x00 = CByte(lisval_inksystem_setup_pe.SelectedIndex * 128 + lisval_inksystem_setup_sl.SelectedIndex * 64);
+	int peltierIndex = m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.GetCurSel();
+	int sleepIndex = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.GetCurSel();
+	inksystem_setup_0x00 = peltierIndex*128 + sleepIndex*64;
 	vector<BYTE> tempCtrVec;
 	inksystem_setup_0x01 = 0;
 	//开机默认墨水的粘度表
@@ -197,45 +206,47 @@ void CInksystemconfig::download_inksystem_parameter()
 	CString tempStr;
 	vector<BYTE> tempCtrVec;
 	BYTE inksystem_parameter_0x00, inksystem_parameter_0x01, inksystem_parameter_0x02, inksystem_parameter_0x03, inksystem_parameter_0x04, inksystem_parameter_0x05, inksystem_parameter_0x06, inksystem_parameter_0x07, inksystem_parameter_0x08, inksystem_parameter_0x09, inksystem_parameter_0x0a, inksystem_parameter_0x0b, inksystem_parameter_0x0c, inksystem_parameter_0x0d;	
+	
+	m_pCodePrinterDlg->m_Ink->m_par->UpdateData();
 
-	//tempStr = texval_inksystem_para_pre.Text;
-	int nParam = _wtoi(tempStr.GetBuffer(0));
+	//获取压力
+	int nParam = m_pCodePrinterDlg->m_Ink->m_par->m_parPressure;
 	inksystem_parameter_0x00 = nParam & 0xFF;
 	inksystem_parameter_0x01 = nParam >> 8;
 	
-	//tempStr = texval_inksystem_para_bs.Text;
-	nParam = _wtoi(tempStr.GetBuffer(0));
+	//获取泵速
+	nParam = m_pCodePrinterDlg->m_Ink->m_par->m_parPumpSpeed;
 	inksystem_parameter_0x02 = nParam & 0xFF;
 	inksystem_parameter_0x03 = nParam >> 8;
 
-	//tempStr = texval_inksystem_para_pt.Text;
-	inksystem_parameter_0x04 = _wtoi(tempStr.GetBuffer(0));
+	//获取温度
+	inksystem_parameter_0x04 = m_pCodePrinterDlg->m_Ink->m_par->m_printheadTemp;
 	
-	//tempStr = texval_inksystem_pha_mv.Text;
-	nParam = _wtoi(tempStr.GetBuffer(0));
+	//获取分裂电压
+	nParam = m_pCodePrinterDlg->m_Ink->m_phas->m_fixed;
 	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200
 	inksystem_parameter_0x06 = (nParam * 10) >> 8;
 
-	//tempStr = texval_inksystem_para_ifl.Text;
-	inksystem_parameter_0x07 = _wtoi(tempStr.GetBuffer(0));//墨水高报警液位为100到150
+	//获取高报警液位
+	inksystem_parameter_0x07 = m_pCodePrinterDlg->m_Ink->m_par->m_inkFlowLev;//墨水高报警液位为100到150
 
-	//tempStr = texval_inksystem_para_ial.Text;
-	inksystem_parameter_0x08 = _wtoi(tempStr.GetBuffer(0)); //墨水添加报警液位为20到100
+	//获取添加报警液位
+	inksystem_parameter_0x08 = m_pCodePrinterDlg->m_Ink->m_par->m_inkAddLev; //墨水添加报警液位为20到100
 
-	//tempStr = texval_inksystem_para_iel.Text;
-	inksystem_parameter_0x09 = _wtoi(tempStr.GetBuffer(0)); //墨水空报警液位为10到（添加-7）
+	//获取空报警液位
+	inksystem_parameter_0x09 = m_pCodePrinterDlg->m_Ink->m_par->m_inkEmptyLev; //墨水空报警液位为10到（添加-7）
 
-	//tempStr = texval_inksystem_para_sfl.Text;
-	inksystem_parameter_0x0a = _wtoi(tempStr.GetBuffer(0)); //溶剂高报警液位为100到150
+	//获取溶剂高报警液位
+	inksystem_parameter_0x0a = m_pCodePrinterDlg->m_Ink->m_par->m_solventFlowLev; //溶剂高报警液位为100到150
 
-	//tempStr = texval_inksystem_para_sal.Text;
-	inksystem_parameter_0x0b = _wtoi(tempStr.GetBuffer(0)); //溶剂添加报警液位为20到100
+	//获取溶剂添加报警液位
+	inksystem_parameter_0x0b = m_pCodePrinterDlg->m_Ink->m_par->m_solAddLev; //溶剂添加报警液位为20到100
 
-	//tempStr = texval_inksystem_para_sel.Text;
-	inksystem_parameter_0x0c = _wtoi(tempStr.GetBuffer(0)); //溶剂空报警液位为10到（添加-7）
+	//获取溶剂空报警液位
+	inksystem_parameter_0x0c = m_pCodePrinterDlg->m_Ink->m_par->m_solEmptyLev; //溶剂空报警液位为10到（添加-7）
 
-	//tempStr = texval_inksystem_para_vd.Text;
-	inksystem_parameter_0x0d = _wtoi(tempStr.GetBuffer(0)); //粘度误差范围1到100
+	//获取粘度百分比
+	inksystem_parameter_0x0d = m_pCodePrinterDlg->m_Ink->m_par->m_viscoDevia; //粘度误差范围1到100
 
 
 
