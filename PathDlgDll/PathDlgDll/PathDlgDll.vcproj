@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
-				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;_USRDLL;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;_USRDLL;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL;ON_EMUL"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
@@ -151,7 +151,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
-				OutputFile="$(OutDir)/PathDlgDll.dll"
+				OutputFile="../../CodePrinter/dll/PathDlgDll.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\PathDlgDll.def"
 				GenerateDebugInformation="true"
@@ -159,7 +159,7 @@
 				StackCommitSize="4096"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/PathDlgDll.lib"
+				ImportLibrary="../../CodePrinter\lib/PathDlgDll.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -181,7 +181,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory=""
+				RemoteDirectory="%CSIDL_PROGRAM_FILES%\CodePrinter"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
