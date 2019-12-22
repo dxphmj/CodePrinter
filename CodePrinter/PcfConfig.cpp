@@ -305,6 +305,7 @@ void CPcfConfig::get_pcf_from_xml()
 	}
 }
 
+
 void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·¢¡£
 {
 
@@ -700,6 +701,9 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 		theApp.myPcfClass.pcf0X18 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel();
 	}
 
+
+
+
 	
 	theApp.myPcfClass.pcf0X02_05 = CT2A(mypcf0X02_05.GetString());
 	theApp.myPcfClass.pcf0X06_09 = CT2A(mypcf0X02_05.GetString());
@@ -752,6 +756,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 
 
 }
+
 
 int CPcfConfig::round(double r)
 {

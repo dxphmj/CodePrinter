@@ -327,7 +327,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
-				OutputFile="$(OutDir)/KEYBOARD.dll"
+				OutputFile="../../CodePrinter/dll/KEYBOARD.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\KEYBOARD.def"
 				GenerateDebugInformation="true"
@@ -335,7 +335,7 @@
 				StackCommitSize="4096"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/KEYBOARD.lib"
+				ImportLibrary="../../CodePrinter/lib/KEYBOARD.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -357,7 +357,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory=""
+				RemoteDirectory="%CSIDL_PROGRAM_FILES%\CodePrinter"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>

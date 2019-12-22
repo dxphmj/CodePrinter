@@ -124,6 +124,27 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_CIB_FlushValve.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
 	m_CIB_FlushValve.SizeToContent(); */
 
+	GetDlgItem(IDC_SPEED_MODE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//泵速模式
+	m_CIB_SpeedMode.Attach(IDC_SPEED_MODE_BTN,this);
+	GetDlgItem(IDC_PRESSURE_MODE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//压力模式
+	m_CIB_PressureMode.Attach(IDC_PRESSURE_MODE_BTN,this);
+	GetDlgItem(IDC_PUMP_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关泵
+	m_CIB_Pump.Attach(IDC_PUMP_BTN,this);
+	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关喷嘴
+	m_CIB_Pump.Attach(IDC_NOZZLE_VALVE_BTN,this);
+	GetDlgItem(IDC_FEED_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);  //开关供墨阀
+	m_CIB_FeedValve.Attach(IDC_FEED_VALVE_BTN,this);
+	GetDlgItem(IDC_BLEED_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关排气阀
+	m_CIB_BleedValve.Attach(IDC_BLEED_VALVE_BTN,this);	
+	GetDlgItem(IDC_FLUSH_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关清洗阀
+	m_CIB_FlushValve.Attach(IDC_FLUSH_VALVE_BTN,this);
+	GetDlgItem(IDC_SOLVENT_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关溶剂阀
+	m_CIB_SolventValve.Attach(IDC_SOLVENT_VALVE_BTN,this);
+	GetDlgItem(IDC_VISCO_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关粘度阀
+	m_CIB_ViscoValve.Attach(IDC_VISCO_VALVE_BTN,this);
+	GetDlgItem(IDC_WASH_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//冲洗
+	m_CIB_WashValve.Attach(IDC_WASH_VALVE_BTN,this);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }	     
@@ -211,29 +232,6 @@ void CInkSystemDlg::OnEnChangePressureEdit()
 	//SetDlgItemText(IDC_PRESSURE_EDIT,_T("11"));
 }
 
-//void CInkSystemDlg::OnTimer(UINT_PTR nIDEvent)
-//{
-//	// TODO: 在此添加消息处理程序代码和/或调用默认值
-//
-//	CDialog::OnTimer(nIDEvent);
-//	switch(nIDEvent)
-//		case TIMER1:
-//	{
-//		theApp.myStatusClass.byStatusFromSlaveState();
-//		theApp.myStatusClass.getstatu();
-//		
-//		GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
-//		GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
-//		GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
-//
-//		GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriHeaTem)));
-//		GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLev)));
-//		GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staSolLev)));
-//		GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
-//		GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
-//		GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staHigVol)));
-//	}
-//}
 
 //泵速模式
 void CInkSystemDlg::OnBnClickedSpeedModeBtn()

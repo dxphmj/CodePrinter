@@ -29,10 +29,14 @@ public:
 	void openfailurefile(string filePathName);
 	string Errorlog_name;
 	vector<string> strErrorFileNameArr;
+	int intErrorFileNameArr;
+	int nowErrDay;
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 	//errœ‡πÿ
 	void getAllErrorFile();
 	afx_msg void OnBnClickedButton4();
+	afx_msg void OnBnClickedButton6();
+	afx_msg void OnBnClickedButton5();
 };

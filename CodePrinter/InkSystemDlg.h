@@ -5,6 +5,7 @@
 #include "InkPhasingDlg.h"
 #include "CodePrinter.h"
 #include "ImageButton.h"
+#include "ColorButton.h"
 //#define TIMER1 1
 
 // CInkSystemDlg 对话框
@@ -41,16 +42,16 @@ public:
 
 	afx_msg void OnEnChangePressureEdit();
 	//彩色按钮
-	CButton m_CIB_SpeedMode;    //泵速模式
-	CButton m_CIB_PressureMode; //压力模式
-	CButton m_CIB_BleedValve;   //排气阀
-	CButton m_CIB_Pump;         //压力泵
-	CButton m_CIB_WashValve;    //冲洗阀
-	CButton m_CIB_NozzleValve;  //喷嘴阀
-	CButton m_CIB_FeedValve;    //供墨阀
-	CButton m_CIB_SolventValve; //溶剂阀
-	CButton m_CIB_ViscoValve;   //粘度阀
-	CButton m_CIB_FlushValve  ; //清洗阀
+	CColorButton m_CIB_SpeedMode;     //泵速模式
+	CColorButton m_CIB_PressureMode;  //压力模式
+	CColorButton m_CIB_BleedValve;    //排气阀
+	CColorButton m_CIB_Pump;          //压力泵
+	CColorButton m_CIB_WashValve;     //冲洗阀
+	CColorButton m_CIB_NozzleValve;   //喷嘴阀
+	CColorButton m_CIB_FeedValve;     //供墨阀
+	CColorButton m_CIB_SolventValve;  //溶剂阀
+	CColorButton m_CIB_ViscoValve;    //粘度阀
+	CColorButton m_CIB_FlushValve  ;  //清洗阀
    
 	//变量
 	CEdit m_Pressure;         //压力
@@ -64,7 +65,6 @@ public:
 	int m_ActualVisco;       //实际粘度
 	int m_HighVol;           //高压
 	CString m_Inkflow;        //回收检测
-	/*afx_msg void OnTimer(UINT_PTR nIDEvent);*/
 
 	afx_msg void OnBnClickedSpeedModeBtn();
 	afx_msg void OnBnClickedPressureModeBtn();

@@ -51,7 +51,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\KEYBOARD\KEYBOARD"
+				AdditionalIncludeDirectories="H:\CodePrinter\CodePrinter;..\KEYBOARD\KEYBOARD"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
@@ -313,6 +313,7 @@
 				ExecutionBucket="7"
 				Optimization="2"
 				FavorSizeOrSpeed="2"
+				AdditionalIncludeDirectories="..\KEYBOARD\KEYBOARD"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="false"
 				RuntimeLibrary="0"
@@ -335,7 +336,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
+				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib PathDlgDll.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
 				StackReserveSize="65536"
 				StackCommitSize="4096"
@@ -568,6 +571,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ColorButton.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ComDlg.cpp"
 				>
 			</File>
@@ -668,15 +675,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PcfConfig.cpp"
+				RelativePath=".\OnOffDlg.cpp"
 				>
 			</File>
 			<File
-
-				
-
-				RelativePath=".\OnOffDlg.cpp"
-
+				RelativePath=".\PcfConfig.cpp"
 				>
 			</File>
 			<File
@@ -790,6 +793,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ColorButton.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ComDlg.h"
 				>
 			</File>
@@ -890,15 +897,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PcfConfig.h"
+				RelativePath=".\OnOffDlg.h"
 				>
 			</File>
 			<File
-
-				
-
-				RelativePath=".\OnOffDlg.h"
-
+				RelativePath=".\PcfConfig.h"
 				>
 			</File>
 			<File
@@ -1132,6 +1135,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\CodePrinter.aps"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

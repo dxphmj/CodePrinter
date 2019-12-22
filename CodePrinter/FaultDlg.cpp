@@ -33,6 +33,8 @@ BEGIN_MESSAGE_MAP(CFaultDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, &CFaultDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CFaultDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON4, &CFaultDlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON6, &CFaultDlg::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON5, &CFaultDlg::OnBnClickedButton5)
 END_MESSAGE_MAP()
 
 
@@ -55,6 +57,7 @@ BOOL CFaultDlg::OnInitDialog()
 	timeErrout.close();
 	ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::app);
 	out99.close();
+	nowErrDay=0;
 	//openfailurefile("Storage Card\\System\\Error\\99999999.TXT");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -196,6 +199,8 @@ void CFaultDlg::get_error_name()
 		string errName=tempErrName.substr(0,tempErrName.length()-4);
 		strErrorFileNameArr.push_back(errName);
 	}
+
+	intErrorFileNameArr=strErrorFileNameArr.size();
 }
 //存
 void CFaultDlg::get_save_error()
@@ -349,4 +354,28 @@ void CFaultDlg::OnBnClickedButton4()
 		theApp.myStatusClass.ctr0X00bit5 = 1;
 		//'调用“计算inksystem_control00并添加指令”
 		theApp.myStatusClass.download_inksystem_control00();
+}
+
+void CFaultDlg::OnBnClickedButton6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if (nowErrDay<(strErrorFileNameArr.size()-1))
+	{
+		nowErrDay++;
+		string timeErr="Storage Card\\System\\Error\\";
+		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
+		openfailurefile(timeErr);
+	}
+}
+
+void CFaultDlg::OnBnClickedButton5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if (nowErrDay>0)
+	{
+		nowErrDay--;
+		string timeErr="Storage Card\\System\\Error\\";
+		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
+		openfailurefile(timeErr);
+	}
 }
