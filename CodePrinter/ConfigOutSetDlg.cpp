@@ -12,9 +12,9 @@ IMPLEMENT_DYNAMIC(CConfigOutSetDlg, CDialog)
 
 CConfigOutSetDlg::CConfigOutSetDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CConfigOutSetDlg::IDD, pParent)
-	
+	,m_currentLevelStr("High")
 {
-
+         
 }
 
 CConfigOutSetDlg::~CConfigOutSetDlg()
@@ -31,8 +31,9 @@ void CConfigOutSetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX,IDC_ACTIVE_LEV_LIST,m_activeLev);
 	DDX_Control(pDX,IDC_IMPULSE_EDIT,m_impulse);
 	DDX_Control(pDX,IDC_LENGTH_EDIT,m_length);
-	DDX_Control(pDX,IDC_CURRENT_LEV_EDIT,m_currentLev);
+	DDX_Control(pDX,IDC_CURRENT_LEV_EDIT,m_currentLevel);
 	DDX_Control(pDX,IDC_TRIGGER_LEN_EDIT,m_triggerLen);
+	DDX_Text(pDX, IDC_CURRENT_LEV_EDIT, m_currentLevelStr);
 }
 
 
@@ -60,7 +61,7 @@ BOOL CConfigOutSetDlg::OnInitDialog()
 	FreqMulti.SetCurSel(1);	
 	m_impulse.SetWindowText(_T("2500"));	
 	m_length.SetWindowText(_T("200"));		
-	m_currentLev.SetWindowText(_T("High"));		
+	m_currentLevel.SetWindowText(_T("High"));	 
 	m_triggerLen.SetWindowText(_T("300"));	
 	
 	return TRUE;  // return TRUE unless you set the focus to a control

@@ -668,15 +668,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PcfConfig.cpp"
+				RelativePath=".\OnOffDlg.cpp"
 				>
 			</File>
 			<File
-
-				
-
-				RelativePath=".\OnOffDlg.cpp"
-
+				RelativePath=".\PcfConfig.cpp"
 				>
 			</File>
 			<File
@@ -890,15 +886,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PcfConfig.h"
+				RelativePath=".\OnOffDlg.h"
 				>
 			</File>
 			<File
-
-				
-
-				RelativePath=".\OnOffDlg.h"
-
+				RelativePath=".\PcfConfig.h"
 				>
 			</File>
 			<File

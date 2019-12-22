@@ -13,6 +13,8 @@
 #include "InkSystemDlg.h"
 #include <fstream>
 #include "Inksystemconfig.h"
+
+//#include "Tchar.h”
 #include "PcfConfig.h"
 
 #ifdef _DEBUG
@@ -241,7 +243,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	}
 	delete testFile;
 
-	theApp.myStatusClass.download_inksystem_control03();
+	//theApp.myStatusClass.download_inksystem_control03();
 
 
 	//Sleep(10);
@@ -254,10 +256,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 
 
+	//pInksysConfig.get_inksystem_from_xml();
+	//pInksysConfig.download_inksystem_setup();
 	pInksysConfig.get_inksystem_from_xml();
 	pInksysConfig.download_inksystem_setup();
 	pInksysConfig.download_inksystem_parameter();
 	pPcfConfig.get_pcf_from_xml();
+
 
 
 
@@ -412,7 +417,7 @@ void CCodePrinterDlg::showDlg(int ID)
 //定时器
 void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	CDialog::OnTimer(nIDEvent);
+;
 	switch(nIDEvent)
 		
 	case TIMER1:
@@ -673,24 +678,29 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.download_inksystem_control02();
 		}
         //当前电平
+
+		/*if (theApp.myStatusClass.staActProSen == true && m_Confi->m_ConfigOutSetDlg->m_currentLevelStr == "Low")
+
 		CString m_currentLev;
 		m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowTextW(m_currentLev);
 		if (theApp.myStatusClass.staActProSen == true && m_currentLev == "Low")
 		{
-			m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->SetWindowText(_T("High"));
+			m_Confi->m_ConfigOutSetDlg->m_currentLevelStr="High";
+            m_Confi->m_ConfigOutSetDlg->UpdateData(FALSE);
 		}
-		else if (theApp.myStatusClass.staActProSen == false && m_currentLev == "High")
+		else if (theApp.myStatusClass.staActProSen == false && m_Confi->m_ConfigOutSetDlg->m_currentLevelStr == "High")
 		{
-			m_Confi->m_ConfigOutSetDlg->GetDlgItem(IDC_CURRENT_LEV_EDIT)->SetWindowText(_T("Low"));
-		}
+			m_Confi->m_ConfigOutSetDlg->m_currentLevelStr="Low";
+			m_Confi->m_ConfigOutSetDlg->UpdateData(FALSE);
+		}*/
 
 		//墨水温度传感器故障
-		if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
+	if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
 		{
 			theApp.myStatusClass.staInkTemSenFauLas = true;
 			CString csMsg ;
 			csMsg.Format(_T("Ink temperature sensor fault!"));
-			
+
             csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -703,8 +713,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			theApp.myStatusClass.staPriHeaTemFauLas = true;
 			CString csMsg ;
-			csMsg.Format(_T("Printhead temperature sensor fault!"));
-			
+			csMsg.Format(_T("Printhead temperature sensor fault!"));			
 			csMsg.Format(_T("%s"),csMsg);
 			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
 		}
@@ -901,7 +910,153 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			theApp.myStatusClass.staHigVolFauLas = false;
 		}
+		//溶剂液位状态
+		if (theApp.myStatusClass.staSolLevFau == "00" && theApp.myTimClass.staSolLevFauLas != "00" && theApp.myStatusClass.staInkLevFau == "00")
+		{
+			theApp.myTimClass.staSolLevFauLas = "00";
+			/*picAlarmBlue.Tag = "im004"
+			picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
+		}
+		else if (theApp.myStatusClass.staSolLevFau == "01" && theApp.myTimClass.staSolLevFauLas != "01")
+		{
+			theApp.myTimClass.staSolLevFauLas = "01";
+			CString csMsg ;
+			csMsg.Format(_T("Add solvent"));
+			csMsg.Format(_T("%s"),csMsg);
+			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+			/*picAlarmBlue.Tag = "im003"
+			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+		}
+		else if (theApp.myStatusClass.staSolLevFau == "10" && theApp.myTimClass.staSolLevFauLas != "10")
+		{
+			theApp.myTimClass.staSolLevFauLas = "10";
+			/*picAlarmBlue.Tag = "im003"
+			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+			CString csMsg ;
+			csMsg.Format(_T("Solvent empty"));
+			csMsg.Format(_T("%s"),csMsg);
+			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+		}
+		else if (theApp.myStatusClass.staSolLevFau == "11" && theApp.myTimClass.staSolLevFauLas != "11")
+		{
+			theApp.myTimClass.staSolLevFauLas = "11";
+			/*picAlarmBlue.Tag = "im003"
+			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+			CString csMsg ;
+			csMsg.Format(_T("Solvent overfull"));
+			csMsg.Format(_T("%s"),csMsg);
+			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+		}
+		//墨水液位状态
+		if (theApp.myStatusClass.staInkLevFau == "00" && theApp.myTimClass.staInkLevFauLas != "00" && theApp.myStatusClass.staSolLevFau == "00")
+		{
+			theApp.myTimClass.staInkLevFauLas = "00";
+			/*picAlarmBlue.Tag = "im004"
+			picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
+			theApp.myTimClass.staInkEmpFau = false;
+			theApp.myTimClass.staInkOveFau = false;
+		}
+		else if (theApp.myStatusClass.staInkLevFau == "01" && theApp.myTimClass.staInkLevFauLas != "01")
+		{
+			theApp.myTimClass.staInkLevFauLas = "01";
+			/*picAlarmBlue.Tag = "im003"
+			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+			theApp.myTimClass.staInkEmpFau = false;
+			theApp.myTimClass.staInkOveFau = false;
+			CString csMsg ;
+			csMsg.Format(_T("Add ink"));
+			csMsg.Format(_T("%s"),csMsg);
+			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+		}
+		else if (theApp.myStatusClass.staInkLevFau == "10" && theApp.myTimClass.staInkLevFauLas != "10")
+		{
+			theApp.myTimClass.staInkLevFauLas = "10";
+			//缺starting up
+
+			theApp.myStatusClass.ctr0X00bit5 = 0;
+			theApp.myStatusClass.ctr0X00bit3 = 0;
+			theApp.myStatusClass.ctr0X00bit2 = 0;
+			theApp.myStatusClass.ctr0X00bit1 = 1;
+			theApp.myStatusClass.ctr0X00bit0 = 0;
+			theApp.myStatusClass.download_inksystem_control00();
+			theApp.myTimClass.staInkEmpFau = true;
+			theApp.myTimClass.staInkOveFau = false;
+			CString csMsg ;
+			csMsg.Format(_T("Ink empty"));
+			csMsg.Format(_T("%s"),csMsg);
+			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+		}
+		else if (theApp.myStatusClass.staInkLevFau == "11" && theApp.myTimClass.staInkLevFauLas != "11")
+		{
+			theApp.myTimClass.staInkLevFauLas = "11";
+			//缺starting up
+
+			theApp.myStatusClass.ctr0X00bit5 = 0;
+			theApp.myStatusClass.ctr0X00bit3 = 0;
+			theApp.myStatusClass.ctr0X00bit2 = 0;
+			theApp.myStatusClass.ctr0X00bit1 = 1;
+			theApp.myStatusClass.ctr0X00bit0 = 0;
+			theApp.myStatusClass.download_inksystem_control00();
+			theApp.myTimClass.staInkOveFau = true;
+			theApp.myTimClass.staInkEmpFau = false;
+			CString csMsg ;
+			csMsg.Format(_T("Ink overfull"));
+			csMsg.Format(_T("%s"),csMsg);
+			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	    }
+		//开打印中
+		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
+		{
+			if (m_printStatus != "Ready to print")
+			{
+				GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Readytoprint"));
+				m_printStatus = "Ready to print";
+			}
+		}
+		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
+		{
+			if (theApp.myStatusClass.staSysRea == true)//系统准备好
+			{
+				if (m_printStatus != "System ready")
+				{
+					GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Systemready"));
+					m_printStatus = "System ready";
+				}
+			}
+			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
+			{
+				if (theApp.myStatusClass.staSysBus == true) //系统忙
+				{
+					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
+					{
+						if (m_printStatus != ("Sequencing On"))
+						{
+							GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("SequencingOn"));
+							m_printStatus = "Sequencing On";
+						}
+					}
+					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
+					{
+						if (m_printStatus != "Sequencing Off")
+						{
+							GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("SequencingOff"));
+							m_printStatus != "Sequencing Off";
+						}
+					}
+				}
+				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
+				{
+					if (m_printStatus !="Printer Off")
+					{
+						GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("PrinterOff"));
+						m_printStatus ="Printer Off";
+					}
+				}//系统忙
+			}//系统准备好
+
+		}//开了打印功能和系统准备好
 		
+
 
 
 
