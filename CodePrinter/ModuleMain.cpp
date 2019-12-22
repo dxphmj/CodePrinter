@@ -710,6 +710,16 @@ UINT TTLcomLoop(LPVOID pParam)
 							} 
 							else
 							{
+								if (theApp.myclassMessage.bytPrintDataAll.size()>11)
+								{
+									strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAll,theApp.myclassMessage.bytPrintDataAll.size());
+									strTempCmdLen=theApp.myclassMessage.bytPrintDataAll.size();
+									if (strTempCmdLen<12)
+									{
+										strTempCmd=(LPTSTR)readArr;
+										strTempCmdLen=8;
+									}
+								}
 								//strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
 								//strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
 								//if (strTempCmdLen<12)

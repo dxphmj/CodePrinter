@@ -338,7 +338,7 @@
 				AdditionalOptions=" /subsystem:windowsce,6.00"
 				AdditionalDependencies="MessageEdit.lib KEYBOARD.lib PathDlgDll.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="E:\gitTEST\CodePrinter\CodePrinter\lib"
+				AdditionalLibraryDirectories="lib"
 				GenerateDebugInformation="true"
 				StackReserveSize="65536"
 				StackCommitSize="4096"

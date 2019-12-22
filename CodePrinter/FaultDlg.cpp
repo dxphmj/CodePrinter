@@ -33,6 +33,8 @@ BEGIN_MESSAGE_MAP(CFaultDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, &CFaultDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CFaultDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON4, &CFaultDlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON6, &CFaultDlg::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON5, &CFaultDlg::OnBnClickedButton5)
 END_MESSAGE_MAP()
 
 
@@ -351,4 +353,14 @@ void CFaultDlg::OnBnClickedButton4()
 		theApp.myStatusClass.ctr0X00bit5 = 1;
 		//'调用“计算inksystem_control00并添加指令”
 		theApp.myStatusClass.download_inksystem_control00();
+}
+
+void CFaultDlg::OnBnClickedButton6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+void CFaultDlg::OnBnClickedButton5()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

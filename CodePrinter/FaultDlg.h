@@ -36,4 +36,6 @@ public:
 	//errœ‡πÿ
 	void getAllErrorFile();
 	afx_msg void OnBnClickedButton4();
+	afx_msg void OnBnClickedButton6();
+	afx_msg void OnBnClickedButton5();
 };
