@@ -238,9 +238,9 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.Inverse="GLOBAL";
 
 
-	//theApp.myclassMessage.getLabFromXml();
-	//selectPixel();
-
+	theApp.myclassMessage.getLabFromXml();
+	selectPixel();
+	OnBnClickedDownloadButton();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -778,7 +778,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 {
 	 //TODO: 在此添加控件通知处理程序代码
 	BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
-
+	
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	//2、取值并发送至下位机 download_pcf()

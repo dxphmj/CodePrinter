@@ -229,6 +229,8 @@ class ModuleMain//通用算法库
 public:
 	ModuleMain(void);
 	~ModuleMain(void);
+	CString string2CString(string str){return CA2T(str.c_str());}
+	string CString2string(CString cstr){return CT2A(cstr.GetString());}
 	LPCWSTR stringToLPCWSTR(std::string orig);
     string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP);
 	string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
@@ -237,7 +239,7 @@ public:
 	void string2tchar(std::string &src, TCHAR* buf);
 	string TCHAR2STRING(TCHAR *STR);
    const char* CString2ConstChar(CString str);
-   string CString2string(CString csStrData);
+   //string CString2string(CString csStrData);
    //字符转数字
    int charToDigit(char c);
 
