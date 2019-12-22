@@ -51,7 +51,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\KEYBOARD\KEYBOARD"
+				AdditionalIncludeDirectories="H:\CodePrinter\CodePrinter;..\KEYBOARD\KEYBOARD"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
@@ -571,6 +571,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ColorButton.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ComDlg.cpp"
 				>
 			</File>
@@ -786,6 +790,10 @@
 			</File>
 			<File
 				RelativePath=".\CodePrinterDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ColorButton.h"
 				>
 			</File>
 			<File
@@ -1127,6 +1135,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\CodePrinter.aps"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

@@ -73,7 +73,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	 
 
-
+    GetDlgItem(IDC_FAULT_BUTTON)->ModifyStyle(0,BS_OWNERDRAW,0);
+	m_myButton.Attach(IDC_FAULT_BUTTON,this);
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
@@ -165,7 +166,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
+	m_ButOnOrOff.LoadBitmaps(IDB_ON_OR_OFF_BITMAP,IDB_ON_OR_OFF_BITMAP,0,0,IDB_ON_OR_OFF_BITMAP);
 	m_ButOnOrOff.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
+
 	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
 	m_StartPrint.SizeToContent(); 
@@ -417,7 +420,7 @@ void CCodePrinterDlg::showDlg(int ID)
 //定时器
 void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
-;
+	CDialog::OnTimer(nIDEvent);
 	switch(nIDEvent)
 		
 	case TIMER1:

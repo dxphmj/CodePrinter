@@ -291,6 +291,70 @@ void CPcfConfig::get_pcf_from_xml()
 	}
 }
 
+
+//void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·¢¡£
+//{
+//	CDealXml dealXml;
+//
+//	BYTE pcf0X00bit1_bit0  = 2; //ÁĞ´¥·¢·½Ê½£º0Îª±àÂëÆ÷1Ïà£¬1Îª±àÂëÆ÷2Ïà£¬2ÎªÄÚ²¿Ò»ÁĞµãÊı£¨¼´µÈÓÚ64K/»®ËÙÂÊ£©
+//	BYTE pcf0X00bit2  = 0; //Í¬²½Æ÷·´Ïà£¬0£ºA->B£¬1:B->A
+//	BYTE pcf0X00bit4  = 0; //¹ÊÕÏÔËĞĞ£¬ÕıÔÚ´òÓ¡Óöµ½¹ÊÕÏÊ±µÄ´¦Àí£¬0´òÓ¡Í£Ö¹£¬1 ´òÓ¡¼ÌĞø£¬µ«Ä«µãÃ»ÓĞÅç³öÀ´
+//	BYTE pcf0X00bit5  = 0; //²úÆ·¼ÆÊıÆ÷ÖØÖÃ£¬0 ²»ÖØÖÃ£¬1 ÖØÖÃµ½Éè¶¨Öµ
+//	BYTE pcf0X00bit6  = 0 ;//´òÓ¡¼ÆÊıÆ÷ÖØÖÃ£¬0 ²»ÖØÖÃ£¬1 ÖØÖÃµ½Éè¶¨Öµ
+//
+//	//pcf¿ØÖÆ0X01
+//	BYTE pcf0X01bit0  = 1; //ÊÇ·ñÆôÓÃµçÑÛ£¬0Îª¹Ø±Õ£¬1ÎªÆôÓÃ
+//	BYTE pcf0X01bit2  = 0; //µçÑÛÓĞĞ§µçÆ½£¬0ÎªµÍµçÆ½£¬1Îª¸ßµçÆ½
+//	BYTE pcf0X01bit3  = 0; //ÅçÓ¡Ä£Ê½Îªµ¥´Î»¹ÊÇÁ¬Ğø£¬0Îªµ¥´Î£¬1ÎªÁ¬Ğø
+//
+//	if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0 )//²úÏßÔË¶¯·½Ê½£º¹Ì¶¨£¬¼´ÄÚ²¿
+//	{
+//		pcf0X00bit1_bit0 = 2;
+//		//¼ÆËãÑÓÊ±	
+//		try
+//		{
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//		catch (CException* e)
+//		{
+//			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//
+//		pcf0X02_05 = pcf0X02_05.Mid("00000000" & pcf0X02_05, pcf0X02_05.GetLength() + 1, 8);
+//		pcf0X02 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(6, 2));
+//		pcf0X03 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(4, 2));
+//		pcf0X04 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(2, 2));
+//		pcf0X05 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(0, 2));
+//		//¼ÆËãÁĞ¿í
+//		try
+//		{
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//		catch (CException* e)
+//		{
+//			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
+//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+//		}
+//		
+//	} 
+//	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
+//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )//±äËÙ£¬Íâ²¿±àÂëÆ÷1Ïà
+//	{
+//		
+//	} 
+//	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
+//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 1 )//±äËÙ£¬Íâ²¿±àÂëÆ÷2Ïà
+//	{
+//		
+//	}
+//	else
+//	{
+//		
+//	}
+//
+//}
+
 void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·¢¡£
 {
 	//CDealXml dealXml;
@@ -353,6 +417,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 	//}
 
 }
+
 
 int CPcfConfig::round(double r)
 {
