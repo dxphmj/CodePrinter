@@ -8,6 +8,18 @@
 CPcfConfig::CPcfConfig(CCodePrinterDlg* pCodeDlg)
 {
 	m_pCodePrinterDlg = pCodeDlg;
+
+
+	//pcf0X00bit1_bit0  = 2; //列触发方式：0为编码器1相，1为编码器2相，2为内部一列点数（即等于64K/划速率）
+	//pcf0X00bit2  = 0; //同步器反相，0：A->B，1:B->A
+	//pcf0X00bit4  = 0; //故障运行，正在打印遇到故障时的处理，0打印停止，1 打印继续，但墨点没有喷出来
+	//pcf0X00bit5  = 0; //产品计数器重置，0 不重置，1 重置到设定值
+	//pcf0X00bit6  = 0 ;//打印计数器重置，0 不重置，1 重置到设定值
+
+	////pcf控制0X01
+	//pcf0X01bit0  = 1; //是否启用电眼，0为关闭，1为启用
+	//pcf0X01bit2  = 0; //电眼有效电平，0为低电平，1为高电平
+	//pcf0X01bit3  = 0; //喷印模式为单次还是连续，0为单次，1为连续
 }
 
 CPcfConfig::~CPcfConfig(void)
@@ -97,8 +109,9 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SetCurSel(nCur);
 
 		//列间距,,,,默认为内部划速率且约为800，速度为20米/分钟，6列字宽为2.54mm
+		USES_CONVERSION;
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = _wtoi(tempstr);
+		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = 0.423;//atof(W2A(tempstr.GetBuffer(0)));
 
 		//整体加粗（暂不做）
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
@@ -229,8 +242,9 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SetCurSel(nCur);
 
 		//列间距,,,,默认为内部划速率且约为800，速度为20米/分钟，6列字宽为2.54mm
+		USES_CONVERSION;
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = _wtoi(tempstr);
+		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = 0.423;//atof(W2A(tempstr.GetBuffer(0)));
 
 		//整体加粗（暂不做）
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
@@ -292,129 +306,476 @@ void CPcfConfig::get_pcf_from_xml()
 }
 
 
-//void CPcfConfig::download_pcf()//开机一定先getfromxml，再下发。改动后先保存再下发。
-//{
-//	CDealXml dealXml;
-//
-//	BYTE pcf0X00bit1_bit0  = 2; //列触发方式：0为编码器1相，1为编码器2相，2为内部一列点数（即等于64K/划速率）
-//	BYTE pcf0X00bit2  = 0; //同步器反相，0：A->B，1:B->A
-//	BYTE pcf0X00bit4  = 0; //故障运行，正在打印遇到故障时的处理，0打印停止，1 打印继续，但墨点没有喷出来
-//	BYTE pcf0X00bit5  = 0; //产品计数器重置，0 不重置，1 重置到设定值
-//	BYTE pcf0X00bit6  = 0 ;//打印计数器重置，0 不重置，1 重置到设定值
-//
-//	//pcf控制0X01
-//	BYTE pcf0X01bit0  = 1; //是否启用电眼，0为关闭，1为启用
-//	BYTE pcf0X01bit2  = 0; //电眼有效电平，0为低电平，1为高电平
-//	BYTE pcf0X01bit3  = 0; //喷印模式为单次还是连续，0为单次，1为连续
-//
-//	if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0 )//产线运动方式：固定，即内部
-//	{
-//		pcf0X00bit1_bit0 = 2;
-//		//计算延时	
-//		try
-//		{
-//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-//		}
-//		catch (CException* e)
-//		{
-//			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
-//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-//		}
-//
-//		pcf0X02_05 = pcf0X02_05.Mid("00000000" & pcf0X02_05, pcf0X02_05.GetLength() + 1, 8);
-//		pcf0X02 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(6, 2));
-//		pcf0X03 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(4, 2));
-//		pcf0X04 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(2, 2));
-//		pcf0X05 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(0, 2));
-//		//计算列宽
-//		try
-//		{
-//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-//		}
-//		catch (CException* e)
-//		{
-//			m_pCodePrinterDlg->m_Confi->m_speed = 20;	
-//			pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
-//		}
-//		
-//	} 
-//	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
-//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )//变速，外部编码器1相
-//	{
-//		
-//	} 
-//	else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
-//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 1 )//变速，外部编码器2相
-//	{
-//		
-//	}
-//	else
-//	{
-//		
-//	}
-//
-//}
-
 void CPcfConfig::download_pcf()//开机一定先getfromxml，再下发。改动后先保存再下发。
 {
+
 	//CDealXml dealXml;
+	//string tempstr;
 
-	//BYTE pcf0X00bit1_bit0  = 2; //列触发方式：0为编码器1相，1为编码器2相，2为内部一列点数（即等于64K/划速率）
-	//BYTE pcf0X00bit2  = 0; //同步器反相，0：A->B，1:B->A
-	//BYTE pcf0X00bit4  = 0; //故障运行，正在打印遇到故障时的处理，0打印停止，1 打印继续，但墨点没有喷出来
-	//BYTE pcf0X00bit5  = 0; //产品计数器重置，0 不重置，1 重置到设定值
-	//BYTE pcf0X00bit6  = 0 ;//打印计数器重置，0 不重置，1 重置到设定值
-
-	////pcf控制0X01
-	//BYTE pcf0X01bit0  = 1; //是否启用电眼，0为关闭，1为启用
-	//BYTE pcf0X01bit2  = 0; //电眼有效电平，0为低电平，1为高电平
-	//BYTE pcf0X01bit3  = 0; //喷印模式为单次还是连续，0为单次，1为连续
 
 	//if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0 )//产线运动方式：固定，即内部
 	//{
-	//	pcf0X00bit1_bit0 = 2;
+	//	theApp.myPcfClass.pcf0X00bit1_bit0 = 2;
+	//	CString strtmp;
+	//	
 	//	//计算延时	
 	//	try
 	//	{
-	//		pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 	//	}
 	//	catch (CException* e)
 	//	{
-	//		m_pCodePrinterDlg->m_Confi->m_speed = 20;	
-	//		pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_delay) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+	//		m_pCodePrinterDlg->m_Confi->m_speed = 20;
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 	//	}
-
-	//	pcf0X02_05 = pcf0X02_05.Mid("00000000" & pcf0X02_05, pcf0X02_05.GetLength() + 1, 8);
-	//	pcf0X02 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(6, 2));
-	//	pcf0X03 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(4, 2));
-	//	pcf0X04 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(2, 2));
-	//	pcf0X05 = dealXml.HEX_to_DECbyte(pcf0X02_05.Mid(0, 2));
+	//	strtmp = _T("00000000") + mypcf0X02_05;
+	//	mypcf0X02_05 = strtmp.Mid(mypcf0X02_05.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X02 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X03 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X04 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X05 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(0, 2));
+	//	
 	//	//计算列宽
 	//	try
 	//	{
-	//		pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 	//	}
 	//	catch (CException* e)
 	//	{
-	//		m_pCodePrinterDlg->m_Confi->m_speed = 20;	
-	//		pcf0X02_05 = Hex(round(_wtof(m_pCodePrinterDlg->m_Confi->m_dotPitch) * 3840 / _wtof(m_pCodePrinterDlg->m_Confi->m_speed), 0));
+	//		m_pCodePrinterDlg->m_Confi->m_speed = 20;
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 	//	}
-	//	
+	//	strtmp = _T("00000000") + mypcf0X06_09;
+	//	mypcf0X06_09 = strtmp.Mid(mypcf0X06_09.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X06 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X07 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X08 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X09 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(0, 2));
+
+	//	//计算重复打印间隔
+	//	try
+	//	{
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_speed = 20;
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X13_16;
+	//	mypcf0X13_16 = strtmp.Mid(mypcf0X13_16.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X13 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X14 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X15 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X16 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(0, 2));
+
+	//	//触发后禁止触发长度
+	//	try
+	//	{
+	//		CString strtriggerLen;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
+	//		int triggerLen = _wtoi(strtriggerLen);
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		CString strtriggerLen;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
+	//		int triggerLen = _wtoi(strtriggerLen);
+
+	//		m_pCodePrinterDlg->m_Confi->m_speed = 20;
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+	//		mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X19_1C;
+	//	mypcf0X19_1C = strtmp.Mid(mypcf0X19_1C.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X19 = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X1A = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X1B = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));
 	//} 
 	//else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
 	//	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )//变速，外部编码器1相
 	//{
-	//	
+	//	theApp.myPcfClass.pcf0X00bit1_bit0 = 0;
+	//	CString strtmp;
+	//	//计算延时
+	//	try
+	//	{
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
+	//		mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
+	//		mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X02_05;
+	//	mypcf0X02_05 = strtmp.Mid(mypcf0X02_05.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X02 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X03 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X04 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X05 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(0, 2));
+
+	//	//计算列宽
+	//	try
+	//	{
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+	//		mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+	//		mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X06_09;
+	//	mypcf0X06_09 = strtmp.Mid(mypcf0X06_09.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X06 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X07 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X08 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X09 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(0, 2));
+
+	//	//计算重复打印间隔
+	//	try
+	//	{
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+	//		mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+	//		mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X13_16;
+	//	mypcf0X13_16 = strtmp.Mid(mypcf0X13_16.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X13 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X14 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X15 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X16 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(0, 2));
+
+	//	//触发后禁止触发长度
+	//	try
+	//	{
+	//		CString strimpulse,strlength,strtriggerLen;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		int triggerLen = _wtoi(strtriggerLen);
+
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+	//		mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength,strtriggerLen;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		int triggerLen = _wtoi(strtriggerLen);
+
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+	//		mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X19_1C;
+	//	mypcf0X19_1C = strtmp.Mid(mypcf0X19_1C.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X19 = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X1A = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X1B = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));
 	//} 
 	//else if ( m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
 	//	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 1 )//变速，外部编码器2相
 	//{
+	//	theApp.myPcfClass.pcf0X00bit1_bit0 = 1;
 	//	
+	//	CString strtmp;
+	//		//计算延时
+	//	try
+	//	{
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
+	//		mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
+	//		mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X02_05;
+	//	mypcf0X02_05 = strtmp.Mid(mypcf0X02_05.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X02 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X03 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X04 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X05 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(0, 2));
+
+	//	//计算列宽
+	//	try
+	//	{
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+	//		mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+	//		mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X06_09;
+	//	mypcf0X06_09 = strtmp.Mid(mypcf0X06_09.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X06 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X07 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X08 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X09 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(0, 2));
+
+	//	//计算重复打印间隔
+	//	try
+	//	{
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+	//		mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+	//		mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X13_16;
+	//	mypcf0X13_16 = strtmp.Mid(mypcf0X13_16.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X13 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X14 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X15 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X16 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(0, 2));
+
+	//	//触发后禁止触发长度
+	//	try
+	//	{
+	//		CString strimpulse,strlength,strtriggerLen;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		int triggerLen = _wtoi(strtriggerLen);
+
+	//		tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+	//		mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	catch (CException* e)
+	//	{
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(_T("200"));
+
+	//		CString strimpulse,strlength,strtriggerLen;
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strimpulse);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
+	//		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
+	//		int impulse = _wtoi(strimpulse);
+	//		int length = _wtoi(strlength);
+	//		int triggerLen = _wtoi(strtriggerLen);
+
+	//		tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+	//		mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+	//	}
+	//	strtmp = _T("00000000") + mypcf0X19_1C;
+	//	mypcf0X19_1C = strtmp.Mid(mypcf0X19_1C.GetLength(), 8);
+	//	theApp.myPcfClass.pcf0X19 = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(6, 2));
+	//	theApp.myPcfClass.pcf0X1A = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(4, 2));
+	//	theApp.myPcfClass.pcf0X1B = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(2, 2));
+	//	theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));
+
 	//}
 	//else
 	//{
-	//	
+	//	//同步器反相，0：A->B，1:B->A
+	//	theApp.myPcfClass.pcf0X00bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
+	//	//故障运行即故障时信息缓存是否还按正常喷印边喷印边消除，0为关闭，1为开启
+	//	theApp.myPcfClass.pcf0X00bit4 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
+	//	//pcf0X00计算
+	//	theApp.myPcfClass.pcf0X00 = theApp.myPcfClass.pcf0X00bit6 * 64 + theApp.myPcfClass.pcf0X00bit5 * 32 
+	//		+ theApp.myPcfClass.pcf0X00bit4 * 16 + theApp.myPcfClass.pcf0X00bit2 * 4 + theApp.myPcfClass.pcf0X00bit1_bit0;
+	//	//pcf0X00 = IIf(pcf0X00.Length.Equals(2), pcf0X00, "0" & pcf0X00)
+	//	//是否启用电眼，0为关闭，1为启用
+	//	theApp.myPcfClass.pcf0X01bit0 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
+	//	//电眼有效电平，0为低电平，1为高电平
+	//	theApp.myPcfClass.pcf0X01bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
+	//	//喷印模式为单次还是连续，0为单次，1为连续
+	//	theApp.myPcfClass.pcf0X01bit3 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
+	//	//pcf0X01计算
+	//	theApp.myPcfClass.pcf0X01 = theApp.myPcfClass.pcf0X01bit3 * 8 + theApp.myPcfClass.pcf0X01bit2 * 4 + theApp.myPcfClass.pcf0X01bit0;
+	//	// pcf0X01 = IIf(pcf0X01.Length.Equals(2), pcf0X01, "0" & pcf0X01)
+	//	//字高
+	//	theApp.myPcfClass.pcf0X0A = m_pCodePrinterDlg->m_Confi->m_height;
+	//	// pcf0X0A = IIf(pcf0X0A.Length.Equals(2), pcf0X0A, "0" & pcf0X0A)
+	//	//pcf0X0B_0E = "00000000"
+	//	// pcf0X0F_12 = "00000000"
+	//	// 编码倍频
+	//	theApp.myPcfClass.pcf0X18 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel();
 	//}
+
+
+
+
+	//
+	//theApp.myPcfClass.pcf0X02_05 = CT2A(mypcf0X02_05.GetString());
+	//theApp.myPcfClass.pcf0X06_09 = CT2A(mypcf0X02_05.GetString());
+	//theApp.myPcfClass.pcf0X13_16 = CT2A(mypcf0X02_05.GetString());
+	//theApp.myPcfClass.pcf0X19_1C = CT2A(mypcf0X02_05.GetString());
+
+/////////////////////////////////////////////////////////////////////////////
+	theApp.myPcfClass.pcf0X00=0x2;
+	theApp.myPcfClass.pcf0X01=0x1;
+	theApp.myPcfClass.pcf0X02=0x0;
+	theApp.myPcfClass.pcf0X03=0x4b;
+	theApp.myPcfClass.pcf0X04=0x0;
+	theApp.myPcfClass.pcf0X05=0x0;
+	theApp.myPcfClass.pcf0X06=0x51;
+	theApp.myPcfClass.pcf0X07=0x0;
+	theApp.myPcfClass.pcf0X08=0x0;
+	theApp.myPcfClass.pcf0X09=0x0;
+	theApp.myPcfClass.pcf0X0A=0x46;
+	theApp.myPcfClass.pcf0X13=0x0;
+	theApp.myPcfClass.pcf0X14=0xe1;
+	theApp.myPcfClass.pcf0X15=0x0;
+	theApp.myPcfClass.pcf0X16=0x0;
+	theApp.myPcfClass.pcf0X18=0x0;
+	theApp.myPcfClass.pcf0X19=0x0;
+	theApp.myPcfClass.pcf0X1A=0xe1;
+	theApp.myPcfClass.pcf0X1B=0x0;
+	theApp.myPcfClass.pcf0X1C=0x0;
+
+	vector<BYTE> tempCtrVec;
+	tempCtrVec.push_back(0x01);
+	tempCtrVec.push_back(0x80);
+	tempCtrVec.push_back(0x21);
+	tempCtrVec.push_back(0x01);
+	tempCtrVec.push_back(0x12);
+	tempCtrVec.push_back(0x00);
+	tempCtrVec.push_back(0x00);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X00);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X01);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X02);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X03);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X04);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X05);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X06);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X07);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X08);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X09);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X0A);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X13);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X14);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X15);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X16);
+	tempCtrVec.push_back(0);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X18);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X19);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X1A);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X1B);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X1C);
+	tempCtrVec.push_back(0xFF);
+	tempCtrVec.push_back(0xFF);
+
+	theApp.boQueCtrLock.Lock();
+	theApp.queCtr.push(tempCtrVec);
+	theApp.boQueCtrLock.Unlock();
+
 
 }
 

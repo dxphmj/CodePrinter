@@ -165,7 +165,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
 	m_ButInk.SizeToContent(); 
+
 	m_ButOnOrOff.LoadBitmaps(IDB_OFFMACHINE_BITMAP,IDB_OFFMACHINE_BITMAP,0,0,IDB_OFFMACHINE_BITMAP);
+
 	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
 	m_StartPrint.SizeToContent(); 
@@ -173,7 +175,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
-//#define  def_ttl 1
+#define  def_ttl 1
 
 #ifdef def_ttl
 	//串口初始化
@@ -250,8 +252,16 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//theApp.readCount=theApp.myCIOVsd.Read();
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 ////墨水配置初始化
-	//CInksystemconfig pInksysConfig(this);
-	//CPcfConfig pPcfConfig(this);
+	CInksystemconfig pInksysConfig(this);
+	CPcfConfig pPcfConfig(this);
+
+
+	//pInksysConfig.get_inksystem_from_xml();
+	pInksysConfig.download_inksystem_setup();
+	theApp.myStatusClass.download_inksystem_control03();
+	pInksysConfig.download_inksystem_parameter();
+	//pPcfConfig.get_pcf_from_xml();
+	pPcfConfig.download_pcf();
 
 
 
@@ -266,20 +276,21 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 
 
+
 #ifdef def_ttl
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
 	strTempCmd=(LPTSTR)readArr;	 
-
+	theApp.myCIOVsd.Send(strTempCmd,8);
 	Sleep(10);
 	theApp.readCount=theApp.myCIOVsd.Read();
  
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	
+	SetTimer(TIMER1,1000,NULL);	
 
 #endif 
-SetTimer(TIMER1,1000,NULL);	
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 

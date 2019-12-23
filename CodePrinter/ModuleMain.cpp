@@ -293,7 +293,7 @@ const char* ModuleMain::CString2ConstChar(CString str)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=4;
+	tempDcb.nComPort=1;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -832,15 +832,15 @@ UINT TTLcomLoop(LPVOID pParam)
 			//strTempCmdLen=8;
 
 			/////////以下代码测试用
-			//theApp.boQueCtrLock.Lock();
-			//if (theApp.queCtr.size()>0)
-			//{
-			//	vector<BYTE> tempQueVec=theApp.queCtr.front();
-			//	theApp.queCtr.pop();
-			//	strTempCmdLen=tempQueVec.size();
-			//	strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-			//}
-			//theApp.boQueCtrLock.Unlock();
+			theApp.boQueCtrLock.Lock();
+			if (theApp.queCtr.size()>0)
+			{
+				vector<BYTE> tempQueVec=theApp.queCtr.front();
+				theApp.queCtr.pop();
+				strTempCmdLen=tempQueVec.size();
+				strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+			}
+			theApp.boQueCtrLock.Unlock();
 		}
 
 		//theApp.myCIOVsd.ClearInOutBuf();

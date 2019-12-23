@@ -35,7 +35,7 @@ public:
 	int m_height;
 	CComboBox m_reverse;
 	CComboBox m_inverse;
-	int m_dotPitch;
+	float m_dotPitch;
 	int m_delay;
 	int m_repeatDis;
 	CComboBox m_speedWay;
