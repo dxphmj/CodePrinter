@@ -529,10 +529,10 @@ BEGIN
     PUSHBUTTON      "溶剂液位校准",IDC_SOLVENT_CALIB_BTN,405,175,50,25
     PUSHBUTTON      "墨水液位校准",IDC_INK_CALIB_BTN,405,211,50,25
     LISTBOX         IDC_SIZE_LIST,162,38,48,40,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LISTBOX         IDC_MODUL_FRE_LIST,162,90,48,40,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_MODUL_FRE_LIST,162,90,48,35,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LISTBOX         IDC_INK_TYPE_LIST,162,146,48,40,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LISTBOX         IDC_PELTIER_LIST,162,200,48,40,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LISTBOX         IDC_SLEEP_LIST,405,19,48,40,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_PELTIER_LIST,162,200,48,23,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SLEEP_LIST,401,31,48,22,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_INK_PAR_DIALOG DIALOG  0, 0, 506, 277
@@ -911,8 +911,6 @@ END
 //
 
 IDB_BITMAP1             BITMAP                  "res\\test.bmp"
-IDB_ON_BITMAP           BITMAP                  "res\\bitmap2.bmp"
-IDB_OFF_BITMAP          BITMAP                  "res\\bitmap3.bmp"
 IDB_FAULT_BITMAP        BITMAP                  "res\\Fault.bmp"
 IDB_SYSTEM_BITMAP       BITMAP                  "res\\System.bmp"
 IDB_USER_BITMAP         BITMAP                  "res\\User.bmp"
@@ -941,11 +939,11 @@ IDB_R_QSHIFT_BITMAP     BITMAP                  "res\\R_Qshift.bmp"
 IDB_DOWNLOAD_BITMAP     BITMAP                  "res\\download.bmp"
 IDB_SAVE_BITMAP         BITMAP                  "res\\save.bmp"
 IDB_RETURN_BITMAP       BITMAP                  "res\\return.bmp"
-IDB_ON_OR_OFF_BITMAP    BITMAP                  "res\\ON256.bmp"
 IDB_START_PRINT_BITMAP  BITMAP                  "res\\START_PRINT.bmp"
 IDB_PAUSE_PRINT_BITMAP  BITMAP                  "res\\PAUSE_PRINT.bmp"
 IDB_BITMAP4             BITMAP                  "res\\bitmap4.bmp"
 IDB_NEWBUILT_BITMAP     BITMAP                  "res\\newlyBuilt.bmp"
+IDB_OFFMACHINE_BITMAP   BITMAP                  "res\\开机2.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

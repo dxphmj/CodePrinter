@@ -88,6 +88,8 @@ BOOL CInkAdvanceDlg::OnInitDialog()
 	m_CIB_AdjustInkline.Attach(IDC_ADJUST_INKLINE_BTN,this);
 	GetDlgItem(IDC_INK_CIR_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开墨路循环
 	m_CIB_InkCir.Attach(IDC_INK_CIR_BTN,this);
+	GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//高压开关
+	m_CIB_HighVoltage.Attach(IDC_HIGH_VOLTAGE_BTN,this);
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
