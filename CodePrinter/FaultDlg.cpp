@@ -230,6 +230,7 @@ void CFaultDlg::get_save_error()
 void CFaultDlg::openfailurefile(string filePathName)
 {
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
+	m_errBox->ResetContent();
 	ifstream fin;
 	fin.open(theApp.myModuleMain.stringToLPCWSTR(filePathName));
 	string str;
@@ -361,6 +362,8 @@ void CFaultDlg::OnBnClickedButton6()
 	// TODO: 在此添加控件通知处理程序代码
 	if (nowErrDay<(strErrorFileNameArr.size()-1))
 	{
+		//CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
+		//m_errBox->ResetContent();
 		nowErrDay++;
 		string timeErr="Storage Card\\System\\Error\\";
 		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
@@ -373,6 +376,8 @@ void CFaultDlg::OnBnClickedButton5()
 	// TODO: 在此添加控件通知处理程序代码
 	if (nowErrDay>0)
 	{
+		//CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
+		//m_errBox->ResetContent();
 		nowErrDay--;
 		string timeErr="Storage Card\\System\\Error\\";
 		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
