@@ -96,7 +96,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
 	m_OnOff = new COnOffDlg;
-	m_Fault = new CFaultDlg;
+	//m_Fault = new CFaultDlg;
 
 
 	//创建文件夹
@@ -1049,7 +1049,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.staAutModFauLas = false;
 		}
 		//阀故障
-		if(theApp.myStatusClass.staValFau == True && theApp.myStatusClass.staValFauLas == False) 
+		if(theApp.myStatusClass.staValFau == true && theApp.myStatusClass.staValFauLas == false) 
 		{
 			theApp.myStatusClass.staValFauLas = true;
 			//缺starting up
@@ -1113,14 +1113,14 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		//实时相位
-		switch(theApp.myStatusClass.staPhase)
-			case "0":
-		 {
-			if (theApp.myTimClass.staPhaseLas != "0")
-			{
-			}
-		 }
-			
+		//switch(theApp.myStatusClass.staPhase)
+		//	case "0":
+		// {
+		//	if (theApp.myTimClass.staPhaseLas != "0")
+		//	{
+		//	}
+		// }
+		//	
 
 
 		break;
