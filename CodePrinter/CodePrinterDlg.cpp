@@ -436,7 +436,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//临时变量
 		CString m_printStatus;   //记录故障等同于VB的 labPrinterStatusText
 
-		m_Fault->m_faultList.ResetContent();
+		/*m_Fault->m_faultList.ResetContent();*/
 
 
 		theApp.myStatusClass.byStatusFromSlaveState();
@@ -1122,7 +1122,6 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//	{
 		//	}
 		// }
-		//	
 
 
 		break;
