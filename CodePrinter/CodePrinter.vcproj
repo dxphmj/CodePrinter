@@ -51,7 +51,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="H:\CodePrinter\CodePrinter;..\KEYBOARD\KEYBOARD"
+				AdditionalIncludeDirectories="..\PathDlgDll\PathDlgDll;..\KEYBOARD\KEYBOARD"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"

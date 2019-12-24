@@ -175,7 +175,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
-#define  def_ttl 1
+//#define  def_ttl 1
 
 #ifdef def_ttl
 	//´®¿Ú³õÊ¼»¯
@@ -971,7 +971,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 						if (m_printStatus != "Sequencing Off")
 						{
 							GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("SequencingOff"));
-							m_printStatus != "Sequencing Off";
+							m_printStatus = "Sequencing Off";
 						}
 					}
 				}
