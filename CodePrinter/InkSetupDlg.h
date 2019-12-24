@@ -28,4 +28,6 @@ public:
 	CListBox m_peltierList;
 	CListBox m_sleepList;
 	virtual BOOL OnInitDialog();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 };

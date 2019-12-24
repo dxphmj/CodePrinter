@@ -6,7 +6,7 @@
 #include "CodePrinter.h"
 #include "ImageButton.h"
 #include "ColorButton.h"
-//#define TIMER1 1
+
 
 // CInkSystemDlg ¶Ô»°¿ò
 
@@ -78,7 +78,5 @@ public:
 	afx_msg void OnBnClickedFlushValveBtn();
 
 	afx_msg void OnBnClickedInkOkBtn();
-	//afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

@@ -25,4 +25,7 @@ public:
 	CListBox m_com2Baudrate;
 	CListBox m_com1Parity;
 	CListBox m_com2Parity;
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 };
