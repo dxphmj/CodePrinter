@@ -22,16 +22,7 @@ CInkAdvanceDlg::~CInkAdvanceDlg()
 
 void CInkAdvanceDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialog::DoDataExchange(pDX);
-	//DDX_Control(pDX, IDC_INK_CIR_BTN, m_CIB_InkCir);
-	//DDX_Control(pDX, IDC_INKFLOW_OFF_BTN, m_CIB_InkflowOff);
-	//DDX_Control(pDX, IDC_ADJUST_INKLINE_BTN, m_CIB_AdjustInkline);
-	//DDX_Control(pDX, IDC_ADD_SOLVENT_BTN, m_CIB_AddSolvent);
-	//DDX_Control(pDX, IDC_SUCK_NOZZLE_BTN, m_CIB_SuckNozzle);
-	//DDX_Control(pDX, IDC_HIGH_VOLTAGE_BTN, m_CIB_HighVoltage);
-	//DDX_Control(pDX, IDC_WASH_NOZZLE_BTN, m_CIB_WashNozzle);
-	//DDX_Control(pDX, IDC_CLOSE_INKLINE_BTN, m_CIB_CloseInkline);
-	//DDX_Control(pDX, IDC_BETECT_VISCO_BTN, m_CIB_BetectVisco);
+	CDialog::DoDataExchange(pDX);	
 }
 
 
@@ -52,26 +43,7 @@ BOOL CInkAdvanceDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	// TODO:  在此添加额外的初始化2
-	//彩色按钮 （普通）
-	//m_CIB_InkCir.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_InkCir.SizeToContent(); 
-	//m_CIB_InkflowOff.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_InkflowOff.SizeToContent(); 
-	//m_CIB_AdjustInkline.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_AdjustInkline.SizeToContent(); 
-	//m_CIB_AddSolvent.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_AddSolvent.SizeToContent(); 
-	//m_CIB_SuckNozzle.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_SuckNozzle.SizeToContent(); 
-	//m_CIB_HighVoltage.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_HighVoltage.SizeToContent(); 
-	//m_CIB_WashNozzle.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_WashNozzle.SizeToContent(); 
-	//m_CIB_CloseInkline.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_CloseInkline.SizeToContent(); 
-	//m_CIB_BetectVisco.LoadBitmaps(IDB_OFF_BITMAP,IDB_OFF_BITMAP,0,0,IDB_OFF_BITMAP);
-	//m_CIB_BetectVisco.SizeToContent(); 
-
+	
 	GetDlgItem(IDC_SUCK_NOZZLE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);
 	m_CIB_SuckNozzle.Attach(IDC_SUCK_NOZZLE_BTN,this);
 	GetDlgItem(IDC_INKFLOW_OFF_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//关回收检测

@@ -175,7 +175,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
-#define  def_ttl 1
+//#define  def_ttl 1
 
 #ifdef def_ttl
 	//串口初始化
@@ -457,6 +457,8 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			m_Ink->m_CIB_SpeedMode.m_bDown = true;
 			m_Ink->m_CIB_PressureMode.m_bDown = false;
+			m_Ink->m_CIB_PressureMode.Invalidate();
+
 		}
 		else if (theApp.myStatusClass.staBumMod==false/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
 		{
