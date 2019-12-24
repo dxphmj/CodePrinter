@@ -1106,6 +1106,10 @@
 				RelativePath=".\res\zoom.bmp"
 				>
 			</File>
+			<File
+				RelativePath=".\res\¿ª»ú2.bmp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="xml"

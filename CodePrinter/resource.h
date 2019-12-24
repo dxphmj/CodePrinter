@@ -6,7 +6,6 @@
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
 #define IDB_BITMAP1                     129
-#define IDB_OFF_BITMAP                  131
 #define IDD_LABEL_DIALOG                132
 #define IDD_CONFIGURATION_DIALOG        133
 #define IDD_FILEMANA_DIALOG             134
@@ -61,13 +60,14 @@
 #define IDB_DOWNLOAD_BITMAP             190
 #define IDB_SAVE_BITMAP                 191
 #define IDB_RETURN_BITMAP               193
-#define IDB_ON_OR_OFF_BITMAP            194
 #define IDB_START_PRINT_BITMAP          195
 #define IDB_PAUSE_PRINT_BITMAP          196
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
 #define IDB_BITMAP4                     200
 #define IDB_NEWBUILT_BITMAP             201
+#define IDB_BITMAP2                     202
+#define IDB_OFFMACHINE_BITMAP           202
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -91,7 +91,6 @@
 #define IDC_EDITPICTURE_BUTTON          1021
 #define Bar_Code_Button                 1022
 #define Odbc_Button                     1023
-#define IDB_ON_BITMAP                   1023
 #define IDC_COPY_BUTTON                 1024
 #define IDC_DELETE_BUTTON               1025
 #define IDC_REPEAT_BUTTON               1026
@@ -434,7 +433,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        202
+#define _APS_NEXT_RESOURCE_VALUE        203
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1466
 #define _APS_NEXT_SYMED_VALUE           148

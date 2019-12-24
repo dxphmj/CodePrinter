@@ -131,7 +131,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	GetDlgItem(IDC_PUMP_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关泵
 	m_CIB_Pump.Attach(IDC_PUMP_BTN,this);
 	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关喷嘴
-	m_CIB_Pump.Attach(IDC_NOZZLE_VALVE_BTN,this);
+	m_CIB_NozzleValve.Attach(IDC_NOZZLE_VALVE_BTN,this);
 	GetDlgItem(IDC_FEED_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);  //开关供墨阀
 	m_CIB_FeedValve.Attach(IDC_FEED_VALVE_BTN,this);
 	GetDlgItem(IDC_BLEED_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关排气阀
