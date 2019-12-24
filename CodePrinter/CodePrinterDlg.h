@@ -33,6 +33,14 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
+
+public:
+
+
+public:
+    void UpdateValve(); //更新各种阀的信息
+    void GetFaultInfo(); //获得各种故障信息
+
 // 实现
 protected:
 	HICON m_hIcon;
@@ -74,8 +82,6 @@ public:
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
 	COnOffDlg *m_OnOff;
-
-//	CBrush m_DlgBrush;
 
 public:
 	void showDlg(int ID);

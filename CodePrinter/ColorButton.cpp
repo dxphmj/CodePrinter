@@ -4,8 +4,8 @@
 CColorButton::CColorButton()
 {
 	m_bDown = false;
-	m_DownColor = RGB(255, 255, 0);
-	m_UpColor = RGB(0, 255, 0);//初始化设为黑色
+	m_DownColor = RGB(255, 255, 0); //黄色表示按下去，阀已开
+	m_UpColor = RGB(0, 255, 0);// 蓝色表示没按下去 
 }
 
 CColorButton::~CColorButton()

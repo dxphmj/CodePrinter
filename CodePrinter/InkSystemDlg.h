@@ -78,4 +78,7 @@ public:
 	afx_msg void OnBnClickedFlushValveBtn();
 
 	afx_msg void OnBnClickedInkOkBtn();
+	//afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

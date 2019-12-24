@@ -96,8 +96,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
 	m_OnOff = new COnOffDlg;
-	//m_Fault = new CFaultDlg;
-
+ 
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -414,6 +413,7 @@ void CCodePrinterDlg::showDlg(int ID)
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
+        m_Ink->Invalidate();
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
@@ -425,6 +425,657 @@ void CCodePrinterDlg::showDlg(int ID)
 	}
 }
 
+void CCodePrinterDlg::UpdateValve()
+{
+	//更新阀的信息
+	HWND advan;
+	advan = m_Ink->m_inkAdv->GetSafeHwnd();
+	theApp.myStatusClass.ad_button_onoff(advan);
+	HWND usua;
+	usua = m_Ink->GetSafeHwnd();
+	theApp.myStatusClass.us_button_onoff(usua);
+	
+	
+	//'泵速或者压力模式
+	if (theApp.myStatusClass.staBumMod == true /*& m_Ink->m_CIB_Pumpspeed.m_tag==1 & m_Ink->m_CIB_Pressure.m_tag==0*/)//泵速模式
+	{
+		m_Ink->m_CIB_SpeedMode.m_bDown = true;
+		m_Ink->m_CIB_PressureMode.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staBumMod == false/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
+	{
+		m_Ink->m_CIB_SpeedMode.m_bDown = false;
+		m_Ink->m_CIB_PressureMode.m_bDown = true;
+	}
+	m_Ink->m_CIB_SpeedMode.Invalidate();
+	m_Ink->m_CIB_PressureMode.Invalidate();
+
+	//开关泵
+	if (theApp.myStatusClass.staBum == true)
+	{
+		m_Ink->m_CIB_Pump.m_bDown = false;
+	}
+
+	else if (theApp.myStatusClass.staBum == false)
+	{
+		m_Ink->m_CIB_Pump.m_bDown = true;
+	}
+	m_Ink->m_CIB_Pump.Invalidate();
+
+
+	//开关喷嘴
+	if (theApp.myStatusClass.staNozVal == true)
+	{
+		m_Ink->m_CIB_NozzleValve.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staNozVal == false)
+	{
+		m_Ink->m_CIB_NozzleValve.m_bDown = true;
+	}
+	m_Ink->m_CIB_NozzleValve.Invalidate();
+
+    //开关供墨阀
+	if (theApp.myStatusClass.staFeeVal == true)
+	{
+		m_Ink->m_CIB_FeedValve.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staFeeVal==false)
+	{
+		m_Ink->m_CIB_FeedValve.m_bDown = true;
+	}
+	m_Ink->m_CIB_FeedValve.Invalidate();
+
+	//开关排气阀
+	if (theApp.myStatusClass.staBleVal == true)
+	{
+		m_Ink->m_CIB_BleedValve.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staBleVal==false)
+	{
+		m_Ink->m_CIB_BleedValve.m_bDown = true;
+	}
+	m_Ink->m_CIB_BleedValve.Invalidate();
+
+	//开关清洗阀
+	if (theApp.myStatusClass.staFluVal == true)
+	{
+		m_Ink->m_CIB_FlushValve.m_bDown = false;
+		
+	}
+	else if (theApp.myStatusClass.staFluVal==false)
+	{
+		m_Ink->m_CIB_FlushValve.m_bDown = true;
+	}
+	m_Ink->m_CIB_FlushValve.Invalidate();
+
+	//开关溶剂阀
+	if (theApp.myStatusClass.staSolVal == true)
+	{
+		m_Ink->m_CIB_SolventValve.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staSolVal==false)
+	{
+		m_Ink->m_CIB_SolventValve.m_bDown = true;
+	}
+	m_Ink->m_CIB_SolventValve.Invalidate();
+
+	//开关粘度阀
+	if (theApp.myStatusClass.staVisVal == true)
+	{
+		m_Ink->m_CIB_ViscoValve.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staVisVal==false)
+	{
+		m_Ink->m_CIB_ViscoValve.m_bDown = true;
+	}
+	m_Ink->m_CIB_ViscoValve.Invalidate();
+
+	//开关冲洗阀
+	if (theApp.myStatusClass.staWasVal == true)
+	{
+		m_Ink->m_CIB_WashValve.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staWasVal == false)
+	{
+		m_Ink->m_CIB_WashValve.m_bDown = true;
+	}
+	m_Ink->m_CIB_WashValve.Invalidate();
+
+	//关回收检测
+	if (theApp.myStatusClass.staInkFloSenOff == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_InkflowOff.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staInkFloSenOff == false)
+	{
+    	m_Ink->m_inkAdv->m_CIB_InkflowOff.m_bDown = true;
+	}
+	m_Ink->m_inkAdv->m_CIB_InkflowOff.Invalidate();
+
+    //关闭墨线
+	if (theApp.myStatusClass.staCloInkLin == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_CloseInkline.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staCloInkLin == false)
+	{
+		m_Ink->m_inkAdv->m_CIB_CloseInkline.m_bDown = true;
+	}
+	m_Ink->m_inkAdv->m_CIB_CloseInkline.Invalidate();
+
+    //开添加溶剂
+	if (theApp.myStatusClass.staAddSol == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_AddSolvent.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staAddSol == false)
+	{
+		m_Ink->m_inkAdv->m_CIB_AddSolvent.m_bDown = true;
+		theApp.myStatusClass.ctr0X02bit2 = 0;
+	    theApp.myStatusClass.download_inksystem_control02();
+	}
+	m_Ink->m_inkAdv->m_CIB_AddSolvent.Invalidate();
+
+
+    //开测试粘度
+	if (theApp.myStatusClass.staDetVis == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_BetectVisco.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staDetVis == false)
+	{
+		m_Ink->m_inkAdv->m_CIB_BetectVisco.m_bDown = true;
+		theApp.myStatusClass.ctr0X02bit3 = 0;
+		theApp.myStatusClass.download_inksystem_control02();
+	}
+	m_Ink->m_inkAdv->m_CIB_BetectVisco.Invalidate();
+
+	//开冲洗喷嘴
+	if (theApp.myStatusClass.staWasNoz == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_WashNozzle.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staWasNoz == false)
+	{
+		m_Ink->m_inkAdv->m_CIB_WashNozzle.m_bDown = true;
+		theApp.myStatusClass.ctr0X02bit4 = 0;
+		theApp.myStatusClass.download_inksystem_control02();
+	}
+	m_Ink->m_inkAdv->m_CIB_WashNozzle.Invalidate();
+
+	//开反吸喷嘴
+	if (theApp.myStatusClass.staSucNoz == true)
+	{
+		 
+		m_Ink->m_inkAdv->m_CIB_SuckNozzle.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staSucNoz == false)
+	{
+		m_Ink->m_inkAdv->m_CIB_SuckNozzle.m_bDown = true;
+	}
+	m_Ink->m_inkAdv->m_CIB_SuckNozzle.Invalidate();
+
+	//开墨线校准
+	if (theApp.myStatusClass.staAdjInkLin == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_AdjustInkline.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staAdjInkLin == false)
+	{
+	     m_Ink->m_inkAdv->m_CIB_AdjustInkline.m_bDown = true;
+		theApp.myStatusClass.ctr0X02bit6 = 0;
+		theApp.myStatusClass.download_inksystem_control02();
+	}
+	m_Ink->m_inkAdv->m_CIB_AdjustInkline.Invalidate();
+
+	//开墨路循环
+	if (theApp.myStatusClass.staInkCir == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_InkCir.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staInkCir == false)
+	{
+		m_Ink->m_inkAdv->m_CIB_InkCir.m_bDown = true;
+		theApp.myStatusClass.ctr0X02bit7 = 0;
+		theApp.myStatusClass.download_inksystem_control02();
+	}
+	m_Ink->m_inkAdv->m_CIB_InkCir.Invalidate();
+
+	//高压开关
+	if (theApp.myStatusClass.staHigVolSwi == true)
+	{
+		m_Ink->m_inkAdv->m_CIB_HighVoltage.m_bDown = false;
+	}
+	else if (theApp.myStatusClass.staHigVolSwi == false)
+	{
+		m_Ink->m_inkAdv->m_CIB_HighVoltage.m_bDown = true;
+	}
+	m_Ink->m_inkAdv->m_CIB_HighVoltage.Invalidate();
+
+}
+
+void CCodePrinterDlg::GetFaultInfo()
+{
+	//故障列表要清除，但又得防止刷新太快，最好判断一下如果列表中已显示该类型故障就不用添加了。
+    m_Fault->m_faultList.ResetContent();
+
+	//墨水温度传感器故障
+    if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
+	{
+		theApp.myStatusClass.staInkTemSenFauLas = true;
+		CString csMsg ;
+		csMsg.Format(_T("Ink temperature sensor fault!"));
+
+        csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
+	}
+	else if(theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == true)
+	{
+	   theApp.myStatusClass.staInkTemSenFauLas = false;
+	}
+
+	//喷头温度传感器故障
+	if (theApp.myStatusClass.staPriHeaTemFau == true && theApp.myStatusClass.staPriHeaTemFauLas == false)
+	{
+		theApp.myStatusClass.staPriHeaTemFauLas = true;
+		CString csMsg ;
+		csMsg.Format(_T("Printhead temperature sensor fault!"));			
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
+	}
+	else if (theApp.myStatusClass.staPriHeaTemFau == false && theApp.myStatusClass.staPriHeaTemFauLas == true)
+	{
+		theApp.myStatusClass.staPriHeaTemFauLas = false;
+	}
+
+	//泵超速保护
+	if (theApp.myStatusClass.staBumSpeOveFau == true && theApp.myStatusClass.staBumSpeOveFauLas == false)
+	{
+		theApp.myStatusClass.staBumSpeOveFauLas = true;
+		//缺starting up
+
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		theApp.myStatusClass.ctr0X00bit5 = 0;
+		theApp.myStatusClass.ctr0X00bit3 = 0;
+		theApp.myStatusClass.ctr0X00bit2 = 0;
+		theApp.myStatusClass.ctr0X00bit1 = 1;
+		theApp.myStatusClass.ctr0X00bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control00();
+		CString csMsg ;
+		csMsg.Format(_T("Pump speed abnormal!"));
+	
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
+	}
+	else if (theApp.myStatusClass.staBumSpeOveFau == false && theApp.myStatusClass.staBumSpeOveFauLas == true)
+	{
+		theApp.myStatusClass.staBumSpeOveFauLas = false;
+	}
+
+
+	//过压保护
+	if (theApp.myStatusClass.staPreOveFau == true && theApp.myStatusClass.staPreOveFauLas == false)
+	{
+		theApp.myStatusClass.staPreOveFauLas = true;
+		//缺starting up
+
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		theApp.myStatusClass.ctr0X00bit5 = 0;
+		theApp.myStatusClass.ctr0X00bit3 = 0;
+		theApp.myStatusClass.ctr0X00bit2 = 0;
+		theApp.myStatusClass.ctr0X00bit1 = 1;
+		theApp.myStatusClass.ctr0X00bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control00();
+		CString csMsg ;
+		csMsg.Format(_T("Pressure abnormal!"));
+	
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
+	}
+	else if (theApp.myStatusClass.staPreOveFau == false && theApp.myStatusClass.staPreOveFauLas == true)
+	{
+		theApp.myStatusClass.staPreOveFauLas = false;
+	}
+
+
+	//粘度异常
+	if (theApp.myStatusClass.staVisAbnFau == true && theApp.myStatusClass.staVisAbnFauLas == false)
+	{
+		theApp.myStatusClass.staVisAbnFauLas = true;
+		CString csMsg ;
+	    csMsg.Format(_T("Ink Visco abnormal!"));
+		/*AfxMessageBox(csMsg);*/
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
+	}
+
+
+	//粘度计故障
+	if (theApp.myStatusClass.staVisSenFau == true && theApp.myStatusClass.staVisSenFauLas == false)
+	{
+		theApp.myStatusClass.staVisSenFauLas = true;
+		CString csMsg ;
+		csMsg.Format(_T("Viscometer fault!"));
+		/*AfxMessageBox(csMsg);*/
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
+	}
+	else if (theApp.myStatusClass.staVisSenFau == false && theApp.myStatusClass.staVisSenFauLas == true)
+	{
+		theApp.myStatusClass.staVisSenFauLas = false;
+	}
+
+
+	//回收故障
+	if(theApp.myStatusClass.staInkFloSenOff == true)
+	{
+       theApp.myStatusClass.staInkFloFau = true;
+	   m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Disable"));
+	}
+	else
+	{
+		if (theApp.myStatusClass.staInkFloFau == true && theApp.myStatusClass.staInkFloFauLas == false)
+		{
+			theApp.myStatusClass.staInkFloFauLas = true;
+			//缺starting up
+
+			theApp.myStatusClass.ctr0X03bit0 = 0;		
+			theApp.myStatusClass.download_inksystem_control03();
+			theApp.myStatusClass.ctr0X00bit5 = 0;
+			theApp.myStatusClass.ctr0X00bit3 = 0;
+			theApp.myStatusClass.ctr0X00bit2 = 0;
+			theApp.myStatusClass.ctr0X00bit1 = 1;
+			theApp.myStatusClass.ctr0X00bit0 = 0;
+			theApp.myStatusClass.download_inksystem_control00();
+			CString csMsg ;
+			csMsg.Format(_T("Recyle fault!"));
+			csMsg.Format(_T("%s"),csMsg);
+			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+			m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Abnormal"));
+		}		
+		
+		else if (theApp.myStatusClass.staInkFloFau == false)
+		{
+			if (theApp.myStatusClass.staInkFloFauLas == true  )
+			{
+				theApp.myStatusClass.staInkFloFauLas = false;
+				
+			}
+			m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Normal"));
+		}
+	}
+
+
+	//风扇故障
+	if (theApp.myStatusClass.staFanFau == true && theApp.myStatusClass.staFanFauLas == false)
+	{
+		theApp.myStatusClass.staFanFauLas = true;
+		//缺starting up
+		
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		theApp.myStatusClass.ctr0X00bit5 = 0;
+		theApp.myStatusClass.ctr0X00bit3 = 0;
+		theApp.myStatusClass.ctr0X00bit2 = 0;
+		theApp.myStatusClass.ctr0X00bit1 = 1;
+		theApp.myStatusClass.ctr0X00bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control00();
+		CString csMsg;
+		csMsg.Format(_T("Fan fault!"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staFanFau == false && theApp.myStatusClass.staFanFauLas == true)
+	{
+		theApp.myStatusClass.staFanFauLas = false;
+	}
+
+
+	//充电故障
+	if (theApp.myStatusClass.staChaFau == true && theApp.myStatusClass.staChaFauLas == false)
+	{
+		theApp.myStatusClass.staChaFauLas = true;
+		GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Charge fault"));
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		CString csMsg ;
+		csMsg.Format(_T("Charge fault!"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staChaFau == false && theApp.myStatusClass.staChaFauLas == true)
+	{
+		theApp.myStatusClass.staChaFauLas = false;
+	}
+
+
+	//相位故障
+	if (theApp.myStatusClass.staPhaFau == true && theApp.myStatusClass.staPhaFauLas == false)
+	{
+		theApp.myStatusClass.staPhaFauLas = true;
+		GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Phase fault"));
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		CString csMsg ;
+		csMsg.Format(_T("Phase fault!"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staPhaFau == false && theApp.myStatusClass.staPhaFauLas == true)
+	{
+		theApp.myStatusClass.staPhaFauLas = false;
+	}
+
+
+	//高压故障
+	if (theApp.myStatusClass.staHigVolFau == true && theApp.myStatusClass.staHigVolFauLas == false)
+	{
+		theApp.myStatusClass.staHigVolFauLas = true;
+		//缺starting up
+
+		
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		theApp.myStatusClass.ctr0X00bit5 = 0;
+		theApp.myStatusClass.ctr0X00bit3 = 0;
+		theApp.myStatusClass.ctr0X00bit2 = 0;
+		theApp.myStatusClass.ctr0X00bit1 = 1;
+		theApp.myStatusClass.ctr0X00bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control00();
+		CString csMsg ;
+		csMsg.Format(_T("High voltage fault!"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staHigVolFau == false && theApp.myStatusClass.staHigVolFauLas == true)
+	{
+		theApp.myStatusClass.staHigVolFauLas = false;
+	}
+
+
+	//溶剂液位状态
+	if (theApp.myStatusClass.staSolLevFau == "00" && theApp.myTimClass.staSolLevFauLas != "00" && theApp.myStatusClass.staInkLevFau == "00")
+	{
+		theApp.myTimClass.staSolLevFauLas = "00";
+		/*picAlarmBlue.Tag = "im004"
+		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
+	}
+	else if (theApp.myStatusClass.staSolLevFau == "01" && theApp.myTimClass.staSolLevFauLas != "01")
+	{
+		theApp.myTimClass.staSolLevFauLas = "01";
+		CString csMsg ;
+		csMsg.Format(_T("Add solvent"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+		/*picAlarmBlue.Tag = "im003"
+		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+	}
+	else if (theApp.myStatusClass.staSolLevFau == "10" && theApp.myTimClass.staSolLevFauLas != "10")
+	{
+		theApp.myTimClass.staSolLevFauLas = "10";
+		/*picAlarmBlue.Tag = "im003"
+		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+		CString csMsg ;
+		csMsg.Format(_T("Solvent empty"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staSolLevFau == "11" && theApp.myTimClass.staSolLevFauLas != "11")
+	{
+		theApp.myTimClass.staSolLevFauLas = "11";
+		/*picAlarmBlue.Tag = "im003"
+		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+		CString csMsg ;
+		csMsg.Format(_T("Solvent overfull"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+
+	//墨水液位状态
+	if (theApp.myStatusClass.staInkLevFau == "00" && theApp.myTimClass.staInkLevFauLas != "00" && theApp.myStatusClass.staSolLevFau == "00")
+	{
+		theApp.myTimClass.staInkLevFauLas = "00";
+		/*picAlarmBlue.Tag = "im004"
+		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
+		theApp.myTimClass.staInkEmpFau = false;
+		theApp.myTimClass.staInkOveFau = false;
+	}
+	else if (theApp.myStatusClass.staInkLevFau == "01" && theApp.myTimClass.staInkLevFauLas != "01")
+	{
+		theApp.myTimClass.staInkLevFauLas = "01";
+		/*picAlarmBlue.Tag = "im003"
+		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+		theApp.myTimClass.staInkEmpFau = false;
+		theApp.myTimClass.staInkOveFau = false;
+		CString csMsg ;
+		csMsg.Format(_T("Add ink"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staInkLevFau == "10" && theApp.myTimClass.staInkLevFauLas != "10")
+	{
+		theApp.myTimClass.staInkLevFauLas = "10";
+		//缺starting up
+
+		theApp.myStatusClass.ctr0X00bit5 = 0;
+		theApp.myStatusClass.ctr0X00bit3 = 0;
+		theApp.myStatusClass.ctr0X00bit2 = 0;
+		theApp.myStatusClass.ctr0X00bit1 = 1;
+		theApp.myStatusClass.ctr0X00bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control00();
+		theApp.myTimClass.staInkEmpFau = true;
+		theApp.myTimClass.staInkOveFau = false;
+		CString csMsg ;
+		csMsg.Format(_T("Ink empty"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staInkLevFau == "11" && theApp.myTimClass.staInkLevFauLas != "11")
+	{
+		theApp.myTimClass.staInkLevFauLas = "11";
+		//缺starting up
+
+		theApp.myStatusClass.ctr0X00bit5 = 0;
+		theApp.myStatusClass.ctr0X00bit3 = 0;
+		theApp.myStatusClass.ctr0X00bit2 = 0;
+		theApp.myStatusClass.ctr0X00bit1 = 1;
+		theApp.myStatusClass.ctr0X00bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control00();
+		theApp.myTimClass.staInkOveFau = true;
+		theApp.myTimClass.staInkEmpFau = false;
+		CString csMsg ;
+		csMsg.Format(_T("Ink overfull"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+    }
+
+	//电眼过快
+	if (theApp.myStatusClass.staProSenFas == true && theApp.myStatusClass.staProSenFasLas == false)
+	{
+		theApp.myStatusClass.staProSenFasLas = true;
+		CString csMsg ;
+		csMsg.Format(_T("Much too product"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staProSenFas == false && theApp.myStatusClass.staProSenFasLas == true)
+	{
+		theApp.myStatusClass.staProSenFasLas = false;
+	}
+
+	//自动分裂失败
+	if (theApp.myStatusClass.staAutModFau == true && theApp.myStatusClass.staAutModFauLas == false)
+	{
+		theApp.myStatusClass.staAutModFauLas = true;
+		GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Fault Condition"));		 
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		CString csMsg ;
+		csMsg.Format(_T("Auto modulation fault"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staAutModFau == false && theApp.myStatusClass.staAutModFauLas == true)
+	{
+		theApp.myStatusClass.staAutModFauLas = false;
+	}
+
+	//阀故障
+	if(theApp.myStatusClass.staValFau == true && theApp.myStatusClass.staValFauLas == false) 
+	{
+		theApp.myStatusClass.staValFauLas = true;
+		//缺starting up
+		
+		theApp.myStatusClass.ctr0X03bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control03();
+		theApp.myStatusClass.ctr0X00bit5 = 0;
+		theApp.myStatusClass.ctr0X00bit3 = 0;
+		theApp.myStatusClass.ctr0X00bit2 = 0;
+		theApp.myStatusClass.ctr0X00bit1 = 1;
+		theApp.myStatusClass.ctr0X00bit0 = 0;
+		theApp.myStatusClass.download_inksystem_control00();
+		CString csMsg ;
+		csMsg.Format(_T("Valve fault"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if(theApp.myStatusClass.staValFau == false && theApp.myStatusClass.staValFauLas == true) 
+	{
+		theApp.myStatusClass.staValFauLas = false;
+	}
+
+	//编码器过快
+	if (theApp.myStatusClass.staLinFas == true && theApp.myStatusClass.staLinFasLas == false )
+	{
+		theApp.myStatusClass.staLinFasLas = true;
+		CString csMsg ;
+		csMsg.Format(_T("Too fast"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staLinFas == false && theApp.myStatusClass.staLinFasLas == true )
+	{
+		theApp.myStatusClass.staLinFasLas = false;
+	}
+
+	//恒温故障
+	if (theApp.myStatusClass.staPriHeaHotFau == true && theApp.myStatusClass.staPriHeaHotFauLas == false )
+	{
+		theApp.myStatusClass.staPriHeaHotFauLas = true;
+		CString csMsg ;
+		csMsg.Format(_T("Constant temperature fault"));
+		csMsg.Format(_T("%s"),csMsg);
+		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
+	}
+	else if (theApp.myStatusClass.staPriHeaHotFau == false && theApp.myStatusClass.staPriHeaHotFauLas == true )
+	{
+		theApp.myStatusClass.staPriHeaHotFauLas = false;
+	}
+}
+
+
 //定时器
 void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
@@ -433,528 +1084,24 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
-		//临时变量
-		CString m_printStatus;   //记录故障等同于VB的 labPrinterStatusText
-
-		/*m_Fault->m_faultList.ResetContent();*/
-
-
+		 
 		theApp.myStatusClass.byStatusFromSlaveState();
 		theApp.myStatusClass.getstatu();
+        
+		UpdateValve(); //更新各种阀的信息，通过颜色显示出来，蓝色表示没按下去
 
+		GetFaultInfo(); //获得各种故障信息
 
-		//更新阀的信息
-		HWND advan;
-		advan=m_Ink->m_inkAdv->GetSafeHwnd();
-		theApp.myStatusClass.ad_button_onoff(advan);
-		HWND usua;
-		usua=m_Ink->GetSafeHwnd();
-		theApp.myStatusClass.us_button_onoff(usua);
-		
-		
-		//'泵速或者压力模式
-		if (theApp.myStatusClass.staBumMod==true /*& m_Ink->m_CIB_Pumpspeed.m_tag==1 & m_Ink->m_CIB_Pressure.m_tag==0*/)//泵速模式
-		{
-			m_Ink->m_CIB_SpeedMode.m_bDown = true;
-			m_Ink->m_CIB_PressureMode.m_bDown = false;
-			m_Ink->m_CIB_PressureMode.Invalidate();
-
-		}
-		else if (theApp.myStatusClass.staBumMod==false/*& m_Ink->m_CIB_Pumpspeed.m_tag==0 & m_Ink->m_CIB_Pressure.m_tag==1*/)//压力模式
-		{
-			m_Ink->m_CIB_SpeedMode.m_bDown = false;
-			m_Ink->m_CIB_PressureMode.m_bDown = true;
-		}
-		//开关泵
-		if (theApp.myStatusClass.staBum == true)
-		{
-			m_Ink->m_CIB_Pump.m_bDown = false;
-		}
-
-		else if (theApp.myStatusClass.staBum == false)
-		{
-			m_Ink->m_CIB_Pump.m_bDown = true;
-		}
-		//开关喷嘴
-		if (theApp.myStatusClass.staNozVal==true)
-		{
-			m_Ink->m_CIB_NozzleValve.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staNozVal==false)
-		{
-			m_Ink->m_CIB_NozzleValve.m_bDown = true;
-		}
-        //开关供墨阀
-		if (theApp.myStatusClass.staFeeVal == true)
-		{
-			m_Ink->m_CIB_FeedValve.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staFeeVal==false)
-		{
-			m_Ink->m_CIB_FeedValve.m_bDown = true;
-		}
-		//开关排气阀
-		if (theApp.myStatusClass.staBleVal == true)
-		{
-			m_Ink->m_CIB_BleedValve.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staBleVal==false)
-		{
-			m_Ink->m_CIB_BleedValve.m_bDown = true;
-		}
-		//开关清洗阀
-		if (theApp.myStatusClass.staFluVal == true)
-		{
-			m_Ink->m_CIB_FlushValve.m_bDown = false;
-			
-		}
-		else if (theApp.myStatusClass.staFluVal==false)
-		{
-				m_Ink->m_CIB_FlushValve.m_bDown = true;
-		}
-		//开关溶剂阀
-		if (theApp.myStatusClass.staSolVal == true)
-		{
-			m_Ink->m_CIB_SolventValve.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staSolVal==false)
-		{
-			m_Ink->m_CIB_SolventValve.m_bDown = true;
-		}
-		//开关粘度阀
-		if (theApp.myStatusClass.staVisVal == true)
-		{
-			m_Ink->m_CIB_ViscoValve.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staVisVal==false)
-		{
-			m_Ink->m_CIB_ViscoValve.m_bDown = true;
-		}
-		//开关冲洗阀
-		if (theApp.myStatusClass.staWasVal == true)
-		{
-			m_Ink->m_CIB_WashValve.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staWasVal == false)
-		{
-			m_Ink->m_CIB_WashValve.m_bDown = true;
-		}
-		//关回收检测
-		if (theApp.myStatusClass.staInkFloSenOff == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_InkflowOff.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staInkFloSenOff == false)
-		{
-        	m_Ink->m_inkAdv->m_CIB_InkflowOff.m_bDown = true;
-		}
-        //关闭墨线
-		if (theApp.myStatusClass.staCloInkLin == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_CloseInkline.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staCloInkLin == false)
-		{
-			m_Ink->m_inkAdv->m_CIB_CloseInkline.m_bDown = true;
-		}
-        //开添加溶剂
-		if (theApp.myStatusClass.staAddSol == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_AddSolvent.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staAddSol == false)
-		{
-			m_Ink->m_inkAdv->m_CIB_AddSolvent.m_bDown = true;
-			theApp.myStatusClass.ctr0X02bit2 = 0;
-		    theApp.myStatusClass.download_inksystem_control02();
-		}
-        //开测试粘度
-		if (theApp.myStatusClass.staDetVis == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_BetectVisco.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staDetVis == false)
-		{
-			m_Ink->m_inkAdv->m_CIB_BetectVisco.m_bDown = true;
-			theApp.myStatusClass.ctr0X02bit3 = 0;
-			theApp.myStatusClass.download_inksystem_control02();
-		}
-		//开冲洗喷嘴
-		if (theApp.myStatusClass.staWasNoz == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_WashNozzle.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staWasNoz == false)
-		{
-			m_Ink->m_inkAdv->m_CIB_WashNozzle.m_bDown = true;
-			theApp.myStatusClass.ctr0X02bit4 = 0;
-			theApp.myStatusClass.download_inksystem_control02();
-		}
-		//开反吸喷嘴
-		if (theApp.myStatusClass.staSucNoz == true)
-		{
-			 
-			m_Ink->m_inkAdv->m_CIB_SuckNozzle.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staSucNoz == false)
-		{
-			m_Ink->m_inkAdv->m_CIB_SuckNozzle.m_bDown = true;
-		}
-		//开墨线校准
-		if (theApp.myStatusClass.staAdjInkLin == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_AdjustInkline.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staAdjInkLin == false)
-		{
-		     m_Ink->m_inkAdv->m_CIB_AdjustInkline.m_bDown = true;
-			theApp.myStatusClass.ctr0X02bit6 = 0;
-			theApp.myStatusClass.download_inksystem_control02();
-		}
-		//开墨路循环
-		if (theApp.myStatusClass.staInkCir == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_InkCir.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staInkCir == false)
-		{
-			m_Ink->m_inkAdv->m_CIB_InkCir.m_bDown = true;
-			theApp.myStatusClass.ctr0X02bit7 = 0;
-			theApp.myStatusClass.download_inksystem_control02();
-		}
-       
-
-		//墨水温度传感器故障
-	if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
-		{
-			theApp.myStatusClass.staInkTemSenFauLas = true;
-			CString csMsg ;
-			csMsg.Format(_T("Ink temperature sensor fault!"));
-
-            csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
-		}
-		else if(theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == true)
-		{
-		   theApp.myStatusClass.staInkTemSenFauLas = false;
-		}
-		//喷头温度传感器故障
-		if (theApp.myStatusClass.staPriHeaTemFau == true && theApp.myStatusClass.staPriHeaTemFauLas == false)
-		{
-			theApp.myStatusClass.staPriHeaTemFauLas = true;
-			CString csMsg ;
-			csMsg.Format(_T("Printhead temperature sensor fault!"));			
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
-		}
-		else if (theApp.myStatusClass.staPriHeaTemFau == false && theApp.myStatusClass.staPriHeaTemFauLas == true)
-		{
-			theApp.myStatusClass.staPriHeaTemFauLas = false;
-		}
-		//泵超速保护
-		if (theApp.myStatusClass.staBumSpeOveFau == true && theApp.myStatusClass.staBumSpeOveFauLas == false)
-		{
-			theApp.myStatusClass.staBumSpeOveFauLas = true;
-//缺starting up
-
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control03();
-			theApp.myStatusClass.ctr0X00bit5 = 0;
-			theApp.myStatusClass.ctr0X00bit3 = 0;
-			theApp.myStatusClass.ctr0X00bit2 = 0;
-			theApp.myStatusClass.ctr0X00bit1 = 1;
-			theApp.myStatusClass.ctr0X00bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control00();
-			CString csMsg ;
-			csMsg.Format(_T("Pump speed abnormal!"));
-		
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
-		}
-		else if (theApp.myStatusClass.staBumSpeOveFau == false && theApp.myStatusClass.staBumSpeOveFauLas == true)
-		{
-			theApp.myStatusClass.staBumSpeOveFauLas = false;
-		}
-		//过压保护
-		if (theApp.myStatusClass.staPreOveFau == true && theApp.myStatusClass.staPreOveFauLas == false)
-		{
-			theApp.myStatusClass.staPreOveFauLas = true;
-			//缺starting up
-
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control03();
-			theApp.myStatusClass.ctr0X00bit5 = 0;
-			theApp.myStatusClass.ctr0X00bit3 = 0;
-			theApp.myStatusClass.ctr0X00bit2 = 0;
-			theApp.myStatusClass.ctr0X00bit1 = 1;
-			theApp.myStatusClass.ctr0X00bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control00();
-			CString csMsg ;
-			csMsg.Format(_T("Pressure abnormal!"));
-		
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
-		}
-		else if (theApp.myStatusClass.staPreOveFau == false && theApp.myStatusClass.staPreOveFauLas == true)
-		{
-			theApp.myStatusClass.staPreOveFauLas = false;
-		}
-		//粘度异常
-		if (theApp.myStatusClass.staVisAbnFau == true && theApp.myStatusClass.staVisAbnFauLas == false)
-		{
-			theApp.myStatusClass.staVisAbnFauLas = true;
-			CString csMsg ;
-		    csMsg.Format(_T("Ink Visco abnormal!"));
-			/*AfxMessageBox(csMsg);*/
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
-		}
-		//粘度计故障
-		if (theApp.myStatusClass.staVisSenFau == true && theApp.myStatusClass.staVisSenFauLas == false)
-		{
-			theApp.myStatusClass.staVisSenFauLas = true;
-			CString csMsg ;
-			csMsg.Format(_T("Viscometer fault!"));
-			/*AfxMessageBox(csMsg);*/
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期
-		}
-		else if (theApp.myStatusClass.staVisSenFau == false && theApp.myStatusClass.staVisSenFauLas == true)
-		{
-			theApp.myStatusClass.staVisSenFauLas = false;
-		}
-		//回收故障
-		if(theApp.myStatusClass.staInkFloSenOff == true)
-		{
-           theApp.myStatusClass.staInkFloFau = true;
-		   m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Disable"));
-		}
-		else
-		{
-			if (theApp.myStatusClass.staInkFloFau == true && theApp.myStatusClass.staInkFloFauLas == false)
-			{
-				theApp.myStatusClass.staInkFloFauLas = true;
-				//缺starting up
-
-				theApp.myStatusClass.ctr0X03bit0 = 0;		
-				theApp.myStatusClass.download_inksystem_control03();
-				theApp.myStatusClass.ctr0X00bit5 = 0;
-				theApp.myStatusClass.ctr0X00bit3 = 0;
-				theApp.myStatusClass.ctr0X00bit2 = 0;
-				theApp.myStatusClass.ctr0X00bit1 = 1;
-				theApp.myStatusClass.ctr0X00bit0 = 0;
-				theApp.myStatusClass.download_inksystem_control00();
-				CString csMsg ;
-				csMsg.Format(_T("Recyle fault!"));
-				csMsg.Format(_T("%s"),csMsg);
-				m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-				m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Abnormal"));
-			}		
-			
-			else if (theApp.myStatusClass.staInkFloFau == false)
-			{
-				if (theApp.myStatusClass.staInkFloFauLas == true  )
-				{
-					theApp.myStatusClass.staInkFloFauLas = false;
-					
-				}
-				m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Normal"));
-			}
-		}
-		//风扇故障
-		if (theApp.myStatusClass.staFanFau == true && theApp.myStatusClass.staFanFauLas == false)
-		{
-			theApp.myStatusClass.staFanFauLas = true;
-			//缺starting up
-			
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control03();
-			theApp.myStatusClass.ctr0X00bit5 = 0;
-			theApp.myStatusClass.ctr0X00bit3 = 0;
-			theApp.myStatusClass.ctr0X00bit2 = 0;
-			theApp.myStatusClass.ctr0X00bit1 = 1;
-			theApp.myStatusClass.ctr0X00bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control00();
-			CString csMsg;
-			csMsg.Format(_T("Fan fault!"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staFanFau == false && theApp.myStatusClass.staFanFauLas == true)
-		{
-			theApp.myStatusClass.staFanFauLas = false;
-		}
-		//充电故障
-		if (theApp.myStatusClass.staChaFau == true && theApp.myStatusClass.staChaFauLas == false)
-		{
-			theApp.myStatusClass.staChaFauLas = true;
-			GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Chargefault"));
-			m_printStatus ="Charge fault";
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-
-			theApp.myStatusClass.download_inksystem_control03();
-			CString csMsg ;
-			csMsg.Format(_T("Charge fault!"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staChaFau == false && theApp.myStatusClass.staChaFauLas == true)
-		{
-			theApp.myStatusClass.staChaFauLas = false;
-		}
-		//相位故障
-		if (theApp.myStatusClass.staPhaFau == true && theApp.myStatusClass.staPhaFauLas == false)
-		{
-			theApp.myStatusClass.staPhaFauLas = true;
-			GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Phasefault"));
-			m_printStatus ="Phase fault";
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control03();
-			CString csMsg ;
-			csMsg.Format(_T("Phase fault!"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staPhaFau == false && theApp.myStatusClass.staPhaFauLas == true)
-		{
-			theApp.myStatusClass.staPhaFauLas = false;
-		}
-		//高压故障
-		if (theApp.myStatusClass.staHigVolFau == true && theApp.myStatusClass.staHigVolFauLas == false)
-		{
-			theApp.myStatusClass.staHigVolFauLas = true;
-			//缺starting up
-
-			
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control03();
-			theApp.myStatusClass.ctr0X00bit5 = 0;
-			theApp.myStatusClass.ctr0X00bit3 = 0;
-			theApp.myStatusClass.ctr0X00bit2 = 0;
-			theApp.myStatusClass.ctr0X00bit1 = 1;
-			theApp.myStatusClass.ctr0X00bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control00();
-			CString csMsg ;
-			csMsg.Format(_T("High voltage fault!"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staHigVolFau == false && theApp.myStatusClass.staHigVolFauLas == true)
-		{
-			theApp.myStatusClass.staHigVolFauLas = false;
-		}
-		//溶剂液位状态
-		if (theApp.myStatusClass.staSolLevFau == "00" && theApp.myTimClass.staSolLevFauLas != "00" && theApp.myStatusClass.staInkLevFau == "00")
-		{
-			theApp.myTimClass.staSolLevFauLas = "00";
-			/*picAlarmBlue.Tag = "im004"
-			picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
-		}
-		else if (theApp.myStatusClass.staSolLevFau == "01" && theApp.myTimClass.staSolLevFauLas != "01")
-		{
-			theApp.myTimClass.staSolLevFauLas = "01";
-			CString csMsg ;
-			csMsg.Format(_T("Add solvent"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-			/*picAlarmBlue.Tag = "im003"
-			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
-		}
-		else if (theApp.myStatusClass.staSolLevFau == "10" && theApp.myTimClass.staSolLevFauLas != "10")
-		{
-			theApp.myTimClass.staSolLevFauLas = "10";
-			/*picAlarmBlue.Tag = "im003"
-			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
-			CString csMsg ;
-			csMsg.Format(_T("Solvent empty"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staSolLevFau == "11" && theApp.myTimClass.staSolLevFauLas != "11")
-		{
-			theApp.myTimClass.staSolLevFauLas = "11";
-			/*picAlarmBlue.Tag = "im003"
-			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
-			CString csMsg ;
-			csMsg.Format(_T("Solvent overfull"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		//墨水液位状态
-		if (theApp.myStatusClass.staInkLevFau == "00" && theApp.myTimClass.staInkLevFauLas != "00" && theApp.myStatusClass.staSolLevFau == "00")
-		{
-			theApp.myTimClass.staInkLevFauLas = "00";
-			/*picAlarmBlue.Tag = "im004"
-			picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
-			theApp.myTimClass.staInkEmpFau = false;
-			theApp.myTimClass.staInkOveFau = false;
-		}
-		else if (theApp.myStatusClass.staInkLevFau == "01" && theApp.myTimClass.staInkLevFauLas != "01")
-		{
-			theApp.myTimClass.staInkLevFauLas = "01";
-			/*picAlarmBlue.Tag = "im003"
-			picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
-			theApp.myTimClass.staInkEmpFau = false;
-			theApp.myTimClass.staInkOveFau = false;
-			CString csMsg ;
-			csMsg.Format(_T("Add ink"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staInkLevFau == "10" && theApp.myTimClass.staInkLevFauLas != "10")
-		{
-			theApp.myTimClass.staInkLevFauLas = "10";
-			//缺starting up
-
-			theApp.myStatusClass.ctr0X00bit5 = 0;
-			theApp.myStatusClass.ctr0X00bit3 = 0;
-			theApp.myStatusClass.ctr0X00bit2 = 0;
-			theApp.myStatusClass.ctr0X00bit1 = 1;
-			theApp.myStatusClass.ctr0X00bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control00();
-			theApp.myTimClass.staInkEmpFau = true;
-			theApp.myTimClass.staInkOveFau = false;
-			CString csMsg ;
-			csMsg.Format(_T("Ink empty"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staInkLevFau == "11" && theApp.myTimClass.staInkLevFauLas != "11")
-		{
-			theApp.myTimClass.staInkLevFauLas = "11";
-			//缺starting up
-
-			theApp.myStatusClass.ctr0X00bit5 = 0;
-			theApp.myStatusClass.ctr0X00bit3 = 0;
-			theApp.myStatusClass.ctr0X00bit2 = 0;
-			theApp.myStatusClass.ctr0X00bit1 = 1;
-			theApp.myStatusClass.ctr0X00bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control00();
-			theApp.myTimClass.staInkOveFau = true;
-			theApp.myTimClass.staInkEmpFau = false;
-			CString csMsg ;
-			csMsg.Format(_T("Ink overfull"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-	    }
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
 		{
-			if (m_printStatus != "Ready to print")
-			{
-				GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Readytoprint"));
-				m_printStatus = "Ready to print";
-			}
-		}
+			GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Ready to print"));
+ 		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
 		{
 			if (theApp.myStatusClass.staSysRea == true)//系统准备好
-			{
-				if (m_printStatus != "System ready")
-				{
-					GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Systemready"));
-					m_printStatus = "System ready";
-				}
+			{				 
+				GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("System ready"));				 
 			}
 			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
 			{
@@ -962,54 +1109,32 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
 					{
-						if (m_printStatus != ("Sequencing On"))
-						{
-							GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("SequencingOn"));
-							m_printStatus = "Sequencing On";
-						}
+						GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Sequencing On"));
 					}
 					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
-					{
-						if (m_printStatus != "Sequencing Off")
-						{
-							GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("SequencingOff"));
-							m_printStatus != "Sequencing Off";
-						}
+					{						 
+						GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Sequencing Off"));						 
 					}
 				}
 				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
-				{
-					if (m_printStatus !="Printer Off")
-					{
-						GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("PrinterOff"));
-						m_printStatus ="Printer Off";
-					}
+				{					 
+					GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Printer Off"));					 
 				}//系统忙
 			}//系统准备好
 
 		}//开了打印功能和系统准备好
 
 		//打印按钮的开启
-		if (theApp.myStatusClass.ctr0X03bit0 ==0 ) //开打印功能，1开启
+		if (theApp.myStatusClass.ctr0X03bit0 == 0 ) //开打印功能，1开启
 		{
 			
 		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 1 )
 		{
 
-		}
+		}		
 
-		//高压开关
-		if (theApp.myStatusClass.staHigVolSwi == true)
-		{
-			m_Ink->m_inkAdv->m_CIB_HighVoltage.m_bDown = false;
-		}
-		else if (theApp.myStatusClass.staHigVolSwi == false)
-		{
-			m_Ink->m_inkAdv->m_CIB_HighVoltage.m_bDown = true;
-		}
        //当前电平
-
 		CString m_currentLev;
 		m_Confi->m_ConfigOS->GetDlgItem(IDC_CURRENT_LEV_EDIT)->GetWindowText(m_currentLev);
 		if (theApp.myStatusClass.staActProSen == true && m_currentLev == "Low")
@@ -1020,98 +1145,19 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			m_Confi->m_ConfigOS->GetDlgItem(IDC_CURRENT_LEV_EDIT)->SetWindowText(_T("Low"));
 		}
-		//电眼过快
-		if (theApp.myStatusClass.staProSenFas == true && theApp.myStatusClass.staProSenFasLas == false)
-		{
-			theApp.myStatusClass.staProSenFasLas = true;
-			CString csMsg ;
-			csMsg.Format(_T("Much too product"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staProSenFas == false && theApp.myStatusClass.staProSenFasLas == true)
-		{
-			theApp.myStatusClass.staProSenFasLas = false;
-		}
-		//自动分裂失败
-		if (theApp.myStatusClass.staAutModFau == true && theApp.myStatusClass.staAutModFauLas == false)
-		{
-			theApp.myStatusClass.staAutModFauLas = true;
-			GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("FaultCondition"));
-			m_printStatus ="Fault Condition";
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control03();
-			CString csMsg ;
-			csMsg.Format(_T("Auto modulation fault"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staAutModFau == false && theApp.myStatusClass.staAutModFauLas == true)
-		{
-			theApp.myStatusClass.staAutModFauLas = false;
-		}
-		//阀故障
-		if(theApp.myStatusClass.staValFau == true && theApp.myStatusClass.staValFauLas == false) 
-		{
-			theApp.myStatusClass.staValFauLas = true;
-			//缺starting up
-			
-			theApp.myStatusClass.ctr0X03bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control03();
-			theApp.myStatusClass.ctr0X00bit5 = 0;
-			theApp.myStatusClass.ctr0X00bit3 = 0;
-			theApp.myStatusClass.ctr0X00bit2 = 0;
-			theApp.myStatusClass.ctr0X00bit1 = 1;
-			theApp.myStatusClass.ctr0X00bit0 = 0;
-			theApp.myStatusClass.download_inksystem_control00();
-			CString csMsg ;
-			csMsg.Format(_T("Valve fault"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if(theApp.myStatusClass.staValFau == false && theApp.myStatusClass.staValFauLas == true) 
-		{
-			theApp.myStatusClass.staValFauLas = false;
-		}
-		//编码器过快
-		if (theApp.myStatusClass.staLinFas == true && theApp.myStatusClass.staLinFasLas == false )
-		{
-			theApp.myStatusClass.staLinFasLas = true;
-			CString csMsg ;
-			csMsg.Format(_T("Too fast"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staLinFas == false && theApp.myStatusClass.staLinFasLas == true )
-		{
-			theApp.myStatusClass.staLinFasLas = false;
-		}
-		//恒温故障
-		if (theApp.myStatusClass.staPriHeaHotFau == true && theApp.myStatusClass.staPriHeaHotFauLas == false )
-		{
-			theApp.myStatusClass.staPriHeaHotFauLas = true;
-			CString csMsg ;
-			csMsg.Format(_T("Constant temperature fault"));
-			csMsg.Format(_T("%s"),csMsg);
-			m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
-		}
-		else if (theApp.myStatusClass.staPriHeaHotFau == false && theApp.myStatusClass.staPriHeaHotFauLas == true )
-		{
-			theApp.myStatusClass.staPriHeaHotFauLas = false;
-		}
+
+	
 		//实时压力
 		m_Ink->GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
-		//	实时泵速	
+		//实时泵速	
 		m_Ink->GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
 		m_Ink->GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
-
 		m_Ink->GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriHeaTem)));
 		m_Ink->GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLev)));
 		m_Ink->GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staSolLev)));
 		m_Ink->GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
 		m_Ink->GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR((theApp.myStatusClass.staActVis)>0?theApp.myclassMessage.to_String(theApp.myStatusClass.staActVis):"***"));
 		m_Ink->GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staHigVol)));
-
 
 
 		//实时相位
@@ -1123,12 +1169,10 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//	}
 		// }
 
-
 		break;
 
 	}
 }
-
 
 
 HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -1136,8 +1180,7 @@ HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  在此更改 DC 的任何属性
-	pDC->SetBkColor(theApp.m_BKcolor);
-	 
+	pDC->SetBkColor(theApp.m_BKcolor);	 
 	 
 	return theApp.m_DlgBrush;
 }
