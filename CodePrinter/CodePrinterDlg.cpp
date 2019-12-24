@@ -96,7 +96,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
 	m_OnOff = new COnOffDlg;
-	m_Fault = new CFaultDlg;
+	//m_Fault = new CFaultDlg;
 
 
 	//创建文件夹
@@ -1120,7 +1120,6 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//	{
 		//	}
 		// }
-			
 
 
 		break;

@@ -38,7 +38,7 @@ IMPLEMENT_DYNAMIC(CLabelDlg, CDialog)
 
 CLabelDlg::CLabelDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CLabelDlg::IDD, pParent)
-	, m_zoomLevel(0)
+	, m_zoomLevel(1)
 	, m_ssValue(0)
 {
 
@@ -123,12 +123,13 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_SAVE_BUTTON, &CLabelDlg::OnBnClickedSaveButton)
 	ON_BN_CLICKED(IDC_OPEN_BUTTON, &CLabelDlg::OnBnClickedOpenButton)
 	ON_BN_CLICKED(IDC_REPEAT_BUTTON, &CLabelDlg::OnBnClickedRepeatButton)
-
+	ON_BN_CLICKED(IDC_ZOOM_BUTTON, &CLabelDlg::OnBnClickedZoomButton)
 	ON_WM_LBUTTONDOWN()
 	ON_BN_CLICKED(IDC_DOWNLOAD_BUTTON, &CLabelDlg::OnBnClickedDownloadButton)
 	ON_BN_CLICKED(IDC_LABEL_CLOSE_BTN, &CLabelDlg::OnBnClickedLabelCloseBtn)
 	ON_BN_CLICKED(IDC_CLS_BUTTON, &CLabelDlg::OnBnClickedClsButton)
 	ON_BN_CLICKED(IDC_SHRINK_BUTTON, &CLabelDlg::OnBnClickedShrinkButton)
+
 END_MESSAGE_MAP()
 
 
@@ -852,7 +853,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 		theApp.myclassMessage.boPrintNow=true;
 		theApp.boPrintNowLock.Unlock();
 	}
-
+	this->ShowWindow(SW_HIDE);
 	//BYTE ssss=testByteVec[34];
     //ssss=testByteVec[0];
 }
@@ -932,7 +933,7 @@ void CLabelDlg::OnBnClickedClsButton()
 
 	OnPaint();
 }
-
+////////减粗
 void CLabelDlg::OnBnClickedShrinkButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -944,8 +945,28 @@ void CLabelDlg::OnBnClickedShrinkButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW--;
 				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				OnPaint();
 			}
-			OnPaint();
+			
+			break;
+		}
+	}
+}
+//加粗
+void CLabelDlg::OnBnClickedZoomButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if(theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW<4)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW++;
+				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				OnPaint();
+			}
+
 			break;
 		}
 	}
