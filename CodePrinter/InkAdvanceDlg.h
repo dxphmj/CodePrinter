@@ -31,6 +31,7 @@ public:
 	afx_msg void OnBnClickedSuckNozzleBtn();
 	afx_msg void OnBnClickedAdjustInklineBtn();
 	afx_msg void OnBnClickedInkCirBtn();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 	
 	CColorButton m_CIB_InkCir;         //Ä«Â·Ñ­»·

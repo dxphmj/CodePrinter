@@ -293,7 +293,7 @@ const char* ModuleMain::CString2ConstChar(CString str)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=1;
+	tempDcb.nComPort=4;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -313,33 +313,33 @@ void ModuleMain::InitCommMsg()
 void StatusClass::byStatusFromSlaveState()
 {
 	theApp.bytSlaveStatusLock.Lock();
-		for (int i=0;i<16;i++)
-		{
-			theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
-		}
+	for (int i=0;i<16;i++)
+	{
+		theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
+	}
 
-		if (LevCoun==10)
-		{
-			theApp.bytStatus[16]=SolLevSum/10;     //墨水液位取平均
-			theApp.bytStatus[17]=InkLevSum/10;     //溶剂液位取平均
-			SolLevSum = 0;
-			InkLevSum = 0;
-			LevCoun = 1;
-			SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
-			InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
-		} 
-		else
-		{
-			LevCoun = LevCoun + 1;
-			SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
-			InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
-		}
+	if (LevCoun==10)
+	{
+		theApp.bytStatus[16]=SolLevSum/10;     //墨水液位取平均
+		theApp.bytStatus[17]=InkLevSum/10;     //溶剂液位取平均
+		SolLevSum = 0;
+		InkLevSum = 0;
+		LevCoun = 1;
+		SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
+		InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
+	} 
+	else
+	{
+		LevCoun = LevCoun + 1;
+		SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
+		InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
+	}
 
 
-		for (int i=18;i<37;i++)
-		{
-			theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
-		}
+	for (int i=18;i<37;i++)
+	{
+		theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
+	}
 	theApp.bytSlaveStatusLock.Unlock();
 }
 
