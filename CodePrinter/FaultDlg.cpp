@@ -230,7 +230,7 @@ void CFaultDlg::get_save_error()
 void CFaultDlg::openfailurefile(string filePathName)
 {
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
-	m_errBox->ResetContent();
+	//m_errBox->ResetContent();
 	ifstream fin;
 	fin.open(theApp.myModuleMain.stringToLPCWSTR(filePathName));
 	string str;

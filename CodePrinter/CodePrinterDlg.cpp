@@ -436,7 +436,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//临时变量
 		CString m_printStatus;   //记录故障等同于VB的 labPrinterStatusText
 
-		m_Fault->m_faultList.ResetContent();
+		/*m_Fault->m_faultList.ResetContent();*/
 
 
 		theApp.myStatusClass.byStatusFromSlaveState();
@@ -1049,7 +1049,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			theApp.myStatusClass.staAutModFauLas = false;
 		}
 		//阀故障
-		if(theApp.myStatusClass.staValFau == True && theApp.myStatusClass.staValFauLas == False) 
+		if(theApp.myStatusClass.staValFau == true && theApp.myStatusClass.staValFauLas == false) 
 		{
 			theApp.myStatusClass.staValFauLas = true;
 			//缺starting up
@@ -1113,13 +1113,13 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		//实时相位
-		switch(theApp.myStatusClass.staPhase)
-			case "0":
-		 {
-			if (theApp.myTimClass.staPhaseLas != "0")
-			{
-			}
-		 }
+		//switch(theApp.myStatusClass.staPhase)
+		//	case "0":
+		// {
+		//	if (theApp.myTimClass.staPhaseLas != "0")
+		//	{
+		//	}
+		// }
 			
 
 

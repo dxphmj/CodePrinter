@@ -238,9 +238,9 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.Inverse="GLOBAL";
 
 
-	theApp.myclassMessage.getLabFromXml();
-	selectPixel();
-	OnBnClickedDownloadButton();
+	//theApp.myclassMessage.getLabFromXml();
+	//selectPixel();
+	//OnBnClickedDownloadButton();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
