@@ -432,6 +432,8 @@
 #define IDC_FRESH_PASSEDIT              1465
 #define IDC_FRESH_PASSWARD_EDIT         1465
 #define IDC_HEAD_PIC                    1466
+#define IDC_STATIC_SHOW_DLG             1467
+#define IDC_LOGO_PIC                    1468
 
 // Next default values for new objects
 // 
@@ -439,7 +441,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1467
+#define _APS_NEXT_CONTROL_VALUE         1469
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

@@ -120,7 +120,6 @@ BOOL CInkSystemDlg::OnInitDialog()
 	// 异常: OCX 属性页应返回 FALSE
 }	     
 
-
 void CInkSystemDlg::showInkDlg(int ID)
 {
 	m_inkAdv->ShowWindow(SW_HIDE);
@@ -131,23 +130,23 @@ void CInkSystemDlg::showInkDlg(int ID)
 	if (ID == IDD_INK_ADVANCE_DIALOG)
 	{
 		m_inkAdv->ShowWindow(SW_SHOW);
+		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Adv"));
 	}
 	if (ID == IDD_INK_SETUP_DIALOG)
 	{
 		m_setup->ShowWindow(SW_SHOW);
+		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Setup"));
 	}
 	if (ID == IDD_INK_PAR_DIALOG)
 	{
 		m_par->ShowWindow(SW_SHOW);
+		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Param"));
 	}
 	if (ID == IDD_INK_PHASING_DIALOG)
 	{
 		m_phas->ShowWindow(SW_SHOW);
-	}
-	if (0)
-	{
-		return;
-	}
+		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Phase"));
+	}	 
 }
 
 void CInkSystemDlg::OnBnClickedInkCloseBtn()
