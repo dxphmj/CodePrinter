@@ -14,8 +14,6 @@
 #include "InkSystemDlg.h"
 
 
-
-
 #include "OnOffDlg.h"
 #define TIMER1 1
 
@@ -72,7 +70,8 @@ public:
 	CImageButton m_ButOnOrOff;
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
-	
+
+	CStatic m_LogoPicBox;
 
 	CSystemDlg *m_System;
 	CUserDlg *m_User;

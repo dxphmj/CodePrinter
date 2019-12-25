@@ -42,6 +42,7 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ONOROFF_BUTTON, m_ButOnOrOff);
 	DDX_Control(pDX, IDC_STARTPRINT_BUTTON, m_StartPrint);
 	DDX_Control(pDX, IDC_PAUSEPRINT_BUTTON, m_PausePrint);
+	DDX_Control(pDX, IDC_LOGO_PIC, m_LogoPicBox);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -70,6 +71,13 @@ END_MESSAGE_MAP()
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+ 	CBitmap bitmap;  // CBitmap对象，用于加载位图   
+	HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
+	bitmap.LoadBitmap(IDB_BITMAP1);  // 将位图IDB_BITMAP1加载到bitmap  
+	hBmp = (HBITMAP)bitmap.GetSafeHandle();  // 获取bitmap加载位图的句柄   
+	m_LogoPicBox.SetBitmap(hBmp);    // 设置图片控件m_jzmPicture的位图图片为IDB_BITMAP1   
+
    
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
@@ -371,34 +379,42 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
 	m_OnOff->ShowWindow(SW_HIDE);
+
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
 		m_System->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("System Manage"));
 	}
 	else if (ID == IDD_USER_DIALOG)
 	{
 		m_User->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("User Manage"));
 	}
 	else if(ID == IDD_LABEL_DIALOG)
 	{
 		m_Label->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Label Manage"));
 	}
 	else if(ID == IDD_CONFIGURATION_DIALOG)
 	{
 		m_Confi->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Confige"));
 	}
 	else if(ID == IDD_FILEMANA_DIALOG)
 	{
 		m_FileMan->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
 	}
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
         m_Ink->Invalidate();
+		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System"));
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
 		m_Fault->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Fault System"));
 	}
 	else if (ID == IDD_ONOFF_DIALOG)
 	{
@@ -1164,7 +1180,30 @@ HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  在此更改 DC 的任何属性
-	pDC->SetBkColor(theApp.m_BKcolor);	 
+    if(nCtlColor == CTLCOLOR_STATIC)
+	{
+		switch(pWnd->GetDlgCtrlID())
+		{
+			case IDC_PRINT_STA_STATIC:
+			{
+				pDC->SelectObject(theApp.m_HeadMachineStaFont);
+				pDC->SetBkMode(TRANSPARENT);
+				pDC->SetTextColor(RGB(255,255,0));
+				break;
+			}
+			case IDC_STATIC_SHOW_DLG:
+			{
+				pDC->SelectObject(theApp.m_HeadOperationStaFont);
+				pDC->SetBkMode(TRANSPARENT);
+				pDC->SetTextColor(RGB(255,255,255));
+				break;
+			}
+			default:
+				break;
+		}
+	} 
+
+	pDC->SetBkColor(theApp.m_BKcolor);
 	 
 	return theApp.m_DlgBrush;
 }

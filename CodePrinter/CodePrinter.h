@@ -30,6 +30,8 @@ public:
 
 	CBrush m_DlgBrush;
     COLORREF m_BKcolor;
+	CFont *m_HeadMachineStaFont;
+	CFont *m_HeadOperationStaFont;
 
 // ÖØÐ´
 public:
