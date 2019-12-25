@@ -34,7 +34,7 @@ namespace MyNameSpace
 		string strFont;//字段的字体（有的类型有，有的类型没有）
 		string strText;//字段的text属性，即内容
 		string strTime;//字段的time属性，即时间格式
-		string strETimeOffSet;//字段的时间偏移开关（faulse为关闭，true为开启）
+		bool booETimeOffSet;//字段的时间偏移开关（faulse为关闭，true为开启）
 		int intTimeOffSet;//字段的时间偏移值
 		string strTimeOffSet;//字段的时间偏移类型
 		int intSerialFirstLimit;//字段的FirstLimit属性，即序列号第一象限
@@ -43,7 +43,7 @@ namespace MyNameSpace
 		int intSerialStep;//字段的StepSize属性，即序列号步长值
 		int intSerialRepeat;//字段的RepeatCount属性，即序列号重复值
         BYTE intSerialDigits;//字段的Digital属性，即序列号位数值
-		int strSerialCounter;//第几个序列号
+		int intSerialCounter;//第几个序列号
 		BYTE bytSerialFormat;//字段的SerialFormat属性，即序列号格式
 		int intLineSize;//字段的行数
 		int intRowSize;//字段的列数
