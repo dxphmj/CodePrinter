@@ -751,8 +751,7 @@ UINT TTLcomLoop(LPVOID pParam)
 				theApp.bytSlaveStatusLock.Unlock();
 			} 
 		}
-
-		if (theApp.readCount==6)
+		else if (theApp.readCount==6)
 		{
 			theApp.readCount=0;
 			strTempCmdLen=0;

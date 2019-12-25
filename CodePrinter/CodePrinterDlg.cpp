@@ -174,7 +174,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
-//#define  def_ttl 1
+#define  def_ttl 1
 
 #ifdef def_ttl
 	//´®¿Ú³õÊ¼»¯
