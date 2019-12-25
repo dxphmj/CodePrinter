@@ -70,9 +70,6 @@ END_MESSAGE_MAP()
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
-	 
-
    
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
@@ -85,8 +82,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetWindowRect(&rect);
 
 	GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Shut Down"));
-	
-
 
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
@@ -105,9 +100,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 	int nX = 0;
-	int nY = 0;
+	int nY = 80;
 	int nWidth = 800;
-	int nHeight = 600;
+	int nHeight = 500;
 	m_Fault->Create(IDD_FAULT_DIALOG,this);
 	m_Fault->MoveWindow(nX,nY,nWidth,nHeight);
 
@@ -191,15 +186,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//out99.close();
 
 
-
-
 	//墨水维护时间
 
 	//错误日志相关
 
 	//配置相关
 	FILE *testFile;
-	testFile=fopen("Storage Card\\System\\InkSystem.xml", "r");
+	testFile = fopen("Storage Card\\System\\InkSystem.xml", "r");
 	if (testFile)
 	{
 		fclose(testFile);
@@ -209,7 +202,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		//createParaXML()
 	}
 
-	testFile=fopen("Storage Card\\System\\SoftSystem.xml", "r");
+	testFile = fopen("Storage Card\\System\\SoftSystem.xml", "r");
 	if (testFile)
 	{
 		fclose(testFile);
@@ -221,7 +214,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	//多语言,根据softxml选择语言
 
-	testFile=fopen("Storage Card\\System\\PrintConfig.xml", "r");
+	testFile = fopen("Storage Card\\System\\PrintConfig.xml", "r");
 	if (testFile)
 	{
 		fclose(testFile);
@@ -231,7 +224,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		//createPCFXML()
 	}
 
-	testFile=fopen("Storage Card\\System\\PrintMessage.xml", "r");
+	testFile = fopen("Storage Card\\System\\PrintMessage.xml", "r");
 	if (testFile)
 	{
 		fclose(testFile);
@@ -250,31 +243,19 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//Sleep(10);
 	//theApp.readCount=theApp.myCIOVsd.Read();
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
-////墨水配置初始化
+
+    //墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 
+	pInksysConfig.get_inksystem_from_xml();
 
-	//pInksysConfig.get_inksystem_from_xml();
 	pInksysConfig.download_inksystem_setup();
-	theApp.myStatusClass.download_inksystem_control03();
+	theApp.myStatusClass.download_inksystem_control03();// ?
 	pInksysConfig.download_inksystem_parameter();
-	//pPcfConfig.get_pcf_from_xml();
+	
+	pPcfConfig.get_pcf_from_xml();
 	pPcfConfig.download_pcf();
-
-
-
-
-	//pInksysConfig.get_inksystem_from_xml();
-	//pInksysConfig.download_inksystem_setup();
-	/*pInksysConfig.get_inksystem_from_xml();
-	pInksysConfig.download_inksystem_setup();
-	pInksysConfig.download_inksystem_parameter();
-	pPcfConfig.get_pcf_from_xml();*/
-
-
-
-
 
 #ifdef def_ttl
 	LPTSTR strTempCmd;

@@ -47,7 +47,7 @@ BOOL CFaultDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,520,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,420,80,50,SWP_SHOWWINDOW);
 
 	getAllErrorFile();
 	get_error_name();
