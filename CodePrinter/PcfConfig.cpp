@@ -702,7 +702,9 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 	theApp.myPcfClass.pcf0X19_1C = CT2A(mypcf0X02_05.GetString());
 
 /////////////////////////////////////////////////////////////////////////////
-	/*
+	#define  xml_def 1
+#ifdef xml_def
+
 	theApp.myPcfClass.pcf0X00=0x2;
 	theApp.myPcfClass.pcf0X01=0x1;
 	theApp.myPcfClass.pcf0X02=0x0;
@@ -723,7 +725,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 	theApp.myPcfClass.pcf0X1A=0xe1;
 	theApp.myPcfClass.pcf0X1B=0x0;
 	theApp.myPcfClass.pcf0X1C=0x0;
-*/
+#endif
 	vector<BYTE> tempCtrVec;
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);

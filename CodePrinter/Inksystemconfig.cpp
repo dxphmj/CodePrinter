@@ -4,6 +4,7 @@
 #include "CodePrinterDlg.h"
 #include "DealXml.h"
 #include <vector>
+#define  xml_def 1
 using namespace std;
 CInksystemconfig::CInksystemconfig(CCodePrinterDlg* pCodeDlg)
 {
@@ -183,6 +184,8 @@ void CInksystemconfig::download_inksystem_setup()
 	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC13"), _T("59"), _T("Storage Card\\System"));
 	inksystem_setup_0x0e = _wtoi(tempStr.GetBuffer(0));
 
+#ifndef xml_def
+
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
 	tempCtrVec.push_back(0x10);
@@ -204,9 +207,10 @@ void CInksystemconfig::download_inksystem_setup()
 	tempCtrVec.push_back(inksystem_setup_0x0e);
 	tempCtrVec.push_back(0xFF);
 	tempCtrVec.push_back(0xFF);
+#endif
 
-/*
-	vector<BYTE> tempCtrVec;
+#ifdef xml_def
+	//vector<BYTE> tempCtrVec;
 	tempCtrVec.push_back(0x1);
 	tempCtrVec.push_back(0x80);
 	tempCtrVec.push_back(0x10);
@@ -228,11 +232,11 @@ void CInksystemconfig::download_inksystem_setup()
 	tempCtrVec.push_back(0x3b);
 	tempCtrVec.push_back(0xFF);
 	tempCtrVec.push_back(0xFF);
-
+#endif
 	theApp.boQueCtrLock.Lock();
 	theApp.queCtr.push(tempCtrVec);
 	theApp.boQueCtrLock.Unlock();
-*/
+
 }
 
 
@@ -285,6 +289,7 @@ void CInksystemconfig::download_inksystem_parameter()
 
 	//获取粘度百分比
 	inksystem_parameter_0x0d = m_pCodePrinterDlg->m_Ink->m_par->m_viscoDevia; //粘度误差范围1到100
+#ifndef xml_def
 
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
@@ -309,8 +314,12 @@ void CInksystemconfig::download_inksystem_parameter()
 
 	tempCtrVec.push_back(0xFF);
 	tempCtrVec.push_back(0xFF);
-/*
-	vector<BYTE> tempCtrVec;
+#endif
+#ifdef xml_def
+
+	CString str;
+	str.Format(_T("%x\n"),inksystem_parameter_0x0d);
+	TRACE(str);
 
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
@@ -335,7 +344,7 @@ void CInksystemconfig::download_inksystem_parameter()
 
 	tempCtrVec.push_back(0xFF);
 	tempCtrVec.push_back(0xFF);
-*/
+#endif
 	theApp.boQueCtrLock.Lock();
 	theApp.queCtr.push(tempCtrVec);
 	theApp.boQueCtrLock.Unlock();

@@ -17,6 +17,9 @@
 //#include "Tchar.h¡±
 #include "PcfConfig.h"
 
+#define  def_ttl 1
+
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -169,7 +172,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.SizeToContent(); 
 
 	
-#define  def_ttl 1
 
 #ifdef def_ttl
 	//´®¿Ú³õÊ¼»¯
