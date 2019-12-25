@@ -253,9 +253,9 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.Inverse="GLOBAL";
 
 
-	//theApp.myclassMessage.getLabFromXml();
-	//selectPixel();
-	//OnBnClickedDownloadButton();
+	theApp.myclassMessage.getLabFromXml();
+	selectPixel();
+	OnBnClickedDownloadButton();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -867,7 +867,10 @@ void CLabelDlg::OnBnClickedDownloadButton()
 		theApp.myclassMessage.boPrintNow=true;
 		theApp.boPrintNowLock.Unlock();
 	}
-	this->ShowWindow(SW_HIDE);
+
+	//GetParent()->ShowWindow(SW_SHOW);
+	ShowWindow(SW_HIDE);
+	//GetParentFrame()->ShowWindow(SW_SHOW);
 	//BYTE ssss=testByteVec[34];
     //ssss=testByteVec[0];
 }
@@ -924,7 +927,10 @@ void CLabelDlg::selectPixel()
 void CLabelDlg::OnBnClickedLabelCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	this->ShowWindow(SW_HIDE);
+	//this->ShowWindow(SW_HIDE);
+	//GetParent()->ShowWindow(SW_SHOW);
+	ShowWindow(SW_HIDE);
+
 }
 
 void CLabelDlg::showInputDlg(int ID)
