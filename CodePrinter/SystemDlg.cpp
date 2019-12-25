@@ -54,15 +54,15 @@ BOOL CSystemDlg::OnInitDialog()
 	pVersion->Create(IDD_VERSION_DIALOG,this);
 
 	int nX = 0;
-	int nY = 0;
+	int nY = 100;
 	int nWidth = 800;
-	int nHeight = 450;
+	int nHeight = 350;
 	pEvn->MoveWindow(nX,nY,nWidth,nHeight);
 	pCom->MoveWindow(nX,nY,nWidth,nHeight);
 	pVersion->MoveWindow(nX,nY,nWidth,nHeight);
 	
 	//设置按钮的位置及大小IDC_SYSTEM_CLOSE_BTN
-	GetDlgItem(IDC_SYSTEM_CLOSE_BTN)->SetWindowPos(NULL,10,480,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_SYSTEM_CLOSE_BTN)->SetWindowPos(NULL,10,400,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

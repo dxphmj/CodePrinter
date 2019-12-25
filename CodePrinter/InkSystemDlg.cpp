@@ -73,13 +73,14 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_par = new CInkParDlg;
 	m_phas = new CInkPhasingDlg;
 
-	m_inkAdv->Create(IDD_INK_ADVANCE_DIALOG,this);
-	m_inkAdv->MoveWindow(300,20,450,400);
-
 	int nX = 0;
-	int nY = 0;
+	int nY = 100;
 	int nWidth = 800;
 	int nHeight = 400;
+
+	m_inkAdv->Create(IDD_INK_ADVANCE_DIALOG,this);
+	m_inkAdv->MoveWindow(nX+300,nY,nWidth,nHeight);
+
 	m_setup->Create(IDD_INK_SETUP_DIALOG,this);
 	m_setup->MoveWindow(nX,nY,nWidth,nHeight);
 
