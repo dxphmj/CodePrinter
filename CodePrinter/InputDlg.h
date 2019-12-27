@@ -30,6 +30,7 @@ public:
 	afx_msg void OnBnClickedEditpictureButton();
 	afx_msg void OnBnClickedBarcodeButton();
 	afx_msg void OnBnClickedInputCloseBtn();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	void showInputDlg(int ID);
 
 public:
@@ -40,3 +41,4 @@ public:
 	CBarCodeDlg *pBarCode;
     //ModuleMain inPutModule;
 };
+

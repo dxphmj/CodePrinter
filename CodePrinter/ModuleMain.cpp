@@ -313,33 +313,33 @@ void ModuleMain::InitCommMsg()
 void StatusClass::byStatusFromSlaveState()
 {
 	theApp.bytSlaveStatusLock.Lock();
-		for (int i=0;i<16;i++)
-		{
-			theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
-		}
+	for (int i=0;i<16;i++)
+	{
+		theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
+	}
 
-		if (LevCoun==10)
-		{
-			theApp.bytStatus[16]=SolLevSum/10;     //墨水液位取平均
-			theApp.bytStatus[17]=InkLevSum/10;     //溶剂液位取平均
-			SolLevSum = 0;
-			InkLevSum = 0;
-			LevCoun = 1;
-			SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
-			InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
-		} 
-		else
-		{
-			LevCoun = LevCoun + 1;
-			SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
-			InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
-		}
+	if (LevCoun==10)
+	{
+		theApp.bytStatus[16]=SolLevSum/10;     //墨水液位取平均
+		theApp.bytStatus[17]=InkLevSum/10;     //溶剂液位取平均
+		SolLevSum = 0;
+		InkLevSum = 0;
+		LevCoun = 1;
+		SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
+		InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
+	} 
+	else
+	{
+		LevCoun = LevCoun + 1;
+		SolLevSum = SolLevSum + theApp.bytSlaveStatus[16];
+		InkLevSum = InkLevSum + theApp.bytSlaveStatus[17];
+	}
 
 
-		for (int i=18;i<37;i++)
-		{
-			theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
-		}
+	for (int i=18;i<37;i++)
+	{
+		theApp.bytStatus[i]=theApp.bytSlaveStatus[i];
+	}
 	theApp.bytSlaveStatusLock.Unlock();
 }
 
@@ -646,12 +646,14 @@ UINT TTLcomLoop(LPVOID pParam)
 	int strTempCmdLen=0;
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
+	strTempCmd=(LPTSTR)readArr;
+	strTempCmdLen=8;
 	while(theApp.boTTL)
 	{
 		if (theApp.readCount==43)
 		{
 			theApp.readCount=0;
-			strTempCmdLen=0;
+			//strTempCmdLen=0;
 			//BYTE bytReadData[43];
 			//theApp.myCIOVsd.Read()
 			if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[2]==0x26)
@@ -751,8 +753,7 @@ UINT TTLcomLoop(LPVOID pParam)
 				theApp.bytSlaveStatusLock.Unlock();
 			} 
 		}
-
-		if (theApp.readCount==6)
+		else if (theApp.readCount==6)
 		{
 			theApp.readCount=0;
 			strTempCmdLen=0;
@@ -810,7 +811,7 @@ UINT TTLcomLoop(LPVOID pParam)
 				}
 			} 
 		}
-		else    ///////////////认为应该增加无应答情况
+		else    ///////////////用于测试。以后删掉
 		{
 			//bytComErr++;
 			//if (bytComErr>10)
@@ -845,11 +846,19 @@ UINT TTLcomLoop(LPVOID pParam)
 
 		//theApp.myCIOVsd.ClearInOutBuf();
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
-		strTempCmdLen=0;
-		strTempCmd=(LPTSTR)"";
+		//strTempCmdLen=0;   ////////若发送失败，重新发送
+		//strTempCmd=(LPTSTR)"";
 		Sleep(10);
 		
 		theApp.readCount=theApp.myCIOVsd.Read();
+
+
+		////////测试用
+		//theApp.readCount=43;
+		//theApp.myCIOVsd.m_pRecvBuf[0]=0x2;
+		//theApp.myCIOVsd.m_pRecvBuf[1]=0x80;
+		//theApp.myCIOVsd.m_pRecvBuf[2]=0x26;
+		//theApp.myCIOVsd.m_pRecvBuf[10]=0xff;
 	}
 
 

@@ -29,4 +29,7 @@ public:
 	int m_solventFlowLev;
 	int m_solAddLev;
 	int m_solEmptyLev;
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 };

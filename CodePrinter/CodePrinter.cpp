@@ -42,8 +42,14 @@ BOOL CCodePrinterApp::InitInstance()
 	AfxEnableControlContainer();
 
 	m_BKcolor = RGB(210, 231, 251);
-	m_DlgBrush.CreateSolidBrush(m_BKcolor);
-   
+	m_DlgBrush.CreateSolidBrush(m_BKcolor);   
+	
+	m_HeadMachineStaFont = new CFont;
+	m_HeadMachineStaFont->CreatePointFont(120, _T("Arial"), NULL);
+
+	m_HeadOperationStaFont = new CFont;
+	m_HeadOperationStaFont->CreatePointFont(160, _T("Arial"), NULL);
+
 
 	// 标准初始化
 	// 如果未使用这些功能并希望减小

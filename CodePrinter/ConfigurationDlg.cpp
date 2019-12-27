@@ -60,9 +60,9 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_ConfigPM= new CConfigPrintModeDlg;
 	m_ConfigOS = new CConfigOutSetDlg;
 	int nX = 0;
-	int nY = 0;
+	int nY = 100;
 	int nWidth = 800;
-	int nHeight = 600;
+	int nHeight = 500;
 	m_ConfigPM->Create(IDD_CONFIG_PRINT_MODE_DIALOG,this);
 	m_ConfigPM->MoveWindow(nX,nY,nWidth,nHeight);
 	m_ConfigPM->ShowWindow(SW_HIDE);

@@ -32,10 +32,13 @@ void CInkSetupDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_INK_TYPE_LIST, m_inkTypeList);
 	DDX_Control(pDX, IDC_PELTIER_LIST, m_peltierList);
 	DDX_Control(pDX, IDC_SLEEP_LIST, m_sleepList);
+
 }
 
 
 BEGIN_MESSAGE_MAP(CInkSetupDlg, CDialog)
+	ON_WM_CTLCOLOR()
+
 END_MESSAGE_MAP()
 
 
@@ -71,4 +74,15 @@ BOOL CInkSetupDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+ 
+HBRUSH CInkSetupDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;
 }

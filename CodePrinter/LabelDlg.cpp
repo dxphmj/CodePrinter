@@ -130,6 +130,12 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_CLS_BUTTON, &CLabelDlg::OnBnClickedClsButton)
 	ON_BN_CLICKED(IDC_SHRINK_BUTTON, &CLabelDlg::OnBnClickedShrinkButton)
 
+	ON_BN_CLICKED(IDC_CLOSE_USER_BTN, &CLabelDlg::OnBnClickedCloseUserBtn)
+	ON_BN_CLICKED(IDC_FAR_BUTTON, &CLabelDlg::OnBnClickedFarButton)
+	ON_BN_CLICKED(IDC_NOZZLE_VALVE_BTN, &CLabelDlg::OnBnClickedNozzleValveBtn)
+	ON_BN_CLICKED(IDC_ADDBACK_BTN, &CLabelDlg::OnBnClickedAddbackBtn)
+	ON_BN_CLICKED(IDC_UDMIRROR_BUTTON, &CLabelDlg::OnBnClickedUdmirrorButton)
+	ON_BN_CLICKED(IDC_LRMIRROR_BUTTON, &CLabelDlg::OnBnClickedLrmirrorButton)
 END_MESSAGE_MAP()
 
 
@@ -170,6 +176,14 @@ BOOL CLabelDlg::OnInitDialog()
 	this->OnCbnSelchangeComboMatrix();
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
    
+
+	CFont *m_Font;
+	m_Font=new CFont;
+	m_Font->CreatePointFont(160, _T("Arial"), NULL);
+	GetDlgItem(IDC_EDIT1)->SetFont(m_Font);
+	GetDlgItem(IDC_EDIT2)->SetFont(m_Font);
+
+	//delete m_Font;
 	//彩色按钮
 	m_shrink.LoadBitmaps(IDB_SHRINK_BITMAP,IDB_SHRINK_BITMAP,0,0,IDB_SHRINK_BITMAP);
 	m_shrink.SizeToContent(); 
@@ -239,9 +253,9 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.Inverse="GLOBAL";
 
 
-	//theApp.myclassMessage.getLabFromXml();
-	//selectPixel();
-	//OnBnClickedDownloadButton();
+	theApp.myclassMessage.getLabFromXml();
+	selectPixel();
+	OnBnClickedDownloadButton();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -853,7 +867,10 @@ void CLabelDlg::OnBnClickedDownloadButton()
 		theApp.myclassMessage.boPrintNow=true;
 		theApp.boPrintNowLock.Unlock();
 	}
-	this->ShowWindow(SW_HIDE);
+
+	//GetParent()->ShowWindow(SW_SHOW);
+	ShowWindow(SW_HIDE);
+	//GetParentFrame()->ShowWindow(SW_SHOW);
 	//BYTE ssss=testByteVec[34];
     //ssss=testByteVec[0];
 }
@@ -910,7 +927,10 @@ void CLabelDlg::selectPixel()
 void CLabelDlg::OnBnClickedLabelCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	this->ShowWindow(SW_HIDE);
+	//this->ShowWindow(SW_HIDE);
+	//GetParent()->ShowWindow(SW_SHOW);
+	ShowWindow(SW_HIDE);
+
 }
 
 void CLabelDlg::showInputDlg(int ID)
@@ -924,13 +944,14 @@ void CLabelDlg::showInputDlg(int ID)
 
 }
 
+//清空，新建
 void CLabelDlg::OnBnClickedClsButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.myclassMessage.OBJ_Vec.clear();
 	m_ssValue=0;
 	m_zoomLevel=1;
-
+	UpdateData(FALSE);
 	OnPaint();
 }
 ////////减粗
@@ -941,10 +962,12 @@ void CLabelDlg::OnBnClickedShrinkButton()
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if(theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW>1)
+			if(theApp.myclassMessage.OBJ_Vec[i].intSW>1)
 			{
-				theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW--;
-				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				theApp.myclassMessage.OBJ_Vec[i].intSW--;
+				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
+				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				UpdateData(FALSE);
 				OnPaint();
 			}
 			
@@ -960,13 +983,136 @@ void CLabelDlg::OnBnClickedZoomButton()
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if(theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW<4)
+			if(theApp.myclassMessage.OBJ_Vec[i].intSW<4)
 			{
-				theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW++;
-				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intRowStart=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				theApp.myclassMessage.OBJ_Vec[i].intSW++;
+				//theApp.myclassMessage.OBJ_Vec[i].intRowSize=
+				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				UpdateData(FALSE);
 				OnPaint();
 			}
+			break;
+		}
+	}
+}
 
+//间距减
+void CLabelDlg::OnBnClickedCloseUserBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if(theApp.myclassMessage.OBJ_Vec[i].intSS>0)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].intSS--;
+				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
+				m_ssValue=theApp.myclassMessage.OBJ_Vec[i].intSS;
+				UpdateData(FALSE);
+				OnPaint();
+			}
+			break;
+		}
+	}
+}
+
+//间距加
+void CLabelDlg::OnBnClickedFarButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if(theApp.myclassMessage.OBJ_Vec[i].intSS<4)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].intSS++;
+				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
+				m_ssValue=theApp.myclassMessage.OBJ_Vec[i].intSS;
+				UpdateData(FALSE);
+				OnPaint();
+			}
+			break;
+		}
+	}
+}
+
+//黑白转关
+void CLabelDlg::OnBnClickedNozzleValveBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if(theApp.myclassMessage.OBJ_Vec[i].booNEG)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].booNEG=false;
+				//界面换图标
+				UpdateData(FALSE);
+				OnPaint();
+			}
+			break;
+		}
+	}
+}
+
+//黑白转开
+void CLabelDlg::OnBnClickedAddbackBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if(!theApp.myclassMessage.OBJ_Vec[i].booNEG)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].booNEG=true;
+				//界面换图标
+				UpdateData(FALSE);
+				OnPaint();
+			}
+			break;
+		}
+	}
+}
+
+//上下翻转
+void CLabelDlg::OnBnClickedUdmirrorButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			//if(theApp.myclassMessage.OBJ_Vec[i].booNEG)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].booBWDx=!theApp.myclassMessage.OBJ_Vec[i].booBWDx;
+				//界面换图标
+				UpdateData(FALSE);
+				OnPaint();
+			}
+			break;
+		}
+	}
+}
+
+//左右翻转
+void CLabelDlg::OnBnClickedLrmirrorButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			//if(theApp.myclassMessage.OBJ_Vec[i].booNEG)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].booBWDy=!theApp.myclassMessage.OBJ_Vec[i].booBWDy;
+				//界面换图标
+				UpdateData(FALSE);
+				OnPaint();
+			}
 			break;
 		}
 	}

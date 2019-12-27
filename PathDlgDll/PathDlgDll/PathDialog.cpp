@@ -92,6 +92,7 @@ BOOL CPathDialog::OnInitDialog()
 	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+160,700,300,SWP_SHOWWINDOW);
 	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+500,100,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+500,100,40,SWP_SHOWWINDOW);
+	//delete m_Font;
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }

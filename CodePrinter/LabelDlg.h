@@ -91,4 +91,10 @@ public:
 	int m_ssValue;
 	afx_msg void OnBnClickedShrinkButton();
 	
+	afx_msg void OnBnClickedCloseUserBtn();
+	afx_msg void OnBnClickedFarButton();
+	afx_msg void OnBnClickedNozzleValveBtn();
+	afx_msg void OnBnClickedAddbackBtn();
+	afx_msg void OnBnClickedUdmirrorButton();
+	afx_msg void OnBnClickedLrmirrorButton();
 };

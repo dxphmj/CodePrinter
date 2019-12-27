@@ -335,7 +335,7 @@ int CSTPSerialPort::Receive(BYTE* pRecvBuf, UINT32 nRecvSize, UINT32* pRecvLen)
 	
 	//------------------------------------------------------------
 	//从串口中读取数据
-    //memset(pRecvBuf,'\0',(BYTE)nRecvSize*sizeof(BYTE));//清空数组
+    memset(pRecvBuf,'\0',256*sizeof(BYTE));//清空数组
 
 	memset(&stComStat, 0x00, sizeof(stComStat));
 	BOOL bTest = ClearCommError(m_hCOM, &dwErrFlags, &stComStat);

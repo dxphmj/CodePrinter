@@ -68,6 +68,9 @@
 #define IDB_NEWBUILT_BITMAP             201
 #define IDB_BITMAP2                     202
 #define IDB_OFFMACHINE_BITMAP           202
+#define IDB_BITMAP3                     203
+#define IDB_BITMAP5                     204
+#define IDB_BITMAP_HEAD                 204
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -428,14 +431,17 @@
 #define IDC_FRESH_USER_NAME_LIST        1464
 #define IDC_FRESH_PASSEDIT              1465
 #define IDC_FRESH_PASSWARD_EDIT         1465
+#define IDC_HEAD_PIC                    1466
+#define IDC_STATIC_SHOW_DLG             1467
+#define IDC_LOGO_PIC                    1468
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        203
+#define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1466
+#define _APS_NEXT_CONTROL_VALUE         1469
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

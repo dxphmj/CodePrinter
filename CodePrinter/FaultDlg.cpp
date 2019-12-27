@@ -35,6 +35,8 @@ BEGIN_MESSAGE_MAP(CFaultDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON4, &CFaultDlg::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_BUTTON6, &CFaultDlg::OnBnClickedButton6)
 	ON_BN_CLICKED(IDC_BUTTON5, &CFaultDlg::OnBnClickedButton5)
+	ON_WM_CTLCOLOR()
+
 END_MESSAGE_MAP()
 
 
@@ -45,7 +47,7 @@ BOOL CFaultDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,520,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,420,80,50,SWP_SHOWWINDOW);
 
 	getAllErrorFile();
 	get_error_name();
@@ -383,4 +385,15 @@ void CFaultDlg::OnBnClickedButton5()
 		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
 		openfailurefile(timeErr);
 	}
+}
+
+
+HBRUSH CFaultDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;
 }
