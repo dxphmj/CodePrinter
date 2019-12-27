@@ -50,7 +50,7 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 
 	// TODO:  在此添加额外的初始化
 	m_printMode.AddString(L"OFF");
-	m_printMode.AddString(L"Continuour");
+	m_printMode.AddString(L"Continuous");
 	m_printMode.SetCurSel(0);
 
 	m_workList.AddString(L"OFF");

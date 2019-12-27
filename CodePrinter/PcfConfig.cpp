@@ -34,13 +34,13 @@ void CPcfConfig::get_pcf_from_xml()
 	pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
 	
 	//µ±Ç°»òÉÏ´Î´ò¿ªµÄÅäÖÃÎÄ¼şµÄÂ·¾¶
-	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
 	
 
 	bool isFileExit = true;
+	CString tempstr;
 	if (isFileExit)//Èç¹ûÉÏ´Î´ò¿ªµÄÅäÖÃÎÄ¼ş´æÔÚÔò´ò¿ª¸ÃÎÄ¼ş£¬·ñÔòµ÷³öÄ¬ÈÏÅäÖÃÎÄ¼ş
 	{
-		CString tempstr;
 
 		strLABlabForMName = pcf_currentname;
 		
@@ -53,13 +53,13 @@ void CPcfConfig::get_pcf_from_xml()
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
 
-		//ÅçÓ¡·½Ïò,,,,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
+		//ÅçÓ¡·½Ïò,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
 		
 		
-		//ÎÄ×ÖÕı·´,,,,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
+		//ÎÄ×ÖÕı·´,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
@@ -75,54 +75,53 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SetCurSel(nCur);
 		
 		//±àÂëÆ÷±¶Æµ
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.Clear();
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.ResetContent();
 		if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//Fixed
 		{
-			m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
 		}
 		else if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1)//Variable
 		{
 			if (m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("5"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("6"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("7"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("8"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("9"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("10"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("5"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("6"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("7"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("8"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("9"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("10"));
 			} 
 			else
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
 			}
 		}
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("FrequencyMultiplier"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SelectString(0,tempstr);
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SetCurSel(nCur);
+		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SelectString(0,tempstr);
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SetCurSel(nCur);
 
-		//ÁĞ¼ä¾à,,,,Ä¬ÈÏÎªÄÚ²¿»®ËÙÂÊÇÒÔ¼Îª800£¬ËÙ¶ÈÎª20Ã×/·ÖÖÓ£¬6ÁĞ×Ö¿íÎª2.54mm
+		//ÁĞ¼ä¾à,Ä¬ÈÏÎªÄÚ²¿»®ËÙÂÊÇÒÔ¼Îª800£¬ËÙ¶ÈÎª20Ã×/·ÖÖÓ£¬6ÁĞ×Ö¿íÎª2.54mm
 		USES_CONVERSION;
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = 0.423;//atof(W2A(tempstr.GetBuffer(0)));
+		m_pCodePrinterDlg->m_Confi->m_dotPitch = atof(W2A(tempstr.GetBuffer(0)));
 
 		//ÕûÌå¼Ó´Ö£¨Ôİ²»×ö£©
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
-
 		
 		//²úÏßÔË¶¯ËÙ¶È
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Speed"), _T("20"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
+		 m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
 
 		//ÑÓ³Ù¾àÀë
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Delay"), _T("100"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
 
 		//ÅçÓ¡Ä£Ê½
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("OFF"), pcf_currentpath);
@@ -131,7 +130,7 @@ void CPcfConfig::get_pcf_from_xml()
 		
 		//Á¬Ğø¼ä¸ô¾àÀë
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatDistance"), _T("100"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
 		
 		//ÖØ¸´¼ÆÊıÖµ
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
@@ -172,7 +171,6 @@ void CPcfConfig::get_pcf_from_xml()
 	}
 	else
 	{
-		CString tempstr;
 		//labval_gui_pcf.Text = _T("Default");
 
 		pcf_currentname = _T("PrintConfig.xml");
@@ -186,13 +184,13 @@ void CPcfConfig::get_pcf_from_xml()
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
 
-		//ÅçÓ¡·½Ïò,,,,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
+		//ÅçÓ¡·½Ïò,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
 
 
-		//ÎÄ×ÖÕı·´,,,,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
+		//ÎÄ×ÖÕı·´,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
@@ -208,54 +206,53 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SetCurSel(nCur);
 
 		//±àÂëÆ÷±¶Æµ
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.Clear();
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.ResetContent();
 		if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//Fixed
 		{
-			m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
 		}
 		else if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1)//Variable
 		{
 			if (m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("5"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("6"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("7"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("8"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("9"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("10"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("5"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("6"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("7"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("8"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("9"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("10"));
 			} 
 			else
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
 			}
 		}
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("FrequencyMultiplier"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SelectString(0,tempstr);
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SetCurSel(nCur);
+		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SelectString(0,tempstr);
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SetCurSel(nCur);
 
 		//ÁĞ¼ä¾à,,,,Ä¬ÈÏÎªÄÚ²¿»®ËÙÂÊÇÒÔ¼Îª800£¬ËÙ¶ÈÎª20Ã×/·ÖÖÓ£¬6ÁĞ×Ö¿íÎª2.54mm
 		USES_CONVERSION;
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = 0.423;//atof(W2A(tempstr.GetBuffer(0)));
+		m_pCodePrinterDlg->m_Confi->m_dotPitch = atof(W2A(tempstr.GetBuffer(0)));
 
 		//ÕûÌå¼Ó´Ö£¨Ôİ²»×ö£©
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
 
-
 		//²úÏßÔË¶¯ËÙ¶È
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Speed"), _T("20"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
 
 		//ÑÓ³Ù¾àÀë
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Delay"), _T("100"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
 
 		//ÅçÓ¡Ä£Ê½
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("OFF"), pcf_currentpath);
@@ -310,6 +307,10 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 	CDealXml dealXml;
 	string tempstr;
 	CString strtmp;
+	int nTmp;
+
+	m_pCodePrinterDlg->m_Confi->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->UpdateData();
 
 	if(m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//²úÏßÔË¶¯·½Ê½£º¹Ì¶¨£¬¼´ÄÚ²¿
 	{
@@ -318,59 +319,84 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 		//¼ÆËãÑÓÊ±	
 		try
 		{
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+            
+			
 		}
 		catch (CException* e)
 		{
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
-		mypcf0X02_05 = strtmp.Mid(mypcf0X02_05.GetLength(), 8);
-		theApp.myPcfClass.pcf0X02 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(6, 2));
-		theApp.myPcfClass.pcf0X03 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(4, 2));
-		theApp.myPcfClass.pcf0X04 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(2, 2));
-		theApp.myPcfClass.pcf0X05 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(0, 2));
+		//strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
+		//mypcf0X02_05 = strtmp.Right(8);
+		//theApp.myPcfClass.pcf0X02 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(6, 2));
+		//theApp.myPcfClass.pcf0X03 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(4, 2));
+		//theApp.myPcfClass.pcf0X04 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(2, 2));
+		//theApp.myPcfClass.pcf0X05 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(0, 2));
+        theApp.myPcfClass.pcf0X02 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X03 = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X04 = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X05 = (nTmp >> 24) & 0xFF;
 		
 		//¼ÆËãÁĞ¿í
 		try
 		{
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
+
 		}
 		catch (CException* e)
 		{
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
-		mypcf0X06_09 = strtmp.Mid(mypcf0X06_09.GetLength(), 8);
-		theApp.myPcfClass.pcf0X06 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(6, 2));
-		theApp.myPcfClass.pcf0X07 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(4, 2));
-		theApp.myPcfClass.pcf0X08 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(2, 2));
-		theApp.myPcfClass.pcf0X09 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(0, 2));
+		//strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
+		//mypcf0X06_09 = strtmp.Right(8);
+		//theApp.myPcfClass.pcf0X06 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(6, 2));
+		//theApp.myPcfClass.pcf0X07 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(4, 2));
+		//theApp.myPcfClass.pcf0X08 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(2, 2));
+		//theApp.myPcfClass.pcf0X09 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(0, 2));
+
+		theApp.myPcfClass.pcf0X06 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X07 = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X08 = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X09 = (nTmp >> 24) & 0xFF;
+
 
 		//¼ÆËãÖØ¸´´òÓ¡¼ä¸ô
 		try
 		{
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
 		catch (CException* e)
 		{
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
+
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
+	/*	strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
 		mypcf0X13_16 = strtmp.Mid(mypcf0X13_16.GetLength(), 8);
 		theApp.myPcfClass.pcf0X13 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(6, 2));
 		theApp.myPcfClass.pcf0X14 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(4, 2));
 		theApp.myPcfClass.pcf0X15 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(2, 2));
-		theApp.myPcfClass.pcf0X16 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(0, 2));
+		theApp.myPcfClass.pcf0X16 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(0, 2));*/
+
+		theApp.myPcfClass.pcf0X13 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X14 = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X15 = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X16 = (nTmp >> 24) & 0xFF;
+
 
 		//´¥·¢ºó½ûÖ¹´¥·¢³¤¶È
 		try
@@ -378,8 +404,9 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			CString strtriggerLen;
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
 			int triggerLen = _wtoi(strtriggerLen);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
 		catch (CException* e)
 		{
@@ -388,15 +415,22 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int triggerLen = _wtoi(strtriggerLen);
 
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr =  theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
+	/*	strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
 		mypcf0X19_1C = strtmp.Mid(mypcf0X19_1C.GetLength(), 8);
 		theApp.myPcfClass.pcf0X19 = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(6, 2));
 		theApp.myPcfClass.pcf0X1A = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(4, 2));
 		theApp.myPcfClass.pcf0X1B = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(2, 2));
-		theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));
+		theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));*/
+
+		theApp.myPcfClass.pcf0X19 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X1A = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X1B = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X1C = (nTmp >> 24) & 0xFF;
+
 	} 
 	else if(m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0)//±äËÙ£¬Íâ²¿±àÂëÆ÷1Ïà
@@ -410,7 +444,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -422,7 +456,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
@@ -441,7 +475,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -454,7 +488,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
@@ -473,7 +507,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -486,7 +520,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
@@ -507,7 +541,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -522,7 +556,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
@@ -545,7 +579,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -557,7 +591,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
@@ -576,7 +610,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -589,7 +623,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
@@ -608,7 +642,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -621,7 +655,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
@@ -642,7 +676,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -657,7 +691,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
@@ -668,43 +702,44 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 		theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));
 
 	}
-	else
-	{
-		//Í¬²½Æ÷·´Ïà£¬0£ºA->B£¬1:B->A
-		theApp.myPcfClass.pcf0X00bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
-		//¹ÊÕÏÔËĞĞ¼´¹ÊÕÏÊ±ĞÅÏ¢»º´æÊÇ·ñ»¹°´Õı³£ÅçÓ¡±ßÅçÓ¡±ßÏû³ı£¬0Îª¹Ø±Õ£¬1Îª¿ªÆô
-		theApp.myPcfClass.pcf0X00bit4 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
-		//pcf0X00¼ÆËã
-		theApp.myPcfClass.pcf0X00 = theApp.myPcfClass.pcf0X00bit6 * 64 + theApp.myPcfClass.pcf0X00bit5 * 32 
-			+ theApp.myPcfClass.pcf0X00bit4 * 16 + theApp.myPcfClass.pcf0X00bit2 * 4 + theApp.myPcfClass.pcf0X00bit1_bit0;
-		//pcf0X00 = IIf(pcf0X00.Length.Equals(2), pcf0X00, "0" & pcf0X00)
-		//ÊÇ·ñÆôÓÃµçÑÛ£¬0Îª¹Ø±Õ£¬1ÎªÆôÓÃ
-		theApp.myPcfClass.pcf0X01bit0 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
-		//µçÑÛÓĞĞ§µçÆ½£¬0ÎªµÍµçÆ½£¬1Îª¸ßµçÆ½
-		theApp.myPcfClass.pcf0X01bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
-		//ÅçÓ¡Ä£Ê½Îªµ¥´Î»¹ÊÇÁ¬Ğø£¬0Îªµ¥´Î£¬1ÎªÁ¬Ğø
-		theApp.myPcfClass.pcf0X01bit3 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
-		//pcf0X01¼ÆËã
-		theApp.myPcfClass.pcf0X01 = theApp.myPcfClass.pcf0X01bit3 * 8 + theApp.myPcfClass.pcf0X01bit2 * 4 + theApp.myPcfClass.pcf0X01bit0;
-		// pcf0X01 = IIf(pcf0X01.Length.Equals(2), pcf0X01, "0" & pcf0X01)
-		//×Ö¸ß
-		theApp.myPcfClass.pcf0X0A = m_pCodePrinterDlg->m_Confi->m_height;
-		// pcf0X0A = IIf(pcf0X0A.Length.Equals(2), pcf0X0A, "0" & pcf0X0A)
-		//pcf0X0B_0E = "00000000"
-		// pcf0X0F_12 = "00000000"
-		// ±àÂë±¶Æµ
-		theApp.myPcfClass.pcf0X18 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel();
-	}
-	
+	 
+	//Í¬²½Æ÷·´Ïà£¬0£ºA->B£¬1:B->A
+	theApp.myPcfClass.pcf0X00bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
+	//¹ÊÕÏÔËĞĞ¼´¹ÊÕÏÊ±ĞÅÏ¢»º´æÊÇ·ñ»¹°´Õı³£ÅçÓ¡±ßÅçÓ¡±ßÏû³ı£¬0Îª¹Ø±Õ£¬1Îª¿ªÆô
+	theApp.myPcfClass.pcf0X00bit4 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
+	//pcf0X00¼ÆËã
+	theApp.myPcfClass.pcf0X00 = theApp.myPcfClass.pcf0X00bit6 * 64 + theApp.myPcfClass.pcf0X00bit5 * 32 
+		+ theApp.myPcfClass.pcf0X00bit4 * 16 + theApp.myPcfClass.pcf0X00bit2 * 4 + theApp.myPcfClass.pcf0X00bit1_bit0;
+	//pcf0X00 = IIf(pcf0X00.Length.Equals(2), pcf0X00, "0" & pcf0X00)
+	//ÊÇ·ñÆôÓÃµçÑÛ£¬0Îª¹Ø±Õ£¬1ÎªÆôÓÃ
+	theApp.myPcfClass.pcf0X01bit0 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
+	//µçÑÛÓĞĞ§µçÆ½£¬0ÎªµÍµçÆ½£¬1Îª¸ßµçÆ½
+	theApp.myPcfClass.pcf0X01bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
+	//ÅçÓ¡Ä£Ê½Îªµ¥´Î»¹ÊÇÁ¬Ğø£¬0Îªµ¥´Î£¬1ÎªÁ¬Ğø
+	theApp.myPcfClass.pcf0X01bit3 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
+	//pcf0X01¼ÆËã
+	theApp.myPcfClass.pcf0X01 = theApp.myPcfClass.pcf0X01bit3 * 8 + theApp.myPcfClass.pcf0X01bit2 * 4 + theApp.myPcfClass.pcf0X01bit0;
+	// pcf0X01 = IIf(pcf0X01.Length.Equals(2), pcf0X01, "0" & pcf0X01)
+	//×Ö¸ß
+	theApp.myPcfClass.pcf0X0A = m_pCodePrinterDlg->m_Confi->m_height;
+	// pcf0X0A = IIf(pcf0X0A.Length.Equals(2), pcf0X0A, "0" & pcf0X0A)
+	//pcf0X0B_0E = "00000000"
+	// pcf0X0F_12 = "00000000"
+	// ±àÂë±¶Æµ
+	theApp.myPcfClass.pcf0X18 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel();
+ 
+	//ÒÔÏÂ´úÂëÓĞºÎÓÃÍ¾£¿
+	/*
 	theApp.myPcfClass.pcf0X02_05 = CT2A(mypcf0X02_05.GetString());
 	theApp.myPcfClass.pcf0X06_09 = CT2A(mypcf0X02_05.GetString());
 	theApp.myPcfClass.pcf0X13_16 = CT2A(mypcf0X02_05.GetString());
 	theApp.myPcfClass.pcf0X19_1C = CT2A(mypcf0X02_05.GetString());
-
+    */ 
 /////////////////////////////////////////////////////////////////////////////
-	#define  xml_def 1
-#ifdef xml_def
+#define  xml_def 1
 
+#ifdef xml_def
+#else
 	theApp.myPcfClass.pcf0X00=0x2;
 	theApp.myPcfClass.pcf0X01=0x1;
 	theApp.myPcfClass.pcf0X02=0x0;
@@ -726,14 +761,17 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 	theApp.myPcfClass.pcf0X1B=0x0;
 	theApp.myPcfClass.pcf0X1C=0x0;
 #endif
+
 	vector<BYTE> tempCtrVec;
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
-	tempCtrVec.push_back(0x21);
-	tempCtrVec.push_back(0x01);
-	tempCtrVec.push_back(0x12);
-	tempCtrVec.push_back(0x00);
-	tempCtrVec.push_back(0x00);
+
+	tempCtrVec.push_back(0x21); //Êı¾İ³¤¶È = 33
+	tempCtrVec.push_back(0x01); // ±íÊ¾ÊÇ ÎÄ¼şÖ¡
+
+	tempCtrVec.push_back(0x12); //ÎÄ¼ş¿ØÖÆºÍÅäÖÃ(×ÓÃüÁî0X12)
+	tempCtrVec.push_back(0x00); //ÎÄ¼şÃû
+	tempCtrVec.push_back(0x00); //¼Ä´æÆ÷µØÖ·£¬±íÊ¾´Ó´ËµØÖ·¿ªÊ¼Ğ´29¸öÊı¾İ£¨´Ó0x00-0x1C)
 
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X00);
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X01);
@@ -745,7 +783,7 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X07);
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X08);
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X09);
-	tempCtrVec.push_back(theApp.myPcfClass.pcf0X0A);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X0A);  //×Ö¸ß
 
 	tempCtrVec.push_back(0);
 	tempCtrVec.push_back(0);
@@ -774,7 +812,6 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 	theApp.queCtr.push(tempCtrVec);
 	theApp.boQueCtrLock.Unlock();	
 }
-
 
 int CPcfConfig::round(double r)
 {

@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "InkSystemDlg.h"
+#include "Inksystemconfig.h"
 
 
 // CInkSystemDlg 对话框
@@ -275,6 +276,11 @@ void CInkSystemDlg::OnBnClickedFlushValveBtn()
 void CInkSystemDlg::OnBnClickedInkOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CInksystemconfig pInksysConfig((CCodePrinterDlg*)(this->GetParent()));
+	pInksysConfig.save_inksystem_to_xml();
+//	pInksysConfig.get_inksystem_from_xml();
+	pInksysConfig.download_inksystem_setup();
+	pInksysConfig.download_inksystem_parameter();
 }
  
 HBRUSH CInkSystemDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)

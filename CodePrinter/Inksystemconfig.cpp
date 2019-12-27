@@ -4,7 +4,7 @@
 #include "CodePrinterDlg.h"
 #include "DealXml.h"
 #include <vector>
-#define  xml_def 1
+
 using namespace std;
 CInksystemconfig::CInksystemconfig(CCodePrinterDlg* pCodeDlg)
 {
@@ -23,11 +23,8 @@ void CInksystemconfig::get_inksystem_from_xml()
 	//开机默认帕尔贴开关
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Peltier"), _T("OFF"), _T("Storage Card\\System"));
 	int nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
-	m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.SetCurSel(nCur);
-	
-//	CString hexstr = _T("af");
-//	BYTE tempbt = dealXml.HEX_to_DECbyte(hexstr);
-
+	m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.SetCurSel(nCur);	
+ 
 	//开机默认睡眠开关
 	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Sleep"), _T("OFF"), _T("Storage Card\\System"));
 	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
@@ -88,7 +85,7 @@ void CInksystemconfig::get_inksystem_from_xml()
 	else if(str.Compare(_T("1")) == 0)
 	{
 		theApp.myStatusClass.bytModuStep = 1;
-		//picbtn_inksystem_pha_mv_10.Image = My.Resources.ResourceBng.bm043
+ 		//picbtn_inksystem_pha_mv_10.Image = My.Resources.ResourceBng.bm043
 		//picbtn_inksystem_pha_mv_1.Image = My.Resources.ResourceBng.bm044
 		//picbtn_inksystem_pha_mv_10.Enabled = True
 		//picbtn_inksystem_pha_mv_1.Enabled = False
@@ -144,19 +141,13 @@ void CInksystemconfig::download_inksystem_setup()
 	int sleepIndex = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.GetCurSel();
 	inksystem_setup_0x00 = peltierIndex*128 + sleepIndex*64;
 
-	vector<BYTE> tempCtrVec;
 	inksystem_setup_0x01 = 0;
 
 	//开机默认墨水的粘度表
-	CString inksystem_setup_it;// = _T("236");
-	inksystem_setup_it.Format(_T("%d"),270);
-
-	//CString inksystem_setup_it  = lisval_inksystem_setup_it.SelectedItem;
-//	int nParam = _wtoi(inksystem_setup_it.GetBuffer(0));
- //   inksystem_setup_0x02 = nParam;
-
-	//inksystem_setup_0x02 = nParam & 0xFF;
- //   inksystem_setup_0x03 = nParam >> 8;
+	CString inksystem_setup_it;
+	int ninkTypeIndex = m_pCodePrinterDlg->m_Ink->m_setup->m_inkTypeList.GetCurSel();
+	m_pCodePrinterDlg->m_Ink->m_setup->m_inkTypeList.GetText(ninkTypeIndex,inksystem_setup_it);
+ 
 	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC01"), _T("126"), _T("Storage Card\\System"));
 	inksystem_setup_0x02 = _wtoi(tempStr.GetBuffer(0));
 	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC02"), _T("117"), _T("Storage Card\\System"));
@@ -184,8 +175,11 @@ void CInksystemconfig::download_inksystem_setup()
 	tempStr = dealXml.ReadXml(_T("inksystem.xml"),_T("Type") + inksystem_setup_it + _T("degC13"), _T("59"), _T("Storage Card\\System"));
 	inksystem_setup_0x0e = _wtoi(tempStr.GetBuffer(0));
 
-#ifndef xml_def
+	vector<BYTE> tempCtrVec;
 
+#define  xml_def 1
+
+#ifdef xml_def
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
 	tempCtrVec.push_back(0x10);
@@ -206,11 +200,9 @@ void CInksystemconfig::download_inksystem_setup()
 	tempCtrVec.push_back(inksystem_setup_0x0d);
 	tempCtrVec.push_back(inksystem_setup_0x0e);
 	tempCtrVec.push_back(0xFF);
-	tempCtrVec.push_back(0xFF);
-#endif
+	tempCtrVec.push_back(0xFF); 
 
-#ifdef xml_def
-	//vector<BYTE> tempCtrVec;
+#else
 	tempCtrVec.push_back(0x1);
 	tempCtrVec.push_back(0x80);
 	tempCtrVec.push_back(0x10);
@@ -233,18 +225,16 @@ void CInksystemconfig::download_inksystem_setup()
 	tempCtrVec.push_back(0xFF);
 	tempCtrVec.push_back(0xFF);
 #endif
+
 	theApp.boQueCtrLock.Lock();
 	theApp.queCtr.push(tempCtrVec);
 	theApp.boQueCtrLock.Unlock();
 
 }
 
-
 void CInksystemconfig::download_inksystem_parameter()
 {
 	CDealXml dealXml;
-	CString tempStr;
-	vector<BYTE> tempCtrVec;
 	BYTE inksystem_parameter_0x00, inksystem_parameter_0x01, inksystem_parameter_0x02, inksystem_parameter_0x03, inksystem_parameter_0x04;
 	BYTE inksystem_parameter_0x05, inksystem_parameter_0x06, inksystem_parameter_0x07, inksystem_parameter_0x08, inksystem_parameter_0x09;
 	BYTE inksystem_parameter_0x0a, inksystem_parameter_0x0b, inksystem_parameter_0x0c, inksystem_parameter_0x0d;	
@@ -266,7 +256,7 @@ void CInksystemconfig::download_inksystem_parameter()
 	
 	//获取分裂电压
 	nParam = m_pCodePrinterDlg->m_Ink->m_phas->m_fixed;
-	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200
+	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200;缺省是60较合适
 	inksystem_parameter_0x06 = (nParam * 10) >> 8;
 
 	//获取高报警液位
@@ -289,14 +279,16 @@ void CInksystemconfig::download_inksystem_parameter()
 
 	//获取粘度百分比
 	inksystem_parameter_0x0d = m_pCodePrinterDlg->m_Ink->m_par->m_viscoDevia; //粘度误差范围1到100
-#ifndef xml_def
 
+	vector<BYTE> tempCtrVec;
+
+#ifdef xml_def
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
 	tempCtrVec.push_back(0x10);
 	tempCtrVec.push_back(0x05);
-	tempCtrVec.push_back(0x00);
 
+	tempCtrVec.push_back(0x00);
 	tempCtrVec.push_back(inksystem_parameter_0x00);
 	tempCtrVec.push_back(inksystem_parameter_0x01);
 	tempCtrVec.push_back(inksystem_parameter_0x02);
@@ -314,29 +306,23 @@ void CInksystemconfig::download_inksystem_parameter()
 
 	tempCtrVec.push_back(0xFF);
 	tempCtrVec.push_back(0xFF);
-#endif
-#ifdef xml_def
-
-	CString str;
-	str.Format(_T("%x\n"),inksystem_parameter_0x0d);
-	TRACE(str);
-
+#else
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
 	tempCtrVec.push_back(0x10);
 	tempCtrVec.push_back(0x05);
-	tempCtrVec.push_back(0x00);
 
-	tempCtrVec.push_back(0xb8);
+	tempCtrVec.push_back(0x00);
+	tempCtrVec.push_back(0xb8);//0x00
 	tempCtrVec.push_back(0xb);
 	tempCtrVec.push_back(0xd0);
 	tempCtrVec.push_back(0x7);
-	tempCtrVec.push_back(0x18);
+	tempCtrVec.push_back(0x18);//0x04
 	tempCtrVec.push_back(0x58);
 	tempCtrVec.push_back(0x2);
 	tempCtrVec.push_back(0x96);
 	tempCtrVec.push_back(0x1e);
-	tempCtrVec.push_back(0xa);
+	tempCtrVec.push_back(0xa);//0x09
 	tempCtrVec.push_back(0x96);
 	tempCtrVec.push_back(0x1e);
 	tempCtrVec.push_back(0xa);
@@ -345,7 +331,103 @@ void CInksystemconfig::download_inksystem_parameter()
 	tempCtrVec.push_back(0xFF);
 	tempCtrVec.push_back(0xFF);
 #endif
+
 	theApp.boQueCtrLock.Lock();
 	theApp.queCtr.push(tempCtrVec);
 	theApp.boQueCtrLock.Unlock();
+}
+
+void CInksystemconfig::save_inksystem_to_xml()
+{
+	CDealXml dealXml;
+	CString pcf_currentname,pcf_currentpath;
+	CString strTmp;
+	int nCur;
+
+	m_pCodePrinterDlg->m_Ink->m_setup->UpdateData();
+	m_pCodePrinterDlg->m_Ink->m_par->UpdateData();
+	m_pCodePrinterDlg->m_Ink->m_phas->UpdateData();
+
+	//当前或上次打开的配置文件名
+	pcf_currentname = _T("InkSystem.xml");
+	
+	//当前或上次打开的配置文件的路径
+	pcf_currentpath = _T("Storage Card\\System");
+	
+    //写帕尔贴开关
+	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.GetCurSel();
+    m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.GetText(nCur,strTmp);
+    dealXml.WriteXml(pcf_currentname, L"Peltier", strTmp,pcf_currentpath);
+
+    //写睡眠开关
+	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.GetCurSel();
+    m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.GetText(nCur,strTmp);
+    dealXml.WriteXml(pcf_currentname, L"Sleep", strTmp,pcf_currentpath);
+
+    //写晶振频率
+ 	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.GetCurSel();
+    m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.GetText(nCur,strTmp);
+   dealXml.WriteXml(pcf_currentname, L"ModulationFrequency", strTmp,pcf_currentpath);
+
+    //写喷嘴尺寸
+  	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetCurSel();
+    m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetText(nCur,strTmp);
+   dealXml.WriteXml(pcf_currentname, L"NozzleSize", strTmp,pcf_currentpath);
+
+    //写墨水型号
+ 	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_inkTypeList.GetCurSel();
+    m_pCodePrinterDlg->m_Ink->m_setup->m_inkTypeList.GetText(nCur,strTmp);
+    dealXml.WriteXml(pcf_currentname, L"InkType", strTmp,pcf_currentpath);
+
+    //写设置的压力
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_parPressure);    
+    dealXml.WriteXml(pcf_currentname, L"Pressure", strTmp,pcf_currentpath);
+
+    //写设置的泵速
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_parPumpSpeed);    
+    dealXml.WriteXml(pcf_currentname, L"BumpSpeed", strTmp,pcf_currentpath);
+
+    //写设置的喷头温度
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_printheadTemp);    
+    dealXml.WriteXml(pcf_currentname, L"PrintHeadTemp", strTmp,pcf_currentpath);
+
+    //写设置的分裂电压模式为固定或者自动
+    strTmp.Format(L"%d",theApp.myStatusClass.ctr0X03bit6);    
+    dealXml.WriteXml(pcf_currentname, L"ModulationMode", strTmp,pcf_currentpath);
+
+    //写设置的分裂电压步级 
+    strTmp.Format(L"%d",theApp.myStatusClass.bytModuStep);    
+	dealXml.WriteXml(pcf_currentname, L"ModulationStep", strTmp,pcf_currentpath);
+
+    //写设置的分裂电压
+    strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_phas->m_fixed);    
+    dealXml.WriteXml(pcf_currentname, L"ModulationVoltage", strTmp,pcf_currentpath);
+
+    //写设置的墨水高报警液位
+    strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_inkFlowLev);    
+    dealXml.WriteXml(pcf_currentname, L"InkFlowLevel", strTmp,pcf_currentpath);
+
+    //写设置的墨水添加报警液位
+   	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_inkAddLev);    
+    dealXml.WriteXml(pcf_currentname, L"InkAddLevel", strTmp,pcf_currentpath);
+
+    //写设置的墨水空报警液位
+   	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_inkEmptyLev);    
+    dealXml.WriteXml(pcf_currentname, L"InkEmptyLevel", strTmp,pcf_currentpath);
+
+    //写设置的溶剂高报警液位
+   	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_solventFlowLev);    
+    dealXml.WriteXml(pcf_currentname, L"SolventFlowLevel", strTmp,pcf_currentpath);
+
+    //写设置的溶剂添加报警液位
+  	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_solAddLev);    
+   dealXml.WriteXml(pcf_currentname, L"SolventAddLevel", strTmp,pcf_currentpath);
+
+    //写设置的溶剂空报警液位
+ 	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_solEmptyLev);    
+    dealXml.WriteXml(pcf_currentname, L"SolventEmptyLevel", strTmp,pcf_currentpath);
+
+    //写设置的墨水粘度允许误差百分比
+ 	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Ink->m_par->m_viscoDevia);    
+    dealXml.WriteXml(pcf_currentname, L"ViscoDeviation", strTmp,pcf_currentpath);
 }

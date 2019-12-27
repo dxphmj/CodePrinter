@@ -26,7 +26,7 @@ void CConfigOutSetDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX,IDC_PRINT_DIRE_LIST,m_printDire);
 	DDX_Control(pDX,IDC_ENCODE_SIGN_LIST,m_encodeSign);
-	DDX_Control(pDX,IDC_FREQ_MULTI_COMBO,FreqMulti);
+	DDX_Control(pDX,IDC_FREQ_MULTI_COMBO,m_FreqMulti);
 	DDX_Control(pDX,IDC_PRODUCT_DETE_LIST,m_productDete);
 	DDX_Control(pDX,IDC_ACTIVE_LEV_LIST,m_activeLev);
 	DDX_Control(pDX,IDC_IMPULSE_EDIT,m_impulse);
@@ -56,9 +56,9 @@ BOOL CConfigOutSetDlg::OnInitDialog()
 	m_productDete.AddString(_T("ON"));
 	m_activeLev.AddString(_T("Low"));	
 	m_activeLev.AddString(_T("High"));
-	FreqMulti.AddString(_T("ON"));
-	FreqMulti.AddString(_T("OFF"));
-	FreqMulti.SetCurSel(1);	
+	m_FreqMulti.AddString(_T("ON"));
+	m_FreqMulti.AddString(_T("OFF"));
+	m_FreqMulti.SetCurSel(1);	
 	m_impulse.SetWindowText(_T("2500"));	
 	m_length.SetWindowText(_T("200"));		
 	m_currentLevel.SetWindowText(_T("High"));	 

@@ -55,7 +55,6 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_ConfigPrintModeDlg = new CConfigPrintModeDlg;
 	m_ConfigOutSetDlg = new CConfigOutSetDlg;
 
-
 	// TODO:  在此添加额外的初始化
 	m_ConfigPM= new CConfigPrintModeDlg;
 	m_ConfigOS = new CConfigOutSetDlg;

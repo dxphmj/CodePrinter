@@ -17,7 +17,7 @@
 //#include "Tchar.h”
 #include "PcfConfig.h"
 
-#define  def_ttl 1
+//#define  def_ttl 1
 
 
 #ifdef _DEBUG
@@ -74,6 +74,8 @@ END_MESSAGE_MAP()
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	//显示公司的logo
 
  	CBitmap bitmap;  // CBitmap对象，用于加载位图   
 	HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
@@ -1190,7 +1192,7 @@ HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 			{
 				pDC->SelectObject(theApp.m_HeadMachineStaFont);
 				pDC->SetBkMode(TRANSPARENT);
-				pDC->SetTextColor(RGB(255,255,0));
+				pDC->SetTextColor(RGB(255,255,255));
 				break;
 			}
 			case IDC_STATIC_SHOW_DLG:

@@ -25,7 +25,7 @@ public:
 	CListBox m_printDire;
 	CListBox m_productDete;
 	CListBox m_activeLev;
-	CComboBox FreqMulti;
+	CComboBox m_FreqMulti;
 	CEdit  m_impulse;
 	CEdit m_length;
 	CEdit m_currentLevel;
