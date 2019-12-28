@@ -2,10 +2,10 @@
 // Microsoft Visual C++ generated include file.
 // Used by CodePrinter.rc
 //
+#define IDB_USER_DELE2_BITMAP           2
 #define IDD_CODEPRINTER_DIALOG          102
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
-#define IDB_BITMAP1                     129
 #define IDD_LABEL_DIALOG                132
 #define IDD_CONFIGURATION_DIALOG        133
 #define IDD_FILEMANA_DIALOG             134
@@ -30,20 +30,9 @@
 #define IDD_INK_SETUP_DIALOG            154
 #define IDD_INK_PAR_DIALOG              155
 #define IDD_INK_PHASING_DIALOG          156
-#define IDB_FAULT_BITMAP                160
-#define IDB_SYSTEM_BITMAP               161
-#define IDB_USER_BITMAP                 162
-#define IDB_LABEL_BITMAP                163
-#define IDB_CONFIG_BITMAP               164
-#define IDB_FILEMANA_BITMAP             165
-#define IDB_INKSYSTEM_BITMAP            166
 #define IDB_IM017_BITMAP                167
 #define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
-#define IDB_SHRINK_BITMAP               170
-#define IDB_ZOOM_BITMAP                 172
-#define IDB_NOTBACK_BITMAP              173
-#define IDB_ADDBACK_BITMAP              175
 #define IDB_CLOSE_BITMAP                176
 #define IDB_OPEN_BITMAP                 178
 #define IDB_FAR_BITMAP                  179
@@ -60,17 +49,73 @@
 #define IDB_DOWNLOAD_BITMAP             190
 #define IDB_SAVE_BITMAP                 191
 #define IDB_RETURN_BITMAP               193
-#define IDB_START_PRINT_BITMAP          195
-#define IDB_PAUSE_PRINT_BITMAP          196
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
-#define IDB_BITMAP4                     200
 #define IDB_NEWBUILT_BITMAP             201
 #define IDB_BITMAP2                     202
-#define IDB_OFFMACHINE_BITMAP           202
-#define IDB_BITMAP3                     203
 #define IDB_BITMAP5                     204
 #define IDB_BITMAP_HEAD                 204
+#define IDB_FRESH1_BITMAP               206
+#define IDB_FRESH2_BITMAP               207
+#define IDB_OK1_BITMAP                  208
+#define IDB_OK2_BITMAP                  209
+#define IDB_RETURN1_BITMAP              210
+#define IDB_RETURN2_BITMAP              211
+#define IDB_DHCP1_BITMAP                212
+#define IDB_DHCP2_BITMAP                213
+#define IDB_FAULT1_BITMAP               214
+#define IDB_FAULT2_BITMAP               215
+#define IDB_SYSTEM1_BITMAP              216
+#define IDB_SYSTEM2_BITMAP              217
+#define IDB_LABEL1_BITMAP               218
+#define IDB_LABEL2_BITMAP               219
+#define IDB_USER1_BITMAP                220
+#define IDB_USER2_BITMAP                221
+#define IDB_FILEMANA2_BITMAP            223
+#define IDB_CONFIG1_BITMAP              224
+#define IDB_CONFIG2_BITMAP              225
+#define IDB_INKSYSTEM1_BITMAP           226
+#define IDB_INKSYSTEM2_BITMAP           227
+#define IDB_FILEMANA1_BITMAP            228
+#define IDB_USER_OPEN1_BITMAP           229
+#define IDB_USER_OPEN2_BITMAP           230
+#define IDB_USER_NEW1_BITMAP            231
+#define IDB_USER_NEW2_BITMAP            232
+#define IDB_USER_DELE1_BITMAP           233
+#define IDB_RANGE_BITMAP                235
+#define IDB_PRINT_SET1_BITMAP           237
+#define IDB_PRINT_SET2_BITMAP           238
+#define IDB_OUT_SET1_BITMAP             239
+#define IDB_OUT_SET2_BITMAP             240
+#define IDB_CONFIG_OPEN1_BITMAP         241
+#define IDB_CONFIG_OPEN2_BITMAP         242
+#define IDB_SAVE1_BITMAP                245
+#define IDB_SAVE2_BITMAP                246
+#define IDB_ONOFF1_BITMAP               247
+#define IDB_ONOFF2_BITMAP               248
+#define IDB_START_PRINT1_BITMAP         249
+#define IDB_START_PRINT2_BITMAP         250
+#define IDB_PAUSE_PRINT1_BITMAP         251
+#define IDB_PAUSE_PRINT2_BITMAP         252
+#define IDB_BITMAP1                     255
+#define IDB_BITMAP3                     256
+#define IDB_INPUT1_BITMAP               257
+#define IDB_INPUT2_BITMAP               258
+#define IDB_REPEAT1_BITMAP              259
+#define IDB_REPEAT2_BITMAP              260
+#define IDB_LABEL_COPY1_BITMAP          261
+#define IDB_LABEL_COPY2_BITMAP          262
+#define IDB_LABEL_DELETE1_BITMAP        263
+#define IDB_LABEL_DELETE2_BITMAP        264
+#define IDB_SHRINK1_BITMAP              265
+#define IDB_SHRINK2_BITMAP              266
+#define IDB_ZOOM1_BITMAP                267
+#define IDB_ZOOM2_BITMAP                268
+#define IDB_NOTBACK1_BITMAP             269
+#define IDB_NOTBACK2_BITMAP             270
+#define IDB_ADDBACK1_BITMAP             271
+#define IDB_BITMAP7                     272
+#define IDB_ADDBACK2_BITMAP             272
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -129,7 +174,9 @@
 #define IDC_EDIT7                       1058
 #define IDC_USER_FRESH_BTN              1059
 #define IDC_BUTTON13                    1060
+#define IDC_USER_OK_BTN                 1060
 #define IDC_BUTTON10                    1061
+#define IDC_DHCP_BTN                    1061
 #define IDC_LIST1                       1062
 #define IDC_BUTTON4                     1063
 #define IDC_CONFI_SAVE_BTN              1063
@@ -138,6 +185,7 @@
 #define IDC_HIGH_VOLTAGE_BTN            1065
 #define IDC_VERSION_BTN                 1066
 #define IDC_BUTTON9                     1068
+#define IDC_SYS_OK_BTN                  1068
 #define IDC_EVN_BTN                     1074
 #define IDC_LANGUAGE_STATIC             1076
 #define IDC_SYSTEM_CANCEL_BTN           1077
@@ -434,14 +482,17 @@
 #define IDC_HEAD_PIC                    1466
 #define IDC_STATIC_SHOW_DLG             1467
 #define IDC_LOGO_PIC                    1468
+#define IDC_SYS_FRESH1_BTN              1469
+#define IDC_SYS_FRESH2_BTN              1470
+#define IDC_OUTSET_OK_BTN               1471
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        205
+#define _APS_NEXT_RESOURCE_VALUE        273
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1469
+#define _APS_NEXT_CONTROL_VALUE         1472
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

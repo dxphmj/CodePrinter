@@ -34,7 +34,13 @@ CInkSystemDlg::~CInkSystemDlg()
 void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	 
+	DDX_Control(pDX, IDC_INK_CLOSE_BTN, m_returnIB);
+	//DDX_Control(pDX, IDC_USUAL_BTN, m_usualIB);
+	//DDX_Control(pDX, IDC_ADVANCE_BTN, m_advanceIB);
+	//DDX_Control(pDX, IDC_SETUP_BTN, m_setupIB);
+	//DDX_Control(pDX, IDC_PARAMETER_BTN, m_parameterIB);
+	//DDX_Control(pDX, IDC_PHASING_BTN, m_phasingIB);
+	DDX_Control(pDX, IDC_INK_OK_BTN, m_okIB);
 }
 
 
@@ -116,6 +122,35 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_CIB_ViscoValve.Attach(IDC_VISCO_VALVE_BTN,this);
 	GetDlgItem(IDC_WASH_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//≥Âœ¥
 	m_CIB_WashValve.Attach(IDC_WASH_VALVE_BTN,this);
+
+	CRect rect1;
+	GetDlgItem(IDC_INK_CLOSE_BTN)->GetWindowRect(&rect1);
+
+	GetDlgItem(IDC_INK_CLOSE_BTN)->SetWindowPos(NULL,11,430,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	//GetDlgItem(IDC_USUAL_BTN)->SetWindowPos(NULL,200,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_ADVANCE_BTN)->SetWindowPos(NULL,300,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_SETUP_BTN)->SetWindowPos(NULL,400,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_PARAMETER_BTN)->SetWindowPos(NULL,500,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_PHASING_BTN)->SetWindowPos(NULL,600,440,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_INK_OK_BTN)->SetWindowPos(NULL,720,430,70,45,SWP_SHOWWINDOW);
+
+	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
+	m_returnIB.SizeToContent(); 
+
+	//¥˝ÃÌº”≤ …´Õº∆¨
+	//m_usualIB.LoadBitmaps(IDB_INK1_BITMAP,IDB_INK2_BITMAP,0,0,IDB_INK1_BITMAP);
+	//m_usualIB.SizeToContent(); 
+	//m_advanceIB.LoadBitmaps(IDB_USER_NEW1_BITMAP,IDB_USER_NEW2_BITMAP,0,0,IDB_USER_NEW1_BITMAP);
+	//m_advanceIB.SizeToContent(); 
+	//m_setupIB.LoadBitmaps(IDB_USER_DELE1_BITMAP,IDB_USER_DELE2_BITMAP,0,0,IDB_USER_DELE1_BITMAP);
+	//m_setupIB.SizeToContent(); 
+	//m_parameterIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_FRESH1_BITMAP);
+	//m_parameterIB.SizeToContent(); 
+	//m_phasingIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
+	//m_phasingIB.SizeToContent(); 
+
+	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
+	m_okIB.SizeToContent(); 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// “Ï≥£: OCX  Ù–‘“≥”¶∑µªÿ FALSE

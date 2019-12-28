@@ -79,7 +79,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
  	CBitmap bitmap;  // CBitmap对象，用于加载位图   
 	HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
-	bitmap.LoadBitmap(IDB_BITMAP1);  // 将位图IDB_BITMAP1加载到bitmap  
+	bitmap.LoadBitmap(IDB_CLOSE_BITMAP);  // 将位图IDB_BITMAP1加载到bitmap  
 	hBmp = (HBITMAP)bitmap.GetSafeHandle();  // 获取bitmap加载位图的句柄   
 	m_LogoPicBox.SetBitmap(hBmp);    // 设置图片控件m_jzmPicture的位图图片为IDB_BITMAP1   
 
@@ -142,7 +142,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	
 	//右侧一列设置按钮的位置及大小
-	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,730,10,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_SYSTEM_BUTTON)->SetWindowPos(NULL,700,100,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_USER_BUTTON)->SetWindowPos(NULL,700,170,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_LABEL_BUTTON)->SetWindowPos(NULL,700,240,80,55,SWP_SHOWWINDOW);
@@ -158,27 +158,26 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetWindowPos(NULL,450,420,80,55,SWP_SHOWWINDOW);
 	
 	//彩色按钮
-	m_ButFault.LoadBitmaps(IDB_FAULT_BITMAP,IDB_FAULT_BITMAP,0,0,IDB_FAULT_BITMAP);
+	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_FAULT1_BITMAP);
 	m_ButFault.SizeToContent(); 
-	m_ButSystem.LoadBitmaps(IDB_SYSTEM_BITMAP,IDB_SYSTEM_BITMAP,0,0,IDB_SYSTEM_BITMAP);
+	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_SYSTEM1_BITMAP);
 	m_ButSystem.SizeToContent(); 
-	m_ButUser.LoadBitmaps(IDB_USER_BITMAP,IDB_USER_BITMAP,0,0,IDB_USER_BITMAP);
+	m_ButUser.LoadBitmaps(IDB_USER1_BITMAP,IDB_USER2_BITMAP,0,0,IDB_LABEL1_BITMAP);
 	m_ButUser.SizeToContent(); 
-	m_ButLabel.LoadBitmaps(IDB_LABEL_BITMAP,IDB_LABEL_BITMAP,0,0,IDB_LABEL_BITMAP);
+	m_ButLabel.LoadBitmaps(IDB_LABEL1_BITMAP,IDB_LABEL2_BITMAP,0,0,IDB_LABEL1_BITMAP);
 	m_ButLabel.SizeToContent(); 
-	m_ButConfig.LoadBitmaps(IDB_CONFIG_BITMAP,IDB_CONFIG_BITMAP,0,0,IDB_CONFIG_BITMAP);
+	m_ButConfig.LoadBitmaps(IDB_CONFIG1_BITMAP,IDB_CONFIG2_BITMAP,0,0,IDB_CONFIG1_BITMAP);
 	m_ButConfig.SizeToContent(); 
-	m_ButFileMana.LoadBitmaps(IDB_FILEMANA_BITMAP,IDB_FILEMANA_BITMAP,0,0,IDB_FILEMANA_BITMAP);
+	m_ButFileMana.LoadBitmaps(IDB_FILEMANA1_BITMAP,IDB_FILEMANA2_BITMAP,0,0,IDB_FILEMANA1_BITMAP);
 	m_ButFileMana.SizeToContent(); 
-	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
+	m_ButInk.LoadBitmaps(IDB_INKSYSTEM1_BITMAP,IDB_INKSYSTEM2_BITMAP,0,0,IDB_INKSYSTEM1_BITMAP);
 	m_ButInk.SizeToContent(); 
 
-	m_ButOnOrOff.LoadBitmaps(IDB_OFFMACHINE_BITMAP,IDB_OFFMACHINE_BITMAP,0,0,IDB_OFFMACHINE_BITMAP);
-
+	m_ButOnOrOff.LoadBitmaps(IDB_ONOFF1_BITMAP,IDB_ONOFF2_BITMAP,0,0,IDB_ONOFF1_BITMAP);
 	m_ButOnOrOff.SizeToContent(); 
-	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
+	m_StartPrint.LoadBitmaps(IDB_START_PRINT1_BITMAP,IDB_START_PRINT2_BITMAP,0,0,IDB_START_PRINT1_BITMAP);
 	m_StartPrint.SizeToContent(); 
-	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
+	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT1_BITMAP,IDB_PAUSE_PRINT2_BITMAP,0,0,IDB_PAUSE_PRINT1_BITMAP);
 	m_PausePrint.SizeToContent(); 
 
 	

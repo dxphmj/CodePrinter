@@ -185,7 +185,7 @@ BEGIN
     PUSHBUTTON      "外部安装",IDC_OUT_SET_BTN,200,235,49,25
     PUSHBUTTON      "打开",IDC_CONFI_OPEN_BTN,277,235,49,25
     PUSHBUTTON      "保存",IDC_CONFI_SAVE_BTN,352,235,49,25
-    PUSHBUTTON      "确定",IDC_BUTTON5,456,235,49,25
+    PUSHBUTTON      "确定",IDC_CONFIG_OK_BTN,456,235,49,25
     EDITTEXT        IDC_HEIGHT_EDIT,91,39,40,14,ES_AUTOHSCROLL
     LTEXT           "高度",IDC_HEIGHT_STATIC,102,21,17,8
     LTEXT           "翻转",IDC_REVERSE_STATIC,53,78,17,8
@@ -376,8 +376,8 @@ BEGIN
     EDITTEXT        IDC_EDIT1,87,12,101,25,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT2,87,50,101,25,ES_AUTOHSCROLL
     LISTBOX         IDC_LIST2,87,95,104,96,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "刷新",IDC_BUTTON1,221,34,49,25
-    PUSHBUTTON      "刷新",IDC_BUTTON2,221,133,49,25
+    PUSHBUTTON      "刷新",IDC_SYS_FRESH1_BTN,221,34,49,25
+    PUSHBUTTON      "刷新",IDC_SYS_FRESH2_BTN,221,133,49,25
     LTEXT           "网络名称",IDC_STATIC,328,21,33,8
     LTEXT           "本地IP",IDC_STATIC,328,57,24,8
     LTEXT           "本地端口",IDC_STATIC,328,93,33,8
@@ -394,8 +394,8 @@ BEGIN
     PUSHBUTTON      "环境",IDC_EVN_BTN,231,248,49,25
     PUSHBUTTON      "自定义",IDC_CUSTON_BUTTON,289,248,49,25
     PUSHBUTTON      "版本",IDC_VERSION_BTN,347,248,49,25
-    PUSHBUTTON      "确定",IDC_BUTTON9,463,248,49,25
-    PUSHBUTTON      "",IDC_BUTTON10,374,196,29,19
+    PUSHBUTTON      "确定",IDC_SYS_OK_BTN,463,248,49,25
+    PUSHBUTTON      "",IDC_DHCP_BTN,374,196,29,19
 END
 
 IDD_USER_DIALOG DIALOG  0, 0, 442, 266
@@ -411,7 +411,7 @@ BEGIN
     PUSHBUTTON      "新建",IDC_NEW_BTN,169,221,49,25
     PUSHBUTTON      "删除",IDC_DELETE_BTN,236,221,49,25
     PUSHBUTTON      "刷新",IDC_USER_FRESH_BTN,303,221,49,25
-    PUSHBUTTON      "确定",IDC_BUTTON13,381,221,49,25
+    PUSHBUTTON      "确定",IDC_USER_OK_BTN,381,221,49,25
 END
 
 IDD_ENV_DIALOG DIALOG  0, 0, 336, 170
@@ -620,7 +620,7 @@ BEGIN
     LISTBOX         IDC_ACTIVE_LEV_LIST,352,68,74,27,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     EDITTEXT        IDC_CURRENT_LEV_EDIT,352,106,76,14,ES_AUTOHSCROLL | ES_NUMBER
     EDITTEXT        IDC_TRIGGER_LEN_EDIT,352,140,76,14,ES_AUTOHSCROLL | ES_NUMBER
-    PUSHBUTTON      "载入",IDC_BUTTON2,383,223,50,20
+    PUSHBUTTON      "载入",IDC_OUTSET_OK_BTN,383,223,50,20
 END
 
 IDD_ONOFF_DIALOG DIALOG  0, 0, 252, 166
@@ -910,19 +910,7 @@ END
 // Bitmap
 //
 
-IDB_BITMAP1             BITMAP                  "res\\test.bmp"
-IDB_FAULT_BITMAP        BITMAP                  "res\\Fault.bmp"
-IDB_SYSTEM_BITMAP       BITMAP                  "res\\System.bmp"
-IDB_USER_BITMAP         BITMAP                  "res\\User.bmp"
-IDB_LABEL_BITMAP        BITMAP                  "res\\Label.bmp"
-IDB_CONFIG_BITMAP       BITMAP                  "res\\Config.bmp"
-IDB_FILEMANA_BITMAP     BITMAP                  "res\\FileMana.bmp"
-IDB_INKSYSTEM_BITMAP    BITMAP                  "res\\InkSystem.bmp"
 IDB_IM017_BITMAP        BITMAP                  "res\\im017.bmp"
-IDB_SHRINK_BITMAP       BITMAP                  "res\\Shrink.bmp"
-IDB_ZOOM_BITMAP         BITMAP                  "res\\zoom.bmp"
-IDB_NOTBACK_BITMAP      BITMAP                  "res\\notback.bmp"
-IDB_ADDBACK_BITMAP      BITMAP                  "res\\addback.bmp"
 IDB_CLOSE_BITMAP        BITMAP                  "res\\close.bmp"
 IDB_OPEN_BITMAP         BITMAP                  "res\\open.bmp"
 IDB_FAR_BITMAP          BITMAP                  "res\\far.bmp"
@@ -939,13 +927,69 @@ IDB_R_QSHIFT_BITMAP     BITMAP                  "res\\R_Qshift.bmp"
 IDB_DOWNLOAD_BITMAP     BITMAP                  "res\\download.bmp"
 IDB_SAVE_BITMAP         BITMAP                  "res\\save.bmp"
 IDB_RETURN_BITMAP       BITMAP                  "res\\return.bmp"
-IDB_START_PRINT_BITMAP  BITMAP                  "res\\START_PRINT.bmp"
-IDB_PAUSE_PRINT_BITMAP  BITMAP                  "res\\PAUSE_PRINT.bmp"
-IDB_BITMAP4             BITMAP                  "res\\bitmap4.bmp"
 IDB_NEWBUILT_BITMAP     BITMAP                  "res\\newlyBuilt.bmp"
-IDB_OFFMACHINE_BITMAP   BITMAP                  "res\\开机2.bmp"
-IDB_BITMAP3             BITMAP                  "res\\bitmap3.bmp"
 IDB_BITMAP_HEAD         BITMAP                  "res\\head.bmp"
+IDB_FRESH1_BITMAP       BITMAP                  "res\\fresh.bmp"
+IDB_FRESH2_BITMAP       BITMAP                  "res\\fresh-.bmp"
+IDB_OK1_BITMAP          BITMAP                  "res\\ok.bmp"
+IDB_OK2_BITMAP          BITMAP                  "res\\ok-.bmp"
+IDB_RETURN1_BITMAP      BITMAP                  "res\\sys_return.bmp"
+IDB_RETURN2_BITMAP      BITMAP                  "res\\sys_return-.bmp"
+IDB_DHCP1_BITMAP        BITMAP                  "res\\圆键.bmp"
+IDB_DHCP2_BITMAP        BITMAP                  "res\\圆键-.bmp"
+IDB_FAULT1_BITMAP       BITMAP                  "res\\故障.bmp"
+IDB_FAULT2_BITMAP       BITMAP                  "res\\故障--.bmp"
+IDB_SYSTEM1_BITMAP      BITMAP                  "res\\系统.bmp"
+IDB_SYSTEM2_BITMAP      BITMAP                  "res\\系统--.bmp"
+IDB_LABEL1_BITMAP       BITMAP                  "res\\新建lab.bmp"
+IDB_LABEL2_BITMAP       BITMAP                  "res\\新建lab--.bmp"
+IDB_USER1_BITMAP        BITMAP                  "res\\用户.bmp"
+IDB_USER2_BITMAP        BITMAP                  "res\\用户--.bmp"
+IDB_FILEMANA2_BITMAP    BITMAP                  "res\\文件管理--.bmp"
+IDB_CONFIG1_BITMAP      BITMAP                  "res\\配置.bmp"
+IDB_CONFIG2_BITMAP      BITMAP                  "res\\配置--.bmp"
+IDB_INKSYSTEM1_BITMAP   BITMAP                  "res\\墨水系统.bmp"
+IDB_INKSYSTEM2_BITMAP   BITMAP                  "res\\墨水系统--.bmp"
+IDB_FILEMANA1_BITMAP    BITMAP                  "res\\文件管理.bmp"
+IDB_USER_OPEN1_BITMAP   BITMAP                  "res\\编辑用户.bmp"
+IDB_USER_OPEN2_BITMAP   BITMAP                  "res\\编辑用户--.bmp"
+IDB_USER_NEW1_BITMAP    BITMAP                  "res\\新建用户.bmp"
+IDB_USER_NEW2_BITMAP    BITMAP                  "res\\新建用户--.bmp"
+IDB_USER_DELE1_BITMAP   BITMAP                  "res\\删除.bmp"
+IDB_USER_DELE2_BITMAP   BITMAP                  "res\\删除--.bmp"
+IDB_RANGE_BITMAP        BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\下面按键.bmp"
+IDB_PRINT_SET1_BITMAP   BITMAP                  "res\\左一.bmp"
+IDB_PRINT_SET2_BITMAP   BITMAP                  "res\\左一--.bmp"
+IDB_OUT_SET1_BITMAP     BITMAP                  "res\\左二.bmp"
+IDB_OUT_SET2_BITMAP     BITMAP                  "res\\左二--.bmp"
+IDB_CONFIG_OPEN1_BITMAP BITMAP                  "res\\文件.bmp"
+IDB_CONFIG_OPEN2_BITMAP BITMAP                  "res\\文件--.bmp"
+IDB_SAVE1_BITMAP        BITMAP                  "res\\保存.bmp"
+IDB_SAVE2_BITMAP        BITMAP                  "res\\保存--.bmp"
+IDB_ONOFF1_BITMAP       BITMAP                  "res\\开机.bmp"
+IDB_ONOFF2_BITMAP       BITMAP                  "res\\开机2.bmp"
+IDB_START_PRINT1_BITMAP BITMAP                  "res\\开始喷印.bmp"
+IDB_START_PRINT2_BITMAP BITMAP                  "res\\开始喷印--.bmp"
+IDB_PAUSE_PRINT1_BITMAP BITMAP                  "res\\暂停喷印.bmp"
+IDB_PAUSE_PRINT2_BITMAP BITMAP                  "res\\暂停喷印--.bmp"
+IDB_BITMAP1             BITMAP                  "res\\bitmap1.bmp"
+IDB_BITMAP3             BITMAP                  "res\\下面按键.bmp"
+IDB_INPUT1_BITMAP       BITMAP                  "res\\※.bmp"
+IDB_INPUT2_BITMAP       BITMAP                  "res\\※--.bmp"
+IDB_REPEAT1_BITMAP      BITMAP                  "res\\笔.bmp"
+IDB_REPEAT2_BITMAP      BITMAP                  "res\\笔--.bmp"
+IDB_LABEL_COPY1_BITMAP  BITMAP                  "res\\复制.bmp"
+IDB_LABEL_COPY2_BITMAP  BITMAP                  "res\\复制--.bmp"
+IDB_LABEL_DELETE1_BITMAP BITMAP                  "res\\小删除.bmp"
+IDB_LABEL_DELETE2_BITMAP BITMAP                  "res\\小删除--.bmp"
+IDB_SHRINK1_BITMAP      BITMAP                  "res\\减细.bmp"
+IDB_SHRINK2_BITMAP      BITMAP                  "res\\减细--.bmp"
+IDB_ZOOM1_BITMAP        BITMAP                  "res\\加粗.bmp"
+IDB_ZOOM2_BITMAP        BITMAP                  "res\\加粗--.bmp"
+IDB_NOTBACK1_BITMAP     BITMAP                  "res\\无填充.bmp"
+IDB_NOTBACK2_BITMAP     BITMAP                  "res\\无填充--.bmp"
+IDB_ADDBACK1_BITMAP     BITMAP                  "res\\有填充.bmp"
+IDB_ADDBACK2_BITMAP     BITMAP                  "res\\有填充--.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

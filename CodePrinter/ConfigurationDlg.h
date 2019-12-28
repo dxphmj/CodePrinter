@@ -2,6 +2,8 @@
 #include "ConfigPrintModeDlg.h"
 #include "ConfigOutSetDlg.h"
 #include "afxwin.h"
+#include "ImageButton.h"
+
 // CConfigurationDlg ¶Ô»°¿ò
 
 class CConfigurationDlg : public CDialog
@@ -40,4 +42,11 @@ public:
 	int m_repeatDis;
 	CComboBox m_speedWay;
 	int m_speed;
+
+	CImageButton m_returnIB;
+	CImageButton m_printSetIB;
+	CImageButton m_outSetIB;
+	CImageButton m_configOpenIB;
+	CImageButton m_configSaveIB;
+	CImageButton m_configOkIB;
 };

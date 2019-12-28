@@ -23,4 +23,5 @@ public:
 	CListBox m_notGranted;
 	CListBox m_granted;
 	virtual BOOL OnInitDialog();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
