@@ -59,6 +59,10 @@ public:
 	CImageButton m_open;
 	CImageButton m_save;
 	CImageButton m_return;
+	CImageButton m_input;
+	CImageButton m_repeat;
+	CImageButton m_copy;
+	CImageButton m_delete;
 
 
 	afx_msg void OnBnClickedInputButton();
@@ -97,4 +101,6 @@ public:
 	afx_msg void OnBnClickedAddbackBtn();
 	afx_msg void OnBnClickedUdmirrorButton();
 	afx_msg void OnBnClickedLrmirrorButton();
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

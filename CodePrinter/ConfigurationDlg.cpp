@@ -38,6 +38,13 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_REPEAT_DIS_EDIT, m_repeatDis);
 	DDX_Control(pDX, IDC_SPEED_WAY_COMBO, m_speedWay);
 	DDX_Text(pDX, IDC_SPEED_EDIT, m_speed);
+
+	DDX_Control(pDX, IDC_CONFI_CLOSE_BTN, m_returnIB);
+	DDX_Control(pDX, IDC_PRINT_SET_BTN, m_printSetIB);
+	DDX_Control(pDX, IDC_OUT_SET_BTN, m_outSetIB);
+	DDX_Control(pDX, IDC_CONFI_OPEN_BTN, m_configOpenIB);
+	DDX_Control(pDX, IDC_CONFI_SAVE_BTN, m_configSaveIB);
+	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
 }
 
 
@@ -82,6 +89,29 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_speedWay.AddString(L"Fixed");
 	m_speedWay.AddString(L"Variable");
 	m_speedWay.SetCurSel(0);
+
+	CRect rect1;
+	GetDlgItem(IDC_CONFI_CLOSE_BTN)->GetWindowRect(&rect1);
+
+	GetDlgItem(IDC_CONFI_CLOSE_BTN)->SetWindowPos(NULL,11,390,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_PRINT_SET_BTN)->SetWindowPos(NULL,200,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_OUT_SET_BTN)->SetWindowPos(NULL,300,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFI_OPEN_BTN)->SetWindowPos(NULL,400,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFI_SAVE_BTN)->SetWindowPos(NULL,500,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFIG_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+
+	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
+	m_returnIB.SizeToContent(); 
+	m_printSetIB.LoadBitmaps(IDB_PRINT_SET1_BITMAP,IDB_PRINT_SET2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_printSetIB.SizeToContent(); 
+	m_outSetIB.LoadBitmaps(IDB_OUT_SET1_BITMAP,IDB_OUT_SET2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_outSetIB.SizeToContent(); 
+	m_configOpenIB.LoadBitmaps(IDB_CONFIG_OPEN1_BITMAP,IDB_CONFIG_OPEN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_configOpenIB.SizeToContent(); 
+	m_configSaveIB.LoadBitmaps(IDB_SAVE1_BITMAP,IDB_SAVE2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_configSaveIB.SizeToContent(); 
+	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
+	m_configOkIB.SizeToContent(); 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
