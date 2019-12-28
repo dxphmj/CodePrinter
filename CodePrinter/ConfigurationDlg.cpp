@@ -52,7 +52,7 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONFI_CLOSE_BTN, &CConfigurationDlg::OnBnClickedConfiCloseBtn)
 	ON_BN_CLICKED(IDC_PRINT_SET_BTN, &CConfigurationDlg::OnBnClickedPrintSetBtn)
 	ON_BN_CLICKED(IDC_OUT_SET_BTN, &CConfigurationDlg::OnBnClickedOutSetBtn)
-	ON_BN_CLICKED(IDC_BUT_SAVE_PCF, &CConfigurationDlg::OnBnClickedSavePcf)
+	ON_BN_CLICKED(IDC_CONFIG_OK_BTN, &CConfigurationDlg::OnBnClickedSavePcf)
 END_MESSAGE_MAP()
 
 
