@@ -5,6 +5,7 @@
 #include "CodePrinter.h"
 #include "InkSystemDlg.h"
 #include "Inksystemconfig.h"
+#include "CodePrinterDlg.h"
 
 
 // CInkSystemDlg 对话框
@@ -131,22 +132,22 @@ void CInkSystemDlg::showInkDlg(int ID)
 	if (ID == IDD_INK_ADVANCE_DIALOG)
 	{
 		m_inkAdv->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Adv"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Adv")); 
 	}
-	if (ID == IDD_INK_SETUP_DIALOG)
+	else if (ID == IDD_INK_SETUP_DIALOG)
 	{
 		m_setup->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Setup"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Setup")); 
 	}
-	if (ID == IDD_INK_PAR_DIALOG)
+	else if (ID == IDD_INK_PAR_DIALOG)
 	{
 		m_par->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Param"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param")); 
 	}
-	if (ID == IDD_INK_PHASING_DIALOG)
+	else if (ID == IDD_INK_PHASING_DIALOG)
 	{
 		m_phas->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Phase"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Phase")); 
 	}	 
 }
 
@@ -155,6 +156,7 @@ void CInkSystemDlg::OnBnClickedInkCloseBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
 	showInkDlg(0);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 
 }
 
@@ -278,7 +280,7 @@ void CInkSystemDlg::OnBnClickedInkOkBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	CInksystemconfig pInksysConfig((CCodePrinterDlg*)(this->GetParent()));
 	pInksysConfig.save_inksystem_to_xml();
-//	pInksysConfig.get_inksystem_from_xml();
+// 	pInksysConfig.get_inksystem_from_xml();
 	pInksysConfig.download_inksystem_setup();
 	pInksysConfig.download_inksystem_parameter();
 }

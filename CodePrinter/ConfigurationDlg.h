@@ -21,6 +21,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+
+    //喷印界面的几个按钮界面接口
+	CConfigPrintModeDlg*  m_ConfigPrintModeDlg;
 	CConfigPrintModeDlg *m_ConfigPM;
 	CConfigOutSetDlg *m_ConfigOS;
 
@@ -28,9 +31,6 @@ public:
 	void showConfigDlg(int ID);
 	afx_msg void OnBnClickedPrintSetBtn();
 	afx_msg void OnBnClickedOutSetBtn();
-    //喷印界面的几个按钮界面接口
-	CConfigPrintModeDlg*  m_ConfigPrintModeDlg;
-	CConfigOutSetDlg* m_ConfigOutSetDlg;
 
 	int m_height;
 	CComboBox m_reverse;
@@ -40,4 +40,5 @@ public:
 	int m_repeatDis;
 	CComboBox m_speedWay;
 	int m_speed;
+	afx_msg void OnBnClickedSavePcf();
 };

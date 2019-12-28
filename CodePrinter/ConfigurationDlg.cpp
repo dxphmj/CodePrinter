@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "ConfigurationDlg.h"
+#include "PcfConfig.h"
+#include "CodePrinterDlg.h"
 
 
 // CConfigurationDlg 对话框
@@ -43,6 +45,7 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONFI_CLOSE_BTN, &CConfigurationDlg::OnBnClickedConfiCloseBtn)
 	ON_BN_CLICKED(IDC_PRINT_SET_BTN, &CConfigurationDlg::OnBnClickedPrintSetBtn)
 	ON_BN_CLICKED(IDC_OUT_SET_BTN, &CConfigurationDlg::OnBnClickedOutSetBtn)
+	ON_BN_CLICKED(IDC_BUT_SAVE_PCF, &CConfigurationDlg::OnBnClickedSavePcf)
 END_MESSAGE_MAP()
 
 
@@ -51,13 +54,12 @@ END_MESSAGE_MAP()
 BOOL CConfigurationDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
     //按钮界面初始化
 	m_ConfigPrintModeDlg = new CConfigPrintModeDlg;
-	m_ConfigOutSetDlg = new CConfigOutSetDlg;
-
-	// TODO:  在此添加额外的初始化
 	m_ConfigPM= new CConfigPrintModeDlg;
 	m_ConfigOS = new CConfigOutSetDlg;
+
 	int nX = 0;
 	int nY = 100;
 	int nWidth = 800;
@@ -90,6 +92,7 @@ void CConfigurationDlg::OnBnClickedConfiCloseBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
 	showConfigDlg(0);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
 
 void CConfigurationDlg::showConfigDlg(int ID)
@@ -99,16 +102,15 @@ void CConfigurationDlg::showConfigDlg(int ID)
 	if (ID == IDD_CONFIG_PRINT_MODE_DIALOG)
 	{
 		m_ConfigPM->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Configure > PrintMode")); 
+
 	}
-	if (ID == IDD_CONFIG_OUTSET_DIALOG)
+	else if (ID == IDD_CONFIG_OUTSET_DIALOG)
 	{
 		m_ConfigOS->ShowWindow(SW_SHOW);
-	}
-	else if (0)
-	{
-		return;
-	}
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Configure > Outset")); 
 
+	}	 
 }
 
 void CConfigurationDlg::OnBnClickedPrintSetBtn()
@@ -122,3 +124,15 @@ void CConfigurationDlg::OnBnClickedOutSetBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	showConfigDlg(IDD_CONFIG_OUTSET_DIALOG);
 }
+
+void CConfigurationDlg::OnBnClickedSavePcf()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	//界面保存到目前的喷印配置xml文件和pcf文件里  
+	CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
+	pPcfConfig.save_pcf_to_xml();
+	pPcfConfig.download_pcf();
+}
+
+ 

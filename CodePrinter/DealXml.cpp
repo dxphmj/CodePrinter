@@ -87,7 +87,7 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 					pValue->SetValue(valueStr);
 				}
 				
-				mydoc.SaveFile(FileName.GetBuffer(0));
+				mydoc.SaveFile();
 				return true;
 			}	
 		}
@@ -98,7 +98,7 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 		TiXmlText *Content = new TiXmlText(valueStr);
 		childElement->LinkEndChild(Content);
 
-		mydoc.SaveFile(FileName.GetBuffer(0));
+		mydoc.SaveFile();
 		return true;	
 	}
 	else
