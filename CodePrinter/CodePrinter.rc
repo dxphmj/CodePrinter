@@ -77,8 +77,6 @@ EXSTYLE WS_EX_APPWINDOW | 0x80000000L
 FONT 9, "MS Sans Serif"
 BEGIN
     CONTROL         204,IDC_HEAD_PIC,"Static",SS_BITMAP,0,0,533,50
-    LTEXT           "CODEMARK",IDC_STATIC_SHOW_DLG,1,19,119,15
-    LTEXT           "",IDC_PRINT_STA_STATIC,174,11,124,26
     PUSHBUTTON      "",IDC_SYSTEM_BUTTON,376,84,56,28
     PUSHBUTTON      "",IDC_FAULT_BUTTON,388,15,56,28
     PUSHBUTTON      "",IDC_USER_BUTTON,376,118,56,28
@@ -108,10 +106,6 @@ BEGIN
     PUSHBUTTON      "ON_OR_OFF",IDC_ONOROFF_BUTTON,34,245,51,25
     PUSHBUTTON      "START_PRINT",IDC_STARTPRINT_BUTTON,131,238,50,40
     PUSHBUTTON      "PAUSE_PRINT",IDC_PAUSEPRINT_BUTTON,255,238,60,39
-    CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,15,14
-    CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,15,14
-    CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,15,14
-    CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,15,14
 END
 
 IDD_DATE_DIALOG DIALOG  0, 0, 498, 299
@@ -355,7 +349,6 @@ BEGIN
     EDITTEXT        IDC_EDIT4,299,192,35,25,ES_AUTOHSCROLL | NOT WS_VISIBLE
     CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,13,11
     EDITTEXT        IDC_EDIT5,382,122,130,48,ES_AUTOHSCROLL | NOT WS_BORDER | NOT WS_TABSTOP
-    CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,21,20
     EDITTEXT        IDC_EDIT2,171,192,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
     LTEXT           "W:",IDC_STATIC_W,399,135,11,8
     LTEXT           "H:",IDC_STATIC_H,454,134,10,8
@@ -1001,8 +994,8 @@ IDB_ADDBACK2_BITMAP     BITMAP                  "res\\有填充--.bmp"
 IDB_DOWNLOAD1_BITMAP    BITMAP                  "res\\下载.bmp"
 IDB_DOWNLOAD2_BITMAP    BITMAP                  "res\\下载--.bmp"
 IDB_80_55_BITMAP        BITMAP                  "res\\80x55纯蓝按钮.bmp"
-IDB_CLOSE1_BITMAP       BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\缩小间距.bmp"
-IDB_CLOSE2_BITMAP       BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\缩小间距--.bmp"
+IDB_CLOSE1_BITMAP       BITMAP                  "res\\SMALL\\缩小间距.bmp"
+IDB_CLOSE2_BITMAP       BITMAP                  "res\\SMALL\\缩小间距--.bmp"
 IDB_FAR1_BITMAP         BITMAP                  "res\\SMALL\\扩大间距.bmp"
 IDB_FAR2_BITMAP         BITMAP                  "res\\SMALL\\扩大间距--.bmp"
 IDB_UD_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\垂直翻转.bmp"
@@ -1012,8 +1005,8 @@ IDB_LR_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\水平翻转.bmp"
 IDB_LR_MIRROR2_BITMAP   BITMAP                  "res\\SMALL\\水平翻转--.bmp"
 IDB_L_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向左.bmp"
 IDB_L_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向左--.bmp"
-IDB_R_SHIFT1_BITMAP     BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\向右.bmp"
-IDB_R_SHIFT2_BITMAP     BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\向右--.bmp"
+IDB_R_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向右.bmp"
+IDB_R_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向右--.bmp"
 IDB_45_40_BITMAP        BITMAP                  "res\\SMALL\\45x40纯蓝按钮.bmp"
 IDB_L_SELECT1_BITMAP    BITMAP                  "res\\SMALL\\左.bmp"
 IDB_L_SELECT2_BITMAP    BITMAP                  "res\\SMALL\\左--.bmp"
