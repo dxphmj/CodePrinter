@@ -152,6 +152,14 @@
 #define IDB_GREEN_LAMP_BITMAP           331
 #define IDB_SOLVENT_CALIB1_BITMAP       332
 #define IDB_SOLVENT_CALIB2_BITMAP       333
+#define IDB_BITMAP_PHA_ADD_UP           334
+#define IDB_BITMAP_PHA_ADD_DOWM         335
+#define IDB_BITMAP_PHA_SUB_UP           336
+#define IDB_BITMAP_PHA_SUB_DOWM         337
+#define IDB_BITMAP_PHA_CIRCLE_UNSEL     338
+#define IDB_BITMAP_PHA_CIRCLE_SEL       339
+#define IDB_PNG_ANG0                    404
+#define IDB_PNG_ANG1                    405
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -528,6 +536,7 @@
 #define IDC_STATIC_X                    1471
 #define IDC_EDITFIGURE_OK_BTN           1472
 #define IDC_STATIC_Y                    1472
+#define IDC_PIC_PHA_ANGLE               1472
 #define IDC_STATIC_WV                   1473
 #define IDC_STATIC_HV                   1474
 #define IDC_STATIC_XV                   1475
@@ -545,9 +554,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        334
+#define _APS_NEXT_RESOURCE_VALUE        406
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1472
+#define _APS_NEXT_CONTROL_VALUE         1473
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

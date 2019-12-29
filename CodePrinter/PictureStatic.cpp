@@ -13,7 +13,7 @@ IMPLEMENT_DYNAMIC(CPictureStatic, CStatic)
 CPictureStatic::CPictureStatic()
 {
 	m_bShowLogo = false;
-	m_bShowGreenAlarm = m_bShowBlueAlarm = m_bShowYellowAlarm = m_bShowRedAlarm = false;
+	m_bShowGreenAlarm = m_bShowBlueAlarm = m_bShowYellowAlarm = m_bShowRedAlarm = true;
 }
 
 CPictureStatic::~CPictureStatic()
@@ -94,7 +94,7 @@ void CPictureStatic::OnPaint()
 	if(m_bShowGreenAlarm)
 	{ 
 		CBitmap bm;
-		bm.LoadBitmap(IDB_BITMAP3);
+		bm.LoadBitmap(IDB_GREEN_LAMP_BITMAP);
 		CRect rect3(CPoint(nAlarmStart,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
  		BITMAP bm1;
 		CDC menbm;
@@ -106,7 +106,7 @@ void CPictureStatic::OnPaint()
 	if(m_bShowBlueAlarm)
 	{ 
 		CBitmap bm;
-		bm.LoadBitmap(IDB_BITMAP3);
+		bm.LoadBitmap(IDB_BLUE_LAMP_BITMAP);
 		CRect rect3(CPoint(nAlarmStart+nAlarmWidth+nAlarmStep,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
  		BITMAP bm1;
 		CDC menbm;
@@ -118,7 +118,7 @@ void CPictureStatic::OnPaint()
 	if(m_bShowYellowAlarm)
 	{ 
 		CBitmap bm;
-		bm.LoadBitmap(IDB_BITMAP3);
+		bm.LoadBitmap(IDB_YELLOW_LAMP_BITMAP);
 		CRect rect3(CPoint(nAlarmStart+(nAlarmWidth+nAlarmStep)*2,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
  		BITMAP bm1;
 		CDC menbm;
@@ -130,7 +130,7 @@ void CPictureStatic::OnPaint()
 	if(m_bShowRedAlarm)
 	{ 
 		CBitmap bm;
-		bm.LoadBitmap(IDB_BITMAP3);
+		bm.LoadBitmap(IDB_RED_LAMP_BITMAP);
 		CRect rect3(CPoint(nAlarmStart+(nAlarmWidth+nAlarmStep)*3,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
  		BITMAP bm1;
 		CDC menbm;

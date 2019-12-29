@@ -533,16 +533,16 @@ IDD_INK_SETUP_DIALOG DIALOG  0, 0, 513, 244
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "喷嘴尺寸",IDC_STATIC,90,34,33,8
-    LTEXT           "晶振频率[Hz]",IDC_STATIC,90,85,46,8
-    LTEXT           "墨水类型",IDC_STATIC,90,136,33,8
-    LTEXT           "冷凝器",IDC_STATIC,90,187,25,8
-    LTEXT           "睡眠模式",IDC_STATIC,309,20,33,8
-    LTEXT           "时间重置",IDC_STATIC,309,56,33,8
-    LTEXT           "下次保养时间[小时]",IDC_STATIC,309,92,70,8
-    LTEXT           "墨水剩余时间[小时]",IDC_STATIC,309,128,70,8
-    LTEXT           "溶剂液位校准",IDC_STATIC,309,164,49,8
-    LTEXT           "墨水液位校准",IDC_STATIC,309,200,49,8
+    LTEXT           "喷嘴尺寸",IDC_STATIC,90,34,65,15
+    LTEXT           "晶振频率[Hz]",IDC_STATIC,90,85,65,15
+    LTEXT           "墨水类型",IDC_STATIC,90,136,65,15
+    LTEXT           "冷凝器",IDC_STATIC,90,187,65,15
+    LTEXT           "睡眠模式",IDC_STATIC,309,20,65,15
+    LTEXT           "时间重置",IDC_STATIC,309,56,65,15
+    LTEXT           "下次保养时间[小时]",IDC_STATIC,309,92,89,15
+    LTEXT           "墨水剩余时间[小时]",IDC_STATIC,309,128,86,15
+    LTEXT           "溶剂液位校准",IDC_STATIC,309,164,65,15
+    LTEXT           "墨水液位校准",IDC_STATIC,309,200,65,15
     LTEXT           "Enabled",IDC_STATIC,405,56,26,8
     EDITTEXT        IDC_NEXT_SERVICE_EDIT,405,89,51,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_INK_LIFE_TIME_EDIT,405,125,51,14,ES_AUTOHSCROLL
@@ -559,16 +559,16 @@ IDD_INK_PAR_DIALOG DIALOG  0, 0, 460, 236
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "压力[mbar]",IDC_PAR_PRESSURE_STATIC,63,23,38,8
-    LTEXT           "泵速[r/m]",IDC_PAR_PUMP_SPEED_STATIC,63,69,33,8
-    LTEXT           "墨水液位过高值",IDC_INK_FLOW_LEV_STATIC,63,115,57,8
-    LTEXT           "墨水液位添加值",IDC_INK_ADD_LEV_STATIC,63,161,57,8
-    LTEXT           "墨水液位过低值",IDC_INK_EMPTY_LEV_STATIC,63,207,57,8
-    LTEXT           "喷头工作温度[℃]",IDC_PRINTHEAD_TEMP_STATIC,297,23,62,8
-    LTEXT           "粘度偏移误差[%]",IDC_VISCO_DEVIA_STATIC,297,69,62,8
-    LTEXT           "溶剂液位过高值",IDC_SOLVENT_FLOW_LEV_STATIC,297,115,57,8
-    LTEXT           "溶剂液位添加值",IDC_SOL_ADD_LEV_STATIC,297,161,57,8
-    LTEXT           "溶剂液位过低值",IDC_SOL_EMPTY_LEV_STATIC,297,207,57,8
+    LTEXT           "压力[mbar]",IDC_PAR_PRESSURE_STATIC,63,23,50,18
+    LTEXT           "泵速[r/m]",IDC_PAR_PUMP_SPEED_STATIC,63,69,50,18
+    LTEXT           "墨水液位过高值",IDC_INK_FLOW_LEV_STATIC,63,115,79,18
+    LTEXT           "墨水液位添加值",IDC_INK_ADD_LEV_STATIC,63,161,70,18
+    LTEXT           "墨水液位过低值",IDC_INK_EMPTY_LEV_STATIC,63,207,74,18
+    LTEXT           "喷头工作温度[℃]",IDC_PRINTHEAD_TEMP_STATIC,297,23,63,18
+    LTEXT           "粘度偏移误差[%]",IDC_VISCO_DEVIA_STATIC,297,69,69,18
+    LTEXT           "溶剂液位过高值",IDC_SOLVENT_FLOW_LEV_STATIC,297,115,80,18
+    LTEXT           "溶剂液位添加值",IDC_SOL_ADD_LEV_STATIC,297,161,77,18
+    LTEXT           "溶剂液位过低值",IDC_SOL_EMPTY_LEV_STATIC,297,207,77,18
     EDITTEXT        IDC_PAR_PRESSURE_EDIT,147,21,40,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_PAR_PUMP_SPEED_EDIT,147,66,40,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_INK_FLOW_LEV_EDIT,147,112,40,14,ES_AUTOHSCROLL
@@ -587,16 +587,17 @@ FONT 8, "MS Shell Dlg"
 BEGIN
     PUSHBUTTON      "减少",IDC_PASHING_CUT_BTN,48,13,50,217
     PUSHBUTTON      "增加",IDC_PHASING_ADD_BTN,421,13,50,217
-    LTEXT           "调制电压[V]",IDC_MODULATION_V_STATIC,244,17,42,8
+    LTEXT           "调制电压[V]",IDC_MODULATION_V_STATIC,244,17,57,20
     LTEXT           "0",IDC_MODULATION_NUM_STATIC,262,46,10,8
-    LTEXT           "固定设置[V]",IDC_FIXED_STATIC,294,86,42,8
-    LTEXT           "自动设置",IDC_AUTO_SET_STATIC,294,120,33,8
-    LTEXT           "调整步级:X10",IDC_SET_ADJUST_BIG_STATIC,294,154,48,8
-    LTEXT           "调整步级:X1",IDC_SET_ADJUST_SMALL_STATIC,294,188,44,8
+    LTEXT           "固定设置[V]",IDC_FIXED_STATIC,294,86,57,20
+    LTEXT           "自动设置",IDC_AUTO_SET_STATIC,294,124,57,15
+    LTEXT           "调整步级:X10",IDC_SET_ADJUST_BIG_STATIC,294,158,57,16
+    LTEXT           "调整步级:X1",IDC_SET_ADJUST_SMALL_STATIC,294,192,57,16
     EDITTEXT        IDC_FIXED_EDIT,351,83,40,14,ES_AUTOHSCROLL
     PUSHBUTTON      "",IDC_AUTO_SET_BTN,359,115,32,18
     PUSHBUTTON      "",IDC_SET_ADJUST_BIG_BTN,359,150,32,18
     PUSHBUTTON      "",IDC_SET_ADJUST_SMALL_BTN,359,184,32,18
+    CONTROL         "",IDC_PIC_PHA_ANGLE,"Static",SS_BITMAP,131,84,15,13
 END
 
 IDD_CONFIG_PRINT_MODE_DIALOG DIALOG  0, 0, 512, 313
@@ -1041,8 +1042,16 @@ IDB_RED_LAMP_BITMAP     BITMAP                  "res\\红灯.bmp"
 IDB_YELLOW_LAMP_BITMAP  BITMAP                  "res\\黄灯.bmp"
 IDB_BLUE_LAMP_BITMAP    BITMAP                  "res\\蓝灯.bmp"
 IDB_GREEN_LAMP_BITMAP   BITMAP                  "res\\绿灯.bmp"
-IDB_SOLVENT_CALIB1_BITMAP BITMAP                  "res\\水位.bmp"
-IDB_SOLVENT_CALIB2_BITMAP BITMAP                  "res\\水位--.bmp"
+IDB_SOLVENT_CALIB1_BITMAP BITMAP                "res\\水位.bmp"
+IDB_SOLVENT_CALIB2_BITMAP BITMAP                "res\\水位--.bmp"
+IDB_BITMAP_PHA_ADD_UP   BITMAP                  "res\\加.bmp"
+IDB_BITMAP_PHA_ADD_DOWM BITMAP                  "res\\加--.bmp"
+IDB_BITMAP_PHA_SUB_UP   BITMAP                  "res\\减.bmp"
+IDB_BITMAP_PHA_SUB_DOWM BITMAP                  "res\\减--.bmp"
+IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP              "res\\圆键.bmp"
+IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                "res\\圆键-.bmp"
+IDB_PNG_ANG0            BITMAP                  "res\\ang0.bmp"
+IDB_PNG_ANG1            BITMAP                  "res\\ang1.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

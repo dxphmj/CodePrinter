@@ -1099,7 +1099,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 	{
 		 if (theApp.myUserPower.isChangeUser)
 		 {
-			 ChangeBottonEnable();
+			 //ChangeBottonEnable();
 			 theApp.myUserPower.isChangeUser=false;
 		 }
 		theApp.myStatusClass.byStatusFromSlaveState();
@@ -1179,15 +1179,19 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		//实时相位
-		//switch(theApp.myStatusClass.staPhase)
-		//	case "0":
-		// {
-		//	if (theApp.myTimClass.staPhaseLas != "0")
-		//	{
-		//	}
-		// }
+		switch(theApp.myStatusClass.staPhase)
+		{			
+			case 0:
+			{
+				if (theApp.myTimClass.staPhaseLas == 0)
+				{
+					m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+					m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+				}
+			}
 
-		break;
+		    break;
+		}
 
 	}
 }

@@ -26,7 +26,7 @@ public:
 		InkLifeTimeLas = 6000;
 		boInkLifeTime = false;
 		boServiceTime = false;
-		staPhaseLas = "0";
+		staPhaseLas = 0;
 		staSysReaLas = false;
 	}
 	~TimClass(){}
@@ -43,7 +43,7 @@ public:
 		CTime InkDateTimLas, SerDateTimLas, dateTimLasWri ;
 		bool boInkLifeTime;
 		bool boServiceTime;
-		string staPhaseLas;
+		byte staPhaseLas;
 		bool staSysReaLas ;
 };
 //控制变量类

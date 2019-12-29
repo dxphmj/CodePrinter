@@ -1,5 +1,6 @@
 #pragma once
-
+#include "afxwin.h"
+#include "ImageButton.h"
 
 // CInkPhasingDlg 对话框
 
@@ -23,4 +24,20 @@ public:
 	int m_fixed;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
+	afx_msg void OnBnClickedPhasingAddBtn();
+	afx_msg void OnBnClickedPashingCutBtn();
+	afx_msg void OnBnClickedSetAdjustSmallBtn();
+	afx_msg void OnBnClickedSetAdjustBigBtn();
+	afx_msg void OnBnClickedAutoSetBtn();
+
+	CImageButton m_PhaMvAuto;
+	CImageButton m_PhaMvStep10;
+	CImageButton m_PhaMvStep1;
+	CImageButton m_PhaMvAdd;
+	CImageButton m_PhaMvSub;
+	virtual BOOL OnInitDialog();
+	CStatic m_PicPhaAngle;
+
+	CBitmap m_AngleBitmap[36];  // CBitmap对象，用于加载位图  
+	HBITMAP m_AnglehBmp[36];
 };
