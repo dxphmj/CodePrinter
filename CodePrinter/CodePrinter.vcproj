@@ -975,6 +975,38 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\※的里面\123--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\123.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\45x40纯蓝按钮.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\60x35纯蓝按钮.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\60x40纯蓝按钮.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\80x55纯蓝按钮.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\ABC--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\ABC.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\addback.bmp"
 				>
 			</File>
@@ -1087,6 +1119,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\※的里面\ODBC--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\ODBC.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\ok-.bmp"
 				>
 			</File>
@@ -1175,6 +1215,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\下载--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\下载.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\下面按键--.bmp"
 				>
 			</File>
@@ -1215,11 +1263,67 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\SMALL\右--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\右.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向上--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向上.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向下--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向下.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向右--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向右.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向左--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\向左.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\图片--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\图片.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\圆键-.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\圆键.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\垂直翻转--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\垂直翻转.bmp"
 				>
 			</File>
 			<File
@@ -1244,6 +1348,14 @@
 			</File>
 			<File
 				RelativePath=".\res\小删除.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\左--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\左.bmp"
 				>
 			</File>
 			<File
@@ -1279,26 +1391,43 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				RelativePath=".\res\SMALL\快速向右--.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\背景条.bmp"
+				RelativePath=".\res\SMALL\快速向右.bmp"
 				>
 			</File>
 			<File
-
-				RelativePath=".\res\背景条.bmp"
+				RelativePath=".\res\SMALL\快速向左--.bmp"
 				>
 			</File>
 			<File
-				
-
+				RelativePath=".\res\SMALL\快速向左.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\扩大间距--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\扩大间距.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\故障--.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\故障.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\故障2--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\故障2.bmp"
 				>
 			</File>
 			<File
@@ -1342,6 +1471,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\※的里面\时间--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\时间.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\暂停喷印--.bmp"
 				>
 			</File>
@@ -1355,6 +1492,30 @@
 			</File>
 			<File
 				RelativePath=".\res\有填充.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\条码--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\※的里面\条码.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\水位--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\水位.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\水平翻转--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\水平翻转.bmp"
 				>
 			</File>
 			<File
@@ -1382,6 +1543,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\红灯.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\绿灯.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\编辑用户--.bmp"
 				>
 			</File>
@@ -1390,7 +1559,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\背景条.bmp"
+				RelativePath=".\res\SMALL\缩小间距--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\缩小间距.bmp"
 				>
 			</File>
 			<File
@@ -1399,6 +1572,26 @@
 			</File>
 			<File
 				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\蓝灯.bmp"
 				>
 			</File>
 			<File
@@ -1407,6 +1600,10 @@
 			</File>
 			<File
 				RelativePath=".\res\配置.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\黄灯.bmp"
 				>
 			</File>
 		</Filter>

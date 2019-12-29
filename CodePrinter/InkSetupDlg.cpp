@@ -32,6 +32,8 @@ void CInkSetupDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_INK_TYPE_LIST, m_inkTypeList);
 	DDX_Control(pDX, IDC_PELTIER_LIST, m_peltierList);
 	DDX_Control(pDX, IDC_SLEEP_LIST, m_sleepList);
+	DDX_Control(pDX, IDC_SOLVENT_CALIB_BTN, m_solventCalibIB);
+	DDX_Control(pDX, IDC_INK_CALIB_BTN, m_inkCalibIB);
 
 }
 
@@ -74,6 +76,16 @@ BOOL CInkSetupDlg::OnInitDialog()
 	m_sleepList.AddString(L"ON");
 	m_sleepList.SetCurSel(0);
 
+	CRect rect1;
+	GetDlgItem(IDC_INK_CALIB_BTN)->GetWindowRect(&rect1);
+
+	GetDlgItem(IDC_SOLVENT_CALIB_BTN)->SetWindowPos(NULL,605,252,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_INK_CALIB_BTN)->SetWindowPos(NULL,605,313,70,45,SWP_SHOWWINDOW);
+
+	m_solventCalibIB.LoadBitmaps(IDB_SOLVENT_CALIB1_BITMAP,IDB_SOLVENT_CALIB2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_solventCalibIB.SizeToContent(); 
+	m_inkCalibIB.LoadBitmaps(IDB_SOLVENT_CALIB1_BITMAP,IDB_SOLVENT_CALIB2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_inkCalibIB.SizeToContent(); 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
