@@ -134,7 +134,7 @@ BOOL CLabelDlg::OnInitDialog()
 	// TODO:  在此添加额外的初始化
 	pInput = new CInputDlg;
 	pInput->Create(IDD_INPUT_DIALOG,this);
-	pInput->MoveWindow(0,200,800,400);
+	pInput->MoveWindow(0,260,800,340);
 	pInput->ShowWindow(SW_HIDE);
 
 	//设置按钮的位置及大小
@@ -275,6 +275,7 @@ void CLabelDlg::OnBnClickedInputButton()
 void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
+	/*
 	CDC* pDC = m_designArea.GetDC();
 	CRect rectClient;
 	CDC dcMem,dcBkgnd;
@@ -321,6 +322,7 @@ void CLabelDlg::OnPaint()
 	//theApp.myclassMessage.DrawDot(pDC);
 
 	ReleaseDC(pDC); 
+	*/
 /*
 	CPaintDC dc(this); // device context for painting
 	// TODO: 在此处添加消息处理程序代码

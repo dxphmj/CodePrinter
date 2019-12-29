@@ -45,7 +45,6 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ONOROFF_BUTTON, m_ButOnOrOff);
 	DDX_Control(pDX, IDC_STARTPRINT_BUTTON, m_StartPrint);
 	DDX_Control(pDX, IDC_PAUSEPRINT_BUTTON, m_PausePrint);
-	DDX_Control(pDX, IDC_LOGO_PIC, m_LogoPicBox);
 	DDX_Control(pDX, IDC_HEAD_PIC, m_PicHead);
 }
 
@@ -76,13 +75,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	//显示公司的logo
-
- 	CBitmap bitmap;  // CBitmap对象，用于加载位图   
-	HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
-	bitmap.LoadBitmap(IDB_CLOSE_BITMAP);  // 将位图IDB_BITMAP1加载到bitmap  
-	hBmp = (HBITMAP)bitmap.GetSafeHandle();  // 获取bitmap加载位图的句柄   
-	m_LogoPicBox.SetBitmap(hBmp);    // 设置图片控件m_jzmPicture的位图图片为IDB_BITMAP1   
+ //	CBitmap bitmap;  // CBitmap对象，用于加载位图   
+	//HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
+	//bitmap.LoadBitmap(IDB_CLOSE_BITMAP);  // 将位图IDB_BITMAP1加载到bitmap  
+	//hBmp = (HBITMAP)bitmap.GetSafeHandle();  // 获取bitmap加载位图的句柄   
+	//m_LogoPicBox.SetBitmap(hBmp);    // 设置图片控件m_jzmPicture的位图图片为IDB_BITMAP1   
 
    
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
@@ -1184,14 +1181,7 @@ HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
    /* if(nCtlColor == CTLCOLOR_STATIC)
 	{
 		switch(pWnd->GetDlgCtrlID())
-		{
-			case IDC_PRINT_STA_STATIC:
-			{
-				pDC->SelectObject(theApp.m_HeadMachineStaFont);
-				pDC->SetBkMode(TRANSPARENT);
-				pDC->SetTextColor(RGB(255,255,255));
-				break;
-			}
+		{			
 			case IDC_STATIC_SHOW_DLG:
 			{
 				pDC->SelectObject(theApp.m_HeadOperationStaFont);

@@ -72,8 +72,6 @@ public:
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
 
-	CStatic m_LogoPicBox;
-
 	CSystemDlg *m_System;
 	CUserDlg *m_User;
 	CLabelDlg *m_Label;

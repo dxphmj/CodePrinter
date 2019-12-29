@@ -480,8 +480,6 @@
 #define IDC_FRESH_PASSEDIT              1465
 #define IDC_FRESH_PASSWARD_EDIT         1465
 #define IDC_HEAD_PIC                    1466
-#define IDC_STATIC_SHOW_DLG             1467
-#define IDC_LOGO_PIC                    1468
 #define IDC_SYS_FRESH1_BTN              1469
 #define IDC_SYS_FRESH2_BTN              1470
 #define IDC_OUTSET_OK_BTN               1471

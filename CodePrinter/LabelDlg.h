@@ -4,6 +4,7 @@
 //#include "ClassMessage.h"
 //#include "ModuleMain.h"
 #include "InputDlg.h"
+#include "DesignStatic.h"
 
 // CLabelDlg 对话框
 
@@ -28,7 +29,7 @@ public:
 	enum { IDD = IDD_LABEL_DIALOG };
 
 	bool m_bDesign;	
-    CStatic m_designArea;
+    CDesignStatic m_designArea;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持

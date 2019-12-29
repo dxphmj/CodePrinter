@@ -603,6 +603,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DesignStatic.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\EditFigureDlg.cpp"
 				>
 			</File>
@@ -826,6 +830,10 @@
 			</File>
 			<File
 				RelativePath=".\DealXml.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DesignStatic.h"
 				>
 			</File>
 			<File
@@ -1262,13 +1270,7 @@
 				RelativePath=".\res\开机2.bmp"
 				>
 			</File>
-                  <File
-                         RelativePath=".\res\背景条.bmp"
-                        >
-                  </File>
-
 			<File
-				
 				RelativePath=".\res\故障--.bmp"
 				>
 			</File>
@@ -1362,6 +1364,10 @@
 			</File>
 			<File
 				RelativePath=".\res\编辑用户.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
 				>
 			</File>
 			<File
