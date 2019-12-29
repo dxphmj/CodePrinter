@@ -12,6 +12,7 @@
 #include "ConfigurationDlg.h"
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
+#include "PictureStatic.h"
 
 
 #include "OnOffDlg.h"
@@ -33,7 +34,7 @@ public:
 
 
 public:
-
+    CPictureStatic m_PicHead;
 
 public:
     void UpdateValve(); //更新各种阀的信息
@@ -70,8 +71,6 @@ public:
 	CImageButton m_ButOnOrOff;
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
-
-	CStatic m_LogoPicBox;
 
 	CSystemDlg *m_System;
 	CUserDlg *m_User;

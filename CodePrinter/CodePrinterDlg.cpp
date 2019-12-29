@@ -45,7 +45,7 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ONOROFF_BUTTON, m_ButOnOrOff);
 	DDX_Control(pDX, IDC_STARTPRINT_BUTTON, m_StartPrint);
 	DDX_Control(pDX, IDC_PAUSEPRINT_BUTTON, m_PausePrint);
-	DDX_Control(pDX, IDC_LOGO_PIC, m_LogoPicBox);
+	DDX_Control(pDX, IDC_HEAD_PIC, m_PicHead);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -75,13 +75,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	//显示公司的logo
-
- 	CBitmap bitmap;  // CBitmap对象，用于加载位图   
-	HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
-	bitmap.LoadBitmap(IDB_BITMAP1);  // 将位图IDB_BITMAP1加载到bitmap  
-	hBmp = (HBITMAP)bitmap.GetSafeHandle();  // 获取bitmap加载位图的句柄   
-	m_LogoPicBox.SetBitmap(hBmp);    // 设置图片控件m_jzmPicture的位图图片为IDB_BITMAP1   
+ //	CBitmap bitmap;  // CBitmap对象，用于加载位图   
+	//HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
+	//bitmap.LoadBitmap(IDB_CLOSE_BITMAP);  // 将位图IDB_BITMAP1加载到bitmap  
+	//hBmp = (HBITMAP)bitmap.GetSafeHandle();  // 获取bitmap加载位图的句柄   
+	//m_LogoPicBox.SetBitmap(hBmp);    // 设置图片控件m_jzmPicture的位图图片为IDB_BITMAP1   
 
    
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
@@ -91,10 +89,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
-	CRect rect;
-	GetWindowRect(&rect);
-
-	GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Shut Down"));
+    m_PicHead.SetMachineStatus(_T("Shut Down"));
+	m_PicHead.ShowLogo(true);
 
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
@@ -103,8 +99,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
-	m_OnOff = new COnOffDlg;
- 
+	m_OnOff = new COnOffDlg; 
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -142,7 +137,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	
 	//右侧一列设置按钮的位置及大小
-	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,730,10,80,55,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_SYSTEM_BUTTON)->SetWindowPos(NULL,700,100,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_USER_BUTTON)->SetWindowPos(NULL,700,170,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_LABEL_BUTTON)->SetWindowPos(NULL,700,240,80,55,SWP_SHOWWINDOW);
@@ -158,27 +153,26 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetWindowPos(NULL,450,420,80,55,SWP_SHOWWINDOW);
 	
 	//彩色按钮
-	m_ButFault.LoadBitmaps(IDB_FAULT_BITMAP,IDB_FAULT_BITMAP,0,0,IDB_FAULT_BITMAP);
+	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_FAULT1_BITMAP);
 	m_ButFault.SizeToContent(); 
-	m_ButSystem.LoadBitmaps(IDB_SYSTEM_BITMAP,IDB_SYSTEM_BITMAP,0,0,IDB_SYSTEM_BITMAP);
+	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_SYSTEM1_BITMAP);
 	m_ButSystem.SizeToContent(); 
-	m_ButUser.LoadBitmaps(IDB_USER_BITMAP,IDB_USER_BITMAP,0,0,IDB_USER_BITMAP);
+	m_ButUser.LoadBitmaps(IDB_USER1_BITMAP,IDB_USER2_BITMAP,0,0,IDB_LABEL1_BITMAP);
 	m_ButUser.SizeToContent(); 
-	m_ButLabel.LoadBitmaps(IDB_LABEL_BITMAP,IDB_LABEL_BITMAP,0,0,IDB_LABEL_BITMAP);
+	m_ButLabel.LoadBitmaps(IDB_LABEL1_BITMAP,IDB_LABEL2_BITMAP,0,0,IDB_LABEL1_BITMAP);
 	m_ButLabel.SizeToContent(); 
-	m_ButConfig.LoadBitmaps(IDB_CONFIG_BITMAP,IDB_CONFIG_BITMAP,0,0,IDB_CONFIG_BITMAP);
+	m_ButConfig.LoadBitmaps(IDB_CONFIG1_BITMAP,IDB_CONFIG2_BITMAP,0,0,IDB_CONFIG1_BITMAP);
 	m_ButConfig.SizeToContent(); 
-	m_ButFileMana.LoadBitmaps(IDB_FILEMANA_BITMAP,IDB_FILEMANA_BITMAP,0,0,IDB_FILEMANA_BITMAP);
+	m_ButFileMana.LoadBitmaps(IDB_FILEMANA1_BITMAP,IDB_FILEMANA2_BITMAP,0,0,IDB_FILEMANA1_BITMAP);
 	m_ButFileMana.SizeToContent(); 
-	m_ButInk.LoadBitmaps(IDB_INKSYSTEM_BITMAP,IDB_INKSYSTEM_BITMAP,0,0,IDB_INKSYSTEM_BITMAP);
+	m_ButInk.LoadBitmaps(IDB_INKSYSTEM1_BITMAP,IDB_INKSYSTEM2_BITMAP,0,0,IDB_INKSYSTEM1_BITMAP);
 	m_ButInk.SizeToContent(); 
 
-	m_ButOnOrOff.LoadBitmaps(IDB_OFFMACHINE_BITMAP,IDB_OFFMACHINE_BITMAP,0,0,IDB_OFFMACHINE_BITMAP);
-
+	m_ButOnOrOff.LoadBitmaps(IDB_ONOFF1_BITMAP,IDB_ONOFF2_BITMAP,0,0,IDB_ONOFF1_BITMAP);
 	m_ButOnOrOff.SizeToContent(); 
-	m_StartPrint.LoadBitmaps(IDB_START_PRINT_BITMAP,IDB_START_PRINT_BITMAP,0,0,IDB_START_PRINT_BITMAP);
+	m_StartPrint.LoadBitmaps(IDB_START_PRINT1_BITMAP,IDB_START_PRINT2_BITMAP,0,0,IDB_START_PRINT1_BITMAP);
 	m_StartPrint.SizeToContent(); 
-	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT_BITMAP,IDB_PAUSE_PRINT_BITMAP,0,0,IDB_PAUSE_PRINT_BITMAP);
+	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT1_BITMAP,IDB_PAUSE_PRINT2_BITMAP,0,0,IDB_PAUSE_PRINT1_BITMAP);
 	m_PausePrint.SizeToContent(); 
 
 	
@@ -387,38 +381,37 @@ void CCodePrinterDlg::showDlg(int ID)
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
 		m_System->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("System Manage"));
+	    m_PicHead.SetOperationString(_T("System Manage")); 
 	}
 	else if (ID == IDD_USER_DIALOG)
 	{
 		m_User->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("User Manage"));
+	    m_PicHead.SetOperationString(_T("User Manage")); 
 	}
 	else if(ID == IDD_LABEL_DIALOG)
 	{
 		m_Label->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Label Manage"));
+	    m_PicHead.SetOperationString(_T("Label Manage")); 
 	}
 	else if(ID == IDD_CONFIGURATION_DIALOG)
 	{
 		m_Confi->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Confige"));
+	    m_PicHead.SetOperationString(_T("Configure")); 
 	}
 	else if(ID == IDD_FILEMANA_DIALOG)
 	{
 		m_FileMan->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
+	    m_PicHead.SetOperationString(_T("File Manage")); 
 	}
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
-        m_Ink->Invalidate();
-		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System"));
+	    m_PicHead.SetOperationString(_T("Ink System")); 
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
 		m_Fault->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Fault System"));
+	    m_PicHead.SetOperationString(_T("Fault System")); 
 	}
 	else if (ID == IDD_ONOFF_DIALOG)
 	{
@@ -838,7 +831,8 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staChaFau == true && theApp.myStatusClass.staChaFauLas == false)
 	{
 		theApp.myStatusClass.staChaFauLas = true;
-		GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Charge fault"));
+		m_PicHead.SetMachineStatus(_T("Charge fault"));
+
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
@@ -856,7 +850,8 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staPhaFau == true && theApp.myStatusClass.staPhaFauLas == false)
 	{
 		theApp.myStatusClass.staPhaFauLas = true;
-		GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Phase fault"));
+		m_PicHead.SetMachineStatus(_T("Phase fault"));
+
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
@@ -1010,7 +1005,8 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staAutModFau == true && theApp.myStatusClass.staAutModFauLas == false)
 	{
 		theApp.myStatusClass.staAutModFauLas = true;
-		GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Fault Condition"));		 
+		m_PicHead.SetMachineStatus(_T("Fault Condition"));
+
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
@@ -1096,13 +1092,13 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
 		{
-			GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Ready to print"));
+			m_PicHead.SetMachineStatus(_T("Ready to print"));
  		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
 		{
 			if (theApp.myStatusClass.staSysRea == true)//系统准备好
 			{				 
-				GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("System ready"));				 
+				m_PicHead.SetMachineStatus(_T("System ready"));
 			}
 			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
 			{
@@ -1110,19 +1106,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
 					{
-						GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Sequencing On"));
+						m_PicHead.SetMachineStatus(_T("Sequencing On"));
 					}
 					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
 
 					{
-					 
-						GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Sequencing Off"));						 
-
+						m_PicHead.SetMachineStatus(_T("Sequencing Off"));
 					}
 				}
 				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
 				{					 
-					GetDlgItem(IDC_PRINT_STA_STATIC)->SetWindowText(_T("Printer Off"));					 
+					m_PicHead.SetMachineStatus(_T("Printer Off"));
 				}//系统忙
 			}//系统准备好
 
@@ -1184,17 +1178,10 @@ HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  在此更改 DC 的任何属性
-    if(nCtlColor == CTLCOLOR_STATIC)
+   /* if(nCtlColor == CTLCOLOR_STATIC)
 	{
 		switch(pWnd->GetDlgCtrlID())
-		{
-			case IDC_PRINT_STA_STATIC:
-			{
-				pDC->SelectObject(theApp.m_HeadMachineStaFont);
-				pDC->SetBkMode(TRANSPARENT);
-				pDC->SetTextColor(RGB(255,255,255));
-				break;
-			}
+		{			
 			case IDC_STATIC_SHOW_DLG:
 			{
 				pDC->SelectObject(theApp.m_HeadOperationStaFont);
@@ -1205,7 +1192,7 @@ HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 			default:
 				break;
 		}
-	} 
+	} */
 
 	pDC->SetBkColor(theApp.m_BKcolor);
 	 

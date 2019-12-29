@@ -69,14 +69,14 @@ BOOL CPathDialog::OnInitDialog()
 	case 2:
 		break;
 	}
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
+	SetWindowPos(NULL,0,95,800,600-95,SWP_SHOWWINDOW );	
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);
 	//设置按钮的位置及大小
 	CFont *m_Font;
 	m_Font=new CFont;
-	m_Font->CreatePointFont(160, _T("Arial"), NULL);
+	m_Font->CreatePointFont(120, _T("Arial"), NULL);
 	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+50,rect.top+20,700,60,SWP_SHOWWINDOW);
 	//GetDlgItem(IDC_STATIC_SELECT)->SetFont(&m_Font,true);
 	m_Select.SetFont(m_Font,true);

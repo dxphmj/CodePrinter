@@ -47,27 +47,7 @@ CLabelDlg::CLabelDlg(CWnd* pParent /*=NULL*/)
 CLabelDlg::~CLabelDlg()
 {
 }
-//CImageButton m_shrink;
-//CImageButton m_zoom;
-//CImageButton m_notback;
-//CImageButton m_addback;
-//CImageButton m_close;
-//CImageButton m_far;
-//CImageButton m_UD_mirror;
-//CImageButton m_LR_mirror;
-//CImageButton m_L_select;
-//CImageButton m_R_select;
-//CImageButton m_U_shift;
-//CImageButton m_D_shift;
-//CImageButton m_L_shift;
-//CImageButton m_R_shift;
-//CImageButton m_L_Qshift;
-//CImageButton m_R_Qshift;
-//CImageButton m_download;
-//CImageButton m_newlyBuilt;
-//CImageButton m_open;
-//CImageButton m_save;
-//CImageButton m_return;
+
 void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -96,6 +76,11 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_OPEN_BUTTON, m_open);
 	DDX_Control(pDX, IDC_SAVE_BUTTON, m_save);
 	DDX_Control(pDX, IDC_LABEL_CLOSE_BTN, m_return);
+
+	DDX_Control(pDX, IDC_INPUT_BUTTON, m_input);
+	DDX_Control(pDX, IDC_REPEAT_BUTTON, m_repeat);
+	DDX_Control(pDX, IDC_COPY_BUTTON, m_copy);
+	DDX_Control(pDX, IDC_DELETE_BUTTON, m_delete);
 
 
 	DDX_Text(pDX, IDC_EDIT1, m_zoomLevel);
@@ -136,6 +121,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_ADDBACK_BTN, &CLabelDlg::OnBnClickedAddbackBtn)
 	ON_BN_CLICKED(IDC_UDMIRROR_BUTTON, &CLabelDlg::OnBnClickedUdmirrorButton)
 	ON_BN_CLICKED(IDC_LRMIRROR_BUTTON, &CLabelDlg::OnBnClickedLrmirrorButton)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -148,20 +134,28 @@ BOOL CLabelDlg::OnInitDialog()
 	// TODO:  在此添加额外的初始化
 	pInput = new CInputDlg;
 	pInput->Create(IDD_INPUT_DIALOG,this);
-	pInput->MoveWindow(0,200,800,400);
+	pInput->MoveWindow(0,260,800,340);
 	pInput->ShowWindow(SW_HIDE);
 
 	//设置按钮的位置及大小
-	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,200,200,65,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_REPEAT_BUTTON)->SetWindowPos(NULL,290,200,65,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_COPY_BUTTON)->SetWindowPos(NULL,380,200,65,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_DELETE_BUTTON)->SetWindowPos(NULL,470,200,65,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,200,200,60,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_REPEAT_BUTTON)->SetWindowPos(NULL,290,200,60,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_COPY_BUTTON)->SetWindowPos(NULL,380,200,60,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_DELETE_BUTTON)->SetWindowPos(NULL,470,200,60,40,SWP_SHOWWINDOW);
 	
 	//中间两行
+	CRect rectL;
+	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->GetWindowRect(&rectL);
+
 	GetDlgItem(IDC_SHRINK_BUTTON)->SetWindowPos(NULL,200,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_ZOOM_BUTTON)->SetWindowPos(NULL,305,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->SetWindowPos(NULL,380,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_ADDBACK_BTN)->SetWindowPos(NULL,484,260,45,40,SWP_SHOWWINDOW);
 
 	//右侧两列
+
 	GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
+
 
 	//为矩阵组合框添加元素
 	//combo_matrix.SetDroppedWidth(10);  //改变下拉列表下的宽度 
@@ -185,14 +179,24 @@ BOOL CLabelDlg::OnInitDialog()
 
 	//delete m_Font;
 	//彩色按钮
-	m_shrink.LoadBitmaps(IDB_SHRINK_BITMAP,IDB_SHRINK_BITMAP,0,0,IDB_SHRINK_BITMAP);
+	m_input.LoadBitmaps(IDB_INPUT1_BITMAP,IDB_INPUT2_BITMAP,0,0,IDB_INPUT1_BITMAP);
+	m_input.SizeToContent(); 
+	m_repeat.LoadBitmaps(IDB_REPEAT1_BITMAP,IDB_REPEAT2_BITMAP,0,0,IDB_REPEAT1_BITMAP);
+	m_repeat.SizeToContent(); 
+	m_copy.LoadBitmaps(IDB_LABEL_COPY1_BITMAP,IDB_LABEL_COPY2_BITMAP,0,0,IDB_LABEL_COPY1_BITMAP);
+	m_copy.SizeToContent(); 
+	m_delete.LoadBitmaps(IDB_LABEL_DELETE1_BITMAP,IDB_LABEL_DELETE2_BITMAP,0,0,IDB_LABEL_DELETE1_BITMAP);
+	m_delete.SizeToContent(); 
+
+	m_shrink.LoadBitmaps(IDB_SHRINK1_BITMAP,IDB_SHRINK2_BITMAP,0,0,IDB_SHRINK1_BITMAP);
 	m_shrink.SizeToContent(); 
-	m_zoom.LoadBitmaps(IDB_ZOOM_BITMAP,IDB_ZOOM_BITMAP,0,0,IDB_SHRINK_BITMAP);
+	m_zoom.LoadBitmaps(IDB_ZOOM1_BITMAP,IDB_ZOOM2_BITMAP,0,0,IDB_ZOOM1_BITMAP);
 	m_zoom.SizeToContent(); 
-	m_notback.LoadBitmaps(IDB_NOTBACK_BITMAP,IDB_NOTBACK_BITMAP,0,0,IDB_NOTBACK_BITMAP);
+	m_notback.LoadBitmaps(IDB_NOTBACK1_BITMAP,IDB_NOTBACK2_BITMAP,0,0,IDB_NOTBACK1_BITMAP);
 	m_notback.SizeToContent(); 
-	m_addback.LoadBitmaps(IDB_ADDBACK_BITMAP,IDB_ADDBACK_BITMAP,0,0,IDB_ADDBACK_BITMAP);
+	m_addback.LoadBitmaps(IDB_ADDBACK1_BITMAP,IDB_ADDBACK2_BITMAP,0,0,IDB_ADDBACK1_BITMAP);
 	m_addback.SizeToContent(); 
+
 	m_close.LoadBitmaps(IDB_CLOSE_BITMAP,IDB_CLOSE_BITMAP,0,0,IDB_CLOSE_BITMAP);
 	m_close.SizeToContent(); 
 	m_far.LoadBitmaps(IDB_FAR_BITMAP,IDB_FAR_BITMAP,0,0,IDB_FAR_BITMAP);
@@ -271,6 +275,7 @@ void CLabelDlg::OnBnClickedInputButton()
 void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
+	/*
 	CDC* pDC = m_designArea.GetDC();
 	CRect rectClient;
 	CDC dcMem,dcBkgnd;
@@ -317,6 +322,7 @@ void CLabelDlg::OnPaint()
 	//theApp.myclassMessage.DrawDot(pDC);
 
 	ReleaseDC(pDC); 
+	*/
 /*
 	CPaintDC dc(this); // device context for painting
 	// TODO: 在此处添加消息处理程序代码
@@ -1116,4 +1122,14 @@ void CLabelDlg::OnBnClickedLrmirrorButton()
 			break;
 		}
 	}
+}
+
+HBRUSH CLabelDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;
 }

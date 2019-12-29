@@ -14,6 +14,7 @@ public:
 
 	void download_pcf();//
 	void get_pcf_from_xml();//从配置文件PrintConfig.xml读取上一次打开的配置文件并从中参数并在界面上显示出来
+	void save_pcf_to_xml();
 
 	int round(double r);
 

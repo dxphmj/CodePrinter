@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ImageButton.h"
 
 // CConfigOutSet ¶Ô»°¿ò
 
@@ -31,6 +31,10 @@ public:
 	CEdit m_currentLevel;
 	CEdit m_triggerLen;
 
+	CImageButton m_outSetReturn;
+	CImageButton m_outSetOk;
+
 	CString m_currentLevelStr;
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	
 };

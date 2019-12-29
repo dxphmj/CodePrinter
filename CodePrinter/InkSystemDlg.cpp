@@ -5,6 +5,7 @@
 #include "CodePrinter.h"
 #include "InkSystemDlg.h"
 #include "Inksystemconfig.h"
+#include "CodePrinterDlg.h"
 
 
 // CInkSystemDlg 对话框
@@ -34,7 +35,13 @@ CInkSystemDlg::~CInkSystemDlg()
 void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	 
+	DDX_Control(pDX, IDC_INK_CLOSE_BTN, m_returnIB);
+	//DDX_Control(pDX, IDC_USUAL_BTN, m_usualIB);
+	//DDX_Control(pDX, IDC_ADVANCE_BTN, m_advanceIB);
+	//DDX_Control(pDX, IDC_SETUP_BTN, m_setupIB);
+	//DDX_Control(pDX, IDC_PARAMETER_BTN, m_parameterIB);
+	//DDX_Control(pDX, IDC_PHASING_BTN, m_phasingIB);
+	DDX_Control(pDX, IDC_INK_OK_BTN, m_okIB);
 }
 
 
@@ -117,6 +124,35 @@ BOOL CInkSystemDlg::OnInitDialog()
 	GetDlgItem(IDC_WASH_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//冲洗
 	m_CIB_WashValve.Attach(IDC_WASH_VALVE_BTN,this);
 
+	CRect rect1;
+	GetDlgItem(IDC_INK_CLOSE_BTN)->GetWindowRect(&rect1);
+
+	GetDlgItem(IDC_INK_CLOSE_BTN)->SetWindowPos(NULL,11,430,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	//GetDlgItem(IDC_USUAL_BTN)->SetWindowPos(NULL,200,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_ADVANCE_BTN)->SetWindowPos(NULL,300,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_SETUP_BTN)->SetWindowPos(NULL,400,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_PARAMETER_BTN)->SetWindowPos(NULL,500,440,70,45,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_PHASING_BTN)->SetWindowPos(NULL,600,440,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_INK_OK_BTN)->SetWindowPos(NULL,720,430,70,45,SWP_SHOWWINDOW);
+
+	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
+	m_returnIB.SizeToContent(); 
+
+	//待添加彩色图片
+	//m_usualIB.LoadBitmaps(IDB_INK1_BITMAP,IDB_INK2_BITMAP,0,0,IDB_INK1_BITMAP);
+	//m_usualIB.SizeToContent(); 
+	//m_advanceIB.LoadBitmaps(IDB_USER_NEW1_BITMAP,IDB_USER_NEW2_BITMAP,0,0,IDB_USER_NEW1_BITMAP);
+	//m_advanceIB.SizeToContent(); 
+	//m_setupIB.LoadBitmaps(IDB_USER_DELE1_BITMAP,IDB_USER_DELE2_BITMAP,0,0,IDB_USER_DELE1_BITMAP);
+	//m_setupIB.SizeToContent(); 
+	//m_parameterIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_FRESH1_BITMAP);
+	//m_parameterIB.SizeToContent(); 
+	//m_phasingIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
+	//m_phasingIB.SizeToContent(); 
+
+	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
+	m_okIB.SizeToContent(); 
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }	     
@@ -131,22 +167,22 @@ void CInkSystemDlg::showInkDlg(int ID)
 	if (ID == IDD_INK_ADVANCE_DIALOG)
 	{
 		m_inkAdv->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Adv"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Adv")); 
 	}
-	if (ID == IDD_INK_SETUP_DIALOG)
+	else if (ID == IDD_INK_SETUP_DIALOG)
 	{
 		m_setup->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Setup"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Setup")); 
 	}
-	if (ID == IDD_INK_PAR_DIALOG)
+	else if (ID == IDD_INK_PAR_DIALOG)
 	{
 		m_par->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Param"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param")); 
 	}
-	if (ID == IDD_INK_PHASING_DIALOG)
+	else if (ID == IDD_INK_PHASING_DIALOG)
 	{
 		m_phas->ShowWindow(SW_SHOW);
-		GetParent()->GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("Ink System > Phase"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Phase")); 
 	}	 
 }
 
@@ -155,6 +191,7 @@ void CInkSystemDlg::OnBnClickedInkCloseBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
 	showInkDlg(0);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 
 }
 
@@ -278,7 +315,7 @@ void CInkSystemDlg::OnBnClickedInkOkBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	CInksystemconfig pInksysConfig((CCodePrinterDlg*)(this->GetParent()));
 	pInksysConfig.save_inksystem_to_xml();
-//	pInksysConfig.get_inksystem_from_xml();
+// 	pInksysConfig.get_inksystem_from_xml();
 	pInksysConfig.download_inksystem_setup();
 	pInksysConfig.download_inksystem_parameter();
 }
@@ -286,6 +323,14 @@ void CInkSystemDlg::OnBnClickedInkOkBtn()
 HBRUSH CInkSystemDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+    if(nCtlColor == CTLCOLOR_STATIC)
+	{		 
+		pDC->SelectObject(theApp.m_StaticFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+	} 
+
 
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
