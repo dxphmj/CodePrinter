@@ -1415,19 +1415,6 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\故障--.bmp"
 				>
 			</File>
@@ -1516,6 +1503,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\水位--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\水位.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\SMALL\水平翻转--.bmp"
 				>
 			</File>
@@ -1569,6 +1564,18 @@
 			</File>
 			<File
 				RelativePath=".\res\SMALL\缩小间距.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
 				>
 			</File>
 			<File

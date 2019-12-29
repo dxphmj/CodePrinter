@@ -150,6 +150,9 @@
 #define IDB_BLUE_LAMP_BITMAP            330
 #define IDB_BITMAP6                     331
 #define IDB_GREEN_LAMP_BITMAP           331
+#define IDB_SOLVENT_CALIB1_BITMAP       332
+#define IDB_BITMAP8                     333
+#define IDB_SOLVENT_CALIB2_BITMAP       333
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -514,16 +517,12 @@
 #define IDC_FRESH_PASSEDIT              1465
 #define IDC_FRESH_PASSWARD_EDIT         1465
 #define IDC_HEAD_PIC                    1466
-#define IDC_SYS_FRESH1_BTN              1469
-#define IDC_SYS_FRESH2_BTN              1470
-#define IDC_OUTSET_OK_BTN               1471
-#define IDC_EDITFIGURE_OK_BTN           1472
-
 #define IDC_STATIC_SHOW_DLG             1467
 #define IDC_LOGO_PIC                    1468
 #define IDC_STATIC_W                    1469
 #define IDC_STATIC_H                    1470
 #define IDC_STATIC_X                    1471
+#define IDC_EDITFIGURE_OK_BTN           1472
 #define IDC_STATIC_Y                    1472
 #define IDC_STATIC_WV                   1473
 #define IDC_STATIC_HV                   1474
@@ -534,20 +533,16 @@
 #define IDC_BUTTON_CLOSE                1479
 #define IDC_BUTTON_OK                   1480
 #define IDC_STATIC_DELET                1481
-
 #define IDC_SYS_FRESH1_BTN              1483
 #define IDC_SYS_FRESH2_BTN              1484
 #define IDC_OUTSET_OK_BTN               1485
-
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        332
+#define _APS_NEXT_RESOURCE_VALUE        334
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1473
-#define _APS_NEXT_CONTROL_VALUE         1486
 #define _APS_NEXT_CONTROL_VALUE         1472
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
