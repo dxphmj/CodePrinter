@@ -17,16 +17,17 @@ static char THIS_FILE[] = __FILE__;
 CPathDialog::CPathDialog(CWnd* pParent /*=NULL*/)
 	: CDialog(CPathDialog::IDD, pParent)
 {
-	mySize = 0;
+	myType = 0;
 	//{{AFX_DATA_INIT(CPathDialog)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 }
 
-CPathDialog::CPathDialog(int theSize,CWnd* pParent /*=NULL*/)
+CPathDialog::CPathDialog(int theType,bool isDisplay,CWnd* pParent /*=NULL*/)
 : CDialog(CPathDialog::IDD, pParent)
 {
-	mySize = theSize;
+	myType = theType;
+	booDisplay=isDisplay;
 	//{{AFX_DATA_INIT(CPathDialog)
 	// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
@@ -59,14 +60,20 @@ END_MESSAGE_MAP()
 BOOL CPathDialog::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	switch(mySize)
+	switch(myType)
 	{
-	case 0:
+	case 0://文件管理
+		myPath="Storage Card\\User";
 		break;
-	case 1:
-		//SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );	
+	case 1://Label
+		//SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );
+		myPath="Storage Card\\User\\Label";
 		break;
-	case 2:
+	case 2://logo
+		myPath="Storage Card\\User\\Logo";
+		break;
+	case 3://PrintConfig
+		myPath="Storage Card\\User\\PrintConfig";
 		break;
 	}
 	SetWindowPos(NULL,0,95,800,600-95,SWP_SHOWWINDOW );	
@@ -91,6 +98,7 @@ BOOL CPathDialog::OnInitDialog()
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetFont(m_Font,true);
 	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+160,700,300,SWP_SHOWWINDOW);
 	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+500,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->EnableWindow(booDisplay);
 	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+500,100,40,SWP_SHOWWINDOW);
 	//delete m_Font;
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -105,7 +113,8 @@ BOOL CPathDialog::CreateDriveList()
 	if(hRoot == NULL)
 		return FALSE;
 #ifdef ON_EMUL
-	HTREEITEM hItem = m_tree.InsertItem(_T("Storage Card"), 3, 3, hRoot, TVI_LAST);
+	//HTREEITEM hItem = m_tree.InsertItem(_T("Storage Card"), 3, 3, hRoot, TVI_LAST);
+	HTREEITEM hItem = m_tree.InsertItem(myPath, 3, 3, hRoot, TVI_LAST);
 	if(HasSubDirectory(GetFullPath(hItem)))
 		ShowTreeButton(hItem, STB_SHOW);
 	else

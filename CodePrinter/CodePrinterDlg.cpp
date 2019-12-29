@@ -13,7 +13,7 @@
 #include "InkSystemDlg.h"
 #include <fstream>
 #include "Inksystemconfig.h"
-
+#include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
 //#include "Tchar.h”
 #include "PcfConfig.h"
 
@@ -253,7 +253,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
     //墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
-
+	SetTimer(TIMER1,1000,NULL);	
 	pInksysConfig.get_inksystem_from_xml();
 
 	pInksysConfig.download_inksystem_setup();
@@ -331,7 +331,14 @@ void CCodePrinterDlg::OnBnClickedConfigurationButton()
 void CCodePrinterDlg::OnBnClickedFilemanaButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	showDlg(IDD_FILEMANA_DIALOG);
+	//showDlg(IDD_FILEMANA_DIALOG);
+
+	TCHAR path[MAX_PATH];
+	//labModule.string2tchar(testpath,path);
+
+	string xmlPath;
+	ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
+
 }
 
 void CCodePrinterDlg::OnBnClickedInkButton()
@@ -398,11 +405,14 @@ void CCodePrinterDlg::showDlg(int ID)
 		m_Confi->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(_T("Configure")); 
 	}
-	else if(ID == IDD_FILEMANA_DIALOG)
-	{
-		m_FileMan->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("File Manage")); 
-	}
+
+	//else if(ID == IDD_FILEMANA_DIALOG)
+	//{
+	//	m_FileMan->ShowWindow(SW_SHOW);
+	//	GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
+	//}
+
+
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
@@ -1081,7 +1091,11 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
-		 
+		 if (theApp.myUserPower.isChangeUser)
+		 {
+			 ChangeBottonEnable();
+			 theApp.myUserPower.isChangeUser=false;
+		 }
 		theApp.myStatusClass.byStatusFromSlaveState();
 		theApp.myStatusClass.getstatu();
         
@@ -1197,4 +1211,106 @@ HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);
 	 
 	return theApp.m_DlgBrush;
+}
+
+//改权限实现
+void CCodePrinterDlg::ChangeBottonEnable()
+{
+	GetDlgItem(IDC_RESET_COUNT_BTN)->EnableWindow(theApp.myUserPower.booResetCount);
+	GetDlgItem(IDC_RESET_SERIAL_BTN)->EnableWindow(theApp.myUserPower.booResetSerial);
+	//墨水Us
+	m_Ink->GetDlgItem(IDC_SPEED_MODE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_PRESSURE_MODE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_BLEED_VALVE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_PUMP_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_WASH_VALVE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_NOZZLE_VALVE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_FEED_VALVE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_SOLVENT_VALVE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_VISCO_VALVE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	m_Ink->GetDlgItem(IDC_FLUSH_VALVE_BTN)->EnableWindow(theApp.myUserPower.booInkUsual);
+	//墨水高级
+	theApp.myModuleMain.DisableAllBtn(m_Ink->m_inkAdv->GetSafeHwnd(),theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_SUCK_NOZZLE_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_INKFLOW_OFF_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_CLOSE_INKLINE_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_ADD_SOLVENT_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_BETECT_VISCO_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_WASH_NOZZLE_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_ADJUST_INKLINE_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_INK_CIR_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//m_Ink->m_inkAdv->GetDlgItem(IDC_HIGH_VOLTAGE_BTN)->EnableWindow(theApp.myUserPower.booInkAdvance);
+	//墨水安装
+	theApp.myModuleMain.DisableAllBtn(m_Ink->m_setup->GetSafeHwnd(),theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_SIZE_LIST)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_MODUL_FRE_LIST)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_INK_TYPE_LIST)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_PELTIER_LIST)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_SLEEP_LIST)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_SOLVENT_CALIB_BTN)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//m_Ink->m_setup->GetDlgItem(IDC_INK_CALIB_BTN)->EnableWindow(theApp.myUserPower.booInkSetup);
+	//墨水参数
+	theApp.myModuleMain.DisableAllBtn(m_Ink->m_par->GetSafeHwnd(),theApp.myUserPower.booInkParameter);
+	/*m_Ink->m_par->GetDlgItem(IDC_PAR_PRESSURE_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_PAR_PUMP_SPEED_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_INK_FLOW_LEV_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_INK_ADD_LEV_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_INK_EMPTY_LEV_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_SOLVENT_FLOW_LEV_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_SOL_ADD_LEV_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);
+	m_Ink->m_par->GetDlgItem(IDC_SOL_EMPTY_LEV_EDIT)->EnableWindow(theApp.myUserPower.booInkParameter);*/
+	//墨水相位
+	theApp.myModuleMain.DisableAllBtn(m_Ink->m_phas->GetSafeHwnd(),theApp.myUserPower.booInkPhasing);
+	//m_Ink->m_phas->GetDlgItem(IDC_PASHING_CUT_BTN)->EnableWindow(theApp.myUserPower.booInkPhasing);
+	//m_Ink->m_phas->GetDlgItem(IDC_PHASING_ADD_BTN)->EnableWindow(theApp.myUserPower.booInkPhasing);
+	//m_Ink->m_phas->GetDlgItem(IDC_AUTO_SET_BTN)->EnableWindow(theApp.myUserPower.booInkPhasing);
+	//m_Ink->m_phas->GetDlgItem(IDC_SET_ADJUST_BIG_BTN)->EnableWindow(theApp.myUserPower.booInkPhasing);
+	//m_Ink->m_phas->GetDlgItem(IDC_SET_ADJUST_SMALL_BTN)->EnableWindow(theApp.myUserPower.booInkPhasing);
+	
+	//文件管理，在dll中实现
+	
+    
+	//配置
+	//m_Confi->GetDlgItem(IDC_CONFI_OPEN_BTN)->EnableWindow(theApp.myUserPower)
+	theApp.myModuleMain.DisableAllBtn(m_Confi->GetSafeHwnd(),theApp.myUserPower.booPcfAll);
+	if (!theApp.myUserPower.booPcfAll)
+	{
+		m_Confi->GetDlgItem(IDC_CONFI_OPEN_BTN)->EnableWindow(theApp.myUserPower.booPcfIO);
+		m_Confi->GetDlgItem(IDC_BUTTON5)->EnableWindow(theApp.myUserPower.booPcfIO);
+	}
+	m_Confi->GetDlgItem(IDC_CONFI_CLOSE_BTN)->EnableWindow(true);
+
+	//标签
+	theApp.myModuleMain.DisableAllBtn(m_Label->GetSafeHwnd(),theApp.myUserPower.booLabelAll);
+	if (!theApp.myUserPower.booLabelAll)
+	{
+		m_Label->GetDlgItem(IDC_OPEN_BUTTON)->EnableWindow(theApp.myUserPower.booLabelIO);
+		m_Label->GetDlgItem(IDC_DOWNLOAD_BUTTON)->EnableWindow(theApp.myUserPower.booLabelIO);
+	}
+	m_Label->GetDlgItem(IDC_LABEL_CLOSE_BTN)->EnableWindow(true);
+
+	//系统
+	//网络 串口
+	theApp.myModuleMain.DisableAllBtn(m_System->GetSafeHwnd(),theApp.myUserPower.booSysNetComOK);
+	theApp.myModuleMain.DisableAllBtn(m_System->pCom->GetSafeHwnd(),theApp.myUserPower.booSysNetComOK);
+	m_System->GetDlgItem(IDC_SYSTEM_CLOSE_BTN)->EnableWindow(true);
+	m_System->GetDlgItem(IDC_NET_BTN)->EnableWindow(true);
+	m_System->GetDlgItem(IDC_COM_BTN)->EnableWindow(true);
+	m_System->GetDlgItem(IDC_EVN_BTN)->EnableWindow(true);
+	m_System->GetDlgItem(IDC_CUSTON_BUTTON)->EnableWindow(true);
+	m_System->GetDlgItem(IDC_VERSION_BTN)->EnableWindow(true);
+	//环境 自定义
+	theApp.myModuleMain.DisableAllBtn(m_System->pEvn->GetSafeHwnd(),theApp.myUserPower.booSysEnvCusOK);
+	if (theApp.myUserPower.booSysEnvCusOK||theApp.myUserPower.booSysNetComOK)
+	{
+		m_System->GetDlgItem(IDC_BUTTON9)->EnableWindow(true);
+	}
+	
+	//故障
+	m_Fault->GetDlgItem(IDC_BUTTON3)->EnableWindow(theApp.myUserPower.booFaultDelete);
+	//m_System->
 }

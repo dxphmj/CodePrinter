@@ -103,5 +103,10 @@ public:
 	afx_msg void OnBnClickedUdmirrorButton();
 	afx_msg void OnBnClickedLrmirrorButton();
 
+	afx_msg void OnStnClickedStaticW();
+	void changeDis();
+
+
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 };

@@ -143,7 +143,7 @@ void CInputDlg::OnBnClickedEditpictureButton()
 	//labModule.string2tchar(testpath,path);
 
 	string xmlPath;
-	if(ShowPathDlg(path, MAX_PATH))
+	if(ShowPathDlg(path, MAX_PATH,2))
 	{
 		int xPos=0;
 		int yPos=0;

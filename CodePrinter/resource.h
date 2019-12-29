@@ -519,6 +519,27 @@
 #define IDC_OUTSET_OK_BTN               1471
 #define IDC_EDITFIGURE_OK_BTN           1472
 
+#define IDC_STATIC_SHOW_DLG             1467
+#define IDC_LOGO_PIC                    1468
+#define IDC_STATIC_W                    1469
+#define IDC_STATIC_H                    1470
+#define IDC_STATIC_X                    1471
+#define IDC_STATIC_Y                    1472
+#define IDC_STATIC_WV                   1473
+#define IDC_STATIC_HV                   1474
+#define IDC_STATIC_XV                   1475
+#define IDC_STATIC_YV                   1476
+#define IDC_EDIT_NOWUSER                1477
+#define IDC_LIST_ALLUSER                1478
+#define IDC_BUTTON_CLOSE                1479
+#define IDC_BUTTON_OK                   1480
+#define IDC_STATIC_DELET                1481
+
+#define IDC_SYS_FRESH1_BTN              1483
+#define IDC_SYS_FRESH2_BTN              1484
+#define IDC_OUTSET_OK_BTN               1485
+
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
@@ -526,6 +547,8 @@
 #define _APS_NEXT_RESOURCE_VALUE        332
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1473
+#define _APS_NEXT_CONTROL_VALUE         1486
+#define _APS_NEXT_CONTROL_VALUE         1472
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

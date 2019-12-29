@@ -224,20 +224,43 @@ bool ModuleMain::changeXml(string xmlFileName,string valueStr,string textStr,str
 	{
 		return false;
 	}
+
 	TiXmlElement *RootElement=mydoc.RootElement();	//根元素
-	if (RootElement)
+	for(TiXmlElement *StuElement = RootElement->FirstChildElement();StuElement != NULL;StuElement = StuElement->NextSiblingElement())
 	{
-		TiXmlNode *pNode = RootElement->FirstChildElement(valueStr.c_str());
-		if (pNode)
+		string strValue = StuElement->Value();
+		if (strValue==valueStr)
 		{
-			TiXmlNode *pValue = pNode->FirstChild();
+			TiXmlNode *pValue = StuElement->FirstChild();
 			if (pValue)
 			{
 				pValue->SetValue(textStr.c_str());
+				mydoc.SaveFile();
+				return true;
 			}
-		}   
+		}
+
+		//子元素
+		TiXmlElement *childElm=StuElement->FirstChildElement();
+		while (childElm != NULL)
+		{
+			string strChiValue = childElm->Value();
+			if (strChiValue==valueStr)
+			{
+				TiXmlNode *pValue = childElm->FirstChild();
+				if (pValue)
+				{
+					pValue->SetValue(textStr.c_str());
+					mydoc.SaveFile();
+					return true;
+				}
+			}
+			childElm = childElm->NextSiblingElement();
+		}
 	}
 	mydoc.SaveFile();
+	return false;
+	
 }
 
 void ModuleMain::string2tchar(std::string &src, TCHAR* buf)
@@ -309,6 +332,45 @@ void ModuleMain::InitCommMsg()
 }
 
 
+void ModuleMain::DisableAllBtn(HWND hwnd,bool booOpen)
+{
+	HWND subWnd = ::GetWindow(hwnd,GW_CHILD);
+	//HWND subWnd = ::GetWindow(this->GetSafeHwnd(),GW_CHILD);//如果是CFormView
+	while(subWnd)   
+	{   
+		CWnd *subCWnd = CWnd::FromHandle(subWnd);//HWND转Cwnd
+		TCHAR ClassName[MAX_PATH];
+		GetClassName(subCWnd->GetSafeHwnd(), ClassName, MAX_PATH);
+		string strClassName=TCHAR2STRING(ClassName);
+		if(strClassName=="Button"||strClassName=="button"){
+			subCWnd->EnableWindow(booOpen);
+		}
+		if(strClassName=="combobox"){
+			subCWnd->EnableWindow(booOpen);
+		}
+		if(strClassName=="Edit"){
+			subCWnd->EnableWindow(booOpen);
+		}
+		if(strClassName=="listbox"){
+			subCWnd->EnableWindow(booOpen);
+		}
+		////类型不知道为什么判断不出来
+		//if (subCWnd->IsKindOf(RUNTIME_CLASS(CListBox))) {
+		//	subCWnd->EnableWindow(booOpen);
+		//}
+		//if (subCWnd->IsKindOf(RUNTIME_CLASS(CButton))) {
+		//	subCWnd->EnableWindow(booOpen);
+		//}
+		//if (subCWnd->IsKindOf(RUNTIME_CLASS(CComboBox))) {
+		//	subCWnd->EnableWindow(booOpen);
+		//}
+		//if (subCWnd->IsKindOf(RUNTIME_CLASS(CEdit))) {
+		//	subCWnd->EnableWindow(booOpen);
+		//}
+
+		subWnd = ::GetWindow(subWnd,GW_HWNDNEXT);
+	}
+}
 ////////////////////////////////////////////////
 void StatusClass::byStatusFromSlaveState()
 {
