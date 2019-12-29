@@ -29,12 +29,12 @@ void CFaultDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CFaultDlg, CDialog)
 	ON_BN_CLICKED(IDC_FAULT_CLOSE_BTN, &CFaultDlg::OnBnClickedFaultCloseBtn)
-	ON_BN_CLICKED(IDC_BUTTON3, &CFaultDlg::OnBnClickedButton3)
-	ON_BN_CLICKED(IDC_BUTTON1, &CFaultDlg::OnBnClickedButton1)
-	ON_BN_CLICKED(IDC_BUTTON2, &CFaultDlg::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON4, &CFaultDlg::OnBnClickedButton4)
-	ON_BN_CLICKED(IDC_BUTTON6, &CFaultDlg::OnBnClickedButton6)
-	ON_BN_CLICKED(IDC_BUTTON5, &CFaultDlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_DELETE_BTN, &CFaultDlg::OnBnClickedDeleteBtn)
+	ON_BN_CLICKED(IDC_BEFORE_BTN, &CFaultDlg::OnBnClickedBeforeBtn)
+	ON_BN_CLICKED(IDC_NEXT_BTN, &CFaultDlg::OnBnClickedNextBtn)
+	ON_BN_CLICKED(IDC_REFRESH_BTN, &CFaultDlg::OnBnClickedRefreshBtn)
+	ON_BN_CLICKED(IDC_L_HISTORY_BTN, &CFaultDlg::OnBnClickedLHistoryBtn)
+	ON_BN_CLICKED(IDC_R_HISTORY_BTN, &CFaultDlg::OnBnClickedRHistoryBtn)
 	ON_WM_CTLCOLOR()
 
 END_MESSAGE_MAP()
@@ -48,6 +48,13 @@ BOOL CFaultDlg::OnInitDialog()
 
 	// TODO:  在此添加额外的初始化
 	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,420,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BEFORE_BTN)->SetWindowPos(NULL,710,80,70,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_NEXT_BTN)->SetWindowPos(NULL,710,160,70,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_DELETE_BTN)->SetWindowPos(NULL,700,320,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_REFRESH_BTN)->SetWindowPos(NULL,700,420,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_R_HISTORY_BTN)->SetWindowPos(NULL,580,420,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowPos(NULL,460,420,80,50,SWP_SHOWWINDOW);
+
 
 	getAllErrorFile();
 	get_error_name();
@@ -244,7 +251,7 @@ void CFaultDlg::openfailurefile(string filePathName)
 	fin.close();
 }
 //删除
-void CFaultDlg::OnBnClickedButton3()
+void CFaultDlg::OnBnClickedDeleteBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
@@ -282,7 +289,7 @@ void CFaultDlg::OnBnClickedButton3()
 }
 
 //上
-void CFaultDlg::OnBnClickedButton1()
+void CFaultDlg::OnBnClickedBeforeBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
@@ -293,7 +300,7 @@ void CFaultDlg::OnBnClickedButton1()
 }
 
 //下
-void CFaultDlg::OnBnClickedButton2()
+void CFaultDlg::OnBnClickedNextBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
@@ -304,7 +311,7 @@ void CFaultDlg::OnBnClickedButton2()
 }
 
 //重置
-void CFaultDlg::OnBnClickedButton4()
+void CFaultDlg::OnBnClickedRefreshBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
@@ -359,7 +366,7 @@ void CFaultDlg::OnBnClickedButton4()
 		theApp.myStatusClass.download_inksystem_control00();
 }
 
-void CFaultDlg::OnBnClickedButton6()
+void CFaultDlg::OnBnClickedLHistoryBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	if (nowErrDay<(strErrorFileNameArr.size()-1))
@@ -373,7 +380,7 @@ void CFaultDlg::OnBnClickedButton6()
 	}
 }
 
-void CFaultDlg::OnBnClickedButton5()
+void CFaultDlg::OnBnClickedRHistoryBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	if (nowErrDay>0)

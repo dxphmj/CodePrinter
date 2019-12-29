@@ -133,6 +133,7 @@
 #define IDC_LIST1                       1062
 #define IDC_BUTTON4                     1063
 #define IDC_CONFI_SAVE_BTN              1063
+#define IDC_REFRESH_BTN                 1063
 #define IDC_BUTTON5                     1064
 #define IDC_CUSTON_BUTTON               1065
 #define IDC_HIGH_VOLTAGE_BTN            1065
@@ -370,6 +371,7 @@
 #define IDC_NEXT_SERVICE_EDIT           1305
 #define IDC_INK_LIFE_TIME_EDIT          1306
 #define IDC_BUTTON6                     1308
+#define IDC_L_HISTORY_BTN               1308
 #define IDC_PHASING_BTN                 1309
 #define IDC_SPEED_MODE_BTN              1310
 #define IDC_WASH_NOZZLE_BTN             1311
@@ -434,6 +436,9 @@
 #define IDC_HEAD_PIC                    1466
 #define IDC_STATIC_SHOW_DLG             1467
 #define IDC_LOGO_PIC                    1468
+#define IDC_R_HISTORY_BTN               1469
+#define IDC_NEXT_BTN                    1470
+#define IDC_BEFORE_BTN                  1471
 
 // Next default values for new objects
 // 
@@ -441,7 +446,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1469
+#define _APS_NEXT_CONTROL_VALUE         1472
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
