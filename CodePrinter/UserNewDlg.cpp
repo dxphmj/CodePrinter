@@ -27,15 +27,20 @@ void CUserNewDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CUserNewDlg, CDialog)
+
 	ON_BN_CLICKED(IDC_BUTTON1, &CUserNewDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_RIGHT_MOVE_BTN, &CUserNewDlg::OnBnClickedRightMoveBtn)
 	ON_BN_CLICKED(IDC_LEFT_MOVE_BTN, &CUserNewDlg::OnBnClickedLeftMoveBtn)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &CUserNewDlg::OnBnClickedButtonOk)
 	ON_BN_CLICKED(IDC_BUTTON_CLOSE, &CUserNewDlg::OnBnClickedButtonClose)
+
+	ON_WM_CTLCOLOR()
+
 END_MESSAGE_MAP()
 
 
 // CUserNewDlg 消息处理程序
+
 
 void CUserNewDlg::OnBnClickedButton1()
 {
@@ -164,3 +169,14 @@ void CUserNewDlg::OnBnClickedButtonClose()
 	// TODO: 在此添加控件通知处理程序代码
 	ShowWindow(SW_HIDE);
 }
+
+HBRUSH CUserNewDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;
+}
+

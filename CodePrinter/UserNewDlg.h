@@ -19,9 +19,13 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
+
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedRightMoveBtn();
 	afx_msg void OnBnClickedLeftMoveBtn();
 	afx_msg void OnBnClickedButtonOk();
 	afx_msg void OnBnClickedButtonClose();
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 };

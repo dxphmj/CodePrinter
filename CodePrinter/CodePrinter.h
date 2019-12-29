@@ -33,6 +33,7 @@ public:
     COLORREF m_BKcolor;
 	CFont *m_HeadMachineStaFont;
 	CFont *m_HeadOperationStaFont;
+	CFont *m_StaticFont;
 
 // ÖØÐ´
 public:

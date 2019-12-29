@@ -154,11 +154,21 @@ void CKeyBoardDlg::setEditText(CString &str)
 {//设置文本编辑框文本
 	switch (LanType)
 	{
-	case Others :
 	case Chinese_others:
 	case English:
-	case Russian:
+	case Czech:
+	case Dutch:
 	case German:
+	case Finnish:
+	case Hindi:
+	case Hungarian:
+	case Italian:
+	case Portuguese:
+	case Russian:
+	case Spanish:
+	case Swedish:
+	case Thai:
+	case Turkish:
 		{	
 			int nPosStart;
 			int nPosEnd  = 0; 
@@ -401,15 +411,35 @@ void CKeyBoardDlg::OnBnClickedMainRightpage()
 void CKeyBoardDlg::OnEnSetfocusEditInput()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if ( LanType== Chinese )
+	if ( LanType== Chinese  )
 	{
 		LanType = Chinese_others;
+	}
+	else if ( LanType== Japanese )
+	{
+		LanType = Japanese_others;
+	} 
+	else if ( LanType== Korean )
+	{
+		LanType = Korean_others;
 	}
 }
 
 void CKeyBoardDlg::OnEnSetfocusEditZrh()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	LanType = Chinese;
+	if ( LanType== Chinese_others )
+	{
+		LanType = Chinese;
+	}
+	else if ( LanType== Japanese_others )
+	{
+		LanType = Japanese;
+	} 
+	else if ( LanType== Korean_others )
+	{
+		LanType = Korean;
+	}
+
 }
 
