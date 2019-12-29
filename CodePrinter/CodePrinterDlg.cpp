@@ -91,7 +91,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
     m_PicHead.SetMachineStatus(_T("Shut Down"));
 	m_PicHead.ShowLogo(true);
-
+  
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
 	m_User = new CUserDlg;
@@ -907,6 +907,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		theApp.myTimClass.staSolLevFauLas = "00";
 		/*picAlarmBlue.Tag = "im004"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
+		m_PicHead.SetBlueAlarm(false);
 	}
 	else if (theApp.myStatusClass.staSolLevFau == "01" && theApp.myTimClass.staSolLevFauLas != "01")
 	{
@@ -917,10 +918,12 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+		m_PicHead.SetBlueAlarm(true);
 	}
 	else if (theApp.myStatusClass.staSolLevFau == "10" && theApp.myTimClass.staSolLevFauLas != "10")
 	{
 		theApp.myTimClass.staSolLevFauLas = "10";
+		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
 		CString csMsg ;
@@ -931,6 +934,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	else if (theApp.myStatusClass.staSolLevFau == "11" && theApp.myTimClass.staSolLevFauLas != "11")
 	{
 		theApp.myTimClass.staSolLevFauLas = "11";
+		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
 		CString csMsg ;
@@ -943,6 +947,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staInkLevFau == "00" && theApp.myTimClass.staInkLevFauLas != "00" && theApp.myStatusClass.staSolLevFau == "00")
 	{
 		theApp.myTimClass.staInkLevFauLas = "00";
+		m_PicHead.SetBlueAlarm(false);
 		/*picAlarmBlue.Tag = "im004"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
 		theApp.myTimClass.staInkEmpFau = false;
@@ -951,6 +956,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	else if (theApp.myStatusClass.staInkLevFau == "01" && theApp.myTimClass.staInkLevFauLas != "01")
 	{
 		theApp.myTimClass.staInkLevFauLas = "01";
+		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
 		theApp.myTimClass.staInkEmpFau = false;

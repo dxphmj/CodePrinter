@@ -84,7 +84,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	int nX = 0;
 	int nY = 100;
 	int nWidth = 800;
-	int nHeight = 400;
+	int nHeight = 600-nY;
 
 	m_inkAdv->Create(IDD_INK_ADVANCE_DIALOG,this);
 	m_inkAdv->MoveWindow(nX+300,nY,nWidth,nHeight);
