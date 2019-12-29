@@ -140,11 +140,11 @@ IDD_EDITTEXT_DIALOG DIALOG  0, 0, 480, 242
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "文本",Static_Text,118,35,17,8
-    LTEXT           "字体",Static_Font,118,57,17,8
-    LTEXT           "数据字段",Static_DataField,117,78,33,8
-    EDITTEXT        IDC_EDIT1,154,33,194,14,ES_AUTOHSCROLL
-    COMBOBOX        Combo_Font,154,55,48,71,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "文本",Static_Text,139,63,17,8
+    LTEXT           "字体",Static_Font,139,85,17,8
+    LTEXT           "数据字段",Static_DataField,138,106,33,8
+    EDITTEXT        IDC_EDIT1,175,61,194,14,ES_AUTOHSCROLL
+    COMBOBOX        Combo_Font,175,83,48,71,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "返回",IDC_EDITTEXT_CLOSE_BTN,23,196,50,24
     PUSHBUTTON      "确定",IDC_BUTTON_EDITOK,399,201,56,21
 END
@@ -245,6 +245,7 @@ BEGIN
     COMBOBOX        IDC_FONT_COMBO,352,158,81,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "格式",IDC_FORMAT_STATIC,298,185,17,8
     COMBOBOX        IDC_FORMAT_COMBO,352,182,81,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "确定",IDC_EDITFIGURE_OK_BTN,410,222,50,14
 END
 
 IDD_FILEMANA_DIALOG DIALOG  0, 0, 338, 238
@@ -908,23 +909,8 @@ END
 //
 
 IDB_IM017_BITMAP        BITMAP                  "res\\im017.bmp"
-IDB_CLOSE_BITMAP        BITMAP                  "res\\close.bmp"
-IDB_OPEN_BITMAP         BITMAP                  "res\\open.bmp"
-IDB_FAR_BITMAP          BITMAP                  "res\\far.bmp"
-IDB_UD_MIRROR_BITMAP    BITMAP                  "res\\UD_Mirror.bmp"
-IDB_LR_MIRROR_BITMAP    BITMAP                  "res\\LR_Mirror.bmp"
-IDB_L_SELECT_BITMAP     BITMAP                  "res\\L_Select.bmp"
-IDB_R_SELECT_BITMAP     BITMAP                  "res\\R_Select.bmp"
-IDB_U_SHIFT_BITMAP      BITMAP                  "res\\U_shift.bmp"
-IDB_D_SHIFT_BITMAP      BITMAP                  "res\\D_shift.bmp"
-IDB_L_SHIFT_BITMAP      BITMAP                  "res\\L_Shift.bmp"
-IDB_R_SHIFT_BITMAP      BITMAP                  "res\\R_Shift.bmp"
-IDB_L_QSHIFT_BITMAP     BITMAP                  "res\\L_Qshift.bmp"
-IDB_R_QSHIFT_BITMAP     BITMAP                  "res\\R_Qshift.bmp"
 IDB_DOWNLOAD_BITMAP     BITMAP                  "res\\download.bmp"
-IDB_SAVE_BITMAP         BITMAP                  "res\\save.bmp"
 IDB_RETURN_BITMAP       BITMAP                  "res\\return.bmp"
-IDB_NEWBUILT_BITMAP     BITMAP                  "res\\newlyBuilt.bmp"
 IDB_BITMAP_HEAD         BITMAP                  "res\\head.bmp"
 IDB_FRESH1_BITMAP       BITMAP                  "res\\fresh.bmp"
 IDB_FRESH2_BITMAP       BITMAP                  "res\\fresh-.bmp"
@@ -934,8 +920,6 @@ IDB_RETURN1_BITMAP      BITMAP                  "res\\sys_return.bmp"
 IDB_RETURN2_BITMAP      BITMAP                  "res\\sys_return-.bmp"
 IDB_DHCP1_BITMAP        BITMAP                  "res\\圆键.bmp"
 IDB_DHCP2_BITMAP        BITMAP                  "res\\圆键-.bmp"
-IDB_FAULT1_BITMAP       BITMAP                  "res\\故障.bmp"
-IDB_FAULT2_BITMAP       BITMAP                  "res\\故障--.bmp"
 IDB_SYSTEM1_BITMAP      BITMAP                  "res\\系统.bmp"
 IDB_SYSTEM2_BITMAP      BITMAP                  "res\\系统--.bmp"
 IDB_LABEL1_BITMAP       BITMAP                  "res\\新建lab.bmp"
@@ -987,6 +971,56 @@ IDB_NOTBACK1_BITMAP     BITMAP                  "res\\无填充.bmp"
 IDB_NOTBACK2_BITMAP     BITMAP                  "res\\无填充--.bmp"
 IDB_ADDBACK1_BITMAP     BITMAP                  "res\\有填充.bmp"
 IDB_ADDBACK2_BITMAP     BITMAP                  "res\\有填充--.bmp"
+IDB_DOWNLOAD1_BITMAP    BITMAP                  "res\\下载.bmp"
+IDB_DOWNLOAD2_BITMAP    BITMAP                  "res\\下载--.bmp"
+IDB_80_55_BITMAP        BITMAP                  "res\\80x55纯蓝按钮.bmp"
+IDB_CLOSE1_BITMAP       BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\缩小间距.bmp"
+IDB_CLOSE2_BITMAP       BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\缩小间距--.bmp"
+IDB_FAR1_BITMAP         BITMAP                  "res\\SMALL\\扩大间距.bmp"
+IDB_FAR2_BITMAP         BITMAP                  "res\\SMALL\\扩大间距--.bmp"
+IDB_UD_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\垂直翻转.bmp"
+IDB_UD_MIRROR2_BITMAP   BITMAP                  "res\\SMALL\\垂直翻转--.bmp"
+IDB_60_40_BITMAP        BITMAP                  "res\\SMALL\\60x40纯蓝按钮.bmp"
+IDB_LR_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\水平翻转.bmp"
+IDB_LR_MIRROR2_BITMAP   BITMAP                  "res\\SMALL\\水平翻转--.bmp"
+IDB_L_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向左.bmp"
+IDB_L_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向左--.bmp"
+IDB_R_SHIFT1_BITMAP     BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\向右.bmp"
+IDB_R_SHIFT2_BITMAP     BITMAP                  "E:\\Github\\CodePrinter\\CodePrinter\\res\\SMALL\\向右--.bmp"
+IDB_45_40_BITMAP        BITMAP                  "res\\SMALL\\45x40纯蓝按钮.bmp"
+IDB_L_SELECT1_BITMAP    BITMAP                  "res\\SMALL\\左.bmp"
+IDB_L_SELECT2_BITMAP    BITMAP                  "res\\SMALL\\左--.bmp"
+IDB_U_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向上.bmp"
+IDB_U_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向上--.bmp"
+IDB_D_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向下.bmp"
+IDB_D_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向下--.bmp"
+IDB_L_QSHIFT1_BITMAP    BITMAP                  "res\\SMALL\\快速向左.bmp"
+IDB_L_QSHIFT2_BITMAP    BITMAP                  "res\\SMALL\\快速向左--.bmp"
+IDB_R_QSHIFT1_BITMAP    BITMAP                  "res\\SMALL\\快速向右.bmp"
+IDB_R_QSHIFT2_BITMAP    BITMAP                  "res\\SMALL\\快速向右--.bmp"
+IDB_60_35_BITMAP        BITMAP                  "res\\SMALL\\60x35纯蓝按钮.bmp"
+IDB_R_SELECT1_BITMAP    BITMAP                  "res\\SMALL\\右.bmp"
+IDB_R_SELECT2_BITMAP    BITMAP                  "res\\SMALL\\右--.bmp"
+IDB_ABC1_BITMAP         BITMAP                  "res\\※的里面\\ABC.bmp"
+IDB_ABC2_BITMAP         BITMAP                  "res\\※的里面\\ABC--.bmp"
+IDB_EDIT_FIGURE1_BITMAP BITMAP                  "res\\※的里面\\123.bmp"
+IDB_EDIT_FIGURE2_BITMAP BITMAP                  "res\\※的里面\\123--.bmp"
+IDB_EDIT_DATE1_BITMAP   BITMAP                  "res\\※的里面\\时间.bmp"
+IDB_EDIT_DATE2_BITMAP   BITMAP                  "res\\※的里面\\时间--.bmp"
+IDB_EDIT_PIC1_BITMAP    BITMAP                  "res\\※的里面\\图片.bmp"
+IDB_EDIT_PIC2_BITMAP    BITMAP                  "res\\※的里面\\图片--.bmp"
+IDB_EDIT_CODE1_BITMAP   BITMAP                  "res\\※的里面\\条码.bmp"
+IDB_EDIT_CODE2_BITMAP   BITMAP                  "res\\※的里面\\条码--.bmp"
+IDB_ODBC1_BITMAP        BITMAP                  "res\\※的里面\\ODBC.bmp"
+IDB_ODBC2_BITMAP        BITMAP                  "res\\※的里面\\ODBC--.bmp"
+IDB_RED_FAULT1_BITMAP   BITMAP                  "res\\故障2.bmp"
+IDB_RED_FAULT2_BITMAP   BITMAP                  "res\\故障2--.bmp"
+IDB_FAULT1_BITMAP       BITMAP                  "res\\故障.bmp"
+IDB_FAULT2_BITMAP       BITMAP                  "res\\故障--.bmp"
+IDB_RED_LAMP_BITMAP     BITMAP                  "res\\红灯.bmp"
+IDB_YELLOW_LAMP_BITMAP  BITMAP                  "res\\黄灯.bmp"
+IDB_BLUE_LAMP_BITMAP    BITMAP                  "res\\蓝灯.bmp"
+IDB_GREEN_LAMP_BITMAP   BITMAP                  "res\\绿灯.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

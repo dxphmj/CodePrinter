@@ -24,6 +24,7 @@ void CFaultDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX,IDC_FAULT_LIST,m_faultList);
+	DDX_Control(pDX, IDC_FAULT_CLOSE_BTN, m_returnIB);
 }
 
 
@@ -61,6 +62,10 @@ BOOL CFaultDlg::OnInitDialog()
 	out99.close();
 	nowErrDay=0;
 	//openfailurefile("Storage Card\\System\\Error\\99999999.TXT");
+
+	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
+	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_returnIB.SizeToContent(); 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

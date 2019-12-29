@@ -27,12 +27,16 @@ void CBarCodeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BARCODE_VERSION_COMBO, VersionBox);
 	DDX_Control(pDX, IDC_BARCODE_ECC_LEV_COMBO, ErrLevelBox);
 	DDX_Control(pDX, IDC_BARCODE_ZONE_COMBO, EncodingModeBox);
+
+	DDX_Control(pDX, IDC_BARCODE_CLOSE_BTN, m_returnIB);
+	DDX_Control(pDX, IDC_QR_CODE_BTN, m_qrCodeIB);
+	DDX_Control(pDX, IDC_DATA_MATRIX_BTN, m_dataMatrixIB);
+	DDX_Control(pDX, IDC_CODE_39_BTN, m_code39IB);
+	DDX_Control(pDX, IDC_CODE_128_BTN, m_code128IB);
+	DDX_Control(pDX, IDC_BARCODE_OK_BTN, m_okIB);
 }
 
-
 BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
-	
-
 	ON_BN_CLICKED(IDC_BARCODE_CLOSE_BTN, &CBarCodeDlg::OnBnClickedBarcodeCloseBtn)
 	ON_BN_CLICKED(IDC_QR_CODE_BTN, &CBarCodeDlg::OnBnClickedQrCodeBtn)
 	ON_BN_CLICKED(IDC_DATA_MATRIX_BTN, &CBarCodeDlg::OnBnClickedDataMatrixBtn)
@@ -40,6 +44,7 @@ BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
 	ON_CBN_SELCHANGE(IDC_BARCODE_VERSION_COMBO, &CBarCodeDlg::OnCbnSelchangeBarcodeVersionCombo)
 	ON_CBN_SELCHANGE(IDC_BARCODE_ECC_LEV_COMBO, &CBarCodeDlg::OnCbnSelchangeBarcodeEccLevCombo)
 	ON_CBN_SELCHANGE(IDC_BARCODE_ZONE_COMBO, &CBarCodeDlg::OnCbnSelchangeBarcodeZoneCombo)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -71,6 +76,26 @@ BOOL CBarCodeDlg::OnInitDialog()
 	EncodingModeBox.AddString(_T("FNC1FIRST"));
 	EncodingModeBox.AddString(_T("FNC1SECOND"));
 	EncodingModeBox.SetCurSel(2);
+
+	GetDlgItem(IDC_BARCODE_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_QR_CODE_BTN)->SetWindowPos(NULL,200,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_DATA_MATRIX_BTN)->SetWindowPos(NULL,300,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CODE_39_BTN)->SetWindowPos(NULL,400,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CODE_128_BTN)->SetWindowPos(NULL,500,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BARCODE_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+
+	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_returnIB.SizeToContent(); 
+	m_qrCodeIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_qrCodeIB.SizeToContent(); 
+	m_dataMatrixIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_dataMatrixIB.SizeToContent(); 
+	m_code39IB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_code39IB.SizeToContent(); 
+	m_code128IB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_code128IB.SizeToContent(); 
+	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_okIB.SizeToContent(); 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -210,4 +235,14 @@ void CBarCodeDlg::OnCbnSelchangeBarcodeEccLevCombo()
 void CBarCodeDlg::OnCbnSelchangeBarcodeZoneCombo()
 {
 	// TODO: 在此添加控件通知处理程序代码
+}
+
+HBRUSH CBarCodeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;
 }

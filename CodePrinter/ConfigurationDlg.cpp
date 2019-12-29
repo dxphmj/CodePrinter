@@ -53,6 +53,7 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_BN_CLICKED(IDC_PRINT_SET_BTN, &CConfigurationDlg::OnBnClickedPrintSetBtn)
 	ON_BN_CLICKED(IDC_OUT_SET_BTN, &CConfigurationDlg::OnBnClickedOutSetBtn)
 	ON_BN_CLICKED(IDC_CONFIG_OK_BTN, &CConfigurationDlg::OnBnClickedSavePcf)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -165,4 +166,12 @@ void CConfigurationDlg::OnBnClickedSavePcf()
 	pPcfConfig.download_pcf();
 }
 
- 
+HBRUSH CConfigurationDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;
+}

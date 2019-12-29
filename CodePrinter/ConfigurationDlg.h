@@ -44,7 +44,7 @@ public:
 	int m_speed;
  
 	afx_msg void OnBnClickedSavePcf();
- 
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 	CImageButton m_returnIB;
 	CImageButton m_printSetIB;
