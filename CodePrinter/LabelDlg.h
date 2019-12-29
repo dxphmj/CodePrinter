@@ -97,4 +97,6 @@ public:
 	afx_msg void OnBnClickedAddbackBtn();
 	afx_msg void OnBnClickedUdmirrorButton();
 	afx_msg void OnBnClickedLrmirrorButton();
+	afx_msg void OnStnClickedStaticW();
+	void changeDis();
 };

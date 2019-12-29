@@ -434,6 +434,19 @@
 #define IDC_HEAD_PIC                    1466
 #define IDC_STATIC_SHOW_DLG             1467
 #define IDC_LOGO_PIC                    1468
+#define IDC_STATIC_W                    1469
+#define IDC_STATIC_H                    1470
+#define IDC_STATIC_X                    1471
+#define IDC_STATIC_Y                    1472
+#define IDC_STATIC_WV                   1473
+#define IDC_STATIC_HV                   1474
+#define IDC_STATIC_XV                   1475
+#define IDC_STATIC_YV                   1476
+#define IDC_EDIT_NOWUSER                1477
+#define IDC_LIST_ALLUSER                1478
+#define IDC_BUTTON_CLOSE                1479
+#define IDC_BUTTON_OK                   1480
+#define IDC_STATIC_DELET                1481
 
 // Next default values for new objects
 // 
@@ -441,7 +454,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1469
+#define _APS_NEXT_CONTROL_VALUE         1482
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

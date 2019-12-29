@@ -13,7 +13,9 @@
 class CPathDialog : public CDialog
 {
 private:
-	int mySize;//0为文件管理，1为lab保存，2为lab读取//0为默认。
+	int myType;//0为文件管理，1为lab保存，2为lab读取//0为默认。
+	bool booDisplay;
+	CString myPath;
 public:
 	enum{
 		STB_HIDE = 0,
@@ -22,7 +24,7 @@ public:
 // Construction
 public:
 	CPathDialog(CWnd* pParent = NULL);   // standard constructor
-    CPathDialog(int theSize,CWnd* pParent = NULL);   // standard constructor
+    CPathDialog(int theType,bool isDisplay,CWnd* pParent = NULL);   // standard constructor
 // Dialog Data
 	//{{AFX_DATA(CPathDialog)
 	enum { IDD = IDD_DIALOG_PATH };

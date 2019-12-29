@@ -136,6 +136,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_ADDBACK_BTN, &CLabelDlg::OnBnClickedAddbackBtn)
 	ON_BN_CLICKED(IDC_UDMIRROR_BUTTON, &CLabelDlg::OnBnClickedUdmirrorButton)
 	ON_BN_CLICKED(IDC_LRMIRROR_BUTTON, &CLabelDlg::OnBnClickedLrmirrorButton)
+	ON_STN_CLICKED(IDC_STATIC_W, &CLabelDlg::OnStnClickedStaticW)
 END_MESSAGE_MAP()
 
 
@@ -158,7 +159,7 @@ BOOL CLabelDlg::OnInitDialog()
 	GetDlgItem(IDC_DELETE_BUTTON)->SetWindowPos(NULL,470,200,65,40,SWP_SHOWWINDOW);
 	
 	//中间两行
-	GetDlgItem(IDC_SHRINK_BUTTON)->SetWindowPos(NULL,200,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_SHRINK_BUTTON)->SetWindowPos(NULL,200,250,45,40,SWP_SHOWWINDOW);
 
 	//右侧两列
 	GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
@@ -317,6 +318,8 @@ void CLabelDlg::OnPaint()
 	//theApp.myclassMessage.DrawDot(pDC);
 
 	ReleaseDC(pDC); 
+	changeDis();
+
 /*
 	CPaintDC dc(this); // device context for painting
 	// TODO: 在此处添加消息处理程序代码
@@ -665,7 +668,7 @@ void CLabelDlg::OnBnClickedSaveButton()
 	//labModule.string2tchar(testpath,path);
 
     string xmlPath;
-	if(ShowPathDlg(path, MAX_PATH))
+	if(ShowPathDlg(path, MAX_PATH,1))
 	{
 		//AfxMessageBox(path);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
@@ -688,7 +691,7 @@ void CLabelDlg::OnBnClickedOpenButton()
 	//labModule.string2tchar(testpath,path);
 
 	string xmlPath;
-	if(ShowPathDlg(path, MAX_PATH))
+	if(ShowPathDlg(path, MAX_PATH,1))
 	{
 		//AfxMessageBox(path);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
@@ -1116,4 +1119,30 @@ void CLabelDlg::OnBnClickedLrmirrorButton()
 			break;
 		}
 	}
+}
+
+void CLabelDlg::OnStnClickedStaticW()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+//改变位置
+void CLabelDlg::changeDis()
+{
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		{
+			GetDlgItem(IDC_STATIC_WV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowSize)));
+			GetDlgItem(IDC_STATIC_HV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineSize)));
+			GetDlgItem(IDC_STATIC_XV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowStart)));
+			GetDlgItem(IDC_STATIC_YV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineStart)));
+		return;
+		}
+	}
+	GetDlgItem(IDC_STATIC_WV)->SetWindowText(_T("*"));
+	GetDlgItem(IDC_STATIC_HV)->SetWindowText(_T("*"));
+	GetDlgItem(IDC_STATIC_XV)->SetWindowText(_T("*"));
+	GetDlgItem(IDC_STATIC_YV)->SetWindowText(_T("*"));
 }

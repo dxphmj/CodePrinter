@@ -763,6 +763,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UserPower.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Version.cpp"
 				>
 			</File>
@@ -941,6 +945,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UserPower.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Version.h"
 				>
 			</File>
@@ -1115,11 +1123,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\背景条.bmp"
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				RelativePath=".\res\背景条.bmp"
 				>
 			</File>
 		</Filter>
