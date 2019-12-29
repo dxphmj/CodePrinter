@@ -151,7 +151,6 @@
 #define IDB_BITMAP6                     331
 #define IDB_GREEN_LAMP_BITMAP           331
 #define IDB_SOLVENT_CALIB1_BITMAP       332
-#define IDB_BITMAP8                     333
 #define IDB_SOLVENT_CALIB2_BITMAP       333
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
@@ -206,7 +205,9 @@
 #define IDC_RESET_COUNT_BTN             1053
 #define IDC_RESET_SERIAL_BTN            1054
 #define IDC_BUTTON1                     1055
+#define IDC_BEFORE_BTN                  1055
 #define IDC_BUTTON2                     1056
+#define IDC_NEXT_BTN                    1056
 #define IDC_NEW_BTN                     1057
 #define IDC_EDIT7                       1058
 #define IDC_USER_FRESH_BTN              1059
@@ -217,7 +218,9 @@
 #define IDC_LIST1                       1062
 #define IDC_BUTTON4                     1063
 #define IDC_CONFI_SAVE_BTN              1063
+#define IDC_REFRESH_BTN                 1063
 #define IDC_BUTTON5                     1064
+#define IDC_R_HISTORY_BTN               1064
 #define IDC_CUSTON_BUTTON               1065
 #define IDC_HIGH_VOLTAGE_BTN            1065
 #define IDC_VERSION_BTN                 1066
@@ -455,6 +458,7 @@
 #define IDC_NEXT_SERVICE_EDIT           1305
 #define IDC_INK_LIFE_TIME_EDIT          1306
 #define IDC_BUTTON6                     1308
+#define IDC_L_HISTORY_BTN               1308
 #define IDC_PHASING_BTN                 1309
 #define IDC_SPEED_MODE_BTN              1310
 #define IDC_WASH_NOZZLE_BTN             1311
