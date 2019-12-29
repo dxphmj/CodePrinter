@@ -83,6 +83,13 @@ void CSystemDlg::OnBnClickedComBtn()
 void CSystemDlg::OnBnClickedVersionBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+
+	//////////////////////////////////临时要删除////////////////////////////////////////
+	//CExportDlg myCExportDlg;
+	//CString ts;
+	//ts.Format(L"%s",_T("sdfsa"));
+	//myCExportDlg.GetInputText(ts);
+	/////
 	showSystemDlg(IDD_VERSION_DIALOG);	
 }
 
