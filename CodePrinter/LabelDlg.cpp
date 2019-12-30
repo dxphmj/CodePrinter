@@ -271,6 +271,11 @@ void CLabelDlg::OnBnClickedInputButton()
 void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
+<<<<<<< HEAD
+=======
+	m_designArea.Invalidate();
+	/*
+>>>>>>> parent of 9b5968d... ä¼˜åŒ–
 	CDC* pDC = m_designArea.GetDC();
 	CRect rectClient;
 	CDC dcMem,dcBkgnd;
@@ -315,6 +320,13 @@ void CLabelDlg::OnPaint()
 	dcMem.DeleteDC();      // É¾³ýÄÚ´æDC
 	bitmapTemp.DeleteObject();      // É¾³ýÄÚ´æÎ»Í¼
 	//theApp.myclassMessage.DrawDot(pDC);
+<<<<<<< HEAD
+=======
+	//m_designArea.Invalidate();
+	ReleaseDC(pDC); 
+
+	changeDis();
+>>>>>>> parent of 9b5968d... ä¼˜åŒ–
 
 	ReleaseDC(pDC); 
 /*

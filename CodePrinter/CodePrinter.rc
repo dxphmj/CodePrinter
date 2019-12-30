@@ -77,8 +77,15 @@ EXSTYLE WS_EX_APPWINDOW | 0x80000000L
 FONT 9, "MS Sans Serif"
 BEGIN
     CONTROL         204,IDC_HEAD_PIC,"Static",SS_BITMAP,0,0,533,50
+<<<<<<< HEAD
     LTEXT           "CODEMARK",IDC_STATIC_SHOW_DLG,1,19,119,15
     LTEXT           "",IDC_PRINT_STA_STATIC,174,11,124,26
+=======
+
+    //LTEXT           "CODEMARK",IDC_STATIC_SHOW_DLG,1,19,119,15
+    //LTEXT           "",IDC_PRINT_STA_STATIC,174,11,124,26
+
+>>>>>>> parent of 9b5968d... 浼樺寲
     PUSHBUTTON      "",IDC_SYSTEM_BUTTON,376,84,56,28
     PUSHBUTTON      "",IDC_FAULT_BUTTON,388,15,56,28
     PUSHBUTTON      "",IDC_USER_BUTTON,376,118,56,28
@@ -108,11 +115,21 @@ BEGIN
     PUSHBUTTON      "ON_OR_OFF",IDC_ONOROFF_BUTTON,34,245,51,25
     PUSHBUTTON      "START_PRINT",IDC_STARTPRINT_BUTTON,131,238,50,40
     PUSHBUTTON      "PAUSE_PRINT",IDC_PAUSEPRINT_BUTTON,255,238,60,39
+<<<<<<< HEAD
     CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,15,14
     CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,15,14
     CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,15,14
     CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,15,14
     CONTROL         "",IDC_LOGO_PIC,"Static",SS_BITMAP,0,1,15,14
+=======
+////////////////
+    CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,11,11
+    CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,11,11
+    CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,11,11
+    CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,11,11
+    CONTROL         "",IDC_STATIC_MAIN_PICTURE,"Static",SS_BITMAP,15,62,11,11
+
+>>>>>>> parent of 9b5968d... 浼樺寲
 END
 
 IDD_DATE_DIALOG DIALOG  0, 0, 514, 351
@@ -353,8 +370,16 @@ BEGIN
     EDITTEXT        IDC_EDIT1,171,156,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
     EDITTEXT        IDC_EDIT3,298,156,35,25,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE
     EDITTEXT        IDC_EDIT4,299,192,35,25,ES_AUTOHSCROLL | NOT WS_VISIBLE
+<<<<<<< HEAD
     EDITTEXT        IDC_EDIT5,382,122,130,48,ES_AUTOHSCROLL | NOT WS_BORDER | NOT WS_TABSTOP
     CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,15,13
+=======
+    CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,13,11
+    EDITTEXT        IDC_EDIT5,382,122,130,48,ES_AUTOHSCROLL | NOT WS_BORDER | NOT WS_TABSTOP
+////////
+    CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,21,20
+
+>>>>>>> parent of 9b5968d... 浼樺寲
     EDITTEXT        IDC_EDIT2,171,192,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
 END
 
@@ -945,6 +970,128 @@ IDB_NEWBUILT_BITMAP     BITMAP                  "res\\newlyBuilt.bmp"
 IDB_OFFMACHINE_BITMAP   BITMAP                  "res\\开机2.bmp"
 IDB_BITMAP3             BITMAP                  "res\\bitmap3.bmp"
 IDB_BITMAP_HEAD         BITMAP                  "res\\head.bmp"
+<<<<<<< HEAD
+=======
+IDB_FRESH1_BITMAP       BITMAP                  "res\\fresh.bmp"
+IDB_FRESH2_BITMAP       BITMAP                  "res\\fresh-.bmp"
+IDB_OK1_BITMAP          BITMAP                  "res\\ok.bmp"
+IDB_OK2_BITMAP          BITMAP                  "res\\ok-.bmp"
+IDB_RETURN1_BITMAP      BITMAP                  "res\\sys_return.bmp"
+IDB_RETURN2_BITMAP      BITMAP                  "res\\sys_return-.bmp"
+IDB_DHCP1_BITMAP        BITMAP                  "res\\圆键.bmp"
+IDB_DHCP2_BITMAP        BITMAP                  "res\\圆键-.bmp"
+IDB_SYSTEM1_BITMAP      BITMAP                  "res\\系统.bmp"
+IDB_SYSTEM2_BITMAP      BITMAP                  "res\\系统--.bmp"
+IDB_LABEL1_BITMAP       BITMAP                  "res\\新建lab.bmp"
+IDB_LABEL2_BITMAP       BITMAP                  "res\\新建lab--.bmp"
+IDB_USER1_BITMAP        BITMAP                  "res\\用户.bmp"
+IDB_USER2_BITMAP        BITMAP                  "res\\用户--.bmp"
+IDB_FILEMANA2_BITMAP    BITMAP                  "res\\文件管理--.bmp"
+IDB_CONFIG1_BITMAP      BITMAP                  "res\\配置.bmp"
+IDB_CONFIG2_BITMAP      BITMAP                  "res\\配置--.bmp"
+IDB_INKSYSTEM1_BITMAP   BITMAP                  "res\\墨水系统.bmp"
+IDB_INKSYSTEM2_BITMAP   BITMAP                  "res\\墨水系统--.bmp"
+IDB_FILEMANA1_BITMAP    BITMAP                  "res\\文件管理.bmp"
+IDB_USER_OPEN1_BITMAP   BITMAP                  "res\\编辑用户.bmp"
+IDB_USER_OPEN2_BITMAP   BITMAP                  "res\\编辑用户--.bmp"
+IDB_USER_NEW1_BITMAP    BITMAP                  "res\\新建用户.bmp"
+IDB_USER_NEW2_BITMAP    BITMAP                  "res\\新建用户--.bmp"
+IDB_USER_DELE1_BITMAP   BITMAP                  "res\\删除.bmp"
+IDB_USER_DELE2_BITMAP   BITMAP                  "res\\删除--.bmp"
+IDB_RANGE_BITMAP        BITMAP                  "res\\下面按键.bmp"
+IDB_PRINT_SET1_BITMAP   BITMAP                  "res\\左一.bmp"
+IDB_PRINT_SET2_BITMAP   BITMAP                  "res\\左一--.bmp"
+IDB_OUT_SET1_BITMAP     BITMAP                  "res\\左二.bmp"
+IDB_OUT_SET2_BITMAP     BITMAP                  "res\\左二--.bmp"
+IDB_CONFIG_OPEN1_BITMAP BITMAP                  "res\\文件.bmp"
+IDB_CONFIG_OPEN2_BITMAP BITMAP                  "res\\文件--.bmp"
+IDB_SAVE1_BITMAP        BITMAP                  "res\\保存.bmp"
+IDB_SAVE2_BITMAP        BITMAP                  "res\\保存--.bmp"
+IDB_ONOFF1_BITMAP       BITMAP                  "res\\开机.bmp"
+IDB_ONOFF2_BITMAP       BITMAP                  "res\\开机2.bmp"
+IDB_START_PRINT1_BITMAP BITMAP                  "res\\开始喷印.bmp"
+IDB_START_PRINT2_BITMAP BITMAP                  "res\\开始喷印--.bmp"
+IDB_PAUSE_PRINT1_BITMAP BITMAP                  "res\\暂停喷印.bmp"
+IDB_PAUSE_PRINT2_BITMAP BITMAP                  "res\\暂停喷印--.bmp"
+IDB_BITMAP1             BITMAP                  "res\\bitmap1.bmp"
+IDB_BITMAP3             BITMAP                  "res\\下面按键.bmp"
+IDB_INPUT1_BITMAP       BITMAP                  "res\\※.bmp"
+IDB_INPUT2_BITMAP       BITMAP                  "res\\※--.bmp"
+IDB_REPEAT1_BITMAP      BITMAP                  "res\\笔.bmp"
+IDB_REPEAT2_BITMAP      BITMAP                  "res\\笔--.bmp"
+IDB_LABEL_COPY1_BITMAP  BITMAP                  "res\\复制.bmp"
+IDB_LABEL_COPY2_BITMAP  BITMAP                  "res\\复制--.bmp"
+IDB_LABEL_DELETE1_BITMAP BITMAP                  "res\\小删除.bmp"
+IDB_LABEL_DELETE2_BITMAP BITMAP                  "res\\小删除--.bmp"
+IDB_SHRINK1_BITMAP      BITMAP                  "res\\减细.bmp"
+IDB_SHRINK2_BITMAP      BITMAP                  "res\\减细--.bmp"
+IDB_ZOOM1_BITMAP        BITMAP                  "res\\加粗.bmp"
+IDB_ZOOM2_BITMAP        BITMAP                  "res\\加粗--.bmp"
+IDB_NOTBACK1_BITMAP     BITMAP                  "res\\无填充.bmp"
+IDB_NOTBACK2_BITMAP     BITMAP                  "res\\无填充--.bmp"
+IDB_ADDBACK1_BITMAP     BITMAP                  "res\\有填充.bmp"
+IDB_ADDBACK2_BITMAP     BITMAP                  "res\\有填充--.bmp"
+IDB_DOWNLOAD1_BITMAP    BITMAP                  "res\\下载.bmp"
+IDB_DOWNLOAD2_BITMAP    BITMAP                  "res\\下载--.bmp"
+IDB_80_55_BITMAP        BITMAP                  "res\\80x55纯蓝按钮.bmp"
+IDB_CLOSE1_BITMAP       BITMAP                  "res\\SMALL\\缩小间距.bmp"
+IDB_CLOSE2_BITMAP       BITMAP                  "res\\SMALL\\缩小间距--.bmp"
+IDB_FAR1_BITMAP         BITMAP                  "res\\SMALL\\扩大间距.bmp"
+IDB_FAR2_BITMAP         BITMAP                  "res\\SMALL\\扩大间距--.bmp"
+IDB_UD_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\垂直翻转.bmp"
+IDB_UD_MIRROR2_BITMAP   BITMAP                  "res\\SMALL\\垂直翻转--.bmp"
+IDB_60_40_BITMAP        BITMAP                  "res\\SMALL\\60x40纯蓝按钮.bmp"
+IDB_LR_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\水平翻转.bmp"
+IDB_LR_MIRROR2_BITMAP   BITMAP                  "res\\SMALL\\水平翻转--.bmp"
+IDB_L_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向左.bmp"
+IDB_L_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向左--.bmp"
+IDB_R_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向右.bmp"
+IDB_R_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向右--.bmp"
+IDB_45_40_BITMAP        BITMAP                  "res\\SMALL\\45x40纯蓝按钮.bmp"
+IDB_L_SELECT1_BITMAP    BITMAP                  "res\\SMALL\\左.bmp"
+IDB_L_SELECT2_BITMAP    BITMAP                  "res\\SMALL\\左--.bmp"
+IDB_U_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向上.bmp"
+IDB_U_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向上--.bmp"
+IDB_D_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向下.bmp"
+IDB_D_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向下--.bmp"
+IDB_L_QSHIFT1_BITMAP    BITMAP                  "res\\SMALL\\快速向左.bmp"
+IDB_L_QSHIFT2_BITMAP    BITMAP                  "res\\SMALL\\快速向左--.bmp"
+IDB_R_QSHIFT1_BITMAP    BITMAP                  "res\\SMALL\\快速向右.bmp"
+IDB_R_QSHIFT2_BITMAP    BITMAP                  "res\\SMALL\\快速向右--.bmp"
+IDB_60_35_BITMAP        BITMAP                  "res\\SMALL\\60x35纯蓝按钮.bmp"
+IDB_R_SELECT1_BITMAP    BITMAP                  "res\\SMALL\\右.bmp"
+IDB_R_SELECT2_BITMAP    BITMAP                  "res\\SMALL\\右--.bmp"
+IDB_ABC1_BITMAP         BITMAP                  "res\\※的里面\\ABC.bmp"
+IDB_ABC2_BITMAP         BITMAP                  "res\\※的里面\\ABC--.bmp"
+IDB_EDIT_FIGURE1_BITMAP BITMAP                  "res\\※的里面\\123.bmp"
+IDB_EDIT_FIGURE2_BITMAP BITMAP                  "res\\※的里面\\123--.bmp"
+IDB_EDIT_DATE1_BITMAP   BITMAP                  "res\\※的里面\\时间.bmp"
+IDB_EDIT_DATE2_BITMAP   BITMAP                  "res\\※的里面\\时间--.bmp"
+IDB_EDIT_PIC1_BITMAP    BITMAP                  "res\\※的里面\\图片.bmp"
+IDB_EDIT_PIC2_BITMAP    BITMAP                  "res\\※的里面\\图片--.bmp"
+IDB_EDIT_CODE1_BITMAP   BITMAP                  "res\\※的里面\\条码.bmp"
+IDB_EDIT_CODE2_BITMAP   BITMAP                  "res\\※的里面\\条码--.bmp"
+IDB_ODBC1_BITMAP        BITMAP                  "res\\※的里面\\ODBC.bmp"
+IDB_ODBC2_BITMAP        BITMAP                  "res\\※的里面\\ODBC--.bmp"
+IDB_RED_FAULT1_BITMAP   BITMAP                  "res\\故障2.bmp"
+IDB_RED_FAULT2_BITMAP   BITMAP                  "res\\故障2--.bmp"
+IDB_FAULT1_BITMAP       BITMAP                  "res\\故障.bmp"
+IDB_FAULT2_BITMAP       BITMAP                  "res\\故障--.bmp"
+IDB_RED_LAMP_BITMAP     BITMAP                  "res\\红灯.bmp"
+IDB_YELLOW_LAMP_BITMAP  BITMAP                  "res\\黄灯.bmp"
+IDB_BLUE_LAMP_BITMAP    BITMAP                  "res\\蓝灯.bmp"
+IDB_GREEN_LAMP_BITMAP   BITMAP                  "res\\绿灯.bmp"
+IDB_SOLVENT_CALIB1_BITMAP BITMAP                "res\\水位.bmp"
+IDB_SOLVENT_CALIB2_BITMAP BITMAP                "res\\水位--.bmp"
+IDB_BITMAP_PHA_ADD_UP   BITMAP                  "res\\加.bmp"
+IDB_BITMAP_PHA_ADD_DOWM BITMAP                  "res\\加--.bmp"
+IDB_BITMAP_PHA_SUB_UP   BITMAP                  "res\\减.bmp"
+IDB_BITMAP_PHA_SUB_DOWM BITMAP                  "res\\减--.bmp"
+IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP              "res\\圆键.bmp"
+IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                "res\\圆键-.bmp"
+IDB_PNG_ANG0            BITMAP                  "res\\ang0.bmp"
+IDB_PNG_ANG1            BITMAP                  "res\\ang1.bmp"
+>>>>>>> parent of 9b5968d... 浼樺寲
 
 /////////////////////////////////////////////////////////////////////////////
 //
