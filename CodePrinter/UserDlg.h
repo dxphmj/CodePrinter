@@ -4,6 +4,7 @@
 #include "UserDeleteDlg.h"
 #include "UserFreshDlg.h"
 #include "UserDlg.h"
+#include "ImageButton.h"
 
 // CUserDlg ¶Ô»°¿ò
 
@@ -30,10 +31,18 @@ public:
 	afx_msg void OnBnClickedUserFreshBtn();
 	afx_msg void OnBnClickedCloseUserBtn();
 	void showUserDlg(int ID);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 public:
 	CUserOpenDlg *pUserOpen;
 	CUserNewDlg *pUserNew;
 	CUserDeleteDlg *pUserDelete;
 	CUserFreshDlg *pUserFresh;
 	CUserDlg *pUser;
+
+	CImageButton m_userReturn;
+	CImageButton m_userOpen;
+	CImageButton m_userNew;
+	CImageButton m_userDelete;
+	CImageButton m_userFresh;
+	CImageButton m_userOk;
 };

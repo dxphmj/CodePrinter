@@ -17,16 +17,17 @@ static char THIS_FILE[] = __FILE__;
 CPathDialog::CPathDialog(CWnd* pParent /*=NULL*/)
 	: CDialog(CPathDialog::IDD, pParent)
 {
-	mySize = 0;
+	myType = 0;
 	//{{AFX_DATA_INIT(CPathDialog)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 }
 
-CPathDialog::CPathDialog(int theSize,CWnd* pParent /*=NULL*/)
+CPathDialog::CPathDialog(int theType,bool isDisplay,CWnd* pParent /*=NULL*/)
 : CDialog(CPathDialog::IDD, pParent)
 {
-	mySize = theSize;
+	myType = theType;
+	booDisplay=isDisplay;
 	//{{AFX_DATA_INIT(CPathDialog)
 	// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
@@ -59,25 +60,31 @@ END_MESSAGE_MAP()
 BOOL CPathDialog::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	switch(mySize)
+	switch(myType)
 	{
-	case 0:
+	case 0://文件管理
+		myPath="Storage Card\\User";
 		break;
-	case 1:
-		//SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );	
+	case 1://Label
+		//SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );
+		myPath="Storage Card\\User\\Label";
 		break;
-	case 2:
+	case 2://logo
+		myPath="Storage Card\\User\\Logo";
+		break;
+	case 3://PrintConfig
+		myPath="Storage Card\\User\\PrintConfig";
 		break;
 	}
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
+	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);
 	//设置按钮的位置及大小
 	CFont *m_Font;
 	m_Font=new CFont;
-	m_Font->CreatePointFont(160, _T("Arial"), NULL);
-	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+50,rect.top+20,700,60,SWP_SHOWWINDOW);
+	m_Font->CreatePointFont(120, _T("Arial"), NULL);
+	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+50,rect.top+10,700,20,SWP_SHOWWINDOW);
 	//GetDlgItem(IDC_STATIC_SELECT)->SetFont(&m_Font,true);
 	m_Select.SetFont(m_Font,true);
 	// TODO: Add extra initialization here
@@ -87,11 +94,12 @@ BOOL CPathDialog::OnInitDialog()
 	HTREEITEM hRoot = m_tree.InsertItem(_T("我的设备"), 0, 0, TVI_ROOT, TVI_LAST);
 	CreateDriveList();
 	m_tree.Expand(hRoot, TVE_EXPAND);
-	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+80,700,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+50,700,30,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetFont(m_Font,true);
-	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+160,700,300,SWP_SHOWWINDOW);
-	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+500,100,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+500,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+100,700,330,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->EnableWindow(booDisplay);
+	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+450,100,40,SWP_SHOWWINDOW);
 	//delete m_Font;
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -105,7 +113,8 @@ BOOL CPathDialog::CreateDriveList()
 	if(hRoot == NULL)
 		return FALSE;
 #ifdef ON_EMUL
-	HTREEITEM hItem = m_tree.InsertItem(_T("Storage Card"), 3, 3, hRoot, TVI_LAST);
+	//HTREEITEM hItem = m_tree.InsertItem(_T("Storage Card"), 3, 3, hRoot, TVI_LAST);
+	HTREEITEM hItem = m_tree.InsertItem(myPath, 3, 3, hRoot, TVI_LAST);
 	if(HasSubDirectory(GetFullPath(hItem)))
 		ShowTreeButton(hItem, STB_SHOW);
 	else

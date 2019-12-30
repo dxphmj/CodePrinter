@@ -64,7 +64,7 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 	const char* valueStr = W2A(Value.GetBuffer(0));//CString To ConstChar
 
 	TiXmlDocument mydoc(fileName);//xml文档对象
-	bool loadOk=mydoc.LoadFile();//加载文档
+	bool loadOk = mydoc.LoadFile();//加载文档
 	if (loadOk)
 	{
 		TiXmlElement *RootElement=mydoc.RootElement();	//根元素
@@ -79,7 +79,7 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 			CStringA stra1(nodename);
 			ValueName =  CString(stra1);//ConstChar To CStirng
 
-			if ( ValueName == Name)//有该节点，则改值
+			if ( ValueName.CompareNoCase(Name) == 0)//有该节点，则改值
 			{	
 				TiXmlNode *pValue = StuElement->FirstChild();
 				if (pValue)
@@ -87,23 +87,22 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 					pValue->SetValue(valueStr);
 				}
 				
-				mydoc.SaveFile("inksystem.xml");
+				mydoc.SaveFile();
 				return true;
 			}	
 		}
-//没有则创建该节点	
+		//没有则创建该节点	
 		TiXmlElement *childElement = new TiXmlElement(NameStr);
 		RootElement->LinkEndChild(childElement);
 
 		TiXmlText *Content = new TiXmlText(valueStr);
 		childElement->LinkEndChild(Content);
 
-		mydoc.SaveFile("inksystem.xml");
+		mydoc.SaveFile();
 		return true;	
 	}
 	else
 	{	
-		//MessageBox(L"could not load the file");
 		return false;
 	}
 }

@@ -28,6 +28,13 @@ CInputDlg::~CInputDlg()
 void CInputDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDITTEXT_BUTTON, m_editTextIB);
+	DDX_Control(pDX, IDC_EDITFIGURE_BUTTON, m_editFigureIB);
+	DDX_Control(pDX, IDC_EDITDATE_BUTTON, m_editDateIB);
+	DDX_Control(pDX, IDC_EDITPICTURE_BUTTON, m_editPictureIB);
+	DDX_Control(pDX, IDC_BARCODE_BUTTON, m_editCodeIB);
+	DDX_Control(pDX, IDC_ODBC_BUTTON, m_odbcIB);
+	DDX_Control(pDX, IDC_INPUT_CLOSE_BTN, m_returnIB);
 }
 
 
@@ -57,9 +64,9 @@ BOOL CInputDlg::OnInitDialog()
 	pBarCode = new CBarCodeDlg;
 
 	int nX = 0;
-	int nY = 0;
+	int nY = 90;
 	int nWidth = 800;
-	int nHeight = 600;
+	int nHeight = 600-nY;
 	pEditText->Create(IDD_EDITTEXT_DIALOG,this);
 	pEditText->MoveWindow(nX,nY,nWidth,nHeight);
 
@@ -77,6 +84,33 @@ BOOL CInputDlg::OnInitDialog()
 	pBarCode->Create(IDD_BARCODE_DIALOG,this);
 	pBarCode->MoveWindow(nX,nY,nWidth,nHeight);
 	pBarCode->ShowWindow(SW_HIDE);
+
+//要改
+	CRect rect1;
+	GetDlgItem(IDC_EDITFIGURE_BUTTON)->GetWindowRect(&rect1);
+
+	GetDlgItem(IDC_EDITTEXT_BUTTON)->SetWindowPos(NULL,224,80,60,40,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_EDITFIGURE_BUTTON)->SetWindowPos(NULL,354,80,60,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDITDATE_BUTTON)->SetWindowPos(NULL,484,80,60,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDITPICTURE_BUTTON)->SetWindowPos(NULL,224,140,60,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BARCODE_BUTTON)->SetWindowPos(NULL,354,140,60,405,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_ODBC_BUTTON)->SetWindowPos(NULL,484,140,60,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_INPUT_CLOSE_BTN)->SetWindowPos(NULL,20,220,70,45,SWP_SHOWWINDOW);
+
+	m_editTextIB.LoadBitmaps(IDB_ABC1_BITMAP,IDB_ABC2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_editTextIB.SizeToContent(); 
+	m_editFigureIB.LoadBitmaps(IDB_EDIT_FIGURE1_BITMAP,IDB_EDIT_FIGURE2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_editFigureIB.SizeToContent(); 
+	m_editDateIB.LoadBitmaps(IDB_EDIT_DATE1_BITMAP,IDB_EDIT_DATE2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_editDateIB.SizeToContent(); 
+	m_editPictureIB.LoadBitmaps(IDB_EDIT_PIC1_BITMAP,IDB_EDIT_PIC2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_editPictureIB.SizeToContent(); 
+	m_editCodeIB.LoadBitmaps(IDB_EDIT_CODE1_BITMAP,IDB_EDIT_CODE2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_editCodeIB.SizeToContent(); 
+	m_odbcIB.LoadBitmaps(IDB_ODBC1_BITMAP,IDB_ODBC2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_odbcIB.SizeToContent(); 
+	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_returnIB.SizeToContent(); 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -109,7 +143,7 @@ void CInputDlg::OnBnClickedEditpictureButton()
 	//labModule.string2tchar(testpath,path);
 
 	string xmlPath;
-	if(ShowPathDlg(path, MAX_PATH))
+	if(ShowPathDlg(path, MAX_PATH,2))
 	{
 		int xPos=0;
 		int yPos=0;

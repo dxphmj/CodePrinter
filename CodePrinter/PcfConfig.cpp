@@ -24,7 +24,152 @@ CPcfConfig::CPcfConfig(CCodePrinterDlg* pCodeDlg)
 CPcfConfig::~CPcfConfig(void)
 {
 }
+void CPcfConfig::getPcfFromXml(string pcfNamePath)
+{
+	CDealXml dealXml;
+	CString pcf_currentname,pcf_currentpath;
+	
+	string strPathName=pcfNamePath;
+	int lastN=strPathName.find_last_of('\\');
+	pcf_currentname = theApp.myModuleMain.string2CString(strPathName.substr(lastN + 1));
+	pcf_currentpath= theApp.myModuleMain.string2CString(strPathName.substr(0,lastN));
+	//µ±«∞ªÚ…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛√˚
+	//pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
 
+	//µ±«∞ªÚ…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛µƒ¬∑æ∂
+	//pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+
+
+	bool isFileExit = true;
+	CString tempstr;
+
+	strLABlabForMName = pcf_currentname;
+
+	//π ’œÕ£÷π≈Á”°(–Èƒ‚¥Ú”°)
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
+	int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
+
+	//∏ﬂ—π£®◊÷∏ﬂ£©
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
+
+	//≈Á”°∑ΩœÚ,æˆ∂®…œŒªª˙∑¢ÀÕ ˝æ› ±œ»∑¢«∞¡–∫ÛŒ≤¡–£¨ªπ «œ»Œ≤¡–∫ÛÕ∑¡–£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
+
+
+	//Œƒ◊÷’˝∑¥,æˆ∂®…œŒªª˙¡– ˝æ› «∑Ò∏ﬂµÕµ„∂‘µ˜£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+
+	//≤˙œﬂ‘À∂Ø∑Ω Ω£∫πÃ∂®£¨ø…±‰,,,,ƒ¨»œπÃ∂®
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
+
+	//±‡¬Î∆˜–≈∫≈œ‡ ˝
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("EncoderSignal"), _T("2 Phase"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SetCurSel(nCur);
+
+	//±‡¬Î∆˜±∂∆µ
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.ResetContent();
+	if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//Fixed
+	{
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+	}
+	else if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1)//Variable
+	{
+		if (m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )
+		{
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("5"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("6"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("7"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("8"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("9"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("10"));
+		} 
+		else
+		{
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+		}
+	}
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("FrequencyMultiplier"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SetCurSel(nCur);
+
+	//¡–º‰æ‡,ƒ¨»œŒ™ƒ⁄≤øªÆÀŸ¬ «“‘ºŒ™800£¨ÀŸ∂»Œ™20√◊/∑÷÷”£¨6¡–◊÷øÌŒ™2.54mm
+	USES_CONVERSION;
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_dotPitch = atof(W2A(tempstr.GetBuffer(0)));
+
+	//’˚ÃÂº”¥÷£®‘›≤ª◊ˆ£©
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
+
+	//≤˙œﬂ‘À∂ØÀŸ∂»
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Speed"), _T("20"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
+
+	//—”≥Ÿæ‡¿Î
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Delay"), _T("100"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
+
+	//≈Á”°ƒ£ Ω
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
+
+	//¡¨–¯º‰∏Ùæ‡¿Î
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatDistance"), _T("100"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
+
+	//÷ÿ∏¥º∆ ˝÷µ
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
+
+	//π§◊˜¡–±Ì£®¥À∞Ê±æ≤ªø…”√£©
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("JoblistEnable"), _T("OFF"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->	m_workList.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_workList.SetCurSel(nCur);
+
+	// «∑Ò∆Ù”√µÁ—€
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
+
+	//µÁ—€”––ßµÁ∆Ω
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
+
+	//±‡¬Î∆˜«∞Ω¯∑ΩœÚ
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
+
+	//±‡¬Î∆˜1◊™¬ˆ≥Â ˝
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ImpulsesRoration"), _T("2500"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.SetWindowText(tempstr);
+
+	//Õ¨≤Ω¬÷÷‹≥§
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Cirumference"), _T("200"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(tempstr);
+
+	//¥•∑¢∫ÛΩ˚÷π¥•∑¢≥§∂»
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("TriggerLength"), _T("300"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.SetWindowText(tempstr);
+	//labval_gui_pcf.Text = pcf_currentname;	
+}
 void CPcfConfig::get_pcf_from_xml()
 {
 	CDealXml dealXml;
@@ -34,13 +179,13 @@ void CPcfConfig::get_pcf_from_xml()
 	pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
 	
 	//µ±«∞ªÚ…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛µƒ¬∑æ∂
-	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
 	
 
 	bool isFileExit = true;
+	CString tempstr;
 	if (isFileExit)//»Áπ˚…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛¥Ê‘⁄‘Ú¥Úø™∏√Œƒº˛£¨∑Ò‘Úµ˜≥ˆƒ¨»œ≈‰÷√Œƒº˛
 	{
-		CString tempstr;
 
 		strLABlabForMName = pcf_currentname;
 		
@@ -53,13 +198,13 @@ void CPcfConfig::get_pcf_from_xml()
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
 
-		//≈Á”°∑ΩœÚ,,,,æˆ∂®…œŒªª˙∑¢ÀÕ ˝æ› ±œ»∑¢«∞¡–∫ÛŒ≤¡–£¨ªπ «œ»Œ≤¡–∫ÛÕ∑¡–£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+		//≈Á”°∑ΩœÚ,æˆ∂®…œŒªª˙∑¢ÀÕ ˝æ› ±œ»∑¢«∞¡–∫ÛŒ≤¡–£¨ªπ «œ»Œ≤¡–∫ÛÕ∑¡–£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
 		
 		
-		//Œƒ◊÷’˝∑¥,,,,æˆ∂®…œŒªª˙¡– ˝æ› «∑Ò∏ﬂµÕµ„∂‘µ˜£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+		//Œƒ◊÷’˝∑¥,æˆ∂®…œŒªª˙¡– ˝æ› «∑Ò∏ﬂµÕµ„∂‘µ˜£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
@@ -75,54 +220,53 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SetCurSel(nCur);
 		
 		//±‡¬Î∆˜±∂∆µ
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.Clear();
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.ResetContent();
 		if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//Fixed
 		{
-			m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
 		}
 		else if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1)//Variable
 		{
 			if (m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("5"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("6"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("7"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("8"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("9"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("10"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("5"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("6"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("7"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("8"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("9"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("10"));
 			} 
 			else
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
 			}
 		}
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("FrequencyMultiplier"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SelectString(0,tempstr);
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SetCurSel(nCur);
+		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SelectString(0,tempstr);
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SetCurSel(nCur);
 
-		//¡–º‰æ‡,,,,ƒ¨»œŒ™ƒ⁄≤øªÆÀŸ¬ «“‘ºŒ™800£¨ÀŸ∂»Œ™20√◊/∑÷÷”£¨6¡–◊÷øÌŒ™2.54mm
+		//¡–º‰æ‡,ƒ¨»œŒ™ƒ⁄≤øªÆÀŸ¬ «“‘ºŒ™800£¨ÀŸ∂»Œ™20√◊/∑÷÷”£¨6¡–◊÷øÌŒ™2.54mm
 		USES_CONVERSION;
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = 0.423;//atof(W2A(tempstr.GetBuffer(0)));
+		m_pCodePrinterDlg->m_Confi->m_dotPitch = atof(W2A(tempstr.GetBuffer(0)));
 
 		//’˚ÃÂº”¥÷£®‘›≤ª◊ˆ£©
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
-
 		
 		//≤˙œﬂ‘À∂ØÀŸ∂»
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Speed"), _T("20"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
+		 m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
 
 		//—”≥Ÿæ‡¿Î
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Delay"), _T("100"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
 
 		//≈Á”°ƒ£ Ω
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("OFF"), pcf_currentpath);
@@ -131,7 +275,7 @@ void CPcfConfig::get_pcf_from_xml()
 		
 		//¡¨–¯º‰∏Ùæ‡¿Î
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatDistance"), _T("100"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
 		
 		//÷ÿ∏¥º∆ ˝÷µ
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
@@ -172,7 +316,6 @@ void CPcfConfig::get_pcf_from_xml()
 	}
 	else
 	{
-		CString tempstr;
 		//labval_gui_pcf.Text = _T("Default");
 
 		pcf_currentname = _T("PrintConfig.xml");
@@ -186,13 +329,13 @@ void CPcfConfig::get_pcf_from_xml()
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
 
-		//≈Á”°∑ΩœÚ,,,,æˆ∂®…œŒªª˙∑¢ÀÕ ˝æ› ±œ»∑¢«∞¡–∫ÛŒ≤¡–£¨ªπ «œ»Œ≤¡–∫ÛÕ∑¡–£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+		//≈Á”°∑ΩœÚ,æˆ∂®…œŒªª˙∑¢ÀÕ ˝æ› ±œ»∑¢«∞¡–∫ÛŒ≤¡–£¨ªπ «œ»Œ≤¡–∫ÛÕ∑¡–£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
 
 
-		//Œƒ◊÷’˝∑¥,,,,æˆ∂®…œŒªª˙¡– ˝æ› «∑Ò∏ﬂµÕµ„∂‘µ˜£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+		//Œƒ◊÷’˝∑¥,æˆ∂®…œŒªª˙¡– ˝æ› «∑Ò∏ﬂµÕµ„∂‘µ˜£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
 		nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
@@ -208,54 +351,53 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SetCurSel(nCur);
 
 		//±‡¬Î∆˜±∂∆µ
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.Clear();
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.ResetContent();
 		if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//Fixed
 		{
-			m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
 		}
 		else if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1)//Variable
 		{
 			if (m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("5"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("6"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("7"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("8"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("9"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("10"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("5"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("6"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("7"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("8"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("9"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("10"));
 			} 
 			else
 			{
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("OFF"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("2"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("3"));
-				m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.AddString(_T("4"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+				m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
 			}
 		}
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("FrequencyMultiplier"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SelectString(0,tempstr);
-		m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.SetCurSel(nCur);
+		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SelectString(0,tempstr);
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SetCurSel(nCur);
 
 		//¡–º‰æ‡,,,,ƒ¨»œŒ™ƒ⁄≤øªÆÀŸ¬ «“‘ºŒ™800£¨ÀŸ∂»Œ™20√◊/∑÷÷”£¨6¡–◊÷øÌŒ™2.54mm
 		USES_CONVERSION;
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_dotPitch = 0.423;//atof(W2A(tempstr.GetBuffer(0)));
+		m_pCodePrinterDlg->m_Confi->m_dotPitch = atof(W2A(tempstr.GetBuffer(0)));
 
 		//’˚ÃÂº”¥÷£®‘›≤ª◊ˆ£©
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
 
-
 		//≤˙œﬂ‘À∂ØÀŸ∂»
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Speed"), _T("20"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
 
 		//—”≥Ÿæ‡¿Î
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("Delay"), _T("100"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
 
 		//≈Á”°ƒ£ Ω
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("OFF"), pcf_currentpath);
@@ -310,6 +452,11 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 	CDealXml dealXml;
 	string tempstr;
 	CString strtmp;
+	int nTmp;
+
+	m_pCodePrinterDlg->m_Confi->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->UpdateData();
 
 	if(m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//≤˙œﬂ‘À∂Ø∑Ω Ω£∫πÃ∂®£¨º¥ƒ⁄≤ø
 	{
@@ -318,59 +465,85 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 		//º∆À„—” ±	
 		try
 		{
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+            
+			nTmp = m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
+
 		}
 		catch (CException* e)
 		{
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_delay * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
-		mypcf0X02_05 = strtmp.Mid(mypcf0X02_05.GetLength(), 8);
-		theApp.myPcfClass.pcf0X02 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(6, 2));
-		theApp.myPcfClass.pcf0X03 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(4, 2));
-		theApp.myPcfClass.pcf0X04 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(2, 2));
-		theApp.myPcfClass.pcf0X05 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(0, 2));
+		//strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
+		//mypcf0X02_05 = strtmp.Right(8);
+		//theApp.myPcfClass.pcf0X02 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(6, 2));
+		//theApp.myPcfClass.pcf0X03 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(4, 2));
+		//theApp.myPcfClass.pcf0X04 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(2, 2));
+		//theApp.myPcfClass.pcf0X05 = dealXml.HEX_to_DECbyte(mypcf0X02_05.Mid(0, 2));
+        theApp.myPcfClass.pcf0X02 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X03 = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X04 = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X05 = (nTmp >> 24) & 0xFF;
 		
 		//º∆À„¡–øÌ
 		try
 		{
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
+
 		}
 		catch (CException* e)
 		{
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
-		mypcf0X06_09 = strtmp.Mid(mypcf0X06_09.GetLength(), 8);
-		theApp.myPcfClass.pcf0X06 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(6, 2));
-		theApp.myPcfClass.pcf0X07 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(4, 2));
-		theApp.myPcfClass.pcf0X08 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(2, 2));
-		theApp.myPcfClass.pcf0X09 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(0, 2));
+		//strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
+		//mypcf0X06_09 = strtmp.Right(8);
+		//theApp.myPcfClass.pcf0X06 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(6, 2));
+		//theApp.myPcfClass.pcf0X07 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(4, 2));
+		//theApp.myPcfClass.pcf0X08 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(2, 2));
+		//theApp.myPcfClass.pcf0X09 = dealXml.HEX_to_DECbyte(mypcf0X06_09.Mid(0, 2));
+
+		theApp.myPcfClass.pcf0X06 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X07 = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X08 = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X09 = (nTmp >> 24) & 0xFF;
+
 
 		//º∆À„÷ÿ∏¥¥Ú”°º‰∏Ù
 		try
 		{
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
 		catch (CException* e)
 		{
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr =  theApp.myModuleMain.jinzhi10to16(round(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
+
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
+	/*	strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
 		mypcf0X13_16 = strtmp.Mid(mypcf0X13_16.GetLength(), 8);
 		theApp.myPcfClass.pcf0X13 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(6, 2));
 		theApp.myPcfClass.pcf0X14 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(4, 2));
 		theApp.myPcfClass.pcf0X15 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(2, 2));
-		theApp.myPcfClass.pcf0X16 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(0, 2));
+		theApp.myPcfClass.pcf0X16 = dealXml.HEX_to_DECbyte(mypcf0X13_16.Mid(0, 2));*/
+
+		theApp.myPcfClass.pcf0X13 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X14 = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X15 = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X16 = (nTmp >> 24) & 0xFF;
+
 
 		//¥•∑¢∫ÛΩ˚÷π¥•∑¢≥§∂»
 		try
@@ -378,8 +551,9 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			CString strtriggerLen;
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strtriggerLen);
 			int triggerLen = _wtoi(strtriggerLen);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr = theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
 		catch (CException* e)
 		{
@@ -388,15 +562,22 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int triggerLen = _wtoi(strtriggerLen);
 
 			m_pCodePrinterDlg->m_Confi->m_speed = 20;
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
-			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			//tempstr =  theApp.myModuleMain.jinzhi10to16(round(triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed));
+			//mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
+			nTmp = triggerLen * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed;	
 		}
-		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
+	/*	strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
 		mypcf0X19_1C = strtmp.Mid(mypcf0X19_1C.GetLength(), 8);
 		theApp.myPcfClass.pcf0X19 = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(6, 2));
 		theApp.myPcfClass.pcf0X1A = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(4, 2));
 		theApp.myPcfClass.pcf0X1B = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(2, 2));
-		theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));
+		theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));*/
+
+		theApp.myPcfClass.pcf0X19 = nTmp & 0xFF;
+        theApp.myPcfClass.pcf0X1A = (nTmp >> 8) & 0xFF;
+        theApp.myPcfClass.pcf0X1B = (nTmp >> 16) & 0xFF;
+        theApp.myPcfClass.pcf0X1C = (nTmp >> 24) & 0xFF;
+
 	} 
 	else if(m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1 && 
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0)//±‰ÀŸ£¨Õ‚≤ø±‡¬Î∆˜1œ‡
@@ -410,7 +591,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -422,7 +603,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
@@ -441,7 +622,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -454,7 +635,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
@@ -473,7 +654,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -486,7 +667,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
@@ -507,7 +688,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -522,7 +703,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
@@ -545,7 +726,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay / length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -557,7 +738,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strlength);
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_delay /length ));
 			mypcf0X02_05 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X02_05);
@@ -576,7 +757,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -589,7 +770,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_dotPitch / length ));
 			mypcf0X06_09 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X06_09);
@@ -608,7 +789,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -621,7 +802,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int impulse = _wtoi(strimpulse);
 			int length = _wtoi(strlength);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * m_pCodePrinterDlg->m_Confi->m_repeatDis / length ));
 			mypcf0X13_16 = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X13_16);
@@ -642,7 +823,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr = theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		catch (CException* e)
@@ -657,7 +838,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 			int length = _wtoi(strlength);
 			int triggerLen = _wtoi(strtriggerLen);
 
-			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
+			tempstr =  theApp.myModuleMain.jinzhi10to16(round((m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel() + 1 )* impulse * triggerLen / length ));
 			mypcf0X19_1C = theApp.myModuleMain.stringToLPCWSTR(tempstr);
 		}
 		strtmp.Format(_T("%s%s"),_T("00000000"),mypcf0X19_1C);
@@ -668,43 +849,44 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 		theApp.myPcfClass.pcf0X1C = dealXml.HEX_to_DECbyte(mypcf0X19_1C.Mid(0, 2));
 
 	}
-	else
-	{
-		//Õ¨≤Ω∆˜∑¥œ‡£¨0£∫A->B£¨1:B->A
-		theApp.myPcfClass.pcf0X00bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
-		//π ’œ‘À––º¥π ’œ ±–≈œ¢ª∫¥Ê «∑Òªπ∞¥’˝≥£≈Á”°±ﬂ≈Á”°±ﬂœ˚≥˝£¨0Œ™πÿ±’£¨1Œ™ø™∆Ù
-		theApp.myPcfClass.pcf0X00bit4 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
-		//pcf0X00º∆À„
-		theApp.myPcfClass.pcf0X00 = theApp.myPcfClass.pcf0X00bit6 * 64 + theApp.myPcfClass.pcf0X00bit5 * 32 
-			+ theApp.myPcfClass.pcf0X00bit4 * 16 + theApp.myPcfClass.pcf0X00bit2 * 4 + theApp.myPcfClass.pcf0X00bit1_bit0;
-		//pcf0X00 = IIf(pcf0X00.Length.Equals(2), pcf0X00, "0" & pcf0X00)
-		// «∑Ò∆Ù”√µÁ—€£¨0Œ™πÿ±’£¨1Œ™∆Ù”√
-		theApp.myPcfClass.pcf0X01bit0 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
-		//µÁ—€”––ßµÁ∆Ω£¨0Œ™µÕµÁ∆Ω£¨1Œ™∏ﬂµÁ∆Ω
-		theApp.myPcfClass.pcf0X01bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
-		//≈Á”°ƒ£ ΩŒ™µ•¥Œªπ «¡¨–¯£¨0Œ™µ•¥Œ£¨1Œ™¡¨–¯
-		theApp.myPcfClass.pcf0X01bit3 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
-		//pcf0X01º∆À„
-		theApp.myPcfClass.pcf0X01 = theApp.myPcfClass.pcf0X01bit3 * 8 + theApp.myPcfClass.pcf0X01bit2 * 4 + theApp.myPcfClass.pcf0X01bit0;
-		// pcf0X01 = IIf(pcf0X01.Length.Equals(2), pcf0X01, "0" & pcf0X01)
-		//◊÷∏ﬂ
-		theApp.myPcfClass.pcf0X0A = m_pCodePrinterDlg->m_Confi->m_height;
-		// pcf0X0A = IIf(pcf0X0A.Length.Equals(2), pcf0X0A, "0" & pcf0X0A)
-		//pcf0X0B_0E = "00000000"
-		// pcf0X0F_12 = "00000000"
-		// ±‡¬Î±∂∆µ
-		theApp.myPcfClass.pcf0X18 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->FreqMulti.GetCurSel();
-	}
-	
+	 
+	//Õ¨≤Ω∆˜∑¥œ‡£¨0£∫A->B£¨1:B->A
+	theApp.myPcfClass.pcf0X00bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
+	//π ’œ‘À––º¥π ’œ ±–≈œ¢ª∫¥Ê «∑Òªπ∞¥’˝≥£≈Á”°±ﬂ≈Á”°±ﬂœ˚≥˝£¨0Œ™πÿ±’£¨1Œ™ø™∆Ù
+	theApp.myPcfClass.pcf0X00bit4 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
+	//pcf0X00º∆À„
+	theApp.myPcfClass.pcf0X00 = theApp.myPcfClass.pcf0X00bit6 * 64 + theApp.myPcfClass.pcf0X00bit5 * 32 
+		+ theApp.myPcfClass.pcf0X00bit4 * 16 + theApp.myPcfClass.pcf0X00bit2 * 4 + theApp.myPcfClass.pcf0X00bit1_bit0;
+	//pcf0X00 = IIf(pcf0X00.Length.Equals(2), pcf0X00, "0" & pcf0X00)
+	// «∑Ò∆Ù”√µÁ—€£¨0Œ™πÿ±’£¨1Œ™∆Ù”√
+	theApp.myPcfClass.pcf0X01bit0 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
+	//µÁ—€”––ßµÁ∆Ω£¨0Œ™µÕµÁ∆Ω£¨1Œ™∏ﬂµÁ∆Ω
+	theApp.myPcfClass.pcf0X01bit2 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
+	//≈Á”°ƒ£ ΩŒ™µ•¥Œªπ «¡¨–¯£¨0Œ™µ•¥Œ£¨1Œ™¡¨–¯
+	theApp.myPcfClass.pcf0X01bit3 = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
+	//pcf0X01º∆À„
+	theApp.myPcfClass.pcf0X01 = theApp.myPcfClass.pcf0X01bit3 * 8 + theApp.myPcfClass.pcf0X01bit2 * 4 + theApp.myPcfClass.pcf0X01bit0;
+	// pcf0X01 = IIf(pcf0X01.Length.Equals(2), pcf0X01, "0" & pcf0X01)
+	//◊÷∏ﬂ
+	theApp.myPcfClass.pcf0X0A = m_pCodePrinterDlg->m_Confi->m_height;
+	// pcf0X0A = IIf(pcf0X0A.Length.Equals(2), pcf0X0A, "0" & pcf0X0A)
+	//pcf0X0B_0E = "00000000"
+	// pcf0X0F_12 = "00000000"
+	// ±‡¬Î±∂∆µ
+	theApp.myPcfClass.pcf0X18 = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel();
+ 
+	//“‘œ¬¥˙¬Î”–∫Œ”√Õæ£ø
+	/*
 	theApp.myPcfClass.pcf0X02_05 = CT2A(mypcf0X02_05.GetString());
 	theApp.myPcfClass.pcf0X06_09 = CT2A(mypcf0X02_05.GetString());
 	theApp.myPcfClass.pcf0X13_16 = CT2A(mypcf0X02_05.GetString());
 	theApp.myPcfClass.pcf0X19_1C = CT2A(mypcf0X02_05.GetString());
-
+    */ 
 /////////////////////////////////////////////////////////////////////////////
-	#define  xml_def 1
-#ifdef xml_def
+#define  xml_def 1
 
+#ifdef xml_def
+#else
 	theApp.myPcfClass.pcf0X00=0x2;
 	theApp.myPcfClass.pcf0X01=0x1;
 	theApp.myPcfClass.pcf0X02=0x0;
@@ -726,14 +908,17 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 	theApp.myPcfClass.pcf0X1B=0x0;
 	theApp.myPcfClass.pcf0X1C=0x0;
 #endif
+
 	vector<BYTE> tempCtrVec;
 	tempCtrVec.push_back(0x01);
 	tempCtrVec.push_back(0x80);
-	tempCtrVec.push_back(0x21);
-	tempCtrVec.push_back(0x01);
-	tempCtrVec.push_back(0x12);
-	tempCtrVec.push_back(0x00);
-	tempCtrVec.push_back(0x00);
+
+	tempCtrVec.push_back(0x21); // ˝æ›≥§∂» = 33
+	tempCtrVec.push_back(0x01); // ±Ì æ « Œƒº˛÷°
+
+	tempCtrVec.push_back(0x12); //Œƒº˛øÿ÷∆∫Õ≈‰÷√(◊”√¸¡Ó0X12)
+	tempCtrVec.push_back(0x00); //Œƒº˛√˚
+	tempCtrVec.push_back(0x00); //ºƒ¥Ê∆˜µÿ÷∑£¨±Ì æ¥”¥Àµÿ÷∑ø™ º–¥29∏ˆ ˝æ›£®¥”0x00-0x1C)
 
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X00);
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X01);
@@ -745,7 +930,7 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X07);
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X08);
 	tempCtrVec.push_back(theApp.myPcfClass.pcf0X09);
-	tempCtrVec.push_back(theApp.myPcfClass.pcf0X0A);
+	tempCtrVec.push_back(theApp.myPcfClass.pcf0X0A);  //◊÷∏ﬂ
 
 	tempCtrVec.push_back(0);
 	tempCtrVec.push_back(0);
@@ -775,9 +960,211 @@ void CPcfConfig::download_pcf()//ø™ª˙“ª∂®œ»getfromxml£¨‘Ÿœ¬∑¢°£∏ƒ∂Ø∫Ûœ»±£¥Ê‘Ÿœ¬∑
 	theApp.boQueCtrLock.Unlock();	
 }
 
-
 int CPcfConfig::round(double r)
 {
 	int a = (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
 	return a;
+}
+
+void CPcfConfig::save_pcf_to_xml()
+{
+	CDealXml dealXml;
+	CString pcf_currentname,pcf_currentpath;
+	CString strTmp;
+	int nCur;
+
+ 	m_pCodePrinterDlg->m_Confi->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->UpdateData();
+
+	//µ±«∞ªÚ…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛√˚
+	pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
+	
+	//µ±«∞ªÚ…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛µƒ¬∑æ∂
+	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+	
+     //π ’œÕ£÷π≈Á”°(–Èƒ‚¥Ú”°)
+ 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
+    m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetText(nCur,strTmp);
+    dealXml.WriteXml(pcf_currentname, L"ErrorStopPrinting", strTmp,pcf_currentpath);
+
+	//∏ﬂ—π£®◊÷∏ﬂ£©
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_height);	
+    dealXml.WriteXml(pcf_currentname, L"PrintHeight", strTmp,pcf_currentpath);
+
+	//≈Á”°∑ΩœÚ,æˆ∂®…œŒªª˙∑¢ÀÕ ˝æ› ±œ»∑¢«∞¡–∫ÛŒ≤¡–£¨ªπ «œ»Œ≤¡–∫ÛÕ∑¡–£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_reverse.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Reverse", strTmp,pcf_currentpath);
+
+    //Œƒ◊÷’˝∑¥,æˆ∂®…œŒªª˙¡– ˝æ› «∑Ò∏ﬂµÕµ„∂‘µ˜£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_inverse.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Inverse", strTmp,pcf_currentpath);
+
+	//≤˙œﬂ‘À∂Ø∑Ω Ω£∫πÃ∂®£¨ø…±‰,,,,ƒ¨»œπÃ∂®
+	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_speedWay.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Way", strTmp,pcf_currentpath);
+
+    //±‡¬Î∆˜–≈∫≈œ‡ ˝
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"EncoderSignal", strTmp,pcf_currentpath);
+
+    //±‡¬Î∆˜±∂∆µ
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"FrequencyMultiplier", strTmp,pcf_currentpath);
+
+	//¡–º‰æ‡,ƒ¨»œŒ™ƒ⁄≤øªÆÀŸ¬ «“‘ºŒ™800£¨ÀŸ∂»Œ™20√◊/∑÷÷”£¨6¡–◊÷øÌŒ™2.54mm
+	strTmp.Format(L"%.3f",m_pCodePrinterDlg->m_Confi->m_dotPitch);	
+    dealXml.WriteXml(pcf_currentname, L"DotPitch", strTmp,pcf_currentpath);
+
+	//≤˙œﬂ‘À∂ØÀŸ∂»
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_speed);	
+    dealXml.WriteXml(pcf_currentname, L"Speed", strTmp,pcf_currentpath);
+
+    //—”≥Ÿæ‡¿Î
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_delay);	
+    dealXml.WriteXml(pcf_currentname, L"Delay", strTmp,pcf_currentpath);
+
+	//≈Á”°ƒ£ Ω
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"PrintMode", strTmp,pcf_currentpath);
+
+    //¡¨–¯º‰∏Ùæ‡¿Î
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_repeatDis);	
+    dealXml.WriteXml(pcf_currentname, L"RepeatDistance", strTmp,pcf_currentpath);
+
+    // «∑Ò∆Ù”√µÁ—€
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ProductSensor", strTmp,pcf_currentpath);
+
+    //µÁ—€”––ßµÁ∆Ω
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ActiveLevel", strTmp,pcf_currentpath);
+
+
+	//±‡¬Î∆˜«∞Ω¯∑ΩœÚ
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ForwardDirection", strTmp,pcf_currentpath);
+
+	//±‡¬Î∆˜1◊™¬ˆ≥Â ˝
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strTmp);
+    dealXml.WriteXml(pcf_currentname, L"ImpulsesRoration", strTmp,pcf_currentpath);
+
+	//Õ¨≤Ω¬÷÷‹≥§
+ 	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strTmp);
+    dealXml.WriteXml(pcf_currentname, L"Cirumference", strTmp,pcf_currentpath);
+
+	//¥•∑¢∫ÛΩ˚÷π¥•∑¢≥§∂»
+ 	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strTmp);
+    dealXml.WriteXml(pcf_currentname, L"TriggerLength", strTmp,pcf_currentpath);
+
+}
+
+void CPcfConfig::savePcfToXml(string pcfNamePath)
+{
+	CDealXml dealXml;
+	CString pcf_currentname,pcf_currentpath;
+	CString strTmp;
+	int nCur;
+
+	m_pCodePrinterDlg->m_Confi->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->UpdateData();
+
+	//µ±«∞ªÚ…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛√˚
+	pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
+
+	//µ±«∞ªÚ…œ¥Œ¥Úø™µƒ≈‰÷√Œƒº˛µƒ¬∑æ∂
+	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+
+	//π ’œÕ£÷π≈Á”°(–Èƒ‚¥Ú”°)
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ErrorStopPrinting", strTmp,pcf_currentpath);
+
+	//∏ﬂ—π£®◊÷∏ﬂ£©
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_height);	
+	dealXml.WriteXml(pcf_currentname, L"PrintHeight", strTmp,pcf_currentpath);
+
+	//≈Á”°∑ΩœÚ,æˆ∂®…œŒªª˙∑¢ÀÕ ˝æ› ±œ»∑¢«∞¡–∫ÛŒ≤¡–£¨ªπ «œ»Œ≤¡–∫ÛÕ∑¡–£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_reverse.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Reverse", strTmp,pcf_currentpath);
+
+	//Œƒ◊÷’˝∑¥,æˆ∂®…œŒªª˙¡– ˝æ› «∑Ò∏ﬂµÕµ„∂‘µ˜£®–≈œ¢—°”√Õ®”√≈‰÷√ ±£©
+	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_inverse.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Inverse", strTmp,pcf_currentpath);
+
+	//≤˙œﬂ‘À∂Ø∑Ω Ω£∫πÃ∂®£¨ø…±‰,,,,ƒ¨»œπÃ∂®
+	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_speedWay.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Way", strTmp,pcf_currentpath);
+
+	//±‡¬Î∆˜–≈∫≈œ‡ ˝
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"EncoderSignal", strTmp,pcf_currentpath);
+
+	//±‡¬Î∆˜±∂∆µ
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"FrequencyMultiplier", strTmp,pcf_currentpath);
+
+	//¡–º‰æ‡,ƒ¨»œŒ™ƒ⁄≤øªÆÀŸ¬ «“‘ºŒ™800£¨ÀŸ∂»Œ™20√◊/∑÷÷”£¨6¡–◊÷øÌŒ™2.54mm
+	strTmp.Format(L"%.3f",m_pCodePrinterDlg->m_Confi->m_dotPitch);	
+	dealXml.WriteXml(pcf_currentname, L"DotPitch", strTmp,pcf_currentpath);
+
+	//≤˙œﬂ‘À∂ØÀŸ∂»
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_speed);	
+	dealXml.WriteXml(pcf_currentname, L"Speed", strTmp,pcf_currentpath);
+
+	//—”≥Ÿæ‡¿Î
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_delay);	
+	dealXml.WriteXml(pcf_currentname, L"Delay", strTmp,pcf_currentpath);
+
+	//≈Á”°ƒ£ Ω
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"PrintMode", strTmp,pcf_currentpath);
+
+	//¡¨–¯º‰∏Ùæ‡¿Î
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_repeatDis);	
+	dealXml.WriteXml(pcf_currentname, L"RepeatDistance", strTmp,pcf_currentpath);
+
+	// «∑Ò∆Ù”√µÁ—€
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ProductSensor", strTmp,pcf_currentpath);
+
+	//µÁ—€”––ßµÁ∆Ω
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ActiveLevel", strTmp,pcf_currentpath);
+
+
+	//±‡¬Î∆˜«∞Ω¯∑ΩœÚ
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ForwardDirection", strTmp,pcf_currentpath);
+
+	//±‡¬Î∆˜1◊™¬ˆ≥Â ˝
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ImpulsesRoration", strTmp,pcf_currentpath);
+
+	//Õ¨≤Ω¬÷÷‹≥§
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Cirumference", strTmp,pcf_currentpath);
+
+	//¥•∑¢∫ÛΩ˚÷π¥•∑¢≥§∂»
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strTmp);
+	dealXml.WriteXml(pcf_currentname, L"TriggerLength", strTmp,pcf_currentpath);
 }

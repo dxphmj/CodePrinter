@@ -3,6 +3,7 @@
 #include "EnvDlg.h"
 #include "ComDlg.h"
 #include "Version.h"
+#include "ImageButton.h"
 
 // CSystemDlg ¶Ô»°¿ò
 
@@ -29,9 +30,15 @@ public:
 	afx_msg void OnBnClickedNetBtn();
 	afx_msg void OnBnClickedSystemCloseBtn();
 	void showSystemDlg(int ID);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 public:
 	CEnvDlg *pEvn;
 	CComDlg *pCom;
 	CVersion *pVersion;
+	CImageButton m_freshUp;
+	CImageButton m_freshDown;
+	CImageButton m_sysReturn;
+	CImageButton m_sysOk;
+	CImageButton m_dhcp;
 };

@@ -12,7 +12,8 @@
 #include "ConfigurationDlg.h"
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
-
+#include "PictureStatic.h"
+#include "MainPicture.h"
 
 #include "OnOffDlg.h"
 #define TIMER1 1
@@ -33,8 +34,8 @@ public:
 
 
 public:
-
-
+    CPictureStatic m_PicHead;
+	MainPicture m_PictureMain;
 public:
     void UpdateValve(); //更新各种阀的信息
     void GetFaultInfo(); //获得各种故障信息
@@ -71,8 +72,6 @@ public:
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
 
-	CStatic m_LogoPicBox;
-
 	CSystemDlg *m_System;
 	CUserDlg *m_User;
 	CLabelDlg *m_Label;
@@ -81,7 +80,7 @@ public:
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
 	COnOffDlg *m_OnOff;
-
+	
 public:
 	void showDlg(int ID);
 
@@ -90,6 +89,6 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent); //定时器
  
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-  
+	void ChangeBottonEnable();
 
 };

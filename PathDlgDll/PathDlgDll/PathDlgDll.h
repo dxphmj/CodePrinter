@@ -28,7 +28,7 @@
 		TRUE：用户点击了“确定”按钮
 		FALSE：用户点击了“取消”按钮
 */
-extern "C" __declspec(dllexport) BOOL ShowPathDlg(LPTSTR szPath, int size);
+extern "C" __declspec(dllexport) BOOL ShowPathDlg(LPTSTR szPath, int size,int theType=0,bool isDisplay=true);
 //extern "C" __declspec(dllexport) BOOL ShowReadPathDlg(LPTSTR szPath, int size);
 class CPathDlgDllApp : public CWinApp
 {
