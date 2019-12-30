@@ -25,6 +25,8 @@ void CEditTextDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, Combo_Font, fontComboBox);
+	DDX_Control(pDX, IDC_EDITTEXT_CLOSE_BTN, m_returnIB);
+	DDX_Control(pDX, IDC_BUTTON_EDITOK, m_okIB);
 }
 
 
@@ -33,6 +35,7 @@ BEGIN_MESSAGE_MAP(CEditTextDlg, CDialog)
 	ON_EN_CHANGE(IDC_EDIT1, &CEditTextDlg::OnEnChangeEdit1)
 	ON_CBN_SELCHANGE(Combo_Font, &CEditTextDlg::OnCbnSelchangeFont)
 	ON_BN_CLICKED(IDC_BUTTON_EDITOK, &CEditTextDlg::OnBnClickedButtonEditok)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -49,6 +52,14 @@ BOOL CEditTextDlg::OnInitDialog()
 	fontComboBox.AddString(_T("16x12"));
 
 	fontComboBox.SetCurSel(1);
+
+	GetDlgItem(IDC_EDITTEXT_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_EDITOK)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+
+	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_returnIB.SizeToContent(); 
+	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_okIB.SizeToContent(); 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -169,4 +180,19 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 
 	tempObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
+}
+
+HBRUSH CEditTextDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+	if(nCtlColor == CTLCOLOR_STATIC)
+	{		 
+		pDC->SelectObject(theApp.m_StaticFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+	}
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;
 }

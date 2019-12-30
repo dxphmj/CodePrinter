@@ -23,5 +23,12 @@ public:
 	CListBox m_notGranted;
 	CListBox m_granted;
 	virtual BOOL OnInitDialog();
+
+	afx_msg void OnBnClickedRightMoveBtn();
+	afx_msg void OnBnClickedLeftMoveBtn();
+	afx_msg void OnBnClickedButtonClose();
+	afx_msg void OnBnClickedButtonOk();
+
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 };

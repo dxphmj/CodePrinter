@@ -53,7 +53,7 @@ void CDesignStatic::OnPaint()
 	
 	CBrush cbrush;
 	CBrush* pBrush; //旧笔刷
-	int pixel = 7;
+	int pixel = theApp.myclassMessage.Pixel;
 	if(1)
 	{
 		//画网格
@@ -75,10 +75,23 @@ void CDesignStatic::OnPaint()
 		}
 		dcMem.SelectObject(pOldPen);
 		cPen.DeleteObject();
+
+		//画红线
+		CPen cRPen; 
+		cRPen.CreatePen(PS_SOLID,1,RGB(255,0,0)); 
+		pOldPen = dcMem.SelectObject(&cRPen); //载入笔刷
+		dcMem.MoveTo(rectClient.left,rectClient.Height()-1);
+		dcMem.LineTo(rectClient.right,rectClient.Height()-1);
+		dcMem.MoveTo(rectClient.left,rectClient.Height()-5*pixel-1);
+		dcMem.LineTo(rectClient.right,rectClient.Height()-5*pixel-1);
+		
+		dcMem.SelectObject(pOldPen);
+		cRPen.DeleteObject();
 		pOldPen->DeleteObject();
 		//isFrame=false;
 	}
 	theApp.myclassMessage.DrawDot(&dcMem);
+
 	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//绘制图片到主dc
 	//dcMem.SelectObject(pOldBitmap);//清理
 	dcMem.DeleteDC();      // 删除内存DC

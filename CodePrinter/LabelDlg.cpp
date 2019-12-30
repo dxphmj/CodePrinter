@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "CodePrinter.h"
+#include "CodePrinterDlg.h"
 #include "LabelDlg.h"
 #include "InputDlg.h"
 #include <sstream>
@@ -41,7 +42,16 @@ CLabelDlg::CLabelDlg(CWnd* pParent /*=NULL*/)
 	, m_zoomLevel(1)
 	, m_ssValue(0)
 {
+	m_PicBitmap[0].LoadBitmap(IDB_BITMAP_NOTCHANGE);
+	m_PicBitmap[1].LoadBitmap(IDB_BITMAP_RBLACK);
+	m_PicBitmap[2].LoadBitmap(IDB_BITMAP_RTOPDOWN);
+	m_PicBitmap[3].LoadBitmap(IDB_BITMAP_RLEFTRIGHT);
+	m_PicBitmap[4].LoadBitmap(IDB_BITMAP_RALL);
 
+	for(int i=0;i<5;i++)
+	{
+		m_PichBmp[i]=(HBITMAP)m_PicBitmap[i].GetSafeHandle();
+	}
 }
 
 CLabelDlg::~CLabelDlg()
@@ -88,6 +98,8 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT2, m_ssValue);
 	DDV_MinMaxInt(pDX, m_ssValue, 0, 4);
 
+	DDX_Control(pDX, IDC_STATIC_ISBNG, m_picBNG);
+	DDX_Control(pDX, IDC_STATIC_ISOVERTURN, m_picOverturn);
 }
 
 
@@ -121,7 +133,12 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_BN_CLICKED(IDC_ADDBACK_BTN, &CLabelDlg::OnBnClickedAddbackBtn)
 	ON_BN_CLICKED(IDC_UDMIRROR_BUTTON, &CLabelDlg::OnBnClickedUdmirrorButton)
 	ON_BN_CLICKED(IDC_LRMIRROR_BUTTON, &CLabelDlg::OnBnClickedLrmirrorButton)
+
+	ON_STN_CLICKED(IDC_STATIC_W, &CLabelDlg::OnStnClickedStaticW)
+
 	ON_WM_CTLCOLOR()
+
+	ON_BN_CLICKED(IDC_COPY_BUTTON, &CLabelDlg::OnBnClickedCopyButton)
 END_MESSAGE_MAP()
 
 
@@ -144,17 +161,29 @@ BOOL CLabelDlg::OnInitDialog()
 	GetDlgItem(IDC_DELETE_BUTTON)->SetWindowPos(NULL,470,200,60,40,SWP_SHOWWINDOW);
 	
 	//中间两行
+
+	GetDlgItem(IDC_SHRINK_BUTTON)->SetWindowPos(NULL,200,250,45,40,SWP_SHOWWINDOW);
+
 	CRect rectL;
 	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->GetWindowRect(&rectL);
-
+	
 	GetDlgItem(IDC_SHRINK_BUTTON)->SetWindowPos(NULL,200,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_ZOOM_BUTTON)->SetWindowPos(NULL,305,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->SetWindowPos(NULL,380,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_ADDBACK_BTN)->SetWindowPos(NULL,484,260,45,40,SWP_SHOWWINDOW);
+	m_picBNG.SetWindowPos(NULL,430,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CLOSE_USER_BTN)->SetWindowPos(NULL,200,320,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FAR_BUTTON)->SetWindowPos(NULL,305,320,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_UDMIRROR_BUTTON)->SetWindowPos(NULL,380,320,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_LRMIRROR_BUTTON)->SetWindowPos(NULL,484,320,45,40,SWP_SHOWWINDOW);
+	m_picOverturn.SetWindowPos(NULL,430,320,45,40,SWP_SHOWWINDOW);
 
+	GetDlgItem(IDC_EDIT1)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDIT2)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
 	//右侧两列
 
-	GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
+
 
 
 	//为矩阵组合框添加元素
@@ -179,57 +208,57 @@ BOOL CLabelDlg::OnInitDialog()
 
 	//delete m_Font;
 	//彩色按钮
-	m_input.LoadBitmaps(IDB_INPUT1_BITMAP,IDB_INPUT2_BITMAP,0,0,IDB_INPUT1_BITMAP);
+	m_input.LoadBitmaps(IDB_INPUT1_BITMAP,IDB_INPUT2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_input.SizeToContent(); 
-	m_repeat.LoadBitmaps(IDB_REPEAT1_BITMAP,IDB_REPEAT2_BITMAP,0,0,IDB_REPEAT1_BITMAP);
+	m_repeat.LoadBitmaps(IDB_REPEAT1_BITMAP,IDB_REPEAT2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_repeat.SizeToContent(); 
-	m_copy.LoadBitmaps(IDB_LABEL_COPY1_BITMAP,IDB_LABEL_COPY2_BITMAP,0,0,IDB_LABEL_COPY1_BITMAP);
+	m_copy.LoadBitmaps(IDB_LABEL_COPY1_BITMAP,IDB_LABEL_COPY2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_copy.SizeToContent(); 
-	m_delete.LoadBitmaps(IDB_LABEL_DELETE1_BITMAP,IDB_LABEL_DELETE2_BITMAP,0,0,IDB_LABEL_DELETE1_BITMAP);
+	m_delete.LoadBitmaps(IDB_LABEL_DELETE1_BITMAP,IDB_LABEL_DELETE2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_delete.SizeToContent(); 
 
-	m_shrink.LoadBitmaps(IDB_SHRINK1_BITMAP,IDB_SHRINK2_BITMAP,0,0,IDB_SHRINK1_BITMAP);
+	m_shrink.LoadBitmaps(IDB_SHRINK1_BITMAP,IDB_SHRINK2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_shrink.SizeToContent(); 
-	m_zoom.LoadBitmaps(IDB_ZOOM1_BITMAP,IDB_ZOOM2_BITMAP,0,0,IDB_ZOOM1_BITMAP);
+	m_zoom.LoadBitmaps(IDB_ZOOM1_BITMAP,IDB_ZOOM2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_zoom.SizeToContent(); 
-	m_notback.LoadBitmaps(IDB_NOTBACK1_BITMAP,IDB_NOTBACK2_BITMAP,0,0,IDB_NOTBACK1_BITMAP);
+	m_notback.LoadBitmaps(IDB_NOTBACK1_BITMAP,IDB_NOTBACK2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_notback.SizeToContent(); 
-	m_addback.LoadBitmaps(IDB_ADDBACK1_BITMAP,IDB_ADDBACK2_BITMAP,0,0,IDB_ADDBACK1_BITMAP);
+	m_addback.LoadBitmaps(IDB_ADDBACK1_BITMAP,IDB_ADDBACK2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_addback.SizeToContent(); 
 
-	m_close.LoadBitmaps(IDB_CLOSE_BITMAP,IDB_CLOSE_BITMAP,0,0,IDB_CLOSE_BITMAP);
+	m_close.LoadBitmaps(IDB_CLOSE1_BITMAP,IDB_CLOSE2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_close.SizeToContent(); 
-	m_far.LoadBitmaps(IDB_FAR_BITMAP,IDB_FAR_BITMAP,0,0,IDB_FAR_BITMAP);
+	m_far.LoadBitmaps(IDB_FAR1_BITMAP,IDB_FAR2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_far.SizeToContent(); 
-	m_UD_mirror.LoadBitmaps(IDB_UD_MIRROR_BITMAP,IDB_UD_MIRROR_BITMAP,0,0,IDB_UD_MIRROR_BITMAP);
+	m_UD_mirror.LoadBitmaps(IDB_UD_MIRROR1_BITMAP,IDB_UD_MIRROR2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_UD_mirror.SizeToContent(); 
-	m_LR_mirror.LoadBitmaps(IDB_LR_MIRROR_BITMAP,IDB_LR_MIRROR_BITMAP,0,0,IDB_LR_MIRROR_BITMAP);
+	m_LR_mirror.LoadBitmaps(IDB_LR_MIRROR1_BITMAP,IDB_LR_MIRROR2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_LR_mirror.SizeToContent(); 
-	m_L_select.LoadBitmaps(IDB_L_SELECT_BITMAP,IDB_L_SELECT_BITMAP,0,0,IDB_L_SELECT_BITMAP);
+	m_L_select.LoadBitmaps(IDB_L_SELECT1_BITMAP,IDB_L_SELECT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_L_select.SizeToContent(); 
-	m_R_select.LoadBitmaps(IDB_R_SELECT_BITMAP,IDB_R_SELECT_BITMAP,0,0,IDB_R_SELECT_BITMAP);
+	m_R_select.LoadBitmaps(IDB_R_SELECT1_BITMAP,IDB_R_SELECT2_BITMAP,0,0,IDB_R_SELECT1_BITMAP);
 	m_R_select.SizeToContent(); 
-	m_U_shift.LoadBitmaps(IDB_U_SHIFT_BITMAP,IDB_U_SHIFT_BITMAP,0,0,IDB_U_SHIFT_BITMAP);
+	m_U_shift.LoadBitmaps(IDB_U_SHIFT1_BITMAP,IDB_U_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_U_shift.SizeToContent(); 
-	m_D_shift.LoadBitmaps(IDB_D_SHIFT_BITMAP,IDB_D_SHIFT_BITMAP,0,0,IDB_D_SHIFT_BITMAP);
+	m_D_shift.LoadBitmaps(IDB_D_SHIFT1_BITMAP,IDB_D_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_D_shift.SizeToContent(); 
-	m_L_shift.LoadBitmaps(IDB_L_SHIFT_BITMAP,IDB_L_SHIFT_BITMAP,0,0,IDB_L_SHIFT_BITMAP);
+	m_L_shift.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_L_shift.SizeToContent(); 
-	m_R_shift.LoadBitmaps(IDB_R_SHIFT_BITMAP,IDB_R_SHIFT_BITMAP,0,0,IDB_R_SHIFT_BITMAP);
+	m_R_shift.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT1_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_R_shift.SizeToContent(); 
-	m_L_Qshift.LoadBitmaps(IDB_L_QSHIFT_BITMAP,IDB_L_QSHIFT_BITMAP,0,0,IDB_L_QSHIFT_BITMAP);
+	m_L_Qshift.LoadBitmaps(IDB_L_QSHIFT1_BITMAP,IDB_L_QSHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_L_Qshift.SizeToContent(); 
-	m_R_Qshift.LoadBitmaps(IDB_R_QSHIFT_BITMAP,IDB_R_QSHIFT_BITMAP,0,0,IDB_R_QSHIFT_BITMAP);
+	m_R_Qshift.LoadBitmaps(IDB_R_QSHIFT1_BITMAP,IDB_R_QSHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_R_Qshift.SizeToContent(); 
-	m_download.LoadBitmaps(IDB_DOWNLOAD_BITMAP,IDB_DOWNLOAD_BITMAP,0,0,IDB_DOWNLOAD_BITMAP);
+	m_download.LoadBitmaps(IDB_DOWNLOAD1_BITMAP,IDB_DOWNLOAD2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_download.SizeToContent(); 
-	m_newlyBuilt.LoadBitmaps(IDB_NEWBUILT_BITMAP,IDB_NEWBUILT_BITMAP,0,0,IDB_NEWBUILT_BITMAP);
+	m_newlyBuilt.LoadBitmaps(IDB_USER_NEW1_BITMAP,IDB_USER_NEW2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_newlyBuilt.SizeToContent(); 
-	m_open.LoadBitmaps(IDB_OPEN_BITMAP,IDB_OPEN_BITMAP,0,0,IDB_OPEN_BITMAP);
+	m_open.LoadBitmaps(IDB_CONFIG_OPEN1_BITMAP,IDB_CONFIG_OPEN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_open.SizeToContent();
-	m_save.LoadBitmaps(IDB_SAVE_BITMAP,IDB_SAVE_BITMAP,0,0,IDB_SAVE_BITMAP);
+	m_save.LoadBitmaps(IDB_SAVE1_BITMAP,IDB_SAVE2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_save.SizeToContent();
-	m_return.LoadBitmaps(IDB_RETURN_BITMAP,IDB_RETURN_BITMAP,0,0,IDB_RETURN_BITMAP);
+	m_return.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_return.SizeToContent();
 
 	//test
@@ -275,6 +304,53 @@ void CLabelDlg::OnBnClickedInputButton()
 void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
+	changeDis();
+	m_designArea.Invalidate();
+	bool isSetBmp=false;
+	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		{
+			isSetBmp=true;
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booNEG)
+			{
+				m_picBNG.SetBitmap(m_PichBmp[1]);
+			}
+			else
+			{
+				m_picBNG.SetBitmap(m_PichBmp[0]);
+			}
+
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booBWDx)
+			{
+				if (theApp.myclassMessage.OBJ_Vec.at(i).booBWDy)
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[4]);
+				} 
+				else
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[2]);
+				}
+			}
+			else
+			{
+				if (theApp.myclassMessage.OBJ_Vec.at(i).booBWDy)
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[3]);
+				} 
+				else
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[0]);
+				}
+			}
+			break;
+		}
+	}
+	if (!isSetBmp)
+	{
+		m_picOverturn.SetBitmap(m_PichBmp[0]);
+		m_picBNG.SetBitmap(m_PichBmp[0]);
+	}
 	/*
 	CDC* pDC = m_designArea.GetDC();
 	CRect rectClient;
@@ -320,8 +396,12 @@ void CLabelDlg::OnPaint()
 	dcMem.DeleteDC();      // 删除内存DC
 	bitmapTemp.DeleteObject();      // 删除内存位图
 	//theApp.myclassMessage.DrawDot(pDC);
-
+	//m_designArea.Invalidate();
 	ReleaseDC(pDC); 
+
+	
+
+
 	*/
 /*
 	CPaintDC dc(this); // device context for painting
@@ -504,6 +584,7 @@ void CLabelDlg::OnCbnSelchangeCombo2()
 	//ss<<strText;
 	//ss>>pixel;
 	isFrame=true;
+	OnPaint();
 }
 
 void CLabelDlg::OnBnClickedUshiftButton()
@@ -671,7 +752,7 @@ void CLabelDlg::OnBnClickedSaveButton()
 	//labModule.string2tchar(testpath,path);
 
     string xmlPath;
-	if(ShowPathDlg(path, MAX_PATH))
+	if(ShowPathDlg(path, MAX_PATH,1))
 	{
 		//AfxMessageBox(path);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
@@ -694,7 +775,7 @@ void CLabelDlg::OnBnClickedOpenButton()
 	//labModule.string2tchar(testpath,path);
 
 	string xmlPath;
-	if(ShowPathDlg(path, MAX_PATH))
+	if(ShowPathDlg(path, MAX_PATH,1))
 	{
 		//AfxMessageBox(path);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
@@ -786,11 +867,12 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 				&&nCol>=itr->intRowStart&&nCol<=(itr->intRowStart+itr->intRowSize))
 			{
 				itr->booFocus=true;
+				OnPaint();
 			}
 			++itr;
 		}
 	}
-	OnPaint();
+	
 	CDialog::OnLButtonDown(nFlags, point);
 }
 
@@ -808,20 +890,21 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//动态文本关
 
 	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
-	int rowMax=0;
+	theApp.myclassMessage.intRowMax=0;
 	memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
 	for(vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();objIter!=theApp.myclassMessage.OBJ_Vec.end();objIter++)
 	{
 		theApp.myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
 			objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
-		if (rowMax<(objIter->intRowSize+objIter->intRowStart))
+		if (theApp.myclassMessage.intRowMax<(objIter->intRowSize+objIter->intRowStart))
 		{
-			rowMax=objIter->intRowSize+objIter->intRowStart;
+			theApp.myclassMessage.intRowMax=objIter->intRowSize+objIter->intRowStart;
 		}
 
 	}
 	//以上都要放到getMessageDot中，
-
+	CCodePrinterDlg *pParent = (CCodePrinterDlg *)GetParent();
+	pParent->m_PictureMain.Invalidate();
 	//drawPrevFirst（）
 
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
@@ -830,7 +913,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	else
 	{
 		vector<BYTE> testByteVec;
-		testByteVec=theApp.myclassMessage.DotToByte(0,rowMax);
+		testByteVec=theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
 		dotDataLen_l=testByteVec.size()%256;
 		dotDataLen_h=testByteVec.size()/256;
 		pixelMes=(BYTE)pixel;
@@ -1124,6 +1207,33 @@ void CLabelDlg::OnBnClickedLrmirrorButton()
 	}
 }
 
+
+void CLabelDlg::OnStnClickedStaticW()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+//改变位置
+void CLabelDlg::changeDis()
+{
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		{
+			GetDlgItem(IDC_STATIC_WV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowSize)));
+			GetDlgItem(IDC_STATIC_HV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineSize)));
+			GetDlgItem(IDC_STATIC_XV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowStart)));
+			GetDlgItem(IDC_STATIC_YV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineStart)));
+		return;
+		}
+	}
+	GetDlgItem(IDC_STATIC_WV)->SetWindowText(_T("*"));
+	GetDlgItem(IDC_STATIC_HV)->SetWindowText(_T("*"));
+	GetDlgItem(IDC_STATIC_XV)->SetWindowText(_T("*"));
+	GetDlgItem(IDC_STATIC_YV)->SetWindowText(_T("*"));
+}
+
 HBRUSH CLabelDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
@@ -1132,4 +1242,24 @@ HBRUSH CLabelDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+
+
+//复制
+void CLabelDlg::OnBnClickedCopyButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	OBJ_Control tempObj;
+	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		{
+			tempObj=theApp.myclassMessage.OBJ_Vec.at(i);
+			tempObj.intRowStart=tempObj.intRowStart+tempObj.intRowSize;
+			theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
+			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
+			OnPaint();
+			break;
+		}
+	}
 }

@@ -24,7 +24,152 @@ CPcfConfig::CPcfConfig(CCodePrinterDlg* pCodeDlg)
 CPcfConfig::~CPcfConfig(void)
 {
 }
+void CPcfConfig::getPcfFromXml(string pcfNamePath)
+{
+	CDealXml dealXml;
+	CString pcf_currentname,pcf_currentpath;
+	
+	string strPathName=pcfNamePath;
+	int lastN=strPathName.find_last_of('\\');
+	pcf_currentname = theApp.myModuleMain.string2CString(strPathName.substr(lastN + 1));
+	pcf_currentpath= theApp.myModuleMain.string2CString(strPathName.substr(0,lastN));
+	//当前或上次打开的配置文件名
+	//pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
 
+	//当前或上次打开的配置文件的路径
+	//pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+
+
+	bool isFileExit = true;
+	CString tempstr;
+
+	strLABlabForMName = pcf_currentname;
+
+	//故障停止喷印(虚拟打印)
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
+	int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
+
+	//高压（字高）
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
+
+	//喷印方向,决定上位机发送数据时先发前列后尾列，还是先尾列后头列（信息选用通用配置时）
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
+
+
+	//文字正反,决定上位机列数据是否高低点对调（信息选用通用配置时）
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+
+	//产线运动方式：固定，可变,,,,默认固定
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
+
+	//编码器信号相数
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("EncoderSignal"), _T("2 Phase"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.SetCurSel(nCur);
+
+	//编码器倍频
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.ResetContent();
+	if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 0)//Fixed
+	{
+		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+	}
+	else if (m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel() == 1)//Variable
+	{
+		if (m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel() == 0 )
+		{
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("5"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("6"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("7"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("8"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("9"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("10"));
+		} 
+		else
+		{
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("OFF"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("2"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("3"));
+			m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.AddString(_T("4"));
+		}
+	}
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("FrequencyMultiplier"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SetCurSel(nCur);
+
+	//列间距,默认为内部划速率且约为800，速度为20米/分钟，6列字宽为2.54mm
+	USES_CONVERSION;
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_dotPitch = atof(W2A(tempstr.GetBuffer(0)));
+
+	//整体加粗（暂不做）
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("Density"), _T("1"), pcf_currentpath);
+
+	//产线运动速度
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Speed"), _T("20"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_speed = _wtoi(tempstr);
+
+	//延迟距离
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Delay"), _T("100"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
+
+	//喷印模式
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("OFF"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
+
+	//连续间隔距离
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatDistance"), _T("100"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
+
+	//重复计数值
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
+
+	//工作列表（此版本不可用）
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("JoblistEnable"), _T("OFF"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->	m_workList.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_workList.SetCurSel(nCur);
+
+	//是否启用电眼
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
+
+	//电眼有效电平
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
+
+	//编码器前进方向
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
+
+	//编码器1转脉冲数
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("ImpulsesRoration"), _T("2500"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.SetWindowText(tempstr);
+
+	//同步轮周长
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("Cirumference"), _T("200"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.SetWindowText(tempstr);
+
+	//触发后禁止触发长度
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("TriggerLength"), _T("300"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.SetWindowText(tempstr);
+	//labval_gui_pcf.Text = pcf_currentname;	
+}
 void CPcfConfig::get_pcf_from_xml()
 {
 	CDealXml dealXml;
@@ -921,4 +1066,114 @@ void CPcfConfig::save_pcf_to_xml()
  	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strTmp);
     dealXml.WriteXml(pcf_currentname, L"TriggerLength", strTmp,pcf_currentpath);
 
+}
+
+void CPcfConfig::savePcfToXml(string pcfNamePath)
+{
+	CDealXml dealXml;
+	CString pcf_currentname,pcf_currentpath;
+	CString strTmp;
+	int nCur;
+
+	m_pCodePrinterDlg->m_Confi->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->UpdateData();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->UpdateData();
+
+	string strPathName=pcfNamePath;
+	int lastN=strPathName.find_last_of('\\');
+	pcf_currentname = theApp.myModuleMain.string2CString(strPathName.substr(lastN + 1));
+	pcf_currentpath= theApp.myModuleMain.string2CString(strPathName.substr(0,lastN));
+	if (pcf_currentname.Mid(pcf_currentname.GetLength()-4,1)!=".")
+	{
+		pcf_currentpath=_T("Storage Card\\User\\PrintConfig");
+		pcf_currentname=_T("Default.pcf");
+	}
+	//当前或上次打开的配置文件名
+	//pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
+
+	//当前或上次打开的配置文件的路径
+	//pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+
+	//故障停止喷印(虚拟打印)
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ErrorStopPrinting", strTmp,pcf_currentpath);
+
+	//高压（字高）
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_height);	
+	dealXml.WriteXml(pcf_currentname, L"PrintHeight", strTmp,pcf_currentpath);
+
+	//喷印方向,决定上位机发送数据时先发前列后尾列，还是先尾列后头列（信息选用通用配置时）
+	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_reverse.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Reverse", strTmp,pcf_currentpath);
+
+	//文字正反,决定上位机列数据是否高低点对调（信息选用通用配置时）
+	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_inverse.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Inverse", strTmp,pcf_currentpath);
+
+	//产线运动方式：固定，可变,,,,默认固定
+	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_speedWay.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Way", strTmp,pcf_currentpath);
+
+	//编码器信号相数
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_encodeSign.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"EncoderSignal", strTmp,pcf_currentpath);
+
+	//编码器倍频
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"FrequencyMultiplier", strTmp,pcf_currentpath);
+
+	//列间距,默认为内部划速率且约为800，速度为20米/分钟，6列字宽为2.54mm
+	strTmp.Format(L"%.3f",m_pCodePrinterDlg->m_Confi->m_dotPitch);	
+	dealXml.WriteXml(pcf_currentname, L"DotPitch", strTmp,pcf_currentpath);
+
+	//产线运动速度
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_speed);	
+	dealXml.WriteXml(pcf_currentname, L"Speed", strTmp,pcf_currentpath);
+
+	//延迟距离
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_delay);	
+	dealXml.WriteXml(pcf_currentname, L"Delay", strTmp,pcf_currentpath);
+
+	//喷印模式
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"PrintMode", strTmp,pcf_currentpath);
+
+	//连续间隔距离
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_repeatDis);	
+	dealXml.WriteXml(pcf_currentname, L"RepeatDistance", strTmp,pcf_currentpath);
+
+	//是否启用电眼
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ProductSensor", strTmp,pcf_currentpath);
+
+	//电眼有效电平
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ActiveLevel", strTmp,pcf_currentpath);
+
+
+	//编码器前进方向
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ForwardDirection", strTmp,pcf_currentpath);
+
+	//编码器1转脉冲数
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_impulse.GetWindowText(strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ImpulsesRoration", strTmp,pcf_currentpath);
+
+	//同步轮周长
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_length.GetWindowText(strTmp);
+	dealXml.WriteXml(pcf_currentname, L"Cirumference", strTmp,pcf_currentpath);
+
+	//触发后禁止触发长度
+	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.GetWindowText(strTmp);
+	dealXml.WriteXml(pcf_currentname, L"TriggerLength", strTmp,pcf_currentpath);
 }

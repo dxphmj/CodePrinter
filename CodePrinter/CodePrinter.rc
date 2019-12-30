@@ -84,9 +84,8 @@ BEGIN
     PUSHBUTTON      "",IDC_CONFIGURATION_BUTTON,376,188,56,28
     PUSHBUTTON      "",IDC_FILEMANA_BUTTON,376,222,56,28
     PUSHBUTTON      "",IDC_INK_BUTTON,376,258,56,28
-    LISTBOX         IDC_LIST2,9,88,339,40,LBS_SORT | LBS_NOINTEGRALHEIGHT | NOT WS_BORDER | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "打印预览",IDC_PRINT_PRE_STATIC,17,75,33,8
-    LTEXT           "2019-11-30",IDC_TIME_STATIC,202,75,41,8
+    LTEXT           "打印预览",IDC_PRINT_PRE_STATIC,15,47,33,8
+    LTEXT           "2019-11-30",IDC_TIME_STATIC,201,48,41,8
     LTEXT           "喷印标签:",IDC_STATIC,15,139,37,8
     LTEXT           "新标签",IDC_STATIC,59,139,25,8
     LTEXT           "喷印配置:",IDC_STATIC,15,152,37,8
@@ -96,8 +95,8 @@ BEGIN
     LTEXT           "产品喷印:",IDC_STATIC,86,193,37,8
     LTEXT           "序列号:",IDC_STATIC,211,151,29,8
     PUSHBUTTON      "ResetCount",IDC_RESET_COUNT_BTN,16,183,47,28
-    LTEXT           "0",IDC_STATIC,86,181,10,8
-    LTEXT           "0",IDC_STATIC,87,208,10,8
+    LTEXT           "0",IDC_STATIC_PROCOUNT,86,181,10,8
+    LTEXT           "0",IDC_STATIC_PRICOUNT,87,208,10,8
     PUSHBUTTON      "ResetSerial",IDC_RESET_SERIAL_BTN,207,167,47,28
     LTEXT           "序列1:",IDC_STATIC,281,151,25,8
     LTEXT           "序列2:",IDC_STATIC,281,165,25,8
@@ -106,30 +105,31 @@ BEGIN
     PUSHBUTTON      "ON_OR_OFF",IDC_ONOROFF_BUTTON,34,245,51,25
     PUSHBUTTON      "START_PRINT",IDC_STARTPRINT_BUTTON,131,238,50,40
     PUSHBUTTON      "PAUSE_PRINT",IDC_PAUSEPRINT_BUTTON,255,238,60,39
-    CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,15,14
-    CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,15,14
-    CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,15,14
-    CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,15,14
+    CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,11,11
+    CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,11,11
+    CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,11,11
+    CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,11,11
+    CONTROL         "",IDC_STATIC_MAIN_PICTURE,"Static",SS_BITMAP,15,62,11,11
 END
 
 IDD_DATE_DIALOG DIALOG  0, 0, 498, 299
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "预览",IDC_DATE_PREVIEW_STATIC,66,11,17,8
-    LTEXT           "日期 / 时间",IDC_STATIC,66,47,40,8
+    LTEXT           "预览",IDC_DATE_PREVIEW_STATIC,64,11,17,8
+    LTEXT           "日期 / 时间",IDC_STATIC,64,47,40,8
     EDITTEXT        IDC_EDIT1,125,10,346,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT2,125,44,346,14,ES_AUTOHSCROLL
-    LTEXT           "格式",IDC_DATE_FORMAT_STATIC,66,149,17,8
+    LTEXT           "格式",IDC_DATE_FORMAT_STATIC,64,149,17,8
     LISTBOX         IDC_LIST1,125,94,160,137,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "ADD",IDC_DATE_ADD_BTN,299,142,43,30
-    LTEXT           "字体",IDC_DATE_FONT_STATIC,361,99,17,8
+    LTEXT           "字体",IDC_DATE_FONT_STATIC,359,99,17,8
     COMBOBOX        IDC_DATE_FONT_COMBO,399,98,72,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "偏移",IDC_DATE_SKEW_STATIC,361,130,17,8
+    LTEXT           "偏移",IDC_DATE_SKEW_STATIC,359,130,17,8
     COMBOBOX        IDC_DATE_SKEW_COMBO,399,126,72,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "偏移值",IDC_DATE_SKEW_VALUE_STATIC,361,161,25,8
+    LTEXT           "偏移值",IDC_DATE_SKEW_VALUE_STATIC,359,161,25,8
     EDITTEXT        IDC_DATE_SKEW_VALUE_EDIT,399,153,72,14,ES_AUTOHSCROLL
-    LTEXT           "偏移单位",IDC_DATE_SKEW_UNIT_STATIC,361,192,33,8
+    LTEXT           "偏移单位",IDC_DATE_SKEW_UNIT_STATIC,359,192,33,8
     LISTBOX         IDC_LIST2,399,178,72,53,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "返回",IDC_DATE_CLOSE_BTN,25,257,43,30
     PUSHBUTTON      "刷新",IDC_DATE_REFRESH_BTN,299,257,43,30
@@ -140,11 +140,11 @@ IDD_EDITTEXT_DIALOG DIALOG  0, 0, 480, 242
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "文本",Static_Text,118,35,17,8
-    LTEXT           "字体",Static_Font,118,57,17,8
-    LTEXT           "数据字段",Static_DataField,117,78,33,8
-    EDITTEXT        IDC_EDIT1,154,33,194,14,ES_AUTOHSCROLL
-    COMBOBOX        Combo_Font,154,55,48,71,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "文本",Static_Text,133,63,17,8
+    LTEXT           "字体",Static_Font,133,85,17,8
+    LTEXT           "数据字段",Static_DataField,132,106,33,8
+    EDITTEXT        IDC_EDIT1,175,61,194,14,ES_AUTOHSCROLL
+    COMBOBOX        Combo_Font,175,83,48,71,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "返回",IDC_EDITTEXT_CLOSE_BTN,23,196,50,24
     PUSHBUTTON      "确定",IDC_BUTTON_EDITOK,399,201,56,21
 END
@@ -199,6 +199,7 @@ BEGIN
     EDITTEXT        IDC_SPEED_EDIT,397,177,40,14,ES_AUTOHSCROLL
     LTEXT           "重复距离",IDC_REPEAT_DIS_STATIC,161,151,33,8
     EDITTEXT        IDC_REPEAT_DIS_EDIT,157,171,40,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_PIC_PRINTER_SETUP,"Static",SS_BITMAP,15,17,20,20
 END
 
 IDD_FAULT_DIALOG DIALOG  0, 0, 480, 249
@@ -211,12 +212,12 @@ BEGIN
     LTEXT           "Time",IDC_TIME_STATIC,124,7,18,8
     LTEXT           "Type",IDC_TYPE_STATIC,200,7,17,8
     LTEXT           "Message",IDC_MESSAGE_STATIC,296,7,30,8
-    PUSHBUTTON      "Button1",IDC_BUTTON1,407,48,50,14
-    PUSHBUTTON      "Button2",IDC_BUTTON2,407,72,50,14
-    PUSHBUTTON      "Button3",IDC_BUTTON3,407,93,50,14
-    PUSHBUTTON      "Button4",IDC_BUTTON4,372,214,50,14
-    PUSHBUTTON      "Button5",IDC_BUTTON5,310,214,50,14
-    PUSHBUTTON      "Button6",IDC_BUTTON6,240,214,50,14
+    PUSHBUTTON      "上一个",IDC_BEFORE_BTN,407,48,50,14
+    PUSHBUTTON      "下一个",IDC_NEXT_BTN,407,72,50,14
+    PUSHBUTTON      "删除",IDC_DELETE_BTN,407,93,50,14
+    PUSHBUTTON      "重置",IDC_REFRESH_BTN,372,214,50,14
+    PUSHBUTTON      "右翻历史记录",IDC_R_HISTORY_BTN,310,214,50,14
+    PUSHBUTTON      "左翻历史记录",IDC_L_HISTORY_BTN,240,214,50,14
     LTEXT           "",IDC_MUL_LANGV_STATIC,84,213,154,16
 END
 
@@ -245,6 +246,7 @@ BEGIN
     COMBOBOX        IDC_FONT_COMBO,352,158,81,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "格式",IDC_FORMAT_STATIC,298,185,17,8
     COMBOBOX        IDC_FORMAT_COMBO,352,182,81,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "确定",IDC_EDITFIGURE_OK_BTN,410,222,50,14
 END
 
 IDD_FILEMANA_DIALOG DIALOG  0, 0, 338, 238
@@ -326,7 +328,7 @@ BEGIN
     PUSHBUTTON      "Copy",IDC_COPY_BUTTON,264,122,42,23
     PUSHBUTTON      "Delete",IDC_DELETE_BUTTON,327,122,42,23
     PUSHBUTTON      "Repeat",IDC_REPEAT_BUTTON,197,122,42,23
-    PUSHBUTTON      "shrik",IDC_SHRINK_BUTTON,131,156,39,25
+    PUSHBUTTON      "shrik",IDC_SHRINK_BUTTON,132,155,39,25
     PUSHBUTTON      "Zoom",IDC_ZOOM_BUTTON,206,156,39,25
     PUSHBUTTON      "Close",IDC_CLOSE_USER_BTN,132,192,37,25
     PUSHBUTTON      "Far",IDC_FAR_BUTTON,203,192,38,25
@@ -348,11 +350,18 @@ BEGIN
     PUSHBUTTON      "Save",IDC_SAVE_BUTTON,297,257,63,23
     COMBOBOX        IDC_COMBO_MATRIX,73,133,48,79,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     EDITTEXT        IDC_EDIT1,171,156,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
-    EDITTEXT        IDC_EDIT3,298,156,35,25,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE
-    EDITTEXT        IDC_EDIT4,299,192,35,25,ES_AUTOHSCROLL | NOT WS_VISIBLE
-    EDITTEXT        IDC_EDIT5,382,122,130,48,ES_AUTOHSCROLL | NOT WS_BORDER | NOT WS_TABSTOP
-    CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,21,20
+    CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,13,11
     EDITTEXT        IDC_EDIT2,171,192,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
+    LTEXT           "W:",IDC_STATIC_W,399,135,11,8
+    LTEXT           "H:",IDC_STATIC_H,454,134,10,8
+    LTEXT           "X:",IDC_STATIC_X,400,151,10,8
+    LTEXT           "Y:",IDC_STATIC_Y,454,152,10,8
+    LTEXT           "*",IDC_STATIC_WV,412,135,10,8
+    LTEXT           "*",IDC_STATIC_HV,464,135,10,8
+    LTEXT           "*",IDC_STATIC_YV,464,152,10,8
+    LTEXT           "*",IDC_STATIC_XV,412,151,10,8
+    CONTROL         "",IDC_STATIC_ISBNG,"Static",SS_BITMAP,302,156,13,11
+    CONTROL         "",IDC_STATIC_ISOVERTURN,"Static",SS_BITMAP,302,192,20,20
 END
 
 IDD_PICTURE_DIALOG DIALOG  0, 0, 412, 226
@@ -402,10 +411,10 @@ BEGIN
     PUSHBUTTON      "返回",IDC_CLOSE_USER_BTN,13,221,49,25
     LTEXT           "当前用户",IDC_STATIC,71,32,33,8
     LTEXT           "用户名",IDC_STATIC,73,122,25,8
-    EDITTEXT        IDC_EDIT1,138,24,162,25,ES_AUTOHSCROLL
-    LISTBOX         IDC_LIST1,138,77,162,98,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "打开",IDC_OPEN_BTN,102,221,49,25
-    PUSHBUTTON      "新建",IDC_NEW_BTN,169,221,49,25
+    EDITTEXT        IDC_EDIT_NOWUSER,138,24,162,25,ES_AUTOHSCROLL
+    LISTBOX         IDC_LIST_ALLUSER,137,69,162,120,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "打开",IDC_OPEN_BTN,169,222,49,25
+    PUSHBUTTON      "新建",IDC_NEW_BTN,97,222,49,25
     PUSHBUTTON      "删除",IDC_DELETE_BTN,236,221,49,25
     PUSHBUTTON      "刷新",IDC_USER_FRESH_BTN,303,221,49,25
     PUSHBUTTON      "确定",IDC_USER_OK_BTN,381,221,49,25
@@ -427,7 +436,6 @@ IDD_COM_DIALOG DIALOG  0, 0, 383, 193
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    PUSHBUTTON      "取消",IDCANCEL,7,142,50,32
     LTEXT           "COM1波特率",IDC_STATIC,74,46,44,8
     LTEXT           "COM1奇偶校验",IDC_STATIC,74,82,52,8
     LTEXT           "COM2波特率",IDC_STATIC,251,46,44,8
@@ -438,23 +446,23 @@ BEGIN
     LISTBOX         IDC_COM2_PARITY_LIST,314,78,48,40,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_VERSION_DIALOG DIALOG  0, 0, 410, 239
+IDD_VERSION_DIALOG DIALOG  0, 0, 431, 260
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "喷码机型号",IDC_CODEPRINTER_TYPE_STATIC,181,10,41,8
-    LTEXT           "喷码机ID",IDC_CODEPRINTE_ID_RSTATIC,190,39,32,8
-    LTEXT           "主板ID",IDC_MAINBOARD_ID_STATIC,198,69,24,8
-    LTEXT           "主板硬件版本",IDC_MAINBOARD_HARDWARE_TYPE_STATIC,173,97,49,8
-    LTEXT           "更新时间",IDC_HARDWARE_UPDATE_TIME_STATIC,189,124,33,8
-    LTEXT           "主板软件版本",IDC_MAINBOARD_SOFTWARE_TYPE_STATIC,173,145,49,8
-    LTEXT           "更新时间",IDC_SOFTWARE_UPDATE_TIME_STATIC,189,167,33,8
-    LTEXT           "系统软件版本",IDC_SYSTEM_SOFTWARE_TYPE_STATIC,173,195,49,8
-    LTEXT           "更新时间",IDC_SYSTEM_SOFTWARE_UPDATE_TIME_STATIC,189,217,33,8
+    LTEXT           "喷码机型号",IDC_CODEPRINTER_TYPE_STATIC,177,10,41,8
+    LTEXT           "喷码机ID",IDC_CODEPRINTE_ID_RSTATIC,186,39,32,8
+    LTEXT           "主板ID",IDC_MAINBOARD_ID_STATIC,194,69,24,8
+    LTEXT           "主板硬件版本",IDC_MAINBOARD_HARDWARE_TYPE_STATIC,169,97,49,8
+    LTEXT           "更新时间",IDC_HARDWARE_UPDATE_TIME_STATIC,185,124,33,8
+    LTEXT           "主板软件版本",IDC_MAINBOARD_SOFTWARE_TYPE_STATIC,169,145,49,8
+    LTEXT           "更新时间",IDC_SOFTWARE_UPDATE_TIME_STATIC,185,167,33,8
+    LTEXT           "系统软件版本",IDC_SYSTEM_SOFTWARE_TYPE_STATIC,169,195,49,8
+    LTEXT           "更新时间",IDC_SYSTEM_SOFTWARE_UPDATE_TIME_STATIC,185,217,33,8
 END
 
 IDD_USER_OPEN_DIALOG DIALOG  0, 0, 491, 247
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
     LTEXT           "用户名",IDC_USER_NAME_STATIC,86,54,25,8
@@ -467,30 +475,47 @@ BEGIN
     LISTBOX         IDC_GRANTED_LIST,388,83,72,72,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "->",IDC_RIGHT_MOVE_BTN,251,95,50,14
     PUSHBUTTON      "<-",IDC_LEFT_MOVE_BTN,251,125,50,14
+    PUSHBUTTON      "CLOSE",IDC_BUTTON_CLOSE,30,212,50,14
+    PUSHBUTTON      "OK",IDC_BUTTON_OK,403,212,50,14
 END
 
 IDD_USER_NEW_DIALOG DIALOG  0, 0, 514, 255
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    PUSHBUTTON      "Button2",IDC_BUTTON1,163,40,50,14
+    PUSHBUTTON      "CLOSE",IDC_BUTTON_CLOSE,33,212,50,14
+    LTEXT           "用户名",IDC_USER_NAME_STATIC,86,54,25,8
+    EDITTEXT        IDC_USER_NAME_EDIT,151,52,72,14,ES_AUTOHSCROLL
+    LTEXT           "Not Granted",IDC_STATIC,86,117,40,8
+    LTEXT           "密码",IDC_PASSWARD_STATIC,333,55,17,8
+    EDITTEXT        IDC_PASSWARD_EDIT,388,55,72,14,ES_AUTOHSCROLL
+    LISTBOX         IDC_NOT_GRANTED_LIST,151,83,72,72,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Granted",IDC_STATIC,333,116,27,8
+    LISTBOX         IDC_GRANTED_LIST,388,83,72,72,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "->",IDC_RIGHT_MOVE_BTN,251,95,50,14
+    PUSHBUTTON      "<-",IDC_LEFT_MOVE_BTN,251,125,50,14
+    PUSHBUTTON      "OK",IDC_BUTTON_OK,419,214,50,14
 END
 
 IDD_USER_DELETE_DIALOG DIALOG  0, 0, 488, 240
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    PUSHBUTTON      "Button4",IDC_BUTTON1,225,132,50,14
+    PUSHBUTTON      "CLOSE",IDC_BUTTON_CLOSE,67,188,50,14
+    PUSHBUTTON      "OK",IDC_BUTTON_OK,357,190,50,14
+    CTEXT           "删除",IDC_STATIC_DELET,77,92,323,16
 END
 
 IDD_USER_FRESH_DIALOG DIALOG  0, 0, 519, 258
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
     LTEXT           "用户名",IDC_STATIC,177,88,25,8
-    LISTBOX         IDC_FRESH_USER_NAME_LIST,227,55,97,83,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_FRESH_USER_NAME_LIST,227,55,97,83,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "密码",IDC_STATIC,177,186,17,8
-    EDITTEXT        IDC_FRESH_PASSWARD_EDIT,227,183,97,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FRESH_PASSWARD_EDIT,227,183,97,14,ES_PASSWORD | ES_AUTOHSCROLL
+    PUSHBUTTON      "CLOSE",IDC_BUTTON_CLOSE,52,218,50,14
+    PUSHBUTTON      "OK",IDC_BUTTON_OK,427,221,50,14
 END
 
 IDD_INK_ADVANCE_DIALOG DIALOG  0, 0, 353, 247
@@ -512,16 +537,16 @@ IDD_INK_SETUP_DIALOG DIALOG  0, 0, 513, 244
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "喷嘴尺寸",IDC_STATIC,90,34,33,8
-    LTEXT           "晶振频率[Hz]",IDC_STATIC,90,85,46,8
-    LTEXT           "墨水类型",IDC_STATIC,90,136,33,8
-    LTEXT           "冷凝器",IDC_STATIC,90,187,25,8
-    LTEXT           "睡眠模式",IDC_STATIC,309,20,33,8
-    LTEXT           "时间重置",IDC_STATIC,309,56,33,8
-    LTEXT           "下次保养时间[小时]",IDC_STATIC,309,92,70,8
-    LTEXT           "墨水剩余时间[小时]",IDC_STATIC,309,128,70,8
-    LTEXT           "溶剂液位校准",IDC_STATIC,309,164,49,8
-    LTEXT           "墨水液位校准",IDC_STATIC,309,200,49,8
+    LTEXT           "喷嘴尺寸",IDC_STATIC,90,34,65,15
+    LTEXT           "晶振频率[Hz]",IDC_STATIC,90,85,65,15
+    LTEXT           "墨水类型",IDC_STATIC,90,136,65,15
+    LTEXT           "冷凝器",IDC_STATIC,90,187,65,15
+    LTEXT           "睡眠模式",IDC_STATIC,309,20,65,15
+    LTEXT           "时间重置",IDC_STATIC,309,56,65,15
+    LTEXT           "下次保养时间[小时]",IDC_STATIC,309,92,89,15
+    LTEXT           "墨水剩余时间[小时]",IDC_STATIC,309,128,86,15
+    LTEXT           "溶剂液位校准",IDC_STATIC,309,164,65,15
+    LTEXT           "墨水液位校准",IDC_STATIC,309,200,65,15
     LTEXT           "Enabled",IDC_STATIC,405,56,26,8
     EDITTEXT        IDC_NEXT_SERVICE_EDIT,405,89,51,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_INK_LIFE_TIME_EDIT,405,125,51,14,ES_AUTOHSCROLL
@@ -538,16 +563,16 @@ IDD_INK_PAR_DIALOG DIALOG  0, 0, 460, 236
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg"
 BEGIN
-    LTEXT           "压力[mbar]",IDC_PAR_PRESSURE_STATIC,63,23,38,8
-    LTEXT           "泵速[r/m]",IDC_PAR_PUMP_SPEED_STATIC,63,69,33,8
-    LTEXT           "墨水液位过高值",IDC_INK_FLOW_LEV_STATIC,63,115,57,8
-    LTEXT           "墨水液位添加值",IDC_INK_ADD_LEV_STATIC,63,161,57,8
-    LTEXT           "墨水液位过低值",IDC_INK_EMPTY_LEV_STATIC,63,207,57,8
-    LTEXT           "喷头工作温度[℃]",IDC_PRINTHEAD_TEMP_STATIC,297,23,62,8
-    LTEXT           "粘度偏移误差[%]",IDC_VISCO_DEVIA_STATIC,297,69,62,8
-    LTEXT           "溶剂液位过高值",IDC_SOLVENT_FLOW_LEV_STATIC,297,115,57,8
-    LTEXT           "溶剂液位添加值",IDC_SOL_ADD_LEV_STATIC,297,161,57,8
-    LTEXT           "溶剂液位过低值",IDC_SOL_EMPTY_LEV_STATIC,297,207,57,8
+    LTEXT           "压力[mbar]",IDC_PAR_PRESSURE_STATIC,63,23,50,18
+    LTEXT           "泵速[r/m]",IDC_PAR_PUMP_SPEED_STATIC,63,69,50,18
+    LTEXT           "墨水液位过高值",IDC_INK_FLOW_LEV_STATIC,63,115,79,18
+    LTEXT           "墨水液位添加值",IDC_INK_ADD_LEV_STATIC,63,161,70,18
+    LTEXT           "墨水液位过低值",IDC_INK_EMPTY_LEV_STATIC,63,207,74,18
+    LTEXT           "喷头工作温度[℃]",IDC_PRINTHEAD_TEMP_STATIC,297,23,63,18
+    LTEXT           "粘度偏移误差[%]",IDC_VISCO_DEVIA_STATIC,297,69,69,18
+    LTEXT           "溶剂液位过高值",IDC_SOLVENT_FLOW_LEV_STATIC,297,115,80,18
+    LTEXT           "溶剂液位添加值",IDC_SOL_ADD_LEV_STATIC,297,161,77,18
+    LTEXT           "溶剂液位过低值",IDC_SOL_EMPTY_LEV_STATIC,297,207,77,18
     EDITTEXT        IDC_PAR_PRESSURE_EDIT,147,21,40,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_PAR_PUMP_SPEED_EDIT,147,66,40,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_INK_FLOW_LEV_EDIT,147,112,40,14,ES_AUTOHSCROLL
@@ -566,16 +591,17 @@ FONT 8, "MS Shell Dlg"
 BEGIN
     PUSHBUTTON      "减少",IDC_PASHING_CUT_BTN,48,13,50,217
     PUSHBUTTON      "增加",IDC_PHASING_ADD_BTN,421,13,50,217
-    LTEXT           "调制电压[V]",IDC_MODULATION_V_STATIC,244,17,42,8
+    LTEXT           "调制电压[V]",IDC_MODULATION_V_STATIC,244,17,57,20
     LTEXT           "0",IDC_MODULATION_NUM_STATIC,262,46,10,8
-    LTEXT           "固定设置[V]",IDC_FIXED_STATIC,294,86,42,8
-    LTEXT           "自动设置",IDC_AUTO_SET_STATIC,294,120,33,8
-    LTEXT           "调整步级:X10",IDC_SET_ADJUST_BIG_STATIC,294,154,48,8
-    LTEXT           "调整步级:X1",IDC_SET_ADJUST_SMALL_STATIC,294,188,44,8
+    LTEXT           "固定设置[V]",IDC_FIXED_STATIC,294,86,57,20
+    LTEXT           "自动设置",IDC_AUTO_SET_STATIC,294,124,57,15
+    LTEXT           "调整步级:X10",IDC_SET_ADJUST_BIG_STATIC,294,158,57,16
+    LTEXT           "调整步级:X1",IDC_SET_ADJUST_SMALL_STATIC,294,192,57,16
     EDITTEXT        IDC_FIXED_EDIT,351,83,40,14,ES_AUTOHSCROLL
     PUSHBUTTON      "",IDC_AUTO_SET_BTN,359,115,32,18
     PUSHBUTTON      "",IDC_SET_ADJUST_BIG_BTN,359,150,32,18
     PUSHBUTTON      "",IDC_SET_ADJUST_SMALL_BTN,359,184,32,18
+    CONTROL         "",IDC_PIC_PHA_ANGLE,"Static",SS_BITMAP,131,84,15,13
 END
 
 IDD_CONFIG_PRINT_MODE_DIALOG DIALOG  0, 0, 512, 313
@@ -829,9 +855,9 @@ BEGIN
     IDD_VERSION_DIALOG, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 403
+        RIGHTMARGIN, 424
         TOPMARGIN, 7
-        BOTTOMMARGIN, 232
+        BOTTOMMARGIN, 253
     END
 
     IDD_USER_OPEN_DIALOG, DIALOG
@@ -939,23 +965,8 @@ END
 //
 
 IDB_IM017_BITMAP        BITMAP                  "res\\im017.bmp"
-IDB_CLOSE_BITMAP        BITMAP                  "res\\close.bmp"
-IDB_OPEN_BITMAP         BITMAP                  "res\\open.bmp"
-IDB_FAR_BITMAP          BITMAP                  "res\\far.bmp"
-IDB_UD_MIRROR_BITMAP    BITMAP                  "res\\UD_Mirror.bmp"
-IDB_LR_MIRROR_BITMAP    BITMAP                  "res\\LR_Mirror.bmp"
-IDB_L_SELECT_BITMAP     BITMAP                  "res\\L_Select.bmp"
-IDB_R_SELECT_BITMAP     BITMAP                  "res\\R_Select.bmp"
-IDB_U_SHIFT_BITMAP      BITMAP                  "res\\U_shift.bmp"
-IDB_D_SHIFT_BITMAP      BITMAP                  "res\\D_shift.bmp"
-IDB_L_SHIFT_BITMAP      BITMAP                  "res\\L_Shift.bmp"
-IDB_R_SHIFT_BITMAP      BITMAP                  "res\\R_Shift.bmp"
-IDB_L_QSHIFT_BITMAP     BITMAP                  "res\\L_Qshift.bmp"
-IDB_R_QSHIFT_BITMAP     BITMAP                  "res\\R_Qshift.bmp"
 IDB_DOWNLOAD_BITMAP     BITMAP                  "res\\download.bmp"
-IDB_SAVE_BITMAP         BITMAP                  "res\\save.bmp"
 IDB_RETURN_BITMAP       BITMAP                  "res\\return.bmp"
-IDB_NEWBUILT_BITMAP     BITMAP                  "res\\newlyBuilt.bmp"
 IDB_BITMAP_HEAD         BITMAP                  "res\\head.bmp"
 IDB_FRESH1_BITMAP       BITMAP                  "res\\fresh.bmp"
 IDB_FRESH2_BITMAP       BITMAP                  "res\\fresh-.bmp"
@@ -965,8 +976,6 @@ IDB_RETURN1_BITMAP      BITMAP                  "res\\sys_return.bmp"
 IDB_RETURN2_BITMAP      BITMAP                  "res\\sys_return-.bmp"
 IDB_DHCP1_BITMAP        BITMAP                  "res\\圆键.bmp"
 IDB_DHCP2_BITMAP        BITMAP                  "res\\圆键-.bmp"
-IDB_FAULT1_BITMAP       BITMAP                  "res\\故障.bmp"
-IDB_FAULT2_BITMAP       BITMAP                  "res\\故障--.bmp"
 IDB_SYSTEM1_BITMAP      BITMAP                  "res\\系统.bmp"
 IDB_SYSTEM2_BITMAP      BITMAP                  "res\\系统--.bmp"
 IDB_LABEL1_BITMAP       BITMAP                  "res\\新建lab.bmp"
@@ -1018,6 +1027,113 @@ IDB_NOTBACK1_BITMAP     BITMAP                  "res\\无填充.bmp"
 IDB_NOTBACK2_BITMAP     BITMAP                  "res\\无填充--.bmp"
 IDB_ADDBACK1_BITMAP     BITMAP                  "res\\有填充.bmp"
 IDB_ADDBACK2_BITMAP     BITMAP                  "res\\有填充--.bmp"
+IDB_DOWNLOAD1_BITMAP    BITMAP                  "res\\下载.bmp"
+IDB_DOWNLOAD2_BITMAP    BITMAP                  "res\\下载--.bmp"
+IDB_80_55_BITMAP        BITMAP                  "res\\80x55纯蓝按钮.bmp"
+IDB_CLOSE1_BITMAP       BITMAP                  "res\\SMALL\\缩小间距.bmp"
+IDB_CLOSE2_BITMAP       BITMAP                  "res\\SMALL\\缩小间距--.bmp"
+IDB_FAR1_BITMAP         BITMAP                  "res\\SMALL\\扩大间距.bmp"
+IDB_FAR2_BITMAP         BITMAP                  "res\\SMALL\\扩大间距--.bmp"
+IDB_UD_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\垂直翻转.bmp"
+IDB_UD_MIRROR2_BITMAP   BITMAP                  "res\\SMALL\\垂直翻转--.bmp"
+IDB_60_40_BITMAP        BITMAP                  "res\\SMALL\\60x40纯蓝按钮.bmp"
+IDB_LR_MIRROR1_BITMAP   BITMAP                  "res\\SMALL\\水平翻转.bmp"
+IDB_LR_MIRROR2_BITMAP   BITMAP                  "res\\SMALL\\水平翻转--.bmp"
+IDB_L_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向左.bmp"
+IDB_L_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向左--.bmp"
+IDB_R_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向右.bmp"
+IDB_R_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向右--.bmp"
+IDB_45_40_BITMAP        BITMAP                  "res\\SMALL\\45x40纯蓝按钮.bmp"
+IDB_L_SELECT1_BITMAP    BITMAP                  "res\\SMALL\\左.bmp"
+IDB_L_SELECT2_BITMAP    BITMAP                  "res\\SMALL\\左--.bmp"
+IDB_U_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向上.bmp"
+IDB_U_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向上--.bmp"
+IDB_D_SHIFT1_BITMAP     BITMAP                  "res\\SMALL\\向下.bmp"
+IDB_D_SHIFT2_BITMAP     BITMAP                  "res\\SMALL\\向下--.bmp"
+IDB_L_QSHIFT1_BITMAP    BITMAP                  "res\\SMALL\\快速向左.bmp"
+IDB_L_QSHIFT2_BITMAP    BITMAP                  "res\\SMALL\\快速向左--.bmp"
+IDB_R_QSHIFT1_BITMAP    BITMAP                  "res\\SMALL\\快速向右.bmp"
+IDB_R_QSHIFT2_BITMAP    BITMAP                  "res\\SMALL\\快速向右--.bmp"
+IDB_60_35_BITMAP        BITMAP                  "res\\SMALL\\60x35纯蓝按钮.bmp"
+IDB_R_SELECT1_BITMAP    BITMAP                  "res\\SMALL\\右.bmp"
+IDB_R_SELECT2_BITMAP    BITMAP                  "res\\SMALL\\右--.bmp"
+IDB_ABC1_BITMAP         BITMAP                  "res\\※的里面\\ABC.bmp"
+IDB_ABC2_BITMAP         BITMAP                  "res\\※的里面\\ABC--.bmp"
+IDB_EDIT_FIGURE1_BITMAP BITMAP                  "res\\※的里面\\123.bmp"
+IDB_EDIT_FIGURE2_BITMAP BITMAP                  "res\\※的里面\\123--.bmp"
+IDB_EDIT_DATE1_BITMAP   BITMAP                  "res\\※的里面\\时间.bmp"
+IDB_EDIT_DATE2_BITMAP   BITMAP                  "res\\※的里面\\时间--.bmp"
+IDB_EDIT_PIC1_BITMAP    BITMAP                  "res\\※的里面\\图片.bmp"
+IDB_EDIT_PIC2_BITMAP    BITMAP                  "res\\※的里面\\图片--.bmp"
+IDB_EDIT_CODE1_BITMAP   BITMAP                  "res\\※的里面\\条码.bmp"
+IDB_EDIT_CODE2_BITMAP   BITMAP                  "res\\※的里面\\条码--.bmp"
+IDB_ODBC1_BITMAP        BITMAP                  "res\\※的里面\\ODBC.bmp"
+IDB_ODBC2_BITMAP        BITMAP                  "res\\※的里面\\ODBC--.bmp"
+IDB_RED_FAULT1_BITMAP   BITMAP                  "res\\故障2.bmp"
+IDB_RED_FAULT2_BITMAP   BITMAP                  "res\\故障2--.bmp"
+IDB_FAULT1_BITMAP       BITMAP                  "res\\故障.bmp"
+IDB_FAULT2_BITMAP       BITMAP                  "res\\故障--.bmp"
+IDB_RED_LAMP_BITMAP     BITMAP                  "res\\红灯.bmp"
+IDB_YELLOW_LAMP_BITMAP  BITMAP                  "res\\黄灯.bmp"
+IDB_BLUE_LAMP_BITMAP    BITMAP                  "res\\蓝灯.bmp"
+IDB_GREEN_LAMP_BITMAP   BITMAP                  "res\\绿灯.bmp"
+IDB_SOLVENT_CALIB1_BITMAP BITMAP                  "res\\水位.bmp"
+IDB_SOLVENT_CALIB2_BITMAP BITMAP                  "res\\水位--.bmp"
+IDB_BITMAP_PHA_ADD_UP   BITMAP                  "res\\加.bmp"
+IDB_BITMAP_PHA_ADD_DOWM BITMAP                  "res\\加--.bmp"
+IDB_BITMAP_PHA_SUB_UP   BITMAP                  "res\\减.bmp"
+IDB_BITMAP_PHA_SUB_DOWM BITMAP                  "res\\减--.bmp"
+IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP                  "res\\圆键.bmp"
+IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                  "res\\圆键-.bmp"
+IDB_PNG_ANG0            BITMAP                  "res\\ang0.bmp"
+IDB_PNG_ANG1            BITMAP                  "res\\ang1.bmp"
+IDB_BITMAP_RBLACK       BITMAP                  "res\\SMALL\\反黑.bmp"
+IDB_BITMAP_RTOPDOWN     BITMAP                  "res\\SMALL\\上下颠倒.bmp"
+IDB_BITMAP_RALL         BITMAP                  "res\\SMALL\\上下左右颠倒.bmp"
+IDB_BITMAP_NOTCHANGE    BITMAP                  "res\\SMALL\\正常.bmp"
+IDB_BITMAP_RLEFTRIGHT   BITMAP                  "res\\SMALL\\左右颠倒.bmp"
+IDB_PNG_ANG2            BITMAP                  "res\\ang2.bmp"
+IDB_PNG_ANG3            BITMAP                  "res\\ang3.bmp"
+IDB_PNG_ANG4            BITMAP                  "res\\ang4.bmp"
+IDB_PNG_ANG5            BITMAP                  "res\\ang5.bmp"
+IDB_PNG_ANG6            BITMAP                  "res\\ang6.bmp"
+IDB_PNG_ANG7            BITMAP                  "res\\ang7.bmp"
+IDB_PNG_ANG8            BITMAP                  "res\\ang8.bmp"
+IDB_PNG_ANG9            BITMAP                  "res\\ang9.bmp"
+IDB_PNG_ANG10           BITMAP                  "res\\ang10.bmp"
+IDB_PNG_ANG11           BITMAP                  "res\\ang11.bmp"
+IDB_PNG_ANG12           BITMAP                  "res\\ang12.bmp"
+IDB_PNG_ANG13           BITMAP                  "res\\ang13.bmp"
+IDB_PNG_ANG14           BITMAP                  "res\\ang14.bmp"
+IDB_PNG_ANG15           BITMAP                  "res\\ang15.bmp"
+IDB_PNG_ANG16           BITMAP                  "res\\ang16.bmp"
+IDB_PNG_ANG17           BITMAP                  "res\\ang17.bmp"
+IDB_PNG_ANG18           BITMAP                  "res\\ang18.bmp"
+IDB_PNG_ANG19           BITMAP                  "res\\ang19.bmp"
+IDB_PNG_ANG20           BITMAP                  "res\\ang20.bmp"
+IDB_PNG_ANG21           BITMAP                  "res\\ang21.bmp"
+IDB_PNG_ANG22           BITMAP                  "res\\ang22.bmp"
+IDB_PNG_ANG23           BITMAP                  "res\\ang23.bmp"
+IDB_PNG_ANG24           BITMAP                  "res\\ang24.bmp"
+IDB_PNG_ANG25           BITMAP                  "res\\ang25.bmp"
+IDB_PNG_ANG26           BITMAP                  "res\\ang26.bmp"
+IDB_PNG_ANG27           BITMAP                  "res\\ang27.bmp"
+IDB_PNG_ANG28           BITMAP                  "res\\ang28.bmp"
+IDB_PNG_ANG29           BITMAP                  "res\\ang29.bmp"
+IDB_PNG_ANG30           BITMAP                  "res\\ang30.bmp"
+IDB_PNG_ANG31           BITMAP                  "res\\ang31.bmp"
+IDB_PNG_ANG32           BITMAP                  "res\\ang32.bmp"
+IDB_PNG_ANG33           BITMAP                  "res\\ang33.bmp"
+IDB_PNG_ANG34           BITMAP                  "res\\ang34.bmp"
+IDB_PNG_ANG35           BITMAP                  "res\\ang35.bmp"
+IDB_SETUP_017           BITMAP                  "res\\im017.bmp"
+IDB_SETUP_018           BITMAP                  "res\\im018.bmp"
+IDB_SETUP_019           BITMAP                  "res\\im019.bmp"
+IDB_SETUP_020           BITMAP                  "res\\im020.bmp"
+IDB_SETUP_021           BITMAP                  "res\\im021.bmp"
+IDB_SETUP_022           BITMAP                  "res\\im022.bmp"
+IDB_SETUP_023           BITMAP                  "res\\im023.bmp"
+IDB_SETUP_024           BITMAP                  "res\\im024.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

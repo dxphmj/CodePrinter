@@ -44,7 +44,9 @@ public:
 	int m_speed;
  
 	afx_msg void OnBnClickedSavePcf();
- 
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	void pcf_diagram_select();
+
 
 	CImageButton m_returnIB;
 	CImageButton m_printSetIB;
@@ -53,4 +55,8 @@ public:
 	CImageButton m_configSaveIB;
 	CImageButton m_configOkIB;
  
+	afx_msg void OnBnClickedConfiOpenBtn();
+	afx_msg void OnBnClickedConfiSaveBtn();
+	CStatic m_PCFdiagram;
+	afx_msg void OnCbnSelchangeInverseCombo();
 };

@@ -17,16 +17,17 @@ static char THIS_FILE[] = __FILE__;
 CPathDialog::CPathDialog(CWnd* pParent /*=NULL*/)
 	: CDialog(CPathDialog::IDD, pParent)
 {
-	mySize = 0;
+	myType = 0;
 	//{{AFX_DATA_INIT(CPathDialog)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 }
 
-CPathDialog::CPathDialog(int theSize,CWnd* pParent /*=NULL*/)
+CPathDialog::CPathDialog(int theType,bool isDisplay,CWnd* pParent /*=NULL*/)
 : CDialog(CPathDialog::IDD, pParent)
 {
-	mySize = theSize;
+	myType = theType;
+	booDisplay=isDisplay;
 	//{{AFX_DATA_INIT(CPathDialog)
 	// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
@@ -52,6 +53,7 @@ BEGIN_MESSAGE_MAP(CPathDialog, CDialog)
 	ON_BN_CLICKED(IDOK, &CPathDialog::OnBnClickedOk)
 //	ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
 ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
+ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPathDialog message handlers
@@ -59,25 +61,49 @@ END_MESSAGE_MAP()
 BOOL CPathDialog::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	switch(mySize)
+	switch(myType)
 	{
-	case 0:
+	case 0://文件管理
+		myPath="Storage Card\\User";
 		break;
-	case 1:
-		//SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );	
+	case 1://Label
+		//SetWindowPos(NULL,300,200,306,338,SWP_SHOWWINDOW );
+		myPath="Storage Card\\User\\Label";
 		break;
-	case 2:
+	case 2://logo
+		myPath="Storage Card\\User\\Logo";
+		break;
+	case 3://PrintConfig
+		myPath="Storage Card\\User\\PrintConfig";
 		break;
 	}
-	SetWindowPos(NULL,0,95,800,600-95,SWP_SHOWWINDOW );	
+	m_BKcolor = RGB(210, 231, 251);
+	m_DlgBrush.CreateSolidBrush(m_BKcolor); 
+
+	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);
 	//设置按钮的位置及大小
 	CFont *m_Font;
 	m_Font=new CFont;
-	m_Font->CreatePointFont(120, _T("Arial"), NULL);
-	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+50,rect.top+20,700,60,SWP_SHOWWINDOW);
+	m_Font->CreateFont(
+		15,                 //字体高度(旋转后的字体宽度)=56   
+		0,                 //字体宽度(旋转后的字体高度)=20 
+		0,                 //字体显示角度  
+		0,                  //nOrientation=0 
+		700,                 //字体磅数=10  
+		FALSE,              //非斜体
+		FALSE,              //无下划线
+		FALSE,              //无删除线
+		DEFAULT_CHARSET,    //使用缺省字符集
+		OUT_DEFAULT_PRECIS, //缺省输出精度
+		CLIP_DEFAULT_PRECIS,//缺省裁减精度
+		DEFAULT_QUALITY,    //nQuality=缺省值
+		DEFAULT_PITCH,      //nPitchAndFamily=缺省值
+		L"@system");         //字体名=@system  
+		//CreatePointFont(120, _T("Arial"), NULL);
+	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+50,rect.top+10,700,20,SWP_SHOWWINDOW);
 	//GetDlgItem(IDC_STATIC_SELECT)->SetFont(&m_Font,true);
 	m_Select.SetFont(m_Font,true);
 	// TODO: Add extra initialization here
@@ -85,13 +111,20 @@ BOOL CPathDialog::OnInitDialog()
 	m_tree.SetImageList(&m_ImageList, LVSIL_NORMAL);
 	m_tree.SetFont(m_Font);
 	HTREEITEM hRoot = m_tree.InsertItem(_T("我的设备"), 0, 0, TVI_ROOT, TVI_LAST);
+	NMTVCUSTOMDRAW* plvoid = reinterpret_cast<NMTVCUSTOMDRAW*>(hRoot);
+	plvoid->clrTextBk = m_BKcolor;///无效？？
+
 	CreateDriveList();
 	m_tree.Expand(hRoot, TVE_EXPAND);
-	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+80,700,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+50,700,30,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetFont(m_Font,true);
-	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+160,700,300,SWP_SHOWWINDOW);
-	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+500,100,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+500,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+100,700,330,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->EnableWindow(booDisplay);
+	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+450,100,40,SWP_SHOWWINDOW);
+
+	//CTreeCtrl* testTree=(CTreeCtrl*)GetDlgItem(IDC_TREE_DIRVIEW);
+	//testTree->SetBkColor(m_BKcolor);///不是成员
 	//delete m_Font;
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -105,7 +138,8 @@ BOOL CPathDialog::CreateDriveList()
 	if(hRoot == NULL)
 		return FALSE;
 #ifdef ON_EMUL
-	HTREEITEM hItem = m_tree.InsertItem(_T("Storage Card"), 3, 3, hRoot, TVI_LAST);
+	//HTREEITEM hItem = m_tree.InsertItem(_T("Storage Card"), 3, 3, hRoot, TVI_LAST);
+	HTREEITEM hItem = m_tree.InsertItem(myPath, 3, 3, hRoot, TVI_LAST);
 	if(HasSubDirectory(GetFullPath(hItem)))
 		ShowTreeButton(hItem, STB_SHOW);
 	else
@@ -380,4 +414,14 @@ void CPathDialog::OnEnChangeEditFullpath()
 	
 		_tcscpy(m_path, textPath);
 		//SetDlgItemText(IDC_EDIT_FULLPATH, m_path);
+}
+
+HBRUSH CPathDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+	pDC->SetBkColor(m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return m_DlgBrush;
 }
