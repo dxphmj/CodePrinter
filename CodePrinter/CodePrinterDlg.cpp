@@ -335,13 +335,8 @@ void CCodePrinterDlg::OnBnClickedConfigurationButton()
 void CCodePrinterDlg::OnBnClickedFilemanaButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	//showDlg(IDD_FILEMANA_DIALOG);
-	GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
-	TCHAR path[MAX_PATH];
-	//labModule.string2tchar(testpath,path);
+	showDlg(IDD_FILEMANA_DIALOG);
 
-	string xmlPath;
-	ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
 
 }
 
@@ -410,11 +405,17 @@ void CCodePrinterDlg::showDlg(int ID)
 	    m_PicHead.SetOperationString(_T("Configure")); 
 	}
 
-	//else if(ID == IDD_FILEMANA_DIALOG)
-	//{
-	//	m_FileMan->ShowWindow(SW_SHOW);
-	//	GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
-	//}
+	else if(ID == IDD_FILEMANA_DIALOG)
+	{
+		//m_FileMan->ShowWindow(SW_SHOW);
+		 m_PicHead.SetOperationString(_T("File Manage")); 
+		TCHAR path[MAX_PATH];
+		//labModule.string2tchar(testpath,path);
+		
+		string xmlPath;
+		ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
+		//GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
+	}
 
 
 	else if(ID == IDD_INKSYSTEM_DIALOG)

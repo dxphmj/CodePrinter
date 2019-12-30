@@ -76,7 +76,7 @@ BOOL CPathDialog::OnInitDialog()
 		myPath="Storage Card\\User\\PrintConfig";
 		break;
 	}
-	SetWindowPos(NULL,0,100,800,500,SWP_SHOWWINDOW );	
+	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);
@@ -96,10 +96,10 @@ BOOL CPathDialog::OnInitDialog()
 	m_tree.Expand(hRoot, TVE_EXPAND);
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+50,700,30,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetFont(m_Font,true);
-	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+100,700,290,SWP_SHOWWINDOW);
-	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+410,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+100,700,330,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+450,100,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDOK)->EnableWindow(booDisplay);
-	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+410,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+450,100,40,SWP_SHOWWINDOW);
 	//delete m_Font;
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
