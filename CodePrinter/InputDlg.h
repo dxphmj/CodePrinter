@@ -4,7 +4,6 @@
 #include "DateDlg.h"
 #include "PictureDlg.h"
 #include "BarCodeDlg.h"
-#include "ImageButton.h"
 //#include "ModuleMain.h"
 // CInputDlg ¶Ô»°¿ò
 
@@ -41,13 +40,5 @@ public:
 	CPictureDlg *pPic;
 	CBarCodeDlg *pBarCode;
     //ModuleMain inPutModule;
-
-	CImageButton m_editTextIB;
-	CImageButton m_editFigureIB;
-	CImageButton m_editDateIB;
-	CImageButton m_editPictureIB;
-	CImageButton m_editCodeIB;
-	CImageButton m_odbcIB;
-	CImageButton m_returnIB;
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ImageButton.h"
+
 // CEditFigureDlg ¶Ô»°¿ò
 
 class CEditFigureDlg : public CDialog
@@ -21,7 +21,4 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedEditfigCloseBtn();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	CImageButton m_returnIB;
-	CImageButton m_okIB;
 };

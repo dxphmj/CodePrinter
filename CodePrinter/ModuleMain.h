@@ -26,7 +26,7 @@ public:
 		InkLifeTimeLas = 6000;
 		boInkLifeTime = false;
 		boServiceTime = false;
-		staPhaseLas = 0;
+		staPhaseLas = "0";
 		staSysReaLas = false;
 	}
 	~TimClass(){}
@@ -43,7 +43,7 @@ public:
 		CTime InkDateTimLas, SerDateTimLas, dateTimLasWri ;
 		bool boInkLifeTime;
 		bool boServiceTime;
-		byte staPhaseLas;
+		string staPhaseLas;
 		bool staSysReaLas ;
 };
 //控制变量类
@@ -240,7 +240,6 @@ public:
 	string TCHAR2STRING(TCHAR *STR);
    const char* CString2ConstChar(CString str);
    void DisableAllBtn(HWND hwnd,bool booOpen);
-   void ReportPower();
    //string CString2string(CString csStrData);
    //字符转数字
    int charToDigit(char c);

@@ -36,8 +36,8 @@ void CUserDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CUserDlg, CDialog)
-	ON_BN_CLICKED(IDC_NEW_BTN, &CUserDlg::OnBnClickedOpenButton)
-	ON_BN_CLICKED(IDC_OPEN_BTN, &CUserDlg::OnBnClickedNewBtn)
+	ON_BN_CLICKED(IDC_OPEN_BTN, &CUserDlg::OnBnClickedOpenButton)
+	ON_BN_CLICKED(IDC_NEW_BTN, &CUserDlg::OnBnClickedNewBtn)
 	ON_BN_CLICKED(IDC_DELETE_BTN, &CUserDlg::OnBnClickedDeleteBtn)
 	ON_BN_CLICKED(IDC_USER_FRESH_BTN, &CUserDlg::OnBnClickedUserFreshBtn)
 	ON_BN_CLICKED(IDC_CLOSE_USER_BTN, &CUserDlg::OnBnClickedCloseUserBtn)
@@ -245,12 +245,7 @@ void CUserDlg::showUserDlg(int ID)
 HBRUSH CUserDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
-	if(nCtlColor == CTLCOLOR_STATIC)
-	{		 
-		pDC->SelectObject(theApp.m_StaticFont);
-		pDC->SetBkMode(TRANSPARENT);
-		pDC->SetTextColor(RGB(0,0,0));	
-	}
+
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔

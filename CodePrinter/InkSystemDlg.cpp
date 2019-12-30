@@ -84,7 +84,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	int nX = 0;
 	int nY = 100;
 	int nWidth = 800;
-	int nHeight = 500-nY; //不能遮住下面的一排按钮
+	int nHeight = 400;
 
 	m_inkAdv->Create(IDD_INK_ADVANCE_DIALOG,this);
 	m_inkAdv->MoveWindow(nX+300,nY,nWidth,nHeight);
@@ -330,6 +330,8 @@ HBRUSH CInkSystemDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
 	} 
+
+
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔

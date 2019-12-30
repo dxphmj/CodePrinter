@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-#include "ImageButton.h"
+
 
 // CBarCodeDlg ¶Ô»°¿ò
 
@@ -33,11 +33,4 @@ public:
 	afx_msg void OnCbnSelchangeBarcodeZoneCombo();
 	CComboBox EncodingModeBox;
 	afx_msg void OnEnChangeBarcodeTextEdit();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	CImageButton m_returnIB;
-	CImageButton m_qrCodeIB;
-	CImageButton m_dataMatrixIB;
-	CImageButton m_code39IB;
-	CImageButton m_code128IB;
-	CImageButton m_okIB;
 };

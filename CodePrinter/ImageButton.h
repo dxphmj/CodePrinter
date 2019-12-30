@@ -36,15 +36,13 @@ public:
 	CImageButton();
 	virtual ~CImageButton();
 
-public:
-	CBitmap m_bitmapNorm;       // normal image (REQUIRED)
+protected:
+	DECLARE_MESSAGE_MAP()
+	CBitmap m_bitmapNorm;           // normal image (REQUIRED)
 	CBitmap m_bitmapSel;        // selected image (OPTIONAL)
 	CBitmap m_bitmapFocus;      // focused but not selected (OPTIONAL)
 	CBitmap m_bitmapDisabled;   // disabled bitmap (OPTIONAL)
 	CBitmap m_bitmapMask;
-
-protected:
-	DECLARE_MESSAGE_MAP()
 	CFont* m_pTextFont;
 	COLORREF m_textColor;
 	CRect m_textRect;

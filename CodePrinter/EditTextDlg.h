@@ -1,6 +1,5 @@
 #pragma once
 #include "afxwin.h"
-#include "ImageButton.h"
 
 // CEditTextDlg ¶Ô»°¿ò
 
@@ -27,7 +26,4 @@ public:
 	CComboBox fontComboBox;
 	afx_msg void OnCbnSelchangeFont();
 	afx_msg void OnBnClickedButtonEditok();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	CImageButton m_returnIB;
-	CImageButton m_okIB;
 };

@@ -5,7 +5,6 @@
 #include "CodePrinter.h"
 #include "FaultDlg.h"
 #include <fstream>
-#include "CodePrinterDlg.h"
 
 // CFaultDlg 对话框
 
@@ -329,10 +328,6 @@ void CFaultDlg::OnBnClickedRefreshBtn()
 		//picAlarmRed.Image = My.Resources.ResourceBng.im008
 		//btnError.Tag = "im015"
 		//btnError.Image = My.Resources.ResourceBng.im015
-     
-	((CCodePrinterDlg*)GetParent())->m_PicHead.ResetAlarm(); 
-
-
 	///////以上图片以后加
 	
 		theApp.myTimClass.staComFau = false;
@@ -403,12 +398,7 @@ void CFaultDlg::OnBnClickedRHistoryBtn()
 HBRUSH CFaultDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
-	if(nCtlColor == CTLCOLOR_STATIC)
-	{		 
-		pDC->SelectObject(theApp.m_StaticFont);
-		pDC->SetBkMode(TRANSPARENT);
-		pDC->SetTextColor(RGB(0,0,0));	
-	}
+
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
