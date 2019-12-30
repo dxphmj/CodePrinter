@@ -160,11 +160,54 @@
 #define IDB_BITMAP_PHA_CIRCLE_SEL       339
 #define IDB_PNG_ANG0                    404
 #define IDB_PNG_ANG1                    405
-#define IDB_BITMAP_RBLACK               406
-#define IDB_BITMAP_RTOPDOWN             407
-#define IDB_BITMAP_RALL                 408
-#define IDB_BITMAP_NOTCHANGE            409
-#define IDB_BITMAP_RLEFTRIGHT           410
+#define IDB_PNG_ANG2                    406
+#define IDB_PNG_ANG3                    407
+#define IDB_PNG_ANG4                    408
+#define IDB_PNG_ANG5                    409
+#define IDB_PNG_ANG6                    410
+#define IDB_PNG_ANG7                    411
+#define IDB_PNG_ANG8                    412
+#define IDB_PNG_ANG9                    413
+#define IDB_PNG_ANG10                   414
+#define IDB_PNG_ANG11                   415
+#define IDB_PNG_ANG12                   416
+#define IDB_PNG_ANG13                   417
+#define IDB_PNG_ANG14                   418
+#define IDB_PNG_ANG15                   419
+#define IDB_PNG_ANG16                   420
+#define IDB_PNG_ANG17                   421
+#define IDB_PNG_ANG18                   422
+#define IDB_PNG_ANG19                   423
+#define IDB_PNG_ANG20                   424
+#define IDB_PNG_ANG21                   425
+#define IDB_PNG_ANG22                   426
+#define IDB_PNG_ANG23                   427
+#define IDB_PNG_ANG24                   428
+#define IDB_PNG_ANG25                   429
+#define IDB_PNG_ANG26                   430
+#define IDB_PNG_ANG27                   431
+#define IDB_PNG_ANG28                   432
+#define IDB_PNG_ANG29                   433
+#define IDB_PNG_ANG30                   434
+#define IDB_PNG_ANG31                   435
+#define IDB_PNG_ANG32                   436
+#define IDB_PNG_ANG33                   437
+#define IDB_PNG_ANG34                   438
+#define IDB_PNG_ANG35                   439
+#define IDB_SETUP_017                   440
+#define IDB_SETUP_018                   441
+#define IDB_SETUP_019                   442
+#define IDB_SETUP_020                   443
+#define IDB_SETUP_021                   444
+#define IDB_SETUP_022                   445
+#define IDB_SETUP_023                   446
+#define IDB_SETUP_024                   447
+#define IDB_BITMAP_RBLACK               448
+#define IDB_BITMAP_RTOPDOWN             449
+#define IDB_BITMAP_RALL                 450
+#define IDB_BITMAP_NOTCHANGE            451
+#define IDB_BITMAP_RLEFTRIGHT           452
+
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -555,17 +598,23 @@
 #define IDC_STATIC_Y                    1486
 #define IDC_STATIC_MAIN_PICTURE         1487
 #define IDC_PIC_PHA_ANGLE               1488
+
 #define IDC_STATIC_ISBNG                1489
 #define IDC_STATIC_IS                   1490
-#define IDC_STATIC_ISOVERTURN           1490
+#define IDC_STATIC_ISOVERTURN           1491
+
+#define IDC_PIC_PRINTER_SETUP           1492
+
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        411
+
+#define _APS_NEXT_RESOURCE_VALUE        453
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1491
+#define _APS_NEXT_CONTROL_VALUE         1493
+
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

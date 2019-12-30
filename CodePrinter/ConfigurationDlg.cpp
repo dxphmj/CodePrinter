@@ -45,6 +45,7 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFI_OPEN_BTN, m_configOpenIB);
 	DDX_Control(pDX, IDC_CONFI_SAVE_BTN, m_configSaveIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
+	DDX_Control(pDX, IDC_PIC_PRINTER_SETUP, m_PCFdiagram);
 }
 
 
@@ -59,6 +60,7 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 
 	ON_WM_CTLCOLOR()
 
+	ON_CBN_SELCHANGE(IDC_INVERSE_COMBO, &CConfigurationDlg::OnCbnSelchangeInverseCombo)
 END_MESSAGE_MAP()
 
 
@@ -221,3 +223,14 @@ HBRUSH CConfigurationDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return theApp.m_DlgBrush;
 }
 
+void CConfigurationDlg::pcf_diagram_select()
+{
+	;
+}
+
+void CConfigurationDlg::OnCbnSelchangeInverseCombo()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	pcf_diagram_select();
+}

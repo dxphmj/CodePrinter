@@ -199,6 +199,7 @@ BEGIN
     EDITTEXT        IDC_SPEED_EDIT,397,177,40,14,ES_AUTOHSCROLL
     LTEXT           "ÖØ¸´¾àÀë",IDC_REPEAT_DIS_STATIC,161,151,33,8
     EDITTEXT        IDC_REPEAT_DIS_EDIT,157,171,40,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_PIC_PRINTER_SETUP,"Static",SS_BITMAP,15,17,20,20
 END
 
 IDD_FAULT_DIALOG DIALOG  0, 0, 480, 249
@@ -1055,11 +1056,56 @@ IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP                  "res\\Ô²¼ü.bmp"
 IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                  "res\\Ô²¼ü-.bmp"
 IDB_PNG_ANG0            BITMAP                  "res\\ang0.bmp"
 IDB_PNG_ANG1            BITMAP                  "res\\ang1.bmp"
+
 IDB_BITMAP_RBLACK       BITMAP                  "res\\SMALL\\·´ºÚ.bmp"
 IDB_BITMAP_RTOPDOWN     BITMAP                  "res\\SMALL\\ÉÏÏÂµßµ¹.bmp"
 IDB_BITMAP_RALL         BITMAP                  "res\\SMALL\\ÉÏÏÂ×óÓÒµßµ¹.bmp"
 IDB_BITMAP_NOTCHANGE    BITMAP                  "res\\SMALL\\Õý³£.bmp"
 IDB_BITMAP_RLEFTRIGHT   BITMAP                  "res\\SMALL\\×óÓÒµßµ¹.bmp"
+
+IDB_PNG_ANG2            BITMAP                  "res\\ang2.bmp"
+IDB_PNG_ANG3            BITMAP                  "res\\ang3.bmp"
+IDB_PNG_ANG4            BITMAP                  "res\\ang4.bmp"
+IDB_PNG_ANG5            BITMAP                  "res\\ang5.bmp"
+IDB_PNG_ANG6            BITMAP                  "res\\ang6.bmp"
+IDB_PNG_ANG7            BITMAP                  "res\\ang7.bmp"
+IDB_PNG_ANG8            BITMAP                  "res\\ang8.bmp"
+IDB_PNG_ANG9            BITMAP                  "res\\ang9.bmp"
+IDB_PNG_ANG10           BITMAP                  "res\\ang10.bmp"
+IDB_PNG_ANG11           BITMAP                  "res\\ang11.bmp"
+IDB_PNG_ANG12           BITMAP                  "res\\ang12.bmp"
+IDB_PNG_ANG13           BITMAP                  "res\\ang13.bmp"
+IDB_PNG_ANG14           BITMAP                  "res\\ang14.bmp"
+IDB_PNG_ANG15           BITMAP                  "res\\ang15.bmp"
+IDB_PNG_ANG16           BITMAP                  "res\\ang16.bmp"
+IDB_PNG_ANG17           BITMAP                  "res\\ang17.bmp"
+IDB_PNG_ANG18           BITMAP                  "res\\ang18.bmp"
+IDB_PNG_ANG19           BITMAP                  "res\\ang19.bmp"
+IDB_PNG_ANG20           BITMAP                  "res\\ang20.bmp"
+IDB_PNG_ANG21           BITMAP                  "res\\ang21.bmp"
+IDB_PNG_ANG22           BITMAP                  "res\\ang22.bmp"
+IDB_PNG_ANG23           BITMAP                  "res\\ang23.bmp"
+IDB_PNG_ANG24           BITMAP                  "res\\ang24.bmp"
+IDB_PNG_ANG25           BITMAP                  "res\\ang25.bmp"
+IDB_PNG_ANG26           BITMAP                  "res\\ang26.bmp"
+IDB_PNG_ANG27           BITMAP                  "res\\ang27.bmp"
+IDB_PNG_ANG28           BITMAP                  "res\\ang28.bmp"
+IDB_PNG_ANG29           BITMAP                  "res\\ang29.bmp"
+IDB_PNG_ANG30           BITMAP                  "res\\ang30.bmp"
+IDB_PNG_ANG31           BITMAP                  "res\\ang31.bmp"
+IDB_PNG_ANG32           BITMAP                  "res\\ang32.bmp"
+IDB_PNG_ANG33           BITMAP                  "res\\ang33.bmp"
+IDB_PNG_ANG34           BITMAP                  "res\\ang34.bmp"
+IDB_PNG_ANG35           BITMAP                  "res\\ang35.bmp"
+IDB_SETUP_017           BITMAP                  "res\\im017.bmp"
+IDB_SETUP_018           BITMAP                  "res\\im018.bmp"
+IDB_SETUP_019           BITMAP                  "res\\im019.bmp"
+IDB_SETUP_020           BITMAP                  "res\\im020.bmp"
+IDB_SETUP_021           BITMAP                  "res\\im021.bmp"
+IDB_SETUP_022           BITMAP                  "res\\im022.bmp"
+IDB_SETUP_023           BITMAP                  "res\\im023.bmp"
+IDB_SETUP_024           BITMAP                  "res\\im024.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
