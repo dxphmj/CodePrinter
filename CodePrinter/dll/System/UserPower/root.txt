@@ -1,0 +1,1 @@
+ResetCount,ResetSerial,InkUsual,InkAdvance,InkSetup,InkParameter,InkPhasing,FileManage,PcfIO,PcfAll,LabelIO,LabelAll,SysNetComOK,SysEnvCusOK,FaultDelete

@@ -16,7 +16,7 @@ CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 {
 	for(int i = 0; i < 35; i++)
 	{
-		m_AngleBitmap[i].LoadBitmap(IDB_PNG_ANG0);  // 将位图IDB_BITMAP1加载到bitmap  
+		m_AngleBitmap[i].LoadBitmap(IDB_PNG_ANG0+i);  // 将位图IDB_BITMAP1加载到bitmap  
 		m_AnglehBmp[i] = (HBITMAP)m_AngleBitmap[i].GetSafeHandle();  // 获取bitmap加载位图的句柄   
 	}
 }
@@ -202,7 +202,7 @@ BOOL CInkPhasingDlg::OnInitDialog()
 
 	}
 
-   	m_PicPhaAngle.SetBitmap(m_AnglehBmp[1]);
+   	m_PicPhaAngle.SetBitmap(m_AnglehBmp[0]);
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
