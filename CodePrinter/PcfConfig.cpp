@@ -1079,11 +1079,20 @@ void CPcfConfig::savePcfToXml(string pcfNamePath)
 	m_pCodePrinterDlg->m_Confi->m_ConfigPM->UpdateData();
 	m_pCodePrinterDlg->m_Confi->m_ConfigOS->UpdateData();
 
+	string strPathName=pcfNamePath;
+	int lastN=strPathName.find_last_of('\\');
+	pcf_currentname = theApp.myModuleMain.string2CString(strPathName.substr(lastN + 1));
+	pcf_currentpath= theApp.myModuleMain.string2CString(strPathName.substr(0,lastN));
+	if (pcf_currentname.Mid(pcf_currentname.GetLength()-4,1)!=".")
+	{
+		pcf_currentpath=_T("Storage Card\\User\\PrintConfig");
+		pcf_currentname=_T("Default.pcf");
+	}
 	//当前或上次打开的配置文件名
-	pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
+	//pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
 
 	//当前或上次打开的配置文件的路径
-	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
+	//pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
 
 	//故障停止喷印(虚拟打印)
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();

@@ -42,7 +42,16 @@ CLabelDlg::CLabelDlg(CWnd* pParent /*=NULL*/)
 	, m_zoomLevel(1)
 	, m_ssValue(0)
 {
+	m_PicBitmap[0].LoadBitmap(IDB_BITMAP_NOTCHANGE);
+	m_PicBitmap[1].LoadBitmap(IDB_BITMAP_RBLACK);
+	m_PicBitmap[2].LoadBitmap(IDB_BITMAP_RTOPDOWN);
+	m_PicBitmap[3].LoadBitmap(IDB_BITMAP_RLEFTRIGHT);
+	m_PicBitmap[4].LoadBitmap(IDB_BITMAP_RALL);
 
+	for(int i=0;i<5;i++)
+	{
+		m_PichBmp[i]=(HBITMAP)m_PicBitmap[i].GetSafeHandle();
+	}
 }
 
 CLabelDlg::~CLabelDlg()
@@ -89,6 +98,8 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT2, m_ssValue);
 	DDV_MinMaxInt(pDX, m_ssValue, 0, 4);
 
+	DDX_Control(pDX, IDC_STATIC_ISBNG, m_picBNG);
+	DDX_Control(pDX, IDC_STATIC_ISOVERTURN, m_picOverturn);
 }
 
 
@@ -127,6 +138,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 
 	ON_WM_CTLCOLOR()
 
+	ON_BN_CLICKED(IDC_COPY_BUTTON, &CLabelDlg::OnBnClickedCopyButton)
 END_MESSAGE_MAP()
 
 
@@ -154,17 +166,20 @@ BOOL CLabelDlg::OnInitDialog()
 
 	CRect rectL;
 	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->GetWindowRect(&rectL);
-
+	
 	GetDlgItem(IDC_SHRINK_BUTTON)->SetWindowPos(NULL,200,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_ZOOM_BUTTON)->SetWindowPos(NULL,305,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_NOZZLE_VALVE_BTN)->SetWindowPos(NULL,380,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_ADDBACK_BTN)->SetWindowPos(NULL,484,260,45,40,SWP_SHOWWINDOW);
-
+	m_picBNG.SetWindowPos(NULL,430,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CLOSE_USER_BTN)->SetWindowPos(NULL,200,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_FAR_BUTTON)->SetWindowPos(NULL,305,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_UDMIRROR_BUTTON)->SetWindowPos(NULL,380,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_LRMIRROR_BUTTON)->SetWindowPos(NULL,484,320,45,40,SWP_SHOWWINDOW);
+	m_picOverturn.SetWindowPos(NULL,430,320,45,40,SWP_SHOWWINDOW);
 
+	GetDlgItem(IDC_EDIT1)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDIT2)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
 	//右侧两列
 
 	//GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
@@ -291,6 +306,51 @@ void CLabelDlg::OnPaint()
 	CPaintDC dc(this); // device context for painting
 	changeDis();
 	m_designArea.Invalidate();
+	bool isSetBmp=false;
+	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		{
+			isSetBmp=true;
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booNEG)
+			{
+				m_picBNG.SetBitmap(m_PichBmp[1]);
+			}
+			else
+			{
+				m_picBNG.SetBitmap(m_PichBmp[0]);
+			}
+
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booBWDx)
+			{
+				if (theApp.myclassMessage.OBJ_Vec.at(i).booBWDy)
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[4]);
+				} 
+				else
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[2]);
+				}
+			}
+			else
+			{
+				if (theApp.myclassMessage.OBJ_Vec.at(i).booBWDy)
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[3]);
+				} 
+				else
+				{
+					m_picOverturn.SetBitmap(m_PichBmp[0]);
+				}
+			}
+			break;
+		}
+	}
+	if (!isSetBmp)
+	{
+		m_picOverturn.SetBitmap(m_PichBmp[0]);
+		m_picBNG.SetBitmap(m_PichBmp[0]);
+	}
 	/*
 	CDC* pDC = m_designArea.GetDC();
 	CRect rectClient;
@@ -1184,3 +1244,22 @@ HBRUSH CLabelDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return theApp.m_DlgBrush;
 }
 
+
+//复制
+void CLabelDlg::OnBnClickedCopyButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	OBJ_Control tempObj;
+	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		{
+			tempObj=theApp.myclassMessage.OBJ_Vec.at(i);
+			tempObj.intRowStart=tempObj.intRowStart+tempObj.intRowSize;
+			theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
+			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
+			OnPaint();
+			break;
+		}
+	}
+}

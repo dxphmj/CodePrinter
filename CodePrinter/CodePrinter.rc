@@ -349,8 +349,6 @@ BEGIN
     PUSHBUTTON      "Save",IDC_SAVE_BUTTON,297,257,63,23
     COMBOBOX        IDC_COMBO_MATRIX,73,133,48,79,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     EDITTEXT        IDC_EDIT1,171,156,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
-    EDITTEXT        IDC_EDIT3,298,156,35,25,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE
-    EDITTEXT        IDC_EDIT4,299,192,35,25,ES_AUTOHSCROLL | NOT WS_VISIBLE
     CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,13,11
     EDITTEXT        IDC_EDIT2,171,192,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
     LTEXT           "W:",IDC_STATIC_W,399,135,11,8
@@ -361,6 +359,8 @@ BEGIN
     LTEXT           "*",IDC_STATIC_HV,464,135,10,8
     LTEXT           "*",IDC_STATIC_YV,464,152,10,8
     LTEXT           "*",IDC_STATIC_XV,412,151,10,8
+    CONTROL         "",IDC_STATIC_ISBNG,"Static",SS_BITMAP,302,156,13,11
+    CONTROL         "",IDC_STATIC_ISOVERTURN,"Static",SS_BITMAP,302,192,20,20
 END
 
 IDD_PICTURE_DIALOG DIALOG  0, 0, 412, 226
@@ -1055,6 +1055,11 @@ IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP                  "res\\Ô²¼ü.bmp"
 IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                  "res\\Ô²¼ü-.bmp"
 IDB_PNG_ANG0            BITMAP                  "res\\ang0.bmp"
 IDB_PNG_ANG1            BITMAP                  "res\\ang1.bmp"
+IDB_BITMAP_RBLACK       BITMAP                  "res\\SMALL\\·´ºÚ.bmp"
+IDB_BITMAP_RTOPDOWN     BITMAP                  "res\\SMALL\\ÉÏÏÂµßµ¹.bmp"
+IDB_BITMAP_RALL         BITMAP                  "res\\SMALL\\ÉÏÏÂ×óÓÒµßµ¹.bmp"
+IDB_BITMAP_NOTCHANGE    BITMAP                  "res\\SMALL\\Õý³£.bmp"
+IDB_BITMAP_RLEFTRIGHT   BITMAP                  "res\\SMALL\\×óÓÒµßµ¹.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

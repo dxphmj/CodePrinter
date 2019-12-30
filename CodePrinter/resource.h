@@ -160,6 +160,11 @@
 #define IDB_BITMAP_PHA_CIRCLE_SEL       339
 #define IDB_PNG_ANG0                    404
 #define IDB_PNG_ANG1                    405
+#define IDB_BITMAP_RBLACK               406
+#define IDB_BITMAP_RTOPDOWN             407
+#define IDB_BITMAP_RALL                 408
+#define IDB_BITMAP_NOTCHANGE            409
+#define IDB_BITMAP_RLEFTRIGHT           410
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -535,8 +540,6 @@
 #define IDC_STATIC_H                    1470
 #define IDC_STATIC_X                    1471
 #define IDC_EDITFIGURE_OK_BTN           1472
-
-
 #define IDC_STATIC_WV                   1473
 #define IDC_STATIC_HV                   1474
 #define IDC_STATIC_XV                   1475
@@ -550,17 +553,19 @@
 #define IDC_SYS_FRESH2_BTN              1484
 #define IDC_OUTSET_OK_BTN               1485
 #define IDC_STATIC_Y                    1486
-
 #define IDC_STATIC_MAIN_PICTURE         1487
-
 #define IDC_PIC_PHA_ANGLE               1488
+#define IDC_STATIC_ISBNG                1489
+#define IDC_STATIC_IS                   1490
+#define IDC_STATIC_ISOVERTURN           1490
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        406
+#define _APS_NEXT_RESOURCE_VALUE        411
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1489
+#define _APS_NEXT_CONTROL_VALUE         1491
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
