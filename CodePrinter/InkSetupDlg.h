@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-
+#include "ImageButton.h"
 
 // CInkSetupDlg ¶Ô»°¿ò
 
@@ -29,5 +29,6 @@ public:
 	CListBox m_sleepList;
 	virtual BOOL OnInitDialog();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-
+	CImageButton m_solventCalibIB;
+	CImageButton m_inkCalibIB;
 };

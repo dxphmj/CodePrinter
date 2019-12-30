@@ -33,25 +33,10 @@
 #define IDB_IM017_BITMAP                167
 #define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
-#define IDB_CLOSE_BITMAP                176
-#define IDB_OPEN_BITMAP                 178
-#define IDB_FAR_BITMAP                  179
-#define IDB_UD_MIRROR_BITMAP            180
-#define IDB_LR_MIRROR_BITMAP            181
-#define IDB_L_SELECT_BITMAP             182
-#define IDB_R_SELECT_BITMAP             183
-#define IDB_U_SHIFT_BITMAP              184
-#define IDB_D_SHIFT_BITMAP              185
-#define IDB_L_SHIFT_BITMAP              186
-#define IDB_R_SHIFT_BITMAP              187
-#define IDB_L_QSHIFT_BITMAP             188
-#define IDB_R_QSHIFT_BITMAP             189
 #define IDB_DOWNLOAD_BITMAP             190
-#define IDB_SAVE_BITMAP                 191
 #define IDB_RETURN_BITMAP               193
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
-#define IDB_NEWBUILT_BITMAP             201
 #define IDB_BITMAP2                     202
 #define IDB_BITMAP5                     204
 #define IDB_BITMAP_HEAD                 204
@@ -63,8 +48,6 @@
 #define IDB_RETURN2_BITMAP              211
 #define IDB_DHCP1_BITMAP                212
 #define IDB_DHCP2_BITMAP                213
-#define IDB_FAULT1_BITMAP               214
-#define IDB_FAULT2_BITMAP               215
 #define IDB_SYSTEM1_BITMAP              216
 #define IDB_SYSTEM2_BITMAP              217
 #define IDB_LABEL1_BITMAP               218
@@ -116,6 +99,67 @@
 #define IDB_ADDBACK1_BITMAP             271
 #define IDB_BITMAP7                     272
 #define IDB_ADDBACK2_BITMAP             272
+#define IDB_DOWNLOAD1_BITMAP            273
+#define IDB_DOWNLOAD2_BITMAP            274
+#define IDB_80_55_BITMAP                275
+#define IDB_CLOSE1_BITMAP               276
+#define IDB_CLOSE2_BITMAP               277
+#define IDB_FAR1_BITMAP                 278
+#define IDB_FAR2_BITMAP                 279
+#define IDB_UD_MIRROR1_BITMAP           280
+#define IDB_UD_MIRROR2_BITMAP           281
+#define IDB_60_40_BITMAP                282
+#define IDB_LR_MIRROR1_BITMAP           285
+#define IDB_LR_MIRROR2_BITMAP           286
+#define IDB_L_SHIFT1_BITMAP             287
+#define IDB_L_SHIFT2_BITMAP             288
+#define IDB_R_SHIFT1_BITMAP             289
+#define IDB_R_SHIFT2_BITMAP             290
+#define IDB_45_40_BITMAP                291
+#define IDB_L_SELECT1_BITMAP            292
+#define IDB_L_SELECT2_BITMAP            293
+#define IDB_U_SHIFT1_BITMAP             298
+#define IDB_U_SHIFT2_BITMAP             299
+#define IDB_D_SHIFT1_BITMAP             300
+#define IDB_D_SHIFT2_BITMAP             301
+#define IDB_L_QSHIFT1_BITMAP            302
+#define IDB_L_QSHIFT2_BITMAP            303
+#define IDB_R_QSHIFT1_BITMAP            304
+#define IDB_R_QSHIFT2_BITMAP            305
+#define IDB_60_35_BITMAP                306
+#define IDB_R_SELECT1_BITMAP            310
+#define IDB_R_SELECT2_BITMAP            311
+#define IDB_ABC1_BITMAP                 312
+#define IDB_ABC2_BITMAP                 313
+#define IDB_EDIT_FIGURE1_BITMAP         314
+#define IDB_EDIT_FIGURE2_BITMAP         315
+#define IDB_EDIT_DATE1_BITMAP           316
+#define IDB_EDIT_DATE2_BITMAP           317
+#define IDB_EDIT_PIC1_BITMAP            318
+#define IDB_EDIT_PIC2_BITMAP            319
+#define IDB_EDIT_CODE1_BITMAP           320
+#define IDB_EDIT_CODE2_BITMAP           321
+#define IDB_ODBC1_BITMAP                322
+#define IDB_ODBC2_BITMAP                323
+#define IDB_RED_FAULT1_BITMAP           324
+#define IDB_RED_FAULT2_BITMAP           325
+#define IDB_FAULT1_BITMAP               326
+#define IDB_FAULT2_BITMAP               327
+#define IDB_RED_LAMP_BITMAP             328
+#define IDB_YELLOW_LAMP_BITMAP          329
+#define IDB_BLUE_LAMP_BITMAP            330
+#define IDB_BITMAP6                     331
+#define IDB_GREEN_LAMP_BITMAP           331
+#define IDB_SOLVENT_CALIB1_BITMAP       332
+#define IDB_SOLVENT_CALIB2_BITMAP       333
+#define IDB_BITMAP_PHA_ADD_UP           334
+#define IDB_BITMAP_PHA_ADD_DOWM         335
+#define IDB_BITMAP_PHA_SUB_UP           336
+#define IDB_BITMAP_PHA_SUB_DOWM         337
+#define IDB_BITMAP_PHA_CIRCLE_UNSEL     338
+#define IDB_BITMAP_PHA_CIRCLE_SEL       339
+#define IDB_PNG_ANG0                    404
+#define IDB_PNG_ANG1                    405
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -169,7 +213,9 @@
 #define IDC_RESET_COUNT_BTN             1053
 #define IDC_RESET_SERIAL_BTN            1054
 #define IDC_BUTTON1                     1055
+#define IDC_BEFORE_BTN                  1055
 #define IDC_BUTTON2                     1056
+#define IDC_NEXT_BTN                    1056
 #define IDC_NEW_BTN                     1057
 #define IDC_EDIT7                       1058
 #define IDC_USER_FRESH_BTN              1059
@@ -180,7 +226,9 @@
 #define IDC_LIST1                       1062
 #define IDC_BUTTON4                     1063
 #define IDC_CONFI_SAVE_BTN              1063
+#define IDC_REFRESH_BTN                 1063
 #define IDC_BUTTON5                     1064
+#define IDC_R_HISTORY_BTN               1064
 #define IDC_CUSTON_BUTTON               1065
 #define IDC_HIGH_VOLTAGE_BTN            1065
 #define IDC_VERSION_BTN                 1066
@@ -418,6 +466,7 @@
 #define IDC_NEXT_SERVICE_EDIT           1305
 #define IDC_INK_LIFE_TIME_EDIT          1306
 #define IDC_BUTTON6                     1308
+#define IDC_L_HISTORY_BTN               1308
 #define IDC_PHASING_BTN                 1309
 #define IDC_SPEED_MODE_BTN              1310
 #define IDC_WASH_NOZZLE_BTN             1311
@@ -485,8 +534,9 @@
 #define IDC_STATIC_W                    1469
 #define IDC_STATIC_H                    1470
 #define IDC_STATIC_X                    1471
-#define IDC_STATIC_Y                    1472
-#define IDC_STATIC_MAIN_PICTURE         1472
+#define IDC_EDITFIGURE_OK_BTN           1472
+
+
 #define IDC_STATIC_WV                   1473
 #define IDC_STATIC_HV                   1474
 #define IDC_STATIC_XV                   1475
@@ -499,14 +549,18 @@
 #define IDC_SYS_FRESH1_BTN              1483
 #define IDC_SYS_FRESH2_BTN              1484
 #define IDC_OUTSET_OK_BTN               1485
+#define IDC_STATIC_Y                    1486
 
+#define IDC_STATIC_MAIN_PICTURE         1487
+
+#define IDC_PIC_PHA_ANGLE               1488
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        273
+#define _APS_NEXT_RESOURCE_VALUE        406
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1473
+#define _APS_NEXT_CONTROL_VALUE         1489
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

@@ -13,6 +13,7 @@ IMPLEMENT_DYNAMIC(CPictureStatic, CStatic)
 CPictureStatic::CPictureStatic()
 {
 	m_bShowLogo = false;
+	m_bShowGreenAlarm = m_bShowBlueAlarm = m_bShowYellowAlarm = m_bShowRedAlarm = true;
 }
 
 CPictureStatic::~CPictureStatic()
@@ -38,8 +39,8 @@ void CPictureStatic::OnPaint()
 
 	CWnd::Default();   // 让控件画它自己的东西
 
-					   // TODO: Add your message handler code here
-					   // 接下来就轮到我了画了 ：）
+   // TODO: Add your message handler code here
+   // 接下来就轮到我画了 ：）
 
 	CClientDC  dc(this);
 	CFont* pof;
@@ -82,4 +83,95 @@ void CPictureStatic::OnPaint()
 		menbm.SelectObject(&bm);
 		dc.BitBlt(0,0,rect3.Width(),rect3.Height(),&menbm,1,1,SRCCOPY);
 	} 
+
+	int nAlarmStart = 500;
+	int nAlarmWidth = 50;
+	int nAlarmHeight = 50;
+	int nAlarmStep = 5;
+	int nCenterY = 50;
+
+
+	if(m_bShowGreenAlarm)
+	{ 
+		CBitmap bm;
+		bm.LoadBitmap(IDB_GREEN_LAMP_BITMAP);
+		CRect rect3(CPoint(nAlarmStart,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
+ 		BITMAP bm1;
+		CDC menbm;
+		menbm.CreateCompatibleDC(&dc);
+		menbm.SelectObject(&bm);
+		dc.BitBlt(rect3.left,rect3.top,rect3.Width(),rect3.Height(),&menbm,1,1,SRCCOPY);
+	} 
+
+	if(m_bShowBlueAlarm)
+	{ 
+		CBitmap bm;
+		bm.LoadBitmap(IDB_BLUE_LAMP_BITMAP);
+		CRect rect3(CPoint(nAlarmStart+nAlarmWidth+nAlarmStep,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
+ 		BITMAP bm1;
+		CDC menbm;
+		menbm.CreateCompatibleDC(&dc);
+		menbm.SelectObject(&bm);
+		dc.BitBlt(rect3.left,rect3.top,rect3.Width(),rect3.Height(),&menbm,1,1,SRCCOPY);
+	} 
+
+	if(m_bShowYellowAlarm)
+	{ 
+		CBitmap bm;
+		bm.LoadBitmap(IDB_YELLOW_LAMP_BITMAP);
+		CRect rect3(CPoint(nAlarmStart+(nAlarmWidth+nAlarmStep)*2,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
+ 		BITMAP bm1;
+		CDC menbm;
+		menbm.CreateCompatibleDC(&dc);
+		menbm.SelectObject(&bm);
+		dc.BitBlt(rect3.left,rect3.top,rect3.Width(),rect3.Height(),&menbm,1,1,SRCCOPY);
+	} 
+
+	if(m_bShowRedAlarm)
+	{ 
+		CBitmap bm;
+		bm.LoadBitmap(IDB_RED_LAMP_BITMAP);
+		CRect rect3(CPoint(nAlarmStart+(nAlarmWidth+nAlarmStep)*3,nCenterY-nAlarmHeight/2),CSize(nAlarmWidth,nAlarmHeight));
+ 		BITMAP bm1;
+		CDC menbm;
+		menbm.CreateCompatibleDC(&dc);
+		menbm.SelectObject(&bm);
+		dc.BitBlt(rect3.left,rect3.top,rect3.Width(),rect3.Height(),&menbm,1,1,SRCCOPY);
+	} 
+}
+
+void CPictureStatic::SetRedAlarm(bool bAlarm)
+{
+	if(m_bShowRedAlarm != bAlarm)
+	{
+        m_bShowRedAlarm = bAlarm;
+		Invalidate();
+	}
+}
+
+void CPictureStatic::SetGreenAlarm(bool bAlarm)
+{
+	if(m_bShowGreenAlarm != bAlarm)
+	{
+        m_bShowGreenAlarm = bAlarm;
+		Invalidate();
+	}
+}
+
+void CPictureStatic::SetBlueAlarm(bool bAlarm)	
+{
+	if(m_bShowBlueAlarm != bAlarm)
+	{
+        m_bShowBlueAlarm = bAlarm;
+		Invalidate();
+	}
+}
+
+void CPictureStatic::SetYellowAlarm(bool bAlarm)
+{
+	if(m_bShowYellowAlarm != bAlarm)
+	{
+        m_bShowYellowAlarm = bAlarm;
+		Invalidate();
+	}
 }

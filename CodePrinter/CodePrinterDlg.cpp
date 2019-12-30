@@ -92,7 +92,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
     m_PicHead.SetMachineStatus(_T("Shut Down"));
 	m_PicHead.ShowLogo(true);
+
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//640,128
+
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
 	m_User = new CUserDlg;
@@ -155,19 +157,19 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetWindowPos(NULL,450,420,80,55,SWP_SHOWWINDOW);
 	
 	//彩色按钮
-	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_FAULT1_BITMAP);
+	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButFault.SizeToContent(); 
-	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_SYSTEM1_BITMAP);
+	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButSystem.SizeToContent(); 
-	m_ButUser.LoadBitmaps(IDB_USER1_BITMAP,IDB_USER2_BITMAP,0,0,IDB_LABEL1_BITMAP);
+	m_ButUser.LoadBitmaps(IDB_USER1_BITMAP,IDB_USER2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButUser.SizeToContent(); 
-	m_ButLabel.LoadBitmaps(IDB_LABEL1_BITMAP,IDB_LABEL2_BITMAP,0,0,IDB_LABEL1_BITMAP);
+	m_ButLabel.LoadBitmaps(IDB_LABEL1_BITMAP,IDB_LABEL2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButLabel.SizeToContent(); 
-	m_ButConfig.LoadBitmaps(IDB_CONFIG1_BITMAP,IDB_CONFIG2_BITMAP,0,0,IDB_CONFIG1_BITMAP);
+	m_ButConfig.LoadBitmaps(IDB_CONFIG1_BITMAP,IDB_CONFIG2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButConfig.SizeToContent(); 
-	m_ButFileMana.LoadBitmaps(IDB_FILEMANA1_BITMAP,IDB_FILEMANA2_BITMAP,0,0,IDB_FILEMANA1_BITMAP);
+	m_ButFileMana.LoadBitmaps(IDB_FILEMANA1_BITMAP,IDB_FILEMANA2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButFileMana.SizeToContent(); 
-	m_ButInk.LoadBitmaps(IDB_INKSYSTEM1_BITMAP,IDB_INKSYSTEM2_BITMAP,0,0,IDB_INKSYSTEM1_BITMAP);
+	m_ButInk.LoadBitmaps(IDB_INKSYSTEM1_BITMAP,IDB_INKSYSTEM2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButInk.SizeToContent(); 
 
 	m_ButOnOrOff.LoadBitmaps(IDB_ONOFF1_BITMAP,IDB_ONOFF2_BITMAP,0,0,IDB_ONOFF1_BITMAP);
@@ -909,6 +911,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		theApp.myTimClass.staSolLevFauLas = "00";
 		/*picAlarmBlue.Tag = "im004"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
+		m_PicHead.SetBlueAlarm(false);
 	}
 	else if (theApp.myStatusClass.staSolLevFau == "01" && theApp.myTimClass.staSolLevFauLas != "01")
 	{
@@ -919,10 +922,12 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_Fault->m_faultList.AddString(csMsg);//还需要加时间和日期以及故障弹框
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
+		m_PicHead.SetBlueAlarm(true);
 	}
 	else if (theApp.myStatusClass.staSolLevFau == "10" && theApp.myTimClass.staSolLevFauLas != "10")
 	{
 		theApp.myTimClass.staSolLevFauLas = "10";
+		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
 		CString csMsg ;
@@ -933,6 +938,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	else if (theApp.myStatusClass.staSolLevFau == "11" && theApp.myTimClass.staSolLevFauLas != "11")
 	{
 		theApp.myTimClass.staSolLevFauLas = "11";
+		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
 		CString csMsg ;
@@ -945,6 +951,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staInkLevFau == "00" && theApp.myTimClass.staInkLevFauLas != "00" && theApp.myStatusClass.staSolLevFau == "00")
 	{
 		theApp.myTimClass.staInkLevFauLas = "00";
+		m_PicHead.SetBlueAlarm(false);
 		/*picAlarmBlue.Tag = "im004"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
 		theApp.myTimClass.staInkEmpFau = false;
@@ -953,6 +960,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	else if (theApp.myStatusClass.staInkLevFau == "01" && theApp.myTimClass.staInkLevFauLas != "01")
 	{
 		theApp.myTimClass.staInkLevFauLas = "01";
+		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
 		theApp.myTimClass.staInkEmpFau = false;
@@ -1095,7 +1103,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 	{
 		 if (theApp.myUserPower.isChangeUser)
 		 {
-			 ChangeBottonEnable();
+			 //ChangeBottonEnable();
 			 theApp.myUserPower.isChangeUser=false;
 		 }
 		theApp.myStatusClass.byStatusFromSlaveState();
@@ -1175,15 +1183,19 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		//实时相位
-		//switch(theApp.myStatusClass.staPhase)
-		//	case "0":
-		// {
-		//	if (theApp.myTimClass.staPhaseLas != "0")
-		//	{
-		//	}
-		// }
+		switch(theApp.myStatusClass.staPhase)
+		{			
+			case 0:
+			{
+				if (theApp.myTimClass.staPhaseLas == 0)
+				{
+					m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+					m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+				}
+			}
 
-		break;
+		    break;
+		}
 
 	}
 }
