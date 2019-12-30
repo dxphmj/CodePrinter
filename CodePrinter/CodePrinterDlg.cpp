@@ -17,7 +17,7 @@
 //#include "Tchar.h¡±
 #include "PcfConfig.h"
 
-#define  def_ttl 1
+//#define  def_ttl 1
 
 
 #ifdef _DEBUG
@@ -256,7 +256,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
     //Ä«Ë®ÅäÖÃ³õÊ¼»¯
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
-	//SetTimer(TIMER1,1000,NULL);	
+	SetTimer(TIMER1,1000,NULL);	
 	pInksysConfig.get_inksystem_from_xml();
 
 	pInksysConfig.download_inksystem_setup();
