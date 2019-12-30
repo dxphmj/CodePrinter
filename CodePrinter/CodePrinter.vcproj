@@ -603,10 +603,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DesignStatic.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\EditFigureDlg.cpp"
 				>
 			</File>
@@ -691,10 +687,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PictureStatic.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -771,10 +763,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\UserPower.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Version.cpp"
 				>
 			</File>
@@ -834,10 +822,6 @@
 			</File>
 			<File
 				RelativePath=".\DealXml.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DesignStatic.h"
 				>
 			</File>
 			<File
@@ -925,10 +909,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PictureStatic.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
@@ -961,10 +941,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\UserPower.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Version.h"
 				>
 			</File>
@@ -979,10 +955,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\bitmap1.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\bitmap2.bmp"
 				>
 			</File>
@@ -992,10 +964,6 @@
 			</File>
 			<File
 				RelativePath=".\res\bitmap4.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\bitmap6.bmp"
 				>
 			</File>
 			<File
@@ -1039,14 +1007,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\fresh-.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\fresh.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\head.bmp"
 				>
 			</File>
@@ -1084,14 +1044,6 @@
 			</File>
 			<File
 				RelativePath=".\res\notback.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\ok-.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\ok.bmp"
 				>
 			</File>
 			<File
@@ -1135,14 +1087,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\sys_return-.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\sys_return.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\System.bmp"
 				>
 			</File>
@@ -1167,246 +1111,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\※--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\※.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\下面按键--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\下面按键.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\保存--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\保存.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\减细--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\减细.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\删除--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\删除.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\加粗--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\加粗.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\圆键-.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\圆键.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\墨水系统--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\墨水系统.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\复制--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\复制.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\小删除--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\小删除.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\左一--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\左一.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\左二--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\左二.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\开始喷印--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\开始喷印.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\开机.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\开机2.bmp"
 				>
 			</File>
 			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
 				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-				
-
-				RelativePath=".\res\故障--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\故障.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\文件--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\文件.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\文件管理--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\文件管理.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\新建lab--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\新建lab.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\新建用户--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\新建用户.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\无填充--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\无填充.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\暂停喷印--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\暂停喷印.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\有填充--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\有填充.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\用户--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\用户.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\笔--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\笔.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\系统--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\系统.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\编辑用户--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\编辑用户.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\配置--.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\配置.bmp"
 				>
 			</File>
 		</Filter>

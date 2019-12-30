@@ -57,7 +57,7 @@ public:
 					  Czech=8,Dutch=9,German=10,Finnish=11,
 					  Hindi=12,Hungarian=13,Italian=14,Portuguese=15,
 					  Russian=16,Spanish=17,Swedish=18,
-					  Thai=19,Turkish=20,Japanese_others = 21,Korean_others = 22};
+					  Thai=19,Turkish=20};
 	int LanType;
 	int LanTurn;
 public:

@@ -57,9 +57,9 @@ BOOL CInputDlg::OnInitDialog()
 	pBarCode = new CBarCodeDlg;
 
 	int nX = 0;
-	int nY = 90;
+	int nY = 0;
 	int nWidth = 800;
-	int nHeight = 600-nY;
+	int nHeight = 600;
 	pEditText->Create(IDD_EDITTEXT_DIALOG,this);
 	pEditText->MoveWindow(nX,nY,nWidth,nHeight);
 
@@ -109,7 +109,7 @@ void CInputDlg::OnBnClickedEditpictureButton()
 	//labModule.string2tchar(testpath,path);
 
 	string xmlPath;
-	if(ShowPathDlg(path, MAX_PATH,2))
+	if(ShowPathDlg(path, MAX_PATH))
 	{
 		int xPos=0;
 		int yPos=0;

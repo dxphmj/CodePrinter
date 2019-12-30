@@ -4,7 +4,6 @@
 //#include "ClassMessage.h"
 //#include "ModuleMain.h"
 #include "InputDlg.h"
-#include "DesignStatic.h"
 
 // CLabelDlg 对话框
 
@@ -29,7 +28,7 @@ public:
 	enum { IDD = IDD_LABEL_DIALOG };
 
 	bool m_bDesign;	
-    CDesignStatic m_designArea;
+    CStatic m_designArea;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
@@ -60,10 +59,6 @@ public:
 	CImageButton m_open;
 	CImageButton m_save;
 	CImageButton m_return;
-	CImageButton m_input;
-	CImageButton m_repeat;
-	CImageButton m_copy;
-	CImageButton m_delete;
 
 
 	afx_msg void OnBnClickedInputButton();
@@ -102,11 +97,4 @@ public:
 	afx_msg void OnBnClickedAddbackBtn();
 	afx_msg void OnBnClickedUdmirrorButton();
 	afx_msg void OnBnClickedLrmirrorButton();
-
-	afx_msg void OnStnClickedStaticW();
-	void changeDis();
-
-
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-
 };

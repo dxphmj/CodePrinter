@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-#include "ImageButton.h"
+
 
 // CConfigPrintModeDlg ¶Ô»°¿ò
 
@@ -21,13 +21,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedConfigCloseBtn();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CListBox m_printMode;
 	CListBox m_workList;
 	int m_repeatCount;
 	CListBox m_virtualPrint;
 	virtual BOOL OnInitDialog();
-
-	CImageButton m_returnIB;
-	CImageButton m_okIB;
 };

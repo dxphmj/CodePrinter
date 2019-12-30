@@ -62,8 +62,6 @@ BOOL CInkSetupDlg::OnInitDialog()
 	m_inkTypeList.AddString(L"236");
 	m_inkTypeList.AddString(L"252");
 	m_inkTypeList.AddString(L"261");
-	m_inkTypeList.AddString(L"270");
-	m_inkTypeList.AddString(L"445");
 	m_inkTypeList.SetCurSel(0);
 
 	m_peltierList.AddString(L"OFF");

@@ -62,10 +62,10 @@ CPathDlgDllApp::CPathDlgDllApp()
 
 CPathDlgDllApp theApp;
 
-extern "C" __declspec(dllexport) BOOL ShowPathDlg(LPTSTR szPath, int size,int theType,bool isDisplay)
+extern "C" __declspec(dllexport) BOOL ShowPathDlg(LPTSTR szPath, int size)
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-	CPathDialog		pathDlg(theType,isDisplay);
+	CPathDialog		pathDlg;
 
 	if(IDOK == pathDlg.DoModal())
 	{

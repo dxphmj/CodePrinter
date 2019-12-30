@@ -31,31 +31,11 @@ BEGIN_MESSAGE_MAP(CKeyBoLan, CDialog)
 
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_LAN_ESC, &CKeyBoLan::OnBnClickedLanEsc)
-
-
-	ON_BN_CLICKED(IDC_LAN_ARABIC, &CKeyBoLan::OnBnClickedLanArabic)
 	ON_BN_CLICKED(IDC_LAN_CHINESE, &CKeyBoLan::OnBnClickedLanChinese)
-	ON_BN_CLICKED(IDC_LAN_CZECH, &CKeyBoLan::OnBnClickedLanCzech)
-	ON_BN_CLICKED(IDC_LAN_DUTCH, &CKeyBoLan::OnBnClickedLanDutch)
-	ON_BN_CLICKED(IDC_LAN_ENGLISH, &CKeyBoLan::OnBnClickedLanEnglish)
-	ON_BN_CLICKED(IDC_LAN_FARSI, &CKeyBoLan::OnBnClickedLanFarsi)
-
-	ON_BN_CLICKED(IDC_LAN_FINNISH, &CKeyBoLan::OnBnClickedLanFinnish)
+	ON_BN_CLICKED(IDC_LAN_ARABIC, &CKeyBoLan::OnBnClickedLanArabic)
 	ON_BN_CLICKED(IDC_LAN_GERMAN, &CKeyBoLan::OnBnClickedLanGerman)
-	ON_BN_CLICKED(IDC_LAN_HINDI, &CKeyBoLan::OnBnClickedLanHindi)
-	ON_BN_CLICKED(IDC_LAN_HUNGARIAN, &CKeyBoLan::OnBnClickedLanHungarian)
-	ON_BN_CLICKED(IDC_LAN_ITALIAN, &CKeyBoLan::OnBnClickedLanItalian)
-	ON_BN_CLICKED(IDC_LAN_JANPANESE, &CKeyBoLan::OnBnClickedLanJapanese)
-
 	ON_BN_CLICKED(IDC_LAN_KOREAN, &CKeyBoLan::OnBnClickedLanKorean)
-	ON_BN_CLICKED(IDC_LAN_PORTUGUESE, &CKeyBoLan::OnBnClickedLanPortuguese)
-	ON_BN_CLICKED(IDC_LAN_RUSSIAN, &CKeyBoLan::OnBnClickedLanRussian)
-	ON_BN_CLICKED(IDC_LAN_SPANISH, &CKeyBoLan::OnBnClickedLanSpanish)
-	ON_BN_CLICKED(IDC_LAN_SWEDISH, &CKeyBoLan::OnBnClickedLanSwedish)
-	ON_BN_CLICKED(IDC_LAN_THAI, &CKeyBoLan::OnBnClickedLanThai)
-
-	ON_BN_CLICKED(IDC_LAN_TURKISH, &CKeyBoLan::OnBnClickedLanTurkish)
-
+	ON_BN_CLICKED(IDC_LAN_ENGLISH, &CKeyBoLan::OnBnClickedLanEnglish)
 
 END_MESSAGE_MAP()
 
@@ -118,15 +98,22 @@ void CKeyBoLan::OnBnClickedLanEsc()
 	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
 	pWnd->m_pSym->ShowWindow(SW_HIDE);
 	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE); 
-	if (pWnd->LanType == 0||pWnd->LanType == 1||pWnd->LanType == 2||pWnd->LanType == 3)
-	{
-		pWnd->btnShow();
-	}
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);  
 	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼þÍ¨Öª´¦Àí³ÌÐò´úÂë
 }
 
-//////////////////////////////////////////////////////////////////////////
+void CKeyBoLan::OnBnClickedLanChinese()
+{
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	pWnd->btnShow();
+	pWnd->LanType = 0;
+	pWnd->m_pMain->btnTextSel(pWnd->LanType);
+}
+
 void CKeyBoLan::OnBnClickedLanArabic()
 {//°¢À­²®ÓïArabic
 	this->ShowWindow(SW_HIDE);
@@ -134,133 +121,9 @@ void CKeyBoLan::OnBnClickedLanArabic()
 	pWnd->m_pSym->ShowWindow(SW_HIDE);
 	pWnd->m_pMain->ShowWindow(SW_SHOW);
 	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
 	pWnd->LanType = 5;
 	pWnd->m_pMain->btnTextSel(pWnd->LanType);
 }
-void CKeyBoLan::OnBnClickedLanChinese()
-{//ÖÐÎÄ
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnShow();
-	pWnd->LanType = 0;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanCzech()
-{//½Ý¿ËÎÄCzech
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 8;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanDutch()
-{//ºÉÀ¼ÓïDutch
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 9;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanEnglish()
-{//Ó¢Óï	English
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 7;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanFarsi()
-{//²¨Ë¹ÎÄFarsi
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 6;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-//////////////////////////////////////////////////////////////////////////
-void CKeyBoLan::OnBnClickedLanFinnish()
-{//·ÒÀ¼ÓïFinnish
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 11;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanGerman()
-{//µÂÓïGerman
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 10;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanHindi()
-{//Ó¡µÚÓïHindi
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 12;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanHungarian()
-{//ÐÙÑÀÀûÓïHungarian
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 13;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanItalian()
-{//Òâ´óÀûÓïItalian
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 14;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanJapanese()
-{//ÈÕÓïJapanese
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnShow();
-	pWnd->LanType = 1;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-//////////////////////////////////////////////////////////////////////////
 void CKeyBoLan::OnBnClickedLanKorean()
 {//º«ÓïKorean
 	this->ShowWindow(SW_HIDE);
@@ -268,80 +131,32 @@ void CKeyBoLan::OnBnClickedLanKorean()
 	pWnd->m_pSym->ShowWindow(SW_HIDE);
 	pWnd->m_pMain->ShowWindow(SW_SHOW);
 	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnShow();
+	pWnd->btnShow();
 	pWnd->LanType = 2;
 	pWnd->m_pMain->btnTextSel(pWnd->LanType);
 }
-void CKeyBoLan::OnBnClickedLanPortuguese()
-{//ÆÏÌÑÑÀÓïPortuguese
+
+void CKeyBoLan::OnBnClickedLanEnglish()
+{//Ó¢Óï	English
 	this->ShowWindow(SW_HIDE);
 	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
 	pWnd->m_pSym->ShowWindow(SW_HIDE);
 	pWnd->m_pMain->ShowWindow(SW_SHOW);
 	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 15;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanRussian()
-{//¶íÓïRussian
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 16;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanSpanish()
-{//Î÷°àÑÀÓïSpanish
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 17;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-void CKeyBoLan::OnBnClickedLanSwedish()
-{//ÈðµäÓïSwedish
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 18;
-	pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-//Ì©ÓïÎ´ÊµÏÖ
-void CKeyBoLan::OnBnClickedLanThai()
-{//Ì©ÓïThai
-	//this->ShowWindow(SW_HIDE);
-	//CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	//pWnd->m_pSym->ShowWindow(SW_HIDE);
-	//pWnd->m_pMain->ShowWindow(SW_SHOW);
-	//pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	////pWnd->btnHide();
-	//pWnd->LanType = 19;
-	//pWnd->m_pMain->btnTextSel(pWnd->LanType);
-}
-//////////////////////////////////////////////////////////////////////////
-void CKeyBoLan::OnBnClickedLanTurkish()
-{//ÍÁ¶úÆäÓïTurkish
-	this->ShowWindow(SW_HIDE);
-	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
-	pWnd->m_pSym->ShowWindow(SW_HIDE);
-	pWnd->m_pMain->ShowWindow(SW_SHOW);
-	pWnd->m_pCaps->ShowWindow(SW_HIDE);
-	//pWnd->btnHide();
-	pWnd->LanType = 20;
+	pWnd->LanType = 7;
 	pWnd->m_pMain->btnTextSel(pWnd->LanType);
 }
 
-
+void CKeyBoLan::OnBnClickedLanGerman()
+{//µÂÓïGerman
+	this->ShowWindow(SW_HIDE);
+	CKeyBoardDlg* pWnd = (CKeyBoardDlg*)this->GetParent();
+	pWnd->m_pSym->ShowWindow(SW_HIDE);
+	pWnd->m_pMain->ShowWindow(SW_SHOW);
+	pWnd->m_pCaps->ShowWindow(SW_HIDE);
+	pWnd->LanType = 10;
+	pWnd->m_pMain->btnTextSel(pWnd->LanType);
+}
 
 
 

@@ -239,16 +239,28 @@ public:
 	void string2tchar(std::string &src, TCHAR* buf);
 	string TCHAR2STRING(TCHAR *STR);
    const char* CString2ConstChar(CString str);
-   void DisableAllBtn(HWND hwnd,bool booOpen);
    //string CString2string(CString csStrData);
    //×Ö·û×ªÊý×Ö
    int charToDigit(char c);
+
+
    int jinzhi16to10(string pre);
+
+
    int jinzhi8to10(string pre) ;
+
+
    int jinzhi2to10(string pre);
+
+
    string jinzhi10to2(int pre) ;
+
    string jinzhi10to8(int pre) ;
+
    string jinzhi10to16(int pre) ;
+
+
+
 public:
 	void InitCommMsg();
 };

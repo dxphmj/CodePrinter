@@ -12,7 +12,6 @@
 #include "ConfigurationDlg.h"
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
-#include "PictureStatic.h"
 
 
 #include "OnOffDlg.h"
@@ -34,7 +33,7 @@ public:
 
 
 public:
-    CPictureStatic m_PicHead;
+
 
 public:
     void UpdateValve(); //更新各种阀的信息
@@ -72,6 +71,8 @@ public:
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
 
+	CStatic m_LogoPicBox;
+
 	CSystemDlg *m_System;
 	CUserDlg *m_User;
 	CLabelDlg *m_Label;
@@ -89,6 +90,6 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent); //定时器
  
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	void ChangeBottonEnable();
+  
 
 };

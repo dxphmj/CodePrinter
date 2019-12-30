@@ -4,8 +4,6 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "ConfigurationDlg.h"
-#include "PcfConfig.h"
-#include "CodePrinterDlg.h"
 
 
 // CConfigurationDlg 对话框
@@ -38,13 +36,6 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_REPEAT_DIS_EDIT, m_repeatDis);
 	DDX_Control(pDX, IDC_SPEED_WAY_COMBO, m_speedWay);
 	DDX_Text(pDX, IDC_SPEED_EDIT, m_speed);
-
-	DDX_Control(pDX, IDC_CONFI_CLOSE_BTN, m_returnIB);
-	DDX_Control(pDX, IDC_PRINT_SET_BTN, m_printSetIB);
-	DDX_Control(pDX, IDC_OUT_SET_BTN, m_outSetIB);
-	DDX_Control(pDX, IDC_CONFI_OPEN_BTN, m_configOpenIB);
-	DDX_Control(pDX, IDC_CONFI_SAVE_BTN, m_configSaveIB);
-	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
 }
 
 
@@ -52,7 +43,6 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONFI_CLOSE_BTN, &CConfigurationDlg::OnBnClickedConfiCloseBtn)
 	ON_BN_CLICKED(IDC_PRINT_SET_BTN, &CConfigurationDlg::OnBnClickedPrintSetBtn)
 	ON_BN_CLICKED(IDC_OUT_SET_BTN, &CConfigurationDlg::OnBnClickedOutSetBtn)
-	ON_BN_CLICKED(IDC_CONFIG_OK_BTN, &CConfigurationDlg::OnBnClickedSavePcf)
 END_MESSAGE_MAP()
 
 
@@ -61,12 +51,14 @@ END_MESSAGE_MAP()
 BOOL CConfigurationDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
     //按钮界面初始化
 	m_ConfigPrintModeDlg = new CConfigPrintModeDlg;
+	m_ConfigOutSetDlg = new CConfigOutSetDlg;
+
+
+	// TODO:  在此添加额外的初始化
 	m_ConfigPM= new CConfigPrintModeDlg;
 	m_ConfigOS = new CConfigOutSetDlg;
-
 	int nX = 0;
 	int nY = 100;
 	int nWidth = 800;
@@ -90,29 +82,6 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_speedWay.AddString(L"Variable");
 	m_speedWay.SetCurSel(0);
 
-	CRect rect1;
-	GetDlgItem(IDC_CONFI_CLOSE_BTN)->GetWindowRect(&rect1);
-
-	GetDlgItem(IDC_CONFI_CLOSE_BTN)->SetWindowPos(NULL,11,390,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
-	GetDlgItem(IDC_PRINT_SET_BTN)->SetWindowPos(NULL,200,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_OUT_SET_BTN)->SetWindowPos(NULL,300,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_CONFI_OPEN_BTN)->SetWindowPos(NULL,400,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_CONFI_SAVE_BTN)->SetWindowPos(NULL,500,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_CONFIG_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
-
-	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
-	m_returnIB.SizeToContent(); 
-	m_printSetIB.LoadBitmaps(IDB_PRINT_SET1_BITMAP,IDB_PRINT_SET2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_printSetIB.SizeToContent(); 
-	m_outSetIB.LoadBitmaps(IDB_OUT_SET1_BITMAP,IDB_OUT_SET2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_outSetIB.SizeToContent(); 
-	m_configOpenIB.LoadBitmaps(IDB_CONFIG_OPEN1_BITMAP,IDB_CONFIG_OPEN2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_configOpenIB.SizeToContent(); 
-	m_configSaveIB.LoadBitmaps(IDB_SAVE1_BITMAP,IDB_SAVE2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_configSaveIB.SizeToContent(); 
-	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
-	m_configOkIB.SizeToContent(); 
-
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -122,7 +91,6 @@ void CConfigurationDlg::OnBnClickedConfiCloseBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
 	showConfigDlg(0);
-	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
 
 void CConfigurationDlg::showConfigDlg(int ID)
@@ -132,15 +100,16 @@ void CConfigurationDlg::showConfigDlg(int ID)
 	if (ID == IDD_CONFIG_PRINT_MODE_DIALOG)
 	{
 		m_ConfigPM->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Configure > PrintMode")); 
-
 	}
-	else if (ID == IDD_CONFIG_OUTSET_DIALOG)
+	if (ID == IDD_CONFIG_OUTSET_DIALOG)
 	{
 		m_ConfigOS->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Configure > Outset")); 
+	}
+	else if (0)
+	{
+		return;
+	}
 
-	}	 
 }
 
 void CConfigurationDlg::OnBnClickedPrintSetBtn()
@@ -154,15 +123,3 @@ void CConfigurationDlg::OnBnClickedOutSetBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	showConfigDlg(IDD_CONFIG_OUTSET_DIALOG);
 }
-
-void CConfigurationDlg::OnBnClickedSavePcf()
-{
-	// TODO: 在此添加控件通知处理程序代码
-
-	//界面保存到目前的喷印配置xml文件和pcf文件里  
-	CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
-	pPcfConfig.save_pcf_to_xml();
-	pPcfConfig.download_pcf();
-}
-
- 
