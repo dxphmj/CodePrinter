@@ -679,6 +679,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NumKey.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\OnOffDlg.cpp"
 				>
 			</File>
@@ -906,6 +910,10 @@
 			</File>
 			<File
 				RelativePath=".\MyLogCpp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NumKey.h"
 				>
 			</File>
 			<File
@@ -1271,18 +1279,6 @@
 				>
 			</File>
 			<File
-
-				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
-
-				RelativePath=".\res\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
-				
-
 				RelativePath=".\res\¹ÊÕÏ--.bmp"
 				>
 			</File>
@@ -1379,6 +1375,14 @@
 				>
 			</File>
 			<File
+				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\±³¾°Ìõ.bmp"
 				>
 			</File>
@@ -1396,7 +1400,6 @@
 			</File>
 			<File
 				RelativePath=".\res\ÅäÖÃ.bmp"
-
 				>
 			</File>
 		</Filter>
