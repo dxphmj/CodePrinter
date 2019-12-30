@@ -78,13 +78,19 @@ FONT 9, "MS Sans Serif"
 BEGIN
     CONTROL         204,IDC_HEAD_PIC,"Static",SS_BITMAP,0,0,533,50
 <<<<<<< HEAD
+<<<<<<< HEAD
     LTEXT           "CODEMARK",IDC_STATIC_SHOW_DLG,1,19,119,15
     LTEXT           "",IDC_PRINT_STA_STATIC,174,11,124,26
 =======
+=======
+>>>>>>> parent of 9b5968d... 优化
 
     //LTEXT           "CODEMARK",IDC_STATIC_SHOW_DLG,1,19,119,15
     //LTEXT           "",IDC_PRINT_STA_STATIC,174,11,124,26
 
+<<<<<<< HEAD
+>>>>>>> parent of 9b5968d... 优化
+=======
 >>>>>>> parent of 9b5968d... 优化
     PUSHBUTTON      "",IDC_SYSTEM_BUTTON,376,84,56,28
     PUSHBUTTON      "",IDC_FAULT_BUTTON,388,15,56,28
@@ -116,12 +122,15 @@ BEGIN
     PUSHBUTTON      "START_PRINT",IDC_STARTPRINT_BUTTON,131,238,50,40
     PUSHBUTTON      "PAUSE_PRINT",IDC_PAUSEPRINT_BUTTON,255,238,60,39
 <<<<<<< HEAD
+<<<<<<< HEAD
     CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,15,14
     CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,15,14
     CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,15,14
     CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,15,14
     CONTROL         "",IDC_LOGO_PIC,"Static",SS_BITMAP,0,1,15,14
 =======
+=======
+>>>>>>> parent of 9b5968d... 优化
 ////////////////
     CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,11,11
     CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,11,11
@@ -129,6 +138,9 @@ BEGIN
     CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,11,11
     CONTROL         "",IDC_STATIC_MAIN_PICTURE,"Static",SS_BITMAP,15,62,11,11
 
+<<<<<<< HEAD
+>>>>>>> parent of 9b5968d... 优化
+=======
 >>>>>>> parent of 9b5968d... 优化
 END
 
@@ -379,6 +391,9 @@ BEGIN
 ////////
     CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,21,20
 
+<<<<<<< HEAD
+>>>>>>> parent of 9b5968d... 优化
+=======
 >>>>>>> parent of 9b5968d... 优化
     EDITTEXT        IDC_EDIT2,171,192,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
 END

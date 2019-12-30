@@ -272,7 +272,10 @@ void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 9b5968d... 优化
 	m_designArea.Invalidate();
 	/*
 >>>>>>> parent of 9b5968d... 优化
@@ -326,6 +329,10 @@ void CLabelDlg::OnPaint()
 	ReleaseDC(pDC); 
 
 	changeDis();
+<<<<<<< HEAD
+>>>>>>> parent of 9b5968d... 优化
+=======
+
 >>>>>>> parent of 9b5968d... 优化
 
 	ReleaseDC(pDC); 
