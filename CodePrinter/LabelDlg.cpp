@@ -289,6 +289,7 @@ void CLabelDlg::OnBnClickedInputButton()
 void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
+	changeDis();
 	m_designArea.Invalidate();
 	/*
 	CDC* pDC = m_designArea.GetDC();
@@ -338,7 +339,7 @@ void CLabelDlg::OnPaint()
 	//m_designArea.Invalidate();
 	ReleaseDC(pDC); 
 
-	changeDis();
+	
 
 
 	*/

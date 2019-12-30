@@ -77,10 +77,6 @@ EXSTYLE WS_EX_APPWINDOW | 0x80000000L
 FONT 9, "MS Sans Serif"
 BEGIN
     CONTROL         204,IDC_HEAD_PIC,"Static",SS_BITMAP,0,0,533,50
-
-    //LTEXT           "CODEMARK",IDC_STATIC_SHOW_DLG,1,19,119,15
-    //LTEXT           "",IDC_PRINT_STA_STATIC,174,11,124,26
-
     PUSHBUTTON      "",IDC_SYSTEM_BUTTON,376,84,56,28
     PUSHBUTTON      "",IDC_FAULT_BUTTON,388,15,56,28
     PUSHBUTTON      "",IDC_USER_BUTTON,376,118,56,28
@@ -109,13 +105,11 @@ BEGIN
     PUSHBUTTON      "ON_OR_OFF",IDC_ONOROFF_BUTTON,34,245,51,25
     PUSHBUTTON      "START_PRINT",IDC_STARTPRINT_BUTTON,131,238,50,40
     PUSHBUTTON      "PAUSE_PRINT",IDC_PAUSEPRINT_BUTTON,255,238,60,39
-////////////////
     CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,11,11
     CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,11,11
     CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,11,11
     CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,11,11
     CONTROL         "",IDC_STATIC_MAIN_PICTURE,"Static",SS_BITMAP,15,62,11,11
-
 END
 
 IDD_DATE_DIALOG DIALOG  0, 0, 498, 299
@@ -358,10 +352,6 @@ BEGIN
     EDITTEXT        IDC_EDIT3,298,156,35,25,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE
     EDITTEXT        IDC_EDIT4,299,192,35,25,ES_AUTOHSCROLL | NOT WS_VISIBLE
     CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,13,11
-    EDITTEXT        IDC_EDIT5,382,122,130,48,ES_AUTOHSCROLL | NOT WS_BORDER | NOT WS_TABSTOP
-////////
-    CONTROL         "",IDC_STATIC_DESIGN_AREA,"Static",SS_BITMAP,7,7,21,20
-
     EDITTEXT        IDC_EDIT2,171,192,35,25,ES_CENTER | ES_READONLY,WS_EX_STATICEDGE
     LTEXT           "W:",IDC_STATIC_W,399,135,11,8
     LTEXT           "H:",IDC_STATIC_H,454,134,10,8
@@ -1055,14 +1045,14 @@ IDB_RED_LAMP_BITMAP     BITMAP                  "res\\ºìµÆ.bmp"
 IDB_YELLOW_LAMP_BITMAP  BITMAP                  "res\\»ÆµÆ.bmp"
 IDB_BLUE_LAMP_BITMAP    BITMAP                  "res\\À¶µÆ.bmp"
 IDB_GREEN_LAMP_BITMAP   BITMAP                  "res\\ÂÌµÆ.bmp"
-IDB_SOLVENT_CALIB1_BITMAP BITMAP                "res\\Ë®Î».bmp"
-IDB_SOLVENT_CALIB2_BITMAP BITMAP                "res\\Ë®Î»--.bmp"
+IDB_SOLVENT_CALIB1_BITMAP BITMAP                  "res\\Ë®Î».bmp"
+IDB_SOLVENT_CALIB2_BITMAP BITMAP                  "res\\Ë®Î»--.bmp"
 IDB_BITMAP_PHA_ADD_UP   BITMAP                  "res\\¼Ó.bmp"
 IDB_BITMAP_PHA_ADD_DOWM BITMAP                  "res\\¼Ó--.bmp"
 IDB_BITMAP_PHA_SUB_UP   BITMAP                  "res\\¼õ.bmp"
 IDB_BITMAP_PHA_SUB_DOWM BITMAP                  "res\\¼õ--.bmp"
-IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP              "res\\Ô²¼ü.bmp"
-IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                "res\\Ô²¼ü-.bmp"
+IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP                  "res\\Ô²¼ü.bmp"
+IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                  "res\\Ô²¼ü-.bmp"
 IDB_PNG_ANG0            BITMAP                  "res\\ang0.bmp"
 IDB_PNG_ANG1            BITMAP                  "res\\ang1.bmp"
 
