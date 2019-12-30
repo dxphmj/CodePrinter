@@ -1314,7 +1314,15 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 
-	}//case结束
+	
+
+
+		//产品计数器
+		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
+		//打印计数器
+		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
+	}
+
 }
 
 
