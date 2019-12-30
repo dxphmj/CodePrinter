@@ -95,8 +95,8 @@ BEGIN
     LTEXT           "产品喷印:",IDC_STATIC,86,193,37,8
     LTEXT           "序列号:",IDC_STATIC,211,151,29,8
     PUSHBUTTON      "ResetCount",IDC_RESET_COUNT_BTN,16,183,47,28
-    LTEXT           "0",IDC_STATIC,86,181,10,8
-    LTEXT           "0",IDC_STATIC,87,208,10,8
+    LTEXT           "0",IDC_STATIC_PROCOUNT,86,181,10,8
+    LTEXT           "0",IDC_STATIC_PRICOUNT,87,208,10,8
     PUSHBUTTON      "ResetSerial",IDC_RESET_SERIAL_BTN,207,167,47,28
     LTEXT           "序列1:",IDC_STATIC,281,151,25,8
     LTEXT           "序列2:",IDC_STATIC,281,165,25,8
@@ -1056,13 +1056,11 @@ IDB_BITMAP_PHA_CIRCLE_UNSEL BITMAP                  "res\\圆键.bmp"
 IDB_BITMAP_PHA_CIRCLE_SEL BITMAP                  "res\\圆键-.bmp"
 IDB_PNG_ANG0            BITMAP                  "res\\ang0.bmp"
 IDB_PNG_ANG1            BITMAP                  "res\\ang1.bmp"
-
 IDB_BITMAP_RBLACK       BITMAP                  "res\\SMALL\\反黑.bmp"
 IDB_BITMAP_RTOPDOWN     BITMAP                  "res\\SMALL\\上下颠倒.bmp"
 IDB_BITMAP_RALL         BITMAP                  "res\\SMALL\\上下左右颠倒.bmp"
 IDB_BITMAP_NOTCHANGE    BITMAP                  "res\\SMALL\\正常.bmp"
 IDB_BITMAP_RLEFTRIGHT   BITMAP                  "res\\SMALL\\左右颠倒.bmp"
-
 IDB_PNG_ANG2            BITMAP                  "res\\ang2.bmp"
 IDB_PNG_ANG3            BITMAP                  "res\\ang3.bmp"
 IDB_PNG_ANG4            BITMAP                  "res\\ang4.bmp"
@@ -1105,7 +1103,6 @@ IDB_SETUP_021           BITMAP                  "res\\im021.bmp"
 IDB_SETUP_022           BITMAP                  "res\\im022.bmp"
 IDB_SETUP_023           BITMAP                  "res\\im023.bmp"
 IDB_SETUP_024           BITMAP                  "res\\im024.bmp"
-
 
 /////////////////////////////////////////////////////////////////////////////
 //

@@ -17,7 +17,7 @@
 //#include "Tchar.h”
 #include "PcfConfig.h"
 
-//#define  def_ttl 1
+#define  def_ttl 1
 
 
 #ifdef _DEBUG
@@ -256,7 +256,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
     //墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
-	SetTimer(TIMER1,1000,NULL);	
+	//SetTimer(TIMER1,1000,NULL);	
 	pInksysConfig.get_inksystem_from_xml();
 
 	pInksysConfig.download_inksystem_setup();
@@ -1203,6 +1203,11 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		    break;
 		}
 
+
+		//产品计数器
+		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
+		//打印计数器
+		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
 	}
 }
 
