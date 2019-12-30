@@ -36,8 +36,8 @@ void CUserDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CUserDlg, CDialog)
-	ON_BN_CLICKED(IDC_OPEN_BTN, &CUserDlg::OnBnClickedOpenButton)
-	ON_BN_CLICKED(IDC_NEW_BTN, &CUserDlg::OnBnClickedNewBtn)
+	ON_BN_CLICKED(IDC_NEW_BTN, &CUserDlg::OnBnClickedOpenButton)
+	ON_BN_CLICKED(IDC_OPEN_BTN, &CUserDlg::OnBnClickedNewBtn)
 	ON_BN_CLICKED(IDC_DELETE_BTN, &CUserDlg::OnBnClickedDeleteBtn)
 	ON_BN_CLICKED(IDC_USER_FRESH_BTN, &CUserDlg::OnBnClickedUserFreshBtn)
 	ON_BN_CLICKED(IDC_CLOSE_USER_BTN, &CUserDlg::OnBnClickedCloseUserBtn)

@@ -671,6 +671,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MainPicture.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ModuleMain.cpp"
 				>
 			</File>
@@ -902,6 +906,10 @@
 			</File>
 			<File
 				RelativePath=".\Language.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MainPicture.h"
 				>
 			</File>
 			<File
@@ -1279,21 +1287,6 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-				
-
 				RelativePath=".\res\故障--.bmp"
 				>
 			</File>
@@ -1387,6 +1380,18 @@
 			</File>
 			<File
 				RelativePath=".\res\编辑用户.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
 				>
 			</File>
 			<File

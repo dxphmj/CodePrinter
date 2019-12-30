@@ -53,7 +53,7 @@ void CDesignStatic::OnPaint()
 	
 	CBrush cbrush;
 	CBrush* pBrush; //旧笔刷
-	int pixel = 7;
+	int pixel = theApp.myclassMessage.Pixel;
 	if(1)
 	{
 		//画网格
@@ -79,6 +79,7 @@ void CDesignStatic::OnPaint()
 		//isFrame=false;
 	}
 	theApp.myclassMessage.DrawDot(&dcMem);
+
 	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//绘制图片到主dc
 	//dcMem.SelectObject(pOldBitmap);//清理
 	dcMem.DeleteDC();      // 删除内存DC

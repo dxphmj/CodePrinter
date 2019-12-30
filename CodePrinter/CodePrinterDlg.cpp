@@ -46,6 +46,7 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STARTPRINT_BUTTON, m_StartPrint);
 	DDX_Control(pDX, IDC_PAUSEPRINT_BUTTON, m_PausePrint);
 	DDX_Control(pDX, IDC_HEAD_PIC, m_PicHead);
+	DDX_Control(pDX, IDC_STATIC_MAIN_PICTURE, m_PictureMain);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -91,7 +92,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
     m_PicHead.SetMachineStatus(_T("Shut Down"));
 	m_PicHead.ShowLogo(true);
-
+	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//640,128
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
 	m_User = new CUserDlg;
@@ -103,6 +104,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
+	CreateDirectory(_T("Storage Card\\System\\UserPower"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
@@ -175,7 +177,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT1_BITMAP,IDB_PAUSE_PRINT2_BITMAP,0,0,IDB_PAUSE_PRINT1_BITMAP);
 	m_PausePrint.SizeToContent(); 
 
-	
+	//m_PictureMain.Invalidate();
 
 #ifdef def_ttl
 	//串口初始化
@@ -276,7 +278,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetTimer(TIMER1,1000,NULL);	
 
 #endif 
-
+	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -332,7 +334,7 @@ void CCodePrinterDlg::OnBnClickedFilemanaButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	//showDlg(IDD_FILEMANA_DIALOG);
-
+	GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
 
@@ -1280,7 +1282,7 @@ void CCodePrinterDlg::ChangeBottonEnable()
 	if (!theApp.myUserPower.booPcfAll)
 	{
 		m_Confi->GetDlgItem(IDC_CONFI_OPEN_BTN)->EnableWindow(theApp.myUserPower.booPcfIO);
-		m_Confi->GetDlgItem(IDC_BUTTON5)->EnableWindow(theApp.myUserPower.booPcfIO);
+		m_Confi->GetDlgItem(IDC_CONFIG_OK_BTN)->EnableWindow(theApp.myUserPower.booPcfIO);
 	}
 	m_Confi->GetDlgItem(IDC_CONFI_CLOSE_BTN)->EnableWindow(true);
 
@@ -1307,7 +1309,7 @@ void CCodePrinterDlg::ChangeBottonEnable()
 	theApp.myModuleMain.DisableAllBtn(m_System->pEvn->GetSafeHwnd(),theApp.myUserPower.booSysEnvCusOK);
 	if (theApp.myUserPower.booSysEnvCusOK||theApp.myUserPower.booSysNetComOK)
 	{
-		m_System->GetDlgItem(IDC_BUTTON9)->EnableWindow(true);
+		m_System->GetDlgItem(IDC_SYS_OK_BTN)->EnableWindow(true);
 	}
 	
 	//故障

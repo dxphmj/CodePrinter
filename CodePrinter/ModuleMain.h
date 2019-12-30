@@ -240,6 +240,7 @@ public:
 	string TCHAR2STRING(TCHAR *STR);
    const char* CString2ConstChar(CString str);
    void DisableAllBtn(HWND hwnd,bool booOpen);
+   void ReportPower();
    //string CString2string(CString csStrData);
    //×Ö·û×ªÊý×Ö
    int charToDigit(char c);

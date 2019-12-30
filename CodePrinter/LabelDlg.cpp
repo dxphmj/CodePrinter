@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "CodePrinter.h"
+#include "CodePrinterDlg.h"
 #include "LabelDlg.h"
 #include "InputDlg.h"
 #include <sstream>
@@ -283,6 +284,7 @@ void CLabelDlg::OnBnClickedInputButton()
 void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
+	m_designArea.Invalidate();
 	/*
 	CDC* pDC = m_designArea.GetDC();
 	CRect rectClient;
@@ -328,7 +330,7 @@ void CLabelDlg::OnPaint()
 	dcMem.DeleteDC();      // 删除内存DC
 	bitmapTemp.DeleteObject();      // 删除内存位图
 	//theApp.myclassMessage.DrawDot(pDC);
-
+	//m_designArea.Invalidate();
 	ReleaseDC(pDC); 
 
 	changeDis();
@@ -516,6 +518,7 @@ void CLabelDlg::OnCbnSelchangeCombo2()
 	//ss<<strText;
 	//ss>>pixel;
 	isFrame=true;
+	OnPaint();
 }
 
 void CLabelDlg::OnBnClickedUshiftButton()
@@ -798,11 +801,12 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 				&&nCol>=itr->intRowStart&&nCol<=(itr->intRowStart+itr->intRowSize))
 			{
 				itr->booFocus=true;
+				OnPaint();
 			}
 			++itr;
 		}
 	}
-	OnPaint();
+	
 	CDialog::OnLButtonDown(nFlags, point);
 }
 
@@ -820,20 +824,21 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//动态文本关
 
 	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
-	int rowMax=0;
+	theApp.myclassMessage.intRowMax=0;
 	memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
 	for(vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();objIter!=theApp.myclassMessage.OBJ_Vec.end();objIter++)
 	{
 		theApp.myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
 			objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
-		if (rowMax<(objIter->intRowSize+objIter->intRowStart))
+		if (theApp.myclassMessage.intRowMax<(objIter->intRowSize+objIter->intRowStart))
 		{
-			rowMax=objIter->intRowSize+objIter->intRowStart;
+			theApp.myclassMessage.intRowMax=objIter->intRowSize+objIter->intRowStart;
 		}
 
 	}
 	//以上都要放到getMessageDot中，
-
+	CCodePrinterDlg *pParent = (CCodePrinterDlg *)GetParent();
+	pParent->m_PictureMain.Invalidate();
 	//drawPrevFirst（）
 
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
@@ -842,7 +847,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	else
 	{
 		vector<BYTE> testByteVec;
-		testByteVec=theApp.myclassMessage.DotToByte(0,rowMax);
+		testByteVec=theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
 		dotDataLen_l=testByteVec.size()%256;
 		dotDataLen_h=testByteVec.size()/256;
 		pixelMes=(BYTE)pixel;

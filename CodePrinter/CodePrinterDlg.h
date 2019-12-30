@@ -13,7 +13,7 @@
 #include "FileManaDlg.h"
 #include "InkSystemDlg.h"
 #include "PictureStatic.h"
-
+#include "MainPicture.h"
 
 #include "OnOffDlg.h"
 #define TIMER1 1
@@ -35,7 +35,7 @@ public:
 
 public:
     CPictureStatic m_PicHead;
-
+	MainPicture m_PictureMain;
 public:
     void UpdateValve(); //更新各种阀的信息
     void GetFaultInfo(); //获得各种故障信息

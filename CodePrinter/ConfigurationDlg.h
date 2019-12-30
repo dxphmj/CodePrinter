@@ -53,4 +53,6 @@ public:
 	CImageButton m_configSaveIB;
 	CImageButton m_configOkIB;
  
+	afx_msg void OnBnClickedConfiOpenBtn();
+	afx_msg void OnBnClickedConfiSaveBtn();
 };

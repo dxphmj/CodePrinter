@@ -371,6 +371,12 @@ void ModuleMain::DisableAllBtn(HWND hwnd,bool booOpen)
 		subWnd = ::GetWindow(subWnd,GW_HWNDNEXT);
 	}
 }
+void ModuleMain::ReportPower()
+{
+	CString csMsg=_T("操作失败！\n您无此权限！") ;//= _T("串口4打开失败!");
+	//csMsg.Format(_T("串口%d打开失败!"),tempDcb.nComPort);
+	AfxMessageBox(csMsg);
+}
 ////////////////////////////////////////////////
 void StatusClass::byStatusFromSlaveState()
 {
