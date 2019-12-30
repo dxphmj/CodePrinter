@@ -9,6 +9,7 @@
 #include "ModuleMain.h"
 #include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
 #include "afxmt.h"
+#include "UserPower.h"
 #ifndef __AFXWIN_H__
 	#error "在包含此文件之前包含“stdafx.h”以生成 PCH 文件"
 #endif
@@ -32,6 +33,7 @@ public:
     COLORREF m_BKcolor;
 	CFont *m_HeadMachineStaFont;
 	CFont *m_HeadOperationStaFont;
+	CFont *m_StaticFont;
 
 // 重写
 public:
@@ -55,6 +57,7 @@ public:
 	CCriticalSection boQueCtrLock;//命令
 	CIOVsd myCIOVsd;
 	ModuleMain myModuleMain;
+	UserPower myUserPower;
 	DECLARE_MESSAGE_MAP()
 };
 

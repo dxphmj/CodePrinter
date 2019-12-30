@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ImageButton.h"
 
 // CConfigOutSet ¶Ô»°¿ò
 
@@ -25,12 +25,16 @@ public:
 	CListBox m_printDire;
 	CListBox m_productDete;
 	CListBox m_activeLev;
-	CComboBox FreqMulti;
+	CComboBox m_FreqMulti;
 	CEdit  m_impulse;
 	CEdit m_length;
 	CEdit m_currentLevel;
 	CEdit m_triggerLen;
 
+	CImageButton m_outSetReturn;
+	CImageButton m_outSetOk;
+
 	CString m_currentLevelStr;
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	
 };

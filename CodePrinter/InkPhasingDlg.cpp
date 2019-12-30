@@ -14,7 +14,6 @@ CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkPhasingDlg::IDD, pParent)
 	, m_fixed(0)
 {
-
 }
 
 CInkPhasingDlg::~CInkPhasingDlg()

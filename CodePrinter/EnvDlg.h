@@ -22,5 +22,6 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnCbnSelchangeLanguageCombo();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CListBox m_langeageList;
 };

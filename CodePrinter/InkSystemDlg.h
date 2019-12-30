@@ -52,6 +52,15 @@ public:
 	CColorButton m_CIB_SolventValve;  //溶剂阀
 	CColorButton m_CIB_ViscoValve;    //粘度阀
 	CColorButton m_CIB_FlushValve  ;  //清洗阀
+
+	CImageButton m_returnIB;
+	CImageButton m_usualIB;
+	CImageButton m_advanceIB;
+	CImageButton m_setupIB;
+	CImageButton m_parameterIB;
+	CImageButton m_phasingIB;
+	CImageButton m_okIB;
+
    
 	//变量
 	CEdit m_Pressure;         //压力
