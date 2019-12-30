@@ -60,7 +60,7 @@ UserPower::UserPower(void)
 	 }
 	 else
 	 {
-		 ofstream outUser("Storage Card\\System\\UserPower\\userName.txt", ios::app);
+		 ofstream outUser("Storage Card\\System\\UserPower\\userName.txt", ios::out);
 		 outUser.close();
 	 }
 

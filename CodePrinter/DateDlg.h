@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ImageButton.h"
 
 // CDateDlg ¶Ô»°¿ò
 
@@ -21,4 +21,8 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedDateCloseBtn();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	CImageButton m_returnIB;
+	CImageButton m_okIB;
+	CImageButton m_freshIB;
 };

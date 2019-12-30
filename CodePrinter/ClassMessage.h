@@ -100,6 +100,7 @@ namespace MyNameSpace
 		bool boReverse;//翻转，颠倒，由喷印设置中更改
 		bool boInverse;
         bool boDotMes[32][255];
+		int intRowMax;
 		int bytRowByteMul;//一列由几个byte表示
 		bool boDynamic;//是否动态打印
 		bool boPrintNow;//是否即时打印
