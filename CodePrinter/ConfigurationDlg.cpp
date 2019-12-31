@@ -45,9 +45,12 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFI_OPEN_BTN, m_configOpenIB);
 	DDX_Control(pDX, IDC_CONFI_SAVE_BTN, m_configSaveIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
+
 	DDX_Control(pDX, IDC_PIC_PRINTER_SETUP, m_PCFdiagram);
 	DDX_Control(pDX, IDC_SPEED_EDIT, m_edit_speed);
 	DDX_Control(pDX, IDC_DELAY_EDIT, m_edit_delay);
+
+
 }
 
 
@@ -63,8 +66,14 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_WM_CTLCOLOR()
 
 	ON_CBN_SELCHANGE(IDC_INVERSE_COMBO, &CConfigurationDlg::OnCbnSelchangeInverseCombo)
+
 	ON_EN_SETFOCUS(IDC_SPEED_EDIT, &CConfigurationDlg::OnEnSetfocusSpeedEdit)
 	ON_EN_SETFOCUS(IDC_DELAY_EDIT, &CConfigurationDlg::OnEnSetfocusDelayEdit)
+
+	ON_CBN_SELCHANGE(IDC_REVERSE_COMBO, &CConfigurationDlg::OnCbnSelchangeReverseCombo)
+	ON_WM_PAINT()
+	ON_EN_CHANGE(IDC_DELAY_EDIT, &CConfigurationDlg::OnEnChangeDelayEdit)
+
 END_MESSAGE_MAP()
 
 
@@ -75,7 +84,6 @@ BOOL CConfigurationDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
     //按钮界面初始化
-	m_ConfigPrintModeDlg = new CConfigPrintModeDlg;
 	m_ConfigPM= new CConfigPrintModeDlg;
 	m_ConfigOS = new CConfigOutSetDlg;
 	int nX = 0;
@@ -104,12 +112,14 @@ BOOL CConfigurationDlg::OnInitDialog()
 	CRect rect1;
 	GetDlgItem(IDC_CONFI_CLOSE_BTN)->GetWindowRect(&rect1);
 
-	GetDlgItem(IDC_CONFI_CLOSE_BTN)->SetWindowPos(NULL,11,390,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
-	GetDlgItem(IDC_PRINT_SET_BTN)->SetWindowPos(NULL,200,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_OUT_SET_BTN)->SetWindowPos(NULL,300,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_CONFI_OPEN_BTN)->SetWindowPos(NULL,400,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_CONFI_SAVE_BTN)->SetWindowPos(NULL,500,390,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_CONFIG_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+	int nBottomButtonHeight = 420;
+
+	GetDlgItem(IDC_CONFI_CLOSE_BTN)->SetWindowPos(NULL,11,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_PRINT_SET_BTN)->SetWindowPos(NULL,200,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_OUT_SET_BTN)->SetWindowPos(NULL,300,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFI_OPEN_BTN)->SetWindowPos(NULL,400,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFI_SAVE_BTN)->SetWindowPos(NULL,500,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CONFIG_OK_BTN)->SetWindowPos(NULL,700,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
 	m_returnIB.SizeToContent(); 
@@ -124,10 +134,15 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_configOkIB.SizeToContent(); 
 
+
 	//////////////////////////////////////////////////////////////////////////
 	pNumKey = new CNumKey();
 	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
 	pNumKey->ShowWindow(SW_HIDE);
+
+	m_nPcfPic = IDB_SETUP_017;
+	pcf_diagram_select();
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -182,7 +197,6 @@ void CConfigurationDlg::OnBnClickedSavePcf()
 }
 
 
-
 void CConfigurationDlg::OnBnClickedConfiOpenBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -226,6 +240,14 @@ HBRUSH CConfigurationDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  在此更改 DC 的任何属性
+
+	if(nCtlColor == CTLCOLOR_STATIC)
+	{		 
+		pDC->SelectObject(theApp.m_StaticFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+	}
+
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
@@ -233,12 +255,69 @@ HBRUSH CConfigurationDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void CConfigurationDlg::pcf_diagram_select()
 {
-	;
+	if(m_ConfigPM->m_printMode.GetCurSel() == 0) //间歇喷印
+	{
+		if(m_reverse.GetCurSel() == 0) 
+		{
+			if(m_inverse.GetCurSel() == 0)
+			{
+				m_nPcfPic = IDB_SETUP_017;
+
+			}
+			else
+			{
+				m_nPcfPic = IDB_SETUP_019;
+
+			}
+		}
+		else
+		{
+			if(m_inverse.GetCurSel() == 0)
+			{
+				m_nPcfPic = IDB_SETUP_018;
+
+			}
+			else
+			{
+				m_nPcfPic = IDB_SETUP_020;
+			}
+		}
+	}
+	else //连续喷印
+	{
+		if(m_reverse.GetCurSel() == 0)
+		{
+			if(m_inverse.GetCurSel() == 0)
+			{
+				m_nPcfPic = IDB_SETUP_021;
+
+			}
+			else
+			{
+				m_nPcfPic = IDB_SETUP_023;
+
+			}
+		}
+		else
+		{
+			if(m_inverse.GetCurSel() == 0)
+			{
+				m_nPcfPic = IDB_SETUP_024;
+
+			}
+			else
+			{
+				m_nPcfPic = IDB_SETUP_022;
+			}
+		}
+	}
+	Invalidate();	 
 }
 
 void CConfigurationDlg::OnCbnSelchangeInverseCombo()
 {
 	// TODO: 在此添加控件通知处理程序代码
+
 	pcf_diagram_select();
 }
 
@@ -255,4 +334,43 @@ void CConfigurationDlg::OnEnSetfocusDelayEdit()
 	// TODO: 在此添加控件通知处理程序代码
 	CEdit *pEdit = &m_edit_delay;
 	pNumKey->getNumFromEdit(pEdit);//传入edit控件对象指针
+
+	pcf_diagram_select();
+}
+
+void CConfigurationDlg::OnCbnSelchangeReverseCombo()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	pcf_diagram_select();
+}
+
+void CConfigurationDlg::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	CRect   rect(0,0,800,420);  
+
+	//GetClientRect(&rect);    //获取对话框长宽      
+	CDC   dcBmp;             //定义并创建一个内存设备环境
+	dcBmp.CreateCompatibleDC(&dc);             //创建兼容性DC
+	CBitmap   bmpBackground;
+	//HBITMAP hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), _T("C:\\Users\\Admin\\Desktop\\1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+	//bmpBackground.Attach(hBitmap); //关联位图对象  
+	bmpBackground.LoadBitmap(m_nPcfPic);    //载入资源中图片
+	BITMAP   m_bitmap;                         //图片变量               
+	bmpBackground.GetBitmap(&m_bitmap);       //将图片载入位图中
+	//将位图选入临时内存设备环境
+	CBitmap  *pbmpOld = dcBmp.SelectObject(&bmpBackground);
+	//调用函数显示图片StretchBlt显示形状可变
+	dc.BitBlt(0, 0, rect.Width(), rect.Height(), &dcBmp, 0, 0, SRCCOPY);
+}
+
+void CConfigurationDlg::OnEnChangeDelayEdit()
+{
+	// TODO:  如果该控件是 RICHEDIT 控件，则它将不会
+	// 发送该通知，除非重写 CDialog::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
+
 }

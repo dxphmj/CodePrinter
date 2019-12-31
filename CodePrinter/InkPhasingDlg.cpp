@@ -91,17 +91,9 @@ void CInkPhasingDlg::OnBnClickedPashingCutBtn()
 		m_fixed = 1;
 	}
 	UpdateData(false);
-
-//If (bytModuVol - bytModuStep) > 0 Then
-//bytModuVol = bytModuVol - bytModuStep
-//texval_inksystem_pha_mv.Text = CStr(bytModuVol)
-//ElseIf (bytModuVol - bytModuStep) <= 0 Then
-//bytModuVol = 1
-//texval_inksystem_pha_mv.Text = CStr(bytModuVol)
-//End If
-//save_inksystem_mv_to_xml()
-//download_inksystem_mv()
-
+ 
+	//save_inksystem_mv_to_xml();
+	//download_inksystem_mv();
 }
 
 void CInkPhasingDlg::OnBnClickedSetAdjustSmallBtn()
@@ -116,7 +108,6 @@ void CInkPhasingDlg::OnBnClickedSetAdjustSmallBtn()
 
 	m_PhaMvStep1.Invalidate();
 	m_PhaMvStep10.Invalidate();
-
 }
 
 void CInkPhasingDlg::OnBnClickedSetAdjustBigBtn()
@@ -182,8 +173,7 @@ BOOL CInkPhasingDlg::OnInitDialog()
 		m_PhaMvAuto.m_bitmapNorm.DeleteObject();
 		m_PhaMvAuto.m_bitmapNorm.LoadBitmap(MAKEINTRESOURCE(IDB_BITMAP_PHA_CIRCLE_UNSEL));
 	}
-//	m_PhaMvAuto.Invalidate();
-
+ 
 	if(theApp.myStatusClass.bytModuStep = 10)
 	{
 		m_PhaMvStep1.m_bitmapNorm.DeleteObject();

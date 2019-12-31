@@ -54,6 +54,7 @@ BEGIN_MESSAGE_MAP(CPathDialog, CDialog)
 //	ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
 ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
 ON_WM_CTLCOLOR()
+//ON_NOTIFY(NM_CUSTOMDRAW, IDC_TREE_DIRVIEW, &CPathDialog::OnNMCustomdrawTreeDirview)
 END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPathDialog message handlers
@@ -111,9 +112,6 @@ BOOL CPathDialog::OnInitDialog()
 	m_tree.SetImageList(&m_ImageList, LVSIL_NORMAL);
 	m_tree.SetFont(m_Font);
 	HTREEITEM hRoot = m_tree.InsertItem(_T("我的设备"), 0, 0, TVI_ROOT, TVI_LAST);
-	NMTVCUSTOMDRAW* plvoid = reinterpret_cast<NMTVCUSTOMDRAW*>(hRoot);
-	plvoid->clrTextBk = m_BKcolor;///无效？？
-
 	CreateDriveList();
 	m_tree.Expand(hRoot, TVE_EXPAND);
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+50,700,30,SWP_SHOWWINDOW);
@@ -421,7 +419,39 @@ HBRUSH CPathDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  在此更改 DC 的任何属性
-	pDC->SetBkColor(m_BKcolor);	
+    //if(pWnd->GetDlgCtrlID() != )
+	if (pWnd->GetDlgCtrlID() !=IDC_TREE_DIRVIEW)
+	{
+		pDC->SetBkColor(m_BKcolor);
+		return m_DlgBrush;
+	}
+	else
+	{
+		return hbr;
+	}
+		
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
-	return m_DlgBrush;
+	
 }
+
+//void CPathDialog::OnNMCustomdrawTreeDirview(NMHDR *pNMHDR, LRESULT *pResult)
+//{
+//	//LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+//	//// TODO: 在此添加控件通知处理程序代码
+//	//*pResult = 0;
+//
+//
+//	*pResult = CDRF_DODEFAULT;
+//	NMTVCUSTOMDRAW* plvoid = reinterpret_cast<NMTVCUSTOMDRAW*>(pNMHDR);
+//
+//	if(CDDS_PREPAINT == plvoid->nmcd.dwDrawStage)
+//	{
+//		*pResult = CDRF_NOTIFYITEMDRAW;
+//	}
+//	else if(CDDS_ITEMPREPAINT == plvoid->nmcd.dwDrawStage)
+//	{
+//		COLORREF crText, crBkgnd;
+//		plvoid->clrTextBk=m_BKcolor;
+//		*pResult = CDRF_DODEFAULT;  
+//	}
+//}

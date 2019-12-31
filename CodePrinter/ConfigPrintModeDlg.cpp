@@ -39,11 +39,24 @@ void CConfigPrintModeDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CConfigPrintModeDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONFIG_CLOSE_BTN, &CConfigPrintModeDlg::OnBnClickedConfigCloseBtn)
 	ON_WM_CTLCOLOR()
+
 	ON_EN_SETFOCUS(IDC_REAPEAT_COUNT_EDIT, &CConfigPrintModeDlg::OnEnSetfocusReapeatCountEdit)
+
+	ON_LBN_SELCHANGE(IDC_PRINT_MODE_LIST, &CConfigPrintModeDlg::OnLbnSelchangePrintModeList)
+
 END_MESSAGE_MAP()
 
 
 // CConfigPrintModeDlg 消息处理程序
+
+void CConfigPrintModeDlg::OnLbnSelchangePrintModeList()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CConfigurationDlg *pParent = (CConfigurationDlg *)GetParent();
+	pParent->pcf_diagram_select();
+}
+
 
 void CConfigPrintModeDlg::OnBnClickedConfigCloseBtn()
 {

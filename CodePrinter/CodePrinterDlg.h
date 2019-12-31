@@ -40,6 +40,7 @@ public:
 public:
     void UpdateValve(); //更新各种阀的信息
     void GetFaultInfo(); //获得各种故障信息
+    void UpdatePhase();
 
 // 实现
 protected:
@@ -62,6 +63,7 @@ public:
 	afx_msg void OnBnClickedOnoroffButton();
 	afx_msg void OnBnClickedStartprintButton();
 	afx_msg void OnBnClickedPauseprintButton();
+	afx_msg void OnBnClickedResetCountBtn();
 	CImageButton m_ButFault;
 	CImageButton m_ButSystem;
 	CImageButton m_ButUser;
@@ -80,8 +82,10 @@ public:
 	CFileManaDlg *m_FileMan;
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
+
 	COnOffDlg *m_OnOff;
 	CNumKey *pNumKey;
+
 	
 public:
 	void showDlg(int ID);

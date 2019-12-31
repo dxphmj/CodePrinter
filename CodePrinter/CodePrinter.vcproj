@@ -1027,11 +1027,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang0.bmp"
+				RelativePath=".\res\ang0.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang0.bmp"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang0.bmp"
 				>
 			</File>
 			<File
@@ -1327,10 +1327,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\¹ÊÕÏ--.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\bitmap2.bmp"
 				>
 			</File>
@@ -1435,18 +1431,6 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\head.bmp"
 				>
 			</File>
@@ -1460,10 +1444,6 @@
 			</File>
 			<File
 				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im003.png"
-				>
-			</File>
-			<File
-				RelativePath=".\res\ÅäÖÃ.bmp"
 				>
 			</File>
 			<File
@@ -1719,11 +1699,11 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\6Ä«Ë®ÏµÍ³\¼õ--.bmp"
+				RelativePath=".\res\¼õ--.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\¼õ--.bmp"
+				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\6Ä«Ë®ÏµÍ³\¼õ--.bmp"
 				>
 			</File>
 			<File
@@ -1947,6 +1927,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\¹ÊÕÏ--.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\¹ÊÕÏ.bmp"
 				>
 			</File>
@@ -2103,6 +2087,22 @@
 				>
 			</File>
 			<File
+				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\±³¾°Ìõ.bmp"
 				>
 			</File>
@@ -2116,10 +2116,6 @@
 			</File>
 			<File
 				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\±³¾°Ìõ.bmp"
 				>
 			</File>
 			<File
@@ -2140,6 +2136,10 @@
 			</File>
 			<File
 				RelativePath=".\res\ÅäÖÃ--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ÅäÖÃ.bmp"
 				>
 			</File>
 			<File
