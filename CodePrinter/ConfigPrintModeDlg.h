@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
+#include "NumKey.h"
 
 // CConfigPrintModeDlg ¶Ô»°¿ò
 
@@ -30,4 +31,8 @@ public:
 
 	CImageButton m_returnIB;
 	CImageButton m_okIB;
+	CEdit m_edit_repeatCount;
+	afx_msg void OnEnSetfocusReapeatCountEdit();
+
+	CNumKey *pNumKey;
 };

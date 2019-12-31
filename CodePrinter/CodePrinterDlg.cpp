@@ -180,6 +180,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	//m_PictureMain.Invalidate();
 
+
 #ifdef def_ttl
 	//´®¿Ú³õÊ¼»¯
 
@@ -1306,7 +1307,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		}
 		else if (m_PicHead.m_bBlueAlarm == true || m_PicHead.m_bYellowAlarm == true || m_PicHead.m_bRedAlarm == true )
 		{
-			m_ButFault.LoadBitmaps(IDB_BITMAP4,IDB_BITMAP4,0,0,IDB_80_55_BITMAP);
+			//m_ButFault.LoadBitmaps(IDB_BITMAP4,IDB_BITMAP4,0,0,IDB_80_55_BITMAP);
 			m_ButFault.SizeToContent(); 
 		}
 
