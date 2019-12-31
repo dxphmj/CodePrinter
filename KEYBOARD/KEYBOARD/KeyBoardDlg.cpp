@@ -34,13 +34,28 @@ BEGIN_MESSAGE_MAP(CKeyBoardDlg, CDialog)
 	ON_WM_SIZE()
 #endif
 	//}}AFX_MSG_MAP
-	ON_BN_CLICKED(IDC_MIAN_FONT1, &CKeyBoardDlg::OnBnClickedMainFont1)
 	ON_WM_CLOSE()
 	ON_EN_CHANGE(IDC_EDIT_ZRH, &CKeyBoardDlg::OnEnChangeEditZrh)
 	ON_BN_CLICKED(IDC_MIAN_LEFTPAGE, &CKeyBoardDlg::OnBnClickedMainLeftpage)
 	ON_BN_CLICKED(IDC_MIAN_RIGHTPAGE, &CKeyBoardDlg::OnBnClickedMainRightpage)
 	ON_EN_SETFOCUS(IDC_EDIT_INPUT, &CKeyBoardDlg::OnEnSetfocusEditInput)
 	ON_EN_SETFOCUS(IDC_EDIT_ZRH, &CKeyBoardDlg::OnEnSetfocusEditZrh)
+
+	ON_BN_CLICKED(IDC_MIAN_FONT1, &CKeyBoardDlg::OnBnClickedMainFont1)
+	ON_BN_CLICKED(IDC_MIAN_FONT2, &CKeyBoardDlg::OnBnClickedMainFont2)
+	ON_BN_CLICKED(IDC_MIAN_FONT3, &CKeyBoardDlg::OnBnClickedMainFont3)
+	ON_BN_CLICKED(IDC_MIAN_FONT4, &CKeyBoardDlg::OnBnClickedMainFont4)
+	ON_BN_CLICKED(IDC_MIAN_FONT5, &CKeyBoardDlg::OnBnClickedMainFont5)
+	ON_BN_CLICKED(IDC_MIAN_FONT6, &CKeyBoardDlg::OnBnClickedMainFont6)
+	ON_BN_CLICKED(IDC_MIAN_FONT7, &CKeyBoardDlg::OnBnClickedMainFont7)
+	ON_BN_CLICKED(IDC_MIAN_FONT8, &CKeyBoardDlg::OnBnClickedMainFont8)
+	ON_BN_CLICKED(IDC_MIAN_FONT9, &CKeyBoardDlg::OnBnClickedMainFont9)
+	ON_BN_CLICKED(IDC_MIAN_FONT10, &CKeyBoardDlg::OnBnClickedMainFont10)
+	ON_BN_CLICKED(IDC_MIAN_FONT11, &CKeyBoardDlg::OnBnClickedMainFont11)
+	ON_BN_CLICKED(IDC_MIAN_FONT12, &CKeyBoardDlg::OnBnClickedMainFont12)
+	ON_BN_CLICKED(IDC_MIAN_FONT13, &CKeyBoardDlg::OnBnClickedMainFont13)
+	ON_BN_CLICKED(IDC_MIAN_FONT14, &CKeyBoardDlg::OnBnClickedMainFont14)
+	ON_BN_CLICKED(IDC_MIAN_FONT15, &CKeyBoardDlg::OnBnClickedMainFont15)
 END_MESSAGE_MAP()
 
 
@@ -85,6 +100,7 @@ BOOL CKeyBoardDlg::OnInitDialog()
 
 	/////隐藏
 	btnHide();
+	m_zrh_edit.ShowWindow(SW_HIDE);
 
 
 	////////////初始化创建键盘窗口/////////////////////////////////
@@ -169,6 +185,7 @@ void CKeyBoardDlg::setEditText(CString &str)
 	case Swedish:
 	case Thai:
 	case Turkish:
+	case Symbol:
 		{	
 			int nPosStart;
 			int nPosEnd  = 0; 
@@ -318,6 +335,25 @@ void CKeyBoardDlg::FontSelect()
 	GetDlgItem(IDC_MIAN_FONT15)->SetWindowText(splitOut[j1 + 14]);
 }
 
+void CKeyBoardDlg::FontNull()
+{
+	GetDlgItem(IDC_MIAN_FONT1)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT2)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT3)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT4)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT5)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT6)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT7)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT8)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT9)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT10)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT11)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT12)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT13)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT14)->SetWindowText(_T(""));
+	GetDlgItem(IDC_MIAN_FONT15)->SetWindowText(_T(""));
+}
+
 void CKeyBoardDlg::Language()
 {
 	switch (LanType)
@@ -374,12 +410,6 @@ void CKeyBoardDlg::Language()
 }
 
 
-void CKeyBoardDlg::OnBnClickedMainFont1()
-{
-	CString tempstr;
-	GetDlgItem(IDC_MIAN_FONT1)->GetWindowText(tempstr);
-	this->setEditText_Font(tempstr);
-}
 void CKeyBoardDlg::OnBnClickedMainLeftpage()
 {
 	j1 = j1 - 15;
@@ -443,3 +473,168 @@ void CKeyBoardDlg::OnEnSetfocusEditZrh()
 
 }
 
+void CKeyBoardDlg::OnBnClickedMainFont1()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT1)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont2()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT2)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont3()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT3)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont4()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT4)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont5()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT5)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont6()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT6)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont7()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT7)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont8()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT8)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont9()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT9)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont10()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT10)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont11()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT11)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont12()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT12)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont13()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT13)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont14()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT14)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}
+void CKeyBoardDlg::OnBnClickedMainFont15()
+{
+	CString tempstr;
+	GetDlgItem(IDC_MIAN_FONT15)->GetWindowText(tempstr);
+	this->setEditText_Font(tempstr);
+	if (!(tempstr.Compare(_T("")) == 0 || tempstr.Compare(_T(" ")) == 0))//当文字按键不为空时，点击后m_zrh_edit清空
+	{
+		m_zrh_edit.SetWindowText(_T(""));
+		FontNull();
+	}
+}

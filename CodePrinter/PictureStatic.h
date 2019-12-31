@@ -16,6 +16,7 @@ public:
 	CString m_strMachineStatus;
 	bool    m_bShowLogo;
 	bool    m_bShowGreenAlarm,m_bShowBlueAlarm,m_bShowYellowAlarm,m_bShowRedAlarm;
+	bool    m_bRedAlarm,m_bGreenAlarm,m_bBlueAlarm,m_bYellowAlarm;
 
 public:
 	void SetOperationString(CString OperationString){m_strOperation = OperationString; m_bShowLogo = false;Invalidate();}

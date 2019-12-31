@@ -683,6 +683,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NumKey.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\OnOffDlg.cpp"
 				>
 			</File>
@@ -918,6 +922,10 @@
 			</File>
 			<File
 				RelativePath=".\MyLogCpp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NumKey.h"
 				>
 			</File>
 			<File
@@ -1319,6 +1327,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\¹ÊÕÏ--.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\bitmap2.bmp"
 				>
 			</File>
@@ -1423,6 +1435,18 @@
 				>
 			</File>
 			<File
+				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\head.bmp"
 				>
 			</File>
@@ -1436,6 +1460,10 @@
 			</File>
 			<File
 				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im003.png"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ÅäÖÃ.bmp"
 				>
 			</File>
 			<File

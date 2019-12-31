@@ -57,9 +57,10 @@ public:
 					  Czech=8,Dutch=9,German=10,Finnish=11,
 					  Hindi=12,Hungarian=13,Italian=14,Portuguese=15,
 					  Russian=16,Spanish=17,Swedish=18,
-					  Thai=19,Turkish=20,Japanese_others = 21,Korean_others = 22};
-	int LanType;
-	int LanTurn;
+					  Thai=19,Turkish=20,Japanese_others = 21,Korean_others = 22,Symbol = 23};
+	int LantypeReverse;//语言与符号转换
+	int LanType;//当前语言种类
+	int LanTurn;//英语与其他语言转换
 public:
 	 void setEditText(CString &str);//设置主编辑框文本
 	 void setEditText_Font(CString &str);
@@ -69,16 +70,32 @@ public:
 	 void CreateChineseMapLan();
 	 void Language();//中日韩
 	 void FontSelect();//Font按钮文本获取
+	 void FontNull();//Font文本清空
 	 vector<CString> split(CString str);//字符串分割
 
 public:
 	afx_msg void OnEnSetfocusEdit1();
 	afx_msg void OnClose();
-	afx_msg void OnBnClickedMainFont1();
 	afx_msg void OnEnChangeEditZrh();
 	afx_msg void OnBnClickedMainLeftpage();
 	afx_msg void OnBnClickedMainRightpage();
 	afx_msg void OnEnSetfocusEditInput();
 	afx_msg void OnEnSetfocusEditZrh();
+
+	afx_msg void OnBnClickedMainFont1();
+	afx_msg void OnBnClickedMainFont2();
+	afx_msg void OnBnClickedMainFont3();
+	afx_msg void OnBnClickedMainFont4();
+	afx_msg void OnBnClickedMainFont5();
+	afx_msg void OnBnClickedMainFont6();
+	afx_msg void OnBnClickedMainFont7();
+	afx_msg void OnBnClickedMainFont8();
+	afx_msg void OnBnClickedMainFont9();
+	afx_msg void OnBnClickedMainFont10();
+	afx_msg void OnBnClickedMainFont11();
+	afx_msg void OnBnClickedMainFont12();
+	afx_msg void OnBnClickedMainFont13();
+	afx_msg void OnBnClickedMainFont14();
+	afx_msg void OnBnClickedMainFont15();
 };
 

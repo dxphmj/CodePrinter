@@ -142,6 +142,7 @@ void CPictureStatic::OnPaint()
 
 void CPictureStatic::SetRedAlarm(bool bAlarm)
 {
+	m_bRedAlarm = bAlarm;
 	if(m_bShowRedAlarm != bAlarm)
 	{
         m_bShowRedAlarm = bAlarm;
@@ -151,6 +152,7 @@ void CPictureStatic::SetRedAlarm(bool bAlarm)
 
 void CPictureStatic::SetGreenAlarm(bool bAlarm)
 {
+	m_bGreenAlarm = bAlarm;
 	if(m_bShowGreenAlarm != bAlarm)
 	{
         m_bShowGreenAlarm = bAlarm;
@@ -160,6 +162,7 @@ void CPictureStatic::SetGreenAlarm(bool bAlarm)
 
 void CPictureStatic::SetBlueAlarm(bool bAlarm)	
 {
+	m_bBlueAlarm = bAlarm;
 	if(m_bShowBlueAlarm != bAlarm)
 	{
         m_bShowBlueAlarm = bAlarm;
@@ -169,6 +172,7 @@ void CPictureStatic::SetBlueAlarm(bool bAlarm)
 
 void CPictureStatic::SetYellowAlarm(bool bAlarm)
 {
+	m_bYellowAlarm = bAlarm;
 	if(m_bShowYellowAlarm != bAlarm)
 	{
         m_bShowYellowAlarm = bAlarm;
