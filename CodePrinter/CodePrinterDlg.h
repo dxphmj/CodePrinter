@@ -62,6 +62,7 @@ public:
 	afx_msg void OnBnClickedOnoroffButton();
 	afx_msg void OnBnClickedStartprintButton();
 	afx_msg void OnBnClickedPauseprintButton();
+	afx_msg void OnBnClickedResetCountBtn();
 	CImageButton m_ButFault;
 	CImageButton m_ButSystem;
 	CImageButton m_ButUser;
