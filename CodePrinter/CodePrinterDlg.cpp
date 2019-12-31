@@ -76,13 +76,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
- //	CBitmap bitmap;  // CBitmap对象，用于加载位图   
-	//HBITMAP hBmp;    // 保存CBitmap加载的位图的句柄   
-	//bitmap.LoadBitmap(IDB_CLOSE_BITMAP);  // 将位图IDB_BITMAP1加载到bitmap  
-	//hBmp = (HBITMAP)bitmap.GetSafeHandle();  // 获取bitmap加载位图的句柄   
-	//m_LogoPicBox.SetBitmap(hBmp);    // 设置图片控件m_jzmPicture的位图图片为IDB_BITMAP1   
-
-   
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
@@ -93,7 +86,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
     m_PicHead.SetMachineStatus(_T("Shut Down"));
 	m_PicHead.ShowLogo(true);
 
-	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//640,128
+	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;

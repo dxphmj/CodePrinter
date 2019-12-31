@@ -30,7 +30,6 @@
 #define IDD_INK_SETUP_DIALOG            154
 #define IDD_INK_PAR_DIALOG              155
 #define IDD_INK_PHASING_DIALOG          156
-#define IDB_IM017_BITMAP                167
 #define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
 #define IDB_DOWNLOAD_BITMAP             190
@@ -208,9 +207,6 @@
 #define IDB_BITMAP_NOTCHANGE            451
 #define IDB_BITMAP_RLEFTRIGHT           452
 #define IDD_DIALOG_NUMKEY               453
-
-
-
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -607,24 +603,22 @@
 #define IDC_PIC_PRINTER_SETUP           1492
 #define IDC_STATIC_PROCOUNT             1493
 #define IDC_STATIC_PRICOUNT             1494
-
 #define IDC_BUTTON_KEY7                 1495
-#define IDC_BUTTON_KEY8                    1496
-#define IDC_BUTTON_KEY9                         1497
-#define IDC_BUTTON_KEY4                         1498
-#define IDC_BUTTON_KEY5                         1499
-#define IDC_BUTTON_KEY6                         1500
-#define IDC_BUTTON_KEY_ESC                         1501
-#define IDC_BUTTON_KEY1                         1502
-#define IDC_BUTTON_KEY2                         1503
-#define IDC_BUTTON_KEY3                         1504
-#define IDC_BUTTON_KEY_OK                         1505
-#define IDC_BUTTON_KEY0                         1506
-#define IDC_BUTTON_KEY_DOC                         1507
-#define IDC_BUTTON_KEY_LEFT                         1508
-#define IDC_BUTTON_KEY_RIGHT                         1509
-#define IDC_BUTTON_KEY_DEL                         1510
-
+#define IDC_BUTTON_KEY8                 1496
+#define IDC_BUTTON_KEY9                 1497
+#define IDC_BUTTON_KEY4                 1498
+#define IDC_BUTTON_KEY5                 1499
+#define IDC_BUTTON_KEY6                 1500
+#define IDC_BUTTON_KEY_ESC              1501
+#define IDC_BUTTON_KEY1                 1502
+#define IDC_BUTTON_KEY2                 1503
+#define IDC_BUTTON_KEY3                 1504
+#define IDC_BUTTON_KEY_OK               1505
+#define IDC_BUTTON_KEY0                 1506
+#define IDC_BUTTON_KEY_DOC              1507
+#define IDC_BUTTON_KEY_LEFT             1508
+#define IDC_BUTTON_KEY_RIGHT            1509
+#define IDC_BUTTON_KEY_DEL              1510
 
 // Next default values for new objects
 // 
