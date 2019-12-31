@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(COnOffDlg, CDialog)
 	ON_BN_CLICKED(IDC_SEQUENCE_BTN, &COnOffDlg::OnBnClickedSequenceButton)
 	ON_BN_CLICKED(IDC_FAST_BTN, &COnOffDlg::OnBnClickedFastButton)
 	ON_BN_CLICKED(IDC_RETURN_BTN, &COnOffDlg::OnBnClickedReturnBtn)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -57,7 +58,8 @@ void COnOffDlg::OnBnClickedSequenceButton()
 		theApp.myStatusClass.ctr0X00bit0 = 0;
 	}
 	theApp.myStatusClass.download_inksystem_control00();
-	this->ShowWindow(SW_HIDE);
+	this->OnCancel();
+	//this->ShowWindow(SW_HIDE);
 }
 //快速开机
 void COnOffDlg::OnBnClickedFastButton()
@@ -80,10 +82,22 @@ void COnOffDlg::OnBnClickedFastButton()
 		theApp.myStatusClass.ctr0X00bit0 = 0;
 	}
 	theApp.myStatusClass.download_inksystem_control00();
-	this->ShowWindow(SW_HIDE);
+
+	this->OnCancel();
+	//this->ShowWindow(SW_HIDE);
 }
 void COnOffDlg::OnBnClickedReturnBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	this->ShowWindow(SW_HIDE);
+	this->OnCancel();
+	//this->ShowWindow(SW_HIDE);
+}
+
+HBRUSH COnOffDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+	
+	pDC->SetBkColor(theApp.m_BKcolor);
+	 
+	return theApp.m_DlgBrush;
 }

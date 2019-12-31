@@ -80,7 +80,6 @@ public:
 	CFileManaDlg *m_FileMan;
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
-	COnOffDlg *m_OnOff;
 	
 public:
 	void showDlg(int ID);

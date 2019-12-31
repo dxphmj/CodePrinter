@@ -22,4 +22,5 @@ public:
 	afx_msg void OnBnClickedSequenceButton();
 	afx_msg void OnBnClickedFastButton();
 	afx_msg void OnBnClickedReturnBtn();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

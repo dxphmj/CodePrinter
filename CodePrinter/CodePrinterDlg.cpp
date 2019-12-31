@@ -95,7 +95,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
-	m_OnOff = new COnOffDlg; 
+	//m_OnOff = new COnOffDlg; 
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -128,8 +128,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
 	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
 	
-	m_OnOff->Create(IDD_ONOFF_DIALOG,this);
-	m_OnOff->MoveWindow(200,200,300,200);
+//	m_OnOff->Create(IDD_ONOFF_DIALOG,this);
+//	m_OnOff->MoveWindow(200,200,300,200);
 
 	
 	//右侧一列设置按钮的位置及大小
@@ -148,7 +148,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_STARTPRINT_BUTTON)->SetWindowPos(NULL,280,420,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetWindowPos(NULL,450,420,80,55,SWP_SHOWWINDOW);
 	
-	//彩色按钮
+	////彩色按钮
 	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButFault.SizeToContent(); 
 	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_80_55_BITMAP);
@@ -249,7 +249,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
     //墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
+
 	//SetTimer(TIMER1,1000,NULL);	
+
+	//SetTimer(TIMER1,300,NULL);	
+
 	pInksysConfig.get_inksystem_from_xml();
 
 	pInksysConfig.download_inksystem_setup();
@@ -269,7 +273,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
  
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	SetTimer(TIMER1,1000,NULL);	
+	SetTimer(TIMER1,300,NULL);	
 
 #endif 
 	
@@ -340,7 +344,10 @@ void CCodePrinterDlg::OnBnClickedInkButton()
 //开关机按钮
 void CCodePrinterDlg::OnBnClickedOnoroffButton()
 {
-	showDlg(IDD_ONOFF_DIALOG);
+	//showDlg(IDD_ONOFF_DIALOG);
+	COnOffDlg OnOffDlg;
+
+    OnOffDlg.DoModal();
 	
 }
 //开始喷印
@@ -374,7 +381,7 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
-	m_OnOff->ShowWindow(SW_HIDE);
+//	m_OnOff->ShowWindow(SW_HIDE);
 
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
@@ -420,10 +427,10 @@ void CCodePrinterDlg::showDlg(int ID)
 		m_Fault->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(_T("Fault System")); 
 	}
-	else if (ID == IDD_ONOFF_DIALOG)
+	/*else if (ID == IDD_ONOFF_DIALOG)
 	{
 		m_OnOff->ShowWindow(SW_SHOW);
-	}
+	}*/
 }
 
 void CCodePrinterDlg::UpdateValve()
@@ -1147,6 +1154,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
+		 KillTimer(TIMER1);
 		 if (theApp.myUserPower.isChangeUser)
 		 {
 			 ChangeBottonEnable();
@@ -1293,27 +1301,23 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//故障图标的显示
 		if (m_PicHead.m_bBlueAlarm == false && m_PicHead.m_bYellowAlarm == false && m_PicHead.m_bRedAlarm == false )
 		{
-			//m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
-			//m_ButFault.SizeToContent(); 
-		
+			m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
+			m_ButFault.SizeToContent(); 
+
 		}
 		else if (m_PicHead.m_bBlueAlarm == true || m_PicHead.m_bYellowAlarm == true || m_PicHead.m_bRedAlarm == true )
 		{
-			//m_ButFault.LoadBitmaps(IDB_BITMAP4,IDB_BITMAP4,0,0,IDB_80_55_BITMAP);
-			//m_ButFault.SizeToContent(); 
+			m_ButFault.LoadBitmaps(IDB_RED_FAULT1_BITMAP,IDB_RED_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
+			m_ButFault.SizeToContent(); 
 		}
-
-		
-
-
-
-	
-
+        m_ButFault.Invalidate();
 
 		//产品计数器
 		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
+
+		SetTimer(TIMER1,300,NULL);	
 	}
 
 }
