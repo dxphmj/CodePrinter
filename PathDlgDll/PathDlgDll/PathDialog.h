@@ -16,6 +16,8 @@ private:
 	int myType;//0为文件管理，1为lab保存，2为lab读取//0为默认。
 	bool booDisplay;
 	CString myPath;
+	COLORREF m_BKcolor;
+	CBrush m_DlgBrush;
 public:
 	enum{
 		STB_HIDE = 0,
@@ -63,6 +65,8 @@ public:
 	//CEdit m_editPath;
 	afx_msg void OnEnChangeEditFullpath();
 	CStatic m_Select;
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	//afx_msg void OnNMCustomdrawTreeDirview(NMHDR *pNMHDR, LRESULT *pResult);
 };
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

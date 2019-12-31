@@ -211,6 +211,8 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 		//xmlPath+="sss.xml";
 		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
 		//theApp.myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
+		CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
+		pPcfConfig.savePcfToXml(xmlPath);
 	}
 }
 

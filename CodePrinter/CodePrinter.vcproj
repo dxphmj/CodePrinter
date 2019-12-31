@@ -683,6 +683,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NumKey.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\OnOffDlg.cpp"
 				>
 			</File>
@@ -922,6 +926,10 @@
 			</File>
 			<File
 				RelativePath=".\MyLogCpp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NumKey.h"
 				>
 			</File>
 			<File
@@ -1327,6 +1335,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\故障--.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\bitmap2.bmp"
 				>
 			</File>
@@ -1431,6 +1443,18 @@
 				>
 			</File>
 			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\head.bmp"
 				>
 			</File>
@@ -1444,6 +1468,10 @@
 			</File>
 			<File
 				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\im003.png"
+				>
+			</File>
+			<File
+				RelativePath=".\res\配置.bmp"
 				>
 			</File>
 			<File
@@ -1667,6 +1695,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\SMALL\上下左右颠倒.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\上下颠倒.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\下载--.bmp"
 				>
 			</File>
@@ -1747,6 +1783,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\SMALL\反黑.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\SMALL\右--.bmp"
 				>
 			</File>
@@ -1795,11 +1835,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\圆键-.bmp"
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\圆键-.bmp"
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\圆键-.bmp"
+				RelativePath=".\res\圆键-.bmp"
 				>
 			</File>
 			<File
@@ -1864,6 +1904,10 @@
 			</File>
 			<File
 				RelativePath=".\res\左二.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\左右颠倒.bmp"
 				>
 			</File>
 			<File
@@ -1995,6 +2039,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\SMALL\正常.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\水位--.bmp"
 				>
 			</File>
@@ -2063,19 +2111,19 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\背景条.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
 				>
 			</File>
 			<File

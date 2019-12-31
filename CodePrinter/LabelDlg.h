@@ -109,4 +109,11 @@ public:
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
+	afx_msg void OnBnClickedCopyButton();
+
+	CStatic m_picBNG;
+	CStatic m_picOverturn;
+
+	CBitmap m_PicBitmap[5];  // CBitmap对象，用于加载位图  
+	HBITMAP m_PichBmp[5];
 };

@@ -53,6 +53,8 @@ BEGIN_MESSAGE_MAP(CPathDialog, CDialog)
 	ON_BN_CLICKED(IDOK, &CPathDialog::OnBnClickedOk)
 //	ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
 ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
+ON_WM_CTLCOLOR()
+//ON_NOTIFY(NM_CUSTOMDRAW, IDC_TREE_DIRVIEW, &CPathDialog::OnNMCustomdrawTreeDirview)
 END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPathDialog message handlers
@@ -76,6 +78,9 @@ BOOL CPathDialog::OnInitDialog()
 		myPath="Storage Card\\User\\PrintConfig";
 		break;
 	}
+	m_BKcolor = RGB(210, 231, 251);
+	m_DlgBrush.CreateSolidBrush(m_BKcolor); 
+
 	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
 	CRect rect;
 	//GetWindowRect(&rect);
@@ -83,7 +88,22 @@ BOOL CPathDialog::OnInitDialog()
 	//设置按钮的位置及大小
 	CFont *m_Font;
 	m_Font=new CFont;
-	m_Font->CreatePointFont(120, _T("Arial"), NULL);
+	m_Font->CreateFont(
+		15,                 //字体高度(旋转后的字体宽度)=56   
+		0,                 //字体宽度(旋转后的字体高度)=20 
+		0,                 //字体显示角度  
+		0,                  //nOrientation=0 
+		700,                 //字体磅数=10  
+		FALSE,              //非斜体
+		FALSE,              //无下划线
+		FALSE,              //无删除线
+		DEFAULT_CHARSET,    //使用缺省字符集
+		OUT_DEFAULT_PRECIS, //缺省输出精度
+		CLIP_DEFAULT_PRECIS,//缺省裁减精度
+		DEFAULT_QUALITY,    //nQuality=缺省值
+		DEFAULT_PITCH,      //nPitchAndFamily=缺省值
+		L"@system");         //字体名=@system  
+		//CreatePointFont(120, _T("Arial"), NULL);
 	GetDlgItem(IDC_STATIC_SELECT)->SetWindowPos(NULL,rect.left+50,rect.top+10,700,20,SWP_SHOWWINDOW);
 	//GetDlgItem(IDC_STATIC_SELECT)->SetFont(&m_Font,true);
 	m_Select.SetFont(m_Font,true);
@@ -100,6 +120,9 @@ BOOL CPathDialog::OnInitDialog()
 	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+450,100,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDOK)->EnableWindow(booDisplay);
 	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+450,100,40,SWP_SHOWWINDOW);
+
+	//CTreeCtrl* testTree=(CTreeCtrl*)GetDlgItem(IDC_TREE_DIRVIEW);
+	//testTree->SetBkColor(m_BKcolor);///不是成员
 	//delete m_Font;
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -390,3 +413,45 @@ void CPathDialog::OnEnChangeEditFullpath()
 		_tcscpy(m_path, textPath);
 		//SetDlgItemText(IDC_EDIT_FULLPATH, m_path);
 }
+
+HBRUSH CPathDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+    //if(pWnd->GetDlgCtrlID() != )
+	if (pWnd->GetDlgCtrlID() !=IDC_TREE_DIRVIEW)
+	{
+		pDC->SetBkColor(m_BKcolor);
+		return m_DlgBrush;
+	}
+	else
+	{
+		return hbr;
+	}
+		
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	
+}
+
+//void CPathDialog::OnNMCustomdrawTreeDirview(NMHDR *pNMHDR, LRESULT *pResult)
+//{
+//	//LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+//	//// TODO: 在此添加控件通知处理程序代码
+//	//*pResult = 0;
+//
+//
+//	*pResult = CDRF_DODEFAULT;
+//	NMTVCUSTOMDRAW* plvoid = reinterpret_cast<NMTVCUSTOMDRAW*>(pNMHDR);
+//
+//	if(CDDS_PREPAINT == plvoid->nmcd.dwDrawStage)
+//	{
+//		*pResult = CDRF_NOTIFYITEMDRAW;
+//	}
+//	else if(CDDS_ITEMPREPAINT == plvoid->nmcd.dwDrawStage)
+//	{
+//		COLORREF crText, crBkgnd;
+//		plvoid->clrTextBk=m_BKcolor;
+//		*pResult = CDRF_DODEFAULT;  
+//	}
+//}

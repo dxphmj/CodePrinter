@@ -119,9 +119,11 @@ void CKeyBoLan::OnBnClickedLanEsc()
 	pWnd->m_pSym->ShowWindow(SW_HIDE);
 	pWnd->m_pMain->ShowWindow(SW_SHOW);
 	pWnd->m_pCaps->ShowWindow(SW_HIDE); 
-	if (pWnd->LanType == 0||pWnd->LanType == 1||pWnd->LanType == 2||pWnd->LanType == 3)
+	if (pWnd->LanType == 0||pWnd->LanType == 1||pWnd->LanType == 2
+		||pWnd->LanType == 3||pWnd->LanType == 21||pWnd->LanType == 22)
 	{
 		pWnd->btnShow();
+		pWnd->m_zrh_edit.ShowWindow(SW_SHOW);
 	}
 	// TODO: 在此添加控件通知处理程序代码
 }
@@ -148,6 +150,8 @@ void CKeyBoLan::OnBnClickedLanChinese()
 	//pWnd->btnShow();
 	pWnd->LanType = 0;
 	pWnd->m_pMain->btnTextSel(pWnd->LanType);
+	pWnd->m_zrh_edit.SetWindowText(_T(""));
+	pWnd->FontNull();
 }
 void CKeyBoLan::OnBnClickedLanCzech()
 {//捷克文Czech
@@ -259,6 +263,8 @@ void CKeyBoLan::OnBnClickedLanJapanese()
 	//pWnd->btnShow();
 	pWnd->LanType = 1;
 	pWnd->m_pMain->btnTextSel(pWnd->LanType);
+	pWnd->m_zrh_edit.SetWindowText(_T(""));
+	pWnd->FontNull();
 }
 //////////////////////////////////////////////////////////////////////////
 void CKeyBoLan::OnBnClickedLanKorean()
@@ -271,6 +277,9 @@ void CKeyBoLan::OnBnClickedLanKorean()
 	//pWnd->btnShow();
 	pWnd->LanType = 2;
 	pWnd->m_pMain->btnTextSel(pWnd->LanType);
+	pWnd->m_zrh_edit.SetWindowText(_T(""));
+	pWnd->FontNull();
+
 }
 void CKeyBoLan::OnBnClickedLanPortuguese()
 {//葡萄牙语Portuguese
