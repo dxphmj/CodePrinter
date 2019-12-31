@@ -13,7 +13,7 @@ IMPLEMENT_DYNAMIC(CPictureStatic, CStatic)
 CPictureStatic::CPictureStatic()
 {
 	m_bShowLogo = false;
-	m_bShowGreenAlarm = m_bShowBlueAlarm = m_bShowYellowAlarm = m_bShowRedAlarm = true;
+	m_bShowGreenAlarm = m_bShowBlueAlarm = m_bShowYellowAlarm = m_bShowRedAlarm = false;
 }
 
 CPictureStatic::~CPictureStatic()
