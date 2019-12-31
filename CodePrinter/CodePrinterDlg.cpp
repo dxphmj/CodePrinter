@@ -1113,7 +1113,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 
 	//±àÂëÆ÷¹ý¿ì
-	if (theApp.myStatusClass.staLinFas == false && theApp.myStatusClass.staLinFasLas == false )
+	if (theApp.myStatusClass.staLinFas == true && theApp.myStatusClass.staLinFasLas == false )
 	{
 		theApp.myStatusClass.staLinFasLas = true;
 		CString csMsg ;
