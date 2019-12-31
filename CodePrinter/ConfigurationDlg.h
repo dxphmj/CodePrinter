@@ -25,7 +25,6 @@ public:
 	virtual BOOL OnInitDialog();
 
     //喷印界面的几个按钮界面接口
-	CConfigPrintModeDlg*  m_ConfigPrintModeDlg;
 	CConfigPrintModeDlg *m_ConfigPM;
 	CConfigOutSetDlg *m_ConfigOS;
 
@@ -42,6 +41,7 @@ public:
 	int m_repeatDis;
 	CComboBox m_speedWay;
 	int m_speed;
+	int m_nPcfPic;
  
 	afx_msg void OnBnClickedSavePcf();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
@@ -57,6 +57,8 @@ public:
  
 	afx_msg void OnBnClickedConfiOpenBtn();
 	afx_msg void OnBnClickedConfiSaveBtn();
-	CStatic m_PCFdiagram;
 	afx_msg void OnCbnSelchangeInverseCombo();
+	afx_msg void OnCbnSelchangeReverseCombo();
+	afx_msg void OnPaint();
+	afx_msg void OnEnChangeDelayEdit();
 };

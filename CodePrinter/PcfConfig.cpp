@@ -444,6 +444,7 @@ void CPcfConfig::get_pcf_from_xml()
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("TriggerLength"), _T("300"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.SetWindowText(tempstr);
 	}
+	m_pCodePrinterDlg->m_Confi->pcf_diagram_select();
 }
 
 
