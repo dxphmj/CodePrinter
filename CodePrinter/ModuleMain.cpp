@@ -316,7 +316,7 @@ const char* ModuleMain::CString2ConstChar(CString str)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=4;
+	tempDcb.nComPort=1;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -753,7 +753,7 @@ UINT TTLcomLoop(LPVOID pParam)
 					}
 					else if (!theApp.myclassMessage.boPrintNow)
 					{
-						if (GETnBIT_from_bytReadData(6,2,1)==_T("1"))
+						if (GETnBIT_from_bytReadData(6,2,1)!=_T("1"))
 						{
 							if (theApp.myclassMessage.boDynamic)
 							{
