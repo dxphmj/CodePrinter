@@ -1300,14 +1300,14 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//π ’œÕº±Íµƒœ‘ æ
 		if (m_PicHead.m_bBlueAlarm == false && m_PicHead.m_bYellowAlarm == false && m_PicHead.m_bRedAlarm == false )
 		{
-			m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
-			m_ButFault.SizeToContent(); 
+			//m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
+			//m_ButFault.SizeToContent(); 
 		
 		}
 		else if (m_PicHead.m_bBlueAlarm == true || m_PicHead.m_bYellowAlarm == true || m_PicHead.m_bRedAlarm == true )
 		{
-			m_ButFault.LoadBitmaps(IDB_BITMAP4,IDB_BITMAP4,0,0,IDB_80_55_BITMAP);
-			m_ButFault.SizeToContent(); 
+			//m_ButFault.LoadBitmaps(IDB_BITMAP4,IDB_BITMAP4,0,0,IDB_80_55_BITMAP);
+			//m_ButFault.SizeToContent(); 
 		}
 
 		
