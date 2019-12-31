@@ -173,8 +173,7 @@ BOOL CInkPhasingDlg::OnInitDialog()
 		m_PhaMvAuto.m_bitmapNorm.DeleteObject();
 		m_PhaMvAuto.m_bitmapNorm.LoadBitmap(MAKEINTRESOURCE(IDB_BITMAP_PHA_CIRCLE_UNSEL));
 	}
-//	m_PhaMvAuto.Invalidate();
-
+ 
 	if(theApp.myStatusClass.bytModuStep = 10)
 	{
 		m_PhaMvStep1.m_bitmapNorm.DeleteObject();

@@ -1142,6 +1142,16 @@ void CCodePrinterDlg::GetFaultInfo()
 }
 
 
+void CCodePrinterDlg::UpdatePhase()
+{
+	if (theApp.myTimClass.staPhaseLas != theApp.myStatusClass.staPhase)
+	{
+		m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+		theApp.myTimClass.staPhaseLas = theApp.myStatusClass.staPhase;
+		m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+	}
+}
+
 //定时器
 void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
@@ -1234,19 +1244,8 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		//实时相位
-		switch(theApp.myStatusClass.staPhase)
-		{			
-			case 0:
-			{
-				if (theApp.myTimClass.staPhaseLas == 0)
-				{
-					m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
-					m_Ink->m_phas->m_PicPhaAngle.Invalidate();
-				}
-			}
-
-		    break;
-		}
+		UpdatePhase();
+		
 		//准备好及绿灯处理
 		if (theApp.myStatusClass.staSysRea == true && theApp.myTimClass.staSysReaLas == false  )
 		{

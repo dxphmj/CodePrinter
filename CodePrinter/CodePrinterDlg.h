@@ -39,6 +39,7 @@ public:
 public:
     void UpdateValve(); //更新各种阀的信息
     void GetFaultInfo(); //获得各种故障信息
+    void UpdatePhase();
 
 // 实现
 protected:
