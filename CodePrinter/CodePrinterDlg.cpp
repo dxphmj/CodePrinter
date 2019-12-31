@@ -17,7 +17,7 @@
 //#include "Tchar.h”
 #include "PcfConfig.h"
 
-//#define  def_ttl 1
+#define  def_ttl 1
 
 
 #ifdef _DEBUG
@@ -66,7 +66,7 @@ BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
 	ON_BN_CLICKED(IDC_PAUSEPRINT_BUTTON, &CCodePrinterDlg::OnBnClickedPauseprintButton)
 	ON_WM_TIMER()
 	ON_WM_CTLCOLOR()
-
+	ON_BN_CLICKED(IDC_RESET_COUNT_BTN, &CCodePrinterDlg::OnBnClickedResetCountBtn)
 END_MESSAGE_MAP()
 
 
@@ -249,7 +249,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
     //墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
-	SetTimer(TIMER1,1000,NULL);	
+	//SetTimer(TIMER1,1000,NULL);	
 	pInksysConfig.get_inksystem_from_xml();
 
 	pInksysConfig.download_inksystem_setup();
@@ -1445,4 +1445,15 @@ void CCodePrinterDlg::ChangeBottonEnable()
 	//故障
 	m_Fault->GetDlgItem(IDC_DELETE_BTN)->EnableWindow(theApp.myUserPower.booFaultDelete);
 	//m_System->
+}
+//产品和喷印计数器清零
+void CCodePrinterDlg::OnBnClickedResetCountBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myPcfClass.pcf0X00bit5=1;
+	theApp.myPcfClass.pcf0X00bit6=1;
+	CPcfConfig pPcfConfig(this);
+	pPcfConfig.download_pcf();
+	theApp.myPcfClass.pcf0X00bit5=0;
+	theApp.myPcfClass.pcf0X00bit6=0;
 }
