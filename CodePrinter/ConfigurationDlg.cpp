@@ -45,12 +45,8 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFI_OPEN_BTN, m_configOpenIB);
 	DDX_Control(pDX, IDC_CONFI_SAVE_BTN, m_configSaveIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
-
-	DDX_Control(pDX, IDC_PIC_PRINTER_SETUP, m_PCFdiagram);
 	DDX_Control(pDX, IDC_SPEED_EDIT, m_edit_speed);
 	DDX_Control(pDX, IDC_DELAY_EDIT, m_edit_delay);
-
-
 }
 
 

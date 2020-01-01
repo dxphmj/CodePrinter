@@ -2,7 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by CodePrinter.rc
 //
-#define IDB_USER_DELE2_BITMAP           2
+#define IDB_USER_DELE2_BITMAP           101
 #define IDD_CODEPRINTER_DIALOG          102
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
@@ -620,7 +620,6 @@
 #define IDC_BUTTON_KEY_DOC				1508
 #define IDC_BUTTON_KEY_LEFT				1509
 #define IDC_BUTTON_KEY_RIGHT			1510
-#define IDD_DIALOG_NUMKEY				1511
 
 
 

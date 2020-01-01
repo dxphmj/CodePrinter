@@ -20,6 +20,39 @@
 #define	BTNST_INVALIDALIGN				4
 #endif
 
+
+class CBitmapBits
+{
+public:   
+	CBitmapBits()        
+		: m_pBitsBuf(NULL)        
+		, m_dwWidth(0)        
+		, m_dwHeight(0)    
+	{     
+	}     
+	~CBitmapBits()  
+	{       
+		Destroy(); 
+	}    
+	// 释放位图数据    
+	void Destroy()    
+	{       
+		if (m_pBitsBuf != NULL)      
+		{        
+			delete[] m_pBitsBuf;
+			m_pBitsBuf = NULL;
+		}        
+		m_dwWidth = 0;
+		m_dwHeight = 0;
+	} 
+public: 
+	BYTE *m_pBitsBuf;   
+	// 据按RGB排列，按行优先排列，无4字节对齐，大小等于：宽度*高度*3    
+	DWORD m_dwWidth;     // 位图宽度    
+	DWORD m_dwHeight;    // 位图高度
+}; 
+
+
 // CImageButton
 
 enum ImageDrawStyle
@@ -61,6 +94,9 @@ protected:
 	HWND m_menuParentWnd;
 	BOOL m_isMenuDisplayed;
 	HRGN CreateRgnFromBitmap(HBITMAP hBmp, COLORREF color);
+	BOOL Convert24To4Bmp(CBitmap* bmp24);//24->4灰度图
+	BOOL CopyCBitmapFromSrc(CBitmap* pBitmapDest, CBitmap* pBitmapSrc);
+
 	afx_msg BOOL OnClicked();
 public:
 	BOOL LoadBitmaps(UINT nIDBitmapResource,
