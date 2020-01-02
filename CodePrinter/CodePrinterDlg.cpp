@@ -17,7 +17,7 @@
 //#include "Tchar.h¡±
 #include "PcfConfig.h"
 
-#define  def_ttl 1
+//#define  def_ttl 1
 
 
 #ifdef _DEBUG
