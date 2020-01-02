@@ -51,6 +51,8 @@ public:
 	CEdit m_edit_input;
 	int j1,i1;
 	map< CString,CString >ChineseLanMap;
+	map< CString,CString >JapaneseLanMap;
+	map< CString,CString >KoreanLanMap;
 	vector<CString>splitOut;
 	enum LanTypeEnum{ Chinese = 0,Japanese=1,Korean=2,Chinese_others=3,
 					  Others=4,Arabic=5,Farsi=6,English=7,
@@ -68,6 +70,8 @@ public:
 	 void btnHide();//Font按钮隐藏
 	 void btnShow();//Font按钮显示
 	 void CreateChineseMapLan();
+	 void CreateJapaneseMapLan();
+	 void CreateKoreanMapLan();
 	 void Language();//中日韩
 	 void FontSelect();//Font按钮文本获取
 	 void FontNull();//Font文本清空

@@ -173,9 +173,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	//m_PictureMain.Invalidate();
 
-#ifdef def_ttl
-	//串口初始化
 
+#ifndef _DEBUG
+	//串口初始化
 	theApp.myModuleMain.InitCommMsg();
 #endif
 
@@ -249,13 +249,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
     //墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
-
-	//SetTimer(TIMER1,1000,NULL);	
-
-	//SetTimer(TIMER1,300,NULL);	
-
 	pInksysConfig.get_inksystem_from_xml();
-
 	pInksysConfig.download_inksystem_setup();
 	theApp.myStatusClass.download_inksystem_control03();// ?
 	pInksysConfig.download_inksystem_parameter();
@@ -263,7 +257,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	pPcfConfig.get_pcf_from_xml();
 	pPcfConfig.download_pcf();
 
-#ifdef def_ttl
+
+#ifndef _DEBUG
+//#ifdef def_ttl
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
 	strTempCmd=(LPTSTR)readArr;	 
@@ -1306,7 +1302,11 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		}
 		else if (m_PicHead.m_bBlueAlarm == true || m_PicHead.m_bYellowAlarm == true || m_PicHead.m_bRedAlarm == true )
 		{
+
+			//m_ButFault.LoadBitmaps(IDB_BITMAP4,IDB_BITMAP4,0,0,IDB_80_55_BITMAP);
+
 			m_ButFault.LoadBitmaps(IDB_RED_FAULT1_BITMAP,IDB_RED_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
+
 			m_ButFault.SizeToContent(); 
 		}
         m_ButFault.Invalidate();

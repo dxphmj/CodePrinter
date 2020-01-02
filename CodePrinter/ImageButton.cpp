@@ -228,6 +228,138 @@ BOOL CImageButton::OnClicked()
 	return FALSE;
 }
 
+
+// 把HBITMAP绘制到DC左上角
+BOOL DrawHBitmapToDC(HBITMAP hBitmap,HDC hDC)
+{   
+	// 参数有效性   
+	if (hBitmap == NULL || hDC == NULL)    
+	{      
+		return FALSE;  
+	}    
+	// 取得位图数据信息，宽度高度等   
+	BITMAP bmpObj = {0};   
+	if (::GetObject(hBitmap, sizeof(bmpObj), &bmpObj) == 0 || bmpObj.bmWidth <= 0 || bmpObj.bmHeight <= 0)  
+	{       
+		return FALSE; 
+	}    
+	// 创建内存DC    
+	HDC hMemDC = ::CreateCompatibleDC(hDC);			
+	if (hMemDC == NULL)  
+	{     
+		return FALSE; 
+	}     
+	// 把HBITMAP选入内存DC   
+	HBITMAP hOldBitmap = (HBITMAP)::SelectObject(hMemDC, hBitmap);    
+	// 把内存DC拷贝绘制到目标DC上    
+	::BitBlt(hDC, 0, 0, bmpObj.bmWidth, bmpObj.bmHeight, hMemDC, 0, 0, SRCCOPY);  
+	// 释放内存DC    
+	::SelectObject(hMemDC, hOldBitmap);   
+	::DeleteDC(hMemDC);          
+	// 绘制成功   
+	return TRUE;
+}
+
+// 由HBITMAP获取位图数据
+BOOL GetHBitmapBits(HBITMAP hBitmap, CBitmapBits &bitmapBits)
+{    
+	// 初始化输出参数   
+	bitmapBits.Destroy(); 
+	// 参数有效性   
+	if (hBitmap == NULL)    
+	{        
+		return FALSE; 
+	}     
+	// 取得位图数据信息，宽度高度等    
+	BITMAP bmpObj = {0};    
+	if (::GetObject(hBitmap, sizeof(bmpObj), &bmpObj) == 0 || bmpObj.bmWidth <= 0 || bmpObj.bmHeight <= 0) 
+	{       
+		return FALSE;
+	}    
+	// 创建DIB内存DC   
+	HDC hDIBDC = ::CreateCompatibleDC(NULL);      
+	if (hDIBDC == NULL)  
+	{       
+		return FALSE; 
+	}    
+	// 创建DIB兼容位图    
+	BITMAPINFO hdr;       
+	ZeroMemory(&hdr , sizeof(BITMAPINFO));      
+	hdr.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);  
+	hdr.bmiHeader.biWidth = bmpObj.bmWidth;     
+	hdr.bmiHeader.biHeight = -bmpObj.bmHeight; // 这里的目的是直接按正常行顺序使用数据
+	hdr.bmiHeader.biPlanes = 1;     
+	hdr.bmiHeader.biBitCount = 32;   
+	BYTE * pbtPixels = NULL;      
+	HBITMAP hDIBitmap = ::CreateDIBSection(hDIBDC, (BITMAPINFO *)&hdr, DIB_RGB_COLORS, (void **)&pbtPixels, NULL, 0);   
+	if (hDIBitmap == NULL)   
+	{      
+		::DeleteDC(hDIBDC);  
+		return FALSE;   
+	}    
+	// 把DIB位图选入DIB内存DC   
+	HBITMAP hOldDIBBmp = (HBITMAP)::SelectObject(hDIBDC, hDIBitmap);    
+	// 把HBITMAP绘制到DIB内存DC上   
+	if (DrawHBitmapToDC(hBitmap, hDIBDC) == FALSE)  
+	{       
+		::SelectObject(hDIBDC, hOldDIBBmp);   
+		::DeleteDC(hDIBDC);     
+		::DeleteObject(hDIBitmap);     
+		return FALSE;    
+	}    
+	// 从pbtPixels中取得位图数据存放到bitmapBits中    
+	// 申请存放数据内存    
+	bitmapBits.m_pBitsBuf = new BYTE[bmpObj.bmWidth*bmpObj.bmHeight*4];   
+	if (bitmapBits.m_pBitsBuf == NULL)  
+	{       
+		::SelectObject(hDIBDC, hOldDIBBmp);       
+		::DeleteDC(hDIBDC);        
+		::DeleteObject(hDIBitmap);    
+		return FALSE;   
+	}    
+	// 记录图片宽度高度    
+	bitmapBits.m_dwWidth = bmpObj.bmWidth;   
+	bitmapBits.m_dwHeight = bmpObj.bmHeight;   
+	// 行优先遍历取得每点RGB数据   
+	long lSrcRowStartPos = 0;  
+	long lSrcPos = 0;  
+	long lDstRowStartPos = 0; 
+	long lDstPos = 0;  
+	for (long lRowIndex=0; lRowIndex<bmpObj.bmHeight; lRowIndex++)  
+	{       
+		// 计算行首位置 
+		lSrcRowStartPos = lRowIndex * bmpObj.bmWidth * 4;    
+		lDstRowStartPos = lRowIndex * bmpObj.bmWidth * 4;      
+		// 遍历每一列       
+		for (long lColumnIndex=0; lColumnIndex<bmpObj.bmWidth; lColumnIndex++) 
+		{           
+			// 计算当前像素点的起始位置，以及目标存放位置     
+			lSrcPos = lSrcRowStartPos + lColumnIndex*4;      
+			lDstPos = lDstRowStartPos + lColumnIndex*4;   
+			// 源中应该是BGRA的4字节顺序，这里转存为RGB数据  
+			BYTE R = pbtPixels[lSrcPos+0];
+			BYTE G = pbtPixels[lSrcPos+1];
+			BYTE B = pbtPixels[lSrcPos+2];
+			BYTE c = (R+G+B)/3;
+			bitmapBits.m_pBitsBuf[lDstPos] = c;  
+			bitmapBits.m_pBitsBuf[lDstPos+1] = c;  
+			bitmapBits.m_pBitsBuf[lDstPos+2] = c;     
+
+//			bitmapBits.m_pBitsBuf[lDstPos] = pbtPixels[lSrcPos+0];  
+//			bitmapBits.m_pBitsBuf[lDstPos+1] = pbtPixels[lSrcPos+1];  
+//			bitmapBits.m_pBitsBuf[lDstPos+2] = pbtPixels[lSrcPos+2];     
+			bitmapBits.m_pBitsBuf[lDstPos+3] = pbtPixels[lSrcPos+3];     
+		}   
+	}    
+	// 释放DIB内存DC及位图  
+	::SelectObject(hDIBDC, hOldDIBBmp);    
+	::DeleteDC(hDIBDC);  
+	::DeleteObject(hDIBitmap);  
+	// 取得数据成功    
+	return TRUE;
+}
+
+
 BOOL CImageButton::LoadBitmaps(UINT nIDBitmapResource, UINT nIDBitmapResourceSel,UINT nIDBitmapResourceFocus, UINT nIDBitmapResourceDisabled, UINT nIDBitmapResourceMask)
 {
 	return LoadBitmaps(MAKEINTRESOURCE(nIDBitmapResource),
@@ -236,6 +368,58 @@ BOOL CImageButton::LoadBitmaps(UINT nIDBitmapResource, UINT nIDBitmapResourceSel
 		MAKEINTRESOURCE(nIDBitmapResourceDisabled),
 		MAKEINTRESOURCE(nIDBitmapResourceMask));
 }
+
+BOOL CImageButton::Convert24To4Bmp(CBitmap* bmp24)//24->4灰度图
+{	
+	DWORD dwByteWritten = 0;
+
+	BITMAP pBitMap;
+	bmp24->GetBitmap(&pBitMap);
+
+	// 只处理24位未压缩的图像
+	if (pBitMap.bmBitsPixel != 24)
+	{
+		return FALSE;
+	}
+
+	// 计算图像数据大小
+	DWORD dwOldSize = pBitMap.bmWidthBytes*pBitMap.bmHeight;
+	UCHAR  color = 0;
+	DWORD dwIndex = 0;
+	char* p = (char*)(pBitMap.bmBits);
+	BYTE R,G,B;
+
+	while( dwIndex < dwOldSize )//
+	{
+		R = p[dwIndex]; 
+		G = p[dwIndex+1]; 
+		B = p[dwIndex+2]; 
+		color = (R+G+B)/3;
+		p[dwIndex] = color;
+		p[dwIndex+1] = color;
+		p[dwIndex+2] = color;
+	}
+	return TRUE;	
+}
+
+BOOL CImageButton::CopyCBitmapFromSrc(CBitmap* pBitmapDest, CBitmap* pBitmapSrc)
+{	
+	BOOL bFlag = FALSE; 
+	CDC dcMemSrc;	
+	CDC dcMemDest;	
+	BITMAP bmpSrc;
+	dcMemSrc.CreateCompatibleDC(NULL);	
+	dcMemSrc.SelectObject(pBitmapSrc);
+	pBitmapSrc->GetBitmap(&bmpSrc); 	
+	dcMemDest.CreateCompatibleDC(NULL);
+	pBitmapDest->CreateCompatibleBitmap(&dcMemSrc, bmpSrc.bmWidth, bmpSrc.bmHeight);
+	dcMemDest.SelectObject(pBitmapDest); 
+	bFlag = dcMemDest.BitBlt(0, 0, bmpSrc.bmWidthBytes, bmpSrc.bmHeight, &dcMemSrc, 0, 0, SRCCOPY); 
+	dcMemSrc.DeleteDC();	
+	dcMemDest.DeleteDC();
+	return bFlag;
+}
+  
 
 // LoadBitmaps will load in one, two, three or all four bitmaps
 // returns TRUE if all specified images are loaded
@@ -274,6 +458,15 @@ BOOL CImageButton::LoadBitmaps(LPCTSTR lpszBitmapResource,
 	{
 		if (!m_bitmapDisabled.LoadBitmap(lpszBitmapResourceDisabled))
 			bAllLoaded = FALSE;
+	}
+	else
+	{	
+		CBitmapBits bitmapBits;   
+		GetHBitmapBits((HBITMAP)m_bitmapNorm.GetSafeHandle(),bitmapBits);
+		//CopyCBitmapFromSrc(&m_bitmapDisabled,&m_bitmapNorm);
+    	//Convert24To4Bmp(&m_bitmapDisabled);
+	 	HBITMAP hBitmap = ::CreateBitmap(bitmapBits.m_dwWidth,bitmapBits.m_dwHeight,1,32,bitmapBits.m_pBitsBuf);
+        m_bitmapDisabled.Attach(hBitmap);
 	}
 
 	if (lpszBitmapResourceMask != NULL)

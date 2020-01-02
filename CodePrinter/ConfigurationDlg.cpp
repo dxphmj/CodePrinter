@@ -45,6 +45,8 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFI_OPEN_BTN, m_configOpenIB);
 	DDX_Control(pDX, IDC_CONFI_SAVE_BTN, m_configSaveIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
+	DDX_Control(pDX, IDC_SPEED_EDIT, m_edit_speed);
+	DDX_Control(pDX, IDC_DELAY_EDIT, m_edit_delay);
 }
 
 
@@ -60,9 +62,14 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_WM_CTLCOLOR()
 
 	ON_CBN_SELCHANGE(IDC_INVERSE_COMBO, &CConfigurationDlg::OnCbnSelchangeInverseCombo)
+
+	ON_EN_SETFOCUS(IDC_SPEED_EDIT, &CConfigurationDlg::OnEnSetfocusSpeedEdit)
+	ON_EN_SETFOCUS(IDC_DELAY_EDIT, &CConfigurationDlg::OnEnSetfocusDelayEdit)
+
 	ON_CBN_SELCHANGE(IDC_REVERSE_COMBO, &CConfigurationDlg::OnCbnSelchangeReverseCombo)
 	ON_WM_PAINT()
 	ON_EN_CHANGE(IDC_DELAY_EDIT, &CConfigurationDlg::OnEnChangeDelayEdit)
+
 END_MESSAGE_MAP()
 
 
@@ -75,7 +82,6 @@ BOOL CConfigurationDlg::OnInitDialog()
     //按钮界面初始化
 	m_ConfigPM= new CConfigPrintModeDlg;
 	m_ConfigOS = new CConfigOutSetDlg;
-
 	int nX = 0;
 	int nY = 100;
 	int nWidth = 800;
@@ -124,8 +130,15 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_configOkIB.SizeToContent(); 
 
+
+	//////////////////////////////////////////////////////////////////////////
+	pNumKey = new CNumKey();
+	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
+	pNumKey->ShowWindow(SW_HIDE);
+
 	m_nPcfPic = IDB_SETUP_017;
 	pcf_diagram_select();
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -300,6 +313,24 @@ void CConfigurationDlg::pcf_diagram_select()
 void CConfigurationDlg::OnCbnSelchangeInverseCombo()
 {
 	// TODO: 在此添加控件通知处理程序代码
+
+	pcf_diagram_select();
+}
+
+void CConfigurationDlg::OnEnSetfocusSpeedEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	//CCodePrinterDlg* pWnd = (CCodePrinterDlg*)this->GetParent();
+	CEdit *pEdit = &m_edit_speed;
+	pNumKey->getNumFromEdit(pEdit);//传入edit控件对象指针
+}
+
+void CConfigurationDlg::OnEnSetfocusDelayEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_delay;
+	pNumKey->getNumFromEdit(pEdit);//传入edit控件对象指针
+
 	pcf_diagram_select();
 }
 
@@ -337,4 +368,5 @@ void CConfigurationDlg::OnEnChangeDelayEdit()
 	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
 	// TODO:  在此添加控件通知处理程序代码
+
 }

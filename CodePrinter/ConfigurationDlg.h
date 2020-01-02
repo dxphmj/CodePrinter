@@ -3,7 +3,7 @@
 #include "ConfigOutSetDlg.h"
 #include "afxwin.h"
 #include "ImageButton.h"
-
+#include "NumKey.h"
 // CConfigurationDlg ¶Ô»°¿ò
 
 class CConfigurationDlg : public CDialog
@@ -58,7 +58,14 @@ public:
 	afx_msg void OnBnClickedConfiOpenBtn();
 	afx_msg void OnBnClickedConfiSaveBtn();
 	afx_msg void OnCbnSelchangeInverseCombo();
+
+	afx_msg void OnEnSetfocusSpeedEdit();
+	CEdit m_edit_speed;
+	CNumKey *pNumKey;
+	CEdit m_edit_delay;
+	afx_msg void OnEnSetfocusDelayEdit();
 	afx_msg void OnCbnSelchangeReverseCombo();
 	afx_msg void OnPaint();
 	afx_msg void OnEnChangeDelayEdit();
+
 };

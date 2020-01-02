@@ -16,6 +16,7 @@
 #include "MainPicture.h"
 
 #include "OnOffDlg.h"
+#include "NumKey.h"
 #define TIMER1 1
 
 // CCodePrinterDlg ¶Ô»°¿ò
@@ -81,6 +82,10 @@ public:
 	CFileManaDlg *m_FileMan;
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
+
+	COnOffDlg *m_OnOff;
+	CNumKey *pNumKey;
+
 	
 public:
 	void showDlg(int ID);

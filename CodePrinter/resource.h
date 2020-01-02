@@ -2,7 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by CodePrinter.rc
 //
-#define IDB_USER_DELE2_BITMAP           2
+#define IDB_USER_DELE2_BITMAP           101
 #define IDD_CODEPRINTER_DIALOG          102
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
@@ -603,22 +603,25 @@
 #define IDC_PIC_PRINTER_SETUP           1492
 #define IDC_STATIC_PROCOUNT             1493
 #define IDC_STATIC_PRICOUNT             1494
-#define IDC_BUTTON_KEY7                 1495
-#define IDC_BUTTON_KEY8                 1496
-#define IDC_BUTTON_KEY9                 1497
-#define IDC_BUTTON_KEY4                 1498
-#define IDC_BUTTON_KEY5                 1499
-#define IDC_BUTTON_KEY6                 1500
-#define IDC_BUTTON_KEY_ESC              1501
-#define IDC_BUTTON_KEY1                 1502
-#define IDC_BUTTON_KEY2                 1503
-#define IDC_BUTTON_KEY3                 1504
-#define IDC_BUTTON_KEY_OK               1505
-#define IDC_BUTTON_KEY0                 1506
-#define IDC_BUTTON_KEY_DOC              1507
-#define IDC_BUTTON_KEY_LEFT             1508
-#define IDC_BUTTON_KEY_RIGHT            1509
-#define IDC_BUTTON_KEY_DEL              1510
+
+#define IDC_BUTTON_KEY1					1495
+#define IDC_BUTTON_KEY2					1496
+#define IDC_BUTTON_KEY3					1497
+#define IDC_BUTTON_KEY4					1498
+#define IDC_BUTTON_KEY5					1499
+#define IDC_BUTTON_KEY6					1500
+#define IDC_BUTTON_KEY7					1501
+#define IDC_BUTTON_KEY8					1502
+#define IDC_BUTTON_KEY9					1503
+#define IDC_BUTTON_KEY0					1504
+#define IDC_BUTTON_KEY_DEL				1505
+#define IDC_BUTTON_KEY_ESC				1506
+#define IDC_BUTTON_KEY_OK				1507
+#define IDC_BUTTON_KEY_DOC				1508
+#define IDC_BUTTON_KEY_LEFT				1509
+#define IDC_BUTTON_KEY_RIGHT			1510
+
+
 
 // Next default values for new objects
 // 
@@ -626,7 +629,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        454
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1511
+#define _APS_NEXT_CONTROL_VALUE         1512
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

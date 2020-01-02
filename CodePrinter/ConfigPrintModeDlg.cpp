@@ -32,12 +32,16 @@ void CConfigPrintModeDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_CONFIG_CLOSE_BTN, m_returnIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_okIB);
+	DDX_Control(pDX, IDC_REAPEAT_COUNT_EDIT, m_edit_repeatCount);
 }
 
 
 BEGIN_MESSAGE_MAP(CConfigPrintModeDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONFIG_CLOSE_BTN, &CConfigPrintModeDlg::OnBnClickedConfigCloseBtn)
 	ON_WM_CTLCOLOR()
+
+	ON_EN_SETFOCUS(IDC_REAPEAT_COUNT_EDIT, &CConfigPrintModeDlg::OnEnSetfocusReapeatCountEdit)
+
 	ON_LBN_SELCHANGE(IDC_PRINT_MODE_LIST, &CConfigPrintModeDlg::OnLbnSelchangePrintModeList)
 
 END_MESSAGE_MAP()
@@ -85,6 +89,11 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
 
+
+	//////////////////////////////////////////////////////////////////////////
+	pNumKey = new CNumKey();
+	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
+	pNumKey->ShowWindow(SW_HIDE);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -102,4 +111,10 @@ HBRUSH CConfigPrintModeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+void CConfigPrintModeDlg::OnEnSetfocusReapeatCountEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_repeatCount;
+	pNumKey->getNumFromEdit(pEdit);//传入edit控件对象指针
 }
