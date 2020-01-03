@@ -7,6 +7,7 @@
 #include "PcfConfig.h"
 #include "CodePrinterDlg.h"
 #include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
+#include "BnvImage.h"
 
 // CConfigurationDlg 对话框
 
@@ -136,9 +137,14 @@ BOOL CConfigurationDlg::OnInitDialog()
 	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
 	pNumKey->ShowWindow(SW_HIDE);
 
-	m_nPcfPic = IDB_SETUP_017;
+    for(int i = 0; i < 8; i++)
+	{
+		CBnvImage PngImage;
+		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_SETUP_017+i), _T("PNG")); 
+		m_HBitmap[i] = PngImage.CreatHBitmap(); 
+	}
+	m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;;
 	pcf_diagram_select();
-
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -257,12 +263,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_017;
+				m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_019;
+				m_nPcfPic = IDB_SETUP_019-IDB_SETUP_017;
 
 			}
 		}
@@ -270,12 +276,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_018;
+				m_nPcfPic = IDB_SETUP_018-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_020;
+				m_nPcfPic = IDB_SETUP_020-IDB_SETUP_017;
 			}
 		}
 	}
@@ -285,12 +291,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_021;
+				m_nPcfPic = IDB_SETUP_021-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_023;
+				m_nPcfPic = IDB_SETUP_023-IDB_SETUP_017;
 
 			}
 		}
@@ -298,12 +304,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_024;
+				m_nPcfPic = IDB_SETUP_024-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_022;
+				m_nPcfPic = IDB_SETUP_022-IDB_SETUP_017;
 			}
 		}
 	}
@@ -344,20 +350,18 @@ void CConfigurationDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	CRect   rect(0,0,800,420);  
-
-	//GetClientRect(&rect);    //获取对话框长宽      
 	CDC   dcBmp;             //定义并创建一个内存设备环境
 	dcBmp.CreateCompatibleDC(&dc);             //创建兼容性DC
 	CBitmap   bmpBackground;
-	//HBITMAP hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), _T("C:\\Users\\Admin\\Desktop\\1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-	//bmpBackground.Attach(hBitmap); //关联位图对象  
-	bmpBackground.LoadBitmap(m_nPcfPic);    //载入资源中图片
-	BITMAP   m_bitmap;                         //图片变量               
-	bmpBackground.GetBitmap(&m_bitmap);       //将图片载入位图中
+	bmpBackground.Attach(m_HBitmap[m_nPcfPic]); 
+
 	//将位图选入临时内存设备环境
 	CBitmap  *pbmpOld = dcBmp.SelectObject(&bmpBackground);
+
 	//调用函数显示图片StretchBlt显示形状可变
 	dc.BitBlt(0, 0, rect.Width(), rect.Height(), &dcBmp, 0, 0, SRCCOPY);
+	dcBmp.SelectObject(pbmpOld);
+	bmpBackground.Detach();	
 }
 
 void CConfigurationDlg::OnEnChangeDelayEdit()

@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "InkPhasingDlg.h"
+#include "BnvImage.h"
 
 
 // CInkPhasingDlg 对话框
@@ -13,11 +14,13 @@ IMPLEMENT_DYNAMIC(CInkPhasingDlg, CDialog)
 CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkPhasingDlg::IDD, pParent)
 	, m_fixed(0)
-{
+{ 
 	for(int i = 0; i < 35; i++)
 	{
-		m_AngleBitmap[i].LoadBitmap(IDB_PNG_ANG0+i);  // 将位图IDB_BITMAP1加载到bitmap  
-		m_AnglehBmp[i] = (HBITMAP)m_AngleBitmap[i].GetSafeHandle();  // 获取bitmap加载位图的句柄   
+		CBnvImage PngImage;
+		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0+i), _T("PNG")); 
+		//m_AngleBitmap[i].LoadBitmap(IDB_PNG_ANG0+i);  // 将位图IDB_BITMAP1加载到bitmap  
+		m_AnglehBmp[i] = PngImage.CreatHBitmap();//m_AngleBitmap[i].GetSafeHandle();  // 获取bitmap加载位图的句柄   
 	}
 }
 
@@ -198,3 +201,5 @@ BOOL CInkPhasingDlg::OnInitDialog()
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
+
+
