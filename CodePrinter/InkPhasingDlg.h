@@ -2,6 +2,7 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 
+
 // CInkPhasingDlg ¶Ô»°¿ò
 
 class CInkPhasingDlg : public CDialog

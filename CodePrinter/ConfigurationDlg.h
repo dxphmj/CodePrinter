@@ -41,7 +41,9 @@ public:
 	int m_repeatDis;
 	CComboBox m_speedWay;
 	int m_speed;
+
 	int m_nPcfPic;
+	HBITMAP   m_HBitmap[8];   
  
 	afx_msg void OnBnClickedSavePcf();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
