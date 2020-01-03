@@ -33,7 +33,6 @@
 #define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
 #define IDB_DOWNLOAD_BITMAP             190
-#define IDB_RETURN_BITMAP               193
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
 #define IDB_BITMAP2                     202
@@ -79,7 +78,7 @@
 #define IDB_START_PRINT2_BITMAP         250
 #define IDB_PAUSE_PRINT1_BITMAP         251
 #define IDB_PAUSE_PRINT2_BITMAP         252
-#define IDB_BITMAP1                     255
+#define IDB_BITMAP_LOGO                 255
 #define IDB_INPUT1_BITMAP               257
 #define IDB_INPUT2_BITMAP               258
 #define IDB_REPEAT1_BITMAP              259

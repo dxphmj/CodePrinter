@@ -253,7 +253,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//Sleep(10);
 	//theApp.readCount=theApp.myCIOVsd.Read();
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
-	SetTimer(TIMER1,300,NULL);	
+	//SetTimer(TIMER1,300,NULL);	
     //Ä«Ë®ÅäÖÃ³õÊ¼»¯
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
@@ -1310,11 +1310,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		}
 		else if (m_PicHead.m_bBlueAlarm == true || m_PicHead.m_bYellowAlarm == true || m_PicHead.m_bRedAlarm == true )
 		{
-
-			//m_ButFault.LoadBitmaps(IDB_BITMAP4,IDB_BITMAP4,0,0,IDB_80_55_BITMAP);
-
 			m_ButFault.LoadBitmaps(IDB_RED_FAULT1_BITMAP,IDB_RED_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
-
 			m_ButFault.SizeToContent(); 
 		}
         m_ButFault.Invalidate();

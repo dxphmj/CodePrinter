@@ -76,7 +76,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW | 0x80000000L
 FONT 9, "MS Sans Serif"
 BEGIN
-    CONTROL         204,IDC_HEAD_PIC,"Static",SS_BITMAP,0,0,533,50
+    CONTROL         204,IDC_HEAD_PIC,"Static",SS_BITMAP,0,0,15,14
     PUSHBUTTON      "",IDC_SYSTEM_BUTTON,376,84,56,28
     PUSHBUTTON      "",IDC_FAULT_BUTTON,388,15,56,28
     PUSHBUTTON      "",IDC_USER_BUTTON,376,118,56,28
@@ -105,11 +105,7 @@ BEGIN
     PUSHBUTTON      "¿ª¹Ø»ú",IDC_ONOROFF_BUTTON,34,245,51,25
     PUSHBUTTON      "Æô¶¯´òÓ¡",IDC_STARTPRINT_BUTTON,131,238,50,40
     PUSHBUTTON      "ÔÝÍ£´òÓ¡",IDC_PAUSEPRINT_BUTTON,255,238,60,39
-    CONTROL         "",IDC_PIC_GREEN_STATIC,"Static",SS_BITMAP,301,21,11,11
-    CONTROL         "",IDC_PIC_BLUE_STATIC,"Static",SS_BITMAP,321,21,11,11
-    CONTROL         "",IDC_PIC_YELLOW_STATIC,"Static",SS_BITMAP,340,21,11,11
-    CONTROL         "",IDC_PIC_RED_STATIC,"Static",SS_BITMAP,359,21,11,11
-    CONTROL         "",IDC_STATIC_MAIN_PICTURE,"Static",SS_BITMAP,15,62,11,11
+    CONTROL         "",IDC_STATIC_MAIN_PICTURE,"Static",SS_BITMAP,15,62,15,14
 END
 
 IDD_DATE_DIALOG DIALOG  0, 0, 498, 299
@@ -965,7 +961,6 @@ END
 //
 
 IDB_DOWNLOAD_BITMAP     BITMAP                  "res\\download.bmp"
-IDB_RETURN_BITMAP       BITMAP                  "res\\return.bmp"
 IDB_BITMAP_HEAD         BITMAP                  "res\\head.bmp"
 IDB_FRESH1_BITMAP       BITMAP                  "res\\fresh.bmp"
 IDB_FRESH2_BITMAP       BITMAP                  "res\\fresh-.bmp"
@@ -1008,7 +1003,7 @@ IDB_START_PRINT1_BITMAP BITMAP                  "res\\¿ªÊ¼ÅçÓ¡.bmp"
 IDB_START_PRINT2_BITMAP BITMAP                  "res\\¿ªÊ¼ÅçÓ¡--.bmp"
 IDB_PAUSE_PRINT1_BITMAP BITMAP                  "res\\ÔÝÍ£ÅçÓ¡.bmp"
 IDB_PAUSE_PRINT2_BITMAP BITMAP                  "res\\ÔÝÍ£ÅçÓ¡--.bmp"
-IDB_BITMAP1             BITMAP                  "res\\bitmap1.bmp"
+IDB_BITMAP_LOGO         BITMAP                  "res\\logo.bmp"
 IDB_INPUT1_BITMAP       BITMAP                  "res\\¡ù.bmp"
 IDB_INPUT2_BITMAP       BITMAP                  "res\\¡ù--.bmp"
 IDB_REPEAT1_BITMAP      BITMAP                  "res\\±Ê.bmp"
@@ -1071,10 +1066,10 @@ IDB_RED_FAULT1_BITMAP   BITMAP                  "res\\¹ÊÕÏ2.bmp"
 IDB_RED_FAULT2_BITMAP   BITMAP                  "res\\¹ÊÕÏ2--.bmp"
 IDB_FAULT1_BITMAP       BITMAP                  "res\\¹ÊÕÏ.bmp"
 IDB_FAULT2_BITMAP       BITMAP                  "res\\¹ÊÕÏ--.bmp"
-IDB_RED_LAMP_BITMAP     BITMAP                  "res\\ºìµÆ.bmp"
-IDB_YELLOW_LAMP_BITMAP  BITMAP                  "res\\»ÆµÆ.bmp"
-IDB_BLUE_LAMP_BITMAP    BITMAP                  "res\\À¶µÆ.bmp"
-IDB_GREEN_LAMP_BITMAP   BITMAP                  "res\\ÂÌµÆ.bmp"
+IDB_RED_LAMP_BITMAP     BITMAP                  "res\\red659.bmp"
+IDB_YELLOW_LAMP_BITMAP  BITMAP                  "res\\yellow606.bmp"
+IDB_BLUE_LAMP_BITMAP    BITMAP                  "res\\blue553.bmp"
+IDB_GREEN_LAMP_BITMAP   BITMAP                  "res\\green500.bmp"
 IDB_SOLVENT_CALIB1_BITMAP BITMAP                  "res\\Ë®Î».bmp"
 IDB_SOLVENT_CALIB2_BITMAP BITMAP                  "res\\Ë®Î»--.bmp"
 IDB_BITMAP_PHA_ADD_UP   BITMAP                  "res\\¼Ó.bmp"
