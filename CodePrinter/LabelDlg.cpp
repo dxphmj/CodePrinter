@@ -582,7 +582,7 @@ void CLabelDlg::OnCbnSelchangeCombo2()
     std::stringstream ss;
 	CString  strText;
 	int nIndex = pixelComboBox.GetCurSel();  //当前选中的项
-	pixel=nIndex+1;
+	pixel=nIndex;
 	theApp.myclassMessage.Pixel=pixel;
 	//pixelComboBox.GetLBText(nIndex,strText);
 	//ss<<strText;
