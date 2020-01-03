@@ -757,10 +757,10 @@ UINT TTLcomLoop(LPVOID pParam)
 						{
 							if (theApp.myclassMessage.boDynamic)
 							{
-								if (theApp.myclassMessage.forPreQue.size()>0)
+								if (theApp.myclassMessage.ForPreQue.size()>0)
 								{
-									vector<BYTE> tempQueVec=theApp.myclassMessage.forPreQue.front();
-									theApp.myclassMessage.forPreQue.pop();
+									vector<BYTE> tempQueVec=theApp.myclassMessage.ForPreQue.front();
+									theApp.myclassMessage.ForPreQue.pop();
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 									if (strTempCmdLen>11)

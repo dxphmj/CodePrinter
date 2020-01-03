@@ -107,7 +107,10 @@ namespace MyNameSpace
 		//vector<BYTE> bytTempDataVec;
 
        /////////////////////////////////////////////
-        queue<vector<BYTE>> forPreQue;//序列号队列
+        queue<vector<BYTE>> ForPreQue;//序列号队列
+		queue<vector<BYTE>> boDotForPreQue;//动态显示队列
+
+		///////////////////////////////////////
 		vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
 		vector<BYTE> bytPrintDataAll;//空时自动发送BUF
 		////////////////////////////////////

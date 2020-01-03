@@ -253,7 +253,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//Sleep(10);
 	//theApp.readCount=theApp.myCIOVsd.Read();
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
-
+	SetTimer(TIMER1,300,NULL);	
     //Ä«Ë®ÅäÖÃ³õÊ¼»¯
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);

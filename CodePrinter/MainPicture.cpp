@@ -53,9 +53,9 @@ void MainPicture::OnPaint()
 	//Ìî³äÑÕÉ«
 	GetClientRect(&rectClient);
 	CRect drawRect=rectClient;
-	drawRect.top=rectClient.top+(32-theApp.myclassMessage.Pixel)*pixSize;
+	drawRect.top=rectClient.top+(32-theApp.myclassMessage.Pixel-1)*pixSize;
 	CRect bkRect=rectClient;
-	bkRect.bottom=(32-theApp.myclassMessage.Pixel)*pixSize;
+	bkRect.bottom=(32-theApp.myclassMessage.Pixel-1)*pixSize;
 	dcMem.FillSolidRect(bkRect,theApp.m_BKcolor);
 	dcMem.FillSolidRect(drawRect,RGB(255,255,255));   //Ìî³äÑÕÉ«
 
@@ -64,7 +64,7 @@ void MainPicture::OnPaint()
 	CBrush *pBrush; //¾É±ÊË¢
 	cbrush.CreateSolidBrush(RGB(0,0,0)); 
 	cwrush.CreateSolidBrush(RGB(255,255,255));
-	int pixel = theApp.myclassMessage.Pixel;
+	int pixel = theApp.myclassMessage.Pixel+1;
 	if(1)
 	{
 		//»­Íø¸ñ
@@ -92,7 +92,7 @@ void MainPicture::OnPaint()
 	///theApp.myclassMessage.DrawDot(&dcMem);
 
 	//int recSize=4;
-	for (int i=0;i<theApp.myclassMessage.Pixel;i++)
+	for (int i=0;i<(theApp.myclassMessage.Pixel+1);i++)
 	{
 		for (int j=0;j<theApp.myclassMessage.intRowMax;j++)
 		{
