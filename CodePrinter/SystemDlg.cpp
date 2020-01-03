@@ -31,6 +31,12 @@ void CSystemDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SYSTEM_CLOSE_BTN, m_sysReturn);
 	DDX_Control(pDX, IDC_SYS_OK_BTN, m_sysOk);
 	DDX_Control(pDX, IDC_DHCP_BTN, m_dhcp);
+
+	DDX_Control(pDX, IDC_NET_BTN, m_ButNet);
+	DDX_Control(pDX, IDC_COM_BTN, m_ButSerial);
+	DDX_Control(pDX, IDC_EVN_BTN, m_ButEnv);
+	DDX_Control(pDX, IDC_CUSTON_BUTTON, m_ButCustom);
+	DDX_Control(pDX, IDC_VERSION_BTN, m_ButVersion);
 }
 
 
@@ -86,6 +92,17 @@ BOOL CSystemDlg::OnInitDialog()
 	m_sysOk.SizeToContent(); 
 	m_dhcp.LoadBitmaps(IDB_DHCP1_BITMAP,IDB_DHCP2_BITMAP,0,0,IDB_DHCP1_BITMAP);
 	m_dhcp.SizeToContent(); 
+
+	m_ButNet.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButNet.SizeToContent(); 
+	m_ButSerial.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButSerial.SizeToContent(); 
+	m_ButEnv.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButEnv.SizeToContent(); 
+	m_ButCustom.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButCustom.SizeToContent(); 
+	m_ButVersion.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButVersion.SizeToContent(); 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

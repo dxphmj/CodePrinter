@@ -10,7 +10,7 @@ IMPLEMENT_DYNAMIC(CImageButton, CButton)
 
 CImageButton::CImageButton()
 {
-	m_textColor=GetSysColor(COLOR_BTNTEXT);	
+	m_textColor = RGB(255, 255, 255);//GetSysColor(COLOR_BTNTEXT);	
 	m_pTextFont = NULL;
 	m_isBitmapMaskLoaded = FALSE;
 	m_isCreateRgnFromBitmap = FALSE;
@@ -19,6 +19,21 @@ CImageButton::CImageButton()
 	m_menuParentWnd = NULL;
 	m_isMenuDisplayed = FALSE;
 	m_hMenu = NULL;
+
+	VERIFY(m_TextFont.CreateFont(18,                        // nHeight  
+		0,                         // nWidth 
+		0,                         // nEscapement
+		0,                         // nOrientation 
+		FW_NORMAL,                 // nWeight  
+		FALSE,                     // bItalic  
+		FALSE,                     // bUnderline  
+		0,                         // cStrikeOut  
+		ANSI_CHARSET,              // nCharSet  
+		OUT_DEFAULT_PRECIS,        // nOutPrecision  
+		CLIP_DEFAULT_PRECIS,       // nClipPrecision 
+		DEFAULT_QUALITY,           // nQuality   
+		DEFAULT_PITCH | FF_SWISS,  // nPitchAndFamily 
+		_T("Arial")));                 // lpszFacename
 	  
 }
 
@@ -144,46 +159,46 @@ void CImageButton::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		memDC.DeleteDC();
 	}	
 
-#ifdef DRAWTEXT
-
-	CString text;
-	GetWindowText(text);
-	if (!text.IsEmpty())
-	{			
-		if (isDisable)
-		{
-			CRect textRect(m_textRect);
-			textRect.OffsetRect(1,1);
-			pDC->SetTextColor(GetSysColor(COLOR_WINDOW));
-			int oldMode = pDC->SetBkMode(TRANSPARENT);
-			CFont* pOldFont = pDC->SelectObject(GetTextFont());
-			pDC->DrawText(text,textRect,DT_WORDBREAK| DT_CENTER|DT_VCENTER);
-
-			textRect.OffsetRect(-1,-1);
-			pDC->SetTextColor(GetSysColor(COLOR_GRAYTEXT));
-			pDC->DrawText(text,textRect,DT_WORDBREAK | DT_CENTER|DT_VCENTER);
-			if (pOldFont)
+	if(m_bDrawText)
+	{
+		CString text;
+		GetWindowText(text);
+		if (!text.IsEmpty())
+		{			
+			if (isDisable)
 			{
-				pDC->SelectObject(pOldFont);
+				CRect textRect(m_textRect);
+				textRect.OffsetRect(1,1);
+				pDC->SetTextColor(GetSysColor(COLOR_WINDOW));
+				int oldMode = pDC->SetBkMode(TRANSPARENT);
+				CFont* pOldFont = pDC->SelectObject(GetTextFont());
+				pDC->DrawText(text,textRect,DT_SINGLELINE | DT_CENTER|DT_VCENTER);
+
+				textRect.OffsetRect(-1,-1);
+				pDC->SetTextColor(GetSysColor(COLOR_GRAYTEXT));
+				pDC->DrawText(text,textRect, DT_SINGLELINE | DT_CENTER|DT_VCENTER);
+				if (pOldFont)
+				{
+					pDC->SelectObject(pOldFont);
+				}
+				pDC->SetBkMode(oldMode);
 			}
-			pDC->SetBkMode(oldMode);
+			else
+			{
+				CRect textRect(m_textRect);
+				textRect.OffsetRect(drawOffSet,0);
+				pDC->SetTextColor(m_textColor);
+				int oldMode = pDC->SetBkMode(TRANSPARENT);
+				CFont* pOldFont = pDC->SelectObject(GetTextFont());
+				pDC->DrawText(text,textRect,DT_SINGLELINE | DT_CENTER|DT_VCENTER);
+				if (pOldFont)
+				{
+					pDC->SelectObject(pOldFont);
+				}
+				pDC->SetBkMode(oldMode);
+			}		
 		}
-		else
-		{
-			CRect textRect(m_textRect);
-			textRect.OffsetRect(drawOffSet,0);
-			pDC->SetTextColor(m_textColor);
-			int oldMode = pDC->SetBkMode(TRANSPARENT);
-			CFont* pOldFont = pDC->SelectObject(GetTextFont());
-			pDC->DrawText(text,textRect,DT_WORDBREAK | DT_CENTER|DT_VCENTER);
-			if (pOldFont)
-			{
-				pDC->SelectObject(pOldFont);
-			}
-			pDC->SetBkMode(oldMode);
-		}		
 	}
-#endif
 
 	if (!isDisable && isFocus && !m_isCreateRgnFromBitmap)
 	{
@@ -360,8 +375,9 @@ BOOL GetHBitmapBits(HBITMAP hBitmap, CBitmapBits &bitmapBits)
 }
 
 
-BOOL CImageButton::LoadBitmaps(UINT nIDBitmapResource, UINT nIDBitmapResourceSel,UINT nIDBitmapResourceFocus, UINT nIDBitmapResourceDisabled, UINT nIDBitmapResourceMask)
+BOOL CImageButton::LoadBitmaps(UINT nIDBitmapResource, UINT nIDBitmapResourceSel,UINT nIDBitmapResourceFocus, UINT nIDBitmapResourceDisabled, UINT nIDBitmapResourceMask,bool bDrawText)
 {
+	m_bDrawText = bDrawText;
 	return LoadBitmaps(MAKEINTRESOURCE(nIDBitmapResource),
 		MAKEINTRESOURCE(nIDBitmapResourceSel),
 		MAKEINTRESOURCE(nIDBitmapResourceFocus),
@@ -463,8 +479,6 @@ BOOL CImageButton::LoadBitmaps(LPCTSTR lpszBitmapResource,
 	{	
 		CBitmapBits bitmapBits;   
 		GetHBitmapBits((HBITMAP)m_bitmapNorm.GetSafeHandle(),bitmapBits);
-		//CopyCBitmapFromSrc(&m_bitmapDisabled,&m_bitmapNorm);
-    	//Convert24To4Bmp(&m_bitmapDisabled);
 	 	HBITMAP hBitmap = ::CreateBitmap(bitmapBits.m_dwWidth,bitmapBits.m_dwHeight,1,32,bitmapBits.m_pBitsBuf);
         m_bitmapDisabled.Attach(hBitmap);
 	}
@@ -576,6 +590,8 @@ void CImageButton::SetTextColor(COLORREF textColor)
 
 CFont* CImageButton::GetTextFont()
 {
+	return &m_TextFont;
+
 	if (!m_pTextFont)
 	{
 		m_pTextFont = CFont::FromHandle( ( HFONT )GetStockObject( DEFAULT_GUI_FONT ) );

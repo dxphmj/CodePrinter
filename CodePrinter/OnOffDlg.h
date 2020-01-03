@@ -1,4 +1,6 @@
 #pragma once
+#include "afxwin.h"
+#include "ImageButton.h"
 
 
 // COnOffDlg ¶Ô»°¿ò
@@ -23,4 +25,8 @@ public:
 	afx_msg void OnBnClickedFastButton();
 	afx_msg void OnBnClickedReturnBtn();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	CImageButton m_ButReturn;
+	CImageButton m_ButSequence;
+	CImageButton m_ButFast;
+	virtual BOOL OnInitDialog();
 };

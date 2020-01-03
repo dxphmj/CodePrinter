@@ -19,8 +19,7 @@ CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 	{
 		CBnvImage PngImage;
 		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0+i), _T("PNG")); 
-		//m_AngleBitmap[i].LoadBitmap(IDB_PNG_ANG0+i);  // 将位图IDB_BITMAP1加载到bitmap  
-		m_AnglehBmp[i] = PngImage.CreatHBitmap();//m_AngleBitmap[i].GetSafeHandle();  // 获取bitmap加载位图的句柄   
+		m_AnglehBmp[i] = PngImage.CreatHBitmap();
 	}
 }
 

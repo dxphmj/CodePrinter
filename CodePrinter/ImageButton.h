@@ -90,6 +90,8 @@ protected:
 	AlignStyle m_alignStyle;
 	ImageDrawStyle m_imageDrawStyle;
 	HMENU m_hMenu;
+	CFont m_TextFont;
+	bool m_bDrawText;
 	 
 	HWND m_menuParentWnd;
 	BOOL m_isMenuDisplayed;
@@ -101,7 +103,7 @@ protected:
 public:
 	BOOL LoadBitmaps(UINT nIDBitmapResource,
 		UINT nIDBitmapResourceSel = 0, UINT nIDBitmapResourceFocus = 0,
-		UINT nIDBitmapResourceDisabled = 0,UINT nIDBitmapResourceMask = 0);
+		UINT nIDBitmapResourceDisabled = 0,UINT nIDBitmapResourceMask = 0,bool bDrawText = false);
 	BOOL LoadBitmaps(LPCTSTR lpszBitmapResource,
 		LPCTSTR lpszBitmapResourceSel = NULL,
 		LPCTSTR lpszBitmapResourceFocus = NULL,
