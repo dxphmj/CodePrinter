@@ -74,6 +74,8 @@ public:
 	CImageButton m_ButOnOrOff;
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
+	CImageButton m_ButResetCounter;
+	CImageButton m_ButResetSerial;
 
 	CSystemDlg *m_System;
 	CUserDlg *m_User;

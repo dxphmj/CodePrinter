@@ -36,11 +36,11 @@ void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_INK_CLOSE_BTN, m_returnIB);
-	//DDX_Control(pDX, IDC_USUAL_BTN, m_usualIB);
-	//DDX_Control(pDX, IDC_ADVANCE_BTN, m_advanceIB);
-	//DDX_Control(pDX, IDC_SETUP_BTN, m_setupIB);
-	//DDX_Control(pDX, IDC_PARAMETER_BTN, m_parameterIB);
-	//DDX_Control(pDX, IDC_PHASING_BTN, m_phasingIB);
+	DDX_Control(pDX, IDC_USUAL_BTN, m_usualIB);
+	DDX_Control(pDX, IDC_ADVANCE_BTN, m_advanceIB);
+	DDX_Control(pDX, IDC_SETUP_BTN, m_setupIB);
+	DDX_Control(pDX, IDC_PARAMETER_BTN, m_parameterIB);
+	DDX_Control(pDX, IDC_PHASING_BTN, m_phasingIB);
 	DDX_Control(pDX, IDC_INK_OK_BTN, m_okIB);
 }
 
@@ -139,16 +139,16 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_returnIB.SizeToContent(); 
 
 	//´ýÌí¼Ó²ÊÉ«Í¼Æ¬
-	//m_usualIB.LoadBitmaps(IDB_INK1_BITMAP,IDB_INK2_BITMAP,0,0,IDB_INK1_BITMAP);
-	//m_usualIB.SizeToContent(); 
-	//m_advanceIB.LoadBitmaps(IDB_USER_NEW1_BITMAP,IDB_USER_NEW2_BITMAP,0,0,IDB_USER_NEW1_BITMAP);
-	//m_advanceIB.SizeToContent(); 
-	//m_setupIB.LoadBitmaps(IDB_USER_DELE1_BITMAP,IDB_USER_DELE2_BITMAP,0,0,IDB_USER_DELE1_BITMAP);
-	//m_setupIB.SizeToContent(); 
-	//m_parameterIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_FRESH1_BITMAP);
-	//m_parameterIB.SizeToContent(); 
-	//m_phasingIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
-	//m_phasingIB.SizeToContent(); 
+	m_usualIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_usualIB.SizeToContent(); 
+	m_advanceIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_advanceIB.SizeToContent(); 
+	m_setupIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_setupIB.SizeToContent(); 
+	m_parameterIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_parameterIB.SizeToContent(); 
+	m_phasingIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_phasingIB.SizeToContent(); 
 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_okIB.SizeToContent(); 

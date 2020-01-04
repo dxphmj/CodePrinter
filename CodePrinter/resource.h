@@ -33,7 +33,6 @@
 #define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
 #define IDB_DOWNLOAD_BITMAP             190
-#define IDB_RETURN_BITMAP               193
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
 #define IDB_BITMAP2                     202
@@ -79,8 +78,7 @@
 #define IDB_START_PRINT2_BITMAP         250
 #define IDB_PAUSE_PRINT1_BITMAP         251
 #define IDB_PAUSE_PRINT2_BITMAP         252
-#define IDB_BITMAP1                     255
-#define IDB_BITMAP3                     256
+#define IDB_BITMAP_LOGO                 255
 #define IDB_INPUT1_BITMAP               257
 #define IDB_INPUT2_BITMAP               258
 #define IDB_REPEAT1_BITMAP              259
@@ -207,6 +205,8 @@
 #define IDB_BITMAP_NOTCHANGE            451
 #define IDB_BITMAP_RLEFTRIGHT           452
 #define IDD_DIALOG_NUMKEY               453
+#define IDB_RANGE2_BITMAP               455
+#define IDB_70_45_BITMAP                456
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -619,14 +619,16 @@
 #define IDC_BUTTON_KEY_DOC              1508
 #define IDC_BUTTON_KEY_LEFT             1509
 #define IDC_BUTTON_KEY_RIGHT            1510
+#define IDC_BUTTON_OK_DEL               1512
+#define IDC_BUTTON_CLOSE_DEL            1513
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        455
+#define _APS_NEXT_RESOURCE_VALUE        457
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1512
+#define _APS_NEXT_CONTROL_VALUE         1514
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
