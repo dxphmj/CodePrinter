@@ -280,7 +280,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetTimer(TIMER1,300,NULL);	
 
 #endif 
-	
+	m_pNumKey = NULL;
+	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -303,6 +305,18 @@ void CCodePrinterDlg::OnBnClickedLabelButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showDlg(IDD_LABEL_DIALOG);
+}
+
+void CCodePrinterDlg::OpenNumKeyBoard(CEdit * pWnd)
+{
+	if(!m_pNumKey)
+	{
+		m_pNumKey = new CNumKey();
+		m_pNumKey->Create( IDD_DIALOG_NUMKEY,pWnd->GetParent()); 
+		m_pNumKey->m_edit = pWnd;
+		m_pNumKey->ShowWindow(SW_SHOW);
+		m_pNumKey->m_pCodePrinterDlg = this;
+	}
 }
 
 void CCodePrinterDlg::OnBnClickedFaultButton()

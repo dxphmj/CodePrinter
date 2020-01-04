@@ -8,6 +8,7 @@
 #include "CodePrinterDlg.h"
 
 
+
 // CInkSystemDlg 对话框
 
 IMPLEMENT_DYNAMIC(CInkSystemDlg, CDialog)
@@ -153,6 +154,11 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_okIB.SizeToContent(); 
 
+	//数字键盘初始化
+	//pNumKey = new CNumKey();
+	//pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
+	//pNumKey->ShowWindow(SW_HIDE);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }	     
@@ -177,7 +183,7 @@ void CInkSystemDlg::showInkDlg(int ID)
 	else if (ID == IDD_INK_PAR_DIALOG)
 	{
 		m_par->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param"));
 	}
 	else if (ID == IDD_INK_PHASING_DIALOG)
 	{

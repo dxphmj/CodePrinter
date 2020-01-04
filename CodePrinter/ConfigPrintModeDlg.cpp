@@ -5,6 +5,7 @@
 #include "CodePrinter.h"
 #include "ConfigPrintModeDlg.h"
 #include "ConfigurationDlg.h"
+#include "CodePrinterDlg.h"
 
 
 // CConfigPrintModeDlg 对话框
@@ -115,6 +116,10 @@ HBRUSH CConfigPrintModeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CConfigPrintModeDlg::OnEnSetfocusReapeatCountEdit()
 {
 	// TODO: 在此添加控件通知处理程序代码
+
 	CEdit *pEdit = &m_edit_repeatCount;
-	pNumKey->getNumFromEdit(pEdit);//传入edit控件对象指针
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
 }

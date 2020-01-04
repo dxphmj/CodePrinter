@@ -48,6 +48,9 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
 	DDX_Control(pDX, IDC_SPEED_EDIT, m_edit_speed);
 	DDX_Control(pDX, IDC_DELAY_EDIT, m_edit_delay);
+	DDX_Control(pDX, IDC_HEIGHT_EDIT, m_edit_height);
+	DDX_Control(pDX, IDC_REPEAT_DIS_EDIT, m_edit_repeatDis);
+	DDX_Control(pDX, IDC_DOT_PITCH_EDIT, m_edit_dotPitch);
 }
 
 
@@ -71,6 +74,9 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_WM_PAINT()
 	ON_EN_CHANGE(IDC_DELAY_EDIT, &CConfigurationDlg::OnEnChangeDelayEdit)
 
+	ON_EN_SETFOCUS(IDC_HEIGHT_EDIT, &CConfigurationDlg::OnEnSetfocusHeightEdit)
+	ON_EN_SETFOCUS(IDC_REPEAT_DIS_EDIT, &CConfigurationDlg::OnEnSetfocusRepeatDisEdit)
+	ON_EN_SETFOCUS(IDC_DOT_PITCH_EDIT, &CConfigurationDlg::OnEnSetfocusDotPitchEdit)
 END_MESSAGE_MAP()
 
 
@@ -323,22 +329,7 @@ void CConfigurationDlg::OnCbnSelchangeInverseCombo()
 	pcf_diagram_select();
 }
 
-void CConfigurationDlg::OnEnSetfocusSpeedEdit()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	//CCodePrinterDlg* pWnd = (CCodePrinterDlg*)this->GetParent();
-	CEdit *pEdit = &m_edit_speed;
-	pNumKey->getNumFromEdit(pEdit);//传入edit控件对象指针
-}
 
-void CConfigurationDlg::OnEnSetfocusDelayEdit()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	CEdit *pEdit = &m_edit_delay;
-	pNumKey->getNumFromEdit(pEdit);//传入edit控件对象指针
-
-	pcf_diagram_select();
-}
 
 void CConfigurationDlg::OnCbnSelchangeReverseCombo()
 {
@@ -373,4 +364,53 @@ void CConfigurationDlg::OnEnChangeDelayEdit()
 
 	// TODO:  在此添加控件通知处理程序代码
 
+}
+
+void CConfigurationDlg::OnEnSetfocusHeightEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_height;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigurationDlg::OnEnSetfocusRepeatDisEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_repeatDis;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigurationDlg::OnEnSetfocusDotPitchEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_dotPitch;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+void CConfigurationDlg::OnEnSetfocusSpeedEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_speed;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigurationDlg::OnEnSetfocusDelayEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_delay;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
 }

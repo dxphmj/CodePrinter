@@ -70,4 +70,10 @@ public:
 	afx_msg void OnPaint();
 	afx_msg void OnEnChangeDelayEdit();
 
+	CEdit m_edit_height;
+	afx_msg void OnEnSetfocusHeightEdit();
+	CEdit m_edit_repeatDis;
+	afx_msg void OnEnSetfocusRepeatDisEdit();
+	CEdit m_edit_dotPitch;
+	afx_msg void OnEnSetfocusDotPitchEdit();
 };

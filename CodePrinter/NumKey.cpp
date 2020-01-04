@@ -15,6 +15,7 @@ CNumKey::CNumKey(CWnd* pParent /*=NULL*/)
 	: CDialog(CNumKey::IDD, pParent)
 {
 		isShow = true;
+		m_edit = NULL;
 }
 
 CNumKey::~CNumKey()
@@ -59,8 +60,8 @@ BOOL CNumKey::OnInitDialog()
 	CRect rtClient;
 	GetWindowRect(rtClient);  
 	//::SetWindowPos(m_hWnd, HWND_TOPMOST, rtClient.left, rtClient.top, rtClient.Width(), rtClient.Height(), SWP_SHOWWINDOW);
-	this->SetWindowPos(&wndTopMost,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
-
+	this->SetWindowPos(&wndTopMost,0,0,276,159,SWP_NOSIZE|SWP_NOMOVE);
+	this->MoveWindow(276,159,rtClient.Width(),rtClient.Height());
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -89,17 +90,39 @@ void CNumKey::getNumFromEdit( CEdit *pEdit )
 	{
 		this->ShowWindow(SW_SHOW);
 		isShow = false;
+		m_edit = pEdit;
 	}
-	m_edit = pEdit;
 }
 
 void CNumKey::OnBnClickedButtonKeyEsc()
 {
-	this->GetParent()->SetFocus();
-	this->ShowWindow(SW_HIDE);
-	isShow = true;
+//	m_edit->GetParent()->SetFocus();
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(m_pCodePrinterDlg);
 	
+	delete dlg->m_pNumKey;
+	dlg->m_pNumKey = NULL;
+	m_edit = NULL;
+ //   this->DestroyWindow();
+
+	//this->GetParent()->SetFocus();
+	//this->ShowWindow(SW_HIDE);
+	//isShow = true;
+	//m_edit = NULL;
 	// TODO: 在此添加控件通知处理程序代码
+}
+void CNumKey::OnBnClickedButtonKeyOk()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(m_edit->GetParent()->GetParent()->GetParent());
+
+	delete dlg->m_pNumKey;
+	dlg->m_pNumKey = NULL;
+	m_edit = NULL;
+	//this->GetParent()->SetFocus();
+	//this->ShowWindow(SW_HIDE);
+	//isShow = true;
 }
 void CNumKey::OnBnClickedButtonKeyDel()
 {
@@ -112,13 +135,7 @@ void CNumKey::OnBnClickedButtonKeyDel()
 
 }
 
-void CNumKey::OnBnClickedButtonKeyOk()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	this->GetParent()->SetFocus();
-	this->ShowWindow(SW_HIDE);
-	isShow = true;
-}
+
 
 void CNumKey::OnBnClickedButtonKeyLeft()
 {

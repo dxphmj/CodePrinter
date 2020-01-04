@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
+#include "NumKey.h"
 
 
 // CInkPhasingDlg 对话框
@@ -41,4 +42,9 @@ public:
 
 	CBitmap m_AngleBitmap[36];  // CBitmap对象，用于加载位图  
 	HBITMAP m_AnglehBmp[36];
+	CEdit m_edit_fiexd;
+	
+	afx_msg void OnEnSetfocusFixedEdit();
+
+
 };

@@ -12,7 +12,7 @@
 IMPLEMENT_DYNAMIC(CKeyBoLan, CDialog)
 
 CKeyBoLan::CKeyBoLan(CWnd* pParent /*=NULL*/)
-	: CDialog(CKeyBoLan::IDD, pParent)
+: CDialog(CKeyBoLan::IDD, pParent)
 {
 
 }

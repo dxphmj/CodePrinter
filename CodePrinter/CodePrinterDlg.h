@@ -86,11 +86,12 @@ public:
 	CFaultDlg *m_Fault;
 
 	COnOffDlg *m_OnOff;
-	CNumKey *pNumKey;
+	CNumKey *m_pNumKey;
 
 	
 public:
 	void showDlg(int ID);
+	void OpenNumKeyBoard(CEdit * pWnd);
 
 public:
 

@@ -5,6 +5,8 @@
 #include "CodePrinter.h"
 #include "InkPhasingDlg.h"
 #include "BnvImage.h"
+#include "InkSystemDlg.h"
+#include "CodePrinterDlg.h"
 
 
 // CInkPhasingDlg 对话框
@@ -37,6 +39,7 @@ void CInkPhasingDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_PHASING_ADD_BTN, m_PhaMvAdd);
 	DDX_Control(pDX, IDC_PASHING_CUT_BTN, m_PhaMvSub);
 	DDX_Control(pDX, IDC_PIC_PHA_ANGLE, m_PicPhaAngle);
+	DDX_Control(pDX, IDC_FIXED_EDIT, m_edit_fiexd);
 }
 
 
@@ -49,6 +52,7 @@ BEGIN_MESSAGE_MAP(CInkPhasingDlg, CDialog)
 		ON_BN_CLICKED(IDC_SET_ADJUST_SMALL_BTN, &CInkPhasingDlg::OnBnClickedSetAdjustSmallBtn)
 		ON_BN_CLICKED(IDC_SET_ADJUST_BIG_BTN, &CInkPhasingDlg::OnBnClickedSetAdjustBigBtn)
 		ON_BN_CLICKED(IDC_AUTO_SET_BTN, &CInkPhasingDlg::OnBnClickedAutoSetBtn)
+		ON_EN_SETFOCUS(IDC_FIXED_EDIT, &CInkPhasingDlg::OnEnSetfocusFixedEdit)
 END_MESSAGE_MAP()
 
 
@@ -196,9 +200,20 @@ BOOL CInkPhasingDlg::OnInitDialog()
 
    	m_PicPhaAngle.SetBitmap(m_AnglehBmp[0]);
 
+	//////////////////////////////////////////////////////////////////////////
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
 
 
+
+void CInkPhasingDlg::OnEnSetfocusFixedEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_fiexd;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
