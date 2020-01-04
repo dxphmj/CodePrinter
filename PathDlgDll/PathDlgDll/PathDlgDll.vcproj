@@ -71,6 +71,7 @@
 				GenerateDebugInformation="true"
 				StackReserveSize="65536"
 				StackCommitSize="4096"
+				LargeAddressAware="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				ImportLibrary="../../CodePrinter\lib/PathDlgDll.lib"
@@ -198,6 +199,22 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\BnvImage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ColorButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IsDeletDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PathDialog.cpp"
 				>
 			</File>
@@ -236,6 +253,22 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\BnvImage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ColorButton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ImageButton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IsDeletDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PathDialog.h"
 				>
 			</File>
@@ -262,11 +295,83 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\ok-.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ok.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\PathDlgDll.rc"
 				>
 			</File>
 			<File
 				RelativePath=".\res\PathDlgDll.rc2"
+				>
+			</File>
+			<File
+				RelativePath=".\res\sys_return-.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\sys_return.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\删除--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\删除.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\剪切--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\剪切.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\复制粘贴--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\复制粘贴.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\左下--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\左下.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\左下一--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\左下一.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\新建文件夹--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\新建文件夹.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\重命名--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\重命名.bmp"
 				>
 			</File>
 		</Filter>
