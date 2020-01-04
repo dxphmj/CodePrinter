@@ -4,7 +4,8 @@
 #include "stdafx.h"
 #include "PathDlgDll.h"
 #include "PathDialog.h"
-
+#include "BnvImage.h"
+#include "IsDeletDlg.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -18,6 +19,7 @@ CPathDialog::CPathDialog(CWnd* pParent /*=NULL*/)
 	: CDialog(CPathDialog::IDD, pParent)
 {
 	myType = 0;
+	booAllSet=false;
 	//{{AFX_DATA_INIT(CPathDialog)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
@@ -28,6 +30,7 @@ CPathDialog::CPathDialog(int theType,bool isDisplay,CWnd* pParent /*=NULL*/)
 {
 	myType = theType;
 	booDisplay=isDisplay;
+	booAllSet=false;
 	//{{AFX_DATA_INIT(CPathDialog)
 	// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
@@ -42,6 +45,12 @@ void CPathDialog::DoDataExchange(CDataExchange* pDX)
 	//}}AFX_DATA_MAP
 	//DDX_Control(pDX, IDC_EDIT_FULLPATH, m_editPath);
 	DDX_Control(pDX, IDC_STATIC_SELECT, m_Select);
+	DDX_Control(pDX, IDC_BUTTON_NEWFILE, m_NewButton);
+	DDX_Control(pDX, IDOK, m_OKBUT);
+	DDX_Control(pDX, IDCANCEL, m_CLOBUT);
+	DDX_Control(pDX, IDC_BUTTON_DELET, m_DETBUT);
+	DDX_Control(pDX, IDC_BUTTON_RENAME, m_reName);
+	DDX_Control(pDX, IDC_BUTTON_ALLSET, m_allSELECT);
 }
 
 
@@ -55,6 +64,8 @@ BEGIN_MESSAGE_MAP(CPathDialog, CDialog)
 ON_EN_CHANGE(IDC_EDIT_FULLPATH, &CPathDialog::OnEnChangeEditFullpath)
 ON_WM_CTLCOLOR()
 //ON_NOTIFY(NM_CUSTOMDRAW, IDC_TREE_DIRVIEW, &CPathDialog::OnNMCustomdrawTreeDirview)
+ON_BN_CLICKED(IDC_BUTTON_DELET, &CPathDialog::OnBnClickedButtonDelet)
+ON_BN_CLICKED(IDC_BUTTON_ALLSET, &CPathDialog::OnBnClickedButtonAllset)
 END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPathDialog message handlers
@@ -81,7 +92,6 @@ BOOL CPathDialog::OnInitDialog()
 	m_BKcolor = RGB(210, 231, 251);
 	m_DlgBrush.CreateSolidBrush(m_BKcolor); 
 
-	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);
@@ -117,13 +127,42 @@ BOOL CPathDialog::OnInitDialog()
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetWindowPos(NULL,rect.left+50,rect.top+50,700,30,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDIT_FULLPATH)->SetFont(m_Font,true);
 	GetDlgItem(IDC_TREE_DIRVIEW)->SetWindowPos(NULL,rect.left+50,rect.top+100,700,330,SWP_SHOWWINDOW);
-	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+500,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDOK)->SetWindowPos(NULL,rect.left+680,rect.top+450,100,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDOK)->EnableWindow(booDisplay);
-	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+650,rect.top+450,100,40,SWP_SHOWWINDOW);
-
+	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+50,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_ALLSET)->SetWindowPos(NULL,rect.left+185,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_ALLSET)->EnableWindow(booDisplay);
+	GetDlgItem(IDC_BUTTON_NEWFILE)->SetWindowPos(NULL,rect.left+305,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_NEWFILE)->EnableWindow(booDisplay);
+	GetDlgItem(IDC_BUTTON_RENAME)->SetWindowPos(NULL,rect.left+425,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_RENAME)->EnableWindow(booDisplay);
+	GetDlgItem(IDC_BUTTON_DELET)->SetWindowPos(NULL,rect.left+545,rect.top+450,100,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_DELET)->EnableWindow(booDisplay);
+	m_allSELECT.LoadBitmaps(IDB_BITMAP_ALLUP,IDB_BITMAP_ALLDOWN,0,0,IDB_BITMAP_ALLUP);
+	m_allSELECT.SizeToContent(); 
+	m_NewButton.LoadBitmaps(IDB_BITMAP_NEWUP,IDB_BITMAP_NEWDOWN,0,0,IDB_BITMAP_NEWUP);
+	m_NewButton.SizeToContent(); 
+	m_OKBUT.LoadBitmaps(IDB_BITMAP_OKUP,IDB_BITMAP_OKDOWN,0,0,IDB_BITMAP_OKUP);
+	m_OKBUT.SizeToContent(); 
+	m_CLOBUT.LoadBitmaps(IDB_BITMAP_CLOUP,IDB_BITMAP_CLODOWN,0,0,IDB_BITMAP_CLOUP);
+	m_CLOBUT.SizeToContent(); 
+	m_DETBUT.LoadBitmaps(IDB_BITMAP_DETUP,IDB_BITMAP_DETDOWN,0,0,IDB_BITMAP_DETUP);
+	m_DETBUT.SizeToContent(); 
+	m_reName.LoadBitmaps(IDB_BITMAP_NAMEUPM,IDB_BITMAP_NAMEDOWNM,0,0,IDB_BITMAP_NAMEUPM);
+	m_reName.SizeToContent(); 
+	if (myType!=0)
+	{
+		GetDlgItem(IDC_BUTTON_ALLSET)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_BUTTON_NEWFILE)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_BUTTON_RENAME)->ShowWindow(SW_HIDE);
+		GetDlgItem(IDC_BUTTON_DELET)->ShowWindow(SW_HIDE);
+	}
 	//CTreeCtrl* testTree=(CTreeCtrl*)GetDlgItem(IDC_TREE_DIRVIEW);
 	//testTree->SetBkColor(m_BKcolor);///不是成员
 	//delete m_Font;
+
+	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -375,6 +414,7 @@ void CPathDialog::OnSelchangedTreeDirview(NMHDR* pNMHDR, LRESULT* pResult)
 void CPathDialog::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	
 	OnOK();
 }
 
@@ -455,3 +495,51 @@ HBRUSH CPathDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 //		*pResult = CDRF_DODEFAULT;  
 //	}
 //}
+
+void CPathDialog::OnBnClickedButtonDelet()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	
+	HTREEITEM hItem = m_tree.GetSelectedItem();
+	CString Text = m_tree.GetItemText(hItem);
+	CString detCstr;
+	detCstr.Format(_T("确定删除<%s>"),Text);
+	CIsDeletDlg		isDeletDlg(detCstr);
+	//isDeletDlg.GetDlgItem(IDC_STATIC_ISDET)->SetWindowText(detCstr);
+	if(IDOK == isDeletDlg.DoModal())
+	{
+		//lstrcpy(szPath, pathDlg.m_path);
+		//return TRUE;
+		if (!DeleteFile(m_path))
+		{
+			RemoveDirectory(m_path);
+		}
+		
+		m_tree.DeleteItem(hItem);
+	}
+}
+
+void CPathDialog::OnBnClickedButtonAllset()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CWnd * pwnd=GetDlgItem(IDC_TREE_DIRVIEW);
+	if (!booAllSet)
+	{
+		pwnd->ModifyStyle(0,TVS_CHECKBOXES);
+		booAllSet=true;
+	} 
+	else
+	{
+		pwnd->ModifyStyle(TVS_CHECKBOXES,0);
+	 //   m_tree.SetRedraw(FALSE);  
+		////m_tree.DeleteAllItems(); 
+		////insert or delete here  
+		//m_tree.SetRedraw(TRUE);  
+		//m_tree.RedrawWindow(); 
+		//UpdateData(FALSE);
+		 pwnd->Invalidate();
+		booAllSet=false;
+	}
+	
+
+}

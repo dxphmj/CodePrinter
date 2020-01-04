@@ -409,6 +409,7 @@ void CCodePrinterDlg::showDlg(int ID)
 		
 		string xmlPath;
 		ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
+		//ShowWindow(SW_SHOW);
 		//GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
 	}
 

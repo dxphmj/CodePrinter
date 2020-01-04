@@ -1,4 +1,5 @@
 #include "afxwin.h"
+#include "ImageButton.h"
 #if !defined(AFX_PATHDIALOG_H__B16DE00C_2A9D_4E5B_B18B_C683218622DE__INCLUDED_)
 #define AFX_PATHDIALOG_H__B16DE00C_2A9D_4E5B_B18B_C683218622DE__INCLUDED_
 
@@ -18,6 +19,7 @@ private:
 	CString myPath;
 	COLORREF m_BKcolor;
 	CBrush m_DlgBrush;
+	bool booAllSet;
 public:
 	enum{
 		STB_HIDE = 0,
@@ -67,6 +69,14 @@ public:
 	CStatic m_Select;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	//afx_msg void OnNMCustomdrawTreeDirview(NMHDR *pNMHDR, LRESULT *pResult);
+	CImageButton m_NewButton;
+	CImageButton m_OKBUT;
+	CImageButton m_CLOBUT;
+	CImageButton m_DETBUT;
+	afx_msg void OnBnClickedButtonDelet();
+	CImageButton m_reName;
+	CImageButton m_allSELECT;
+	afx_msg void OnBnClickedButtonAllset();
 };
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
