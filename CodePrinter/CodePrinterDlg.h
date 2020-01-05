@@ -37,10 +37,13 @@ public:
 public:
     CPictureStatic m_PicHead;
 	MainPicture m_PictureMain;
+	string m_currentDate; //当前日期
+	string m_currentTime; //当前时间
 public:
     void UpdateValve(); //更新各种阀的信息
     void GetFaultInfo(); //获得各种故障信息
     void UpdatePhase();
+
 
 // 实现
 protected:
@@ -84,6 +87,7 @@ public:
 	CFileManaDlg *m_FileMan;
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
+
 
 	COnOffDlg *m_OnOff;
 	CNumKey *m_pNumKey;

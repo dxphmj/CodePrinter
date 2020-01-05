@@ -620,6 +620,9 @@
 #define IDC_BUTTON_KEY4                 1498
 #define IDC_BUTTON_KEY5                 1499
 #define IDC_BUTTON_KEY6                 1500
+
+#define IDC_CURRENTTIME_STATIC          1511
+
 #define IDC_BUTTON_KEY7                 1501
 #define IDC_BUTTON_KEY8                 1502
 #define IDC_BUTTON_KEY9                 1503
@@ -642,13 +645,17 @@
 #define IDC_SYSTEM_SOFTWARE_TYPE_VALUE_STATIC 1521
 #define IDC_SYSTEM_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1522
 
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        467
 #define _APS_NEXT_COMMAND_VALUE         32771
+
+
 #define _APS_NEXT_CONTROL_VALUE         1523
+
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
