@@ -53,7 +53,7 @@ void CDesignStatic::OnPaint()
 	
 	CBrush cbrush;
 	CBrush* pBrush; //¾É±ÊË¢
-	int pixel = theApp.myclassMessage.Pixel;
+	int pixel = theApp.myclassMessage.Pixel+1;
 	if(1)
 	{
 		//»­Íø¸ñ

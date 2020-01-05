@@ -16,6 +16,7 @@
 #include "MainPicture.h"
 
 #include "OnOffDlg.h"
+#include "NumKey.h"
 #define TIMER1 1
 
 // CCodePrinterDlg 对话框
@@ -41,6 +42,7 @@ public:
 public:
     void UpdateValve(); //更新各种阀的信息
     void GetFaultInfo(); //获得各种故障信息
+    void UpdatePhase();
 
 
 // 实现
@@ -75,6 +77,8 @@ public:
 	CImageButton m_ButOnOrOff;
 	CImageButton m_StartPrint;
 	CImageButton m_PausePrint;
+	CImageButton m_ButResetCounter;
+	CImageButton m_ButResetSerial;
 
 	CSystemDlg *m_System;
 	CUserDlg *m_User;
@@ -83,10 +87,15 @@ public:
 	CFileManaDlg *m_FileMan;
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
-	COnOffDlg *m_Onoff;
+
+
+	COnOffDlg *m_OnOff;
+	CNumKey *m_pNumKey;
+
 	
 public:
 	void showDlg(int ID);
+	void OpenNumKeyBoard(CEdit * pWnd);
 
 public:
 

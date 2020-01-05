@@ -1,6 +1,6 @@
 #pragma once
 #include "ImageButton.h"
-
+#include "NumKey.h"
 // CConfigOutSet ¶Ô»°¿ò
 
 class CConfigOutSetDlg : public CDialog
@@ -37,4 +37,9 @@ public:
 	CString m_currentLevelStr;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	
+	afx_msg void OnEnSetfocusImpulseEdit();
+	afx_msg void OnEnSetfocusTriggerLenEdit();
+	afx_msg void OnEnSetfocusLengthEdit();
+
+	CNumKey *pNumKey;
 };

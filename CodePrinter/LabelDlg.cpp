@@ -343,6 +343,10 @@ void CLabelDlg::OnPaint()
 					m_picOverturn.SetBitmap(m_PichBmp[0]);
 				}
 			}
+
+			m_zoomLevel=theApp.myclassMessage.OBJ_Vec.at(i).intSW;
+			m_ssValue=theApp.myclassMessage.OBJ_Vec[i].intSS;
+			UpdateData(FALSE);
 			break;
 		}
 	}
@@ -578,7 +582,7 @@ void CLabelDlg::OnCbnSelchangeCombo2()
     std::stringstream ss;
 	CString  strText;
 	int nIndex = pixelComboBox.GetCurSel();  //当前选中的项
-	pixel=nIndex+1;
+	pixel=nIndex;
 	theApp.myclassMessage.Pixel=pixel;
 	//pixelComboBox.GetLBText(nIndex,strText);
 	//ss<<strText;
@@ -1055,8 +1059,7 @@ void CLabelDlg::OnBnClickedShrinkButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].intSW--;
 				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
-				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intSW;
-				UpdateData(FALSE);
+
 				OnPaint();
 			}
 			
@@ -1076,8 +1079,7 @@ void CLabelDlg::OnBnClickedZoomButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].intSW++;
 				//theApp.myclassMessage.OBJ_Vec[i].intRowSize=
-				m_zoomLevel=theApp.myclassMessage.OBJ_Vec[i].intSW;
-				UpdateData(FALSE);
+
 				OnPaint();
 			}
 			break;
@@ -1097,8 +1099,7 @@ void CLabelDlg::OnBnClickedCloseUserBtn()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].intSS--;
 				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
-				m_ssValue=theApp.myclassMessage.OBJ_Vec[i].intSS;
-				UpdateData(FALSE);
+
 				OnPaint();
 			}
 			break;
@@ -1118,8 +1119,7 @@ void CLabelDlg::OnBnClickedFarButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].intSS++;
 				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
-				m_ssValue=theApp.myclassMessage.OBJ_Vec[i].intSS;
-				UpdateData(FALSE);
+
 				OnPaint();
 			}
 			break;
@@ -1139,7 +1139,6 @@ void CLabelDlg::OnBnClickedNozzleValveBtn()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].booNEG=false;
 				//界面换图标
-				UpdateData(FALSE);
 				OnPaint();
 			}
 			break;
@@ -1159,7 +1158,6 @@ void CLabelDlg::OnBnClickedAddbackBtn()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].booNEG=true;
 				//界面换图标
-				UpdateData(FALSE);
 				OnPaint();
 			}
 			break;
@@ -1179,7 +1177,6 @@ void CLabelDlg::OnBnClickedUdmirrorButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].booBWDx=!theApp.myclassMessage.OBJ_Vec[i].booBWDx;
 				//界面换图标
-				UpdateData(FALSE);
 				OnPaint();
 			}
 			break;
@@ -1199,7 +1196,6 @@ void CLabelDlg::OnBnClickedLrmirrorButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i].booBWDy=!theApp.myclassMessage.OBJ_Vec[i].booBWDy;
 				//界面换图标
-				UpdateData(FALSE);
 				OnPaint();
 			}
 			break;

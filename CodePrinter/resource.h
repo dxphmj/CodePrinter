@@ -2,7 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by CodePrinter.rc
 //
-#define IDB_USER_DELE2_BITMAP           2
+#define IDB_USER_DELE2_BITMAP           101
 #define IDD_CODEPRINTER_DIALOG          102
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
@@ -33,7 +33,6 @@
 #define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
 #define IDB_DOWNLOAD_BITMAP             190
-#define IDB_RETURN_BITMAP               193
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
 #define IDB_BITMAP2                     202
@@ -79,8 +78,7 @@
 #define IDB_START_PRINT2_BITMAP         250
 #define IDB_PAUSE_PRINT1_BITMAP         251
 #define IDB_PAUSE_PRINT2_BITMAP         252
-#define IDB_BITMAP1                     255
-#define IDB_BITMAP3                     256
+#define IDB_BITMAP_LOGO                 255
 #define IDB_INPUT1_BITMAP               257
 #define IDB_INPUT2_BITMAP               258
 #define IDB_REPEAT1_BITMAP              259
@@ -207,6 +205,8 @@
 #define IDB_BITMAP_NOTCHANGE            451
 #define IDB_BITMAP_RLEFTRIGHT           452
 #define IDD_DIALOG_NUMKEY               453
+#define IDB_RANGE2_BITMAP               455
+#define IDB_70_45_BITMAP                456
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -603,31 +603,48 @@
 #define IDC_PIC_PRINTER_SETUP           1492
 #define IDC_STATIC_PROCOUNT             1493
 #define IDC_STATIC_PRICOUNT             1494
-#define IDC_BUTTON_KEY7                 1495
-#define IDC_BUTTON_KEY8                 1496
-#define IDC_BUTTON_KEY9                 1497
+#define IDC_BUTTON_KEY1                 1495
+#define IDC_BUTTON_KEY2                 1496
+#define IDC_BUTTON_KEY3                 1497
 #define IDC_BUTTON_KEY4                 1498
 #define IDC_BUTTON_KEY5                 1499
 #define IDC_BUTTON_KEY6                 1500
-#define IDC_BUTTON_KEY_ESC              1501
-#define IDC_BUTTON_KEY1                 1502
-#define IDC_BUTTON_KEY2                 1503
-#define IDC_BUTTON_KEY3                 1504
-#define IDC_BUTTON_KEY_OK               1505
-#define IDC_BUTTON_KEY0                 1506
-#define IDC_BUTTON_KEY_DOC              1507
-#define IDC_BUTTON_KEY_LEFT             1508
-#define IDC_BUTTON_KEY_RIGHT            1509
-#define IDC_BUTTON_KEY_DEL              1510
+
 #define IDC_CURRENTTIME_STATIC          1511
+
+#define IDC_BUTTON_KEY7                 1501
+#define IDC_BUTTON_KEY8                 1502
+#define IDC_BUTTON_KEY9                 1503
+#define IDC_BUTTON_KEY0                 1504
+#define IDC_BUTTON_KEY_DEL              1505
+#define IDC_BUTTON_KEY_ESC              1506
+#define IDC_BUTTON_KEY_OK               1507
+#define IDC_BUTTON_KEY_DOC              1508
+#define IDC_BUTTON_KEY_LEFT             1509
+#define IDC_BUTTON_KEY_RIGHT            1510
+#define IDC_BUTTON_OK_DEL               1512
+#define IDC_BUTTON_CLOSE_DEL            1513
+#define IDC_CODEPRINTER_TYPE_VALUE_STATIC 1514
+#define IDC_CODEPRINTE_ID_VALUE_RSTATIC 1515
+#define IDC_MAINBOARD_ID_VALUE_STATIC   1516
+#define IDC_MAINBOARD_HARDWARE_TYPE_VALUE_STATIC 1517
+#define IDC_HARDWARE_UPDATE_TIME_VALUE_STATIC 1518
+#define IDC_MAINBOARD_SOFTWARE_TYPE_VALUE_STATIC 1519
+#define IDC_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1520
+#define IDC_SYSTEM_SOFTWARE_TYPE_VALUE_STATIC 1521
+#define IDC_SYSTEM_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1522
+
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        454
+#define _APS_NEXT_RESOURCE_VALUE        457
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1512
+
+
+#define _APS_NEXT_CONTROL_VALUE         1523
+
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

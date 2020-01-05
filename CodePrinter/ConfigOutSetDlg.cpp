@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "ConfigOutSetDlg.h"
-
+#include "CodePrinterDlg.h"
 
 // CConfigOutSet 对话框
 
@@ -43,6 +43,9 @@ void CConfigOutSetDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CConfigOutSetDlg, CDialog)
 	ON_BN_CLICKED(IDC_CONFIG_OSRETURN_BTN, &CConfigOutSetDlg::OnBnClickedConfigOsreturnBtn)
 	ON_WM_CTLCOLOR()
+	ON_EN_SETFOCUS(IDC_IMPULSE_EDIT, &CConfigOutSetDlg::OnEnSetfocusImpulseEdit)
+	ON_EN_SETFOCUS(IDC_TRIGGER_LEN_EDIT, &CConfigOutSetDlg::OnEnSetfocusTriggerLenEdit)
+	ON_EN_SETFOCUS(IDC_LENGTH_EDIT, &CConfigOutSetDlg::OnEnSetfocusLengthEdit)
 END_MESSAGE_MAP()
 
 
@@ -75,7 +78,9 @@ BOOL CConfigOutSetDlg::OnInitDialog()
 	m_outSetReturn.SizeToContent(); 
 	m_outSetOk.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_outSetOk.SizeToContent(); 
-	
+
+	//////////////////////////////////////////////////////////////////////////
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -99,4 +104,34 @@ HBRUSH CConfigOutSetDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+
+void CConfigOutSetDlg::OnEnSetfocusImpulseEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CEdit *pEdit = &m_impulse;
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigOutSetDlg::OnEnSetfocusTriggerLenEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CEdit *pEdit = &m_triggerLen;
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigOutSetDlg::OnEnSetfocusLengthEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CEdit *pEdit = &m_length;
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
 }

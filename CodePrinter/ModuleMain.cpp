@@ -316,7 +316,7 @@ const char* ModuleMain::CString2ConstChar(CString str)
 void ModuleMain::InitCommMsg()
 {
 	MyDcb tempDcb;
-	tempDcb.nComPort=1;
+	tempDcb.nComPort=4;
 	tempDcb.BaudRate=115200;
 	tempDcb.ByteSize=(BYTE)8;
 	tempDcb.Parity=(BYTE)0;
@@ -757,10 +757,10 @@ UINT TTLcomLoop(LPVOID pParam)
 						{
 							if (theApp.myclassMessage.boDynamic)
 							{
-								if (theApp.myclassMessage.forPreQue.size()>0)
+								if (theApp.myclassMessage.ForPreQue.size()>0)
 								{
-									vector<BYTE> tempQueVec=theApp.myclassMessage.forPreQue.front();
-									theApp.myclassMessage.forPreQue.pop();
+									vector<BYTE> tempQueVec=theApp.myclassMessage.ForPreQue.front();
+									theApp.myclassMessage.ForPreQue.pop();
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 									if (strTempCmdLen>11)

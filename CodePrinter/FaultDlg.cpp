@@ -25,6 +25,7 @@ void CFaultDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX,IDC_FAULT_LIST,m_faultList);
+	DDX_Control(pDX, IDC_FAULT_CLOSE_BTN, m_pReturn);
 }
 
 
@@ -48,7 +49,7 @@ BOOL CFaultDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,420,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,420,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BEFORE_BTN)->SetWindowPos(NULL,710,80,70,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_NEXT_BTN)->SetWindowPos(NULL,710,160,70,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_DELETE_BTN)->SetWindowPos(NULL,700,320,80,50,SWP_SHOWWINDOW);
@@ -56,6 +57,8 @@ BOOL CFaultDlg::OnInitDialog()
 	GetDlgItem(IDC_R_HISTORY_BTN)->SetWindowPos(NULL,580,420,80,50,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowPos(NULL,460,420,80,50,SWP_SHOWWINDOW);
 
+	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pReturn.SizeToContent(); 
 
 	getAllErrorFile();
 	get_error_name();

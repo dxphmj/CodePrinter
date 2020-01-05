@@ -41,4 +41,10 @@ public:
 	CImageButton m_sysReturn;
 	CImageButton m_sysOk;
 	CImageButton m_dhcp;
+
+	CImageButton m_ButNet;
+	CImageButton m_ButSerial;
+	CImageButton m_ButEnv;
+	CImageButton m_ButCustom;
+	CImageButton m_ButVersion;
 };

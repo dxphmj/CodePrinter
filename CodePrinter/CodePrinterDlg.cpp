@@ -47,6 +47,8 @@ void CCodePrinterDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_PAUSEPRINT_BUTTON, m_PausePrint);
 	DDX_Control(pDX, IDC_HEAD_PIC, m_PicHead);
 	DDX_Control(pDX, IDC_STATIC_MAIN_PICTURE, m_PictureMain);
+	DDX_Control(pDX, IDC_RESET_COUNT_BTN, m_ButResetCounter);
+	DDX_Control(pDX, IDC_RESET_SERIAL_BTN, m_ButResetSerial);
 }
 
 BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
@@ -148,7 +150,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_STARTPRINT_BUTTON)->SetWindowPos(NULL,280,420,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetWindowPos(NULL,450,420,80,55,SWP_SHOWWINDOW);
 	
-	////彩色按钮
+	//彩色按钮
+
+	m_ButResetCounter.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButResetCounter.SizeToContent(); 
+	m_ButResetSerial.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButResetSerial.SizeToContent(); 
+
 	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButFault.SizeToContent(); 
 	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_80_55_BITMAP);
@@ -173,9 +181,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	//m_PictureMain.Invalidate();
 
-#ifdef def_ttl
-	//串口初始化
 
+#ifndef _DEBUG
+	//串口初始化
 	theApp.myModuleMain.InitCommMsg();
 #endif
 
@@ -245,17 +253,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//Sleep(10);
 	//theApp.readCount=theApp.myCIOVsd.Read();
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
-
+	//SetTimer(TIMER1,300,NULL);	
     //墨水配置初始化
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
-
-	//SetTimer(TIMER1,1000,NULL);	
-
-	//SetTimer(TIMER1,300,NULL);	
-
 	pInksysConfig.get_inksystem_from_xml();
-
 	pInksysConfig.download_inksystem_setup();
 	theApp.myStatusClass.download_inksystem_control03();// ?
 	pInksysConfig.download_inksystem_parameter();
@@ -263,21 +265,28 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	pPcfConfig.get_pcf_from_xml();
 	pPcfConfig.download_pcf();
 
-#ifdef def_ttl
+
+#ifndef _DEBUG
+//#ifdef def_ttl
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
 	strTempCmd=(LPTSTR)readArr;	 
 	theApp.myCIOVsd.Send(strTempCmd,8);
 	Sleep(10);
-	//theApp.readCount=theApp.myCIOVsd.Read();
+	theApp.readCount=theApp.myCIOVsd.Read();
  
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	
+	SetTimer(TIMER1,300,NULL);	
 
 #endif 
-	SetTimer(TIMER1,300,NULL);	
+
 	
+	
+
+	m_pNumKey = NULL;
+	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -300,6 +309,18 @@ void CCodePrinterDlg::OnBnClickedLabelButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showDlg(IDD_LABEL_DIALOG);
+}
+
+void CCodePrinterDlg::OpenNumKeyBoard(CEdit * pWnd)
+{
+	if(!m_pNumKey)
+	{
+		m_pNumKey = new CNumKey();
+		m_pNumKey->Create( IDD_DIALOG_NUMKEY,pWnd->GetParent()); 
+		m_pNumKey->m_edit = pWnd;
+		m_pNumKey->ShowWindow(SW_SHOW);
+		m_pNumKey->m_pCodePrinterDlg = this;
+	}
 }
 
 void CCodePrinterDlg::OnBnClickedFaultButton()
@@ -414,6 +435,7 @@ void CCodePrinterDlg::showDlg(int ID)
 		
 		string xmlPath;
 		ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
+		//ShowWindow(SW_SHOW);
 		//GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
 	}
 
@@ -1142,6 +1164,16 @@ void CCodePrinterDlg::GetFaultInfo()
 }
 
 
+void CCodePrinterDlg::UpdatePhase()
+{
+	if (theApp.myTimClass.staPhaseLas != theApp.myStatusClass.staPhase)
+	{
+		m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+		theApp.myTimClass.staPhaseLas = theApp.myStatusClass.staPhase;
+		m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+	}
+}
+
 //定时器
 void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
@@ -1241,6 +1273,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		//实时相位
+        UpdatePhase();
 		switch(theApp.myStatusClass.staPhase)
 		{			
 			case 0:
@@ -1749,6 +1782,10 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		}
+
+		
+		
+
 		//准备好及绿灯处理
 		if (theApp.myStatusClass.staSysRea == true && theApp.myTimClass.staSysReaLas == false  )
 		{

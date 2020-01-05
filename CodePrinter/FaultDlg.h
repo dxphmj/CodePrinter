@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "ImageButton.h"
 using namespace std;
 // CFaultDlg ¶Ô»°¿ò
 
@@ -41,5 +42,7 @@ public:
 	afx_msg void OnBnClickedRHistoryBtn();
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+public:
+	CImageButton m_pReturn;
 
 };

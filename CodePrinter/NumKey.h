@@ -20,13 +20,30 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
-	afx_msg void OnBnClickedButtonKey7();
-public:
-	int m_curNum;
-	int m_EditId;
-	bool isShow;
 	void setEditNum( CString Numstr );
-	void getNumFromEdit( int num,int ID );
+	void getNumFromEdit( CEdit *pEdit );
+	int m_EditId;
+	CEdit *m_edit;
+	bool isShow;
+	CWnd* m_pCodePrinterDlg;
+	
+public:
+
 	afx_msg void OnBnClickedButtonKeyEsc();
+	afx_msg void OnBnClickedButtonKeyDel();
+	afx_msg void OnBnClickedButtonKeyOk();
+	afx_msg void OnBnClickedButtonKeyLeft();
+	afx_msg void OnBnClickedButtonKeyRight();
+
+	afx_msg void OnBnClickedButtonKey9();
 	afx_msg void OnBnClickedButtonKey8();
+	afx_msg void OnBnClickedButtonKey7();
+	afx_msg void OnBnClickedButtonKey6();
+	afx_msg void OnBnClickedButtonKey5();
+	afx_msg void OnBnClickedButtonKey4();
+	afx_msg void OnBnClickedButtonKey3();
+	afx_msg void OnBnClickedButtonKey2();
+	afx_msg void OnBnClickedButtonKey1();
+	afx_msg void OnBnClickedButtonKey0();
+	afx_msg void OnBnClickedButtonKeyDoc();
 };

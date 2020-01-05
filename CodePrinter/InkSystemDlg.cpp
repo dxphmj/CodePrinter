@@ -8,6 +8,7 @@
 #include "CodePrinterDlg.h"
 
 
+
 // CInkSystemDlg 对话框
 
 IMPLEMENT_DYNAMIC(CInkSystemDlg, CDialog)
@@ -36,11 +37,11 @@ void CInkSystemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_INK_CLOSE_BTN, m_returnIB);
-	//DDX_Control(pDX, IDC_USUAL_BTN, m_usualIB);
-	//DDX_Control(pDX, IDC_ADVANCE_BTN, m_advanceIB);
-	//DDX_Control(pDX, IDC_SETUP_BTN, m_setupIB);
-	//DDX_Control(pDX, IDC_PARAMETER_BTN, m_parameterIB);
-	//DDX_Control(pDX, IDC_PHASING_BTN, m_phasingIB);
+	DDX_Control(pDX, IDC_USUAL_BTN, m_usualIB);
+	DDX_Control(pDX, IDC_ADVANCE_BTN, m_advanceIB);
+	DDX_Control(pDX, IDC_SETUP_BTN, m_setupIB);
+	DDX_Control(pDX, IDC_PARAMETER_BTN, m_parameterIB);
+	DDX_Control(pDX, IDC_PHASING_BTN, m_phasingIB);
 	DDX_Control(pDX, IDC_INK_OK_BTN, m_okIB);
 }
 
@@ -139,19 +140,24 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_returnIB.SizeToContent(); 
 
 	//待添加彩色图片
-	//m_usualIB.LoadBitmaps(IDB_INK1_BITMAP,IDB_INK2_BITMAP,0,0,IDB_INK1_BITMAP);
-	//m_usualIB.SizeToContent(); 
-	//m_advanceIB.LoadBitmaps(IDB_USER_NEW1_BITMAP,IDB_USER_NEW2_BITMAP,0,0,IDB_USER_NEW1_BITMAP);
-	//m_advanceIB.SizeToContent(); 
-	//m_setupIB.LoadBitmaps(IDB_USER_DELE1_BITMAP,IDB_USER_DELE2_BITMAP,0,0,IDB_USER_DELE1_BITMAP);
-	//m_setupIB.SizeToContent(); 
-	//m_parameterIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_FRESH1_BITMAP);
-	//m_parameterIB.SizeToContent(); 
-	//m_phasingIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
-	//m_phasingIB.SizeToContent(); 
+	m_usualIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_usualIB.SizeToContent(); 
+	m_advanceIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_advanceIB.SizeToContent(); 
+	m_setupIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_setupIB.SizeToContent(); 
+	m_parameterIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_parameterIB.SizeToContent(); 
+	m_phasingIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_phasingIB.SizeToContent(); 
 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_okIB.SizeToContent(); 
+
+	//数字键盘初始化
+	//pNumKey = new CNumKey();
+	//pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
+	//pNumKey->ShowWindow(SW_HIDE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -177,7 +183,7 @@ void CInkSystemDlg::showInkDlg(int ID)
 	else if (ID == IDD_INK_PAR_DIALOG)
 	{
 		m_par->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param"));
 	}
 	else if (ID == IDD_INK_PHASING_DIALOG)
 	{

@@ -6,6 +6,7 @@
 #include "CodePrinter.h"
 #include "ImageButton.h"
 #include "ColorButton.h"
+#include "NumKey.h"
 
 
 // CInkSystemDlg 对话框
@@ -74,6 +75,8 @@ public:
 	int m_ActualVisco;       //实际粘度
 	int m_HighVol;           //高压
 	CString m_Inkflow;        //回收检测
+
+	//CNumKey *pNumKey;        //数字键盘
 
 	afx_msg void OnBnClickedSpeedModeBtn();
 	afx_msg void OnBnClickedPressureModeBtn();

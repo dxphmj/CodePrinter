@@ -23,6 +23,9 @@ COnOffDlg::~COnOffDlg()
 void COnOffDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_RETURN_BTN, m_ButReturn);
+	DDX_Control(pDX, IDC_SEQUENCE_BTN, m_ButSequence);
+	DDX_Control(pDX, IDC_FAST_BTN, m_ButFast);
 }
 
 
@@ -100,4 +103,22 @@ HBRUSH COnOffDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);
 	 
 	return theApp.m_DlgBrush;
+}
+
+BOOL COnOffDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+	// TODO:  在此添加额外的初始化
+
+	//待添加彩色图片
+	m_ButReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_ButReturn.SizeToContent(); 
+	m_ButSequence.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButSequence.SizeToContent(); 
+	m_ButFast.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButFast.SizeToContent(); 
+
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
 }

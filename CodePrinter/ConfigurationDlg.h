@@ -3,7 +3,7 @@
 #include "ConfigOutSetDlg.h"
 #include "afxwin.h"
 #include "ImageButton.h"
-
+#include "NumKey.h"
 // CConfigurationDlg ¶Ô»°¿ò
 
 class CConfigurationDlg : public CDialog
@@ -41,7 +41,9 @@ public:
 	int m_repeatDis;
 	CComboBox m_speedWay;
 	int m_speed;
+
 	int m_nPcfPic;
+	HBITMAP   m_HBitmap[8];   
  
 	afx_msg void OnBnClickedSavePcf();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
@@ -58,7 +60,20 @@ public:
 	afx_msg void OnBnClickedConfiOpenBtn();
 	afx_msg void OnBnClickedConfiSaveBtn();
 	afx_msg void OnCbnSelchangeInverseCombo();
+
+	afx_msg void OnEnSetfocusSpeedEdit();
+	CEdit m_edit_speed;
+	CNumKey *pNumKey;
+	CEdit m_edit_delay;
+	afx_msg void OnEnSetfocusDelayEdit();
 	afx_msg void OnCbnSelchangeReverseCombo();
 	afx_msg void OnPaint();
 	afx_msg void OnEnChangeDelayEdit();
+
+	CEdit m_edit_height;
+	afx_msg void OnEnSetfocusHeightEdit();
+	CEdit m_edit_repeatDis;
+	afx_msg void OnEnSetfocusRepeatDisEdit();
+	CEdit m_edit_dotPitch;
+	afx_msg void OnEnSetfocusDotPitchEdit();
 };

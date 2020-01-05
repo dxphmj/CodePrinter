@@ -7,6 +7,7 @@
 #include "PcfConfig.h"
 #include "CodePrinterDlg.h"
 #include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
+#include "BnvImage.h"
 
 // CConfigurationDlg 对话框
 
@@ -45,6 +46,11 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFI_OPEN_BTN, m_configOpenIB);
 	DDX_Control(pDX, IDC_CONFI_SAVE_BTN, m_configSaveIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_configOkIB);
+	DDX_Control(pDX, IDC_SPEED_EDIT, m_edit_speed);
+	DDX_Control(pDX, IDC_DELAY_EDIT, m_edit_delay);
+	DDX_Control(pDX, IDC_HEIGHT_EDIT, m_edit_height);
+	DDX_Control(pDX, IDC_REPEAT_DIS_EDIT, m_edit_repeatDis);
+	DDX_Control(pDX, IDC_DOT_PITCH_EDIT, m_edit_dotPitch);
 }
 
 
@@ -60,9 +66,17 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_WM_CTLCOLOR()
 
 	ON_CBN_SELCHANGE(IDC_INVERSE_COMBO, &CConfigurationDlg::OnCbnSelchangeInverseCombo)
+
+	ON_EN_SETFOCUS(IDC_SPEED_EDIT, &CConfigurationDlg::OnEnSetfocusSpeedEdit)
+	ON_EN_SETFOCUS(IDC_DELAY_EDIT, &CConfigurationDlg::OnEnSetfocusDelayEdit)
+
 	ON_CBN_SELCHANGE(IDC_REVERSE_COMBO, &CConfigurationDlg::OnCbnSelchangeReverseCombo)
 	ON_WM_PAINT()
 	ON_EN_CHANGE(IDC_DELAY_EDIT, &CConfigurationDlg::OnEnChangeDelayEdit)
+
+	ON_EN_SETFOCUS(IDC_HEIGHT_EDIT, &CConfigurationDlg::OnEnSetfocusHeightEdit)
+	ON_EN_SETFOCUS(IDC_REPEAT_DIS_EDIT, &CConfigurationDlg::OnEnSetfocusRepeatDisEdit)
+	ON_EN_SETFOCUS(IDC_DOT_PITCH_EDIT, &CConfigurationDlg::OnEnSetfocusDotPitchEdit)
 END_MESSAGE_MAP()
 
 
@@ -75,7 +89,6 @@ BOOL CConfigurationDlg::OnInitDialog()
     //按钮界面初始化
 	m_ConfigPM= new CConfigPrintModeDlg;
 	m_ConfigOS = new CConfigOutSetDlg;
-
 	int nX = 0;
 	int nY = 100;
 	int nWidth = 800;
@@ -124,7 +137,19 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_configOkIB.SizeToContent(); 
 
-	m_nPcfPic = IDB_SETUP_017;
+
+	//////////////////////////////////////////////////////////////////////////
+	pNumKey = new CNumKey();
+	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
+	pNumKey->ShowWindow(SW_HIDE);
+
+    for(int i = 0; i < 8; i++)
+	{
+		CBnvImage PngImage;
+		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_SETUP_017+i), _T("PNG")); 
+		m_HBitmap[i] = PngImage.CreatHBitmap(); 
+	}
+	m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;;
 	pcf_diagram_select();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -244,12 +269,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_017;
+				m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_019;
+				m_nPcfPic = IDB_SETUP_019-IDB_SETUP_017;
 
 			}
 		}
@@ -257,12 +282,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_018;
+				m_nPcfPic = IDB_SETUP_018-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_020;
+				m_nPcfPic = IDB_SETUP_020-IDB_SETUP_017;
 			}
 		}
 	}
@@ -272,12 +297,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_021;
+				m_nPcfPic = IDB_SETUP_021-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_023;
+				m_nPcfPic = IDB_SETUP_023-IDB_SETUP_017;
 
 			}
 		}
@@ -285,12 +310,12 @@ void CConfigurationDlg::pcf_diagram_select()
 		{
 			if(m_inverse.GetCurSel() == 0)
 			{
-				m_nPcfPic = IDB_SETUP_024;
+				m_nPcfPic = IDB_SETUP_024-IDB_SETUP_017;
 
 			}
 			else
 			{
-				m_nPcfPic = IDB_SETUP_022;
+				m_nPcfPic = IDB_SETUP_022-IDB_SETUP_017;
 			}
 		}
 	}
@@ -300,8 +325,11 @@ void CConfigurationDlg::pcf_diagram_select()
 void CConfigurationDlg::OnCbnSelchangeInverseCombo()
 {
 	// TODO: 在此添加控件通知处理程序代码
+
 	pcf_diagram_select();
 }
+
+
 
 void CConfigurationDlg::OnCbnSelchangeReverseCombo()
 {
@@ -313,20 +341,18 @@ void CConfigurationDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	CRect   rect(0,0,800,420);  
-
-	//GetClientRect(&rect);    //获取对话框长宽      
 	CDC   dcBmp;             //定义并创建一个内存设备环境
 	dcBmp.CreateCompatibleDC(&dc);             //创建兼容性DC
 	CBitmap   bmpBackground;
-	//HBITMAP hBitmap = (HBITMAP)LoadImage(AfxGetInstanceHandle(), _T("C:\\Users\\Admin\\Desktop\\1.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-	//bmpBackground.Attach(hBitmap); //关联位图对象  
-	bmpBackground.LoadBitmap(m_nPcfPic);    //载入资源中图片
-	BITMAP   m_bitmap;                         //图片变量               
-	bmpBackground.GetBitmap(&m_bitmap);       //将图片载入位图中
+	bmpBackground.Attach(m_HBitmap[m_nPcfPic]); 
+
 	//将位图选入临时内存设备环境
 	CBitmap  *pbmpOld = dcBmp.SelectObject(&bmpBackground);
+
 	//调用函数显示图片StretchBlt显示形状可变
 	dc.BitBlt(0, 0, rect.Width(), rect.Height(), &dcBmp, 0, 0, SRCCOPY);
+	dcBmp.SelectObject(pbmpOld);
+	bmpBackground.Detach();	
 }
 
 void CConfigurationDlg::OnEnChangeDelayEdit()
@@ -337,4 +363,54 @@ void CConfigurationDlg::OnEnChangeDelayEdit()
 	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
 	// TODO:  在此添加控件通知处理程序代码
+
+}
+
+void CConfigurationDlg::OnEnSetfocusHeightEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_height;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigurationDlg::OnEnSetfocusRepeatDisEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_repeatDis;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigurationDlg::OnEnSetfocusDotPitchEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_dotPitch;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+void CConfigurationDlg::OnEnSetfocusSpeedEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_speed;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigurationDlg::OnEnSetfocusDelayEdit()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEdit *pEdit = &m_edit_delay;
+
+	CCodePrinterDlg* dlg;
+	dlg = (CCodePrinterDlg*)(GetParent());
+	dlg->OpenNumKeyBoard(pEdit);
 }
