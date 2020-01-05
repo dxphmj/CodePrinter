@@ -1274,7 +1274,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 		//实时相位
         UpdatePhase();
-		switch(theApp.myStatusClass.staPhase)
+		/*switch(theApp.myStatusClass.staPhase)
 		{			
 			case 0:
 			{
@@ -1601,7 +1601,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 					break;
 				}
 		    
-		}
+		}*/
 		//自动分裂电压
 		m_Ink->m_phas->GetDlgItem(IDC_MODULATION_NUM_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staAutModVol)));
 		//墨水时间分析改写并显示
