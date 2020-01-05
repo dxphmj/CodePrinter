@@ -1094,6 +1094,16 @@ IDB_BITMAP_NOTCHANGE    BITMAP                  "res\\SMALL\\正常.bmp"
 IDB_BITMAP_RLEFTRIGHT   BITMAP                  "res\\SMALL\\左右颠倒.bmp"
 IDB_RANGE2_BITMAP       BITMAP                  "res\\下面按键--.bmp"
 IDB_70_45_BITMAP        BITMAP                  "res\\Mask70-45.bmp"
+IDB_L_HISTORY1_BITMAP   BITMAP                  "res\\fault\\左.bmp"
+IDB_L_HISTORY2_BITMAP   BITMAP                  "res\\fault\\左--.bmp"
+IDB_R_HISTORY1_BITMAP   BITMAP                  "res\\fault\\右.bmp"
+IDB_R_HISTORY2_BITMAP   BITMAP                  "res\\fault\\右--.bmp"
+IDB_NEXT1_BITMAP        BITMAP                  "res\\fault\\下.bmp"
+IDB_NEXT2_BITMAP        BITMAP                  "res\\fault\\下--.bmp"
+IDB_BEFORE1_BITMAP      BITMAP                  "res\\fault\\上.bmp"
+IDB_BEFORE2_BITMAP      BITMAP                  "res\\fault\\上--.bmp"
+IDB_DELETE1_BITMAP      BITMAP                  "res\\fault\\删除.bmp"
+IDB_DELETE2_BITMAP      BITMAP                  "res\\fault\\删除--.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

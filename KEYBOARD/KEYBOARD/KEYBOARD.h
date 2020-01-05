@@ -27,4 +27,7 @@ public:
 	DECLARE_MESSAGE_MAP()
 public:
 	//void dlgShow();
+public:
+	//COLORREF m_BKcolor;
+	//CBrush m_DlgBrush;
 };

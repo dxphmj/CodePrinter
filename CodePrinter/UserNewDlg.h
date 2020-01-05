@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ImageButton.h"
 
 // CUserNewDlg ¶Ô»°¿ò
 
@@ -19,7 +19,7 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-
+	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedRightMoveBtn();
 	afx_msg void OnBnClickedLeftMoveBtn();
@@ -27,5 +27,11 @@ public:
 	afx_msg void OnBnClickedButtonClose();
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+public:
+	CImageButton m_pReturn;
+	CImageButton m_pbtnOK;
+	CImageButton m_pRight_move;
+	CImageButton m_pLeft_move;
 
+	
 };

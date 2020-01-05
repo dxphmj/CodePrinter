@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ImageButton.h"
 
 // CUserDeleteDlg ¶Ô»°¿ò
 
@@ -20,7 +20,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	afx_msg void OnBnClickedButton1();
+
 	afx_msg void OnBnClickedButtonClose();
 	afx_msg void OnBnClickedButtonOk();
 
@@ -28,4 +28,10 @@ public:
 public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
+	afx_msg void OnBnClickedButtonCloseDel();
+
+public:
+	CImageButton m_pReturn;
+	CImageButton m_pbtnOK;
+	virtual BOOL OnInitDialog();
 };

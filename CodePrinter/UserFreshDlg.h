@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ImageButton.h"
 
 // CUserFreshDlg ¶Ô»°¿ò
 
@@ -24,5 +24,8 @@ public:
 	afx_msg void OnBnClickedButtonOk();
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-
+public:
+	CImageButton m_pReturn;
+	CImageButton m_pbtnOK;
+	virtual BOOL OnInitDialog();
 };

@@ -1043,10 +1043,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang0.png"
-				>
-			</File>
-			<File
 				RelativePath="G:\I-TJ20190917\Î´ÆÁ±Î\I-TIJ\bng\ang0.png"
 				>
 			</File>
@@ -1055,11 +1051,15 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang1.bmp"
+				RelativePath=".\res\ang0.png"
 				>
 			</File>
 			<File
 				RelativePath=".\res\ang1.bmp"
+				>
+			</File>
+			<File
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang1.bmp"
 				>
 			</File>
 			<File
@@ -1075,11 +1075,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang10.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang10.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang10.png"
+				RelativePath=".\res\ang10.png"
 				>
 			</File>
 			<File
@@ -1087,11 +1087,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang11.png"
+				RelativePath=".\res\ang11.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang11.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang11.png"
 				>
 			</File>
 			<File
@@ -1111,11 +1111,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang13.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang13.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang13.png"
+				RelativePath=".\res\ang13.png"
 				>
 			</File>
 			<File
@@ -1135,11 +1135,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang15.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang15.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang15.png"
+				RelativePath=".\res\ang15.png"
 				>
 			</File>
 			<File
@@ -1159,11 +1159,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang17.png"
+				RelativePath=".\res\ang17.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang17.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang17.png"
 				>
 			</File>
 			<File
@@ -1183,11 +1183,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang19.png"
+				RelativePath=".\res\ang19.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang19.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang19.png"
 				>
 			</File>
 			<File
@@ -1207,11 +1207,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang20.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang20.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang20.png"
+				RelativePath=".\res\ang20.png"
 				>
 			</File>
 			<File
@@ -1231,11 +1231,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang22.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang22.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang22.png"
+				RelativePath=".\res\ang22.png"
 				>
 			</File>
 			<File
@@ -1255,11 +1255,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang24.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang24.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang24.png"
+				RelativePath=".\res\ang24.png"
 				>
 			</File>
 			<File
@@ -1267,11 +1267,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang25.png"
+				RelativePath=".\res\ang25.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang25.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang25.png"
 				>
 			</File>
 			<File
@@ -1291,11 +1291,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang27.png"
+				RelativePath=".\res\ang27.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang27.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang27.png"
 				>
 			</File>
 			<File
@@ -1315,11 +1315,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang29.png"
+				RelativePath=".\res\ang29.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang29.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang29.png"
 				>
 			</File>
 			<File
@@ -1339,11 +1339,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang30.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang30.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang30.png"
+				RelativePath=".\res\ang30.png"
 				>
 			</File>
 			<File
@@ -1351,11 +1351,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang31.png"
+				RelativePath=".\res\ang31.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang31.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang31.png"
 				>
 			</File>
 			<File
@@ -1375,11 +1375,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang33.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang33.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang33.png"
+				RelativePath=".\res\ang33.png"
 				>
 			</File>
 			<File
@@ -1399,11 +1399,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang35.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang35.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang35.png"
+				RelativePath=".\res\ang35.png"
 				>
 			</File>
 			<File
@@ -1423,11 +1423,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang5.png"
+				RelativePath=".\res\ang5.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang5.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang5.png"
 				>
 			</File>
 			<File
@@ -1447,11 +1447,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang7.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang7.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang7.png"
+				RelativePath=".\res\ang7.png"
 				>
 			</File>
 			<File
@@ -1471,11 +1471,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang9.png"
+				RelativePath=".\res\ang9.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang9.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang9.png"
 				>
 			</File>
 			<File
@@ -1643,11 +1643,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\im017.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im017.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im017.png"
+				RelativePath=".\res\im017.png"
 				>
 			</File>
 			<File
@@ -1667,11 +1667,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im019.png"
+				RelativePath=".\res\im019.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\im019.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im019.png"
 				>
 			</File>
 			<File
@@ -1691,11 +1691,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im021.png"
+				RelativePath=".\res\im021.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\im021.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im021.png"
 				>
 			</File>
 			<File
@@ -1703,11 +1703,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\im022.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im022.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im022.png"
+				RelativePath=".\res\im022.png"
 				>
 			</File>
 			<File
@@ -1715,11 +1715,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\im023.png"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im023.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\im023.png"
+				RelativePath=".\res\im023.png"
 				>
 			</File>
 			<File
@@ -1879,11 +1879,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\fault\ÉÏ--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\ÉÏ.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\SMALL\ÉÏÏÂ×óÓÒµßµ¹.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\SMALL\ÉÏÏÂµßµ¹.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\ÏÂ--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\ÏÂ.bmp"
 				>
 			</File>
 			<File
@@ -1939,6 +1955,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\fault\É¾³ý--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\É¾³ý.bmp"
 				>
 			</File>
@@ -1975,7 +1999,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\fault\ÓÒ--.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\SMALL\ÓÒ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\ÓÒ.bmp"
 				>
 			</File>
 			<File
@@ -2027,11 +2059,11 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\6Ä«Ë®ÏµÍ³\Ô²¼ü.bmp"
+				RelativePath=".\res\Ô²¼ü.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\Ô²¼ü.bmp"
+				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\6Ä«Ë®ÏµÍ³\Ô²¼ü.bmp"
 				>
 			</File>
 			<File
@@ -2067,7 +2099,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\fault\×ó--.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\SMALL\×ó--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\×ó.bmp"
 				>
 			</File>
 			<File
@@ -2295,10 +2335,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
 				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
 				>
 			</File>
@@ -2327,10 +2363,6 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\±³¾°Ìõ.bmp"
 				>
 			</File>
@@ -2340,6 +2372,14 @@
 			</File>
 			<File
 				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±³¾°Ìõ.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\ÅçÂë»ú¿ª·¢\all\Ö÷Ò³\±³¾°Ìõ.bmp"
 				>
 			</File>
 			<File

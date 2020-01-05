@@ -25,7 +25,14 @@ void CFaultDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX,IDC_FAULT_LIST,m_faultList);
+
 	DDX_Control(pDX, IDC_FAULT_CLOSE_BTN, m_pReturn);
+	DDX_Control(pDX,IDC_L_HISTORY_BTN,m_LHistory);
+	DDX_Control(pDX,IDC_R_HISTORY_BTN,m_RHistory);
+	DDX_Control(pDX,IDC_REFRESH_BTN,m_refresh);
+	DDX_Control(pDX, IDC_DELETE_BTN, m_delete);
+	DDX_Control(pDX,IDC_NEXT_BTN,m_next);
+	DDX_Control(pDX, IDC_BEFORE_BTN, m_before);
 }
 
 
@@ -50,15 +57,27 @@ BOOL CFaultDlg::OnInitDialog()
 
 	// TODO:  在此添加额外的初始化
 	GetDlgItem(IDC_FAULT_CLOSE_BTN)->SetWindowPos(NULL,10,420,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_BEFORE_BTN)->SetWindowPos(NULL,710,80,70,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_NEXT_BTN)->SetWindowPos(NULL,710,160,70,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_DELETE_BTN)->SetWindowPos(NULL,700,320,80,50,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_REFRESH_BTN)->SetWindowPos(NULL,700,420,80,50,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_R_HISTORY_BTN)->SetWindowPos(NULL,580,420,80,50,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowPos(NULL,460,420,80,50,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BEFORE_BTN)->SetWindowPos(NULL,710,80,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_NEXT_BTN)->SetWindowPos(NULL,710,160,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_DELETE_BTN)->SetWindowPos(NULL,700,320,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_REFRESH_BTN)->SetWindowPos(NULL,700,420,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_R_HISTORY_BTN)->SetWindowPos(NULL,580,420,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowPos(NULL,460,420,70,45,SWP_SHOWWINDOW);
 
 	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_70_45_BITMAP);
 	m_pReturn.SizeToContent(); 
+	m_LHistory.LoadBitmaps(IDB_L_HISTORY1_BITMAP,IDB_L_HISTORY2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_LHistory.SizeToContent(); 
+	m_RHistory.LoadBitmaps(IDB_R_HISTORY1_BITMAP,IDB_R_HISTORY1_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_RHistory.SizeToContent(); 
+	m_refresh.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_refresh.SizeToContent(); 
+	m_delete.LoadBitmaps(IDB_DELETE1_BITMAP,IDB_DELETE2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_delete.SizeToContent(); 
+	m_next.LoadBitmaps(IDB_NEXT1_BITMAP,IDB_NEXT2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_next.SizeToContent(); 
+	m_before.LoadBitmaps(IDB_BEFORE1_BITMAP,IDB_BEFORE2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_before.SizeToContent(); 
 
 	getAllErrorFile();
 	get_error_name();
