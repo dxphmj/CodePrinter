@@ -64,32 +64,34 @@ BOOL CInputDlg::OnInitDialog()
 	pBarCode = new CBarCodeDlg;
 
 	int nX = 0;
-	int nY = 90;
+	int nY = 75;
 	int nWidth = 800;
 	int nHeight = 600-nY;
 	pEditText->Create(IDD_EDITTEXT_DIALOG,this);
 	pEditText->MoveWindow(nX,nY,nWidth,nHeight);
+	pEditText->ShowWindow(SW_HIDE);
 
 	pEditFigure->Create(IDD_EDITFIGURE_DIALOG,this);
 	pEditFigure->MoveWindow(nX,nY,nWidth,nHeight);
 	pEditFigure->ShowWindow(SW_HIDE);
 
-	pDate->Create(IDD_DATE_DIALOG,this);
-	pDate->MoveWindow(nX,nY,nWidth,nHeight);
-	pDate->ShowWindow(SW_HIDE);
+ 	pDate->Create(IDD_DATE_DIALOG,this);
+ 	pDate->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pDate->ShowWindow(SW_HIDE);
 
-	pPic->Create(IDD_PICTURE_DIALOG,this);
-	pPic->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pPic->Create(IDD_PICTURE_DIALOG,this);
+ 	pPic->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pPic->ShowWindow(SW_HIDE);
 
-	pBarCode->Create(IDD_BARCODE_DIALOG,this);
-	pBarCode->MoveWindow(nX,nY,nWidth,nHeight);
-	pBarCode->ShowWindow(SW_HIDE);
+ 	pBarCode->Create(IDD_BARCODE_DIALOG,this);
+ 	pBarCode->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pBarCode->ShowWindow(SW_HIDE);
 
 //Òª¸Ä
 	CRect rect1;
 	GetDlgItem(IDC_EDITFIGURE_BUTTON)->GetWindowRect(&rect1);
 
-	GetDlgItem(IDC_EDITTEXT_BUTTON)->SetWindowPos(NULL,224,80,60,40,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_EDITTEXT_BUTTON)->SetWindowPos(NULL,224,80,60,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDITFIGURE_BUTTON)->SetWindowPos(NULL,354,80,60,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDITDATE_BUTTON)->SetWindowPos(NULL,484,80,60,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDITPICTURE_BUTTON)->SetWindowPos(NULL,224,140,60,40,SWP_SHOWWINDOW);
@@ -223,8 +225,7 @@ void CInputDlg::showInputDlg(int ID)
 	else if (ID == IDD_BARCODE_DIALOG)
 	{
 		pBarCode->ShowWindow(SW_SHOW);
-	}
-	
+	}	
 }
 
 

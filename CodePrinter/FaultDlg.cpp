@@ -105,6 +105,7 @@ void CFaultDlg::OnBnClickedFaultCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(m_strPreOperation); 
 }
 bool comp(const WIN32_FIND_DATA &a, const WIN32_FIND_DATA &b){return a.cFileName<b.cFileName;}
 void CFaultDlg::getAllErrorFile()

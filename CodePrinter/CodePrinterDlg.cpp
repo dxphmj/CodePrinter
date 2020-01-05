@@ -85,6 +85,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
+	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );	
     m_PicHead.SetMachineStatus(_T("Shut Down"));
 	m_PicHead.ShowLogo(true);
 
@@ -97,7 +98,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
-	//m_OnOff = new COnOffDlg; 
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -129,10 +129,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
 	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
-	
-//	m_OnOff->Create(IDD_ONOFF_DIALOG,this);
-//	m_OnOff->MoveWindow(200,200,300,200);
-
 	
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
@@ -279,10 +275,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//定时器初始化 (不要在定时器后面初始化)
 	SetTimer(TIMER1,300,NULL);	
 
-#endif 
-
-	
-	
+#endif 	
 
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
@@ -329,7 +322,14 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 	m_Fault->get_save_error();
 
 	m_Fault->openfailurefile("Storage Card\\System\\Error\\99999999.txt");
-	showDlg(IDD_FAULT_DIALOG);
+	//保存操作提示字符串，等该故障窗口关闭后再恢复显示。
+	if(m_PicHead.m_bShowLogo == true)
+		m_Fault->m_strPreOperation = _T("");
+	else
+		m_Fault->m_strPreOperation = m_PicHead.m_strOperation;
+	//showDlg(IDD_FAULT_DIALOG);
+	m_Fault->ShowWindow(SW_SHOW);
+	m_PicHead.SetOperationString(_T("故障")); //Fault System
 }
 
 void CCodePrinterDlg::OnBnClickedSystemButton()
@@ -354,8 +354,6 @@ void CCodePrinterDlg::OnBnClickedFilemanaButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showDlg(IDD_FILEMANA_DIALOG);
-
-
 }
 
 void CCodePrinterDlg::OnBnClickedInkButton()
@@ -368,9 +366,7 @@ void CCodePrinterDlg::OnBnClickedOnoroffButton()
 {
 	//showDlg(IDD_ONOFF_DIALOG);
 	COnOffDlg OnOffDlg;
-
-    OnOffDlg.DoModal();
-	
+    OnOffDlg.DoModal();	
 }
 //开始喷印
 void CCodePrinterDlg::OnBnClickedStartprintButton()
@@ -403,33 +399,32 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
-//	m_OnOff->ShowWindow(SW_HIDE);
 
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
 		m_System->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("System Manage")); 
+	    m_PicHead.SetOperationString(_T("系统管理"));//System Manage 
 	}
 	else if (ID == IDD_USER_DIALOG)
 	{
 		m_User->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("User Manage")); 
+	    m_PicHead.SetOperationString(_T("用户管理"));//User Manage 
 	}
 	else if(ID == IDD_LABEL_DIALOG)
 	{
 		m_Label->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Label Manage")); 
+	    m_PicHead.SetOperationString(_T("标签管理")); //Label Manage
 	}
 	else if(ID == IDD_CONFIGURATION_DIALOG)
 	{
 		m_Confi->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Configure")); 
+	    m_PicHead.SetOperationString(_T("配置")); //Configure
 	}
 
 	else if(ID == IDD_FILEMANA_DIALOG)
 	{
 		//m_FileMan->ShowWindow(SW_SHOW);
-		 m_PicHead.SetOperationString(_T("File Manage")); 
+		 m_PicHead.SetOperationString(_T("文件管理")); //File Manage
 		TCHAR path[MAX_PATH];
 		//labModule.string2tchar(testpath,path);
 		
@@ -437,18 +432,17 @@ void CCodePrinterDlg::showDlg(int ID)
 		ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
 		//ShowWindow(SW_SHOW);
 		//GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
+		m_PicHead.ShowLogo(true);
 	}
-
-
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Ink System")); 
+	    m_PicHead.SetOperationString(_T("墨水管理"));// Ink System
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
 		m_Fault->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Fault System")); 
+	    m_PicHead.SetOperationString(_T("故障")); //Fault System
 	}
 	/*else if (ID == IDD_ONOFF_DIALOG)
 	{

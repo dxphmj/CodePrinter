@@ -1023,7 +1023,7 @@ void CLabelDlg::OnBnClickedLabelCloseBtn()
 	//this->ShowWindow(SW_HIDE);
 	//GetParent()->ShowWindow(SW_SHOW);
 	ShowWindow(SW_HIDE);
-
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
 
 void CLabelDlg::showInputDlg(int ID)
