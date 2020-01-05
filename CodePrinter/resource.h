@@ -619,6 +619,7 @@
 #define IDC_BUTTON_KEY_LEFT             1508
 #define IDC_BUTTON_KEY_RIGHT            1509
 #define IDC_BUTTON_KEY_DEL              1510
+#define IDC_CURRENTTIME_STATIC          1511
 
 // Next default values for new objects
 // 
@@ -626,7 +627,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        454
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1511
+#define _APS_NEXT_CONTROL_VALUE         1512
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
