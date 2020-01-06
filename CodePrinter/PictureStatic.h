@@ -19,7 +19,7 @@ public:
 	bool    m_bRedAlarm,m_bGreenAlarm,m_bBlueAlarm,m_bYellowAlarm;
 
 public:
-	void SetOperationString(CString OperationString){m_strOperation = OperationString; m_bShowLogo = false;Invalidate();}
+	void SetOperationString(CString OperationString);
 	void SetMachineStatus(CString MachineStatusString){m_strMachineStatus = MachineStatusString;m_bShowLogo = false; Invalidate();}
 	void ShowLogo(bool bShow){m_bShowLogo = bShow;Invalidate();}
 	void ResetAlarm(){m_bShowGreenAlarm = m_bShowBlueAlarm = m_bShowYellowAlarm = m_bShowRedAlarm = false;Invalidate();}

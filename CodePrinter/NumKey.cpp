@@ -62,6 +62,27 @@ BOOL CNumKey::OnInitDialog()
 	//::SetWindowPos(m_hWnd, HWND_TOPMOST, rtClient.left, rtClient.top, rtClient.Width(), rtClient.Height(), SWP_SHOWWINDOW);
 	this->SetWindowPos(&wndTopMost,0,0,276,159,SWP_NOSIZE|SWP_NOMOVE);
 	this->MoveWindow(276,159,rtClient.Width(),rtClient.Height());
+
+	CFont *pFont = new CFont; //创建一个指向新字体类型的指针pFont
+	pFont->CreatePointFont(180, _T("黑体"));
+	GetDlgItem(IDC_BUTTON_KEY_ESC)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY_DEL)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY_OK)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY_LEFT)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY_RIGHT)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY9)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY8)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY7)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY6)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY5)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY4)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY3)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY2)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY1)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY0)->SetFont(pFont);
+	GetDlgItem(IDC_BUTTON_KEY_DOC)->SetFont(pFont);
+
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

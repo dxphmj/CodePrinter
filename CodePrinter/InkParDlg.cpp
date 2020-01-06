@@ -95,18 +95,17 @@ HBRUSH CInkParDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
 }
+
 BOOL CInkParDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
 	//////////////////////////////////////////////////////////////////////////
-	GetDlgItem(IDC_SOLVENT_FLOW_LEV_EDIT)->SetFocus();
-	return TRUE;  // return TRUE unless you set the focus to a control
+	GetDlgItem(IDC_SOL_EMPTY_LEV_STATIC)->SetFocus();
+	return FALSE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
-
-
 
 void CInkParDlg::OnPaint()
 {
@@ -117,6 +116,7 @@ void CInkParDlg::OnPaint()
 	this->SetFocus();
 
 }
+
 void CInkParDlg::OnEnSetfocusParPressureEdit()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -137,6 +137,7 @@ void CInkParDlg::OnEnSetfocusPrintheadTempEdit()
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
 	dlg->OpenNumKeyBoard(pEdit);
 }
+
 void CInkParDlg::OnEnSetfocusParPumpSpeedEdit()
 {
 	// TODO: 在此添加控件通知处理程序代码

@@ -32,6 +32,7 @@ public:
 	vector<string> strErrorFileNameArr;
 	int intErrorFileNameArr;
 	int nowErrDay;
+	CString m_strPreOperation;
 	afx_msg void OnBnClickedDeleteBtn();
 	afx_msg void OnBnClickedBeforeBtn();
 	afx_msg void OnBnClickedNextBtn();
@@ -44,5 +45,10 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 public:
 	CImageButton m_pReturn;
-
+	CImageButton m_LHistory;
+	CImageButton m_RHistory;
+	CImageButton m_refresh;
+	CImageButton m_delete;
+	CImageButton m_next;
+	CImageButton m_before;
 };

@@ -85,6 +85,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
+	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );	
     m_PicHead.SetMachineStatus(_T("Shut Down"));
 	m_PicHead.ShowLogo(true);
 
@@ -97,7 +98,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
-	//m_OnOff = new COnOffDlg; 
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -130,10 +130,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
 	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
-	
-//	m_OnOff->Create(IDD_ONOFF_DIALOG,this);
-//	m_OnOff->MoveWindow(200,200,300,200);
-
 	
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
@@ -282,7 +278,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//定时器初始化 (不要在定时器后面初始化)
 	SetTimer(TIMER1,300,NULL);	
 
-#endif 
+#endif 	
+
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
@@ -328,7 +325,14 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 	m_Fault->get_save_error();
 
 	m_Fault->openfailurefile("Storage Card\\System\\Error\\99999999.txt");
-	showDlg(IDD_FAULT_DIALOG);
+	//保存操作提示字符串，等该故障窗口关闭后再恢复显示。
+	if(m_PicHead.m_bShowLogo == true)
+		m_Fault->m_strPreOperation = _T("");
+	else
+		m_Fault->m_strPreOperation = m_PicHead.m_strOperation;
+	//showDlg(IDD_FAULT_DIALOG);
+	m_Fault->ShowWindow(SW_SHOW);
+	m_PicHead.SetOperationString(_T("故障")); //Fault System
 }
 
 void CCodePrinterDlg::OnBnClickedSystemButton()
@@ -353,8 +357,6 @@ void CCodePrinterDlg::OnBnClickedFilemanaButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showDlg(IDD_FILEMANA_DIALOG);
-
-
 }
 
 void CCodePrinterDlg::OnBnClickedInkButton()
@@ -367,15 +369,13 @@ void CCodePrinterDlg::OnBnClickedOnoroffButton()
 {
 	//showDlg(IDD_ONOFF_DIALOG);
 	COnOffDlg OnOffDlg;
-
-    OnOffDlg.DoModal();
-	
+    OnOffDlg.DoModal();	
 }
 //开始喷印
 void CCodePrinterDlg::OnBnClickedStartprintButton()
 {
  // TODO: 在此添加控件通知处理程序代码
-	if (theApp.myStatusClass.ctr0X03bit0==1 /*& theApphaiqueyixiang*/)
+	if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myPcfClass.pcf0X00bit4 == 1)
 	{
 		theApp.myStatusClass.ctr0X03bit1 = 1;
 	}
@@ -402,33 +402,32 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
-//	m_OnOff->ShowWindow(SW_HIDE);
 
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
 		m_System->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("System Manage")); 
+	    m_PicHead.SetOperationString(_T("系统管理"));//System Manage 
 	}
 	else if (ID == IDD_USER_DIALOG)
 	{
 		m_User->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("User Manage")); 
+	    m_PicHead.SetOperationString(_T("用户管理"));//User Manage 
 	}
 	else if(ID == IDD_LABEL_DIALOG)
 	{
 		m_Label->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Label Manage")); 
+	    m_PicHead.SetOperationString(_T("标签管理")); //Label Manage
 	}
 	else if(ID == IDD_CONFIGURATION_DIALOG)
 	{
 		m_Confi->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Configure")); 
+	    m_PicHead.SetOperationString(_T("配置")); //Configure
 	}
 
 	else if(ID == IDD_FILEMANA_DIALOG)
 	{
 		//m_FileMan->ShowWindow(SW_SHOW);
-		 m_PicHead.SetOperationString(_T("File Manage")); 
+		 m_PicHead.SetOperationString(_T("文件管理")); //File Manage
 		TCHAR path[MAX_PATH];
 		//labModule.string2tchar(testpath,path);
 		
@@ -436,18 +435,17 @@ void CCodePrinterDlg::showDlg(int ID)
 		ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
 		//ShowWindow(SW_SHOW);
 		//GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
+		m_PicHead.ShowLogo(true);
 	}
-
-
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Ink System")); 
+	    m_PicHead.SetOperationString(_T("墨水管理"));// Ink System
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
 		m_Fault->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Fault System")); 
+	    m_PicHead.SetOperationString(_T("故障")); //Fault System
 	}
 	/*else if (ID == IDD_ONOFF_DIALOG)
 	{
@@ -694,13 +692,6 @@ void CCodePrinterDlg::GetFaultInfo()
 	//故障列表要清除，但又得防止刷新太快，最好判断一下如果列表中已显示该类型故障就不用添加了。
   //  m_Fault->m_faultList.ResetContent();
 
-	//日期
-	CTime localT=CTime::GetCurrentTime(); 
-	string m_currentDate;
-	m_currentDate=/*theApp.myModuleMain.string2CString(*/theApp.myclassMessage.to_String(localT.GetYear())+"/"+theApp.myclassMessage.to_String(localT.GetMonth())+"/"+theApp.myclassMessage.to_String(localT.GetDay());
-	//时间
-    string m_currentTime;
-	m_currentTime=/*theApp.myModuleMain.string2CString(*/theApp.myclassMessage.to_String(localT.GetHour())+":"+theApp.myclassMessage.to_String(localT.GetMinute())+":"+theApp.myclassMessage.to_String(localT.GetSecond());
     
 	//墨水温度传感器故障
     if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
@@ -735,10 +726,12 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 
 	//泵超速保护
-	if (theApp.myStatusClass.staBumSpeOveFau == true && theApp.myStatusClass.staBumSpeOveFauLas == false)
+	if (theApp.myStatusClass.staBumSpeOveFau == false	 && theApp.myStatusClass.staBumSpeOveFauLas == false)
 	{
 		theApp.myStatusClass.staBumSpeOveFauLas = true;
 		//缺starting up
+
+		/*m_Onoff->SetWindowText(_T("Starting Up"));*/
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
@@ -1199,6 +1192,13 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		UpdateValve(); //更新各种阀的信息，通过颜色显示出来，蓝色表示没按下去
 
 		GetFaultInfo(); //获得各种故障信息
+		//日期
+		CTime localT=CTime::GetCurrentTime(); 	
+
+		m_currentDate = theApp.myclassMessage.to_String(localT.GetYear())+"/"+theApp.myclassMessage.to_String(localT.GetMonth())+"/"+theApp.myclassMessage.to_String(localT.GetDay());
+		//时间
+		m_currentTime = theApp.myclassMessage.to_String(localT.GetHour())+":"+theApp.myclassMessage.to_String(localT.GetMinute())+":"+theApp.myclassMessage.to_String(localT.GetSecond());
+
 
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
@@ -1270,8 +1270,519 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 
 		//实时相位
-		UpdatePhase();
+        UpdatePhase();
+		/*switch(theApp.myStatusClass.staPhase)
+		{			
+			case 0:
+			{
+				if (theApp.myTimClass.staPhaseLas != 0)
+				{
+					m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+					m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+				}
+				break;
+			}
+			case 1:
+			{
+				if (theApp.myTimClass.staPhaseLas != 1)
+				{
+					m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+					m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+				}
+				break;
+			}
+			case 2:
+				{
+					if (theApp.myTimClass.staPhaseLas != 2)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 3:
+				{
+					if (theApp.myTimClass.staPhaseLas != 3)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 4:
+				{
+					if (theApp.myTimClass.staPhaseLas != 4)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 5:
+				{
+					if (theApp.myTimClass.staPhaseLas != 5)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 6:
+				{
+					if (theApp.myTimClass.staPhaseLas != 6)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 7:
+				{
+					if (theApp.myTimClass.staPhaseLas != 7)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 8:
+				{
+					if (theApp.myTimClass.staPhaseLas != 8)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 9:
+				{
+					if (theApp.myTimClass.staPhaseLas != 9)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 10:
+				{
+					if (theApp.myTimClass.staPhaseLas != 10)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 11:
+				{
+					if (theApp.myTimClass.staPhaseLas != 11)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 12:
+				{
+					if (theApp.myTimClass.staPhaseLas != 12)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 13:
+				{
+					if (theApp.myTimClass.staPhaseLas != 13)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 14:
+				{
+					if (theApp.myTimClass.staPhaseLas != 14)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 15:
+				{
+					if (theApp.myTimClass.staPhaseLas != 15)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 16:
+				{
+					if (theApp.myTimClass.staPhaseLas != 16)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 17:
+				{
+					if (theApp.myTimClass.staPhaseLas != 17)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 18:
+				{
+					if (theApp.myTimClass.staPhaseLas != 18)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 19:
+				{
+					if (theApp.myTimClass.staPhaseLas != 19)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 20:
+				{
+					if (theApp.myTimClass.staPhaseLas != 20)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 21:
+				{
+					if (theApp.myTimClass.staPhaseLas != 21)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 22:
+				{
+					if (theApp.myTimClass.staPhaseLas != 22)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 23:
+				{
+					if (theApp.myTimClass.staPhaseLas != 23)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 24:
+				{
+					if (theApp.myTimClass.staPhaseLas != 24)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 25:
+				{
+					if (theApp.myTimClass.staPhaseLas != 25)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 26:
+				{
+					if (theApp.myTimClass.staPhaseLas != 26)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 27:
+				{
+					if (theApp.myTimClass.staPhaseLas != 27)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 28:
+				{
+					if (theApp.myTimClass.staPhaseLas != 28)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 29:
+				{
+					if (theApp.myTimClass.staPhaseLas != 29)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 30:
+				{
+					if (theApp.myTimClass.staPhaseLas != 30)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 31:
+				{
+					if (theApp.myTimClass.staPhaseLas != 31)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 32:
+				{
+					if (theApp.myTimClass.staPhaseLas != 32)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 33:
+				{
+					if (theApp.myTimClass.staPhaseLas != 33)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 34:
+				{
+					if (theApp.myTimClass.staPhaseLas != 34)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+			case 35:
+				{
+					if (theApp.myTimClass.staPhaseLas != 35)
+					{
+						m_Ink->m_phas->m_PicPhaAngle.SetBitmap(m_Ink->m_phas->m_AnglehBmp[theApp.myStatusClass.staPhase]);
+						m_Ink->m_phas->m_PicPhaAngle.Invalidate();
+					}
+					break;
+				}
+		    
+		}*/
+		//自动分裂电压
+		m_Ink->m_phas->GetDlgItem(IDC_MODULATION_NUM_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staAutModVol)));
+		//墨水时间分析改写并显示
+		if (theApp.myStatusClass.staSetTimeEna == false)
+		{
+			CString m_tmptSetTime;
+			m_Ink->m_setup->GetDlgItem(IDC_STATIC)->GetWindowText(m_tmptSetTime);
+			if ( m_tmptSetTime != "Disabled")
+			{
+				m_Ink->m_setup->GetDlgItem(IDC_STATIC)->SetWindowText(_T("Disabled"));
+			}			
+			string tempLifeTime;
+			tempLifeTime = theApp.myclassMessage.to_String((theApp.myStatusClass.staInkLifeTime)/60);
+			CString m_tmptLifeTime;
+			m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->GetWindowText(m_tmptLifeTime);
+			if (theApp.myModuleMain.string2CString(tempLifeTime) != m_tmptLifeTime)
+			{
+				m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(tempLifeTime));
+				m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(tempLifeTime));
+			}
+			CTime localT = CTime::GetCurrentTime(); 				
+			CTimeSpan m_timeSpan;
+			m_timeSpan = localT- theApp.myTimClass.InkDateTimLas;
+			CTimeSpan m_timeSpanWri;
+			m_timeSpanWri = localT- theApp.myTimClass.dateTimLasWri;
+			if (theApp.myStatusClass.staInkLifeTime == 0)
+			{
+				if (theApp.myTimClass.InkLifeTimeLas > 0 )
+				{
+					CString csMsg ;
+					csMsg.Format(_T("Ink has expired"));
+					string m_tmpt;
+					m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+					csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
+					m_Fault->m_faultList.AddString(csMsg);
+				}
+				else if (theApp.myStatusClass.staInkLifeTime < 120) //小于2小时，每分钟提醒一次
+				{
+					if ((theApp.myStatusClass.staInkLifeTime+1)< theApp.myTimClass.InkLifeTimeLas)		
+					{
+						theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLifeTime) + "minutes";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+				else if (theApp.myStatusClass.staInkLifeTime < 600)//小于10小时，每十分钟提醒一次
+				{
+					if ((theApp.myStatusClass.staInkLifeTime + 10)< theApp.myTimClass.InkLifeTimeLas)		
+					{
+						theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + tempLifeTime + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+				else if (theApp.myStatusClass.staInkLifeTime < 6000)//小于100小时，每一小时提醒一次
+				{
+					if ((theApp.myStatusClass.staInkLifeTime + 60)< theApp.myTimClass.InkLifeTimeLas)		
+					{
+						theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + tempLifeTime + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+			}
+			else if (theApp.myStatusClass.staSetTimeEna == true)
+			{
+				CTime localT = CTime::GetCurrentTime(); 				
+				CTimeSpan m_timeSpan;
+				m_timeSpan = localT- theApp.myTimClass.InkDateTimLas;
+				CTimeSpan m_timeSpanWri;
+				m_timeSpanWri = localT- theApp.myTimClass.dateTimLasWri;
+				if (m_timeSpanWri.GetTotalSeconds()>59)//一分钟写一次维护时间
+				{
+					//写XML时间
+					if (theApp.myTimClass.ServiceTimeLasXML > 0)
+					{
+						theApp.myTimClass.ServiceTimeLasXML = theApp.myTimClass.ServiceTimeLasXML -1;
+						//denghanshu
+						m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.ServiceTimeLasXML/60)));
+					}
+					if (theApp.myTimClass.InkLifeTimeLasXML > 0)
+					{
+						theApp.myTimClass.InkLifeTimeLasXML = theApp.myTimClass.InkLifeTimeLasXML -1;
+						//denghanshu
+						m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60)));
+					}
+					theApp.myTimClass.dateTimLasWri = localT;
+				}
+				if (theApp.myTimClass.InkLifeTimeLasXML == 0)
+				{
+					if (theApp.myTimClass.boInkLifeTime == true )
+					{
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "                  " + "Ink has expired";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+						theApp.myTimClass.boInkLifeTime = false; 
+					}
+					//还有vb界面弹框，但是c++没有做，为防止以后加，特在此留一下标记
+
+				}
+				else if (theApp.myTimClass.InkLifeTimeLasXML < 120)//小于2小时，每分钟提示一次
+				{
+					if (m_timeSpan.GetTotalSeconds() > 59)
+					{
+						theApp.myTimClass.InkDateTimLas = localT;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+				else if (theApp.myTimClass.InkLifeTimeLasXML < 600)//小于10小时，每10分钟提示一次
+				{
+					if (m_timeSpan.GetTotalMinutes() > 9)
+					{
+						theApp.myTimClass.InkDateTimLas = localT;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+				else if (theApp.myTimClass.InkLifeTimeLasXML < 6000)//小于100小时，每小时提示一次
+				{
+					if (m_timeSpan.GetTotalMinutes() > 59)
+					{
+						theApp.myTimClass.InkDateTimLas = localT;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+				if (theApp.myTimClass.ServiceTimeLasXML == 0)
+				{
+					if (theApp.myTimClass.boServiceTime == true)
+					{
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "                  " + "Time to servicing now";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+						theApp.myTimClass.boServiceTime = false;
+					}
+					//还有vb界面弹框，但是c++没有做，为防止以后加，特在此留一下标记
+
+				}
+				else if (theApp.myTimClass.ServiceTimeLasXML < 120)//小于2小时，每分钟提示一次
+				{
+					if (m_timeSpan.GetTotalSeconds() > 59)
+					{
+						theApp.myTimClass.SerDateTimLas = localT;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+				else if (theApp.myTimClass.ServiceTimeLasXML < 600)//小于10小时，每10分钟提示一次
+				{
+					if (m_timeSpan.GetTotalMinutes() > 9)
+					{
+						theApp.myTimClass.SerDateTimLas = localT;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+				else if (theApp.myTimClass.ServiceTimeLasXML < 6000)//小于100小时，每小时提示一次
+				{
+					if (m_timeSpan.GetTotalMinutes() > 59)
+					{
+						theApp.myTimClass.SerDateTimLas = localT;
+						string m_tmpt;
+						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+					}
+				}
+			}
+			
+
+
+		}
+
 		
+		
+
 		//准备好及绿灯处理
 		if (theApp.myStatusClass.staSysRea == true && theApp.myTimClass.staSysReaLas == false  )
 		{
@@ -1332,6 +1843,11 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			m_ButFault.SizeToContent(); 
 		}
         m_ButFault.Invalidate();
+		//系统日期
+		string m_systemDate;
+		m_systemDate = theApp.myclassMessage.to_String(localT.GetYear())+"-"+theApp.myclassMessage.to_String(localT.GetMonth())+"-"+theApp.myclassMessage.to_String(localT.GetDay());		
+		GetDlgItem(IDC_TIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(m_systemDate));
+		GetDlgItem(IDC_CURRENTTIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(CCodePrinterDlg::m_currentTime));
 
 		//产品计数器
 		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
@@ -1346,27 +1862,39 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
+	//HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	//// TODO:  在此更改 DC 的任何属性
+ //  /* if(nCtlColor == CTLCOLOR_STATIC)
+	//{
+	//	switch(pWnd->GetDlgCtrlID())
+	//	{			
+	//		case IDC_STATIC_SHOW_DLG:
+	//		{
+	//			pDC->SelectObject(theApp.m_HeadOperationStaFont);
+	//			pDC->SetBkMode(TRANSPARENT);
+	//			pDC->SetTextColor(RGB(255,255,255));
+	//			break;
+	//		}
+	//		default:
+	//			break;
+	//	}
+	//} */
+
+	//pDC->SetBkColor(theApp.m_BKcolor);
+	// 
+	//return theApp.m_DlgBrush;
+
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
-
+	if(nCtlColor == CTLCOLOR_STATIC)
+	{		 
+		pDC->SelectObject(theApp.m_StaticFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+	}
 	// TODO:  在此更改 DC 的任何属性
-   /* if(nCtlColor == CTLCOLOR_STATIC)
-	{
-		switch(pWnd->GetDlgCtrlID())
-		{			
-			case IDC_STATIC_SHOW_DLG:
-			{
-				pDC->SelectObject(theApp.m_HeadOperationStaFont);
-				pDC->SetBkMode(TRANSPARENT);
-				pDC->SetTextColor(RGB(255,255,255));
-				break;
-			}
-			default:
-				break;
-		}
-	} */
-
-	pDC->SetBkColor(theApp.m_BKcolor);
-	 
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
 }
 

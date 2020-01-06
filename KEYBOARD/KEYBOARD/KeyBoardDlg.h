@@ -76,7 +76,8 @@ public:
 	 void FontSelect();//Font按钮文本获取
 	 void FontNull();//Font文本清空
 	 vector<CString> split(CString str);//字符串分割
-
+public:
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 public:
 	afx_msg void OnEnSetfocusEdit1();
 	afx_msg void OnClose();
@@ -101,5 +102,9 @@ public:
 	afx_msg void OnBnClickedMainFont13();
 	afx_msg void OnBnClickedMainFont14();
 	afx_msg void OnBnClickedMainFont15();
+
+public:
+	COLORREF m_BKcolor;
+	CBrush m_DlgBrush;
 };
 

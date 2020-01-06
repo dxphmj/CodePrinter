@@ -117,7 +117,7 @@ BOOL CConfigurationDlg::OnInitDialog()
 
 	int nBottomButtonHeight = 420;
 
-	GetDlgItem(IDC_CONFI_CLOSE_BTN)->SetWindowPos(NULL,11,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_CONFI_CLOSE_BTN)->SetWindowPos(NULL,11,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_PRINT_SET_BTN)->SetWindowPos(NULL,200,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_OUT_SET_BTN)->SetWindowPos(NULL,300,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CONFI_OPEN_BTN)->SetWindowPos(NULL,400,nBottomButtonHeight,70,45,SWP_SHOWWINDOW);

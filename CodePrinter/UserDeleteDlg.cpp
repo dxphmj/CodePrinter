@@ -23,33 +23,52 @@ CUserDeleteDlg::~CUserDeleteDlg()
 void CUserDeleteDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON_CLOSE_DEL, m_pReturn);
+	DDX_Control(pDX, IDC_BUTTON_OK_DEL, m_pbtnOK);
 }
 
 
 BEGIN_MESSAGE_MAP(CUserDeleteDlg, CDialog)
 
-	ON_BN_CLICKED(IDC_BUTTON1, &CUserDeleteDlg::OnBnClickedButton1)
-	ON_BN_CLICKED(IDC_BUTTON_CLOSE, &CUserDeleteDlg::OnBnClickedButtonClose)
-	ON_BN_CLICKED(IDC_BUTTON_OK, &CUserDeleteDlg::OnBnClickedButtonOk)
+	//ON_BN_CLICKED(IDC_BUTTON_CLOSE_DEL, &CUserDeleteDlg::OnBnClickedButtonClose)
+	ON_BN_CLICKED(IDC_BUTTON_OK_DEL, &CUserDeleteDlg::OnBnClickedButtonOk)
 
 	ON_WM_CTLCOLOR()
 
+	ON_BN_CLICKED(IDC_BUTTON_CLOSE_DEL, &CUserDeleteDlg::OnBnClickedButtonCloseDel)
 END_MESSAGE_MAP()
 
 
 // CUserDeleteDlg 消息处理程序
-
-
-void CUserDeleteDlg::OnBnClickedButton1()
+BOOL CUserDeleteDlg::OnInitDialog()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	CDialog::OnInitDialog();
+
+	// TODO:  在此添加额外的初始化
+
+	CRect rect1,rect2;
+	GetDlgItem(IDC_BUTTON_CLOSE_DEL)->GetWindowRect(&rect1);
+	GetDlgItem(IDC_BUTTON_OK_DEL)->GetWindowRect(&rect2);
+
+	GetDlgItem(IDC_BUTTON_CLOSE_DEL)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_OK_DEL)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+
+	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pReturn.SizeToContent(); 
+	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pbtnOK.SizeToContent(); 
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
 }
 
-void CUserDeleteDlg::OnBnClickedButtonClose()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	ShowWindow(SW_HIDE);
-}
+
+
+
+//void CUserDeleteDlg::OnBnClickedButtonClose()
+//{
+//	// TODO: 在此添加控件通知处理程序代码
+//	ShowWindow(SW_HIDE);
+//}
 
 void CUserDeleteDlg::OnBnClickedButtonOk()
 {
@@ -117,5 +136,12 @@ HBRUSH CUserDeleteDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+
+
+void CUserDeleteDlg::OnBnClickedButtonCloseDel()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	ShowWindow(SW_HIDE);
 }
 

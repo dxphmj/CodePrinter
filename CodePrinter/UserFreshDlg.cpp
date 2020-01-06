@@ -23,6 +23,8 @@ CUserFreshDlg::~CUserFreshDlg()
 void CUserFreshDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON_CLOSE, m_pReturn);
+	DDX_Control(pDX, IDC_BUTTON_OK, m_pbtnOK);
 }
 
 
@@ -37,7 +39,26 @@ END_MESSAGE_MAP()
 
 
 // CUserFreshDlg 消息处理程序
+BOOL CUserFreshDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
 
+	// TODO:  在此添加额外的初始化
+	CRect rect1,rect2;
+	GetDlgItem(IDC_BUTTON_CLOSE)->GetWindowRect(&rect1);
+	GetDlgItem(IDC_BUTTON_OK)->GetWindowRect(&rect2);
+
+	GetDlgItem(IDC_BUTTON_CLOSE)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_OK)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+
+	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pReturn.SizeToContent(); 
+	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pbtnOK.SizeToContent(); 
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
+}
 
 void CUserFreshDlg::OnBnClickedButtonClose()
 {
@@ -122,4 +143,6 @@ HBRUSH CUserFreshDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
 }
+
+
 

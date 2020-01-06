@@ -42,7 +42,6 @@ BOOL CDateDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	CRect rect;
 	GetWindowRect(&rect);
 

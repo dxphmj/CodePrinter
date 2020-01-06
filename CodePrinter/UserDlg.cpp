@@ -8,6 +8,7 @@
 #include "UserNewDlg.h"
 #include "UserDeleteDlg.h"
 #include "UserFreshDlg.h"
+#include "CodePrinterDlg.h"
 
 // CUserDlg 对话框
 
@@ -210,6 +211,7 @@ void CUserDlg::OnBnClickedCloseUserBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showUserDlg(0);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
 
 void CUserDlg::showUserDlg(int ID)

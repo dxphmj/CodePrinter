@@ -60,6 +60,8 @@ BOOL CKEYBOARDApp::InitInstance()
 	CWinApp::InitInstance();
 	
 
+	//m_BKcolor = RGB(210, 231, 251);
+	//m_DlgBrush.CreateSolidBrush(m_BKcolor);  
 
 	return TRUE;
 }

@@ -23,6 +23,11 @@ CUserNewDlg::~CUserNewDlg()
 void CUserNewDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON_CLOSE, m_pReturn);
+	DDX_Control(pDX, IDC_BUTTON_OK, m_pbtnOK);
+	DDX_Control(pDX, IDC_RIGHT_MOVE_BTN, m_pRight_move);
+	DDX_Control(pDX, IDC_LEFT_MOVE_BTN, m_pLeft_move);
+
 }
 
 
@@ -40,7 +45,36 @@ END_MESSAGE_MAP()
 
 
 // CUserNewDlg 消息处理程序
+BOOL CUserNewDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
 
+	// TODO:  在此添加额外的初始化
+	CRect rect1,rect2,rect3,rect4;
+	GetDlgItem(IDC_BUTTON_CLOSE)->GetWindowRect(&rect1);
+	GetDlgItem(IDC_BUTTON_OK)->GetWindowRect(&rect2);
+	GetDlgItem(IDC_LEFT_MOVE_BTN)->GetWindowRect(&rect3);
+	GetDlgItem(IDC_RIGHT_MOVE_BTN)->GetWindowRect(&rect4);
+
+	GetDlgItem(IDC_BUTTON_CLOSE)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BUTTON_OK)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_LEFT_MOVE_BTN)->SetWindowPos(NULL,rect3.left,rect3.top,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_RIGHT_MOVE_BTN)->SetWindowPos(NULL,rect4.left,rect4.top,70,45,SWP_SHOWWINDOW);
+
+
+	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pReturn.SizeToContent(); 
+	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pbtnOK.SizeToContent(); 
+	m_pRight_move.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pRight_move.SizeToContent(); 
+	m_pLeft_move.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pLeft_move.SizeToContent(); 
+
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
+}
 
 void CUserNewDlg::OnBnClickedButton1()
 {
@@ -184,4 +218,6 @@ HBRUSH CUserNewDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
 }
+
+
 

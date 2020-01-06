@@ -1,6 +1,6 @@
 #pragma once
 #include "afxwin.h"
-
+#include "ImageButton.h"
 
 // CUserOpenDlg ¶Ô»°¿ò
 
@@ -31,4 +31,9 @@ public:
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
+public:
+	CImageButton m_pReturn;
+	CImageButton m_pbtnOK;
+	CImageButton m_pRight_move;
+	CImageButton m_pLeft_move;
 };

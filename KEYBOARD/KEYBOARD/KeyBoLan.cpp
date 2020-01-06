@@ -108,6 +108,40 @@ BOOL CKeyBoLan::OnInitDialog()
 	btn[28].Create(_T("Finnish"), dwStyle,CRect(5,66,5+130,66+60),this,IDC_LAN_FINNISH);
 	btn[29].Create(_T("Turkish"), dwStyle,CRect(5,190,5+130,190+60),this,IDC_LAN_TURKISH);
 	btn[30].Create(_T(""), dwStyle,CRect(5,252,5+130,252+60),this,IDC_LAN_NU6);
+
+	////////////////////////设置字体//////////////////////////////////////////////////
+	CFont *pFont = new CFont; //创建一个指向新字体类型的指针pFont
+	pFont->CreatePointFont(180, _T("黑体"));
+	GetDlgItem(IDC_LAN_THAI)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_FARSI)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_JANPANESE)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU5)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_ESC)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_SWEDISH)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_ENGLISH)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_ITALIAN)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU4)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU10)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_SPANISH)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_DUTCH)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_HUNGARIAN)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU3)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU9)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_RUSSIAN)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_CZECH)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_HINDI)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU2)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU8)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_PORTUGUESE)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_CHINESE)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_GERMAN)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU1)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU7)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_KOREAN)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_ARABIC)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_FINNISH)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_TURKISH)->SetFont(pFont);
+	GetDlgItem(IDC_LAN_NU6)->SetFont(pFont);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
