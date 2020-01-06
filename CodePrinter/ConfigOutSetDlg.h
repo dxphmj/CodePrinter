@@ -42,4 +42,5 @@ public:
 	afx_msg void OnEnSetfocusLengthEdit();
 
 	CNumKey *pNumKey;
+	afx_msg void OnBnClickedOutsetOkBtn();
 };

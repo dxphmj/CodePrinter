@@ -86,7 +86,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	// TODO: 在此添加额外的初始化代码
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );	
-    m_PicHead.SetMachineStatus(_T("Shut Down"));
+    m_PicHead.SetMachineStatus(_T("关机"));//Shut Down
 	m_PicHead.ShowLogo(true);
 
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
@@ -884,12 +884,12 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staChaFau == true && theApp.myStatusClass.staChaFauLas == false)
 	{
 		theApp.myStatusClass.staChaFauLas = true;
-		m_PicHead.SetMachineStatus(_T("Charge fault"));
+		m_PicHead.SetMachineStatus(_T("充电故障"));//Charge fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
-		csMsg.Format(_T("Charge fault"));
+		csMsg.Format(_T("充电故障"));//Charge fault
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -905,12 +905,12 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staPhaFau == true && theApp.myStatusClass.staPhaFauLas == false)
 	{
 		theApp.myStatusClass.staPhaFauLas = true;
-		m_PicHead.SetMachineStatus(_T("Phase fault"));
+		m_PicHead.SetMachineStatus(_T("相位故障"));//Phase fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
-		csMsg.Format(_T("Phase fault"));
+		csMsg.Format(_T("相位故障"));//Phase fault
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -938,7 +938,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		theApp.myStatusClass.ctr0X00bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control00();
 		CString csMsg ;
-		csMsg.Format(_T("High voltage faul"));
+		csMsg.Format(_T("高压故障"));//High voltage faul
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -1203,13 +1203,13 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
 		{
-			m_PicHead.SetMachineStatus(_T("Ready to print"));
+			m_PicHead.SetMachineStatus(_T("准备打印"));//Ready to print
  		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
 		{
 			if (theApp.myStatusClass.staSysRea == true)//系统准备好
 			{				 
-				m_PicHead.SetMachineStatus(_T("System ready"));
+				m_PicHead.SetMachineStatus(_T("系统准备好"));//System ready
 			}
 			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
 			{
@@ -1217,17 +1217,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
 					{
-						m_PicHead.SetMachineStatus(_T("Sequencing On"));
+						m_PicHead.SetMachineStatus(_T("系统开机中"));//Sequencing On
 					}
 					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
 
 					{
-						m_PicHead.SetMachineStatus(_T("Sequencing Off"));
+						m_PicHead.SetMachineStatus(_T("系统关机中"));//Sequencing Off
 					}
 				}
 				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
 				{					 
-					m_PicHead.SetMachineStatus(_T("Printer Off"));
+					m_PicHead.SetMachineStatus(_T("关闭打印"));//Printer Off
 				}//系统忙
 			}//系统准备好
 
