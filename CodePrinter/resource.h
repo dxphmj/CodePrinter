@@ -630,6 +630,8 @@
 #define IDC_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1520
 #define IDC_SYSTEM_SOFTWARE_TYPE_VALUE_STATIC 1521
 #define IDC_SYSTEM_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1522
+#define IDC_STATIC_LABNAME              1523
+#define IDC_STATIC_PCFNAME              1524
 
 // Next default values for new objects
 // 
@@ -637,7 +639,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        457
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1523
+#define _APS_NEXT_CONTROL_VALUE         1525
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

@@ -33,6 +33,7 @@ void CPcfConfig::getPcfFromXml(string pcfNamePath)
 	int lastN=strPathName.find_last_of('\\');
 	pcf_currentname = theApp.myModuleMain.string2CString(strPathName.substr(lastN + 1));
 	pcf_currentpath= theApp.myModuleMain.string2CString(strPathName.substr(0,lastN));
+	m_pcfName=pcf_currentname;
 	//当前或上次打开的配置文件名
 	//pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
 
@@ -177,7 +178,7 @@ void CPcfConfig::get_pcf_from_xml()
 
 	//当前或上次打开的配置文件名
 	pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
-	
+	m_pcfName=pcf_currentname;
 	//当前或上次打开的配置文件的路径
 	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
 	
@@ -1089,6 +1090,7 @@ void CPcfConfig::savePcfToXml(string pcfNamePath)
 		pcf_currentpath=_T("Storage Card\\User\\PrintConfig");
 		pcf_currentname=_T("Default.pcf");
 	}
+	m_pcfName=pcf_currentname;
 	//当前或上次打开的配置文件名
 	//pcf_currentname = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentName"), _T("Default.pcf"), _T("Storage Card\\System"));
 

@@ -82,6 +82,8 @@ IDB_BITMAP_NOTALLUP     BITMAP                  "res\\5文件管理\\左下.bmp"
 IDB_BITMAP_NOTALLDOWN   BITMAP                  "res\\5文件管理\\左下--.bmp"
 IDB_BITMAP_ALLUP        BITMAP                  "res\\5文件管理\\左下一.bmp"
 IDB_BITMAP_ALLDOWN      BITMAP                  "res\\5文件管理\\左下一--.bmp"
+IDB_BITMAP_PASTEUP      BITMAP                  "res\\5文件管理\\复制文件.bmp"
+IDB_BITMAP_PASTEDOWN    BITMAP                  "res\\5文件管理\\复制文件--.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -112,6 +114,24 @@ BEGIN
     CTEXT           "删除",IDC_STATIC_ISDET,121,80,18,8
 END
 
+IDD_DIALOG_RENAMEDLG DIALOG  0, 0, 317, 183
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,206,162,50,14
+    PUSHBUTTON      "取消",IDCANCEL,260,162,50,14
+    EDITTEXT        IDC_EDIT_RENAMEEDIT,69,73,182,14,ES_AUTOHSCROLL
+END
+
+IDD_NEWDLG DIALOG  0, 0, 320, 200
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 9, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,209,179,50,14
+    PUSHBUTTON      "取消",IDCANCEL,263,179,50,14
+    EDITTEXT        IDC_EDIT_NEWNAME,147,100,40,14,ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -127,6 +147,22 @@ BEGIN
         RIGHTMARGIN, 310
         TOPMARGIN, 7
         BOTTOMMARGIN, 176
+    END
+
+    IDD_DIALOG_RENAMEDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_NEWDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
     END
 END
 #endif    // APSTUDIO_INVOKED

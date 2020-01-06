@@ -105,6 +105,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\LanguageXml"), NULL);//多语言文件夹，以后移动到system文件夹下比较好
 	int nX = 0;
 	int nY = 80;
 	int nWidth = 800;
@@ -244,6 +245,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		theApp.myclassMessage.labName="Default.lab";
 		theApp.myclassMessage.labPath="Storage Card\\User\\Label";
 		theApp.myclassMessage.createLABXML();
+		GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(_T("Default.lab"));
 	}
 	delete testFile;
 
@@ -265,7 +267,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	pPcfConfig.get_pcf_from_xml();
 	pPcfConfig.download_pcf();
 
-
+	GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pPcfConfig.m_pcfName);
+	m_Confi->pcfNameDlg=pPcfConfig.m_pcfName;
 #ifndef _DEBUG
 //#ifdef def_ttl
 	LPTSTR strTempCmd;

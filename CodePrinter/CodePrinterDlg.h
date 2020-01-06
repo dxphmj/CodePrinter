@@ -88,6 +88,7 @@ public:
 	COnOffDlg *m_OnOff;
 	CNumKey *m_pNumKey;
 
+
 	
 public:
 	void showDlg(int ID);

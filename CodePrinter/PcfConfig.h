@@ -18,12 +18,13 @@ public:
 	void getPcfFromXml(string pcfNamePath);
 	void savePcfToXml(string pcfNamePath);
 	int round(double r);
-
+	
 public:
 	CString strLABlabForMName;
 
 	CString mypcf0X02_05, mypcf0X06_09, mypcf0X13_16, mypcf0X19_1C;
 
+	CString m_pcfName;
 	//BYTE pcf0X00, pcf0X01, pcf0X02, pcf0X03, pcf0X04, pcf0X05, pcf0X06, pcf0X07, pcf0X08, pcf0X09, 
 	//	pcf0X0A, pcf0X13, pcf0X14, pcf0X15, pcf0X16, pcf0X18, pcf0X19, pcf0X1A, pcf0X1B, pcf0X1C;
 	////pcf¿ØÖÆ0X00

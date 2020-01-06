@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NewDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PathDialog.cpp"
 				>
 			</File>
@@ -224,6 +228,10 @@
 			</File>
 			<File
 				RelativePath=".\PathDlgDll.def"
+				>
+			</File>
+			<File
+				RelativePath=".\RenameDlg.cpp"
 				>
 			</File>
 			<File
@@ -269,11 +277,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NewDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PathDialog.h"
 				>
 			</File>
 			<File
 				RelativePath=".\PathDlgDll.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RenameDlg.h"
 				>
 			</File>
 			<File
@@ -332,6 +348,14 @@
 			</File>
 			<File
 				RelativePath=".\res\5文件管理\剪切.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\复制文件--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\5文件管理\复制文件.bmp"
 				>
 			</File>
 			<File

@@ -287,6 +287,7 @@ BOOL CLabelDlg::OnInitDialog()
 
 
 	theApp.myclassMessage.getLabFromXml();
+	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 	selectPixel();
 	OnBnClickedDownloadButton();
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -888,6 +889,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
+	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 	//2、取值并发送至下位机 download_pcf()
 	//3、关闭动态打印线程（若有）
     //信息重新发送，序列号按信息里面的开始值喷，如只改变喷印参数则按计数器的值继续喷
