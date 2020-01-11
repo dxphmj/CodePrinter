@@ -45,6 +45,6 @@ public:
 	CEdit m_edit_fiexd;
 	
 	afx_msg void OnEnSetfocusFixedEdit();
-
+	void download_inksystem_mv();
 
 };

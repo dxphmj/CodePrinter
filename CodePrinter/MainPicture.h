@@ -1,6 +1,6 @@
 #pragma once
 
-
+UINT methoddis(LPVOID pParam);
 // MainPicture
 
 class MainPicture : public CStatic
@@ -16,5 +16,8 @@ protected:
 public:
 	afx_msg void OnPaint();
 };
-
+struct structMP
+{
+	MainPicture *myMainPicture;
+};
 

@@ -17,7 +17,7 @@
 //#include "Tchar.h”
 #include "PcfConfig.h"
 
-//#define  def_ttl 1
+#define  def_ttl 1
 
 
 #ifdef _DEBUG
@@ -90,7 +90,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_PicHead.ShowLogo(true);
 
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
-
+	mainPicStruct.myMainPicture=&m_PictureMain;
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
 	m_User = new CUserDlg;
@@ -119,9 +119,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_User->Create(IDD_USER_DIALOG,this);
 	m_User->MoveWindow(nX,nY,nWidth,nHeight);
 
-	m_Label->Create(IDD_LABEL_DIALOG,this);
-	m_Label->MoveWindow(nX,nY,nWidth,nHeight);
-
 	m_Confi->Create(IDD_CONFIGURATION_DIALOG,this);
 	m_Confi->MoveWindow(nX,nY,nWidth,nHeight);
 
@@ -130,6 +127,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
 	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
+
+	m_Label->Create(IDD_LABEL_DIALOG,this);
+	m_Label->MoveWindow(nX,nY,nWidth,nHeight);
 	
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
@@ -726,7 +726,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 
 	//泵超速保护
-	if (theApp.myStatusClass.staBumSpeOveFau == false	 && theApp.myStatusClass.staBumSpeOveFauLas == false)
+	if (theApp.myStatusClass.staBumSpeOveFau == true	 && theApp.myStatusClass.staBumSpeOveFauLas == false)
 	{
 		theApp.myStatusClass.staBumSpeOveFauLas = true;
 		//缺starting up
@@ -1179,7 +1179,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
-		 KillTimer(TIMER1);
+		 //KillTimer(TIMER1);
 		 if (theApp.myUserPower.isChangeUser)
 		 {
 			 ChangeBottonEnable();
@@ -1854,7 +1854,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
 
-		SetTimer(TIMER1,300,NULL);	
+		//SetTimer(TIMER1,300,NULL);	
 	}
 
 }

@@ -234,7 +234,7 @@ void CFaultDlg::get_error_name()
 	for (int i=0;i<allErrVec.size();i++)
 	{
 		WIN32_FIND_DATA tempErr=allErrVec.at(i);
-		string tempErrName=theApp.myModuleMain.WcharToChar(tempErr.cFileName);
+		string tempErrName=theApp.myModuleMain.CString2string(tempErr.cFileName);
 		string errName=tempErrName.substr(0,tempErrName.length()-4);
 		strErrorFileNameArr.push_back(errName);
 	}

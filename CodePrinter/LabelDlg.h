@@ -116,4 +116,5 @@ public:
 
 	CBitmap m_PicBitmap[5];  // CBitmap对象，用于加载位图  
 	HBITMAP m_PichBmp[5];
+	afx_msg void OnBnClickedDeleteButton();
 };
