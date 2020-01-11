@@ -37,4 +37,5 @@ public:
 	afx_msg void OnEnSetfocusReapeatCountEdit();
 
 	CNumKey *pNumKey;
+	afx_msg void OnBnClickedConfigOkBtn();
 };

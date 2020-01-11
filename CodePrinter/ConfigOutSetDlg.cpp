@@ -46,6 +46,7 @@ BEGIN_MESSAGE_MAP(CConfigOutSetDlg, CDialog)
 	ON_EN_SETFOCUS(IDC_IMPULSE_EDIT, &CConfigOutSetDlg::OnEnSetfocusImpulseEdit)
 	ON_EN_SETFOCUS(IDC_TRIGGER_LEN_EDIT, &CConfigOutSetDlg::OnEnSetfocusTriggerLenEdit)
 	ON_EN_SETFOCUS(IDC_LENGTH_EDIT, &CConfigOutSetDlg::OnEnSetfocusLengthEdit)
+	ON_BN_CLICKED(IDC_OUTSET_OK_BTN, &CConfigOutSetDlg::OnBnClickedOutsetOkBtn)
 END_MESSAGE_MAP()
 
 
@@ -134,4 +135,13 @@ void CConfigOutSetDlg::OnEnSetfocusLengthEdit()
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
 	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigOutSetDlg::OnBnClickedOutsetOkBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CConfigurationDlg* dlg;
+	dlg = (CConfigurationDlg*)(GetParent());
+
+	dlg->OnBnClickedSavePcf();
 }

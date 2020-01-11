@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ImageButton.h"
+#include "afxwin.h"
 // CEditFigureDlg ¶Ô»°¿ò
 
 class CEditFigureDlg : public CDialog
@@ -24,4 +25,11 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CImageButton m_returnIB;
 	CImageButton m_okIB;
+	CComboBox m_FontBox;
+	CComboBox m_FormatBox;
+	void RefreshSerial();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	afx_msg void OnCbnSelchangeFormatCombo();
+	afx_msg void OnBnClickedEditfigureOkBtn();
+	CComboBox m_countBox;
 };

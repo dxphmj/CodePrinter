@@ -105,6 +105,7 @@ void CFaultDlg::OnBnClickedFaultCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(m_strPreOperation); 
 }
 bool comp(const WIN32_FIND_DATA &a, const WIN32_FIND_DATA &b){return a.cFileName<b.cFileName;}
 void CFaultDlg::getAllErrorFile()
@@ -233,7 +234,7 @@ void CFaultDlg::get_error_name()
 	for (int i=0;i<allErrVec.size();i++)
 	{
 		WIN32_FIND_DATA tempErr=allErrVec.at(i);
-		string tempErrName=theApp.myModuleMain.WcharToChar(tempErr.cFileName);
+		string tempErrName=theApp.myModuleMain.CString2string(tempErr.cFileName);
 		string errName=tempErrName.substr(0,tempErrName.length()-4);
 		strErrorFileNameArr.push_back(errName);
 	}

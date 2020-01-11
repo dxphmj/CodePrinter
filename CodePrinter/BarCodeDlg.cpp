@@ -157,7 +157,7 @@ void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 	//函数T2A和W2A均支持ATL和MFC中的字符
 	//char * pFileName = T2A(str);  
 	const char * QRTEXT = W2A(str.GetBuffer(0));
-    QRTEXT="一111";
+   // QRTEXT="一111";
 	int xPos=0;
 	int yPos=0;
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)

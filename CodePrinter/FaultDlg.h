@@ -32,6 +32,7 @@ public:
 	vector<string> strErrorFileNameArr;
 	int intErrorFileNameArr;
 	int nowErrDay;
+	CString m_strPreOperation;
 	afx_msg void OnBnClickedDeleteBtn();
 	afx_msg void OnBnClickedBeforeBtn();
 	afx_msg void OnBnClickedNextBtn();

@@ -78,6 +78,7 @@ namespace MyNameSpace
 		void DrawFrame(CDC* pDC);
         void DrawDot(CDC* pDC);
         void ReadBmp(char* strFileName);
+		std::wstring stringToWstring(const std::string& str);
 	private:
 		//ClassMessage objClassMessage;
 		map<string,int> fntMap;
@@ -100,7 +101,7 @@ namespace MyNameSpace
 		bool boReverse;//翻转，颠倒，由喷印设置中更改
 		bool boInverse;
         bool boDotMes[32][255];
-		int intRowMax;
+		int intRowMax;//intDotMesRow
 		int bytRowByteMul;//一列由几个byte表示
 		bool boDynamic;//是否动态打印
 		bool boPrintNow;//是否即时打印
@@ -108,8 +109,61 @@ namespace MyNameSpace
 
        /////////////////////////////////////////////
         queue<vector<BYTE>> ForPreQue;//序列号队列
+		bool CounterEditMes[4];
+		///xiansiyong
 		queue<vector<BYTE>> boDotForPreQue;//动态显示队列
+		vector<BYTE> intMesDis;
+		int bytSerialConCoundis;
+		int intDotMesRowdis;
+		int matrixMesdis ;
+		int pixelMesdis;
+		bool boReversedis, boInversedis;
+		int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4], intQSerialRowSizedis[4], intQSerialRowStartdis[4];
+		queue<vector<int>> intCounNumForPreQue ; //'主界面及计数器显示动态字符池
+		int CountNumForPre[4];
+		///时间
+		int bytTimeConCoun ;
+		int bytTimeConCoundis;
+		string strTimeFormat[1][4] ;
+		string strTimeFont[4], strETimeOffSet[4], strTimeOffSetUint[4];
+		string strETimetext[4];
+		////
+		bool SerialCountNew;//是否为新建
+		bool SerialCountSet[3];//重置序列号
+		int bytSerialConCoun;//序列号计数
+		int bytQserialCounter[4];//序列号计数器
+		int intQSerialRepeat[4];//重复值
+		int intQSerialFirstLimit[4];//第一象限
+		int intQSerialSecondLimit[4];//第二象限
+		int intQSerialStartValue[4];//开始值
+		int intQSerialStep[4];//步长
+		int bytQSerialFormat[4];//格式
+		int bytQSerialDigits[4];//位数
+		int CountNum0, CountNum1, CountNum2, CountNum3, CountNumRep0, CountNumRep1, CountNumRep2, CountNumRep3 ;
+		string strQSerialFont[4];
+		bool boTimeBWDy[4], boTimeBWDx[4], boTimeNEG[4], boQSerialBWDy[4], boQSerialBWDx[4], boQSerialNEG[4] ;
+		int bytTimeSS[4], bytTimeSW[4], bytTimeLineSize[4], bytTimeLineStart[4], bytQSerialSS[4], bytQSerialSW[4], bytQSerialLineSize[4], bytQSerialLineStart[4] ;
+		int intTimeRowSize[4], intTimeRowStart[4], intTimeOffSetdis[4], intQSerialRowSize[4], intQSerialRowStart[4] ;
+		bool boCountEn[4];//是否更新主界面static序列号
 
+		void getdigitaldot();
+		UINT32* searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
+			int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
+			int tempNEGinteger, int tempBWDxinteger);
+		UINT32* searchworddata12(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
+			int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
+			int tempNEGinteger, int byte1int , int byte2int);
+
+		BYTE byteUPsidedown(BYTE a,BYTE bBit);
+		UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);
+		vector<BYTE> DotToByte1(int tempintDotRowStart, int tempintDotRowEnd, vector<BYTE> bytTempData,string tempfont, bool tempBWDy, bool tempBWDx ,bool tempNEG , 
+			string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW);
+		map<string,vector<BYTE>> bytdigital5x5LineMap;
+		map<string,vector<BYTE>> bytdigital7x5LineMap;
+		map<string,vector<BYTE>> bytdigital12x12LineMap;
+		map<string,vector<BYTE>> bytdigital16x12LineMap;
+
+		UINT32 *IntMes;//动态数组
 		///////////////////////////////////////
 		vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
 		vector<BYTE> bytPrintDataAll;//空时自动发送BUF

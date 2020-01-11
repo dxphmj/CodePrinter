@@ -139,6 +139,7 @@ BEGIN_MESSAGE_MAP(CLabelDlg, CDialog)
 	ON_WM_CTLCOLOR()
 
 	ON_BN_CLICKED(IDC_COPY_BUTTON, &CLabelDlg::OnBnClickedCopyButton)
+	ON_BN_CLICKED(IDC_DELETE_BUTTON, &CLabelDlg::OnBnClickedDeleteButton)
 END_MESSAGE_MAP()
 
 
@@ -287,6 +288,7 @@ BOOL CLabelDlg::OnInitDialog()
 
 
 	theApp.myclassMessage.getLabFromXml();
+	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 	selectPixel();
 	OnBnClickedDownloadButton();
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -504,7 +506,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 	CString  strText;
 	int nIndex = ComboMatrix.GetCurSel();  //当前选中的项
 	ComboMatrix.GetLBText(nIndex,strText);
-	theApp.myclassMessage.strMatrix=theApp.myModuleMain.WcharToChar(strText);
+	theApp.myclassMessage.strMatrix=theApp.myModuleMain.CString2string(strText);
 	
 	switch(nIndex)
 	{
@@ -599,7 +601,7 @@ void CLabelDlg::OnBnClickedUshiftButton()
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
-			if ((theApp.myclassMessage.OBJ_Vec[i].intLineStart+theApp.myclassMessage.OBJ_Vec[i].intLineSize)>=pixel)
+			if ((theApp.myclassMessage.OBJ_Vec[i].intLineStart+theApp.myclassMessage.OBJ_Vec[i].intLineSize)>=(pixel+1))
 			{
 				break;
 			}
@@ -888,24 +890,14 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
+	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 	//2、取值并发送至下位机 download_pcf()
 	//3、关闭动态打印线程（若有）
     //信息重新发送，序列号按信息里面的开始值喷，如只改变喷印参数则按计数器的值继续喷
 	//动态文本关
 
 	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
-	theApp.myclassMessage.intRowMax=0;
-	memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
-	for(vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();objIter!=theApp.myclassMessage.OBJ_Vec.end();objIter++)
-	{
-		theApp.myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
-			objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
-		if (theApp.myclassMessage.intRowMax<(objIter->intRowSize+objIter->intRowStart))
-		{
-			theApp.myclassMessage.intRowMax=objIter->intRowSize+objIter->intRowStart;
-		}
-
-	}
+	getMessageDot();
 	//以上都要放到getMessageDot中，
 	CCodePrinterDlg *pParent = (CCodePrinterDlg *)GetParent();
 	pParent->m_PictureMain.Invalidate();
@@ -913,6 +905,70 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
 	{
+		theApp.boDrawMainPic=true;//标签
+		delete []theApp.myclassMessage.IntMes;
+		theApp.myclassMessage.IntMes=new UINT32[theApp.myclassMessage.intRowMax];
+		for (int j=0;j<32;j++)
+		{
+			for (int i=0;i<theApp.myclassMessage.intRowMax;i++)
+			{
+				theApp.myclassMessage.IntMes[i]=theApp.myclassMessage.IntMes[i]+((theApp.myclassMessage.boDotMes[j][i])?1:0)*pow(2,j);
+			}
+		}
+		vector<BYTE> bytPrintData=theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
+		dotDataLen_l=bytPrintData.size()%256;
+		dotDataLen_h=bytPrintData.size()/256;
+		pixelMes=(BYTE)(pixel+1);
+		matrix_name=pixelMes<<2;//低二位为模式，原程序没用到
+		pixelAll=pixelMes | 0x80;
+		theApp.boPrintNowLock.Lock();
+			theApp.myclassMessage.bytPrintDataAll.clear();
+			theApp.myclassMessage.bytPrintDataAllOrder.clear();
+
+			theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+			theApp.myclassMessage.bytPrintDataAll.push_back(0x80);
+			theApp.myclassMessage.bytPrintDataAll.push_back(0x6);
+			theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+			theApp.myclassMessage.bytPrintDataAll.push_back(0x11);
+			theApp.myclassMessage.bytPrintDataAll.push_back(matrix_name);
+			theApp.myclassMessage.bytPrintDataAll.push_back(pixelMes);
+			theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_l);
+			theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_h);
+			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+			//theApp.myclassMessage.bytPrintDataAllOrder={0x1,0x80,0x6,0x1,0x11,matrix_name,pixelMes,dotDataLen_l,dotDataLen_h,0xff,0xff};
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x80);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x6);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x11);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(matrix_name);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(pixelAll);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_l);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_h);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
+			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
+
+			bytPrintData.push_back(0xff);
+			bytPrintData.push_back(0xff);
+
+			theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
+			theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
+
+			vector<BYTE> bytPrintDataAll1;
+			bytPrintDataAll1.assign(theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
+			theApp.myclassMessage.ForPreQue.push(bytPrintDataAll1);
+			theApp.myclassMessage.ForPreQue.push(bytPrintDataAll1);
+			theApp.myclassMessage.intMesDis=theApp.myclassMessage.ForPreQue.front();
+			theApp.myclassMessage.ForPreQue.pop();
+			theApp.myModuleMain.getSerialDotBuf2();
+			theApp.myclassMessage.boPrintNow=true;
+		theApp.boPrintNowLock.Unlock();
+
+		theApp.mythreadDynamic=AfxBeginThread(method1,NULL,THREAD_PRIORITY_HIGHEST);
+		theApp.mythreadDynamicBoo=true;
+		CCodePrinterDlg *pDlg = (CCodePrinterDlg*)this->GetParent();
+		theApp.mythreadDynamicdis=AfxBeginThread(methoddis,(LPVOID)&pDlg->mainPicStruct,THREAD_PRIORITY_HIGHEST);
 	} 
 	else
 	{
@@ -920,7 +976,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 		testByteVec=theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
 		dotDataLen_l=testByteVec.size()%256;
 		dotDataLen_h=testByteVec.size()/256;
-		pixelMes=(BYTE)pixel;
+		pixelMes=(BYTE)(pixel+1);
 		matrix_name=pixelMes<<2;//低二位为模式，原程序没用到
 		pixelAll=pixelMes | 0x80;
 
@@ -971,7 +1027,223 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 void CLabelDlg::getMessageDot()
 {
+	CCodePrinterDlg *pParent = (CCodePrinterDlg *)GetParent();
+	int nCurSel=pParent->m_Confi->m_reverse.GetCurSel();
+	if (nCurSel==0)
+	{
+		theApp.myclassMessage.boReverse=false;
+	} 
+	else
+	{
+		theApp.myclassMessage.boReverse=true;
+	}
+	nCurSel=pParent->m_Confi->m_inverse.GetCurSel();
+	if (nCurSel==0)
+	{
+		theApp.myclassMessage.boInverse=false;
+	} 
+	else
+	{
+		theApp.myclassMessage.boInverse=true;
+	}
+	theApp.myclassMessage.intRowMax=0;//intDotMesRow
+	theApp.myclassMessage.intDotMesRowdis=0;
+	theApp.myclassMessage.bytTimeConCoun = 0;
+	theApp.myclassMessage.bytSerialConCoun = 0;
+	theApp.myclassMessage.intCounNumForPreQue=queue<vector<int>>();
+	//theApp.myclassMessage.intDotMesRow=0
+	//memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
+	memset(theApp.myclassMessage.boDotMes, false, sizeof(bool)*32*255);
+	for(vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();objIter!=theApp.myclassMessage.OBJ_Vec.end();objIter++)
+	{
+		if (objIter->strType1=="text")//TYPE1
+		{
+			if (theApp.myclassMessage.intRowMax<(objIter->intRowSize+objIter->intRowStart))
+			{
+				theApp.myclassMessage.intRowMax=objIter->intRowSize+objIter->intRowStart;
+				theApp.myclassMessage.intDotMesRowdis=theApp.myclassMessage.intRowMax;
+			}
+			if (objIter->strType2=="text")
+			{
+				theApp.myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
+					objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
+			}
+			else if (objIter->strType2=="time")
+			{
+			}
+			else if (objIter->strType2=="serial")
+			{
+				theApp.myclassMessage.boDynamic=true;
+				theApp.myclassMessage.intQSerialFirstLimit[theApp.myclassMessage.bytSerialConCoun]=objIter->intSerialFirstLimit;
+				theApp.myclassMessage.intQSerialSecondLimit[theApp.myclassMessage.bytSerialConCoun]=objIter->intSerialSecondLimit;
+				theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun]=objIter->intSerialStartValue;
+				theApp.myclassMessage.intQSerialStep[theApp.myclassMessage.bytSerialConCoun]=objIter->intSerialStep;
+				theApp.myclassMessage.intQSerialRepeat[theApp.myclassMessage.bytSerialConCoun]=objIter->intSerialRepeat;
+				theApp.myclassMessage.bytQSerialDigits[theApp.myclassMessage.bytSerialConCoun]=objIter->intSerialDigits;
+				theApp.myclassMessage.bytQSerialFormat[theApp.myclassMessage.bytSerialConCoun]=objIter->bytSerialFormat;
+				theApp.myclassMessage.bytQserialCounter[theApp.myclassMessage.bytSerialConCoun]=objIter->intSerialCounter;
+				switch(theApp.myclassMessage.bytQserialCounter[theApp.myclassMessage.bytSerialConCoun])
+				{
+				case 0:
+					///////缺序列号重置界面
+					//texval__serial_set0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_fl0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_sl0.Text = intQSerialSecondLimit(bytSerialConCoun)
+					if (theApp.myclassMessage.SerialCountNew)
+					{
+						theApp.myclassMessage.CountNum0=theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun];
+						theApp.myclassMessage.CountNumRep0=1;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&!theApp.myclassMessage.SerialCountSet[0])
+					{
+						theApp.myclassMessage.CountNum0=theApp.myclassMessage.CountNumForPre[0];
+						theApp.myclassMessage.CountNumRep0=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum0;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&theApp.myclassMessage.SerialCountSet[0])
+					{
+						theApp.myclassMessage.CountNum0=theApp.myclassMessage.CountNumForPre[0];////////////注意！！这是CountNum0 = CLng(texval__serial_set0.Text)
+						theApp.myclassMessage.CountNumRep0=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum0;
+						theApp.myclassMessage.SerialCountSet[0]=false;
+					}
+					// labval_serial_reset_cv0.Text = CountNum0.ToString
+					theApp.myclassMessage.boCountEn[0]=true;
+					break;
+				case 1:
+					///////缺序列号重置界面
+					//texval__serial_set0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_fl0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_sl0.Text = intQSerialSecondLimit(bytSerialConCoun)
+					if (theApp.myclassMessage.SerialCountNew)
+					{
+						theApp.myclassMessage.CountNum1=theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun];
+						theApp.myclassMessage.CountNumRep1=1;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&!theApp.myclassMessage.SerialCountSet[1])
+					{
+						theApp.myclassMessage.CountNum1=theApp.myclassMessage.CountNumForPre[1];
+						theApp.myclassMessage.CountNumRep1=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum1;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&theApp.myclassMessage.SerialCountSet[1])
+					{
+						theApp.myclassMessage.CountNum1=theApp.myclassMessage.CountNumForPre[1];////////////注意！！这是CountNum1 = CLng(texval__serial_set0.Text)
+						theApp.myclassMessage.CountNumRep1=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum1;
+						theApp.myclassMessage.SerialCountSet[1]=false;
+					}
+					// labval_serial_reset_cv0.Text = CountNum1.ToString
+					theApp.myclassMessage.boCountEn[1]=true;
+					break;
+				case 2:
+					///////缺序列号重置界面
+					//texval__serial_set0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_fl0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_sl0.Text = intQSerialSecondLimit(bytSerialConCoun)
+					if (theApp.myclassMessage.SerialCountNew)
+					{
+						theApp.myclassMessage.CountNum2=theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun];
+						theApp.myclassMessage.CountNumRep2=1;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&!theApp.myclassMessage.SerialCountSet[2])
+					{
+						theApp.myclassMessage.CountNum2=theApp.myclassMessage.CountNumForPre[2];
+						theApp.myclassMessage.CountNumRep2=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum2;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&theApp.myclassMessage.SerialCountSet[2])
+					{
+						theApp.myclassMessage.CountNum2=theApp.myclassMessage.CountNumForPre[2];////////////注意！！这是CountNum2 = CLng(texval__serial_set0.Text)
+						theApp.myclassMessage.CountNumRep2=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum2;
+						theApp.myclassMessage.SerialCountSet[2]=false;
+					}
+					// labval_serial_reset_cv0.Text = CountNum2.ToString
+					theApp.myclassMessage.boCountEn[2]=true;
+					break;
+				case 3:
+					///////缺序列号重置界面
+					//texval__serial_set0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_fl0.Text = intQSerialFirstLimit(bytSerialConCoun)
+					//	labval_serial_reset_sl0.Text = intQSerialSecondLimit(bytSerialConCoun)
+					if (theApp.myclassMessage.SerialCountNew)
+					{
+						theApp.myclassMessage.CountNum3=theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun];
+						theApp.myclassMessage.CountNumRep3=1;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&!theApp.myclassMessage.SerialCountSet[3])
+					{
+						theApp.myclassMessage.CountNum3=theApp.myclassMessage.CountNumForPre[3];
+						theApp.myclassMessage.CountNumRep3=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum3;
+					}
+					else if (!theApp.myclassMessage.SerialCountNew&&theApp.myclassMessage.SerialCountSet[3])
+					{
+						theApp.myclassMessage.CountNum3=theApp.myclassMessage.CountNumForPre[3];////////////注意！！这是CountNum3 = CLng(texval__serial_set0.Text)
+						theApp.myclassMessage.CountNumRep3=1;
+						theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun] = theApp.myclassMessage.CountNum3;
+						theApp.myclassMessage.SerialCountSet[3]=false;
+					}
+					// labval_serial_reset_cv0.Text = CountNum3.ToString
+					theApp.myclassMessage.boCountEn[3]=true;
+					break;
+				}
+				theApp.myclassMessage.strQSerialFont[theApp.myclassMessage.bytSerialConCoun]=objIter->strFont;
+				theApp.myclassMessage.boQSerialBWDy[theApp.myclassMessage.bytSerialConCoun]=objIter->booBWDy;
+				theApp.myclassMessage.boQSerialBWDx[theApp.myclassMessage.bytSerialConCoun]=objIter->booBWDx;
+				theApp.myclassMessage.boQSerialNEG[theApp.myclassMessage.bytSerialConCoun]=objIter->booNEG;
+				theApp.myclassMessage.bytQSerialSS[theApp.myclassMessage.bytSerialConCoun]=objIter->intSS;
+				theApp.myclassMessage.bytQSerialSW[theApp.myclassMessage.bytSerialConCoun]=objIter->intSW;
+				theApp.myclassMessage.bytQSerialLineSize[theApp.myclassMessage.bytSerialConCoun]=objIter->intLineSize;
+				theApp.myclassMessage.bytQSerialLineStart[theApp.myclassMessage.bytSerialConCoun]=objIter->intLineStart;
+				theApp.myclassMessage.intQSerialRowSize[theApp.myclassMessage.bytSerialConCoun]=objIter->intRowSize;
+				theApp.myclassMessage.intQSerialRowStart[theApp.myclassMessage.bytSerialConCoun]=objIter->intRowStart;
+				theApp.myclassMessage.bytSerialConCoun=theApp.myclassMessage.bytSerialConCoun+1;
+				theApp.myclassMessage.getdot(objIter->strFont,objIter->booBWDy,objIter->booBWDx,objIter->booNEG,objIter->strText,
+					objIter->intRowSize,objIter->intLineSize,objIter->intLineStart,objIter->intRowStart,objIter->intSS,objIter->intSW);
 
+			}
+			else if (objIter->strType2=="logo")
+			{
+				objIter->ReadBmp(const_cast<char*>(objIter->strText.c_str()));
+				for (int i=objIter->intLineStart;i<objIter->intLineSize;i++)
+				{
+					for (int j=0;j<objIter->intRowSize;j++)
+					{
+						theApp.myclassMessage.boDotMes[i][j+objIter->intRowStart]=objIter->boDotBmp[i][j];
+					}
+				}
+				if (theApp.myclassMessage.intRowMax<(objIter->intRowSize+objIter->intRowStart))
+				{
+					theApp.myclassMessage.intRowMax=objIter->intRowSize+objIter->intRowStart;
+				}
+			}
+			else if (objIter->strType2=="qrcode")//二维码
+			{
+			}
+		} 
+		else//目前没有else情况
+		{
+		}
+	}
+	if (theApp.myclassMessage.boDynamic)
+	{
+		memcpy(theApp.myclassMessage.intTimeRowSizedis,theApp.myclassMessage.intTimeRowSize,4*sizeof(int));
+		memcpy(theApp.myclassMessage.intTimeRowStartdis,theApp.myclassMessage.intTimeRowStart,4*sizeof(int));
+		memcpy(theApp.myclassMessage.intQSerialRowSizedis,theApp.myclassMessage.intQSerialRowSize,4*sizeof(int));
+		memcpy(theApp.myclassMessage.intQSerialRowStartdis,theApp.myclassMessage.intQSerialRowStart,4*sizeof(int));
+		memcpy(theApp.myclassMessage.bintTimelineStartdis,theApp.myclassMessage.bytTimeLineStart,4*sizeof(int));
+
+		theApp.myclassMessage.bytTimeConCoundis = theApp.myclassMessage.bytTimeConCoun;
+		theApp.myclassMessage.bytSerialConCoundis = theApp.myclassMessage.bytSerialConCoun;
+		vector<int> tempCountVec;
+		tempCountVec.push_back(theApp.myclassMessage.CountNum0);
+		tempCountVec.push_back(theApp.myclassMessage.CountNum1);
+		tempCountVec.push_back(theApp.myclassMessage.CountNum2);
+		tempCountVec.push_back(theApp.myclassMessage.CountNum3);
+		theApp.myclassMessage.intCounNumForPreQue.push(tempCountVec);
+	}
 }
 void CLabelDlg::selectPixel()
 {
@@ -1023,7 +1295,7 @@ void CLabelDlg::OnBnClickedLabelCloseBtn()
 	//this->ShowWindow(SW_HIDE);
 	//GetParent()->ShowWindow(SW_SHOW);
 	ShowWindow(SW_HIDE);
-
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
 
 void CLabelDlg::showInputDlg(int ID)
@@ -1258,4 +1530,23 @@ void CLabelDlg::OnBnClickedCopyButton()
 			break;
 		}
 	}
+}
+
+void CLabelDlg::OnBnClickedDeleteButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for(vector<OBJ_Control>::iterator iterTemp=theApp.myclassMessage.OBJ_Vec.begin();iterTemp!=theApp.myclassMessage.OBJ_Vec.end();iterTemp++)
+	{
+		if (iterTemp->booFocus)
+		{
+			theApp.myclassMessage.OBJ_Vec.erase(iterTemp);
+			break;
+		}
+	}
+	vector<OBJ_Control>::iterator iterTemp=theApp.myclassMessage.OBJ_Vec.begin();
+	if (iterTemp!=theApp.myclassMessage.OBJ_Vec.end())
+	{
+		iterTemp->booFocus=true;
+	}
+	OnPaint();
 }

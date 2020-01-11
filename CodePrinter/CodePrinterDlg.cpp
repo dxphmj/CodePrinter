@@ -17,7 +17,7 @@
 //#include "Tchar.h”
 #include "PcfConfig.h"
 
-//#define  def_ttl 1
+#define  def_ttl 1
 
 
 #ifdef _DEBUG
@@ -85,11 +85,12 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
-    m_PicHead.SetMachineStatus(_T("Shut Down"));
+	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );	
+    m_PicHead.SetMachineStatus(_T("关机"));//Shut Down
 	m_PicHead.ShowLogo(true);
 
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
-
+	mainPicStruct.myMainPicture=&m_PictureMain;
 	m_Fault = new CFaultDlg;
 	m_System = new CSystemDlg;
 	m_User = new CUserDlg;
@@ -97,7 +98,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
-	//m_OnOff = new COnOffDlg; 
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -105,6 +105,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CreateDirectory(_T("Storage Card\\User\\Label"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
+	CreateDirectory(_T("Storage Card\\User\\LanguageXml"), NULL);//多语言文件夹，以后移动到system文件夹下比较好
 	int nX = 0;
 	int nY = 80;
 	int nWidth = 800;
@@ -118,9 +119,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_User->Create(IDD_USER_DIALOG,this);
 	m_User->MoveWindow(nX,nY,nWidth,nHeight);
 
-	m_Label->Create(IDD_LABEL_DIALOG,this);
-	m_Label->MoveWindow(nX,nY,nWidth,nHeight);
-
 	m_Confi->Create(IDD_CONFIGURATION_DIALOG,this);
 	m_Confi->MoveWindow(nX,nY,nWidth,nHeight);
 
@@ -129,10 +127,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
 	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
-	
-//	m_OnOff->Create(IDD_ONOFF_DIALOG,this);
-//	m_OnOff->MoveWindow(200,200,300,200);
 
+	m_Label->Create(IDD_LABEL_DIALOG,this);
+	m_Label->MoveWindow(nX,nY,nWidth,nHeight);
 	
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
@@ -244,6 +241,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		theApp.myclassMessage.labName="Default.lab";
 		theApp.myclassMessage.labPath="Storage Card\\User\\Label";
 		theApp.myclassMessage.createLABXML();
+		GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(_T("Default.lab"));
 	}
 	delete testFile;
 
@@ -265,7 +263,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	pPcfConfig.get_pcf_from_xml();
 	pPcfConfig.download_pcf();
 
-
+	GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pPcfConfig.m_pcfName);
+	m_Confi->pcfNameDlg=pPcfConfig.m_pcfName;
 #ifndef _DEBUG
 //#ifdef def_ttl
 	LPTSTR strTempCmd;
@@ -279,10 +278,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//定时器初始化 (不要在定时器后面初始化)
 	SetTimer(TIMER1,300,NULL);	
 
-#endif 
-
-	
-	
+#endif 	
 
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
@@ -329,7 +325,14 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 	m_Fault->get_save_error();
 
 	m_Fault->openfailurefile("Storage Card\\System\\Error\\99999999.txt");
-	showDlg(IDD_FAULT_DIALOG);
+	//保存操作提示字符串，等该故障窗口关闭后再恢复显示。
+	if(m_PicHead.m_bShowLogo == true)
+		m_Fault->m_strPreOperation = _T("");
+	else
+		m_Fault->m_strPreOperation = m_PicHead.m_strOperation;
+	//showDlg(IDD_FAULT_DIALOG);
+	m_Fault->ShowWindow(SW_SHOW);
+	m_PicHead.SetOperationString(_T("故障")); //Fault System
 }
 
 void CCodePrinterDlg::OnBnClickedSystemButton()
@@ -354,8 +357,6 @@ void CCodePrinterDlg::OnBnClickedFilemanaButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	showDlg(IDD_FILEMANA_DIALOG);
-
-
 }
 
 void CCodePrinterDlg::OnBnClickedInkButton()
@@ -368,9 +369,7 @@ void CCodePrinterDlg::OnBnClickedOnoroffButton()
 {
 	//showDlg(IDD_ONOFF_DIALOG);
 	COnOffDlg OnOffDlg;
-
-    OnOffDlg.DoModal();
-	
+    OnOffDlg.DoModal();	
 }
 //开始喷印
 void CCodePrinterDlg::OnBnClickedStartprintButton()
@@ -403,33 +402,32 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
-//	m_OnOff->ShowWindow(SW_HIDE);
 
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
 		m_System->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("System Manage")); 
+	    m_PicHead.SetOperationString(_T("系统管理"));//System Manage 
 	}
 	else if (ID == IDD_USER_DIALOG)
 	{
 		m_User->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("User Manage")); 
+	    m_PicHead.SetOperationString(_T("用户管理"));//User Manage 
 	}
 	else if(ID == IDD_LABEL_DIALOG)
 	{
 		m_Label->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Label Manage")); 
+	    m_PicHead.SetOperationString(_T("标签管理")); //Label Manage
 	}
 	else if(ID == IDD_CONFIGURATION_DIALOG)
 	{
 		m_Confi->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Configure")); 
+	    m_PicHead.SetOperationString(_T("配置")); //Configure
 	}
 
 	else if(ID == IDD_FILEMANA_DIALOG)
 	{
 		//m_FileMan->ShowWindow(SW_SHOW);
-		 m_PicHead.SetOperationString(_T("File Manage")); 
+		 m_PicHead.SetOperationString(_T("文件管理")); //File Manage
 		TCHAR path[MAX_PATH];
 		//labModule.string2tchar(testpath,path);
 		
@@ -437,18 +435,17 @@ void CCodePrinterDlg::showDlg(int ID)
 		ShowPathDlg(path, MAX_PATH,0,theApp.myUserPower.booFileManage);
 		//ShowWindow(SW_SHOW);
 		//GetDlgItem(IDC_STATIC_SHOW_DLG)->SetWindowText(_T("File Manage"));
+		m_PicHead.ShowLogo(true);
 	}
-
-
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
 		m_Ink->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Ink System")); 
+	    m_PicHead.SetOperationString(_T("墨水管理"));// Ink System
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
 		m_Fault->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("Fault System")); 
+	    m_PicHead.SetOperationString(_T("故障")); //Fault System
 	}
 	/*else if (ID == IDD_ONOFF_DIALOG)
 	{
@@ -729,7 +726,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 
 	//泵超速保护
-	if (theApp.myStatusClass.staBumSpeOveFau == false	 && theApp.myStatusClass.staBumSpeOveFauLas == false)
+	if (theApp.myStatusClass.staBumSpeOveFau == true	 && theApp.myStatusClass.staBumSpeOveFauLas == false)
 	{
 		theApp.myStatusClass.staBumSpeOveFauLas = true;
 		//缺starting up
@@ -887,12 +884,12 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staChaFau == true && theApp.myStatusClass.staChaFauLas == false)
 	{
 		theApp.myStatusClass.staChaFauLas = true;
-		m_PicHead.SetMachineStatus(_T("Charge fault"));
+		m_PicHead.SetMachineStatus(_T("充电故障"));//Charge fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
-		csMsg.Format(_T("Charge fault"));
+		csMsg.Format(_T("充电故障"));//Charge fault
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -908,12 +905,12 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staPhaFau == true && theApp.myStatusClass.staPhaFauLas == false)
 	{
 		theApp.myStatusClass.staPhaFauLas = true;
-		m_PicHead.SetMachineStatus(_T("Phase fault"));
+		m_PicHead.SetMachineStatus(_T("相位故障"));//Phase fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
-		csMsg.Format(_T("Phase fault"));
+		csMsg.Format(_T("相位故障"));//Phase fault
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -941,7 +938,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		theApp.myStatusClass.ctr0X00bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control00();
 		CString csMsg ;
-		csMsg.Format(_T("High voltage faul"));
+		csMsg.Format(_T("高压故障"));//High voltage faul
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -1182,7 +1179,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
-		 KillTimer(TIMER1);
+		 //KillTimer(TIMER1);
 		 if (theApp.myUserPower.isChangeUser)
 		 {
 			 ChangeBottonEnable();
@@ -1206,13 +1203,13 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
 		{
-			m_PicHead.SetMachineStatus(_T("Ready to print"));
+			m_PicHead.SetMachineStatus(_T("准备打印"));//Ready to print
  		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
 		{
 			if (theApp.myStatusClass.staSysRea == true)//系统准备好
 			{				 
-				m_PicHead.SetMachineStatus(_T("System ready"));
+				m_PicHead.SetMachineStatus(_T("系统准备好"));//System ready
 			}
 			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
 			{
@@ -1220,17 +1217,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
 					{
-						m_PicHead.SetMachineStatus(_T("Sequencing On"));
+						m_PicHead.SetMachineStatus(_T("系统开机中"));//Sequencing On
 					}
 					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
 
 					{
-						m_PicHead.SetMachineStatus(_T("Sequencing Off"));
+						m_PicHead.SetMachineStatus(_T("系统关机中"));//Sequencing Off
 					}
 				}
 				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
 				{					 
-					m_PicHead.SetMachineStatus(_T("Printer Off"));
+					m_PicHead.SetMachineStatus(_T("关闭打印"));//Printer Off
 				}//系统忙
 			}//系统准备好
 
@@ -1857,7 +1854,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
 
-		SetTimer(TIMER1,300,NULL);	
+		//SetTimer(TIMER1,300,NULL);	
 	}
 
 }

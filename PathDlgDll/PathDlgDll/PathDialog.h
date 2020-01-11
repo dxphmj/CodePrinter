@@ -1,5 +1,14 @@
 #include "afxwin.h"
 #include "ImageButton.h"
+#include <vector>
+#include <fstream>
+#include <string>
+#include <stdio.h>
+//#include <Shlwapi.h>
+//#pragma comment (lib,"Shlwapi.lib")
+#include "shellapi.h"
+#pragma comment (lib,"Ceshell.lib")
+using namespace std;
 #if !defined(AFX_PATHDIALOG_H__B16DE00C_2A9D_4E5B_B18B_C683218622DE__INCLUDED_)
 #define AFX_PATHDIALOG_H__B16DE00C_2A9D_4E5B_B18B_C683218622DE__INCLUDED_
 
@@ -20,6 +29,8 @@ private:
 	COLORREF m_BKcolor;
 	CBrush m_DlgBrush;
 	bool booAllSet;
+	bool booIsCut;
+	vector<CString> pasteVec;
 public:
 	enum{
 		STB_HIDE = 0,
@@ -54,6 +65,7 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP();
 public:
+	void CheckAndAddNode(HTREEITEM hRoot);
 	BOOL ShowTreeButton(HTREEITEM hti, int nShow = STB_SHOW);
 	BOOL CreateSubDirectory(HTREEITEM hParent);
 	CString GetFullPath(HTREEITEM hCurrent);
@@ -77,6 +89,14 @@ public:
 	CImageButton m_reName;
 	CImageButton m_allSELECT;
 	afx_msg void OnBnClickedButtonAllset();
+	void DeleteDirectory(LPCTSTR path);
+	afx_msg void OnBnClickedButtonRename();
+
+	bool DeleteFileM(LPCTSTR lpszPath);
+	bool ReNameFile(LPCTSTR pTo,LPCTSTR pFrom);
+	bool CopyFileM(LPCTSTR pTo,LPCTSTR pFrom);
+	bool MoveFileM(LPCTSTR pTo,LPCTSTR pFrom);
+	afx_msg void OnBnClickedButtonNewfile();
 };
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

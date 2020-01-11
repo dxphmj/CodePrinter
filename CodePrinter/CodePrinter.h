@@ -30,10 +30,12 @@ public:
 public:
 
 	CBrush m_DlgBrush;
+	CBrush m_StaticBrush;
     COLORREF m_BKcolor;
 	CFont *m_HeadMachineStaFont;
 	CFont *m_HeadOperationStaFont;
 	CFont *m_StaticFont;
+	CFont *m_EditFont;
 
 // 重写
 public:
@@ -45,7 +47,11 @@ public:
 	BYTE bytStatus[37];
 // 实现
 	bool boTTL;
+	bool boDrawMainPic;//主界面动态绘制开关
+	bool mythreadDynamicBoo;//动态线程开关
 	CWinThread* TTLcom;//ttl线程句柄
+	CWinThread* mythreadDynamic;
+	CWinThread* mythreadDynamicdis;
 	TimClass myTimClass;
 	PcfClass myPcfClass;
 	StatusClass myStatusClass;
@@ -55,6 +61,7 @@ public:
 	CCriticalSection bytSlaveStatusLock;//读取状态
 	CCriticalSection boPrintNowLock;//打印
 	CCriticalSection boQueCtrLock;//命令
+	CCriticalSection boETimetextLock;//时间
 	CIOVsd myCIOVsd;
 	ModuleMain myModuleMain;
 	UserPower myUserPower;

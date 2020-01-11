@@ -45,6 +45,7 @@ BEGIN_MESSAGE_MAP(CConfigPrintModeDlg, CDialog)
 
 	ON_LBN_SELCHANGE(IDC_PRINT_MODE_LIST, &CConfigPrintModeDlg::OnLbnSelchangePrintModeList)
 
+	ON_BN_CLICKED(IDC_CONFIG_OK_BTN, &CConfigPrintModeDlg::OnBnClickedConfigOkBtn)
 END_MESSAGE_MAP()
 
 
@@ -122,4 +123,14 @@ void CConfigPrintModeDlg::OnEnSetfocusReapeatCountEdit()
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
 	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CConfigPrintModeDlg::OnBnClickedConfigOkBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CConfigurationDlg* dlg;
+	dlg = (CConfigurationDlg*)(GetParent());
+
+	dlg->OnBnClickedSavePcf();
+
 }

@@ -92,6 +92,8 @@ public:
 	COnOffDlg *m_OnOff;
 	CNumKey *m_pNumKey;
 
+
+	structMP mainPicStruct;
 	
 public:
 	void showDlg(int ID);

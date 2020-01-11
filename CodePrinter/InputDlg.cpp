@@ -64,32 +64,34 @@ BOOL CInputDlg::OnInitDialog()
 	pBarCode = new CBarCodeDlg;
 
 	int nX = 0;
-	int nY = 90;
+	int nY = 75;
 	int nWidth = 800;
 	int nHeight = 600-nY;
 	pEditText->Create(IDD_EDITTEXT_DIALOG,this);
 	pEditText->MoveWindow(nX,nY,nWidth,nHeight);
+	pEditText->ShowWindow(SW_HIDE);
 
 	pEditFigure->Create(IDD_EDITFIGURE_DIALOG,this);
 	pEditFigure->MoveWindow(nX,nY,nWidth,nHeight);
 	pEditFigure->ShowWindow(SW_HIDE);
 
-	pDate->Create(IDD_DATE_DIALOG,this);
-	pDate->MoveWindow(nX,nY,nWidth,nHeight);
-	pDate->ShowWindow(SW_HIDE);
+ 	pDate->Create(IDD_DATE_DIALOG,this);
+ 	pDate->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pDate->ShowWindow(SW_HIDE);
 
-	pPic->Create(IDD_PICTURE_DIALOG,this);
-	pPic->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pPic->Create(IDD_PICTURE_DIALOG,this);
+ 	pPic->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pPic->ShowWindow(SW_HIDE);
 
-	pBarCode->Create(IDD_BARCODE_DIALOG,this);
-	pBarCode->MoveWindow(nX,nY,nWidth,nHeight);
-	pBarCode->ShowWindow(SW_HIDE);
+ 	pBarCode->Create(IDD_BARCODE_DIALOG,this);
+ 	pBarCode->MoveWindow(nX,nY,nWidth,nHeight);
+ 	pBarCode->ShowWindow(SW_HIDE);
 
 //要改
 	CRect rect1;
 	GetDlgItem(IDC_EDITFIGURE_BUTTON)->GetWindowRect(&rect1);
 
-	GetDlgItem(IDC_EDITTEXT_BUTTON)->SetWindowPos(NULL,224,80,60,40,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_EDITTEXT_BUTTON)->SetWindowPos(NULL,224,80,60,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDITFIGURE_BUTTON)->SetWindowPos(NULL,354,80,60,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDITDATE_BUTTON)->SetWindowPos(NULL,484,80,60,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_EDITPICTURE_BUTTON)->SetWindowPos(NULL,224,140,60,40,SWP_SHOWWINDOW);
@@ -126,6 +128,55 @@ void CInputDlg::OnBnClickedEdittextButton()
 void CInputDlg::OnBnClickedEditfigureButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	pEditFigure->GetDlgItem(IDC_FIRST_QUARTILE_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_FOUR_QUARTILE_EDIT)->SetWindowText(_T("999999999"));
+	pEditFigure->GetDlgItem(IDC_START_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_STEP_SIZE_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_REPEAT_COUNT_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(_T("9"));
+	if (!theApp.myclassMessage.CounterEditMes[0])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("1"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else if (!theApp.myclassMessage.CounterEditMes[1])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("2"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else if (!theApp.myclassMessage.CounterEditMes[2])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("3"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else if (!theApp.myclassMessage.CounterEditMes[3])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("4"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else
+	{
+		CString csMsg=_T("操作失败！\n序列号已满！") ;//= _T("串口4打开失败!");
+		AfxMessageBox(csMsg);
+		return;
+	}
+	pEditFigure->RefreshSerial();
 	showInputDlg(IDD_EDITFIGURE_DIALOG);
 }
 
@@ -223,8 +274,7 @@ void CInputDlg::showInputDlg(int ID)
 	else if (ID == IDD_BARCODE_DIALOG)
 	{
 		pBarCode->ShowWindow(SW_SHOW);
-	}
-	
+	}	
 }
 
 

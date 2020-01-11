@@ -146,6 +146,7 @@ void CSystemDlg::OnBnClickedSystemCloseBtn()
 	pEvn->ShowWindow(SW_HIDE);
 	pCom->ShowWindow(SW_HIDE);
 	pVersion->ShowWindow(SW_HIDE);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
 
 

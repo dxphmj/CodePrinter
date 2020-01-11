@@ -1071,7 +1071,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang10.bmp"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang1.png"
 				>
 			</File>
 			<File
@@ -1079,7 +1079,23 @@
 				>
 			</File>
 			<File
+
+				
+
+				RelativePath=".\res\ang10.bmp"
+
+				>
+			</File>
+			<File
 				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang10.png"
+				>
+			</File>
+			<File
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang10.png"
+				>
+			</File>
+			<File
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang11.png"
 				>
 			</File>
 			<File
@@ -1087,7 +1103,7 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang11.png"
+				RelativePath=".\res\ang11.png"
 				>
 			</File>
 			<File
@@ -1099,11 +1115,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\ang12.png"
+				>
+			</File>
+			<File
 				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang12.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang12.png"
+				RelativePath=".\res\ang13.png"
 				>
 			</File>
 			<File
@@ -1111,7 +1131,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang13.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang13.png"
 				>
 			</File>
 			<File
@@ -1123,11 +1143,15 @@
 				>
 			</File>
 			<File
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang14.png"
+				>
+			</File>
+			<File
 				RelativePath=".\res\ang14.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang14.png"
+				RelativePath=".\res\ang15.png"
 				>
 			</File>
 			<File
@@ -1135,7 +1159,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang15.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang15.png"
 				>
 			</File>
 			<File
@@ -1147,11 +1171,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang16.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang16.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang16.png"
+				RelativePath=".\res\ang16.png"
 				>
 			</File>
 			<File
@@ -1171,11 +1195,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang18.png"
+				RelativePath=".\res\ang18.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang18.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang18.png"
 				>
 			</File>
 			<File
@@ -1195,11 +1219,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang2.png"
+				RelativePath=".\res\ang2.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang2.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang2.png"
 				>
 			</File>
 			<File
@@ -1243,11 +1267,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang23.png"
+				RelativePath=".\res\ang23.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang23.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang23.png"
 				>
 			</File>
 			<File
@@ -1279,11 +1303,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang26.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang26.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang26.png"
+				RelativePath=".\res\ang26.png"
 				>
 			</File>
 			<File
@@ -1303,11 +1327,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang28.png"
+				RelativePath=".\res\ang28.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang28.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang28.png"
 				>
 			</File>
 			<File
@@ -1327,11 +1351,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang3.png"
+				RelativePath=".\res\ang3.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang3.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang3.png"
 				>
 			</File>
 			<File
@@ -1363,11 +1387,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang32.png"
+				RelativePath=".\res\ang32.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang32.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang32.png"
 				>
 			</File>
 			<File
@@ -1435,11 +1459,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang6.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang6.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang6.png"
+				RelativePath=".\res\ang6.png"
 				>
 			</File>
 			<File
@@ -1459,11 +1483,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang8.png"
+				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang8.png"
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\已屏蔽\I-TIJ\bng\ang8.png"
+				RelativePath=".\res\ang8.png"
 				>
 			</File>
 			<File
@@ -1496,6 +1520,10 @@
 			</File>
 			<File
 				RelativePath=".\res\bitmap6.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\blue.bmp"
 				>
 			</File>
 			<File
@@ -1588,6 +1616,10 @@
 			</File>
 			<File
 				RelativePath=".\res\fresh.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\green.bmp"
 				>
 			</File>
 			<File
@@ -1815,6 +1847,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\red.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\red659.bmp"
 				>
 			</File>
@@ -1860,6 +1896,10 @@
 			</File>
 			<File
 				RelativePath=".\res\User.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\yellow.bmp"
 				>
 			</File>
 			<File
@@ -1935,11 +1975,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\减.bmp"
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\减.bmp"
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\减.bmp"
+				RelativePath=".\res\减.bmp"
 				>
 			</File>
 			<File
@@ -1959,10 +1999,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\删除.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\删除.bmp"
 				>
 			</File>
@@ -1971,11 +2007,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\fault\删除.bmp"
+				>
+			</File>
+			<File
 				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\加--.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\加.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\加--.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\加.bmp"
 				>
 			</File>
 			<File
@@ -2051,11 +2099,11 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\圆键-.bmp"
+				RelativePath=".\res\圆键-.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\圆键-.bmp"
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\6墨水系统\圆键-.bmp"
 				>
 			</File>
 			<File
@@ -2099,11 +2147,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\左--.bmp"
+				RelativePath=".\res\SMALL\左--.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\SMALL\左--.bmp"
+				RelativePath=".\res\fault\左--.bmp"
 				>
 			</File>
 			<File
@@ -2335,22 +2383,6 @@
 				>
 			</File>
 			<File
-				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\背景条.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\背景条.bmp"
 				>
 			</File>
@@ -2380,6 +2412,22 @@
 			</File>
 			<File
 				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath="C:\Users\Admin\Desktop\喷码机开发\all\主页\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\背景条.bmp"
 				>
 			</File>
 			<File

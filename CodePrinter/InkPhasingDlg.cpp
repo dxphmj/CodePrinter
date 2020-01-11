@@ -7,6 +7,7 @@
 #include "BnvImage.h"
 #include "InkSystemDlg.h"
 #include "CodePrinterDlg.h"
+#include "DealXml.h"
 
 
 // CInkPhasingDlg 对话框
@@ -74,6 +75,51 @@ HBRUSH CInkPhasingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return theApp.m_DlgBrush;
 }
 
+
+void CInkPhasingDlg::save_inksystem_mv_to_xml()
+{
+	CDealXml dealXml;
+	CString pcf_currentname,pcf_currentpath;
+
+	//当前或上次打开的配置文件名
+	pcf_currentname = _T("InkSystem.xml");	
+	//当前或上次打开的配置文件的路径
+	pcf_currentpath = _T("Storage Card\\System");
+
+	CString strTmp;
+    strTmp.Format(L"%d",m_fixed);    
+    dealXml.WriteXml(pcf_currentname, L"ModulationVoltage", strTmp,pcf_currentpath);
+	//WriteXML("inksystem.xml", "ModulationVoltage", texval_inksystem_pha_mv.Text, "\Storage Card\System")
+
+}
+
+//void CInkPhasingDlg::download_inksystem_mv()
+//{
+//	byte inksystem_parameter_0x05, inksystem_parameter_0x06;
+//	int nParam = m_fixed;
+//	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200;缺省是60较合适
+//	inksystem_parameter_0x06 = (nParam * 10) >> 8;
+//
+//	vector<BYTE> tempCtrVec;
+//
+//	tempCtrVec.push_back(0x01);
+//	tempCtrVec.push_back(0x80);
+//	tempCtrVec.push_back(0x04);
+//	tempCtrVec.push_back(0x05);
+//
+//	tempCtrVec.push_back(0x05);
+//	tempCtrVec.push_back(inksystem_parameter_0x05);
+//	tempCtrVec.push_back(inksystem_parameter_0x06);
+//
+//	tempCtrVec.push_back(0xFF);
+//	tempCtrVec.push_back(0xFF);
+//
+//	theApp.boQueCtrLock.Lock();
+//	theApp.queCtr.push(tempCtrVec);
+//	theApp.boQueCtrLock.Unlock();
+//    //queCtr.Enqueue(New Byte() {&H1, &H80, &H4, &H5, &H5, inksystem_parameter_0x05, inksystem_parameter_0x06, &HFF, &HFF})
+//}
+
 void CInkPhasingDlg::OnBnClickedPhasingAddBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -83,6 +129,13 @@ void CInkPhasingDlg::OnBnClickedPhasingAddBtn()
 	else if(m_fixed + theApp.myStatusClass.bytModuStep <= 200)
 		m_fixed = m_fixed + theApp.myStatusClass.bytModuStep;
 	UpdateData(false);
+
+	//download_inksystem_mv();
+	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",theApp.myclassMessage.to_String(m_fixed),"Storage Card\\System");
+
+
+	save_inksystem_mv_to_xml();
+	download_inksystem_mv();
 
 }
 
@@ -98,8 +151,15 @@ void CInkPhasingDlg::OnBnClickedPashingCutBtn()
 	}
 	UpdateData(false);
  
+
 	//save_inksystem_mv_to_xml();
 	//download_inksystem_mv();
+	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",theApp.myclassMessage.to_String(m_fixed),"Storage Card\\System");
+	
+
+	save_inksystem_mv_to_xml();
+	download_inksystem_mv();
+
 }
 
 void CInkPhasingDlg::OnBnClickedSetAdjustSmallBtn()
@@ -216,4 +276,25 @@ void CInkPhasingDlg::OnEnSetfocusFixedEdit()
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
 	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CInkPhasingDlg::download_inksystem_mv()
+{
+	BYTE inksystem_parameter_0x05, inksystem_parameter_0x06;
+	inksystem_parameter_0x05=(m_fixed*10)&0xFF;
+	inksystem_parameter_0x06=(m_fixed*10)>>8;
+	vector<BYTE> tempQueVec;
+	tempQueVec.push_back(0x1);
+	tempQueVec.push_back(0x80);
+	tempQueVec.push_back(0x4);
+	tempQueVec.push_back(0x5);
+	tempQueVec.push_back(0x5);
+	tempQueVec.push_back(inksystem_parameter_0x05);
+	tempQueVec.push_back(inksystem_parameter_0x06);
+	tempQueVec.push_back(0xFF);
+	tempQueVec.push_back(0xFF);
+	theApp.boQueCtrLock.Lock();
+
+		theApp.queCtr.push(tempQueVec);
+	theApp.boQueCtrLock.Unlock();
 }

@@ -43,7 +43,8 @@ public:
 	int m_speed;
 
 	int m_nPcfPic;
-	HBITMAP   m_HBitmap[8];   
+	HBITMAP   m_HBitmap[8]; 
+	CString pcfNameDlg;
  
 	afx_msg void OnBnClickedSavePcf();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);

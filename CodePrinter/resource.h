@@ -646,6 +646,7 @@
 #define IDC_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1520
 #define IDC_SYSTEM_SOFTWARE_TYPE_VALUE_STATIC 1521
 #define IDC_SYSTEM_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1522
+
 #define IDC_USER_CURUSERS_STATIC        1523
 #define IDC_COM1_BIT_STATIC             1524
 #define IDC_USER_NEW_NAME_STATIC        1525
@@ -706,13 +707,22 @@
 #define IDC_MAIN_DEFAULT_STATIC         1578
 #define IDC_MAIN_COUNTER_STATIC         1579
 
+#define IDC_STATIC_LABNAME              1580
+#define IDC_STATIC_PCFNAME              1581
+
+
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        467
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1580
+
+#define _APS_NEXT_CONTROL_VALUE         1582
+
+
+
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

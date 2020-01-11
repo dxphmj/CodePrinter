@@ -1,26 +1,26 @@
-// IsDeletDlg.cpp : 实现文件
+// RenameDlg.cpp : 实现文件
 //
 
 #include "stdafx.h"
 #include "PathDlgDll.h"
-#include "IsDeletDlg.h"
+#include "RenameDlg.h"
 #include "BnvImage.h"
 
-// CIsDeletDlg 对话框
+// CRenameDlg 对话框
 
-IMPLEMENT_DYNAMIC(CIsDeletDlg, CDialog)
+IMPLEMENT_DYNAMIC(CRenameDlg, CDialog)
 
-CIsDeletDlg::CIsDeletDlg(CString isDetStr,CWnd* pParent /*=NULL*/)
-	: CDialog(CIsDeletDlg::IDD, pParent)
+CRenameDlg::CRenameDlg(CString renameSTR,CWnd* pParent /*=NULL*/)
+	: CDialog(CRenameDlg::IDD, pParent)
 {
-	m_isDetstr=isDetStr;
+	m_RenameSTR=renameSTR;
 }
 
-CIsDeletDlg::~CIsDeletDlg()
+CRenameDlg::~CRenameDlg()
 {
 }
 
-void CIsDeletDlg::DoDataExchange(CDataExchange* pDX)
+void CRenameDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDOK, m_OKBUT);
@@ -28,19 +28,20 @@ void CIsDeletDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CIsDeletDlg, CDialog)
+BEGIN_MESSAGE_MAP(CRenameDlg, CDialog)
 	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
-// CIsDeletDlg 消息处理程序
+// CRenameDlg 消息处理程序
 
-BOOL CIsDeletDlg::OnInitDialog()
+BOOL CRenameDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	m_BKcolor = RGB(210, 231, 251);
 	m_DlgBrush.CreateSolidBrush(m_BKcolor); 
 	// TODO:  在此添加额外的初始化
+	//GetDlgItem(IDC_EDIT_RENAMEEDIT)->SetWindowPos(NULL,,rect.top+50,700,30,SWP_SHOWWINDOW);
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);
@@ -63,22 +64,28 @@ BOOL CIsDeletDlg::OnInitDialog()
 		DEFAULT_PITCH,      //nPitchAndFamily=缺省值
 		L"@system");         //字体名=@system  
 	//CreatePointFont(120, _T("Arial"), NULL);
-	//GetDlgItem(IDC_STATIC_ISDET)->SetWindowPos(NULL,rect.left+50,rect.top+10,700,20,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_STATIC_ISDET)->SetWindowPos(NULL,rect.left+100,rect.top+200,600,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_EDIT_RENAMEEDIT)->SetWindowPos(NULL,rect.left+100,rect.top+100,600,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDCANCEL)->SetWindowPos(NULL,rect.left+50,rect.top+450,100,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_STATIC_ISDET)->SetWindowText(m_isDetstr);
-	GetDlgItem(IDC_STATIC_ISDET)->SetFont(m_Font,true);
+	GetDlgItem(IDC_EDIT_RENAMEEDIT)->SetWindowText(m_RenameSTR);
+	GetDlgItem(IDC_EDIT_RENAMEEDIT)->SetFont(m_Font,true);
 	m_OKBUT.LoadBitmaps(IDB_BITMAP_OKUP,IDB_BITMAP_OKDOWN,0,0,IDB_BITMAP_OKUP);
 	m_OKBUT.SizeToContent(); 
 	m_CLOBUT.LoadBitmaps(IDB_BITMAP_CLOUP,IDB_BITMAP_CLODOWN,0,0,IDB_BITMAP_CLOUP);
 	m_CLOBUT.SizeToContent(); 
 
-	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
+	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
 
-HBRUSH CIsDeletDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+void CRenameDlg::OnOK()
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	GetDlgItem(IDC_EDIT_RENAMEEDIT)->GetWindowText(m_RenameSTR);
+	CDialog::OnOK();
+}
+
+HBRUSH CRenameDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 

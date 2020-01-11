@@ -2,19 +2,19 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 
-// CIsDeletDlg 对话框
+// CRenameDlg 对话框
 
-class CIsDeletDlg : public CDialog
+class CRenameDlg : public CDialog
 {
-	DECLARE_DYNAMIC(CIsDeletDlg)
+	DECLARE_DYNAMIC(CRenameDlg)
 
 public:
-	CIsDeletDlg(CString isDetStr,CWnd* pParent = NULL);   // 标准构造函数
-	virtual ~CIsDeletDlg();
+	CRenameDlg(CString renameSTR,CWnd* pParent = NULL);   // 标准构造函数
+	virtual ~CRenameDlg();
 	COLORREF m_BKcolor;
 	CBrush m_DlgBrush;
 // 对话框数据
-	enum { IDD = IDD_DIALOG_ISDETDLG };
+	enum { IDD = IDD_DIALOG_RENAMEDLG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
@@ -24,6 +24,9 @@ public:
 	virtual BOOL OnInitDialog();
 	CImageButton m_OKBUT;
 	CImageButton m_CLOBUT;
-	CString m_isDetstr;
+	CString m_RenameSTR;
+protected:
+	virtual void OnOK();
+public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
