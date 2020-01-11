@@ -5,6 +5,9 @@
 #include "CodePrinter.h"
 #include "CodePrinterDlg.h"
 
+#define ID_SYSTEM_READY WM_USER+3000
+#define ID_SYSTEM_BUSY  WM_USER+3002
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif

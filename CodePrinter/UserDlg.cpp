@@ -182,7 +182,7 @@ void CUserDlg::OnBnClickedDeleteBtn()
 	m_allUserBox->GetText(m_allUserBox->GetCurSel(),deletUser);
 	CString staticEdit;
 	staticEdit.Format(_T("确定删除用户 %s ？"),deletUser);
-	pUserDelete->GetDlgItem(IDC_STATIC_DELET)->SetWindowText(staticEdit);
+	pUserDelete->GetDlgItem(IDC_USER_DEL_DEL_STATIC)->SetWindowText(staticEdit);
 	showUserDlg(IDD_USER_DELETE_DIALOG);
 }
 

@@ -14,7 +14,7 @@ CConfigOutSetDlg::CConfigOutSetDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CConfigOutSetDlg::IDD, pParent)
 	,m_currentLevelStr("High")
 {
-         
+        
 }
 
 CConfigOutSetDlg::~CConfigOutSetDlg()

@@ -31,4 +31,5 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CImageButton m_solventCalibIB;
 	CImageButton m_inkCalibIB;
+	afx_msg void OnStnClickedInkSetupInktypeStatic();
 };
