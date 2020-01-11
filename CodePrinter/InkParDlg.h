@@ -33,11 +33,9 @@ public:
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
-	CEdit m_edit_parPressure;
 
 	virtual BOOL OnInitDialog();
 	afx_msg void OnEnSetfocusParPressureEdit();
-	CEdit m_edit_printheadTemp;
 	afx_msg void OnEnSetfocusPrintheadTempEdit();
 	afx_msg void OnPaint();
 	afx_msg void OnEnSetfocusParPumpSpeedEdit();
@@ -48,6 +46,7 @@ public:
 	afx_msg void OnEnSetfocusSolAddLevEdit();
 	afx_msg void OnEnSetfocusInkEmptyLevEdit();
 	afx_msg void OnEnSetfocusSolEmptyLevEdit();
+	CEdit m_edit_parPressure;
 	CEdit m_edit_parPumpSpeed;
 	CEdit m_medit_viscoDevia;
 	CEdit m_edit_inkFlowLev;
@@ -56,4 +55,5 @@ public:
 	CEdit m_edit_solAddLev;
 	CEdit m_edit_inkEmptyLev;
 	CEdit m_edit_solEmptyLev;
+	CEdit m_edit_printheadTemp;
 };

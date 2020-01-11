@@ -23,28 +23,34 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	int m_fixed;
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	void download_inksystem_mv();
+	void save_inksystem_mv_to_xml();
 
-	afx_msg void OnBnClickedPhasingAddBtn();
-	afx_msg void OnBnClickedPashingCutBtn();
-	afx_msg void OnBnClickedSetAdjustSmallBtn();
-	afx_msg void OnBnClickedSetAdjustBigBtn();
-	afx_msg void OnBnClickedAutoSetBtn();
+public:
+	int m_fixed;
 
 	CImageButton m_PhaMvAuto;
 	CImageButton m_PhaMvStep10;
 	CImageButton m_PhaMvStep1;
 	CImageButton m_PhaMvAdd;
 	CImageButton m_PhaMvSub;
-	virtual BOOL OnInitDialog();
 	CStatic m_PicPhaAngle;
 
 	CBitmap m_AngleBitmap[36];  // CBitmap对象，用于加载位图  
 	HBITMAP m_AnglehBmp[36];
 	CEdit m_edit_fiexd;
 	
+	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedPhasingAddBtn();
+	afx_msg void OnBnClickedPashingCutBtn();
+	afx_msg void OnBnClickedSetAdjustSmallBtn();
+	afx_msg void OnBnClickedSetAdjustBigBtn();
+	afx_msg void OnBnClickedAutoSetBtn();
 	afx_msg void OnEnSetfocusFixedEdit();
-	void download_inksystem_mv();
+
+	//void download_inksystem_mv();
+
+
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 };

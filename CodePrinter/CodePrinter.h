@@ -30,10 +30,12 @@ public:
 public:
 
 	CBrush m_DlgBrush;
+	CBrush m_StaticBrush;
     COLORREF m_BKcolor;
 	CFont *m_HeadMachineStaFont;
 	CFont *m_HeadOperationStaFont;
 	CFont *m_StaticFont;
+	CFont *m_EditFont;
 
 // ÖØÐ´
 public:

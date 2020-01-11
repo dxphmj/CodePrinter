@@ -87,6 +87,14 @@ HBRUSH CInkParDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	} 
+	 if(nCtlColor == CTLCOLOR_EDIT)
+	{		 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	} 
 
 
@@ -99,6 +107,17 @@ HBRUSH CInkParDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 BOOL CInkParDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	m_edit_parPressure.SetFont(theApp.m_EditFont);
+	m_edit_parPumpSpeed.SetFont(theApp.m_EditFont);
+	m_medit_viscoDevia.SetFont(theApp.m_EditFont);
+	m_edit_inkFlowLev.SetFont(theApp.m_EditFont);
+	m_edit_solventFlowLev.SetFont(theApp.m_EditFont);
+	m_edit_inkAddLev.SetFont(theApp.m_EditFont);
+	m_edit_solAddLev.SetFont(theApp.m_EditFont);
+	m_edit_inkEmptyLev.SetFont(theApp.m_EditFont);
+	m_edit_solEmptyLev.SetFont(theApp.m_EditFont);
+	m_edit_printheadTemp.SetFont(theApp.m_EditFont);
 
 	// TODO:  在此添加额外的初始化
 	//////////////////////////////////////////////////////////////////////////
@@ -113,7 +132,7 @@ void CInkParDlg::OnPaint()
 	// TODO: 在此处添加消息处理程序代码
 	// 不为绘图消息调用 CDialog::OnPaint()
 
-	this->SetFocus();
+//	this->SetFocus();
 
 }
 
