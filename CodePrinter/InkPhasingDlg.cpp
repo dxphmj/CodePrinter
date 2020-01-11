@@ -93,32 +93,32 @@ void CInkPhasingDlg::save_inksystem_mv_to_xml()
 
 }
 
-void CInkPhasingDlg::download_inksystem_mv()
-{
-	byte inksystem_parameter_0x05, inksystem_parameter_0x06;
-	int nParam = m_fixed;
-	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200;缺省是60较合适
-	inksystem_parameter_0x06 = (nParam * 10) >> 8;
-
-	vector<BYTE> tempCtrVec;
-
-	tempCtrVec.push_back(0x01);
-	tempCtrVec.push_back(0x80);
-	tempCtrVec.push_back(0x04);
-	tempCtrVec.push_back(0x05);
-
-	tempCtrVec.push_back(0x05);
-	tempCtrVec.push_back(inksystem_parameter_0x05);
-	tempCtrVec.push_back(inksystem_parameter_0x06);
-
-	tempCtrVec.push_back(0xFF);
-	tempCtrVec.push_back(0xFF);
-
-	theApp.boQueCtrLock.Lock();
-	theApp.queCtr.push(tempCtrVec);
-	theApp.boQueCtrLock.Unlock();
-    //queCtr.Enqueue(New Byte() {&H1, &H80, &H4, &H5, &H5, inksystem_parameter_0x05, inksystem_parameter_0x06, &HFF, &HFF})
-}
+//void CInkPhasingDlg::download_inksystem_mv()
+//{
+//	byte inksystem_parameter_0x05, inksystem_parameter_0x06;
+//	int nParam = m_fixed;
+//	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200;缺省是60较合适
+//	inksystem_parameter_0x06 = (nParam * 10) >> 8;
+//
+//	vector<BYTE> tempCtrVec;
+//
+//	tempCtrVec.push_back(0x01);
+//	tempCtrVec.push_back(0x80);
+//	tempCtrVec.push_back(0x04);
+//	tempCtrVec.push_back(0x05);
+//
+//	tempCtrVec.push_back(0x05);
+//	tempCtrVec.push_back(inksystem_parameter_0x05);
+//	tempCtrVec.push_back(inksystem_parameter_0x06);
+//
+//	tempCtrVec.push_back(0xFF);
+//	tempCtrVec.push_back(0xFF);
+//
+//	theApp.boQueCtrLock.Lock();
+//	theApp.queCtr.push(tempCtrVec);
+//	theApp.boQueCtrLock.Unlock();
+//    //queCtr.Enqueue(New Byte() {&H1, &H80, &H4, &H5, &H5, inksystem_parameter_0x05, inksystem_parameter_0x06, &HFF, &HFF})
+//}
 
 void CInkPhasingDlg::OnBnClickedPhasingAddBtn()
 {
