@@ -93,9 +93,9 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DELETE_BUTTON, m_delete);
 
 
-	DDX_Text(pDX, IDC_EDIT1, m_zoomLevel);
+	DDX_Text(pDX, IDC_SHRIK_Z_EDIT, m_zoomLevel);
 	DDV_MinMaxInt(pDX, m_zoomLevel, 1, 4);
-	DDX_Text(pDX, IDC_EDIT2, m_ssValue);
+	DDX_Text(pDX, IDC_CLOSE_F_EDIT, m_ssValue);
 	DDV_MinMaxInt(pDX, m_ssValue, 0, 4);
 
 	DDX_Control(pDX, IDC_STATIC_ISBNG, m_picBNG);
@@ -150,6 +150,7 @@ BOOL CLabelDlg::OnInitDialog()
 	CDialog::OnInitDialog();
     isFrame = false;
 	// TODO:  在此添加额外的初始化
+
 	pInput = new CInputDlg;
 	pInput->Create(IDD_INPUT_DIALOG,this);
 	pInput->MoveWindow(0,260,800,340);
@@ -179,14 +180,7 @@ BOOL CLabelDlg::OnInitDialog()
 	GetDlgItem(IDC_LRMIRROR_BUTTON)->SetWindowPos(NULL,484,320,45,40,SWP_SHOWWINDOW);
 	m_picOverturn.SetWindowPos(NULL,430,320,45,40,SWP_SHOWWINDOW);
 
-	GetDlgItem(IDC_EDIT1)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_EDIT2)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
-	//右侧两列
-
-	//GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
-
-
-
+	
 	//为矩阵组合框添加元素
 	//combo_matrix.SetDroppedWidth(10);  //改变下拉列表下的宽度 
 	ComboMatrix.AddString(_T("1L5M"));
@@ -199,15 +193,13 @@ BOOL CLabelDlg::OnInitDialog()
 	ComboMatrix.SetCurSel(1);
 	this->OnCbnSelchangeComboMatrix();
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
-   
+ 
+	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_CLOSE_F_EDIT)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetFont(theApp.m_EditFont);
+	GetDlgItem(IDC_CLOSE_F_EDIT)->SetFont(theApp.m_EditFont);
 
-	CFont *m_Font;
-	m_Font=new CFont;
-	m_Font->CreatePointFont(160, _T("Arial"), NULL);
-	GetDlgItem(IDC_EDIT1)->SetFont(m_Font);
-	GetDlgItem(IDC_EDIT2)->SetFont(m_Font);
 
-	//delete m_Font;
 	//彩色按钮
 	m_input.LoadBitmaps(IDB_INPUT1_BITMAP,IDB_INPUT2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_input.SizeToContent(); 
@@ -261,6 +253,7 @@ BOOL CLabelDlg::OnInitDialog()
 	m_save.SizeToContent();
 	m_return.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_return.SizeToContent();
+	
 
 	//test
 
@@ -290,7 +283,8 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.getLabFromXml();
 	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 	selectPixel();
-	OnBnClickedDownloadButton();
+	OnBnClickedDownloadButton();	
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

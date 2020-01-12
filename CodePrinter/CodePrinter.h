@@ -31,11 +31,13 @@ public:
 
 	CBrush m_DlgBrush;
 	CBrush m_StaticBrush;
+	CBrush m_ListBoxBrush;
     COLORREF m_BKcolor;
 	CFont *m_HeadMachineStaFont;
 	CFont *m_HeadOperationStaFont;
 	CFont *m_StaticFont;
 	CFont *m_EditFont;
+	CFont *m_ListBoxFont;
 
 // ÖØÐ´
 public:

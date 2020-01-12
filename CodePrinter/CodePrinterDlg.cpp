@@ -124,6 +124,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
+
 	// TODO: 在此添加额外的初始化代码
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );
@@ -133,7 +134,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	lanStr=theApp.myLanguage.LanguageMap["IDC_MACHINE_STATUS"];
     m_PicHead.SetMachineStatus(lanStr.c_str());//Shut Down
 	m_PicHead.ShowLogo(true);
-
+	
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 	mainPicStruct.myMainPicture=&m_PictureMain;
 	m_Fault = new CFaultDlg;
@@ -155,27 +156,30 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	int nY = 80;
 	int nWidth = 800;
 	int nHeight = 500;
+ 
 	m_Fault->Create(IDD_FAULT_DIALOG,this);
-	m_Fault->MoveWindow(nX,nY,nWidth,nHeight);
-
+	m_Fault->MoveWindow(nX,nY,nWidth,nHeight); 
+ 	
 	m_System->Create(IDD_SYSTEM_DIALOG,this);
 	m_System->MoveWindow(nX,nY,nWidth,nHeight);
-
+ 
 	m_User->Create(IDD_USER_DIALOG,this);
 	m_User->MoveWindow(nX,nY,nWidth,nHeight);
 
+ 
 	m_Confi->Create(IDD_CONFIGURATION_DIALOG,this);
 	m_Confi->MoveWindow(nX,nY,nWidth,nHeight);
-
+ 
 	m_FileMan->Create(IDD_FILEMANA_DIALOG,this);
 	m_FileMan->MoveWindow(nX,nY,nWidth,nHeight);
-
+ 
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
-	m_Ink->MoveWindow(nX,nY,nWidth,nHeight);
-
+	m_Ink->MoveWindow(nX,nY,nWidth,nHeight); 
+	 
 	m_Label->Create(IDD_LABEL_DIALOG,this);
-	m_Label->MoveWindow(nX,nY,nWidth,nHeight);
+	m_Label->MoveWindow(nX,nY,nWidth,nHeight); 
 	
+	 
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_SYSTEM_BUTTON)->SetWindowPos(NULL,700,100,80,55,SWP_SHOWWINDOW);
@@ -185,8 +189,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_FILEMANA_BUTTON)->SetWindowPos(NULL,700,380,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_INK_BUTTON)->SetWindowPos(NULL,700,450,80,55,SWP_SHOWWINDOW);
 	//下面两个按钮
-	GetDlgItem(IDC_RESET_COUNT_BTN)->SetWindowPos(NULL,40,330,80,50,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_RESET_SERIAL_BTN)->SetWindowPos(NULL,360,330,80,50,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_RESET_COUNT_BTN)->SetWindowPos(NULL,40,330,80,50,SWP_SHOWWINDOW);
+	//GetDlgItem(IDC_RESET_SERIAL_BTN)->SetWindowPos(NULL,360,330,80,50,SWP_SHOWWINDOW);
 	//开机和喷印
 	GetDlgItem(IDC_ONOROFF_BUTTON)->SetWindowPos(NULL,50,450,80,50,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_STARTPRINT_BUTTON)->SetWindowPos(NULL,280,420,80,55,SWP_SHOWWINDOW);
@@ -194,9 +198,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 	//彩色按钮
 
-	m_ButResetCounter.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButResetCounter.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_ButResetCounter.SizeToContent(); 
-	m_ButResetSerial.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_ButResetSerial.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_ButResetSerial.SizeToContent(); 
 
 	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
@@ -298,6 +302,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//SetTimer(TIMER1,300,NULL);	
     //墨水配置初始化
+	/*
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 	pInksysConfig.get_inksystem_from_xml();
@@ -310,6 +315,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pPcfConfig.m_pcfName);
 	m_Confi->pcfNameDlg=pPcfConfig.m_pcfName;
+*/	
+
 #ifndef _DEBUG
 //#ifdef def_ttl
 	LPTSTR strTempCmd;
@@ -1933,28 +1940,6 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-	//HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
-
-	//// TODO:  在此更改 DC 的任何属性
- //  /* if(nCtlColor == CTLCOLOR_STATIC)
-	//{
-	//	switch(pWnd->GetDlgCtrlID())
-	//	{			
-	//		case IDC_STATIC_SHOW_DLG:
-	//		{
-	//			pDC->SelectObject(theApp.m_HeadOperationStaFont);
-	//			pDC->SetBkMode(TRANSPARENT);
-	//			pDC->SetTextColor(RGB(255,255,255));
-	//			break;
-	//		}
-	//		default:
-	//			break;
-	//	}
-	//} */
-
-	//pDC->SetBkColor(theApp.m_BKcolor);
-	// 
-	//return theApp.m_DlgBrush;
 
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 	if(nCtlColor == CTLCOLOR_STATIC)

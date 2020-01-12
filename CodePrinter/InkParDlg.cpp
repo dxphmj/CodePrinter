@@ -91,7 +91,6 @@ HBRUSH CInkParDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	} 
 	 if(nCtlColor == CTLCOLOR_EDIT)
 	{		 
-	// 	pDC->SelectObject(theApp.m_EditFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
 		return theApp.m_StaticBrush;
@@ -109,6 +108,7 @@ BOOL CInkParDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	m_edit_parPressure.SetFont(theApp.m_EditFont);
+
 	m_edit_parPumpSpeed.SetFont(theApp.m_EditFont);
 	m_medit_viscoDevia.SetFont(theApp.m_EditFont);
 	m_edit_inkFlowLev.SetFont(theApp.m_EditFont);

@@ -68,9 +68,13 @@ BOOL CConfigOutSetDlg::OnInitDialog()
 	m_FreqMulti.AddString(_T("OFF"));
 	m_FreqMulti.SetCurSel(1);	
 	m_impulse.SetWindowText(_T("2500"));	
-	m_length.SetWindowText(_T("200"));		
+	m_impulse.SetFont(theApp.m_EditFont);
+	m_length.SetWindowText(_T("200"));	
+	m_length.SetFont(theApp.m_EditFont);
 	m_currentLevel.SetWindowText(_T("High"));	 
+	m_currentLevel.SetFont(theApp.m_EditFont);
 	m_triggerLen.SetWindowText(_T("300"));	
+	m_triggerLen.SetFont(theApp.m_EditFont);
 
 	GetDlgItem(IDC_CONFIG_OSRETURN_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_OUTSET_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
@@ -105,6 +109,21 @@ HBRUSH CConfigOutSetDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{ 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SelectObject(theApp.m_ListBoxFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_ListBoxBrush;
 	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	

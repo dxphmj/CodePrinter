@@ -96,11 +96,8 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
 
-
-	//////////////////////////////////////////////////////////////////////////
-	pNumKey = new CNumKey();
-	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
-	pNumKey->ShowWindow(SW_HIDE);
+	m_edit_repeatCount.SetFont(theApp.m_EditFont);
+	 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -113,6 +110,21 @@ HBRUSH CConfigPrintModeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{ 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SelectObject(theApp.m_ListBoxFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_ListBoxBrush;
 	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	

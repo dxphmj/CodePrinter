@@ -46,7 +46,8 @@ BOOL CCodePrinterApp::InitInstance()
 	m_BKcolor = RGB(210, 231, 251);
 	m_DlgBrush.CreateSolidBrush(m_BKcolor); 
 
-	m_StaticBrush.CreateSolidBrush(RGB(206, 207, 214));   
+	m_StaticBrush.CreateSolidBrush(RGB(197, 221, 244)); 
+	m_ListBoxBrush.CreateSolidBrush(RGB(197, 221, 244));
 	
 	m_HeadMachineStaFont = new CFont;
 	m_HeadMachineStaFont->CreatePointFont(120, _T("Arial"), NULL);
@@ -86,6 +87,24 @@ BOOL CCodePrinterApp::InitInstance()
 							DEFAULT_QUALITY,    //nQuality=缺省值
 							DEFAULT_PITCH,      //nPitchAndFamily=缺省值
 							L"@system");         //字体名=@system  
+
+	m_ListBoxFont = new CFont;
+	m_ListBoxFont->CreateFont(
+							18,                 //字体高度(旋转后的字体宽度)=56   
+							0,                 //字体宽度(旋转后的字体高度)=20 
+							0,                 //字体显示角度  
+							0,                  //nOrientation=0 
+							700,                 //字体磅数=10  
+							FALSE,              //非斜体
+							FALSE,              //无下划线
+							FALSE,              //无删除线
+							DEFAULT_CHARSET,    //使用缺省字符集
+							OUT_DEFAULT_PRECIS, //缺省输出精度
+							CLIP_DEFAULT_PRECIS,//缺省裁减精度
+							DEFAULT_QUALITY,    //nQuality=缺省值
+							DEFAULT_PITCH,      //nPitchAndFamily=缺省值
+							L"@system");         //字体名=@system  
+
 
 
 
