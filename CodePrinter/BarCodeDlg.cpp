@@ -48,6 +48,8 @@ BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
 	ON_CBN_SELCHANGE(IDC_BARCODE_ECC_LEV_COMBO, &CBarCodeDlg::OnCbnSelchangeBarcodeEccLevCombo)
 	ON_CBN_SELCHANGE(IDC_BARCODE_ZONE_COMBO, &CBarCodeDlg::OnCbnSelchangeBarcodeZoneCombo)
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_CODE_128_BTN, &CBarCodeDlg::OnBnClickedCode128Btn)
+	ON_BN_CLICKED(IDC_CODE_39_BTN, &CBarCodeDlg::OnBnClickedCode39Btn)
 END_MESSAGE_MAP()
 
 
@@ -125,10 +127,8 @@ std::string ASCToUTF8(const std::string& str)
 	return strText;
 }
  
-
-void CBarCodeDlg::OnBnClickedQrCodeBtn()
+void CBarCodeDlg::Create2Dcode(int nType)
 {
-	// TODO: 在此添加控件通知处理程序代码
 	struct zint_symbol *my_symbol;
     int error_number;
     int rotate_angle;
@@ -143,7 +143,10 @@ void CBarCodeDlg::OnBnClickedQrCodeBtn()
 	generated = 0;
 	my_symbol = ZBarcode_Create();
 	my_symbol->input_mode = UNICODE_MODE;
-	my_symbol->symbology = 58;
+	my_symbol->symbology = nType;
+	if(nType == 20 || nType == 8)
+		my_symbol->height = 12;	 
+
 	my_symbol->scale = 0.5;
 	batch_mode = 0;
 	mirror_mode = 0;
@@ -153,11 +156,7 @@ void CBarCodeDlg::OnBnClickedQrCodeBtn()
 	pEdit-> GetWindowText(str);     
 	USES_CONVERSION;	
 	char * QRTEXT = W2A(str.GetBuffer(0));	
-
-
 	std::string strTmp = ASCToUTF8(QRTEXT);
-
-//	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) QRTEXT,strlen(QRTEXT),rotate_angle);
 	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
 	generated = 1;
  	//if (error_number < 5)  
@@ -184,7 +183,7 @@ void CBarCodeDlg::OnBnClickedQrCodeBtn()
 	bmpObj.intQRVersion=VersionBox.GetCurSel()+1;
 	bmpObj.intQRErrLevel=ErrLevelBox.GetCurSel();
 	bmpObj.intQREncodingMode=EncodingModeBox.GetCurSel();
-	bmpObj.boQRBig=true;	 
+	bmpObj.boQRBig = true;	 
 	int version = bmpObj.intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
  	int casesensitive = bmpObj.boQRBig;//是否区分大小写，true/false
 
@@ -207,10 +206,7 @@ void CBarCodeDlg::OnBnClickedQrCodeBtn()
 			r = my_symbol->bitmap[i];
             g = my_symbol->bitmap[i + 1];
             b = my_symbol->bitmap[i + 2];
-
             i += 3;
-
-
 			if (r == 0 && g == 0 && b == 0)
 			{
 				bmpObj.boDotBmp[row][col] = true;
@@ -226,9 +222,16 @@ void CBarCodeDlg::OnBnClickedQrCodeBtn()
 	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj); 
 }
 
+void CBarCodeDlg::OnBnClickedQrCodeBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	Create2Dcode(58);
+}
+
 void CBarCodeDlg::OnBnClickedDataMatrixBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	Create2Dcode(71);
 }
 
 BOOL CBarCodeDlg::PreTranslateMessage(MSG* pMsg)
@@ -372,4 +375,15 @@ HBRUSH CBarCodeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+void CBarCodeDlg::OnBnClickedCode128Btn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	Create2Dcode(20);
+}
+
+void CBarCodeDlg::OnBnClickedCode39Btn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	Create2Dcode(8);
 }

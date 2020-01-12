@@ -152,8 +152,20 @@ BOOL CConfigurationDlg::OnInitDialog()
 		m_HBitmap[i] = PngImage.CreatHBitmap(); 
 	}
 	m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;;
-	pcf_diagram_select();
- 
+	pcf_diagram_select(); 
+
+	m_reverse.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_inverse.SetFont(theApp.m_ListBoxFont);
+	m_speedWay.SetFont(theApp.m_ListBoxFont);
+
+	m_reverse.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_reverse.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+
+	m_inverse.SendMessage(CB_SETITEMHEIGHT,-1,30);
+	m_inverse.SendMessage(CB_SETITEMHEIGHT,0,30);
+
+	m_speedWay.SendMessage(CB_SETITEMHEIGHT,-1,30);
+	m_speedWay.SendMessage(CB_SETITEMHEIGHT,0,30);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

@@ -45,37 +45,42 @@ BOOL CComDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	m_com1BaudRate.AddString(L"9600");
-	m_com1BaudRate.AddString(L"14400");
-	m_com1BaudRate.AddString(L"19200");
-	m_com1BaudRate.AddString(L"38400");
-	m_com1BaudRate.AddString(L"56000");
-	m_com1BaudRate.AddString(L"57600");
+	m_com1BaudRate.AddString(L"  9600");//使之右对齐
+	m_com1BaudRate.AddString(L" 14400");
+	m_com1BaudRate.AddString(L" 19200");
+	m_com1BaudRate.AddString(L" 38400");
+	m_com1BaudRate.AddString(L" 56000");
+	m_com1BaudRate.AddString(L" 57600");
 	m_com1BaudRate.AddString(L"115200");
 	m_com1BaudRate.AddString(L"128000");
 	m_com1BaudRate.AddString(L"256000");
 
-	m_com2Baudrate.AddString(L"9600");
-	m_com2Baudrate.AddString(L"14400");
-	m_com2Baudrate.AddString(L"19200");
-	m_com2Baudrate.AddString(L"38400");
-	m_com2Baudrate.AddString(L"56000");
-	m_com2Baudrate.AddString(L"57600");
+	m_com2Baudrate.AddString(L"  9600");
+	m_com2Baudrate.AddString(L" 14400");
+	m_com2Baudrate.AddString(L" 19200");
+	m_com2Baudrate.AddString(L" 38400");
+	m_com2Baudrate.AddString(L" 56000");
+	m_com2Baudrate.AddString(L" 57600");
 	m_com2Baudrate.AddString(L"115200");
 	m_com2Baudrate.AddString(L"128000");
 	m_com2Baudrate.AddString(L"256000");
 
-	m_com1Parity.AddString(L"none");
-	m_com1Parity.AddString(L"odd");
-	m_com1Parity.AddString(L"even");
-	m_com1Parity.AddString(L"mark");
+	m_com1Parity.AddString(L" none");
+	m_com1Parity.AddString(L"  odd");
+	m_com1Parity.AddString(L" even");
+	m_com1Parity.AddString(L" mark");
 	m_com1Parity.AddString(L"space");
 
-	m_com2Parity.AddString(L"none");
-	m_com2Parity.AddString(L"odd");
-	m_com2Parity.AddString(L"even");
-	m_com2Parity.AddString(L"mark");
+	m_com2Parity.AddString(L" none");
+	m_com2Parity.AddString(L"  odd");
+	m_com2Parity.AddString(L" even");
+	m_com2Parity.AddString(L" mark");
 	m_com2Parity.AddString(L"space");
+
+	m_com1BaudRate.SetItemHeight(0,20);
+	m_com2Baudrate.SetItemHeight(0,20);
+	m_com1Parity.SetItemHeight(0,20);
+	m_com2Parity.SetItemHeight(0,20);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
