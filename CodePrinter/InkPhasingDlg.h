@@ -47,5 +47,10 @@ public:
 	afx_msg void OnBnClickedSetAdjustBigBtn();
 	afx_msg void OnBnClickedAutoSetBtn();
 	afx_msg void OnEnSetfocusFixedEdit();
+
+	//void download_inksystem_mv();
+
+
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 };

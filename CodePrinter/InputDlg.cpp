@@ -128,6 +128,55 @@ void CInputDlg::OnBnClickedEdittextButton()
 void CInputDlg::OnBnClickedEditfigureButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	pEditFigure->GetDlgItem(IDC_FIRST_QUARTILE_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_FOUR_QUARTILE_EDIT)->SetWindowText(_T("999999999"));
+	pEditFigure->GetDlgItem(IDC_START_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_STEP_SIZE_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_REPEAT_COUNT_EDIT)->SetWindowText(_T("1"));
+	pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(_T("9"));
+	if (!theApp.myclassMessage.CounterEditMes[0])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("1"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else if (!theApp.myclassMessage.CounterEditMes[1])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("2"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else if (!theApp.myclassMessage.CounterEditMes[2])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("3"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else if (!theApp.myclassMessage.CounterEditMes[3])
+	{
+		//theApp.myclassMessage.CounterEditMes[0]=true;
+		CComboBox *bitComBox=(CComboBox *)pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+		bitComBox->ResetContent();
+		bitComBox->AddString(_T("4"));
+		bitComBox->SetCurSel(0);
+		bitComBox->EnableWindow(FALSE);
+	}
+	else
+	{
+		CString csMsg=_T("操作失败！\n序列号已满！") ;//= _T("串口4打开失败!");
+		AfxMessageBox(csMsg);
+		return;
+	}
+	pEditFigure->RefreshSerial();
 	showInputDlg(IDD_EDITFIGURE_DIALOG);
 }
 

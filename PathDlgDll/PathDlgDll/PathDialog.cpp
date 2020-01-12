@@ -104,7 +104,7 @@ BOOL CPathDialog::OnInitDialog()
 	}
 	m_BKcolor = RGB(210, 231, 251);
 	m_DlgBrush.CreateSolidBrush(m_BKcolor); 
-
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	CRect rect;
 	//GetWindowRect(&rect);
 	GetClientRect(&rect);

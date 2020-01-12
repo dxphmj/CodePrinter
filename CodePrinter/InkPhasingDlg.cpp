@@ -18,12 +18,23 @@ CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkPhasingDlg::IDD, pParent)
 	, m_fixed(0)
 { 
+
+#ifndef _DEBUG
 	for(int i = 0; i < 35; i++)
 	{
 		CBnvImage PngImage;
 		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0+i), _T("PNG")); 
 		m_AnglehBmp[i] = PngImage.CreatHBitmap();
 	}
+#else
+	CBnvImage PngImage;
+	PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0), _T("PNG")); 
+	HBITMAP h = PngImage.CreatHBitmap();
+	for(int i = 0; i < 35; i++)
+	{
+		m_AnglehBmp[i] = h;
+	}
+#endif
 }
 
 CInkPhasingDlg::~CInkPhasingDlg()
@@ -67,7 +78,15 @@ HBRUSH CInkPhasingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	} 
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{		 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
 
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
@@ -93,32 +112,32 @@ void CInkPhasingDlg::save_inksystem_mv_to_xml()
 
 }
 
-void CInkPhasingDlg::download_inksystem_mv()
-{
-	byte inksystem_parameter_0x05, inksystem_parameter_0x06;
-	int nParam = m_fixed;
-	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200;缺省是60较合适
-	inksystem_parameter_0x06 = (nParam * 10) >> 8;
-
-	vector<BYTE> tempCtrVec;
-
-	tempCtrVec.push_back(0x01);
-	tempCtrVec.push_back(0x80);
-	tempCtrVec.push_back(0x04);
-	tempCtrVec.push_back(0x05);
-
-	tempCtrVec.push_back(0x05);
-	tempCtrVec.push_back(inksystem_parameter_0x05);
-	tempCtrVec.push_back(inksystem_parameter_0x06);
-
-	tempCtrVec.push_back(0xFF);
-	tempCtrVec.push_back(0xFF);
-
-	theApp.boQueCtrLock.Lock();
-	theApp.queCtr.push(tempCtrVec);
-	theApp.boQueCtrLock.Unlock();
-    //queCtr.Enqueue(New Byte() {&H1, &H80, &H4, &H5, &H5, inksystem_parameter_0x05, inksystem_parameter_0x06, &HFF, &HFF})
-}
+//void CInkPhasingDlg::download_inksystem_mv()
+//{
+//	byte inksystem_parameter_0x05, inksystem_parameter_0x06;
+//	int nParam = m_fixed;
+//	inksystem_parameter_0x05 = (nParam * 10) & 0xFF; //晶振电压为0到200;缺省是60较合适
+//	inksystem_parameter_0x06 = (nParam * 10) >> 8;
+//
+//	vector<BYTE> tempCtrVec;
+//
+//	tempCtrVec.push_back(0x01);
+//	tempCtrVec.push_back(0x80);
+//	tempCtrVec.push_back(0x04);
+//	tempCtrVec.push_back(0x05);
+//
+//	tempCtrVec.push_back(0x05);
+//	tempCtrVec.push_back(inksystem_parameter_0x05);
+//	tempCtrVec.push_back(inksystem_parameter_0x06);
+//
+//	tempCtrVec.push_back(0xFF);
+//	tempCtrVec.push_back(0xFF);
+//
+//	theApp.boQueCtrLock.Lock();
+//	theApp.queCtr.push(tempCtrVec);
+//	theApp.boQueCtrLock.Unlock();
+//    //queCtr.Enqueue(New Byte() {&H1, &H80, &H4, &H5, &H5, inksystem_parameter_0x05, inksystem_parameter_0x06, &HFF, &HFF})
+//}
 
 void CInkPhasingDlg::OnBnClickedPhasingAddBtn()
 {
@@ -129,8 +148,14 @@ void CInkPhasingDlg::OnBnClickedPhasingAddBtn()
 	else if(m_fixed + theApp.myStatusClass.bytModuStep <= 200)
 		m_fixed = m_fixed + theApp.myStatusClass.bytModuStep;
 	UpdateData(false);
+
+	//download_inksystem_mv();
+	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",theApp.myclassMessage.to_String(m_fixed),"Storage Card\\System");
+
+
 	save_inksystem_mv_to_xml();
 	download_inksystem_mv();
+
 }
 
 void CInkPhasingDlg::OnBnClickedPashingCutBtn()
@@ -145,8 +170,15 @@ void CInkPhasingDlg::OnBnClickedPashingCutBtn()
 	}
 	UpdateData(false);
  
+
+	//save_inksystem_mv_to_xml();
+	//download_inksystem_mv();
+	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",theApp.myclassMessage.to_String(m_fixed),"Storage Card\\System");
+	
+
 	save_inksystem_mv_to_xml();
 	download_inksystem_mv();
+
 }
 
 void CInkPhasingDlg::OnBnClickedSetAdjustSmallBtn()
@@ -246,7 +278,7 @@ BOOL CInkPhasingDlg::OnInitDialog()
 	}
 
    	m_PicPhaAngle.SetBitmap(m_AnglehBmp[0]);
-
+	m_edit_fiexd.SetFont(theApp.m_EditFont);
 	//////////////////////////////////////////////////////////////////////////
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -263,4 +295,25 @@ void CInkPhasingDlg::OnEnSetfocusFixedEdit()
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
 	dlg->OpenNumKeyBoard(pEdit);
+}
+
+void CInkPhasingDlg::download_inksystem_mv()
+{
+	BYTE inksystem_parameter_0x05, inksystem_parameter_0x06;
+	inksystem_parameter_0x05=(m_fixed*10)&0xFF;
+	inksystem_parameter_0x06=(m_fixed*10)>>8;
+	vector<BYTE> tempQueVec;
+	tempQueVec.push_back(0x1);
+	tempQueVec.push_back(0x80);
+	tempQueVec.push_back(0x4);
+	tempQueVec.push_back(0x5);
+	tempQueVec.push_back(0x5);
+	tempQueVec.push_back(inksystem_parameter_0x05);
+	tempQueVec.push_back(inksystem_parameter_0x06);
+	tempQueVec.push_back(0xFF);
+	tempQueVec.push_back(0xFF);
+	theApp.boQueCtrLock.Lock();
+
+		theApp.queCtr.push(tempQueVec);
+	theApp.boQueCtrLock.Unlock();
 }

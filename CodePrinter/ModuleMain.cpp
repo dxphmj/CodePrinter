@@ -377,6 +377,18 @@ void ModuleMain::ReportPower()
 	//csMsg.Format(_T("串口%d打开失败!"),tempDcb.nComPort);
 	AfxMessageBox(csMsg);
 }
+bool ModuleMain::MesDisIsB(int MesDis,int isNumber)
+{
+	int tempB=MesDis&(1 << isNumber);
+	if (tempB>0)
+	{
+		return true;
+	} 
+	else
+	{
+		return false;
+	}
+}
 ////////////////////////////////////////////////
 void StatusClass::byStatusFromSlaveState()
 {
@@ -707,6 +719,7 @@ CString GETnBIT_from_bytStatus(int I , int m , int n )
 	return cstringStr.Mid(cstringStr.GetLength()-m-1,n);
 }
 
+//串口线程
 UINT TTLcomLoop(LPVOID pParam)
 {
 	theApp.boTTL=true;
@@ -931,4 +944,537 @@ UINT TTLcomLoop(LPVOID pParam)
 
 
 	return 0;
+}
+//序列号生成线程
+UINT method1(LPVOID pParam)
+{
+	while(1)
+	{
+		if (theApp.myclassMessage.ForPreQue.size()<2)
+		{
+			if (theApp.myclassMessage.bytSerialConCoun>0)
+			{
+				string StrSerialText="";
+				string strTemp="";
+				for (int i=0;i<theApp.myclassMessage.bytSerialConCoun;i++)
+				{
+					switch(theApp.myclassMessage.bytQserialCounter[i])
+					{
+					case 0:
+						if (theApp.myclassMessage.CountNumRep0<theApp.myclassMessage.intQSerialRepeat[i])
+						{
+							theApp.myclassMessage.CountNumRep0=theApp.myclassMessage.CountNumRep0+1;
+						} 
+						else
+						{
+							theApp.myclassMessage.CountNumRep0=1;
+							if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum0+theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum0 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum0 = tempValue;
+								}
+							}
+							else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum0-theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum0 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum0 = tempValue;
+								}
+							}
+						}
+
+						switch(theApp.myclassMessage.bytQSerialFormat[i])
+						{
+						case 0:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+"0";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum0);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 1:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+" ";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum0);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 2:
+							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum0);
+							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
+							for (int a=0;a<n;a++)
+							{
+								strTemp=strTemp+" ";
+							}
+							StrSerialText=strTemp;
+							break;
+						}
+						break;
+					case 1:
+						if (theApp.myclassMessage.CountNumRep1<theApp.myclassMessage.intQSerialRepeat[i])
+						{
+							theApp.myclassMessage.CountNumRep1=theApp.myclassMessage.CountNumRep1+1;
+						} 
+						else
+						{
+							theApp.myclassMessage.CountNumRep1=1;
+							if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum1+theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum1 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum1 = tempValue;
+								}
+							}
+							else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum1-theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum1 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum1 = tempValue;
+								}
+							}
+						}
+
+						switch(theApp.myclassMessage.bytQSerialFormat[i])
+						{
+						case 0:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+"0";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum1);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 1:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+" ";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum1);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 2:
+							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum1);
+							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
+							for (int a=0;a<n;a++)
+							{
+								strTemp=strTemp+" ";
+							}
+							StrSerialText=strTemp;
+							break;
+						}
+						break;
+					case 2:
+						if (theApp.myclassMessage.CountNumRep2<theApp.myclassMessage.intQSerialRepeat[i])
+						{
+							theApp.myclassMessage.CountNumRep2=theApp.myclassMessage.CountNumRep2+1;
+						} 
+						else
+						{
+							theApp.myclassMessage.CountNumRep2=1;
+							if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum2+theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum2 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum2 = tempValue;
+								}
+							}
+							else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum2-theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum2 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum2 = tempValue;
+								}
+							}
+						}
+
+						switch(theApp.myclassMessage.bytQSerialFormat[i])
+						{
+						case 0:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+"0";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum2);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 1:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+" ";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum2);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 2:
+							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum2);
+							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
+							for (int a=0;a<n;a++)
+							{
+								strTemp=strTemp+" ";
+							}
+							StrSerialText=strTemp;
+							break;
+						}
+						break;
+					case 3:
+						if (theApp.myclassMessage.CountNumRep3<theApp.myclassMessage.intQSerialRepeat[i])
+						{
+							theApp.myclassMessage.CountNumRep3=theApp.myclassMessage.CountNumRep3+1;
+						} 
+						else
+						{
+							theApp.myclassMessage.CountNumRep3=1;
+							if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum3+theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum3 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum3 = tempValue;
+								}
+							}
+							else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+							{
+								int tempValue=theApp.myclassMessage.CountNum3-theApp.myclassMessage.intQSerialStep[i];
+								if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+								{
+									theApp.myclassMessage.CountNum3 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+								} 
+								else
+								{
+									theApp.myclassMessage.CountNum3 = tempValue;
+								}
+							}
+						}
+
+						switch(theApp.myclassMessage.bytQSerialFormat[i])
+						{
+						case 0:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+"0";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum3);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 1:
+							for (int a=0;a<theApp.myclassMessage.bytQSerialDigits[i];a++)
+							{
+								strTemp=strTemp+" ";//123456789
+							}
+							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum3);
+							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
+							break;
+						case 2:
+							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum3);
+							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
+							for (int a=0;a<n;a++)
+							{
+								strTemp=strTemp+" ";
+							}
+							StrSerialText=strTemp;
+							break;
+						}
+						break;
+					}
+					int intRowEnd=theApp.myclassMessage.intQSerialRowStart[i] + theApp.myclassMessage.intQSerialRowSize[i];
+					theApp.myclassMessage.bytPrintDataAll=theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intQSerialRowStart[i], intRowEnd, theApp.myclassMessage.bytPrintDataAll, theApp.myclassMessage.strQSerialFont[i], 
+						theApp.myclassMessage.boQSerialBWDy[i], theApp.myclassMessage.boQSerialBWDx[i], theApp.myclassMessage.boQSerialNEG[i], StrSerialText, theApp.myclassMessage.intQSerialRowSize[i], 
+						theApp.myclassMessage.bytQSerialLineSize[i],theApp.myclassMessage.bytQSerialLineStart[i], theApp.myclassMessage.intQSerialRowStart[i], theApp.myclassMessage.bytQSerialSS[i], theApp.myclassMessage.bytQSerialSW[i]);
+				}
+			}
+
+			if (theApp.myclassMessage.bytTimeConCoun>0)
+			{
+				string *strETimetext1=new string[theApp.myclassMessage.bytTimeConCoun];
+				theApp.boETimetextLock.Lock();
+					//copy(begin(theApp.myclassMessage.strETimetext),end(theApp.myclassMessage.strETimetext),begin(strETimetext1));
+					for(int strI=0;strI<theApp.myclassMessage.bytTimeConCoun;strI++)
+					{
+						strETimetext1[strI]=theApp.myclassMessage.strETimetext[strI];
+					}
+				theApp.boETimetextLock.Unlock();
+				for (int j=0;j<theApp.myclassMessage.bytTimeConCoun;j++)
+				{
+					int intRowEnd=theApp.myclassMessage.intTimeRowStart[j] + theApp.myclassMessage.intTimeRowSize[j];
+					if (strETimetext1[j].length()!=0)
+					{
+						theApp.myclassMessage.bytPrintDataAll = theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intTimeRowStart[j], intRowEnd, theApp.myclassMessage.bytPrintDataAll, 
+							theApp.myclassMessage.strTimeFont[j], theApp.myclassMessage.boTimeBWDy[j], theApp.myclassMessage.boTimeBWDx[j], theApp.myclassMessage.boTimeNEG[j], 
+							strETimetext1[j], theApp.myclassMessage.intTimeRowSize[j], theApp.myclassMessage.bytTimeLineSize[j], theApp.myclassMessage.bytTimeLineStart[j], 
+							theApp.myclassMessage.intTimeRowStart[j], theApp.myclassMessage.bytTimeSS[j], theApp.myclassMessage.bytTimeSW[j]);
+					}
+				}
+				delete []strETimetext1;
+			}
+			vector<BYTE> bytPrintDataAll1=theApp.myclassMessage.bytPrintDataAll;
+			theApp.myclassMessage.ForPreQue.push(bytPrintDataAll1);
+			vector<int> tempCounNum;
+			tempCounNum.push_back(theApp.myclassMessage.CountNum0);
+			tempCounNum.push_back(theApp.myclassMessage.CountNum1);
+			tempCounNum.push_back(theApp.myclassMessage.CountNum2);
+			tempCounNum.push_back(theApp.myclassMessage.CountNum3);
+			theApp.myclassMessage.intCounNumForPreQue.push(tempCounNum);
+
+		}
+		else 
+		{
+			Sleep(10);
+		}
+	}
+	return 0;
+}
+
+//根据序列号格式生成喷印文本
+string ModuleMain::SerialFormatToText(int Value, int Digits, int Format)
+{
+	string OutPutSerialText="";
+	string strTemp="";
+	switch(Format)
+	{
+	case 0:
+		for (int a=0;a<Digits;a++)
+		{
+			strTemp=strTemp+"0";
+		}
+		strTemp=strTemp+theApp.myclassMessage.to_String(Value);
+		OutPutSerialText=strTemp.substr(strTemp.length()-Digits,Digits);
+		break;
+	case 1:
+		for (int a=0;a<Digits;a++)
+		{
+			strTemp=strTemp+" ";
+		}
+		strTemp=strTemp+theApp.myclassMessage.to_String(Value);
+		OutPutSerialText=strTemp.substr(strTemp.length()-Digits,Digits);
+		break;
+	case 2:
+		strTemp=theApp.myclassMessage.to_String(Value);
+		int n=Digits-strTemp.length();
+		for(int a=0;a<n;a++)
+		{
+			strTemp=strTemp+" ";
+		}
+		OutPutSerialText=strTemp;
+		break;
+	}
+	return OutPutSerialText;
+}
+
+//主动下发打印数据后如有序列号要提前生成BUF2里面的内容
+void ModuleMain::getSerialDotBuf2()
+{
+	string tempText="";
+	for (int i=0;i<theApp.myclassMessage.bytSerialConCoun;i++)
+	{
+		switch(theApp.myclassMessage.bytQserialCounter[i])
+		{
+		case 0:
+			if (theApp.myclassMessage.CountNumRep0<theApp.myclassMessage.intQSerialRepeat[i])
+			{
+				theApp.myclassMessage.CountNumRep0=theApp.myclassMessage.CountNumRep0+1;
+			} 
+			else
+			{
+				theApp.myclassMessage.CountNumRep0=1;
+				if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum0+theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum0 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum0 = tempValue;
+					}
+				}
+				else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum0-theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum0 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum0 = tempValue;
+					}
+				}
+			}
+			tempText = SerialFormatToText(theApp.myclassMessage.CountNum0,theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialFormat[i]);
+			break;
+		case 1:
+			if (theApp.myclassMessage.CountNumRep1<theApp.myclassMessage.intQSerialRepeat[i])
+			{
+				theApp.myclassMessage.CountNumRep1=theApp.myclassMessage.CountNumRep1+1;
+			} 
+			else
+			{
+				theApp.myclassMessage.CountNumRep1=1;
+				if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum1+theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum1 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum1 = tempValue;
+					}
+				}
+				else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum1-theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum1 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum1 = tempValue;
+					}
+				}
+			}
+
+			tempText = SerialFormatToText(theApp.myclassMessage.CountNum1,theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialFormat[i]);
+			break;
+		case 2:
+			if (theApp.myclassMessage.CountNumRep2<theApp.myclassMessage.intQSerialRepeat[i])
+			{
+				theApp.myclassMessage.CountNumRep2=theApp.myclassMessage.CountNumRep2+1;
+			} 
+			else
+			{
+				theApp.myclassMessage.CountNumRep2=1;
+				if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum2+theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum2 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum2 = tempValue;
+					}
+				}
+				else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum2-theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum2 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum2 = tempValue;
+					}
+				}
+			}
+			tempText = SerialFormatToText(theApp.myclassMessage.CountNum2,theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialFormat[i]);
+			break;
+		case 3:
+			if (theApp.myclassMessage.CountNumRep3<theApp.myclassMessage.intQSerialRepeat[i])
+			{
+				theApp.myclassMessage.CountNumRep3=theApp.myclassMessage.CountNumRep3+1;
+			} 
+			else
+			{
+				theApp.myclassMessage.CountNumRep3=1;
+				if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum3+theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue>theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum3 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum3 = tempValue;
+					}
+				}
+				else if (theApp.myclassMessage.intQSerialFirstLimit[i]>theApp.myclassMessage.intQSerialSecondLimit[i])
+				{
+					int tempValue=theApp.myclassMessage.CountNum3-theApp.myclassMessage.intQSerialStep[i];
+					if (tempValue<theApp.myclassMessage.intQSerialSecondLimit[i])
+					{
+						theApp.myclassMessage.CountNum3 = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
+					} 
+					else
+					{
+						theApp.myclassMessage.CountNum3 = tempValue;
+					}
+				}
+			}
+			tempText = SerialFormatToText(theApp.myclassMessage.CountNum0,theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialFormat[i]);
+			break;
+		}
+            theApp.myclassMessage.getdot(theApp.myclassMessage.strQSerialFont[i], theApp.myclassMessage.boQSerialBWDy[i], theApp.myclassMessage.boQSerialBWDx[i], 
+				theApp.myclassMessage.boQSerialNEG[i], tempText, theApp.myclassMessage.intQSerialRowSize[i], theApp.myclassMessage.bytQSerialLineSize[i], 
+				theApp.myclassMessage.bytQSerialLineStart[i], theApp.myclassMessage.intQSerialRowStart[i], theApp.myclassMessage.bytQSerialSS[i],theApp.myclassMessage. bytQSerialSW[i]);
+	}
+	//vector<BYTE> bytPrintDataAll1=theApp.myclassMessage.bytPrintDataAll;
+	//theApp.myclassMessage.ForPreQue.push(bytPrintDataAll1);
+	vector<int> tempCounNum;
+	tempCounNum.push_back(theApp.myclassMessage.CountNum0);
+	tempCounNum.push_back(theApp.myclassMessage.CountNum1);
+	tempCounNum.push_back(theApp.myclassMessage.CountNum2);
+	tempCounNum.push_back(theApp.myclassMessage.CountNum3);
+	theApp.myclassMessage.intCounNumForPreQue.push(tempCounNum);
+
+	for (int j=0;j<theApp.myclassMessage.bytSerialConCoun;j++)
+	{
+		int intRowEnd = theApp.myclassMessage.intQSerialRowStart[j] + theApp.myclassMessage.intQSerialRowSize[j];
+		vector<BYTE> bytDynamicData= theApp.myclassMessage.DotToByte(theApp.myclassMessage.intQSerialRowStart[j], intRowEnd);
+		
+		if (theApp.myclassMessage.boReverse)
+		{
+			copy(bytDynamicData.begin(),bytDynamicData.end(),theApp.myclassMessage.bytPrintDataAll.begin()+(theApp.myclassMessage.intRowMax - intRowEnd) * theApp.myclassMessage.bytRowByteMul + 11);
+		} 
+		else
+		{
+			copy(bytDynamicData.begin(),bytDynamicData.end(),theApp.myclassMessage.bytPrintDataAll.begin()+theApp.myclassMessage.intQSerialRowStart[j] * theApp.myclassMessage.bytRowByteMul + 11);
+		}
+	}
+	vector<BYTE> bytPrintDataAll1;
+	bytPrintDataAll1.assign(theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
+	theApp.myclassMessage.ForPreQue.push(bytPrintDataAll1);
 }

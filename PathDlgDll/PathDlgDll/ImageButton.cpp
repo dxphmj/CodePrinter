@@ -461,12 +461,10 @@ BOOL CImageButton::LoadBitmaps(LPCTSTR lpszBitmapResource,
 	}
 	else
 	{	
-		CBitmapBits bitmapBits;   
-		GetHBitmapBits((HBITMAP)m_bitmapNorm.GetSafeHandle(),bitmapBits);
-		//CopyCBitmapFromSrc(&m_bitmapDisabled,&m_bitmapNorm);
-    	//Convert24To4Bmp(&m_bitmapDisabled);
-	 	HBITMAP hBitmap = ::CreateBitmap(bitmapBits.m_dwWidth,bitmapBits.m_dwHeight,1,32,bitmapBits.m_pBitsBuf);
-        m_bitmapDisabled.Attach(hBitmap);
+		//CBitmapBits bitmapBits;   
+		//GetHBitmapBits((HBITMAP)m_bitmapNorm.GetSafeHandle(),bitmapBits);
+	 //	HBITMAP hBitmap = ::CreateBitmap(bitmapBits.m_dwWidth,bitmapBits.m_dwHeight,1,32,bitmapBits.m_pBitsBuf);
+  //      m_bitmapDisabled.Attach(hBitmap);
 	}
 
 	if (lpszBitmapResourceMask != NULL)

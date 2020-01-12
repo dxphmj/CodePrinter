@@ -271,7 +271,7 @@ void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 	//函数T2A和W2A均支持ATL和MFC中的字符
 	//char * pFileName = T2A(str);  
 	const char * QRTEXT = W2A(str.GetBuffer(0));
-    QRTEXT="一111";
+   // QRTEXT="一111";
 	int xPos=0;
 	int yPos=0;
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
@@ -359,6 +359,14 @@ HBRUSH CBarCodeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{ 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	

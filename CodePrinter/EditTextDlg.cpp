@@ -123,7 +123,7 @@ void CEditTextDlg::OnCbnSelchangeFont()
 void CEditTextDlg::OnBnClickedButtonEditok()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	this->ShowWindow(SW_HIDE);
+	
 	//ModuleMain fontModule;
 
 	int xPos=0;
@@ -151,7 +151,8 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
 	CString strText;
 	pEdit-> GetWindowText(strText);
-	tempObj.strText=theApp.myModuleMain.WcharToChar(strText);
+	tempObj.strText=theApp.myModuleMain.CString2string(strText);
+	//tempObj.strText="中国";
 	CString  fontText;
 	int nIndex = fontComboBox.GetCurSel();  //当前选中的项
 	switch(nIndex)
@@ -174,12 +175,13 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 		break;
 	}
 	fontComboBox.GetLBText(nIndex,fontText);
-	tempObj.strFont=theApp.myModuleMain.WcharToChar(fontText);
+	tempObj.strFont=theApp.myModuleMain.CString2string(fontText);
 
 
 
 	tempObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
+	this->ShowWindow(SW_HIDE);
 }
 
 HBRUSH CEditTextDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -190,6 +192,14 @@ HBRUSH CEditTextDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{ 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	

@@ -93,13 +93,14 @@ BOOL CConfigurationDlg::OnInitDialog()
 	int nY = 100;
 	int nWidth = 800;
 	int nHeight = 500;
+	
 	m_ConfigPM->Create(IDD_CONFIG_PRINT_MODE_DIALOG,this);
 	m_ConfigPM->MoveWindow(nX,nY,nWidth,nHeight);
 	m_ConfigPM->ShowWindow(SW_HIDE);
-	m_ConfigOS->Create(IDD_CONFIG_OUTSET_DIALOG,this);
+ 	m_ConfigOS->Create(IDD_CONFIG_OUTSET_DIALOG,this);
 	m_ConfigOS->MoveWindow(nX,nY,nWidth,nHeight);
 	m_ConfigOS->ShowWindow(SW_HIDE);
-
+ 
 	m_reverse.AddString(L"OFF");
 	m_reverse.AddString(L"ON");
 	m_reverse.SetCurSel(0);
@@ -137,13 +138,14 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_configOkIB.SizeToContent(); 
 
+	m_edit_height.SetFont(theApp.m_EditFont);
+	m_edit_repeatDis.SetFont(theApp.m_EditFont);
+	m_edit_dotPitch.SetFont(theApp.m_EditFont);
+	m_edit_delay.SetFont(theApp.m_EditFont);
+	m_edit_speed.SetFont(theApp.m_EditFont);
 
 	//////////////////////////////////////////////////////////////////////////
-	pNumKey = new CNumKey();
-	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
-	pNumKey->ShowWindow(SW_HIDE);
-
-    for(int i = 0; i < 8; i++)
+	for(int i = 0; i < 8; i++)
 	{
 		CBnvImage PngImage;
 		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_SETUP_017+i), _T("PNG")); 
@@ -151,6 +153,7 @@ BOOL CConfigurationDlg::OnInitDialog()
 	}
 	m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;;
 	pcf_diagram_select();
+ 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
