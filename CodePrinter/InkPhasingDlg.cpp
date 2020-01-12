@@ -18,12 +18,23 @@ CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkPhasingDlg::IDD, pParent)
 	, m_fixed(0)
 { 
+
+#ifndef _DEBUG
 	for(int i = 0; i < 35; i++)
 	{
 		CBnvImage PngImage;
 		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0+i), _T("PNG")); 
 		m_AnglehBmp[i] = PngImage.CreatHBitmap();
 	}
+#else
+	CBnvImage PngImage;
+	PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0), _T("PNG")); 
+	HBITMAP h = PngImage.CreatHBitmap();
+	for(int i = 0; i < 35; i++)
+	{
+		m_AnglehBmp[i] = h;
+	}
+#endif
 }
 
 CInkPhasingDlg::~CInkPhasingDlg()

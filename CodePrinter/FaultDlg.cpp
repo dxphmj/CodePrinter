@@ -96,6 +96,8 @@ BOOL CFaultDlg::OnInitDialog()
 	ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::app);
 	out99.close();
 	nowErrDay=0;
+
+ 
 	//openfailurefile("Storage Card\\System\\Error\\99999999.TXT");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

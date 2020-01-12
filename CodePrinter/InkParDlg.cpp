@@ -91,7 +91,6 @@ HBRUSH CInkParDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	} 
 	 if(nCtlColor == CTLCOLOR_EDIT)
 	{		 
-	// 	pDC->SelectObject(theApp.m_EditFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
 		return theApp.m_StaticBrush;

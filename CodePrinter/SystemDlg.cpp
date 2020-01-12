@@ -62,8 +62,8 @@ BOOL CSystemDlg::OnInitDialog()
 	pVersion = new CVersion;
 
 	pEvn->Create(IDD_ENV_DIALOG,this);
-	pCom->Create(IDD_COM_DIALOG,this);
-	pVersion->Create(IDD_VERSION_DIALOG,this);
+ 	pCom->Create(IDD_COM_DIALOG,this);
+ 	pVersion->Create(IDD_VERSION_DIALOG,this);
 
 	int nX = 0;
 	int nY = 100;
@@ -71,16 +71,7 @@ BOOL CSystemDlg::OnInitDialog()
 	int nHeight = 350;
 	pEvn->MoveWindow(nX,nY,nWidth,nHeight);
 	pCom->MoveWindow(nX,nY,nWidth,nHeight);
-	pVersion->MoveWindow(nX,nY,nWidth,nHeight);
-	
-	//设置按钮的位置及大小
-
-	//GetDlgItem(IDC_SYSTEM_CLOSE_BTN)->SetWindowPos(NULL,10,400,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
-	//GetDlgItem(IDC_SYS_FRESH1_BTN)->SetWindowPos(NULL,320,55,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_SYS_FRESH2_BTN)->SetWindowPos(NULL,320,210,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_SYSTEM_CLOSE_BTN)->SetWindowPos(NULL,11,404,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_SYS_OK_BTN)->SetWindowPos(NULL,695,404,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_DHCP_BTN)->SetWindowPos(NULL,562,319,45,45,SWP_SHOWWINDOW);
+	pVersion->MoveWindow(nX,nY,nWidth,nHeight);	 
 
 	m_freshUp.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_freshUp.SizeToContent(); 

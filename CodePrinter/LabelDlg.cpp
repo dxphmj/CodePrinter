@@ -150,6 +150,7 @@ BOOL CLabelDlg::OnInitDialog()
 	CDialog::OnInitDialog();
     isFrame = false;
 	// TODO:  在此添加额外的初始化
+
 	pInput = new CInputDlg;
 	pInput->Create(IDD_INPUT_DIALOG,this);
 	pInput->MoveWindow(0,260,800,340);
@@ -179,14 +180,9 @@ BOOL CLabelDlg::OnInitDialog()
 	GetDlgItem(IDC_LRMIRROR_BUTTON)->SetWindowPos(NULL,484,320,45,40,SWP_SHOWWINDOW);
 	m_picOverturn.SetWindowPos(NULL,430,320,45,40,SWP_SHOWWINDOW);
 
-	GetDlgItem(IDC_EDIT1)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_EDIT2)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
-	//右侧两列
-
-	//GetDlgItem(IDC_LSELECT_BUTTON)->SetWindowPos(NULL,585,290,60,35,SWP_SHOWWINDOW);
-
-
-
+//	GetDlgItem(IDC_EDIT1)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
+//	GetDlgItem(IDC_EDIT2)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
+	
 	//为矩阵组合框添加元素
 	//combo_matrix.SetDroppedWidth(10);  //改变下拉列表下的宽度 
 	ComboMatrix.AddString(_T("1L5M"));
@@ -204,8 +200,8 @@ BOOL CLabelDlg::OnInitDialog()
 	CFont *m_Font;
 	m_Font=new CFont;
 	m_Font->CreatePointFont(160, _T("Arial"), NULL);
-	GetDlgItem(IDC_EDIT1)->SetFont(m_Font);
-	GetDlgItem(IDC_EDIT2)->SetFont(m_Font);
+//	GetDlgItem(IDC_EDIT1)->SetFont(m_Font);
+//	GetDlgItem(IDC_EDIT2)->SetFont(m_Font);
 
 	//delete m_Font;
 	//彩色按钮

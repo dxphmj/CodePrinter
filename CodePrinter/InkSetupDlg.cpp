@@ -81,10 +81,7 @@ BOOL CInkSetupDlg::OnInitDialog()
 	m_nextSer.SetFont(theApp.m_EditFont);
 	m_inkLifeT.SetFont(theApp.m_EditFont);
 
-	CRect rect1;
-	GetDlgItem(IDC_INK_CALIB_BTN)->GetWindowRect(&rect1);
-
-	GetDlgItem(IDC_SOLVENT_CALIB_BTN)->SetWindowPos(NULL,605,252,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
+	GetDlgItem(IDC_SOLVENT_CALIB_BTN)->SetWindowPos(NULL,605,252,70,45,SWP_SHOWWINDOW); 
 	GetDlgItem(IDC_INK_CALIB_BTN)->SetWindowPos(NULL,605,313,70,45,SWP_SHOWWINDOW);
 
 	m_solventCalibIB.LoadBitmaps(IDB_SOLVENT_CALIB1_BITMAP,IDB_SOLVENT_CALIB2_BITMAP,0,0,IDB_RANGE_BITMAP);

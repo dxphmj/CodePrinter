@@ -123,18 +123,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	GetDlgItem(IDC_VISCO_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关粘度阀
 	m_CIB_ViscoValve.Attach(IDC_VISCO_VALVE_BTN,this);
 	GetDlgItem(IDC_WASH_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//冲洗
-	m_CIB_WashValve.Attach(IDC_WASH_VALVE_BTN,this);
-
-	//CRect rect1;
-	//GetDlgItem(IDC_INK_CLOSE_BTN)->GetWindowRect(&rect1);
-
-	//GetDlgItem(IDC_INK_CLOSE_BTN)->SetWindowPos(NULL,11,430,80,55,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
-	//GetDlgItem(IDC_USUAL_BTN)->SetWindowPos(NULL,200,440,80,55,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_ADVANCE_BTN)->SetWindowPos(NULL,300,440,80,55,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_SETUP_BTN)->SetWindowPos(NULL,400,440,80,55,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_PARAMETER_BTN)->SetWindowPos(NULL,500,440,80,55,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_PHASING_BTN)->SetWindowPos(NULL,600,440,80,55,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_INK_OK_BTN)->SetWindowPos(NULL,720,430,80,55,SWP_SHOWWINDOW);
+	m_CIB_WashValve.Attach(IDC_WASH_VALVE_BTN,this);	 
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
 	m_returnIB.SizeToContent(); 
@@ -152,12 +141,7 @@ BOOL CInkSystemDlg::OnInitDialog()
 	m_phasingIB.SizeToContent(); 
 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
-	m_okIB.SizeToContent(); 
-
-	//数字键盘初始化
-	//pNumKey = new CNumKey();
-	//pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
-	//pNumKey->ShowWindow(SW_HIDE);
+	m_okIB.SizeToContent(); 	 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

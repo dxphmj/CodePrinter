@@ -92,10 +92,7 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 	m_okIB.SizeToContent(); 
 
 	m_edit_repeatCount.SetFont(theApp.m_EditFont);
-	//////////////////////////////////////////////////////////////////////////
-	pNumKey = new CNumKey();
-	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
-	pNumKey->ShowWindow(SW_HIDE);
+	 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
