@@ -6,6 +6,9 @@
 #include "BarCodeDlg.h"
 #include "qrencode.h"
 //#include "ModuleMain.h"
+#include "qrcode\zint.h"
+
+
 #pragma comment(lib,"lib\\QRlib.lib")
 // CBarCodeDlg 对话框
 
@@ -86,13 +89,13 @@ BOOL CBarCodeDlg::OnInitDialog()
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_returnIB.SizeToContent(); 
-	m_qrCodeIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_qrCodeIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
 	m_qrCodeIB.SizeToContent(); 
-	m_dataMatrixIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_dataMatrixIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
 	m_dataMatrixIB.SizeToContent(); 
-	m_code39IB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_code39IB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
 	m_code39IB.SizeToContent(); 
-	m_code128IB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	m_code128IB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
 	m_code128IB.SizeToContent(); 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
@@ -107,9 +110,120 @@ void CBarCodeDlg::OnBnClickedBarcodeCloseBtn()
 	this->ShowWindow(SW_HIDE);
 }
 
+std::string ASCToUTF8(const std::string& str) 
+{
+	int unicodeLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);   
+	wchar_t *pUnicode = new  wchar_t[unicodeLen + 1];   
+	memset(pUnicode, 0, (unicodeLen + 1) * sizeof(wchar_t));  
+	::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, (LPWSTR)pUnicode, unicodeLen);  
+	std::wstring wrt = (wchar_t*)pUnicode;    delete  pUnicode;   
+	int iTextLen = WideCharToMultiByte(CP_UTF8, 0, wrt.c_str(), -1, NULL, 0, NULL, NULL);  
+	char *pElementText = new char[iTextLen + 1];   
+	memset((void*)pElementText, 0, sizeof(char) * (iTextLen + 1)); 
+	::WideCharToMultiByte(CP_UTF8, 0, wrt.c_str(), -1, pElementText, iTextLen, NULL, NULL);   
+	std::string strText = pElementText;    delete pElementText;    
+	return strText;
+}
+ 
+
 void CBarCodeDlg::OnBnClickedQrCodeBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	struct zint_symbol *my_symbol;
+    int error_number;
+    int rotate_angle;
+    int generated;
+    int batch_mode;
+    int mirror_mode;
+    char filetype[4];
+    int i;
+
+	error_number = 0;
+	rotate_angle = 0;
+	generated = 0;
+	my_symbol = ZBarcode_Create();
+	my_symbol->input_mode = UNICODE_MODE;
+	my_symbol->symbology = 58;
+	my_symbol->scale = 0.5;
+	batch_mode = 0;
+	mirror_mode = 0;
+
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_BARCODE_TEXT_EDIT);
+	CString str;
+	pEdit-> GetWindowText(str);     
+	USES_CONVERSION;	
+	char * QRTEXT = W2A(str.GetBuffer(0));	
+
+
+	std::string strTmp = ASCToUTF8(QRTEXT);
+
+//	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) QRTEXT,strlen(QRTEXT),rotate_angle);
+	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
+	generated = 1;
+ 	//if (error_number < 5)  
+	//	error_number = ZBarcode_Print(my_symbol, rotate_angle);
+
+	int xPos=0;
+	int yPos=0;
+	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		{
+			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
+			yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
+			xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
+		}
+	}
+ 
+	OBJ_Control bmpObj;
+	bmpObj.intLineStart=yPos;
+	bmpObj.intRowStart=xPos;
+	bmpObj.strType1="text";
+	bmpObj.strType2="qrcode";
+
+	bmpObj.intQRVersion=VersionBox.GetCurSel()+1;
+	bmpObj.intQRErrLevel=ErrLevelBox.GetCurSel();
+	bmpObj.intQREncodingMode=EncodingModeBox.GetCurSel();
+	bmpObj.boQRBig=true;	 
+	int version = bmpObj.intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
+ 	int casesensitive = bmpObj.boQRBig;//是否区分大小写，true/false
+
+ 	bmpObj.intLineSize=my_symbol->width;
+	bmpObj.intRowSize=my_symbol->width;
+
+	//以下先写死
+	bmpObj.intSW=1;
+	bmpObj.intSS=0;
+	bmpObj.booNEG=false;
+	bmpObj.booBWDx=false;
+	bmpObj.booBWDy=false;
+	i = 0;
+	int r, g, b;
+
+    for (int row = 0; row < my_symbol->bitmap_height; row++)
+    {
+		for (int col = 0;col < my_symbol->bitmap_width; col++)
+		{
+			r = my_symbol->bitmap[i];
+            g = my_symbol->bitmap[i + 1];
+            b = my_symbol->bitmap[i + 2];
+
+            i += 3;
+
+
+			if (r == 0 && g == 0 && b == 0)
+			{
+				bmpObj.boDotBmp[row][col] = true;
+			}
+			else
+			{
+				bmpObj.boDotBmp[row][col] = false;
+			}
+		}
+    }
+	bmpObj.strText=theApp.myModuleMain.CString2string(str);
+	bmpObj.booFocus = true;
+	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj); 
 }
 
 void CBarCodeDlg::OnBnClickedDataMatrixBtn()
