@@ -109,6 +109,7 @@ BOOL CInkParDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	m_edit_parPressure.SetFont(theApp.m_EditFont);
+
 	m_edit_parPumpSpeed.SetFont(theApp.m_EditFont);
 	m_medit_viscoDevia.SetFont(theApp.m_EditFont);
 	m_edit_inkFlowLev.SetFont(theApp.m_EditFont);

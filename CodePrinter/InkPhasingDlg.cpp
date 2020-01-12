@@ -67,7 +67,15 @@ HBRUSH CInkPhasingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	} 
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{		 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
 
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
@@ -259,7 +267,7 @@ BOOL CInkPhasingDlg::OnInitDialog()
 	}
 
    	m_PicPhaAngle.SetBitmap(m_AnglehBmp[0]);
-
+	m_edit_fiexd.SetFont(theApp.m_EditFont);
 	//////////////////////////////////////////////////////////////////////////
 
 	return TRUE;  // return TRUE unless you set the focus to a control

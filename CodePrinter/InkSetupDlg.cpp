@@ -34,6 +34,8 @@ void CInkSetupDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLEEP_LIST, m_sleepList);
 	DDX_Control(pDX, IDC_SOLVENT_CALIB_BTN, m_solventCalibIB);
 	DDX_Control(pDX, IDC_INK_CALIB_BTN, m_inkCalibIB);
+	DDX_Control(pDX, IDC_NEXT_SERVICE_EDIT, m_nextSer);
+	DDX_Control(pDX, IDC_INK_LIFE_TIME_EDIT, m_inkLifeT);
 
 }
 
@@ -76,6 +78,9 @@ BOOL CInkSetupDlg::OnInitDialog()
 	m_sleepList.AddString(L"ON");
 	m_sleepList.SetCurSel(0);
 
+	m_nextSer.SetFont(theApp.m_EditFont);
+	m_inkLifeT.SetFont(theApp.m_EditFont);
+
 	CRect rect1;
 	GetDlgItem(IDC_INK_CALIB_BTN)->GetWindowRect(&rect1);
 
@@ -100,8 +105,22 @@ HBRUSH CInkSetupDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	} 
-
+	 if(nCtlColor == CTLCOLOR_EDIT)
+	{		 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	} 
+ 	if(nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SelectObject(theApp.m_ListBoxFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_ListBoxBrush;
+	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔

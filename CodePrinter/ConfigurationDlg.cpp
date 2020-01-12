@@ -137,6 +137,11 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_configOkIB.SizeToContent(); 
 
+	m_edit_height.SetFont(theApp.m_EditFont);
+	m_edit_repeatDis.SetFont(theApp.m_EditFont);
+	m_edit_dotPitch.SetFont(theApp.m_EditFont);
+	m_edit_delay.SetFont(theApp.m_EditFont);
+	m_edit_speed.SetFont(theApp.m_EditFont);
 
 	//////////////////////////////////////////////////////////////////////////
 	pNumKey = new CNumKey();

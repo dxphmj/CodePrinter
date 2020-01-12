@@ -91,7 +91,7 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
 
-
+	m_edit_repeatCount.SetFont(theApp.m_EditFont);
 	//////////////////////////////////////////////////////////////////////////
 	pNumKey = new CNumKey();
 	pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
@@ -108,6 +108,21 @@ HBRUSH CConfigPrintModeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{ 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SelectObject(theApp.m_ListBoxFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_ListBoxBrush;
 	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
