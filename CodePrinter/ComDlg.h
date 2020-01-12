@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "CustomStatic.h"
 
 
 // CComDlg ¶Ô»°¿ò
@@ -28,4 +29,5 @@ public:
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
+	CCustomStatic m_staticCOM1Baut;
 };

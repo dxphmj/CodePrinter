@@ -28,6 +28,7 @@ void CComDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COM2_BAUDRATE_LIST, m_com2Baudrate);
 	DDX_Control(pDX, IDC_COM1_PARITY_LIST, m_com1Parity);
 	DDX_Control(pDX, IDC_COM2_PARITY_LIST, m_com2Parity);
+	DDX_Control(pDX, IDC_COM1_BIT_STATIC, m_staticCOM1Baut);
 }
 
 
@@ -84,13 +85,13 @@ BOOL CComDlg::OnInitDialog()
 HBRUSH CComDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
-	if(nCtlColor == CTLCOLOR_STATIC)
+	/*if(nCtlColor == CTLCOLOR_STATIC)
 	{		 
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
 		return theApp.m_StaticBrush;
-	}
+	}*/
 	if(nCtlColor == CTLCOLOR_EDIT)
 	{ 
 	// 	pDC->SelectObject(theApp.m_EditFont);
