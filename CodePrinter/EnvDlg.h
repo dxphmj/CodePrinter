@@ -24,4 +24,5 @@ public:
 	afx_msg void OnCbnSelchangeLanguageCombo();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CListBox m_langeageList;
+	afx_msg void OnBnClickedLanSelButton();
 };
