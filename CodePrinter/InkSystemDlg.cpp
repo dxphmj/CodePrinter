@@ -153,26 +153,52 @@ void CInkSystemDlg::showInkDlg(int ID)
 	m_setup->ShowWindow(SW_HIDE);
 	m_par->ShowWindow(SW_HIDE);
 	m_phas->ShowWindow(SW_HIDE);
-
+	wstring tempstr1,tempstr2;
+	CString cstr1,cstr2;
+	if (ID == IDD_INKSYSTEM_DIALOG)
+	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_USUAL"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
+		this->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
+	}
 	if (ID == IDD_INK_ADVANCE_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_ADVANCE"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_inkAdv->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Adv")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_INK_SETUP_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_SETUP"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_setup->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Setup")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_INK_PAR_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_PARAMETER"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_par->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
 	else if (ID == IDD_INK_PHASING_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_PHASING"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_phas->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Phase")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}	 
 }
 
@@ -195,7 +221,7 @@ void CInkSystemDlg::OnBnClickedAdvanceBtn()
 void CInkSystemDlg::OnBnClickedUsualBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	showInkDlg(0);
+	showInkDlg(IDD_INKSYSTEM_DIALOG);
 }
 
 void CInkSystemDlg::OnBnClickedSetupBtn()

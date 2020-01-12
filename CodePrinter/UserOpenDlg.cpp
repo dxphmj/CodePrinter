@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "UserOpenDlg.h"
+#include "CodePrinterDlg.h"
 
 
 // CUserOpenDlg 对话框
@@ -137,6 +138,11 @@ void CUserOpenDlg::OnBnClickedButtonClose()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	ShowWindow(SW_HIDE);
+	wstring tempstr;
+	CString cstr;
+	tempstr=theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+	cstr = tempstr.c_str();
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetOperationString(cstr);//User Manage 
 }
 
 void CUserOpenDlg::OnBnClickedButtonOk()

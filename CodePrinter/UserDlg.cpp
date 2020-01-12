@@ -220,22 +220,41 @@ void CUserDlg::showUserDlg(int ID)
 	pUserNew->ShowWindow(SW_HIDE);
 	pUserDelete->ShowWindow(SW_HIDE);
 	pUserFresh->ShowWindow(SW_HIDE);
-
+	wstring tempstr1,tempstr2;
+	CString cstr1,cstr2;
 	if (ID == IDD_USER_OPEN_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_EDIT"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pUserOpen->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_USER_NEW_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_NEW"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pUserNew->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_USER_DELETE_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_DEL"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pUserDelete->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_USER_FRESH_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_FRESH"];
+		cstr1 = tempstr1.c_str();
 		pUserFresh->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 	}
 	else if (ID == 0)
 	{
