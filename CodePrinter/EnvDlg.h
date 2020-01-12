@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "ImageButton.h"
 //#include "ModuleMain.h"
 
 // CEnvDlg ¶Ô»°¿ò
@@ -25,4 +26,6 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CListBox m_langeageList;
 	afx_msg void OnBnClickedLanSelButton();
+public:
+	CImageButton m_ButLanSel;
 };

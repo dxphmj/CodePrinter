@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "UserNewDlg.h"
+#include "CodePrinterDlg.h"
 
 
 // CUserNewDlg 对话框
@@ -33,7 +34,6 @@ void CUserNewDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CUserNewDlg, CDialog)
 
-	ON_BN_CLICKED(IDC_BUTTON1, &CUserNewDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_RIGHT_MOVE_BTN, &CUserNewDlg::OnBnClickedRightMoveBtn)
 	ON_BN_CLICKED(IDC_LEFT_MOVE_BTN, &CUserNewDlg::OnBnClickedLeftMoveBtn)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &CUserNewDlg::OnBnClickedButtonOk)
@@ -76,11 +76,6 @@ BOOL CUserNewDlg::OnInitDialog()
 	// 异常: OCX 属性页应返回 FALSE
 }
 
-void CUserNewDlg::OnBnClickedButton1()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	ShowWindow(SW_HIDE);
-}
 
 void CUserNewDlg::OnBnClickedRightMoveBtn()
 {
@@ -202,6 +197,11 @@ void CUserNewDlg::OnBnClickedButtonClose()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	ShowWindow(SW_HIDE);
+	wstring tempstr;
+	CString cstr;
+	tempstr=theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+	cstr = tempstr.c_str();
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetOperationString(cstr);//User Manage 
 }
 
 HBRUSH CUserNewDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)

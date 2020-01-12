@@ -124,19 +124,13 @@ void CSystemDlg::OnBnClickedVersionBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
-	//////////////////////////////////临时要删除////////////////////////////////////////
-	//CExportDlg myCExportDlg;
-	//CString ts;
-	//ts.Format(L"%s",_T("sdfsa"));
-	//myCExportDlg.GetInputText(ts);
-	/////
 	showSystemDlg(IDD_VERSION_DIALOG);	
 }
 
 void CSystemDlg::OnBnClickedNetBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	showSystemDlg(0);	
+	showSystemDlg(IDD_SYSTEM_DIALOG);	
 }
 
 void CSystemDlg::OnBnClickedSystemCloseBtn()
@@ -155,18 +149,43 @@ void CSystemDlg::showSystemDlg(int ID)
 	pEvn->ShowWindow(SW_HIDE);
 	pCom->ShowWindow(SW_HIDE);
 	pVersion->ShowWindow(SW_HIDE);
-
+	wstring tempstr1,tempstr2;
+	CString cstr1,cstr2;
+	if (ID == IDD_SYSTEM_DIALOG)
+	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_NETWORK"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
+		this->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
+	}
 	if (ID == IDD_ENV_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_ENV"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pEvn->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
 	else if(ID == IDD_COM_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_COM"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pCom->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
 	else if(ID == IDD_VERSION_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_VERSION"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pVersion->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
 }
 

@@ -19,6 +19,47 @@
 
 #define  def_ttl 1
 
+#define ID_SYSTEM_MANAGEMENT				WM_USER+3000
+#define ID_SYSTEM_NETWORK					WM_USER+3001
+#define ID_SYSTEM_COM						WM_USER+3002
+#define ID_SYSTEM_ENV						WM_USER+3003
+#define ID_SYSTEM_VERSION					WM_USER+3004
+
+#define ID_USER_MANAGEMENT					WM_USER+3005
+#define ID_USER_MANAGEMENT_NEW				WM_USER+3006
+#define ID_USER_MANAGEMENT_EDIT				WM_USER+3007
+#define ID_USER_MANAGEMENT_DEL				WM_USER+3008
+#define ID_USER_MANAGEMENT_FRESH			WM_USER+3009
+
+#define ID_LABEL_MANAGEMENT					WM_USER+3010
+
+#define ID_CONFIGURATION_MANAGEMENT			WM_USER+3011
+#define ID_CONFIGURATION_PRINTMODE			WM_USER+3012
+#define ID_CONFIGURATION_OUTSET				WM_USER+3013
+#define ID_OPEN_CONFIGURATION				WM_USER+3014
+#define ID_NEW_CONFIGURATION				WM_USER+3015
+
+#define ID_FILE_MANAGEMENT					WM_USER+3016
+
+#define ID_INKSYSTEM_MANAGEMENT				WM_USER+3017
+#define ID_INKSYSTEM_USUAL					WM_USER+3018
+#define ID_INKSYSTEM_ADVANCE				WM_USER+3019
+#define ID_INKSYSTEM_SETUP					WM_USER+3020
+#define ID_INKSYSTEM_PARAMETER				WM_USER+3021
+#define ID_INKSYSTEM_PHASING				WM_USER+3022
+
+#define ID_ERROR_INFORMATION				WM_USER+3023
+
+#define IDC_MACHINE_STATUS					WM_USER+3024
+#define IDC_READY_TO_PRINT					WM_USER+3025
+#define IDC_SYSTEM_READY					WM_USER+3026
+#define IDC_SEQUENCING_ON					WM_USER+3027
+#define IDC_SEQUENCING_OFF					WM_USER+3028
+#define IDC_PRINTER_OFF						WM_USER+3029
+
+
+
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -85,8 +126,12 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
-	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );	
-    m_PicHead.SetMachineStatus(_T("关机"));//Shut Down
+	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );
+	bool iniLanXml;
+	iniLanXml = theApp.myLanguage.readLanguageXml("ChineseSimplified.xml");
+	wstring lanStr;
+	lanStr=theApp.myLanguage.LanguageMap["IDC_MACHINE_STATUS"];
+    m_PicHead.SetMachineStatus(lanStr.c_str());//Shut Down
 	m_PicHead.ShowLogo(true);
 
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
@@ -330,9 +375,10 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 		m_Fault->m_strPreOperation = _T("");
 	else
 		m_Fault->m_strPreOperation = m_PicHead.m_strOperation;
-	//showDlg(IDD_FAULT_DIALOG);
-	m_Fault->ShowWindow(SW_SHOW);
 	m_PicHead.SetOperationString(_T("故障")); //Fault System
+	showDlg(IDD_FAULT_DIALOG);
+	m_Fault->ShowWindow(SW_SHOW);
+	
 }
 
 void CCodePrinterDlg::OnBnClickedSystemButton()
@@ -402,32 +448,45 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
-
+	wstring tempstr,tempstr2;
+	CString cstr,cstr2;
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_NETWORK"];
+		cstr = tempstr.c_str();
+		cstr2 = tempstr2.c_str();
 		m_System->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("系统管理"));//System Manage 
+	    m_PicHead.SetOperationString(cstr+_T(" > ")+cstr2);//System Manage 
 	}
 	else if (ID == IDD_USER_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+		cstr = tempstr.c_str();
 		m_User->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("用户管理"));//User Manage 
+	    m_PicHead.SetOperationString(cstr);//User Manage 
 	}
 	else if(ID == IDD_LABEL_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_LABEL_MANAGEMENT"];
+		cstr = tempstr.c_str();
 		m_Label->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("标签管理")); //Label Manage
+	    m_PicHead.SetOperationString(cstr); //Label Manage
 	}
 	else if(ID == IDD_CONFIGURATION_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
+		cstr = tempstr.c_str();
 		m_Confi->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("配置")); //Configure
+	    m_PicHead.SetOperationString(cstr); //Configure
 	}
 
 	else if(ID == IDD_FILEMANA_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_FILE_MANAGEMENT"];
+		cstr = tempstr.c_str();
 		//m_FileMan->ShowWindow(SW_SHOW);
-		 m_PicHead.SetOperationString(_T("文件管理")); //File Manage
+		 m_PicHead.SetOperationString(cstr); //File Manage
 		TCHAR path[MAX_PATH];
 		//labModule.string2tchar(testpath,path);
 		
@@ -439,13 +498,19 @@ void CCodePrinterDlg::showDlg(int ID)
 	}
 	else if(ID == IDD_INKSYSTEM_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_USUAL"];
+		cstr = tempstr.c_str();
+		cstr2 = tempstr2.c_str();
 		m_Ink->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("墨水管理"));// Ink System
+	    m_PicHead.SetOperationString(cstr+_T(" > ")+cstr2);// Ink System
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
+		cstr = tempstr.c_str();
 		m_Fault->ShowWindow(SW_SHOW);
-	    m_PicHead.SetOperationString(_T("故障")); //Fault System
+	    m_PicHead.SetOperationString(cstr); //Fault System
 	}
 	/*else if (ID == IDD_ONOFF_DIALOG)
 	{
@@ -1175,6 +1240,12 @@ void CCodePrinterDlg::UpdatePhase()
 void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	CDialog::OnTimer(nIDEvent);
+	wstring Readytoprint,Systemready,SequencingOn,SequencingOff,PrinterOff;
+	Readytoprint=theApp.myLanguage.LanguageMap["IDC_READY_TO_PRINT"];
+	Systemready=theApp.myLanguage.LanguageMap["IDC_SYSTEM_READY"];
+	SequencingOn=theApp.myLanguage.LanguageMap["IDC_SEQUENCING_ON"];
+	SequencingOff=theApp.myLanguage.LanguageMap["IDC_SEQUENCING_OFF"];
+	PrinterOff=theApp.myLanguage.LanguageMap["IDC_PRINTER_OFF"];
 	switch(nIDEvent)
 		
 	case TIMER1:
@@ -1199,17 +1270,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//时间
 		m_currentTime = theApp.myclassMessage.to_String(localT.GetHour())+":"+theApp.myclassMessage.to_String(localT.GetMinute())+":"+theApp.myclassMessage.to_String(localT.GetSecond());
 
-
+		
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
 		{
-			m_PicHead.SetMachineStatus(_T("准备打印"));//Ready to print
+			m_PicHead.SetMachineStatus(Readytoprint.c_str());//Ready to print
  		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
 		{
 			if (theApp.myStatusClass.staSysRea == true)//系统准备好
 			{				 
-				m_PicHead.SetMachineStatus(_T("系统准备好"));//System ready
+				m_PicHead.SetMachineStatus(Systemready.c_str());//System ready
 			}
 			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
 			{
@@ -1217,17 +1288,17 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
 					{
-						m_PicHead.SetMachineStatus(_T("系统开机中"));//Sequencing On
+						m_PicHead.SetMachineStatus(SequencingOn.c_str());//Sequencing On
 					}
 					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
 
 					{
-						m_PicHead.SetMachineStatus(_T("系统关机中"));//Sequencing Off
+						m_PicHead.SetMachineStatus(SequencingOff.c_str());//Sequencing Off
 					}
 				}
 				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
 				{					 
-					m_PicHead.SetMachineStatus(_T("关闭打印"));//Printer Off
+					m_PicHead.SetMachineStatus(PrinterOff.c_str());//Printer Off
 				}//系统忙
 			}//系统准备好
 

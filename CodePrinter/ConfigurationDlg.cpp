@@ -168,16 +168,41 @@ void CConfigurationDlg::showConfigDlg(int ID)
 {
 	m_ConfigPM->ShowWindow(SW_HIDE);
 	m_ConfigOS->ShowWindow(SW_HIDE);
+	wstring tempstr1,tempstr2;
+	CString cstr1,cstr2;
 	if (ID == IDD_CONFIG_PRINT_MODE_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_PRINTMODE"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_ConfigPM->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Configure > PrintMode")); 
-
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_CONFIG_OUTSET_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_OUTSET"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_ConfigOS->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Configure > Outset")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
+
+	}	 
+	else if (ID == IDC_CONFI_OPEN_BTN)
+	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_OPEN_CONFIGURATION"];
+		cstr1 = tempstr1.c_str();
+		m_ConfigOS->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
+
+	}	 
+	else if (ID == IDC_CONFI_SAVE_BTN)
+	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_NEW_CONFIGURATION"];
+		cstr1 = tempstr1.c_str();
+		m_ConfigOS->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 
 	}	 
 }
@@ -197,7 +222,7 @@ void CConfigurationDlg::OnBnClickedOutSetBtn()
 void CConfigurationDlg::OnBnClickedSavePcf()
 {
 	// TODO: 在此添加控件通知处理程序代码
-
+	
 	//界面保存到目前的喷印配置xml文件和pcf文件里  
 	CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
 	pPcfConfig.save_pcf_to_xml();
@@ -211,7 +236,13 @@ void CConfigurationDlg::OnBnClickedConfiOpenBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
-
+	//更改标头
+	wstring tempstr1;
+	CString cstr1;
+	tempstr1 = theApp.myLanguage.LanguageMap["ID_OPEN_CONFIGURATION"];
+	cstr1 = tempstr1.c_str();
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
+	//////////////////////////////////////////////////////////////////////////
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,3))
 	{
@@ -223,7 +254,10 @@ void CConfigurationDlg::OnBnClickedConfiOpenBtn()
 		CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
 		pPcfConfig.getPcfFromXml(xmlPath);
 		pcfNameDlg=pPcfConfig.m_pcfName;
+
 	}
+	
+	//
 }
 
 void CConfigurationDlg::OnBnClickedConfiSaveBtn()
@@ -231,7 +265,13 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
-
+	//更改标头
+	wstring tempstr1;
+	CString cstr1;
+	tempstr1 = theApp.myLanguage.LanguageMap["ID_NEW_CONFIGURATION"];
+	cstr1 = tempstr1.c_str();
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
+	//////////////////////////////////////////////////////////////////////////
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,3))
 	{
@@ -244,6 +284,9 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 		pPcfConfig.savePcfToXml(xmlPath);//此处需要能创建xml
 		pcfNameDlg=pPcfConfig.m_pcfName;
 	}
+	tempstr1 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
+	cstr1 = tempstr1.c_str();
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 }
 
 HBRUSH CConfigurationDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)

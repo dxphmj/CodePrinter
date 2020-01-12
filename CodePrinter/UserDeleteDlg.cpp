@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "UserDeleteDlg.h"
+#include "CodePrinterDlg.h"
 
 
 // CUserDeleteDlg 对话框
@@ -143,5 +144,10 @@ void CUserDeleteDlg::OnBnClickedButtonCloseDel()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	ShowWindow(SW_HIDE);
+	wstring tempstr;
+	CString cstr;
+	tempstr=theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+	cstr = tempstr.c_str();
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetOperationString(cstr);//User Manage 
 }
 

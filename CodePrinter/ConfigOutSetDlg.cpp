@@ -90,6 +90,11 @@ void CConfigOutSetDlg::OnBnClickedConfigOsreturnBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
+	wstring tempstr;
+	CString cstr;
+	tempstr=theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
+	cstr = tempstr.c_str();
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetOperationString(cstr);//User Manage 
 }
 
 HBRUSH CConfigOutSetDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
