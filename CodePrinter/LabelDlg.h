@@ -39,6 +39,7 @@ public:
 	virtual BOOL OnInitDialog();
 	CComboBox ComboMatrix;
 	CComboBox pixelComboBox;
+	
     CImageButton m_shrink;
 	CImageButton m_zoom;
 	CImageButton m_notback;
