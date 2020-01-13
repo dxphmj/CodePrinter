@@ -2,6 +2,7 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 #include "NumKey.h"
+#include "CustomStatic.h"
 
 // CConfigPrintModeDlg ¶Ô»°¿ò
 
@@ -38,4 +39,8 @@ public:
 
 	CNumKey *pNumKey;
 	afx_msg void OnBnClickedConfigOkBtn();
+	CCustomStatic m_printModeStatic;
+	CCustomStatic m_workListStatic;
+	CCustomStatic m_reapeatCountStatic;
+	CCustomStatic m_virtualPrintStatic;
 };

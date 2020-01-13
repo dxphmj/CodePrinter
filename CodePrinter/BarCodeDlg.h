@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CBarCodeDlg ¶Ô»°¿ò
 
@@ -48,4 +49,5 @@ public:
 	CImageButton m_okIB;
 	afx_msg void OnBnClickedCode128Btn();
 	afx_msg void OnBnClickedCode39Btn();
+	CCustomStatic m_barText;
 };

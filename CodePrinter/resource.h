@@ -701,6 +701,7 @@
 #define IDC_CONFI_SAVE_BTN              1716
 #define IDC_SHRIK_Z_EDIT                1800
 #define IDC_CLOSE_F_EDIT                1801
+#define IDC_DATE_TIME_STATIC            1802
 
 // Next default values for new objects
 // 
@@ -708,7 +709,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        467
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1802
+#define _APS_NEXT_CONTROL_VALUE         1803
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

@@ -5,7 +5,6 @@
 #include "CodePrinter.h"
 #include "DateDlg.h"
 
-
 // CDateDlg ¶Ô»°¿ò
 
 IMPLEMENT_DYNAMIC(CDateDlg, CDialog)
@@ -27,6 +26,13 @@ void CDateDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATE_OK_BTN, m_okIB);
 	DDX_Control(pDX, IDC_DATE_REFRESH_BTN, m_freshIB);
 	DDX_Control(pDX, IDC_DATE_SKEW_VALUE_EDIT, m_skewValue);
+	DDX_Control(pDX, IDC_DATE_PREVIEW_STATIC, m_previewStatic);
+	DDX_Control(pDX, IDC_DATE_TIME_STATIC, m_dateTimeStatic);
+	DDX_Control(pDX, IDC_DATE_FORMAT_STATIC, m_formatStatic);
+	DDX_Control(pDX, IDC_DATE_FONT_STATIC, m_fontStatic);
+	DDX_Control(pDX, IDC_DATE_SKEW_STATIC, m_skewStatic);
+	DDX_Control(pDX, IDC_DATE_SKEW_VALUE_STATIC, m_skewVauleStatic);
+	DDX_Control(pDX, IDC_DATE_SKEW_UNIT_STATIC, m_skewUnitStatic);
 }
 
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "ImageButton.h"
-
+#include "CustomStatic.h"
 // CUserNewDlg ¶Ô»°¿ò
 
 class CUserNewDlg : public CDialog
@@ -33,5 +33,9 @@ public:
 	CImageButton m_pRight_move;
 	CImageButton m_pLeft_move;
 
+	CCustomStatic m_newUserNameStatic;
+	CCustomStatic m_newUnauthorizedStatic;
+	CCustomStatic m_newPasswordStatic;
+	CCustomStatic m_newAuthorizedStatic;
 	
 };

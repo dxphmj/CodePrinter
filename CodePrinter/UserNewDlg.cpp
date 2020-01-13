@@ -29,6 +29,10 @@ void CUserNewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RIGHT_MOVE_BTN, m_pRight_move);
 	DDX_Control(pDX, IDC_LEFT_MOVE_BTN, m_pLeft_move);
 
+	DDX_Control(pDX, IDC_USER_NEW_NAME_STATIC, m_newUserNameStatic);
+	DDX_Control(pDX, IDC_USER_NEW_UNAUTHORIZED_STATIC, m_newUnauthorizedStatic);
+	DDX_Control(pDX, IDC_NEW_PASSWARD_STATIC, m_newPasswordStatic);
+	DDX_Control(pDX, IDC_USER_NEW_AUTHORIZED_STATIC, m_newAuthorizedStatic);
 }
 
 

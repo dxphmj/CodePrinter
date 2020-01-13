@@ -52,6 +52,10 @@ void CInkPhasingDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_PASHING_CUT_BTN, m_PhaMvSub);
 	DDX_Control(pDX, IDC_PIC_PHA_ANGLE, m_PicPhaAngle);
 	DDX_Control(pDX, IDC_FIXED_EDIT, m_edit_fiexd);
+	DDX_Control(pDX, IDC_FIXED_STATIC, m_fixedStatic);
+	DDX_Control(pDX, IDC_AUTO_SET_STATIC, m_autoSetStatic);
+	DDX_Control(pDX, IDC_SET_ADJUST_BIG_STATIC, m_setAdjustBigStatic);
+	DDX_Control(pDX, IDC_SET_ADJUST_SMALL_STATIC, m_setAdjustSmallStatic);
 }
 
 

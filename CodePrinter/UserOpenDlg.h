@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CUserOpenDlg ¶Ô»°¿ò
 
@@ -36,4 +37,9 @@ public:
 	CImageButton m_pbtnOK;
 	CImageButton m_pRight_move;
 	CImageButton m_pLeft_move;
+
+	CCustomStatic m_openUserNameStatic;
+	CCustomStatic m_openUnauthorizedStatic;
+	CCustomStatic m_openPasswordStatic;
+	CCustomStatic m_openAuthorizedStatic;
 };

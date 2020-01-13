@@ -36,7 +36,16 @@ void CInkSetupDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_INK_CALIB_BTN, m_inkCalibIB);
 	DDX_Control(pDX, IDC_NEXT_SERVICE_EDIT, m_nextSer);
 	DDX_Control(pDX, IDC_INK_LIFE_TIME_EDIT, m_inkLifeT);
-
+	DDX_Control(pDX, IDC_INK_SETUP_SIZE_STATIC, m_setupSizeStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_RATE_STATIC, m_setupRateStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_INKTYPE_STATIC, m_setupInkTypeStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_CON_STATIC, m_setupConStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_SLEEPMODE_STATIC, m_setupSleepModeStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_TIMERESET_STATIC, m_setupTimeResetStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_NEXTTIME_STATIC, m_setupNextTimeStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_LASTTIME_STATIC, m_setupLastTimeStatic);
+	DDX_Control(pDX, IDC_INKSETUP_SOL_LEV_JUST_STATIC, m_setupSolLevStatic);
+	DDX_Control(pDX, IDC_INK_SETUP_INK_LEV_JUSTSTATIC, m_setupInkLevStatic);
 }
 
 

@@ -27,6 +27,9 @@ void CEditTextDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, Combo_Font, fontComboBox);
 	DDX_Control(pDX, IDC_EDITTEXT_CLOSE_BTN, m_returnIB);
 	DDX_Control(pDX, IDC_BUTTON_EDITOK, m_okIB);
+	DDX_Control(pDX, Static_Text, m_textStatic);
+	DDX_Control(pDX, Static_Font, m_fontStatic);
+	DDX_Control(pDX, Static_DataField, m_dataFieldStatic);
 }
 
 

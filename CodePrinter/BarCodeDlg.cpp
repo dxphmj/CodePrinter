@@ -37,6 +37,7 @@ void CBarCodeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CODE_39_BTN, m_code39IB);
 	DDX_Control(pDX, IDC_CODE_128_BTN, m_code128IB);
 	DDX_Control(pDX, IDC_BARCODE_OK_BTN, m_okIB);
+	DDX_Control(pDX, IDC_BARCODE_TEXT_STATIC, m_barText);
 }
 
 BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
@@ -65,12 +66,18 @@ BOOL CBarCodeDlg::OnInitDialog()
 	//VersionBox.AddString(_T("1L25M"));
 	//VersionBox.AddString(_T("2L7M"));
 	VersionBox.SetCurSel(1);
+	VersionBox.SetFont(theApp.m_ListBoxFont);//设置下拉框字体
+	VersionBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	VersionBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	ErrLevelBox.AddString(_T("L"));
 	ErrLevelBox.AddString(_T("M"));
 	ErrLevelBox.AddString(_T("Q"));
 	ErrLevelBox.AddString(_T("H"));
 	ErrLevelBox.SetCurSel(3);
+	ErrLevelBox.SetFont(theApp.m_ListBoxFont);
+	ErrLevelBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	ErrLevelBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	EncodingModeBox.AddString(_T("Numeric"));
 	EncodingModeBox.AddString(_T("Alphabet-numeric"));
@@ -81,6 +88,9 @@ BOOL CBarCodeDlg::OnInitDialog()
 	EncodingModeBox.AddString(_T("FNC1FIRST"));
 	EncodingModeBox.AddString(_T("FNC1SECOND"));
 	EncodingModeBox.SetCurSel(2);
+	EncodingModeBox.SetFont(theApp.m_ListBoxFont);//设置下拉框字体
+	EncodingModeBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	EncodingModeBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	GetDlgItem(IDC_BARCODE_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_QR_CODE_BTN)->SetWindowPos(NULL,200,390,70,45,SWP_SHOWWINDOW);

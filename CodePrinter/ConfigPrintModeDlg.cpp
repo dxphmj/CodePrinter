@@ -34,6 +34,10 @@ void CConfigPrintModeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFIG_CLOSE_BTN, m_returnIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_okIB);
 	DDX_Control(pDX, IDC_REAPEAT_COUNT_EDIT, m_edit_repeatCount);
+	DDX_Control(pDX, IDC_PRINT_MODE_STATIC, m_printModeStatic);
+	DDX_Control(pDX, IDC_WORK_LIST_STATIC, m_workListStatic);
+	DDX_Control(pDX, IDC_REAPEAT_COUNT_STATIC, m_reapeatCountStatic);
+	DDX_Control(pDX, IDC_VIRTUAL_PRINT_STATIC, m_virtualPrintStatic);
 }
 
 

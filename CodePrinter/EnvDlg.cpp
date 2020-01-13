@@ -57,6 +57,9 @@ void CEnvDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LANGUAGE_LIST, m_langeageList);
 	DDX_Control(pDX, IDC_LAN_SEL_BUTTON, m_ButLanSel);
+	DDX_Control(pDX, IDC_ENV_TIME_STATIC, m_evn_timeStatic);
+	DDX_Control(pDX, IDC_ENV_DATE_STATIC, m_evn_dateStatic);
+	DDX_Control(pDX, IDC_LANGUAGE_STATIC, m_evn_languageStatic);
 }
 
 
