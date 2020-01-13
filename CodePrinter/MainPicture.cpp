@@ -96,9 +96,9 @@ void MainPicture::OnPaint()
 	{
 		if (theApp.myclassMessage.OBJ_Vec[ni].strType2!="serial"&&theApp.myclassMessage.OBJ_Vec[ni].strType2!="time")
 		{
-			for (int i=theApp.myclassMessage.OBJ_Vec[ni].intLineStart;i<theApp.myclassMessage.OBJ_Vec[ni].intLineSize;i++)
+			for (int i=theApp.myclassMessage.OBJ_Vec[ni].intLineStart;i<(theApp.myclassMessage.OBJ_Vec[ni].intLineSize+theApp.myclassMessage.OBJ_Vec[ni].intLineStart);i++)
 			{
-				for (int j=theApp.myclassMessage.OBJ_Vec[ni].intRowStart;j<theApp.myclassMessage.OBJ_Vec[ni].intRowSize;j++)
+				for (int j=theApp.myclassMessage.OBJ_Vec[ni].intRowStart;j<(theApp.myclassMessage.OBJ_Vec[ni].intRowSize+theApp.myclassMessage.OBJ_Vec[ni].intRowStart);j++)
 				{
 					if (theApp.myclassMessage.boDotMes[i][j])
 					{
