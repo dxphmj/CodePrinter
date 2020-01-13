@@ -54,6 +54,17 @@ void CInkParDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SOL_ADD_LEV_EDIT, m_edit_solAddLev);
 	DDX_Control(pDX, IDC_INK_EMPTY_LEV_EDIT, m_edit_inkEmptyLev);
 	DDX_Control(pDX, IDC_SOL_EMPTY_LEV_EDIT, m_edit_solEmptyLev);
+
+	DDX_Control(pDX, IDC_PAR_PRESSURE_STATIC, m_parPressureStatic);
+	DDX_Control(pDX, IDC_PRINTHEAD_TEMP_STATIC, m_printheadTempStatic);
+	DDX_Control(pDX, IDC_PAR_PUMP_SPEED_STATIC, m_parPumpSpeedStatic);
+	DDX_Control(pDX, IDC_VISCO_DEVIA_STATIC, m_viscoDeviaStatic);
+	DDX_Control(pDX, IDC_INK_FLOW_LEV_STATIC, m_inkFlowLevStatic);
+	DDX_Control(pDX, IDC_SOLVENT_FLOW_LEV_STATIC, m_solventFlowLevStatic);
+	DDX_Control(pDX, IDC_INK_ADD_LEV_STATIC, m_inkAddLevStatic);
+	DDX_Control(pDX, IDC_SOL_ADD_LEV_STATIC, m_solAddLevStatic);
+	DDX_Control(pDX, IDC_INK_EMPTY_LEV_STATIC, m_inkEmptyLevStatic);
+	DDX_Control(pDX, IDC_SOL_EMPTY_LEV_STATIC, m_solEmptyLevStatic);
 }
 
 

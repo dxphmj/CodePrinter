@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "NumKey.h"
+#include "CustomStatic.h"
 
 // CInkParDlg ¶Ô»°¿ò
 
@@ -56,4 +57,15 @@ public:
 	CEdit m_edit_inkEmptyLev;
 	CEdit m_edit_solEmptyLev;
 	CEdit m_edit_printheadTemp;
+
+	CCustomStatic m_parPressureStatic;
+	CCustomStatic m_parPumpSpeedStatic;
+	CCustomStatic m_viscoDeviaStatic;
+	CCustomStatic m_inkFlowLevStatic;
+	CCustomStatic m_solventFlowLevStatic;
+	CCustomStatic m_inkAddLevStatic;
+	CCustomStatic m_solAddLevStatic;
+	CCustomStatic m_inkEmptyLevStatic;
+	CCustomStatic m_solEmptyLevStatic;
+	CCustomStatic m_printheadTempStatic;
 };

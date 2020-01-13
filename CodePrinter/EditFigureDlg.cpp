@@ -28,6 +28,16 @@ void CEditFigureDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_FONT_COMBO, m_FontBox);
 	DDX_Control(pDX, IDC_FORMAT_COMBO, m_FormatBox);
 	DDX_Control(pDX, IDC_COUNTER_COMBO, m_countBox);
+	DDX_Control(pDX, IDC_PREVIEW_STATIC, m_previewStatic);
+	DDX_Control(pDX, IDC_FIRST_QUARTILE_STATIC, m_firstQuartileStatic);
+	DDX_Control(pDX, IDC_FOUR_QUARTILE_STATIC, m_fourQuartileStatic);
+	DDX_Control(pDX, IDC_START_STATIC, m_startStatic);
+	DDX_Control(pDX, IDC_STEP_SIZE_STATIC, m_stepSizeStatic);
+	DDX_Control(pDX, IDC_REPEAT_COUNT_STATIC, m_repeatCountStatic);
+	DDX_Control(pDX, IDC_BIT_DATA_STATIC, m_bitStatic);
+	DDX_Control(pDX, IDC_COUNTER_STATIC, m_counterStatic);
+	DDX_Control(pDX, IDC_FONT_STATIC, m_fontStatic);
+	DDX_Control(pDX, IDC_FORMAT_STATIC, m_formatStatic);
 }
 
 

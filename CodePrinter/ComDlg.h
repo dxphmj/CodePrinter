@@ -30,4 +30,7 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 	CCustomStatic m_staticCOM1Baut;
+	CCustomStatic m_staticCOM2Baut;
+	CCustomStatic m_com1Check;
+	CCustomStatic m_com2Check;
 };

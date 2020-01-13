@@ -5,6 +5,7 @@
 #include "UserFreshDlg.h"
 #include "UserDlg.h"
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CUserDlg ¶Ô»°¿ò
 
@@ -45,4 +46,7 @@ public:
 	CImageButton m_userDelete;
 	CImageButton m_userFresh;
 	CImageButton m_userOk;
+
+	CCustomStatic m_curUsersStatic;
+	CCustomStatic m_userNameStatic;
 };

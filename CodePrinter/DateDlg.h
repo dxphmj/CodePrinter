@@ -1,5 +1,6 @@
 #pragma once
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CDateDlg ¶Ô»°¿ò
 
@@ -26,4 +27,11 @@ public:
 	CImageButton m_okIB;
 	CImageButton m_freshIB;
 	CEdit m_skewValue;
+	CCustomStatic m_previewStatic;
+	CCustomStatic m_dateTimeStatic;
+	CCustomStatic m_formatStatic;
+	CCustomStatic m_fontStatic;
+	CCustomStatic m_skewStatic;
+	CCustomStatic m_skewVauleStatic;
+	CCustomStatic m_skewUnitStatic;
 };

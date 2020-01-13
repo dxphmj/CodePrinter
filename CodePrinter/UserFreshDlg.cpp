@@ -26,6 +26,9 @@ void CUserFreshDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_CLOSE, m_pReturn);
 	DDX_Control(pDX, IDC_BUTTON_OK, m_pbtnOK);
+	
+	DDX_Control(pDX, IDC_USER_FRESH_NAME_STATIC, m_freshUserNameStatic);
+	DDX_Control(pDX, IDC_FRESH_PASSWORD_STATIC, m_freshPasswordStatic);
 }
 
 

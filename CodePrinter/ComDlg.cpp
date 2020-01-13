@@ -29,6 +29,9 @@ void CComDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COM1_PARITY_LIST, m_com1Parity);
 	DDX_Control(pDX, IDC_COM2_PARITY_LIST, m_com2Parity);
 	DDX_Control(pDX, IDC_COM1_BIT_STATIC, m_staticCOM1Baut);
+	DDX_Control(pDX, IDC_COM2_BIT_STATIC, m_staticCOM2Baut);
+	DDX_Control(pDX, IDC_COM1_CHECK_STATIC, m_com1Check);
+	DDX_Control(pDX, IDC_COM2_CHECK_STATIC, m_com2Check);
 }
 
 

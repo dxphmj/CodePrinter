@@ -2,6 +2,7 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 #include "NumKey.h"
+#include "CustomStatic.h"
 
 
 // CInkPhasingDlg ¶Ô»°¿ò
@@ -52,5 +53,9 @@ public:
 
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-
+	
+	CCustomStatic m_fixedStatic;
+	CCustomStatic m_autoSetStatic;
+	CCustomStatic m_setAdjustBigStatic;
+	CCustomStatic m_setAdjustSmallStatic;
 };

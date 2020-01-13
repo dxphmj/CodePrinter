@@ -30,6 +30,11 @@ void CUserOpenDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_OK, m_pbtnOK);
 	DDX_Control(pDX, IDC_RIGHT_MOVE_BTN, m_pRight_move);
 	DDX_Control(pDX, IDC_LEFT_MOVE_BTN, m_pLeft_move);
+
+	DDX_Control(pDX, IDC_USER_OPEN_NAME_STATIC, m_openUserNameStatic);
+	DDX_Control(pDX, IDC_USER_OPEN_UNAUTHORIZED_STATIC, m_openUnauthorizedStatic);
+	DDX_Control(pDX, IDC_OPEN_PASSWARD_STATIC, m_openPasswordStatic);
+	DDX_Control(pDX, IDC_USER_OPEN_AUTHORIZED_STATIC, m_openAuthorizedStatic);
 }
 
 
@@ -70,9 +75,9 @@ BOOL CUserOpenDlg::OnInitDialog()
 	m_pReturn.SizeToContent(); 
 	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pbtnOK.SizeToContent(); 
-	m_pRight_move.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT2_BITMAP,0,0,IDB_80_55_BITMAP);
+	m_pRight_move.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT2_BITMAP,0,0,IDB_70_45_BITMAP);
 	m_pRight_move.SizeToContent(); 
-	m_pLeft_move.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_80_55_BITMAP);
+	m_pLeft_move.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_70_45_BITMAP);
 	m_pLeft_move.SizeToContent(); 
 
 	return TRUE;  // return TRUE unless you set the focus to a control

@@ -1,6 +1,7 @@
 #pragma once
 #include "ImageButton.h"
 #include "NumKey.h"
+#include "CustomStatic.h"
 // CConfigOutSet ¶Ô»°¿ò
 
 class CConfigOutSetDlg : public CDialog
@@ -43,4 +44,13 @@ public:
 
 	CNumKey *pNumKey;
 	afx_msg void OnBnClickedOutsetOkBtn();
+	CCustomStatic m_outsetPrintDir;
+	CCustomStatic m_outsetEncodeSign;
+	CCustomStatic m_outsetPreqmulti;
+	CCustomStatic m_outsetImpulse;
+	CCustomStatic m_outsetLength;
+	CCustomStatic m_outsetProduct;
+	CCustomStatic m_outsetActiveLev;
+	CCustomStatic m_outsetCurLev;
+	CCustomStatic m_outsetTrigger;
 };

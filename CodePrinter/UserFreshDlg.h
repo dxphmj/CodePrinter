@@ -1,5 +1,6 @@
 #pragma once
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CUserFreshDlg ¶Ô»°¿ò
 
@@ -28,4 +29,6 @@ public:
 	CImageButton m_pReturn;
 	CImageButton m_pbtnOK;
 	virtual BOOL OnInitDialog();
+	CCustomStatic m_freshUserNameStatic;
+	CCustomStatic m_freshPasswordStatic;
 };

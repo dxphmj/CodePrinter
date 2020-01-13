@@ -37,6 +37,15 @@ void CConfigOutSetDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_CONFIG_OSRETURN_BTN, m_outSetReturn);
 	DDX_Control(pDX, IDC_OUTSET_OK_BTN, m_outSetOk);
+	DDX_Control(pDX, IDC_PCF_OUTSET_PRINTDIRE_STATIC, m_outsetPrintDir);
+	DDX_Control(pDX, IDC_OUTSET_ENCODESIGN_STATIC, m_outsetEncodeSign);
+	DDX_Control(pDX, IDC_OUTSET_FREQMULTI_STATIC, m_outsetPreqmulti);
+	DDX_Control(pDX, IDC_OUTSET_IMPULSE_STATIC, m_outsetImpulse);
+	DDX_Control(pDX, IDC_OUTSET_LENGTH_STATIC, m_outsetLength);
+	DDX_Control(pDX, IDC_OUTSET_PRODUCT_DETE_STATIC, m_outsetProduct);
+	DDX_Control(pDX, IDC_OUTSET_ACTIVELEV_STATIC, m_outsetActiveLev);
+	DDX_Control(pDX, IDC_OUTSET_CUR_LEV_STATIC, m_outsetCurLev);
+	DDX_Control(pDX, IDC_OUTSET_TRIGGER_LEN_STATIC, m_outsetTrigger);
 }
 
 

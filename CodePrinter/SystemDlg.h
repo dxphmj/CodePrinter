@@ -4,6 +4,7 @@
 #include "ComDlg.h"
 #include "Version.h"
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CSystemDlg ¶Ô»°¿ò
 
@@ -47,4 +48,14 @@ public:
 	CImageButton m_ButEnv;
 	CImageButton m_ButCustom;
 	CImageButton m_ButVersion;
+
+	CCustomStatic m_serverIpStatic;
+	CCustomStatic m_serverPortStatic;
+	CCustomStatic m_validEquipStatic;
+	CCustomStatic m_netNameStatic;
+	CCustomStatic m_localIpStatic;
+	CCustomStatic m_localPortStatic;
+	CCustomStatic m_subNetMaskStatic;
+	CCustomStatic m_gatewayStatic;
+	CCustomStatic m_DHCPStatic;
 };

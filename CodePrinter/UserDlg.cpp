@@ -33,6 +33,9 @@ void CUserDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DELETE_BTN, m_userDelete);
 	DDX_Control(pDX, IDC_USER_FRESH_BTN, m_userFresh);
 	DDX_Control(pDX, IDC_USER_OK_BTN, m_userOk);
+
+	DDX_Control(pDX, IDC_USER_CURUSERS_STATIC, m_curUsersStatic);
+	DDX_Control(pDX, IDC_USER_NAME_STATIC, m_userNameStatic);
 }
 
 

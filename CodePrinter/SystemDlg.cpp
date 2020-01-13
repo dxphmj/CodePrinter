@@ -37,6 +37,17 @@ void CSystemDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EVN_BTN, m_ButEnv);
 	DDX_Control(pDX, IDC_CUSTON_BUTTON, m_ButCustom);
 	DDX_Control(pDX, IDC_VERSION_BTN, m_ButVersion);
+
+	DDX_Control(pDX, IDC_SYS_SERVER_IP_STATIC, m_serverIpStatic);
+	DDX_Control(pDX, IDC_SYS_SERVER_PORT_STATIC, m_serverPortStatic);
+	DDX_Control(pDX, IDC_VALID_EQUIP_STATIC, m_validEquipStatic);
+	DDX_Control(pDX, IDC_SYS_NET_NAME_STATIC, m_netNameStatic);
+	DDX_Control(pDX, IDC_SYS_LOCAL_IP_STATIC, m_localIpStatic); 
+	DDX_Control(pDX, IDC_SYS_LOCAL_PORT_STATIC, m_localPortStatic);
+	DDX_Control(pDX, IDC_SYS_SUBNETMASK_STATIC, m_subNetMaskStatic);
+	DDX_Control(pDX, IDC_SYS_GATEWAY_STATIC, m_gatewayStatic);
+	DDX_Control(pDX, IDC_SYS_DHCP_STATIC, m_DHCPStatic);
+
 }
 
 
