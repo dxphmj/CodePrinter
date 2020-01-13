@@ -1,4 +1,7 @@
 #pragma once
+#include "afxwin.h"
+#include "ImageButton.h"
+#include "NumKey.h"
 
 
 // CResetSerial ¶Ô»°¿ò
@@ -21,4 +24,6 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedResetSerialReturnBtn();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	CImageButton m_returnIB;
 };
