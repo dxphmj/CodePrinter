@@ -971,7 +971,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 			bytPrintDataAll1.insert(bytPrintDataAll1.end(),theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
 			//bytPrintDataAll1.assign(theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
 			theApp.ForPreQue.push(bytPrintDataAll1);
-			//theApp.ForPreQue.push(bytPrintDataAll1);
+			theApp.ForPreQue.push(bytPrintDataAll1);
 			//theApp.boDotForPreQue.push(bytPrintDataAll1);
 			theApp.myclassMessage.intMesDis=theApp.ForPreQue.front();
 			theApp.ForPreQue.pop();

@@ -92,25 +92,46 @@ void MainPicture::OnPaint()
 	///theApp.myclassMessage.DrawDot(&dcMem);
 
 	//int recSize=4;
-	if (!theApp.myclassMessage.boDynamic)
+	for (int ni=0;ni<theApp.myclassMessage.OBJ_Vec.size();ni++)
 	{
-		//for (int i=0;i<(theApp.myclassMessage.Pixel+1);i++)
-		for (int i=0;i<theApp.mainPicPixel;i++)
+		if (theApp.myclassMessage.OBJ_Vec[ni].strType2!="serial"&&theApp.myclassMessage.OBJ_Vec[ni].strType2!="time")
 		{
-			for (int j=0;j<theApp.myclassMessage.intRowMax;j++)
+			for (int i=theApp.myclassMessage.OBJ_Vec[ni].intLineStart;i<theApp.myclassMessage.OBJ_Vec[ni].intLineSize;i++)
 			{
-				if (theApp.myclassMessage.boDotMes[i][j])
+				for (int j=theApp.myclassMessage.OBJ_Vec[ni].intRowStart;j<theApp.myclassMessage.OBJ_Vec[ni].intRowSize;j++)
 				{
-					int tx=j*pixSize+1;
-					int ty=129-(i+1)*pixSize;
-					int bx=(j+1)*pixSize;
-					int by=129-i*pixSize-1;
-					pBrush=dcMem.SelectObject(&cbrush);
-					dcMem.Rectangle(tx,ty,bx,by);
+					if (theApp.myclassMessage.boDotMes[i][j])
+					{
+						int tx=j*pixSize+1;
+						int ty=129-(i+1)*pixSize;
+						int bx=(j+1)*pixSize;
+						int by=129-i*pixSize-1;
+						pBrush=dcMem.SelectObject(&cbrush);
+						dcMem.Rectangle(tx,ty,bx,by);
+					}
 				}
 			}
 		}
 	}
+	//if (!theApp.myclassMessage.boDynamic)
+	//{
+	//	//for (int i=0;i<(theApp.myclassMessage.Pixel+1);i++)
+	//	for (int i=0;i<theApp.mainPicPixel;i++)
+	//	{
+	//		for (int j=0;j<theApp.myclassMessage.intRowMax;j++)
+	//		{
+	//			if (theApp.myclassMessage.boDotMes[i][j])
+	//			{
+	//				int tx=j*pixSize+1;
+	//				int ty=129-(i+1)*pixSize;
+	//				int bx=(j+1)*pixSize;
+	//				int by=129-i*pixSize-1;
+	//				pBrush=dcMem.SelectObject(&cbrush);
+	//				dcMem.Rectangle(tx,ty,bx,by);
+	//			}
+	//		}
+	//	}
+	//}
 
 	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//绘制图片到主dc
 	//dcMem.SelectObject(pOldBitmap);//清理

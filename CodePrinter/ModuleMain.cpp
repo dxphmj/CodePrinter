@@ -952,56 +952,57 @@ UINT TTLcomLoop(LPVOID pParam)
 			//	strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 			//}
 			//theApp.boQueCtrLock.Unlock();
-			if (theApp.myclassMessage.boDynamic)
-			{
-				if (theApp.ForPreQue.size()>0)
-				{
-					theApp.boPrintNowLock.Lock();
-						vector<BYTE> tempQueVec=theApp.ForPreQue.front();
-						theApp.ForPreQue.pop();
-					
-						strTempCmdLen=tempQueVec.size();
-						strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-						if (strTempCmdLen>11)
-						{////动态显示相关
-							vector<BYTE> intMesDis1;
-							intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
-							theApp.boDotForPreQue.push(intMesDis1);
-							theApp.myclassMessage.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
-							theApp.boDotForPreQue.pop();
-							vector<int> tempCountVec;
-							if (theApp.intCounNumForPreQue.size()>0)
-							{
-								tempCountVec = theApp.intCounNumForPreQue.front();
 
-								theApp.intCounNumForPreQue.pop();
+			//if (theApp.myclassMessage.boDynamic)
+			//{
+			//	if (theApp.ForPreQue.size()>0)
+			//	{
+			//		theApp.boPrintNowLock.Lock();
+			//			vector<BYTE> tempQueVec=theApp.ForPreQue.front();
+			//			theApp.ForPreQue.pop();
+			//		
+			//			strTempCmdLen=tempQueVec.size();
+			//			strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+			//			if (strTempCmdLen>11)
+			//			{////动态显示相关
+			//				vector<BYTE> intMesDis1;
+			//				intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
+			//				theApp.boDotForPreQue.push(intMesDis1);
+			//				theApp.myclassMessage.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
+			//				theApp.boDotForPreQue.pop();
+			//				vector<int> tempCountVec;
+			//				if (theApp.intCounNumForPreQue.size()>0)
+			//				{
+			//					tempCountVec = theApp.intCounNumForPreQue.front();
 
-								for (int num=0;num<tempCountVec.size();num++)
-								{
-									theApp.myclassMessage.CountNumForPre[num]=tempCountVec[num];
-								}
-							}
-						} 
-						else
-						{
-							strTempCmd=(LPTSTR)readArr;
-							strTempCmdLen=8;
-						}
-					theApp.boPrintNowLock.Unlock();
-				} 
-				else
-				{
-					strTempCmd=(LPTSTR)readArr;
-					strTempCmdLen=8;
-				}
-			}
+			//					theApp.intCounNumForPreQue.pop();
+
+			//					for (int num=0;num<tempCountVec.size();num++)
+			//					{
+			//						theApp.myclassMessage.CountNumForPre[num]=tempCountVec[num];
+			//					}
+			//				}
+			//			} 
+			//			else
+			//			{
+			//				strTempCmd=(LPTSTR)readArr;
+			//				strTempCmdLen=8;
+			//			}
+			//		theApp.boPrintNowLock.Unlock();
+			//	} 
+			//	else
+			//	{
+			//		strTempCmd=(LPTSTR)readArr;
+			//		strTempCmdLen=8;
+			//	}
+			//}
 		}
 
 		//theApp.myCIOVsd.ClearInOutBuf();
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
 		//strTempCmdLen=0;   ////////若发送失败，重新发送
 		//strTempCmd=(LPTSTR)"";
-		Sleep(1000);
+		Sleep(10);
 		
 		theApp.readCount=theApp.myCIOVsd.Read();
 

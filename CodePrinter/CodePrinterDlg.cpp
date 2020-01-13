@@ -303,7 +303,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//SetTimer(TIMER1,300,NULL);	
     //墨水配置初始化
-	/*
+	
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 	pInksysConfig.get_inksystem_from_xml();
@@ -1260,7 +1260,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 	case TIMER1:
 	{
 	   CTime tmSCan=CTime::GetCurrentTime();
-	   CString szTime=tmSCan.Format(_T("'%Y-%m-%d %H:%M:%S'"));
+	   CString szTime=tmSCan.Format(_T("%Y-%m-%d %H:%M:%S"));
 	   GetDlgItem(IDC_TIME_STATIC)->SetWindowText(szTime);
 		 //KillTimer(TIMER1);
 		 if (theApp.myUserPower.isChangeUser)
@@ -1688,10 +1688,10 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		if (theApp.myStatusClass.staSetTimeEna == false)
 		{
 			CString m_tmptSetTime;
-			m_Ink->m_setup->GetDlgItem(IDC_STATIC)->GetWindowText(m_tmptSetTime);
+			m_Ink->m_setup->GetDlgItem(IDC_STATIC_TIMEREST_SETUP)->GetWindowText(m_tmptSetTime);
 			if ( m_tmptSetTime != "Disabled")
 			{
-				m_Ink->m_setup->GetDlgItem(IDC_STATIC)->SetWindowText(_T("Disabled"));
+				m_Ink->m_setup->GetDlgItem(IDC_STATIC_TIMEREST_SETUP)->SetWindowText(_T("Disabled"));
 			}			
 			string tempLifeTime;
 			tempLifeTime = theApp.myclassMessage.to_String((theApp.myStatusClass.staInkLifeTime)/60);
@@ -1927,10 +1927,10 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		}
         m_ButFault.Invalidate();
 		//系统日期
-		string m_systemDate;
-		m_systemDate = theApp.myclassMessage.to_String(localT.GetYear())+"-"+theApp.myclassMessage.to_String(localT.GetMonth())+"-"+theApp.myclassMessage.to_String(localT.GetDay());		
-		GetDlgItem(IDC_TIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(m_systemDate));
-		GetDlgItem(IDC_CURRENTTIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(CCodePrinterDlg::m_currentTime));
+		//string m_systemDate;
+		//m_systemDate = theApp.myclassMessage.to_String(localT.GetYear())+"-"+theApp.myclassMessage.to_String(localT.GetMonth())+"-"+theApp.myclassMessage.to_String(localT.GetDay());		
+		//GetDlgItem(IDC_TIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(m_systemDate));
+		//GetDlgItem(IDC_CURRENTTIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(CCodePrinterDlg::m_currentTime));
 			
 		//产品计数器
 		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
@@ -1941,7 +1941,37 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			if (theApp.myclassMessage.boCountEn[0])
 			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
 			}
+			if (theApp.myclassMessage.boCountEn[1])
+			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
+			}
+			if (theApp.myclassMessage.boCountEn[2])
+			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
+			}
+			if (theApp.myclassMessage.boCountEn[3])
+			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
+			}
+			//////下面还有序列号重置界面的刷新，，没此界面，战时不写
+			//If pangro_serial_reset.Location.X = 0 Then
+			//	'  pangro_serial_resetbo = True
+			//	If boCountEn(0) = True Then
+			//	labval_serial_reset_cv0.Text = CountNumForPre(0)
+			//	End If
+
+			//	If boCountEn(1) = True Then
+			//	labval_serial_reset_cv1.Text = CountNumForPre(1)
+			//	End If
+			//	If boCountEn(2) = True Then
+			//	labval_serial_reset_cv2.Text = CountNumForPre(2)
+			//	End If
+			//	If boCountEn(3) = True Then
+			//	labval_serial_reset_cv3.Text = CountNumForPre(3)
+			//	End If
+			//	End If
 		}
 		//SetTimer(TIMER1,300,NULL);	
 	}
