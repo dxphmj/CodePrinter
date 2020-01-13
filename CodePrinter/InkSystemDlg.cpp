@@ -123,41 +123,25 @@ BOOL CInkSystemDlg::OnInitDialog()
 	GetDlgItem(IDC_VISCO_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//开关粘度阀
 	m_CIB_ViscoValve.Attach(IDC_VISCO_VALVE_BTN,this);
 	GetDlgItem(IDC_WASH_VALVE_BTN)->ModifyStyle(0,BS_OWNERDRAW,0);//冲洗
-	m_CIB_WashValve.Attach(IDC_WASH_VALVE_BTN,this);
-
-	CRect rect1;
-	GetDlgItem(IDC_INK_CLOSE_BTN)->GetWindowRect(&rect1);
-
-	GetDlgItem(IDC_INK_CLOSE_BTN)->SetWindowPos(NULL,11,430,70,45,SWP_SHOWWINDOW);//IDC_SYSTEM_CANCEL_BTN
-	//GetDlgItem(IDC_USUAL_BTN)->SetWindowPos(NULL,200,440,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_ADVANCE_BTN)->SetWindowPos(NULL,300,440,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_SETUP_BTN)->SetWindowPos(NULL,400,440,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_PARAMETER_BTN)->SetWindowPos(NULL,500,440,70,45,SWP_SHOWWINDOW);
-	//GetDlgItem(IDC_PHASING_BTN)->SetWindowPos(NULL,600,440,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_INK_OK_BTN)->SetWindowPos(NULL,720,430,70,45,SWP_SHOWWINDOW);
+	m_CIB_WashValve.Attach(IDC_WASH_VALVE_BTN,this);	 
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
 	m_returnIB.SizeToContent(); 
 
 	//待添加彩色图片
-	m_usualIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_usualIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_usualIB.SizeToContent(); 
-	m_advanceIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_advanceIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_advanceIB.SizeToContent(); 
-	m_setupIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_setupIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_setupIB.SizeToContent(); 
-	m_parameterIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_parameterIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_parameterIB.SizeToContent(); 
-	m_phasingIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
+	m_phasingIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_phasingIB.SizeToContent(); 
 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
-	m_okIB.SizeToContent(); 
-
-	//数字键盘初始化
-	//pNumKey = new CNumKey();
-	//pNumKey->Create( IDD_DIALOG_NUMKEY,this);  
-	//pNumKey->ShowWindow(SW_HIDE);
+	m_okIB.SizeToContent(); 	 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -169,26 +153,52 @@ void CInkSystemDlg::showInkDlg(int ID)
 	m_setup->ShowWindow(SW_HIDE);
 	m_par->ShowWindow(SW_HIDE);
 	m_phas->ShowWindow(SW_HIDE);
-
+	wstring tempstr1,tempstr2;
+	CString cstr1,cstr2;
+	if (ID == IDD_INKSYSTEM_DIALOG)
+	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_USUAL"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
+		this->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
+	}
 	if (ID == IDD_INK_ADVANCE_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_ADVANCE"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_inkAdv->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Adv")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_INK_SETUP_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_SETUP"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_setup->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Setup")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_INK_PAR_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_PARAMETER"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_par->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Param"));
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
 	else if (ID == IDD_INK_PHASING_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_PHASING"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		m_phas->ShowWindow(SW_SHOW);
-		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(_T("Ink System > Phase")); 
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}	 
 }
 
@@ -211,7 +221,7 @@ void CInkSystemDlg::OnBnClickedAdvanceBtn()
 void CInkSystemDlg::OnBnClickedUsualBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	showInkDlg(0);
+	showInkDlg(IDD_INKSYSTEM_DIALOG);
 }
 
 void CInkSystemDlg::OnBnClickedSetupBtn()
@@ -335,7 +345,22 @@ HBRUSH CInkSystemDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	} 
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{		 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	} 
+	if(nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SelectObject(theApp.m_ListBoxFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_ListBoxBrush;
+	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔

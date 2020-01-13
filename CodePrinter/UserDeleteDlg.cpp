@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "UserDeleteDlg.h"
+#include "CodePrinterDlg.h"
 
 
 // CUserDeleteDlg 对话框
@@ -53,9 +54,9 @@ BOOL CUserDeleteDlg::OnInitDialog()
 	GetDlgItem(IDC_BUTTON_CLOSE_DEL)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BUTTON_OK_DEL)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
 
-	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pReturn.SizeToContent(); 
-	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pbtnOK.SizeToContent(); 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -143,5 +144,10 @@ void CUserDeleteDlg::OnBnClickedButtonCloseDel()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	ShowWindow(SW_HIDE);
+	wstring tempstr;
+	CString cstr;
+	tempstr=theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+	cstr = tempstr.c_str();
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetOperationString(cstr);//User Manage 
 }
 

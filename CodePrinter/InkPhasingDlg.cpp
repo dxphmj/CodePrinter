@@ -18,12 +18,23 @@ CInkPhasingDlg::CInkPhasingDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CInkPhasingDlg::IDD, pParent)
 	, m_fixed(0)
 { 
+
+#ifndef _DEBUG
 	for(int i = 0; i < 35; i++)
 	{
 		CBnvImage PngImage;
 		PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0+i), _T("PNG")); 
 		m_AnglehBmp[i] = PngImage.CreatHBitmap();
 	}
+#else
+	CBnvImage PngImage;
+	PngImage.LoadFromResource(MAKEINTRESOURCE(IDB_PNG_ANG0), _T("PNG")); 
+	HBITMAP h = PngImage.CreatHBitmap();
+	for(int i = 0; i < 35; i++)
+	{
+		m_AnglehBmp[i] = h;
+	}
+#endif
 }
 
 CInkPhasingDlg::~CInkPhasingDlg()
@@ -67,7 +78,15 @@ HBRUSH CInkPhasingDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
 	} 
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{		 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
 
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	
@@ -259,7 +278,7 @@ BOOL CInkPhasingDlg::OnInitDialog()
 	}
 
    	m_PicPhaAngle.SetBitmap(m_AnglehBmp[0]);
-
+	m_edit_fiexd.SetFont(theApp.m_EditFont);
 	//////////////////////////////////////////////////////////////////////////
 
 	return TRUE;  // return TRUE unless you set the focus to a control

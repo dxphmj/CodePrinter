@@ -30,13 +30,11 @@
 #define IDD_INK_SETUP_DIALOG            154
 #define IDD_INK_PAR_DIALOG              155
 #define IDD_INK_PHASING_DIALOG          156
-#define IDD_PRINT_MODE_DIALOG           168
 #define IDD_CONFIG_PRINT_MODE_DIALOG    168
 #define IDB_DOWNLOAD_BITMAP             190
 #define IDD_CONFIG_OUTSET_DIALOG        197
 #define IDD_ONOFF_DIALOG                199
 #define IDB_BITMAP2                     202
-#define IDB_BITMAP5                     204
 #define IDB_BITMAP_HEAD                 204
 #define IDB_FRESH1_BITMAP               206
 #define IDB_FRESH2_BITMAP               207
@@ -94,7 +92,6 @@
 #define IDB_NOTBACK1_BITMAP             269
 #define IDB_NOTBACK2_BITMAP             270
 #define IDB_ADDBACK1_BITMAP             271
-#define IDB_BITMAP7                     272
 #define IDB_ADDBACK2_BITMAP             272
 #define IDB_DOWNLOAD1_BITMAP            273
 #define IDB_DOWNLOAD2_BITMAP            274
@@ -216,7 +213,6 @@
 #define IDB_BEFORE1_BITMAP              463
 #define IDB_BEFORE2_BITMAP              464
 #define IDB_DELETE1_BITMAP              465
-#define IDB_BITMAP3                     466
 #define IDB_DELETE2_BITMAP              466
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
@@ -270,27 +266,17 @@
 #define IDC_TIME_STATIC                 1052
 #define IDC_RESET_COUNT_BTN             1053
 #define IDC_RESET_SERIAL_BTN            1054
-#define IDC_BUTTON1                     1055
-#define IDC_BEFORE_BTN                  1055
-#define IDC_BUTTON2                     1056
+#define IDC_LAN_SEL_BUTTON              1055
 #define IDC_NEXT_BTN                    1056
 #define IDC_NEW_BTN                     1057
 #define IDC_EDIT7                       1058
 #define IDC_USER_FRESH_BTN              1059
-#define IDC_BUTTON13                    1060
 #define IDC_USER_OK_BTN                 1060
-#define IDC_BUTTON10                    1061
 #define IDC_DHCP_BTN                    1061
-#define IDC_LIST1                       1062
-#define IDC_BUTTON4                     1063
-#define IDC_CONFI_SAVE_BTN              1063
 #define IDC_REFRESH_BTN                 1063
-#define IDC_BUTTON5                     1064
 #define IDC_R_HISTORY_BTN               1064
-#define IDC_CUSTON_BUTTON               1065
 #define IDC_HIGH_VOLTAGE_BTN            1065
 #define IDC_VERSION_BTN                 1066
-#define IDC_BUTTON9                     1068
 #define IDC_SYS_OK_BTN                  1068
 #define IDC_EVN_BTN                     1074
 #define IDC_LANGUAGE_STATIC             1076
@@ -340,8 +326,6 @@
 #define Combo_Font                      1123
 #define IDC_EDIT6                       1124
 #define IDC_DELETE_BTN                  1125
-#define IDC_BUTTON3                     1126
-#define IDC_CONFI_OPEN_BTN              1126
 #define IDC_PAUSEPRINT_BUTTON           1126
 #define IDC_LANGUAGE_COMBO              1127
 #define IDC_SYSTEM_SOFTWARE_TYPE_STATIC 1128
@@ -443,8 +427,6 @@
 #define IDC_ADD_SOLVENT_BTN             1226
 #define IDC_SUCK_NOZZLE_BTN             1227
 #define IDC_BETECT_VISCO_BTN            1228
-#define IDC_COMBO5                      1231
-#define IDC_COMBO                       1231
 #define IDC_SIZE_COMBO                  1231
 #define IDC_SOLVENT_CALIB_BTN           1232
 #define IDC_INK_CALIB_BTN               1233
@@ -496,10 +478,6 @@
 #define IDC_ONOROFF_BUTTON              1279
 #define IDC_STARTPRINT_BUTTON           1280
 #define IDC_PRODUCT_DETE_LIST           1281
-#define IDC_LIST4                       1282
-#define IDC_ACTIVE_LEV_LIST             1282
-#define IDC_INK_TYPE_LIST               1282
-#define IDC_VIRTUAL_PRINT_LIST          1282
 #define IDC_COM2_PARITY_LIST            1282
 #define IDC_CONFIG_OSRETURN_BTN         1283
 #define IDC_PRINT_DIRE_LIST             1284
@@ -523,12 +501,10 @@
 #define IDC_SLEEP_COMBO                 1304
 #define IDC_NEXT_SERVICE_EDIT           1305
 #define IDC_INK_LIFE_TIME_EDIT          1306
-#define IDC_BUTTON6                     1308
 #define IDC_L_HISTORY_BTN               1308
 #define IDC_PHASING_BTN                 1309
 #define IDC_SPEED_MODE_BTN              1310
 #define IDC_WASH_NOZZLE_BTN             1311
-#define IDC_COMBO1                      1312
 #define IDC_REVERSE_COMBO               1312
 #define IDC_COUNTER_COMBO               1313
 #define IDC_DATE_FONT_COMBO             1314
@@ -548,7 +524,6 @@
 #define IDC_MODUL_FRE_LIST              1328
 #define IDC_PELTIER_LIST                1329
 #define IDC_SLEEP_LIST                  1330
-#define IDC_LIST6                       1330
 #define IDC_PIC_GREEN_STATIC            1331
 #define IDC_PIC_BLUE_STATIC             1332
 #define IDC_PIC_YELLOW_STATIC           1333
@@ -576,15 +551,13 @@
 #define IDC_COM2_BAUDRATE_LIST          1454
 #define IDC_LANGUAGE_LIST               1455
 #define IDC_USER_NAME_STATIC            1456
-#define IDC_USER_NAME_EDIT              1457
-#define IDC_PASSWARD_STATIC             1458
+#define IDC_OPEN_PASSWARD_STATIC        1458
 #define IDC_PASSWARD_EDIT               1459
 #define IDC_NOT_GRANTED_LIST            1460
 #define IDC_GRANTED_LIST                1461
 #define IDC_RIGHT_MOVE_BTN              1462
 #define IDC_LEFT_MOVE_BTN               1463
 #define IDC_FRESH_USER_NAME_LIST        1464
-#define IDC_FRESH_PASSEDIT              1465
 #define IDC_FRESH_PASSWARD_EDIT         1465
 #define IDC_HEAD_PIC                    1466
 #define IDC_STATIC_SHOW_DLG             1467
@@ -602,6 +575,7 @@
 #define IDC_BUTTON_CLOSE                1479
 #define IDC_BUTTON_OK                   1480
 #define IDC_STATIC_DELET                1481
+#define IDC_USER_DEL_DEL_STATIC         1482
 #define IDC_SYS_FRESH1_BTN              1483
 #define IDC_SYS_FRESH2_BTN              1484
 #define IDC_OUTSET_OK_BTN               1485
@@ -620,9 +594,6 @@
 #define IDC_BUTTON_KEY4                 1498
 #define IDC_BUTTON_KEY5                 1499
 #define IDC_BUTTON_KEY6                 1500
-
-#define IDC_CURRENTTIME_STATIC          1511
-
 #define IDC_BUTTON_KEY7                 1501
 #define IDC_BUTTON_KEY8                 1502
 #define IDC_BUTTON_KEY9                 1503
@@ -633,6 +604,7 @@
 #define IDC_BUTTON_KEY_DOC              1508
 #define IDC_BUTTON_KEY_LEFT             1509
 #define IDC_BUTTON_KEY_RIGHT            1510
+#define IDC_CURRENTTIME_STATIC          1511
 #define IDC_BUTTON_OK_DEL               1512
 #define IDC_BUTTON_CLOSE_DEL            1513
 #define IDC_CODEPRINTER_TYPE_VALUE_STATIC 1514
@@ -644,9 +616,91 @@
 #define IDC_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1520
 #define IDC_SYSTEM_SOFTWARE_TYPE_VALUE_STATIC 1521
 #define IDC_SYSTEM_SOFTWARE_UPDATE_TIME_VALUE_STATIC 1522
-#define IDC_STATIC_LABNAME              1523
-#define IDC_STATIC_PCFNAME              1524
-
+#define IDC_USER_CURUSERS_STATIC        1523
+#define IDC_COM1_BIT_STATIC             1524
+#define IDC_USER_NEW_NAME_STATIC        1525
+#define IDC_USER_FRESH_NAME_STATIC      1526
+#define IDC_USER_OPEN_NAME_STATIC       1527
+#define IDC_PCF_OUTSET_PRINTDIR_STATIC  1528
+#define IDC_PCF_OUTSET_PRINTDIRE_STATIC 1529
+#define IDC_INK_SETUP_STATIC            1530
+#define IDC_INK_SETUP_SIZE_STATIC       1530
+#define IDC_INK_SETUP_INKTYPE_STATIC    1531
+#define IDC_SYS_SERVER_IP_STATIC        1532
+#define IDC_SYS_SERVER_PORT_STATIC      1533
+#define IDC_VALID_EQUIP_STATIC          1534
+#define IDC_SYS_NET_NAME_STATIC         1535
+#define IDC_SYS_LOCAL_IP_STATIC         1536
+#define IDC_SYS_LOCAL_PORT_STATIC       1537
+#define IDC_SYS_SUBNETMASK_STATIC       1538
+#define IDC_SYS_GATEWAY_STATIC          1539
+#define IDC_SYS_DHCP_STATIC             1540
+#define IDC_COM1_CHECK_STATIC           1541
+#define IDC_COM2_BIT_STATIC             1542
+#define IDC_COM2_CHECK_STATIC           1543
+#define IDC_ENV_TIME_STATIC             1544
+#define IDC_ENV_DATE_STATIC             1545
+#define IDC_USER_NEW_UNAUTHORIZED_STATIC 1546
+#define IDC_USER_NEW_AUTHORIZED_STATIC  1547
+#define IDC_NEW_PASSWARD_STATIC         1548
+#define IDC_USER_OPEN_UNAUTHORIZED_STATIC 1549
+#define IDC_USER_OPEN_AUTHORIZED_STATIC 1550
+#define IDC_FRESH_PASSWORD_STATIC       1551
+#define IDC_OUTSET_ENCODESIGN_STATIC    1552
+#define IDC_OUTSET_LENGTH_STATIC        1553
+#define IDC_OUTSET_IMPULSE_STATIC       1554
+#define IDC_OUTSET_FREQMULTI_STATIC     1555
+#define IDC_OUTSET_ACTIVELEV_STATIC     1556
+#define IDC_OUTSET_CUR_LEV_STATIC       1557
+#define IDC_OUTSET_TRIGGER_LEN_STATIC   1558
+#define IDC_OUTSET_PRODUCT_DETE_STATIC  1559
+#define IDC_INK_SETUP_RATE_STATIC       1560
+#define IDC_INK_SETUP_CON_STATIC        1561
+#define IDC_INK_SETUP_SLEEPMODE_STATIC  1562
+#define IDC_INK_SETUP_TIMERESET_STATIC  1563
+#define IDC_INK_SETUP_NEXTTIME_STATIC   1564
+#define IDC_INK_SETUP_LASTTIME_STATIC   1565
+#define IDC_INKSETUP_SOL_LEV_JUST_STATIC 1566
+#define IDC_INK_SETUP_INK_LEV_JUSTSTATIC 1567
+#define IDC_MAIN_PRINT_LAB_STATIC       1568
+#define IDC_MAIN_PRINT_PCF_STATIC       1569
+#define IDC_MAIN_NEW_LABEL_STATIC       1570
+#define IDC_MAIN_PRODUCT_DETECTED_STATIC 1571
+#define IDC_MAIN_PRODUCT_PRINTED_STATIC 1572
+#define IDC_MAIN_SERIAL_NUM_STATIC      1573
+#define IDC_MAIN_NUM1_STATIC            1574
+#define IDC_MAIN_NUM2_STATIC            1575
+#define IDC_MAIN_NUM3_STATIC            1576
+#define IDC_MAIN_NUM4_STATIC            1577
+#define IDC_MAIN_DEFAULT_STATIC         1578
+#define IDC_MAIN_COUNTER_STATIC         1579
+#define IDC_STATIC_LABNAME              1580
+#define IDC_STATIC_PCFNAME              1581
+#define IDC_SKEW_LIST                   1582
+#define IDC_SKEW_UNIT_LIST              1583
+#define IDC_SEQUENCE1_STATIC            1584
+#define IDC_SEQUENCE2_STATIC            1585
+#define IDC_SEQUENCE3_STATIC            1586
+#define IDC_SEQUENCE4_STATIC            1587
+#define IDC_INKSETUP_LEV_JUST_STATIC    1591
+#define IDD_PRINT_MODE_DIALOG           1593
+#define IDC_BEFORE_BTN                  1597
+#define IDC_BUTTON1                     1599
+#define IDB_BITMAP7                     1700
+#define IDC_FORMAT_LIST                 1701
+#define IDC_CUSTON_BUTTON               1702
+#define IDC_CONFI_OPEN_BTN              1704
+#define IDC_ACTIVE_LEV_LIST             1705
+#define IDC_INK_TYPE_LIST               1706
+#define IDC_VIRTUAL_PRINT_LIST          1707
+#define IDC_USER_NAME_EDIT              1708
+#define IDC_PASSWARD_STATIC             1709
+#define IDC_FRESH_PASSEDIT              1710
+#define IDB_BITMAP5                     1712
+#define IDB_BITMAP3                     1713
+#define IDC_CONFI_SAVE_BTN              1716
+#define IDC_SHRIK_Z_EDIT                1800
+#define IDC_CLOSE_F_EDIT                1801
 
 // Next default values for new objects
 // 
@@ -654,9 +708,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        467
 #define _APS_NEXT_COMMAND_VALUE         32771
-
-#define _APS_NEXT_CONTROL_VALUE         1525
-
+#define _APS_NEXT_CONTROL_VALUE         1802
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

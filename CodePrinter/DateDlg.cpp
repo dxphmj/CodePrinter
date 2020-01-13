@@ -26,6 +26,7 @@ void CDateDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATE_CLOSE_BTN, m_returnIB);
 	DDX_Control(pDX, IDC_DATE_OK_BTN, m_okIB);
 	DDX_Control(pDX, IDC_DATE_REFRESH_BTN, m_freshIB);
+	DDX_Control(pDX, IDC_DATE_SKEW_VALUE_EDIT, m_skewValue);
 }
 
 
@@ -56,6 +57,7 @@ BOOL CDateDlg::OnInitDialog()
 	m_freshIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_freshIB.SizeToContent(); 
 
+	m_skewValue.SetFont(theApp.m_EditFont);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -77,6 +79,21 @@ HBRUSH CDateDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{ 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SelectObject(theApp.m_ListBoxFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_ListBoxBrush;
 	}
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔

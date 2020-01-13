@@ -26,7 +26,7 @@
 #define IDB_BITMAP_ALLDOWN              153
 #define IDD_DIALOG_RENAMEDLG            154
 #define IDB_BITMAP_PASTEUP              156
-#define IDB_BITMAP2                     157
+#define IDB_BITMAP2                     158
 #define IDB_BITMAP_PASTEDOWN            157
 #define IDC_TREE_DIRVIEW                1000
 #define IDC_EDIT_FULLPATH               1001

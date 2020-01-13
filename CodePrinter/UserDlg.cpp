@@ -183,7 +183,7 @@ void CUserDlg::OnBnClickedDeleteBtn()
 	m_allUserBox->GetText(m_allUserBox->GetCurSel(),deletUser);
 	CString staticEdit;
 	staticEdit.Format(_T("确定删除用户 %s ？"),deletUser);
-	pUserDelete->GetDlgItem(IDC_STATIC_DELET)->SetWindowText(staticEdit);
+	pUserDelete->GetDlgItem(IDC_USER_DEL_DEL_STATIC)->SetWindowText(staticEdit);
 	showUserDlg(IDD_USER_DELETE_DIALOG);
 }
 
@@ -220,22 +220,41 @@ void CUserDlg::showUserDlg(int ID)
 	pUserNew->ShowWindow(SW_HIDE);
 	pUserDelete->ShowWindow(SW_HIDE);
 	pUserFresh->ShowWindow(SW_HIDE);
-
+	wstring tempstr1,tempstr2;
+	CString cstr1,cstr2;
 	if (ID == IDD_USER_OPEN_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_EDIT"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pUserOpen->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_USER_NEW_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_NEW"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pUserNew->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_USER_DELETE_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
+		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_DEL"];
+		cstr1 = tempstr1.c_str();
+		cstr2 = tempstr2.c_str();
 		pUserDelete->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_USER_FRESH_DIALOG)
 	{
+		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_FRESH"];
+		cstr1 = tempstr1.c_str();
 		pUserFresh->ShowWindow(SW_SHOW);
+		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 	}
 	else if (ID == 0)
 	{
@@ -252,6 +271,21 @@ HBRUSH CUserDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		pDC->SelectObject(theApp.m_StaticFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_EDIT)
+	{		 
+	// 	pDC->SelectObject(theApp.m_EditFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_StaticBrush;
+	}
+	if(nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SelectObject(theApp.m_ListBoxFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+		return theApp.m_ListBoxBrush;
 	}
 	// TODO:  在此更改 DC 的任何属性
 	pDC->SetBkColor(theApp.m_BKcolor);	

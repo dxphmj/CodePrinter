@@ -25,4 +25,5 @@ public:
 	CImageButton m_returnIB;
 	CImageButton m_okIB;
 	CImageButton m_freshIB;
+	CEdit m_skewValue;
 };

@@ -18,7 +18,13 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 
+
 	DECLARE_MESSAGE_MAP()
+
+public:
+	void Create2Dcode(int nType);
+
+
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedBarcodeCloseBtn();
@@ -40,4 +46,6 @@ public:
 	CImageButton m_code39IB;
 	CImageButton m_code128IB;
 	CImageButton m_okIB;
+	afx_msg void OnBnClickedCode128Btn();
+	afx_msg void OnBnClickedCode39Btn();
 };

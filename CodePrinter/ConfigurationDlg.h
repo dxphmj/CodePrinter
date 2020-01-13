@@ -33,13 +33,14 @@ public:
 	afx_msg void OnBnClickedPrintSetBtn();
 	afx_msg void OnBnClickedOutSetBtn();
 
-	int m_height;
 	CComboBox m_reverse;
 	CComboBox m_inverse;
+	CComboBox m_speedWay;
+
+	int m_height;
 	float m_dotPitch;
 	int m_delay;
 	int m_repeatDis;
-	CComboBox m_speedWay;
 	int m_speed;
 
 	int m_nPcfPic;
