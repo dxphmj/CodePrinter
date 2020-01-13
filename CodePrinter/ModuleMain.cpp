@@ -120,15 +120,25 @@ string ModuleMain::jinzhi10to16(int pre) {
 
 LPCWSTR ModuleMain::stringToLPCWSTR(string orig)
 {
+	//size_t origsize = orig.length() + 1;
+	//const size_t newsize = 100;
+	//size_t convertedChars = 0;
+	//wchar_t *wcstring = (wchar_t *)malloc(sizeof(wchar_t)*(orig.length()-1));
+	//mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
+
+	//return wcstring;
+	return string2CString(orig);
+
 	/*
 	size_t origsize = orig.length() + 1;
 	const size_t newsize = 100;
 	size_t convertedChars = 0;
 	wchar_t *wcstring = (wchar_t *)malloc(sizeof(wchar_t)*(orig.length()-1));
 	mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
-    */
+  
     USES_CONVERSION;  
 	return A2W(orig.c_str());
+  */
 }
 
 string ModuleMain::WcharToChar(const wchar_t* wp, size_t m_encode)
@@ -278,15 +288,18 @@ string ModuleMain::TCHAR2STRING(TCHAR *STR)
 
 {
 
-	int iLen = WideCharToMultiByte(CP_ACP, 0,STR, -1, NULL, 0, NULL, NULL);   //首先计算TCHAR 长度。
+	//int iLen = WideCharToMultiByte(CP_ACP, 0,STR, -1, NULL, 0, NULL, NULL);   //首先计算TCHAR 长度。
 
-	char* chRtn =new char[iLen*sizeof(char)];  //定义一个 TCHAR 长度大小的 CHAR 类型。
+	//char* chRtn =new char[iLen*sizeof(char)];  //定义一个 TCHAR 长度大小的 CHAR 类型。
 
-	WideCharToMultiByte(CP_ACP, 0, STR, -1, chRtn, iLen, NULL, NULL);  //将TCHAR 类型的数据转换为 CHAR 类型。
+	//WideCharToMultiByte(CP_ACP, 0, STR, -1, chRtn, iLen, NULL, NULL);  //将TCHAR 类型的数据转换为 CHAR 类型。
 
-	std::string str(chRtn); //最后将CHAR 类型数据 转换为 STRING 类型数据。
+	//std::string str(chRtn); //最后将CHAR 类型数据 转换为 STRING 类型数据。
 
-	return str;
+	//return str;
+
+	return   UnicodeToUtf8(STR);  
+
 
 }
 
@@ -772,14 +785,28 @@ UINT TTLcomLoop(LPVOID pParam)
 						{
 							if (theApp.myclassMessage.boDynamic)
 							{
-								if (theApp.myclassMessage.ForPreQue.size()>0)
+								if (theApp.ForPreQue.size()>0)
 								{
-									vector<BYTE> tempQueVec=theApp.myclassMessage.ForPreQue.front();
-									theApp.myclassMessage.ForPreQue.pop();
+									vector<BYTE> tempQueVec=theApp.ForPreQue.front();
+									theApp.ForPreQue.pop();
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 									if (strTempCmdLen>11)
 									{////动态显示相关
+										vector<BYTE> intMesDis1;
+										intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
+										theApp.boDotForPreQue.push(intMesDis1);
+										theApp.myclassMessage.intMesDis=theApp.boDotForPreQue.front();
+										theApp.boDotForPreQue.pop();
+										vector<int> tempCountVec;
+										tempCountVec = theApp.intCounNumForPreQue.front();
+
+										theApp.intCounNumForPreQue.pop();
+
+										for (int num=0;num<tempCountVec.size();num++)
+										{
+											theApp.myclassMessage.CountNumForPre[num]=tempCountVec[num];
+										}
 									} 
 									else
 									{
@@ -925,13 +952,56 @@ UINT TTLcomLoop(LPVOID pParam)
 			//	strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 			//}
 			//theApp.boQueCtrLock.Unlock();
+			if (theApp.myclassMessage.boDynamic)
+			{
+				if (theApp.ForPreQue.size()>0)
+				{
+					theApp.boPrintNowLock.Lock();
+						vector<BYTE> tempQueVec=theApp.ForPreQue.front();
+						theApp.ForPreQue.pop();
+					
+						strTempCmdLen=tempQueVec.size();
+						strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+						if (strTempCmdLen>11)
+						{////动态显示相关
+							vector<BYTE> intMesDis1;
+							intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
+							theApp.boDotForPreQue.push(intMesDis1);
+							theApp.myclassMessage.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
+							theApp.boDotForPreQue.pop();
+							vector<int> tempCountVec;
+							if (theApp.intCounNumForPreQue.size()>0)
+							{
+								tempCountVec = theApp.intCounNumForPreQue.front();
+
+								theApp.intCounNumForPreQue.pop();
+
+								for (int num=0;num<tempCountVec.size();num++)
+								{
+									theApp.myclassMessage.CountNumForPre[num]=tempCountVec[num];
+								}
+							}
+						} 
+						else
+						{
+							strTempCmd=(LPTSTR)readArr;
+							strTempCmdLen=8;
+						}
+					theApp.boPrintNowLock.Unlock();
+				} 
+				else
+				{
+					strTempCmd=(LPTSTR)readArr;
+					strTempCmdLen=8;
+				}
+			}
 		}
 
 		//theApp.myCIOVsd.ClearInOutBuf();
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
 		//strTempCmdLen=0;   ////////若发送失败，重新发送
 		//strTempCmd=(LPTSTR)"";
-		Sleep(10);
+		Sleep(1000);
 		
 		theApp.readCount=theApp.myCIOVsd.Read();
 
@@ -950,9 +1020,9 @@ UINT TTLcomLoop(LPVOID pParam)
 //序列号生成线程
 UINT method1(LPVOID pParam)
 {
-	while(1)
+	while(theApp.mythreadDynamicBoo)
 	{
-		if (theApp.myclassMessage.ForPreQue.size()<2)
+		if (theApp.ForPreQue.size()<2)
 		{
 			if (theApp.myclassMessage.bytSerialConCoun>0)
 			{
@@ -1216,9 +1286,12 @@ UINT method1(LPVOID pParam)
 						break;
 					}
 					int intRowEnd=theApp.myclassMessage.intQSerialRowStart[i] + theApp.myclassMessage.intQSerialRowSize[i];
-					theApp.myclassMessage.bytPrintDataAll=theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intQSerialRowStart[i], intRowEnd, theApp.myclassMessage.bytPrintDataAll, theApp.myclassMessage.strQSerialFont[i], 
+					vector<BYTE> ttVec;
+					ttVec=theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intQSerialRowStart[i], intRowEnd, theApp.myclassMessage.bytPrintDataAll, theApp.myclassMessage.strQSerialFont[i], 
 						theApp.myclassMessage.boQSerialBWDy[i], theApp.myclassMessage.boQSerialBWDx[i], theApp.myclassMessage.boQSerialNEG[i], StrSerialText, theApp.myclassMessage.intQSerialRowSize[i], 
 						theApp.myclassMessage.bytQSerialLineSize[i],theApp.myclassMessage.bytQSerialLineStart[i], theApp.myclassMessage.intQSerialRowStart[i], theApp.myclassMessage.bytQSerialSS[i], theApp.myclassMessage.bytQSerialSW[i]);
+					theApp.myclassMessage.bytPrintDataAll.clear();
+					theApp.myclassMessage.bytPrintDataAll=ttVec;
 				}
 			}
 
@@ -1235,24 +1308,30 @@ UINT method1(LPVOID pParam)
 				for (int j=0;j<theApp.myclassMessage.bytTimeConCoun;j++)
 				{
 					int intRowEnd=theApp.myclassMessage.intTimeRowStart[j] + theApp.myclassMessage.intTimeRowSize[j];
+					vector<BYTE> ttVec;
 					if (strETimetext1[j].length()!=0)
 					{
-						theApp.myclassMessage.bytPrintDataAll = theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intTimeRowStart[j], intRowEnd, theApp.myclassMessage.bytPrintDataAll, 
+						ttVec = theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intTimeRowStart[j], intRowEnd, theApp.myclassMessage.bytPrintDataAll, 
 							theApp.myclassMessage.strTimeFont[j], theApp.myclassMessage.boTimeBWDy[j], theApp.myclassMessage.boTimeBWDx[j], theApp.myclassMessage.boTimeNEG[j], 
 							strETimetext1[j], theApp.myclassMessage.intTimeRowSize[j], theApp.myclassMessage.bytTimeLineSize[j], theApp.myclassMessage.bytTimeLineStart[j], 
 							theApp.myclassMessage.intTimeRowStart[j], theApp.myclassMessage.bytTimeSS[j], theApp.myclassMessage.bytTimeSW[j]);
+						theApp.myclassMessage.bytPrintDataAll.clear();
+						theApp.myclassMessage.bytPrintDataAll=ttVec;
 					}
 				}
 				delete []strETimetext1;
 			}
 			vector<BYTE> bytPrintDataAll1=theApp.myclassMessage.bytPrintDataAll;
-			theApp.myclassMessage.ForPreQue.push(bytPrintDataAll1);
+			theApp.boPrintNowLock.Lock();
+			theApp.ForPreQue.push(bytPrintDataAll1);
+			
 			vector<int> tempCounNum;
 			tempCounNum.push_back(theApp.myclassMessage.CountNum0);
 			tempCounNum.push_back(theApp.myclassMessage.CountNum1);
 			tempCounNum.push_back(theApp.myclassMessage.CountNum2);
 			tempCounNum.push_back(theApp.myclassMessage.CountNum3);
-			theApp.myclassMessage.intCounNumForPreQue.push(tempCounNum);
+			theApp.intCounNumForPreQue.push(tempCounNum);
+			theApp.boPrintNowLock.Unlock();
 
 		}
 		else 
@@ -1460,7 +1539,7 @@ void ModuleMain::getSerialDotBuf2()
 	tempCounNum.push_back(theApp.myclassMessage.CountNum1);
 	tempCounNum.push_back(theApp.myclassMessage.CountNum2);
 	tempCounNum.push_back(theApp.myclassMessage.CountNum3);
-	theApp.myclassMessage.intCounNumForPreQue.push(tempCounNum);
+	theApp.intCounNumForPreQue.push(tempCounNum);
 
 	for (int j=0;j<theApp.myclassMessage.bytSerialConCoun;j++)
 	{
@@ -1478,5 +1557,116 @@ void ModuleMain::getSerialDotBuf2()
 	}
 	vector<BYTE> bytPrintDataAll1;
 	bytPrintDataAll1.assign(theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
-	theApp.myclassMessage.ForPreQue.push(bytPrintDataAll1);
+	theApp.ForPreQue.push(bytPrintDataAll1);
 }
+
+std::string ModuleMain::ASCToUTF8(const std::string& str) 
+{
+	int unicodeLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);   
+	wchar_t *pUnicode = new  wchar_t[unicodeLen + 1];   
+	memset(pUnicode, 0, (unicodeLen + 1) * sizeof(wchar_t));  
+	::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, (LPWSTR)pUnicode, unicodeLen);  
+	std::wstring wrt = (wchar_t*)pUnicode;    delete  pUnicode;   
+	int iTextLen = WideCharToMultiByte(CP_UTF8, 0, wrt.c_str(), -1, NULL, 0, NULL, NULL);  
+	char *pElementText = new char[iTextLen + 1];   
+	memset((void*)pElementText, 0, sizeof(char) * (iTextLen + 1)); 
+	::WideCharToMultiByte(CP_UTF8, 0, wrt.c_str(), -1, pElementText, iTextLen, NULL, NULL);   
+	std::string strText = pElementText;    delete pElementText;    
+	return strText;
+}
+
+
+//字符转换库
+wstring ModuleMain::AsciiToUnicode(const string& str) {  
+	// 预算-缓冲区中宽字节的长度    
+	int unicodeLen = MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, nullptr, 0);  
+	// 给指向缓冲区的指针变量分配内存    
+	wchar_t *pUnicode = (wchar_t*)malloc(sizeof(wchar_t)*unicodeLen);  
+	// 开始向缓冲区转换字节    
+	MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, pUnicode, unicodeLen);  
+	wstring ret_str = pUnicode;  
+	free(pUnicode);  
+	return ret_str;  
+}  
+string ModuleMain::UnicodeToAscii(const wstring& wstr) {  
+	// 预算-缓冲区中多字节的长度    
+	int ansiiLen = WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);  
+	// 给指向缓冲区的指针变量分配内存    
+	char *pAssii = (char*)malloc(sizeof(char)*ansiiLen);  
+	// 开始向缓冲区转换字节    
+	WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), -1, pAssii, ansiiLen, nullptr, nullptr);  
+	string ret_str = pAssii;  
+	free(pAssii);  
+	return ret_str;  
+}  
+wstring ModuleMain::Utf8ToUnicode(const string& str) {  
+	// 预算-缓冲区中宽字节的长度    
+	int unicodeLen = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);  
+	// 给指向缓冲区的指针变量分配内存    
+	wchar_t *pUnicode = (wchar_t*)malloc(sizeof(wchar_t)*unicodeLen);  
+	// 开始向缓冲区转换字节    
+	MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, pUnicode, unicodeLen);  
+	wstring ret_str = pUnicode;  
+	free(pUnicode);  
+	return ret_str;  
+}  
+string ModuleMain::UnicodeToUtf8(const wstring& wstr) {  
+	// 预算-缓冲区中多字节的长度    
+	int ansiiLen = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);  
+	// 给指向缓冲区的指针变量分配内存    
+	char *pAssii = (char*)malloc(sizeof(char)*ansiiLen);  
+	// 开始向缓冲区转换字节    
+	WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, pAssii, ansiiLen, nullptr, nullptr);  
+	string ret_str = pAssii;  
+	free(pAssii);  
+	return ret_str;  
+}  
+string ModuleMain::AsciiToUtf8(const string& str) {  
+	return UnicodeToUtf8(AsciiToUnicode(str));  
+}  
+string ModuleMain::Utf8ToAscii(const string& str) {  
+	return UnicodeToAscii(Utf8ToUnicode(str));  
+}  
+// ASCII与Unicode互转  
+CStringW    ModuleMain::AsciiToUnicode_CSTR(const CStringA& str) {  
+	return AsciiToUnicode(LPCSTR(str)).c_str();  
+}  
+CStringA    ModuleMain::UnicodeToAscii_CSTR(const CStringW& wstr) {  
+	return UnicodeToAscii(LPCWSTR(wstr)).c_str();  
+}  
+// UTF8与Unicode互转  
+CStringW    ModuleMain::Utf8ToUnicode_CSTR(const CStringA& str) {  
+	return Utf8ToUnicode(LPCSTR(str)).c_str();  
+}  
+CStringA    ModuleMain::UnicodeToUtf8_CSTR(const CStringW& wstr) {  
+	return UnicodeToUtf8(LPCWSTR(wstr)).c_str();  
+}  
+// ASCII与UTF8互转  
+CStringA    ModuleMain::AsciiToUtf8_CSTR(const CStringA& str) {  
+	return UnicodeToUtf8_CSTR(AsciiToUnicode_CSTR(str));  
+}  
+CStringA    ModuleMain::Utf8ToAscii_CSTR(const CStringA& str) {  
+	return UnicodeToAscii_CSTR(Utf8ToUnicode_CSTR(str));  
+}  
+// string 与 Int 互转  
+int ModuleMain::StringToInt(const string& str) {  
+	return atoi(str.c_str());  
+}  
+string ModuleMain::IntToString(int i) {  
+	char ch[1024];  
+	memset(ch, 0, 1024);  
+	sprintf_s(ch, sizeof(ch), "%d", i);  
+	return ch;  
+}  
+string ModuleMain::IntToString(char i) {  
+	char ch[1024];  
+	memset(ch, 0, 1024);  
+	sprintf_s(ch, sizeof(ch), "%c", i);  
+	return ch;  
+}  
+string ModuleMain::IntToString(double i) {  
+	char ch[1024];  
+	memset(ch, 0, 1024);  
+	sprintf_s(ch, sizeof(ch), "%f", i);  
+	return ch;  
+}  

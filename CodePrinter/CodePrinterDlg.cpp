@@ -229,6 +229,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 
 #ifndef _DEBUG
+//#ifdef def_ttl
 	//串口初始化
 	theApp.myModuleMain.InitCommMsg();
 #endif
@@ -315,10 +316,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pPcfConfig.m_pcfName);
 	m_Confi->pcfNameDlg=pPcfConfig.m_pcfName;
-*/	
+	
 
 #ifndef _DEBUG
 //#ifdef def_ttl
+
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
 	strTempCmd=(LPTSTR)readArr;	 
@@ -1257,6 +1259,9 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
+	   CTime tmSCan=CTime::GetCurrentTime();
+	   CString szTime=tmSCan.Format(_T("'%Y-%m-%d %H:%M:%S'"));
+	   GetDlgItem(IDC_TIME_STATIC)->SetWindowText(szTime);
 		 //KillTimer(TIMER1);
 		 if (theApp.myUserPower.isChangeUser)
 		 {
@@ -1926,12 +1931,18 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		m_systemDate = theApp.myclassMessage.to_String(localT.GetYear())+"-"+theApp.myclassMessage.to_String(localT.GetMonth())+"-"+theApp.myclassMessage.to_String(localT.GetDay());		
 		GetDlgItem(IDC_TIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(m_systemDate));
 		GetDlgItem(IDC_CURRENTTIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(CCodePrinterDlg::m_currentTime));
-
+			
 		//产品计数器
 		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
 
+		if (theApp.myclassMessage.boDynamic)
+		{
+			if (theApp.myclassMessage.boCountEn[0])
+			{
+			}
+		}
 		//SetTimer(TIMER1,300,NULL);	
 	}
 
