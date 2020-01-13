@@ -108,10 +108,10 @@ namespace MyNameSpace
 		//vector<BYTE> bytTempDataVec;
 
        /////////////////////////////////////////////
-        queue<vector<BYTE>> ForPreQue;//序列号队列
+        
 		bool CounterEditMes[4];
 		///xiansiyong
-		queue<vector<BYTE>> boDotForPreQue;//动态显示队列
+		
 		vector<BYTE> intMesDis;
 		int bytSerialConCoundis;
 		int intDotMesRowdis;
@@ -119,7 +119,7 @@ namespace MyNameSpace
 		int pixelMesdis;
 		bool boReversedis, boInversedis;
 		int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4], intQSerialRowSizedis[4], intQSerialRowStartdis[4];
-		queue<vector<int>> intCounNumForPreQue ; //'主界面及计数器显示动态字符池
+		
 		int CountNumForPre[4];
 		///时间
 		int bytTimeConCoun ;

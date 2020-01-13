@@ -219,7 +219,8 @@ void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 	bmpObj.strText=theApp.myModuleMain.CString2string(str);
 	bmpObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
-
+	delete QRTEXT;
+	delete qrCode;
 }
 
 void CBarCodeDlg::OnCbnSelchangeBarcodeVersionCombo()

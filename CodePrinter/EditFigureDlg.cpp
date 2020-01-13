@@ -325,6 +325,6 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	tempObj.bytSerialFormat=m_FormatBox.GetCurSel();
 	tempObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
-	theApp.myclassMessage.CounterEditMes[tempObj.intSerialCounter-1]=true;
+	theApp.myclassMessage.CounterEditMes[tempObj.intSerialCounter]=true;
 	this->ShowWindow(SW_HIDE);
 }

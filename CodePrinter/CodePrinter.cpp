@@ -32,7 +32,7 @@ CCodePrinterApp theApp;
 
 BOOL CCodePrinterApp::InitInstance()
 {
-
+	mainPicPixel=7;
 	if (!AfxSocketInit())
 	{
 		AfxMessageBox(IDP_SOCKETS_INIT_FAILED);

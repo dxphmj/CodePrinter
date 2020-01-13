@@ -151,7 +151,14 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
 	CString strText;
 	pEdit-> GetWindowText(strText);
-	tempObj.strText=theApp.myModuleMain.CString2string(strText);
+	//tempObj.strText=theApp.myModuleMain.CString2string(strText);
+	tempObj.strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+	//USES_CONVERSION;
+	////函数T2A和W2A均支持ATL和MFC中的字符
+	////char * pFileName = T2A(str);  
+	//const char * tempTEXT = W2A(strText.GetBuffer(0));
+	//tempObj.strText=tempTEXT;
+	//delete tempTEXT;
 	//tempObj.strText="中国";
 	CString  fontText;
 	int nIndex = fontComboBox.GetCurSel();  //当前选中的项
