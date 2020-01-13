@@ -33,6 +33,11 @@ void CUserNewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_USER_NEW_UNAUTHORIZED_STATIC, m_newUnauthorizedStatic);
 	DDX_Control(pDX, IDC_NEW_PASSWARD_STATIC, m_newPasswordStatic);
 	DDX_Control(pDX, IDC_USER_NEW_AUTHORIZED_STATIC, m_newAuthorizedStatic);
+
+	DDX_Control(pDX, IDC_USER_NAME_EDIT, m_new_userNameEdit);
+	DDX_Control(pDX, IDC_PASSWARD_EDIT, m_new_passwordEdit);
+	DDX_Control(pDX, IDC_NOT_GRANTED_LIST, m_notGrantedList);
+	DDX_Control(pDX, IDC_GRANTED_LIST, m_grantedList);
 }
 
 
@@ -74,6 +79,13 @@ BOOL CUserNewDlg::OnInitDialog()
 	m_pRight_move.SizeToContent(); 
 	m_pLeft_move.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_pLeft_move.SizeToContent(); 
+
+	m_new_userNameEdit.SetFont(theApp.m_EditFont);
+	m_new_passwordEdit.SetFont(theApp.m_EditFont);
+
+	m_notGrantedList.SetItemHeight(0,20);
+	m_grantedList.SetItemHeight(0,20);
+
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control

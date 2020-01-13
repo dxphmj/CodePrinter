@@ -43,4 +43,11 @@ public:
 	CCustomStatic m_counterStatic;
 	CCustomStatic m_fontStatic;
 	CCustomStatic m_formatStatic;
+	CEdit m_previewEdit;
+	CEdit m_firstQuartileEdit;
+	CEdit m_fourQuartileEdit;
+	CEdit m_startEdit;
+	CEdit m_stepSizeEdit;
+	CEdit m_repeatCountEdit;
+	CEdit m_bitDataEdit;
 };

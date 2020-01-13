@@ -49,4 +49,7 @@ public:
 
 	CCustomStatic m_curUsersStatic;
 	CCustomStatic m_userNameStatic;
+	CEdit m_nowUserEdit;
+	CListBox m_allUserList;
+
 };

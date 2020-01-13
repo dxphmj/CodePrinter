@@ -31,4 +31,7 @@ public:
 	virtual BOOL OnInitDialog();
 	CCustomStatic m_freshUserNameStatic;
 	CCustomStatic m_freshPasswordStatic;
+
+	CListBox m_userNameList;
+	CEdit m_passwordEdit;
 };

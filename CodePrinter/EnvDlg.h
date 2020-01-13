@@ -31,4 +31,6 @@ public:
 	CCustomStatic m_evn_timeStatic;
 	CCustomStatic m_evn_dateStatic;
 	CCustomStatic m_evn_languageStatic;
+	CEdit m_envTimeEdit;
+	CEdit m_envDateEdit;
 };

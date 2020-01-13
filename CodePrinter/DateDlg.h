@@ -1,6 +1,7 @@
 #pragma once
 #include "ImageButton.h"
 #include "CustomStatic.h"
+#include "afxwin.h"
 
 // CDateDlg ¶Ô»°¿ò
 
@@ -34,4 +35,11 @@ public:
 	CCustomStatic m_skewStatic;
 	CCustomStatic m_skewVauleStatic;
 	CCustomStatic m_skewUnitStatic;
+	afx_msg void OnCbnSelchangeDateSkewCombo();
+
+	CListBox m_formatList;
+	CListBox m_skewUnitList;
+	CComboBox m_dateFontCombo;
+	CComboBox m_dateSkewCombo;
+
 };

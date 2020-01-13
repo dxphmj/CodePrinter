@@ -48,4 +48,5 @@ public:
 	CCustomStatic m_setupLastTimeStatic;
 	CCustomStatic m_setupSolLevStatic;
 	CCustomStatic m_setupInkLevStatic;
+	CCustomStatic m_timeResetStatic;
 };

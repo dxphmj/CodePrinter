@@ -33,12 +33,17 @@ void CDateDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATE_SKEW_STATIC, m_skewStatic);
 	DDX_Control(pDX, IDC_DATE_SKEW_VALUE_STATIC, m_skewVauleStatic);
 	DDX_Control(pDX, IDC_DATE_SKEW_UNIT_STATIC, m_skewUnitStatic);
+	DDX_Control(pDX, IDC_FORMAT_LIST, m_formatList);
+	DDX_Control(pDX, IDC_SKEW_UNIT_LIST, m_skewUnitList);
+	DDX_Control(pDX, IDC_DATE_FONT_COMBO, m_dateFontCombo);
+	DDX_Control(pDX, IDC_DATE_SKEW_COMBO, m_dateSkewCombo);
 }
 
 
 BEGIN_MESSAGE_MAP(CDateDlg, CDialog)
 	ON_BN_CLICKED(IDC_DATE_CLOSE_BTN, &CDateDlg::OnBnClickedDateCloseBtn)
 	ON_WM_CTLCOLOR()
+	ON_CBN_SELCHANGE(IDC_DATE_SKEW_COMBO, &CDateDlg::OnCbnSelchangeDateSkewCombo)
 END_MESSAGE_MAP()
 
 
@@ -64,6 +69,15 @@ BOOL CDateDlg::OnInitDialog()
 	m_freshIB.SizeToContent(); 
 
 	m_skewValue.SetFont(theApp.m_EditFont);
+	m_formatList.SetItemHeight(0,20);
+	m_skewUnitList.SetItemHeight(0,20);
+	m_dateFontCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_dateFontCombo.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_dateFontCombo.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+
+	m_dateSkewCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_dateSkewCombo.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_dateSkewCombo.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -104,4 +118,8 @@ HBRUSH CDateDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+void CDateDlg::OnCbnSelchangeDateSkewCombo()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }

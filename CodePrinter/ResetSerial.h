@@ -1,0 +1,24 @@
+#pragma once
+
+
+// CResetSerial 对话框
+
+class CResetSerial : public CDialog
+{
+	DECLARE_DYNAMIC(CResetSerial)
+
+public:
+	CResetSerial(CWnd* pParent = NULL);   // 标准构造函数
+	virtual ~CResetSerial();
+
+// 对话框数据
+	enum { IDD = IDD_RESET_SERIAL_DIALOG };
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+
+	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedResetSerialReturnBtn();
+};

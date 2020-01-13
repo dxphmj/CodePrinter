@@ -37,5 +37,10 @@ public:
 	CCustomStatic m_newUnauthorizedStatic;
 	CCustomStatic m_newPasswordStatic;
 	CCustomStatic m_newAuthorizedStatic;
-	
+
+	CEdit m_new_userNameEdit;
+	CEdit m_new_passwordEdit;
+
+	CListBox m_notGrantedList;
+	CListBox m_grantedList;
 };

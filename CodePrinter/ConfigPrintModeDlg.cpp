@@ -83,14 +83,17 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 	m_printMode.AddString(L"OFF");
 	m_printMode.AddString(L"Continuous");
 	m_printMode.SetCurSel(0);
+	m_printMode.SetItemHeight(0,20);
 
 	m_workList.AddString(L"OFF");
 	m_workList.AddString(L"ON");
 	m_workList.SetCurSel(0);
+	m_workList.SetItemHeight(0,20);
 
 	m_virtualPrint.AddString(L"OFF");
 	m_virtualPrint.AddString(L"ON");
 	m_virtualPrint.SetCurSel(0);
+	m_virtualPrint.SetItemHeight(0,20);
 
 	GetDlgItem(IDC_CONFIG_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CONFIG_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
