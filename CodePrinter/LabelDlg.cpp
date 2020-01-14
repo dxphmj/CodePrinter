@@ -1109,10 +1109,32 @@ void CLabelDlg::getMessageDot()
 			}
 			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="time")
 			{
+				int ss=1;
+				ss=ss+1;
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="logo")
+			{
+				theApp.myclassMessage.OBJ_Vec[i].ReadBmp(const_cast<char*>(theApp.myclassMessage.OBJ_Vec[i].strText.c_str()));
+				for (int y=theApp.myclassMessage.OBJ_Vec[i].intLineStart;y<theApp.myclassMessage.OBJ_Vec[i].intLineSize;y++)
+				{
+					for (int x=0;x<theApp.myclassMessage.OBJ_Vec[i].intRowSize;x++)
+					{
+						theApp.myclassMessage.boDotMes[y+theApp.myclassMessage.OBJ_Vec[i].intLineStart][x+theApp.myclassMessage.OBJ_Vec[i].intRowStart]=theApp.myclassMessage.OBJ_Vec[i].boDotBmp[y][x];
+					}
+				}
+				if (theApp.myclassMessage.intRowMax<(theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart))
+				{
+					theApp.myclassMessage.intRowMax=theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart;
+				}
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="qrcode")//二维码
+			{
+				int tt=0;
+				tt=tt+1;
 			}
 			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="serial")
 			{
-				theApp.myclassMessage.boDynamic=true;
+				
 				theApp.myclassMessage.intQSerialFirstLimit[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialFirstLimit;
 				theApp.myclassMessage.intQSerialSecondLimit[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialSecondLimit;
 				theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialStartValue;
@@ -1121,6 +1143,7 @@ void CLabelDlg::getMessageDot()
 				theApp.myclassMessage.bytQSerialDigits[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialDigits;
 				theApp.myclassMessage.bytQSerialFormat[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat;
 				theApp.myclassMessage.bytQserialCounter[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialCounter;
+				theApp.myclassMessage.boDynamic=true;
 				switch(theApp.myclassMessage.bytQserialCounter[theApp.myclassMessage.bytSerialConCoun])
 				{
 				case 0:
@@ -1243,24 +1266,7 @@ void CLabelDlg::getMessageDot()
 					theApp.myclassMessage.OBJ_Vec[i].intRowSize,theApp.myclassMessage.OBJ_Vec[i].intLineSize,theApp.myclassMessage.OBJ_Vec[i].intLineStart,theApp.myclassMessage.OBJ_Vec[i].intRowStart,theApp.myclassMessage.OBJ_Vec[i].intSS,theApp.myclassMessage.OBJ_Vec[i].intSW);
 
 			}
-			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="logo")
-			{
-				theApp.myclassMessage.OBJ_Vec[i].ReadBmp(const_cast<char*>(theApp.myclassMessage.OBJ_Vec[i].strText.c_str()));
-				for (int i=theApp.myclassMessage.OBJ_Vec[i].intLineStart;i<theApp.myclassMessage.OBJ_Vec[i].intLineSize;i++)
-				{
-					for (int j=0;j<theApp.myclassMessage.OBJ_Vec[i].intRowSize;j++)
-					{
-						theApp.myclassMessage.boDotMes[i][j+theApp.myclassMessage.OBJ_Vec[i].intRowStart]=theApp.myclassMessage.OBJ_Vec[i].boDotBmp[i][j];
-					}
-				}
-				if (theApp.myclassMessage.intRowMax<(theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart))
-				{
-					theApp.myclassMessage.intRowMax=theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart;
-				}
-			}
-			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="qrcode")//二维码
-			{
-			}
+
 		} 
 		else//目前没有else情况
 		{
