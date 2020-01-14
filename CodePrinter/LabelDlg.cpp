@@ -915,7 +915,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
 	{
-		theApp.boDrawMainPic=true;//标签
+		//theApp.boDrawMainPic=true;//标签
 		delete []theApp.myclassMessage.IntMes;
 		theApp.myclassMessage.IntMes=new UINT32[theApp.myclassMessage.intRowMax];
 		memset(theApp.myclassMessage.IntMes, 0, sizeof(UINT32)*theApp.myclassMessage.intRowMax);

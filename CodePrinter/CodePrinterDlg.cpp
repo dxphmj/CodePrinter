@@ -450,6 +450,7 @@ void CCodePrinterDlg::OnBnClickedPauseprintButton()
 
 void CCodePrinterDlg::showDlg(int ID)
 {
+	theApp.boDrawMainPic=false;
 	m_Fault->ShowWindow(SW_HIDE);
 	m_System->ShowWindow(SW_HIDE);
 	m_User->ShowWindow(SW_HIDE);
@@ -1259,6 +1260,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
+		//系统日期
 	   CTime tmSCan=CTime::GetCurrentTime();
 	   CString szTime=tmSCan.Format(_T("%Y-%m-%d %H:%M:%S"));
 	   GetDlgItem(IDC_TIME_STATIC)->SetWindowText(szTime);
@@ -1926,11 +1928,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			m_ButFault.SizeToContent(); 
 		}
         m_ButFault.Invalidate();
-		//系统日期
-		//string m_systemDate;
-		//m_systemDate = theApp.myclassMessage.to_String(localT.GetYear())+"-"+theApp.myclassMessage.to_String(localT.GetMonth())+"-"+theApp.myclassMessage.to_String(localT.GetDay());		
-		//GetDlgItem(IDC_TIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(m_systemDate));
-		//GetDlgItem(IDC_CURRENTTIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(CCodePrinterDlg::m_currentTime));
+		
 			
 		//产品计数器
 		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));

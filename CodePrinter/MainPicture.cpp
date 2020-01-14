@@ -138,7 +138,7 @@ void MainPicture::OnPaint()
 	dcMem.DeleteDC();      // É¾³ýÄÚ´æDC
 	bitmapTemp.DeleteObject();      // É¾³ýÄÚ´æÎ»Í¼
 	//theApp.myclassMessage.DrawDot(pDC);
-
+	theApp.boDrawMainPic=true;
 	ReleaseDC(pDC); 
 }
 
@@ -734,6 +734,7 @@ UINT methoddis(LPVOID pParam)
 				}
 			}
 		}
+		Sleep(50);
 	}
 
 	//É¾³ý
