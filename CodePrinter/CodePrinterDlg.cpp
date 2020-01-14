@@ -110,6 +110,7 @@ BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
 	ON_WM_TIMER()
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_RESET_COUNT_BTN, &CCodePrinterDlg::OnBnClickedResetCountBtn)
+	ON_BN_CLICKED(IDC_RESET_SERIAL_BTN, &CCodePrinterDlg::OnBnClickedResetSerialBtn)
 END_MESSAGE_MAP()
 
 
@@ -144,6 +145,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
+	m_resetSerial = new CResetSerial;
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -179,6 +181,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Label->Create(IDD_LABEL_DIALOG,this);
 	m_Label->MoveWindow(nX,nY,nWidth,nHeight); 
 	
+	m_resetSerial->Create(IDD_RESET_SERIAL_DIALOG,this);
+	m_resetSerial->MoveWindow(nX,nY,nWidth,nHeight); 
 	 
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
@@ -448,6 +452,12 @@ void CCodePrinterDlg::OnBnClickedPauseprintButton()
 	theApp.myStatusClass.download_inksystem_control03();
 }
 
+void CCodePrinterDlg::OnBnClickedResetSerialBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	showDlg(IDD_RESET_SERIAL_DIALOG);
+}
+
 void CCodePrinterDlg::showDlg(int ID)
 {
 	theApp.boDrawMainPic=false;
@@ -458,6 +468,7 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
+	m_resetSerial->ShowWindow(SW_HIDE);
 	wstring tempstr,tempstr2;
 	CString cstr,cstr2;
 	if(ID == IDD_SYSTEM_DIALOG)
@@ -526,6 +537,10 @@ void CCodePrinterDlg::showDlg(int ID)
 	{
 		m_OnOff->ShowWindow(SW_SHOW);
 	}*/
+	else if(ID == IDD_RESET_SERIAL_DIALOG)
+	{
+		m_resetSerial->ShowWindow(SW_SHOW);
+	}
 }
 
 void CCodePrinterDlg::UpdateValve()

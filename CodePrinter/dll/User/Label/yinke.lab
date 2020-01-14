@@ -1,0 +1,37 @@
+﻿<MES>
+  <PRO>
+    <Matrix>1L25M</Matrix>
+    <Pixel>25</Pixel>
+    <Reverse>GLOBAL</Reverse>
+    <Inverse>GLOBAL</Inverse>
+  </PRO>
+  <OBJ>
+    <TYPE1>text</TYPE1>
+    <TYPE2>logo</TYPE2>
+    <LineStart>0</LineStart>
+    <RowStart>48</RowStart>
+    <LineSize>25</LineSize>
+    <RowSize>50</RowSize>
+    <SW>1</SW>
+    <SS>0</SS>
+    <NEG>False</NEG>
+    <BWDx>False</BWDx>
+    <BWDy>False</BWDy>
+    <setTEXT>\Storage Card\User\Logo\incode.bmp</setTEXT>
+  </OBJ>
+  <OBJ>
+    <TYPE1>text</TYPE1>
+    <TYPE2>text</TYPE2>
+    <LineStart>7</LineStart>
+    <RowStart>0</RowStart>
+    <LineSize>12</LineSize>
+    <RowSize>48</RowSize>
+    <SW>1</SW>
+    <SS>0</SS>
+    <NEG>False</NEG>
+    <BWDx>False</BWDx>
+    <BWDy>False</BWDy>
+    <setFONT>12x12</setFONT>
+    <setTEXT>广州印科</setTEXT>
+  </OBJ>
+</MES>

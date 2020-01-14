@@ -100,6 +100,12 @@ void CLabelDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_STATIC_ISBNG, m_picBNG);
 	DDX_Control(pDX, IDC_STATIC_ISOVERTURN, m_picOverturn);
+	DDX_Control(pDX, IDC_MATRIX_STATIC, m_matrixStatic);
+	DDX_Control(pDX, IDC_PIXEL_STATIC, m_pixelStatic);
+	DDX_Control(pDX, IDC_REVERSAL_STATIC, m_reversalStatic);
+	DDX_Control(pDX, IDC_PERVERSION_STATIC, m_perversionStatic);
+	DDX_Control(pDX, IDC_REVERSAL_COMBO, m_reversalCombo);
+	DDX_Control(pDX, IDC_PERVERSION_COMBO, m_reversionCombo);
 }
 
 
@@ -191,9 +197,24 @@ BOOL CLabelDlg::OnInitDialog()
 	ComboMatrix.AddString(_T("1L25M"));
 	ComboMatrix.AddString(_T("2L7M"));
 	ComboMatrix.SetCurSel(1);
+	ComboMatrix.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	ComboMatrix.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	ComboMatrix.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 	this->OnCbnSelchangeComboMatrix();
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
+
+	pixelComboBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	pixelComboBox.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	pixelComboBox.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
  
+	m_reversalCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
+
+	m_reversionCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
+
 	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CLOSE_F_EDIT)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetFont(theApp.m_EditFont);

@@ -34,4 +34,5 @@ public:
 	CCustomStatic m_textStatic;
 	CCustomStatic m_fontStatic;
 	CCustomStatic m_dataFieldStatic;
+	CEdit m_textEdit;
 };

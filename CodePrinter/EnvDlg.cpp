@@ -60,6 +60,8 @@ void CEnvDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ENV_TIME_STATIC, m_evn_timeStatic);
 	DDX_Control(pDX, IDC_ENV_DATE_STATIC, m_evn_dateStatic);
 	DDX_Control(pDX, IDC_LANGUAGE_STATIC, m_evn_languageStatic);
+	DDX_Control(pDX, IDC_ENV_TIME_EDIT, m_envTimeEdit);
+	DDX_Control(pDX, IDC_ENV_DATE_EDIT, m_envDateEdit);
 }
 
 
@@ -109,9 +111,12 @@ BOOL CEnvDlg::OnInitDialog()
 
 	CRect rect1;
 	GetDlgItem(IDC_LAN_SEL_BUTTON)->GetWindowRect(&rect1);
-	GetDlgItem(IDC_LAN_SEL_BUTTON)->SetWindowPos(NULL,rect1.left,rect1.top,70,45,SWP_SHOWWINDOW);
-	m_ButLanSel.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_FRESH1_BITMAP);
+	GetDlgItem(IDC_LAN_SEL_BUTTON)->SetWindowPos(NULL,rect1.left,rect1.top,80,55,SWP_SHOWWINDOW);
+	m_ButLanSel.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_80_55_BITMAP);
 
+	m_langeageList.SetItemHeight(0,20);
+	m_envTimeEdit.SetFont(theApp.m_EditFont);
+	m_envDateEdit.SetFont(theApp.m_EditFont);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

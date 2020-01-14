@@ -30,6 +30,7 @@ void CEditTextDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, Static_Text, m_textStatic);
 	DDX_Control(pDX, Static_Font, m_fontStatic);
 	DDX_Control(pDX, Static_DataField, m_dataFieldStatic);
+	DDX_Control(pDX, IDC_EDIT1, m_textEdit);
 }
 
 
@@ -53,8 +54,10 @@ BOOL CEditTextDlg::OnInitDialog()
 	fontComboBox.AddString(_T("7x5"));
 	fontComboBox.AddString(_T("12x12"));
 	fontComboBox.AddString(_T("16x12"));
-
 	fontComboBox.SetCurSel(1);
+	fontComboBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	fontComboBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	fontComboBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	GetDlgItem(IDC_EDITTEXT_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BUTTON_EDITOK)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
@@ -63,6 +66,8 @@ BOOL CEditTextDlg::OnInitDialog()
 	m_returnIB.SizeToContent(); 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
+
+	m_textEdit.SetFont(theApp.m_EditFont);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

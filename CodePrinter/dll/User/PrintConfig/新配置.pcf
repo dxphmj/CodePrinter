@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+  <ErrorStopPrinting>OFF</ErrorStopPrinting>
+  <PrintHeight>70</PrintHeight>
+  <Reverse>ON</Reverse>
+  <Inverse>OFF</Inverse>
+  <Way>Fixed</Way>
+  <EncoderSignal>1 Phase</EncoderSignal>
+  <FrequencyMultiplier>OFF</FrequencyMultiplier>
+  <DotPitch>0.423</DotPitch>
+  <Speed>20</Speed>
+  <Delay>100</Delay>
+  <PrintMode>OFF</PrintMode>
+  <RepeatDistance>300</RepeatDistance>
+  <ProductSensor>ON</ProductSensor>
+  <ActiveLevel>Low</ActiveLevel>
+  <ForwardDirection>Forward</ForwardDirection>
+  <ImpulsesRoration>2500</ImpulsesRoration>
+  <Cirumference>200</Cirumference>
+  <TriggerLength>300</TriggerLength>
+</Config>

@@ -36,6 +36,8 @@ void CUserDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_USER_CURUSERS_STATIC, m_curUsersStatic);
 	DDX_Control(pDX, IDC_USER_NAME_STATIC, m_userNameStatic);
+	DDX_Control(pDX, IDC_EDIT_NOWUSER, m_nowUserEdit);
+	DDX_Control(pDX, IDC_LIST_ALLUSER, m_allUserList);
 }
 
 
@@ -113,7 +115,8 @@ BOOL CUserDlg::OnInitDialog()
 	m_userOk.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_userOk.SizeToContent(); 
 
-
+	m_nowUserEdit.SetFont(theApp.m_EditFont);
+	m_allUserList.SetItemHeight(0,20);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

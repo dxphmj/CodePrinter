@@ -46,6 +46,7 @@ void CInkSetupDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_INK_SETUP_LASTTIME_STATIC, m_setupLastTimeStatic);
 	DDX_Control(pDX, IDC_INKSETUP_SOL_LEV_JUST_STATIC, m_setupSolLevStatic);
 	DDX_Control(pDX, IDC_INK_SETUP_INK_LEV_JUSTSTATIC, m_setupInkLevStatic);
+	DDX_Control(pDX, IDC_STATIC_TIMEREST_SETUP, m_timeResetStatic);
 }
 
 
@@ -66,11 +67,13 @@ BOOL CInkSetupDlg::OnInitDialog()
 	m_sizeList.AddString(L"50");
 	m_sizeList.AddString(L"60");
 	m_sizeList.SetCurSel(2);
+	m_sizeList.SetItemHeight(0,20);
 
 	m_modulFreList.AddString(L"64000");
 	m_modulFreList.AddString(L"78000");
 	m_modulFreList.AddString(L"96000");
 	m_modulFreList.SetCurSel(0);
+	m_modulFreList.SetItemHeight(0,20);
 
 	m_inkTypeList.AddString(L"236");
 	m_inkTypeList.AddString(L"252");
@@ -78,20 +81,23 @@ BOOL CInkSetupDlg::OnInitDialog()
 	m_inkTypeList.AddString(L"270");
 	m_inkTypeList.AddString(L"445");
 	m_inkTypeList.SetCurSel(0);
+	m_inkTypeList.SetItemHeight(0,20);
 
 	m_peltierList.AddString(L"OFF");
 	m_peltierList.AddString(L"ON");
 	m_peltierList.SetCurSel(0);
+	m_peltierList.SetItemHeight(0,20);
 
 	m_sleepList.AddString(L"OFF");
 	m_sleepList.AddString(L"ON");
 	m_sleepList.SetCurSel(0);
+	m_sleepList.SetItemHeight(0,20);
 
 	m_nextSer.SetFont(theApp.m_EditFont);
 	m_inkLifeT.SetFont(theApp.m_EditFont);
 
-	GetDlgItem(IDC_SOLVENT_CALIB_BTN)->SetWindowPos(NULL,605,252,70,45,SWP_SHOWWINDOW); 
-	GetDlgItem(IDC_INK_CALIB_BTN)->SetWindowPos(NULL,605,313,70,45,SWP_SHOWWINDOW);
+//	GetDlgItem(IDC_SOLVENT_CALIB_BTN)->SetWindowPos(NULL,605,252,70,45,SWP_SHOWWINDOW); 
+//	GetDlgItem(IDC_INK_CALIB_BTN)->SetWindowPos(NULL,605,313,70,45,SWP_SHOWWINDOW);
 
 	m_solventCalibIB.LoadBitmaps(IDB_SOLVENT_CALIB1_BITMAP,IDB_SOLVENT_CALIB2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_solventCalibIB.SizeToContent(); 

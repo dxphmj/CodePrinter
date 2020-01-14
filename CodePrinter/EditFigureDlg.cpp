@@ -38,6 +38,13 @@ void CEditFigureDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COUNTER_STATIC, m_counterStatic);
 	DDX_Control(pDX, IDC_FONT_STATIC, m_fontStatic);
 	DDX_Control(pDX, IDC_FORMAT_STATIC, m_formatStatic);
+	DDX_Control(pDX, IDC_PREVIEW_EDIT, m_previewEdit);
+	DDX_Control(pDX, IDC_FIRST_QUARTILE_EDIT, m_firstQuartileEdit);
+	DDX_Control(pDX, IDC_FOUR_QUARTILE_EDIT, m_fourQuartileEdit);
+	DDX_Control(pDX, IDC_START_EDIT, m_startEdit);
+	DDX_Control(pDX, IDC_STEP_SIZE_EDIT, m_stepSizeEdit);
+	DDX_Control(pDX, IDC_REPEAT_COUNT_EDIT, m_repeatCountEdit);
+	DDX_Control(pDX, IDC_BIT_DATA_EDIT, m_bitDataEdit);
 }
 
 
@@ -66,16 +73,37 @@ BOOL CEditFigureDlg::OnInitDialog()
 	m_returnIB.SizeToContent(); 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
+
+	m_countBox.AddString(_T("待添加"));
+	m_countBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_countBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_countBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+
 	m_FontBox.AddString(_T("5x5"));
 	m_FontBox.AddString(_T("7x5"));
 	m_FontBox.AddString(_T("12x12"));
 	m_FontBox.AddString(_T("16x12"));
 	m_FontBox.SetCurSel(1);
+	m_FontBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_FontBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_FontBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	m_FormatBox.AddString(_T("Leading Zeroes"));
 	m_FormatBox.AddString(_T("Leading Blanks"));
 	m_FormatBox.AddString(_T("Left Aligned"));
 	m_FormatBox.SetCurSel(0);
+	m_FormatBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_FormatBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_FormatBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+
+	m_previewEdit.SetFont(theApp.m_EditFont);
+	m_firstQuartileEdit.SetFont(theApp.m_EditFont);
+	m_fourQuartileEdit.SetFont(theApp.m_EditFont);
+	m_startEdit.SetFont(theApp.m_EditFont);
+	m_stepSizeEdit.SetFont(theApp.m_EditFont);
+	m_repeatCountEdit.SetFont(theApp.m_EditFont);
+	m_bitDataEdit.SetFont(theApp.m_EditFont);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

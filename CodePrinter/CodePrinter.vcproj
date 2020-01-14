@@ -711,6 +711,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ResetSerial.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -958,6 +962,10 @@
 			</File>
 			<File
 				RelativePath=".\PictureStatic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ResetSerial.h"
 				>
 			</File>
 			<File
@@ -1679,15 +1687,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\É¾³ý.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\fault\É¾³ý.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\É¾³ý.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
 				>
 			</File>
 			<File

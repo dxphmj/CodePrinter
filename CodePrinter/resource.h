@@ -214,6 +214,7 @@
 #define IDB_BEFORE2_BITMAP              464
 #define IDB_DELETE1_BITMAP              465
 #define IDB_DELETE2_BITMAP              466
+#define IDD_RESET_SERIAL_DIALOG         467
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -227,8 +228,10 @@
 #define IDC_COMBO2                      1011
 #define Static_Reversal                 1012
 #define IDC_COMBO3                      1013
+#define IDC_REVERSAL_COMBO              1013
 #define Static_Perversion               1014
 #define IDC_COMBO4                      1015
+#define IDC_PERVERSION_COMBO            1015
 #define Input_Button                    1016
 #define Edit_Show                       1017
 #define Abc_Button                      1018
@@ -256,12 +259,17 @@
 #define Static_Text                     1039
 #define Static_Font                     1040
 #define IDC_EDIT5                       1041
+#define IDC_LOCAL_PORT_EDIT             1041
 #define IDC_EDIT1                       1042
 #define IDC_EDIT2                       1043
+#define IDC_SERVER_PORT_EDIT            1043
 #define IDC_EDIT3                       1044
+#define IDC_NET_NAME_EDIT               1044
 #define IDC_EDIT4                       1045
+#define IDC_LOCAL_IP_EDIT               1045
 #define IDC_STATIC_DESIGN_AREA          1046
 #define IDC_LIST2                       1048
+#define IDC_VALID_EQUIP_LIST            1048
 #define IDC_PRINT_PRE_STATIC            1051
 #define IDC_TIME_STATIC                 1052
 #define IDC_RESET_COUNT_BTN             1053
@@ -270,6 +278,7 @@
 #define IDC_NEXT_BTN                    1056
 #define IDC_NEW_BTN                     1057
 #define IDC_EDIT7                       1058
+#define IDC_GATEWAY_EDIT                1058
 #define IDC_USER_FRESH_BTN              1059
 #define IDC_USER_OK_BTN                 1060
 #define IDC_DHCP_BTN                    1061
@@ -325,6 +334,7 @@
 #define Static_DataField                1122
 #define Combo_Font                      1123
 #define IDC_EDIT6                       1124
+#define IDC_SUB_NET_MASK_EDIT           1124
 #define IDC_DELETE_BTN                  1125
 #define IDC_PAUSEPRINT_BUTTON           1126
 #define IDC_LANGUAGE_COMBO              1127
@@ -686,6 +696,7 @@
 #define IDD_PRINT_MODE_DIALOG           1593
 #define IDC_BEFORE_BTN                  1597
 #define IDC_BUTTON1                     1599
+#define IDC_RESET_SERIAL_RETURN_BTN     1599
 #define IDB_BITMAP7                     1700
 #define IDC_FORMAT_LIST                 1701
 #define IDC_CUSTON_BUTTON               1702
@@ -703,15 +714,19 @@
 #define IDC_CLOSE_F_EDIT                1801
 #define IDC_STATIC_TIMEREST_SETUP       1802
 #define IDC_DATE_TIME_STATIC            1803
-
+#define IDC_DATE_PREVIEW_EDIT           1804
+#define IDC_DATE_DATE_TIME_EDIT         1805
+#define IDC_ENV_TIME_EDIT               1807
+#define IDC_ENV_DATE_EDIT               1808
+#define IDC_SERVER_IP_EDIT              1809
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        467
+#define _APS_NEXT_RESOURCE_VALUE        468
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1804
+#define _APS_NEXT_CONTROL_VALUE         1810
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
