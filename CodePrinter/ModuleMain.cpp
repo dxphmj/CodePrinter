@@ -1561,6 +1561,103 @@ void ModuleMain::getSerialDotBuf2()
 	theApp.ForPreQue.push(bytPrintDataAll1);
 }
 
+//时间文本生成
+string ModuleMain::TimeFormatToText(CString InPutTimeFormat,int tempstrETimeOffSet, int tempintTimeOffSet, int tempstrTimeOffSetUint)
+{
+	CString outCStr;
+	if (tempstrETimeOffSet==0)
+	{
+		CTime NowTime=CTime::GetCurrentTime();
+		outCStr=NowTime.Format(InPutTimeFormat);
+	} 
+	else
+	{
+		CTime tempTime=CTime::GetCurrentTime();
+		//outCStr=NowTime.Format(InPutTimeFormat);
+		CTime NowTime;
+
+		int addYear=0,addMonth=0,addDay=0,addHour=0,addMinute=0;
+		switch(tempstrTimeOffSetUint)
+		{
+		case 0:
+			if (tempTime.GetYear()+tempintTimeOffSet<3000)
+			{
+				addYear=tempintTimeOffSet;
+				NowTime=CTime(tempTime.GetYear()+addYear,tempTime.GetMonth()+addMonth,tempTime.GetDay()+addDay,tempTime.GetHour()+addHour,tempTime.GetMinute()+addMinute,tempTime.GetSecond());
+			}
+			break;
+		case 1:
+			while(tempTime.GetMonth()+tempintTimeOffSet>12)
+			{
+				addYear++;
+				tempintTimeOffSet-=12;
+			}
+			addMonth=tempintTimeOffSet;
+			NowTime=CTime(tempTime.GetYear()+addYear,tempTime.GetMonth()+addMonth,tempTime.GetDay()+addDay,tempTime.GetHour()+addHour,tempTime.GetMinute()+addMinute,tempTime.GetSecond());
+
+			break;
+		case 2:
+			while (tempTime.GetDay()+tempintTimeOffSet>31)
+			{
+				addMonth++;
+				tempintTimeOffSet-=31;
+			}
+			addDay=tempintTimeOffSet;
+			while(tempTime.GetMonth()+addMonth>12)
+			{
+				addYear++;
+				addMonth-=12;
+			}
+			NowTime=CTime(tempTime.GetYear()+addYear,tempTime.GetMonth()+addMonth,tempTime.GetDay()+addDay,tempTime.GetHour()+addHour,tempTime.GetMinute()+addMinute,tempTime.GetSecond());
+			break;
+		case 3:
+			while(tempTime.GetHour()+tempintTimeOffSet>23)
+			{
+				addDay++;
+				tempintTimeOffSet-=24;
+			}
+			addHour=tempintTimeOffSet;
+			while(tempTime.GetDay()+addDay>31)
+			{
+				addMonth++;
+				addDay-=31;
+			}
+			while(tempTime.GetMonth()+addMonth>12)
+			{
+				addYear++;
+				addMonth-=12;
+			}
+			NowTime=CTime(tempTime.GetYear()+addYear,tempTime.GetMonth()+addMonth,tempTime.GetDay()+addDay,tempTime.GetHour()+addHour,tempTime.GetMinute()+addMinute,tempTime.GetSecond());
+			break;
+		case 4:
+			while(tempTime.GetMinute()+tempintTimeOffSet>59)
+			{
+				addHour++;
+				tempintTimeOffSet-=60;
+			}
+			addMinute=tempintTimeOffSet;
+			while(tempTime.GetHour()+addHour>23)
+			{
+				addDay++;
+				addHour-=24;
+			}
+			while(tempTime.GetDay()+addDay>31)
+			{
+				addMonth++;
+				addDay-=31;
+			}
+			while(tempTime.GetMonth()+addMonth>12)
+			{
+				addYear++;
+				addMonth-=12;
+			}
+			NowTime=CTime(tempTime.GetYear()+addYear,tempTime.GetMonth()+addMonth,tempTime.GetDay()+addDay,tempTime.GetHour()+addHour,tempTime.GetMinute()+addMinute,tempTime.GetSecond());
+			break;
+		}
+		outCStr=NowTime.Format(InPutTimeFormat);
+	}
+	return CString2string(outCStr);
+}
 std::string ModuleMain::ASCToUTF8(const std::string& str) 
 {
 	int unicodeLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);   

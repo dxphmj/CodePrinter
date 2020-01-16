@@ -851,15 +851,31 @@ void CLabelDlg::OnBnClickedOpenButton()
 	OnPaint();
 }
 
-//修改，弹出键盘
+//修改
 void CLabelDlg::OnBnClickedRepeatButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-    CExportDlg myCExportDlg;
-	CString ts;
-	ts.Format(L"%s",_T("sdfsa"));
-	myCExportDlg.GetInputText(ts);
-
+ //   CExportDlg myCExportDlg;
+	//CString ts;
+	//ts.Format(L"%s",_T("sdfsa"));
+	//myCExportDlg.GetInputText(ts);
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if (theApp.myclassMessage.OBJ_Vec[i].strType2=="text")
+			{
+				pInput->pEditText->GetDlgItem(IDC_EDIT1)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strText));
+				CComboBox* fontBox=(CComboBox*)pInput->pEditText->GetDlgItem(Combo_Font);
+				int index= fontBox->FindStringExact(0,theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strFont));
+				fontBox->SetCurSel(index);
+				pInput->pEditText->ShowWindow(SW_SHOW);
+				//fontBox->SetCurSel(theApp.myclassMessage.strFont)
+			}
+			
+			break;
+		}
+	}
 
 
 }
@@ -1109,8 +1125,27 @@ void CLabelDlg::getMessageDot()
 			}
 			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="time")
 			{
-				int ss=1;
-				ss=ss+1;
+				theApp.myclassMessage.boDynamic=true;
+				theApp.myclassMessage.strTimeFormat[0][theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strTime;
+				theApp.myclassMessage.strETimeOffSet[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booETimeOffSet;
+				theApp.myclassMessage.strTimeOffSetUint[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strTimeOffSet;
+				theApp.myclassMessage.intTimeOffSetdis[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intTimeOffSet;
+				theApp.myclassMessage.strTimeFont[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strFont;
+				theApp.myclassMessage.boTimeBWDy[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booBWDy;
+				theApp.myclassMessage.boTimeBWDx[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booBWDx;
+				theApp.myclassMessage.boTimeNEG[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booNEG;
+				theApp.myclassMessage.bytTimeSS[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSS;
+				theApp.myclassMessage.bytTimeSW[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				theApp.myclassMessage.bytTimeLineSize[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intLineSize;
+				theApp.myclassMessage.bytTimeLineStart[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intLineStart;
+				theApp.myclassMessage.intTimeRowSize[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intRowSize;
+				theApp.myclassMessage.intTimeRowStart[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intRowStart;
+				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.TimeFormatToText(theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strTime),theApp.myclassMessage.OBJ_Vec[i].booETimeOffSet,theApp.myclassMessage.OBJ_Vec[i].intTimeOffSet,theApp.myclassMessage.OBJ_Vec[i].strTimeOffSet);
+				theApp.myclassMessage.strETimetext[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strText;
+				//theApp.myclassMessage.strETimetextids[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strText;
+								//theApp.myclassMessage.intTimeRowSize[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intRowSize;
+				theApp.myclassMessage.getdot(theApp.myclassMessage.OBJ_Vec[i].strFont, theApp.myclassMessage.OBJ_Vec[i].booBWDy, theApp.myclassMessage.OBJ_Vec[i].booBWDx, theApp.myclassMessage.OBJ_Vec[i].booNEG, theApp.myclassMessage.OBJ_Vec[i].strText, theApp.myclassMessage.OBJ_Vec[i].intRowSize, theApp.myclassMessage.OBJ_Vec[i].intLineSize, theApp.myclassMessage.OBJ_Vec[i].intLineStart, theApp.myclassMessage.OBJ_Vec[i].intRowStart, theApp.myclassMessage.OBJ_Vec[i].intSS, theApp.myclassMessage.OBJ_Vec[i].intSW);
+				theApp.myclassMessage.bytTimeConCoun++;
 			}
 			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="logo")
 			{
