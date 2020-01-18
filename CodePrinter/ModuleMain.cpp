@@ -1658,6 +1658,19 @@ string ModuleMain::TimeFormatToText(CString InPutTimeFormat,int tempstrETimeOffS
 	}
 	return CString2string(outCStr);
 }
+//时间序列号刷新时间
+void ModuleMain::refalsetimedata()
+{
+	if (theApp.myclassMessage.bytTimeConCoun>0)
+	{
+		theApp.boETimetextLock.Lock();
+		for (int j=0;j<theApp.myclassMessage.bytTimeConCoun;j++)
+		{
+			theApp.myclassMessage.strETimetext[j]=TimeFormatToText(string2CString(theApp.myclassMessage.strTimeFormat[0][j]),theApp.myclassMessage.strETimeOffSet[j],theApp.myclassMessage.intTimeOffSetdis[j],theApp.myclassMessage.strTimeOffSetUint[j]);
+		}
+		theApp.boETimetextLock.Unlock();
+	}
+}
 std::string ModuleMain::ASCToUTF8(const std::string& str) 
 {
 	int unicodeLen = ::MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, NULL, 0);   

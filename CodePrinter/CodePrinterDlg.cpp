@@ -1950,7 +1950,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//´òÓ¡¼ÆÊýÆ÷
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
 
-		
+		theApp.myModuleMain.refalsetimedata();
 		if (theApp.myclassMessage.boDynamic)
 		{
 			if (theApp.myclassMessage.boCountEn[0])
