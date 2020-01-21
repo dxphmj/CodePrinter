@@ -215,6 +215,8 @@
 #define IDB_DELETE1_BITMAP              465
 #define IDB_DELETE2_BITMAP              466
 #define IDD_RESET_SERIAL_DIALOG         467
+#define IDB_BITMAP1                     469
+#define IDB_70_45_1_BITMAP              469
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -263,10 +265,13 @@
 #define IDC_EDIT1                       1042
 #define IDC_EDIT2                       1043
 #define IDC_SERVER_PORT_EDIT            1043
+#define IDC_SET_VALUE2_EDIT             1043
 #define IDC_EDIT3                       1044
 #define IDC_NET_NAME_EDIT               1044
+#define IDC_SET_VALUE3_EDIT             1044
 #define IDC_EDIT4                       1045
 #define IDC_LOCAL_IP_EDIT               1045
+#define IDC_SET_VALUE4_EDIT             1045
 #define IDC_STATIC_DESIGN_AREA          1046
 #define IDC_LIST2                       1048
 #define IDC_VALID_EQUIP_LIST            1048
@@ -719,14 +724,41 @@
 #define IDC_ENV_TIME_EDIT               1807
 #define IDC_ENV_DATE_EDIT               1808
 #define IDC_SERVER_IP_EDIT              1809
+#define IDC_RESET_SERIAL1_BTN           1810
+#define IDC_RESET_SERIAL2_BTN           1811
+#define IDC_RESET_SERIAL3_BTN           1812
+#define IDC_RESET_SERIAL4_BTN           1813
+#define IDC_ALL_RESET_BTN               1814
+#define IDC_SERIAL1_STATIC              1816
+#define IDC_SERIAL2_STATIC              1817
+#define IDC_SERIAL3_STATIC              1818
+#define IDC_SERIAL4_STATIC              1819
+#define IDC_RESET_SERIAL_NAME_STATIC    1820
+#define IDC_QUADRANT1_STATIC            1821
+#define IDC_QUADRANT2_STATIC            1822
+#define IDC_CUR_VALUE_STATIC            1823
+#define IDC_SET_VALUE_STATIC            1824
+#define IDC_SET_VALUE1_EDIT             1825
+#define IDC_SERIAL1_QUAD1_STATIC        1826
+#define IDC_SERIAL1_QUAD2_STATIC        1827
+#define IDC_SERIAL1_CUR_STATIC          1828
+#define IDC_SERIAL2_QUAD1_STATIC        1829
+#define IDC_SERIAL2_QUAD2_STATIC        1830
+#define IDC_SERIAL2_CUR_STATIC          1831
+#define IDC_SERIAL3_QUAD1_STATIC        1832
+#define IDC_SERIAL3_QUAD2_STATIC        1833
+#define IDC_SERIAL3_CUR_STATIC          1834
+#define IDC_SERIAL4_QUAD1_STATIC        1835
+#define IDC_SERIAL4_QUAD2_STATIC        1836
+#define IDC_SERIAL4_CUR_STATIC          1837
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        468
+#define _APS_NEXT_RESOURCE_VALUE        470
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1810
+#define _APS_NEXT_CONTROL_VALUE         1838
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
