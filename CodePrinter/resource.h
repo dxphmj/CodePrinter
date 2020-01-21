@@ -751,6 +751,10 @@
 #define IDC_SERIAL4_QUAD1_STATIC        1835
 #define IDC_SERIAL4_QUAD2_STATIC        1836
 #define IDC_SERIAL4_CUR_STATIC          1837
+#define IDC_OPEN_NAME_EDIT              1839
+#define IDC_OPEN_PASSWARD_EDIT          1840
+#define IDC_OPEN_NOT_GRANTED_LIST       1841
+#define IDC_OPEN_GRANTED_LIST           1842
 
 // Next default values for new objects
 // 
@@ -758,7 +762,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        470
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1838
+#define _APS_NEXT_CONTROL_VALUE         1843
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
