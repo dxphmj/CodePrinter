@@ -45,11 +45,13 @@ void CResetSerial::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SERIAL2_CUR_STATIC, m_serial2_cur_static);
 	DDX_Control(pDX, IDC_SERIAL3_CUR_STATIC, m_serial3_cur_static);
 	DDX_Control(pDX, IDC_SERIAL4_CUR_STATIC, m_serial4_cur_static);
+
 }
 
 
 BEGIN_MESSAGE_MAP(CResetSerial, CDialog)
 	ON_BN_CLICKED(IDC_RESET_SERIAL_RETURN_BTN, &CResetSerial::OnBnClickedResetSerialReturnBtn)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -87,4 +89,22 @@ void CResetSerial::OnBnClickedResetSerialReturnBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
+}
+
+HBRUSH CResetSerial::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何属性
+
+	if(nCtlColor == CTLCOLOR_STATIC)
+	{		 
+		pDC->SelectObject(theApp.m_StaticFont);
+		pDC->SetBkMode(TRANSPARENT);
+		pDC->SetTextColor(RGB(0,0,0));	
+	}
+
+	pDC->SetBkColor(theApp.m_BKcolor);	
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return theApp.m_DlgBrush;	 
 }

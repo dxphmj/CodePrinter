@@ -177,12 +177,14 @@ void CInputDlg::OnBnClickedEditfigureButton()
 		return;
 	}
 	pEditFigure->RefreshSerial();
+	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_EDITFIGURE_DIALOG);
 }
 
 void CInputDlg::OnBnClickedEditdateButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_DATE_DIALOG);
 }
 
@@ -232,6 +234,7 @@ void CInputDlg::OnBnClickedEditpictureButton()
 		bmpObj.booFocus=true;
 		theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
 	}
+	this->ShowWindow(SW_HIDE);
 }
 
 void CInputDlg::OnBnClickedBarcodeButton()

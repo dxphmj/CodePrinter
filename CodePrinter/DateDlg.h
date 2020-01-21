@@ -12,7 +12,7 @@ class CDateDlg : public CDialog
 public:
 	CDateDlg(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CDateDlg();
-
+	void ChangeTime();
 // 对话框数据
 	enum { IDD = IDD_DATE_DIALOG };
 
@@ -42,4 +42,9 @@ public:
 	CComboBox m_dateFontCombo;
 	CComboBox m_dateSkewCombo;
 
+	afx_msg void OnBnClickedDateAddBtn();
+	afx_msg void OnBnClickedDateRefreshBtn();
+	afx_msg void OnLbnSelchangeSkewUnitList();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	afx_msg void OnBnClickedDateOkBtn();
 };

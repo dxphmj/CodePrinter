@@ -1,4 +1,7 @@
 #pragma once
+#include "afxwin.h"
+#include "ImageButton.h"
+#include "NumKey.h"
 
 #include "afxwin.h"
 #include "ImageButton.h"
@@ -47,4 +50,5 @@ public:
 	CCustomStatic m_serial2_cur_static;
 	CCustomStatic m_serial3_cur_static;
 	CCustomStatic m_serial4_cur_static;
+
 };

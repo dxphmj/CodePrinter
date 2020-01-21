@@ -17,7 +17,7 @@ IMPLEMENT_DYNAMIC(CBarCodeDlg, CDialog)
 CBarCodeDlg::CBarCodeDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CBarCodeDlg::IDD, pParent)
 {
-
+	m_nCodeType = 58;
 }
 
 CBarCodeDlg::~CBarCodeDlg()
@@ -67,8 +67,8 @@ BOOL CBarCodeDlg::OnInitDialog()
 	//VersionBox.AddString(_T("2L7M"));
 	VersionBox.SetCurSel(1);
 	VersionBox.SetFont(theApp.m_ListBoxFont);//设置下拉框字体
-	VersionBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
-	VersionBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+	VersionBox.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	VersionBox.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
 
 	ErrLevelBox.AddString(_T("L"));
 	ErrLevelBox.AddString(_T("M"));
@@ -76,8 +76,8 @@ BOOL CBarCodeDlg::OnInitDialog()
 	ErrLevelBox.AddString(_T("H"));
 	ErrLevelBox.SetCurSel(3);
 	ErrLevelBox.SetFont(theApp.m_ListBoxFont);
-	ErrLevelBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
-	ErrLevelBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+	ErrLevelBox.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	ErrLevelBox.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
 
 	EncodingModeBox.AddString(_T("Numeric"));
 	EncodingModeBox.AddString(_T("Alphabet-numeric"));
@@ -89,8 +89,8 @@ BOOL CBarCodeDlg::OnInitDialog()
 	EncodingModeBox.AddString(_T("FNC1SECOND"));
 	EncodingModeBox.SetCurSel(2);
 	EncodingModeBox.SetFont(theApp.m_ListBoxFont);//设置下拉框字体
-	EncodingModeBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
-	EncodingModeBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+	EncodingModeBox.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	EncodingModeBox.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
 
 	GetDlgItem(IDC_BARCODE_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_QR_CODE_BTN)->SetWindowPos(NULL,200,390,70,45,SWP_SHOWWINDOW);
@@ -100,15 +100,20 @@ BOOL CBarCodeDlg::OnInitDialog()
 	GetDlgItem(IDC_BARCODE_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_returnIB.SizeToContent(); 
-	m_qrCodeIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
+	m_returnIB.SizeToContent();
+
+	m_qrCodeIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_qrCodeIB.SizeToContent(); 
-	m_dataMatrixIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
+
+	m_dataMatrixIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_dataMatrixIB.SizeToContent(); 
-	m_code39IB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
+
+ 	m_code39IB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_code39IB.SizeToContent(); 
-	m_code128IB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP,true);
-	m_code128IB.SizeToContent(); 
+
+	m_code128IB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
+	m_code128IB.SizeToContent();
+
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -197,8 +202,8 @@ void CBarCodeDlg::Create2Dcode(int nType)
 	int version = bmpObj.intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
  	int casesensitive = bmpObj.boQRBig;//是否区分大小写，true/false
 
- 	bmpObj.intLineSize=my_symbol->width;
-	bmpObj.intRowSize=my_symbol->width;
+ 	bmpObj.intLineSize=my_symbol->bitmap_height;
+	bmpObj.intRowSize=my_symbol->bitmap_width;
 
 	//以下先写死
 	bmpObj.intSW=1;
@@ -219,11 +224,11 @@ void CBarCodeDlg::Create2Dcode(int nType)
             i += 3;
 			if (r == 0 && g == 0 && b == 0)
 			{
-				bmpObj.boDotBmp[row][col] = true;
+				bmpObj.boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
 			}
 			else
 			{
-				bmpObj.boDotBmp[row][col] = false;
+				bmpObj.boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
 			}
 		}
     }
@@ -235,13 +240,16 @@ void CBarCodeDlg::Create2Dcode(int nType)
 void CBarCodeDlg::OnBnClickedQrCodeBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	Create2Dcode(58);
+	m_nCodeType = 58;
+	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"QR_CODE Setting");
 }
 
 void CBarCodeDlg::OnBnClickedDataMatrixBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	Create2Dcode(71);
+	m_nCodeType = 71;
+	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"DataMatrix Setting");
+
 }
 
 BOOL CBarCodeDlg::PreTranslateMessage(MSG* pMsg)
@@ -269,85 +277,8 @@ BOOL CBarCodeDlg::PreTranslateMessage(MSG* pMsg)
 void CBarCodeDlg::OnBnClickedBarcodeOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	this->ShowWindow(SW_HIDE);
-	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_BARCODE_TEXT_EDIT);
-	CString str;
-	pEdit-> GetWindowText(str);
-    //ModuleMain bQModule;
-
-	//char szStr[256] = {};  
-	//wcstombs(szStr, str, str.GetLength());//将宽字符转换成多字符  
-
-	//const char * QRTEXT = bQModule.CString2ConstChar(str);
-
-	USES_CONVERSION;
-	//函数T2A和W2A均支持ATL和MFC中的字符
-	//char * pFileName = T2A(str);  
-	const char * QRTEXT = W2A(str.GetBuffer(0));
-   // QRTEXT="一111";
-	int xPos=0;
-	int yPos=0;
-	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
-	{
-		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
-		{
-			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
-			yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
-			xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
-		}
-	}
-	//xmlPath=bQModule.TCHAR2STRING(path);
-	//CImage myImage;
-	//myImage.Load(NULL);
-	OBJ_Control bmpObj;
-	bmpObj.intLineStart=yPos;
-	bmpObj.intRowStart=xPos;
-	bmpObj.strType1="text";
-	bmpObj.strType2="qrcode";
-
-	bmpObj.intQRVersion=VersionBox.GetCurSel()+1;
-	bmpObj.intQRErrLevel=ErrLevelBox.GetCurSel();
-	bmpObj.intQREncodingMode=EncodingModeBox.GetCurSel();
-	bmpObj.boQRBig=true;
-
-	QRcode * qrCode;
-	int version = bmpObj.intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
-	QRecLevel level = (QRecLevel)bmpObj.intQRErrLevel;//纠错级别
-	QRencodeMode hint = (QRencodeMode)bmpObj.intQREncodingMode;//编码模式
-	int casesensitive = bmpObj.boQRBig;//是否区分大小写，true/false
-	qrCode = QRcode_encodeString(QRTEXT, version, level, hint, casesensitive);
-	if (NULL == qrCode)
-	{
-		return;
-	}
-	bmpObj.intLineSize=qrCode->width;
-	bmpObj.intRowSize=qrCode->width;
-	//以下先写死
-	bmpObj.intSW=1;
-	bmpObj.intSS=0;
-	bmpObj.booNEG=false;
-	bmpObj.booBWDx=false;
-	bmpObj.booBWDy=false;
-    for (int i=0;i<qrCode->width;i++)
-    {
-		for (int j=0;j<qrCode->width;j++)
-		{
-			if (qrCode->data[j*qrCode->width + i] & 0x01)
-			{
-				bmpObj.boDotBmp[i][qrCode->width-j-1]=true;
-			}
-			else
-			{
-				bmpObj.boDotBmp[i][qrCode->width-1-j]=false;
-			}
-		}
-    }
-	//bmpObj.strFont="7x5";
-	bmpObj.strText=theApp.myModuleMain.CString2string(str);
-	bmpObj.booFocus=true;
-	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
-	delete QRTEXT;
-	delete qrCode;
+	Create2Dcode(m_nCodeType);
+	this->ShowWindow(SW_HIDE);	
 }
 
 void CBarCodeDlg::OnCbnSelchangeBarcodeVersionCombo()
@@ -387,14 +318,17 @@ HBRUSH CBarCodeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
 }
+
 void CBarCodeDlg::OnBnClickedCode128Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	Create2Dcode(20);
+	m_nCodeType = 20;
+	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"Code128 Setting");
 }
 
 void CBarCodeDlg::OnBnClickedCode39Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	Create2Dcode(8);
+	m_nCodeType = 8;
+	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"Code39 Setting");
 }

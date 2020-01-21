@@ -25,6 +25,7 @@ protected:
 public:
 	void Create2Dcode(int nType);
 
+    int m_nCodeType;
 
 public:
 	virtual BOOL OnInitDialog();

@@ -204,16 +204,16 @@ BOOL CLabelDlg::OnInitDialog()
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
 
 	pixelComboBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
-	pixelComboBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
-	pixelComboBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+	pixelComboBox.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	pixelComboBox.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
  
 	m_reversalCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
-	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
-	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
 
 	m_reversionCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
-	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
-	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
 
 	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CLOSE_F_EDIT)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
@@ -851,15 +851,48 @@ void CLabelDlg::OnBnClickedOpenButton()
 	OnPaint();
 }
 
-//修改，弹出键盘
+//修改
 void CLabelDlg::OnBnClickedRepeatButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-    CExportDlg myCExportDlg;
-	CString ts;
-	ts.Format(L"%s",_T("sdfsa"));
-	myCExportDlg.GetInputText(ts);
-
+ //   CExportDlg myCExportDlg;
+	//CString ts;
+	//ts.Format(L"%s",_T("sdfsa"));
+	//myCExportDlg.GetInputText(ts);
+	for (int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
+		{
+			if (theApp.myclassMessage.OBJ_Vec[i].strType2=="text")
+			{
+				pInput->pEditText->GetDlgItem(IDC_EDIT1)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strText));
+				CComboBox* fontBox=(CComboBox*)pInput->pEditText->GetDlgItem(Combo_Font);
+				int index= fontBox->FindStringExact(0,theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strFont));
+				fontBox->SetCurSel(index);
+				pInput->pEditText->ShowWindow(SW_SHOW);
+				//fontBox->SetCurSel(theApp.myclassMessage.strFont)
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="serial")
+			{
+				pInput->pEditFigure->GetDlgItem(IDC_FIRST_QUARTILE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialFirstLimit)));			
+				pInput->pEditFigure->GetDlgItem(IDC_FOUR_QUARTILE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialSecondLimit)));
+				pInput->pEditFigure->GetDlgItem(IDC_START_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialStartValue)));
+				pInput->pEditFigure->GetDlgItem(IDC_STEP_SIZE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialStep)));
+				pInput->pEditFigure->GetDlgItem(IDC_REPEAT_COUNT_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialRepeat)));
+				pInput->pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialDigits)));
+				pInput->pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialDigits)));
+				CComboBox *bitBox=(CComboBox *)pInput->pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+				bitBox->AddString(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialCounter+1)));
+				bitBox->EnableWindow(FALSE);
+				CComboBox *fontBox=(CComboBox *)pInput->pEditFigure->GetDlgItem(IDC_FONT_COMBO);
+				fontBox->SelectString(0,theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strFont));
+				CComboBox *formatBox=(CComboBox *)pInput->pEditFigure->GetDlgItem(IDC_FORMAT_COMBO);
+				formatBox->SetCurSel(theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat);
+				pInput->pEditFigure->RefreshSerial();
+			}
+			break;
+		}
+	}
 
 
 }
@@ -936,7 +969,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
 	{
-		theApp.boDrawMainPic=true;//标签
+		//theApp.boDrawMainPic=true;//标签
 		delete []theApp.myclassMessage.IntMes;
 		theApp.myclassMessage.IntMes=new UINT32[theApp.myclassMessage.intRowMax];
 		memset(theApp.myclassMessage.IntMes, 0, sizeof(UINT32)*theApp.myclassMessage.intRowMax);
@@ -1109,10 +1142,51 @@ void CLabelDlg::getMessageDot()
 			}
 			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="time")
 			{
+				theApp.myclassMessage.boDynamic=true;
+				theApp.myclassMessage.strTimeFormat[0][theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strTime;
+				theApp.myclassMessage.strETimeOffSet[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booETimeOffSet;
+				theApp.myclassMessage.strTimeOffSetUint[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strTimeOffSet;
+				theApp.myclassMessage.intTimeOffSetdis[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intTimeOffSet;
+				theApp.myclassMessage.strTimeFont[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strFont;
+				theApp.myclassMessage.boTimeBWDy[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booBWDy;
+				theApp.myclassMessage.boTimeBWDx[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booBWDx;
+				theApp.myclassMessage.boTimeNEG[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].booNEG;
+				theApp.myclassMessage.bytTimeSS[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSS;
+				theApp.myclassMessage.bytTimeSW[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSW;
+				theApp.myclassMessage.bytTimeLineSize[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intLineSize;
+				theApp.myclassMessage.bytTimeLineStart[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intLineStart;
+				theApp.myclassMessage.intTimeRowSize[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intRowSize;
+				theApp.myclassMessage.intTimeRowStart[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intRowStart;
+				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.TimeFormatToText(theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strTime),theApp.myclassMessage.OBJ_Vec[i].booETimeOffSet,theApp.myclassMessage.OBJ_Vec[i].intTimeOffSet,theApp.myclassMessage.OBJ_Vec[i].strTimeOffSet);
+				theApp.myclassMessage.strETimetext[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strText;
+				//theApp.myclassMessage.strETimetextids[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].strText;
+								//theApp.myclassMessage.intTimeRowSize[theApp.myclassMessage.bytTimeConCoun]=theApp.myclassMessage.OBJ_Vec[i].intRowSize;
+				theApp.myclassMessage.getdot(theApp.myclassMessage.OBJ_Vec[i].strFont, theApp.myclassMessage.OBJ_Vec[i].booBWDy, theApp.myclassMessage.OBJ_Vec[i].booBWDx, theApp.myclassMessage.OBJ_Vec[i].booNEG, theApp.myclassMessage.OBJ_Vec[i].strText, theApp.myclassMessage.OBJ_Vec[i].intRowSize, theApp.myclassMessage.OBJ_Vec[i].intLineSize, theApp.myclassMessage.OBJ_Vec[i].intLineStart, theApp.myclassMessage.OBJ_Vec[i].intRowStart, theApp.myclassMessage.OBJ_Vec[i].intSS, theApp.myclassMessage.OBJ_Vec[i].intSW);
+				theApp.myclassMessage.bytTimeConCoun++;
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="logo")
+			{
+				theApp.myclassMessage.OBJ_Vec[i].ReadBmp(const_cast<char*>(theApp.myclassMessage.OBJ_Vec[i].strText.c_str()));
+				for (int y=theApp.myclassMessage.OBJ_Vec[i].intLineStart;y<theApp.myclassMessage.OBJ_Vec[i].intLineSize;y++)
+				{
+					for (int x=0;x<theApp.myclassMessage.OBJ_Vec[i].intRowSize;x++)
+					{
+						theApp.myclassMessage.boDotMes[y+theApp.myclassMessage.OBJ_Vec[i].intLineStart][x+theApp.myclassMessage.OBJ_Vec[i].intRowStart]=theApp.myclassMessage.OBJ_Vec[i].boDotBmp[y][x];
+					}
+				}
+				if (theApp.myclassMessage.intRowMax<(theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart))
+				{
+					theApp.myclassMessage.intRowMax=theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart;
+				}
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="qrcode")//二维码
+			{
+				int tt=0;
+				tt=tt+1;
 			}
 			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="serial")
 			{
-				theApp.myclassMessage.boDynamic=true;
+				
 				theApp.myclassMessage.intQSerialFirstLimit[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialFirstLimit;
 				theApp.myclassMessage.intQSerialSecondLimit[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialSecondLimit;
 				theApp.myclassMessage.intQSerialStartValue[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialStartValue;
@@ -1121,6 +1195,7 @@ void CLabelDlg::getMessageDot()
 				theApp.myclassMessage.bytQSerialDigits[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialDigits;
 				theApp.myclassMessage.bytQSerialFormat[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat;
 				theApp.myclassMessage.bytQserialCounter[theApp.myclassMessage.bytSerialConCoun]=theApp.myclassMessage.OBJ_Vec[i].intSerialCounter;
+				theApp.myclassMessage.boDynamic=true;
 				switch(theApp.myclassMessage.bytQserialCounter[theApp.myclassMessage.bytSerialConCoun])
 				{
 				case 0:
@@ -1243,24 +1318,7 @@ void CLabelDlg::getMessageDot()
 					theApp.myclassMessage.OBJ_Vec[i].intRowSize,theApp.myclassMessage.OBJ_Vec[i].intLineSize,theApp.myclassMessage.OBJ_Vec[i].intLineStart,theApp.myclassMessage.OBJ_Vec[i].intRowStart,theApp.myclassMessage.OBJ_Vec[i].intSS,theApp.myclassMessage.OBJ_Vec[i].intSW);
 
 			}
-			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="logo")
-			{
-				theApp.myclassMessage.OBJ_Vec[i].ReadBmp(const_cast<char*>(theApp.myclassMessage.OBJ_Vec[i].strText.c_str()));
-				for (int i=theApp.myclassMessage.OBJ_Vec[i].intLineStart;i<theApp.myclassMessage.OBJ_Vec[i].intLineSize;i++)
-				{
-					for (int j=0;j<theApp.myclassMessage.OBJ_Vec[i].intRowSize;j++)
-					{
-						theApp.myclassMessage.boDotMes[i][j+theApp.myclassMessage.OBJ_Vec[i].intRowStart]=theApp.myclassMessage.OBJ_Vec[i].boDotBmp[i][j];
-					}
-				}
-				if (theApp.myclassMessage.intRowMax<(theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart))
-				{
-					theApp.myclassMessage.intRowMax=theApp.myclassMessage.OBJ_Vec[i].intRowSize+theApp.myclassMessage.OBJ_Vec[i].intRowStart;
-				}
-			}
-			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="qrcode")//二维码
-			{
-			}
+
 		} 
 		else//目前没有else情况
 		{
