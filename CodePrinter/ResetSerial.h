@@ -27,6 +27,7 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedResetSerialReturnBtn();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 	CImageButton ResetBtn1;
 	CImageButton ResetBtn2;
