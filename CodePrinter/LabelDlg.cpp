@@ -872,7 +872,24 @@ void CLabelDlg::OnBnClickedRepeatButton()
 				pInput->pEditText->ShowWindow(SW_SHOW);
 				//fontBox->SetCurSel(theApp.myclassMessage.strFont)
 			}
-			
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="serial")
+			{
+				pInput->pEditFigure->GetDlgItem(IDC_FIRST_QUARTILE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialFirstLimit)));			
+				pInput->pEditFigure->GetDlgItem(IDC_FOUR_QUARTILE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialSecondLimit)));
+				pInput->pEditFigure->GetDlgItem(IDC_START_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialStartValue)));
+				pInput->pEditFigure->GetDlgItem(IDC_STEP_SIZE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialStep)));
+				pInput->pEditFigure->GetDlgItem(IDC_REPEAT_COUNT_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialRepeat)));
+				pInput->pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialDigits)));
+				pInput->pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialDigits)));
+				CComboBox *bitBox=(CComboBox *)pInput->pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+				bitBox->AddString(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intSerialCounter+1)));
+				bitBox->EnableWindow(FALSE);
+				CComboBox *fontBox=(CComboBox *)pInput->pEditFigure->GetDlgItem(IDC_FONT_COMBO);
+				fontBox->SelectString(0,theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strFont));
+				CComboBox *formatBox=(CComboBox *)pInput->pEditFigure->GetDlgItem(IDC_FORMAT_COMBO);
+				formatBox->SetCurSel(theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat);
+				pInput->pEditFigure->RefreshSerial();
+			}
 			break;
 		}
 	}
