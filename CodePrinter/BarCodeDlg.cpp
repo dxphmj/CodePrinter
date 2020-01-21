@@ -38,6 +38,8 @@ void CBarCodeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CODE_128_BTN, m_code128IB);
 	DDX_Control(pDX, IDC_BARCODE_OK_BTN, m_okIB);
 	DDX_Control(pDX, IDC_BARCODE_TEXT_STATIC, m_barText);
+	DDX_Control(pDX, IDC_BARCODE_FIGURE_BTN, m_barcodeFigureBtn);
+	DDX_Control(pDX, IDC_BARCODE_DATE_BTN, m_barcodeDateBtn);
 }
 
 BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
@@ -116,6 +118,12 @@ BOOL CBarCodeDlg::OnInitDialog()
 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
+
+	m_barcodeFigureBtn.LoadBitmaps(IDB_EDIT_FIGURE1_BITMAP,IDB_EDIT_FIGURE2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_barcodeFigureBtn.SizeToContent();
+
+	m_barcodeDateBtn.LoadBitmaps(IDB_EDIT_DATE1_BITMAP,IDB_EDIT_DATE2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_barcodeDateBtn.SizeToContent(); 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

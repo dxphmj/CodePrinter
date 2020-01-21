@@ -27,6 +27,7 @@ public:
 	CImageButton m_returnIB;
 	CImageButton m_okIB;
 	CImageButton m_freshIB;
+	CImageButton m_dateAddBtn;
 	CEdit m_skewValue;
 	CCustomStatic m_previewStatic;
 	CCustomStatic m_dateTimeStatic;
