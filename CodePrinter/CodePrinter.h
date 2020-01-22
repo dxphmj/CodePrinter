@@ -73,6 +73,7 @@ public:
 	CIOVsd myCIOVsd;
 	ModuleMain myModuleMain;
 	UserPower myUserPower;
+	bool bochange;//用于判断是否为更改；
 	DECLARE_MESSAGE_MAP()
 };
 

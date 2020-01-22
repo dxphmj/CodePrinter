@@ -131,9 +131,47 @@ void CEditTextDlg::OnCbnSelchangeFont()
 void CEditTextDlg::OnBnClickedButtonEditok()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	
-	//ModuleMain fontModule;
-
+	if (theApp.bochange)
+	{
+		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+		{
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			{
+				CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
+				CString strText;
+				pEdit-> GetWindowText(strText);
+				//tempObj.strText=theApp.myModuleMain.CString2string(strText);
+				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+				CString  fontText;
+				int nIndex = fontComboBox.GetCurSel();  //当前选中的项
+				switch(nIndex)
+				{
+				case 0:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=5;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 1:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=7;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 2:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=12;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 3:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=16;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				}
+				fontComboBox.GetLBText(nIndex,fontText);
+				theApp.myclassMessage.OBJ_Vec[i].strFont=theApp.myModuleMain.CString2string(fontText);
+				break;
+			}
+		}
+		theApp.bochange=false;
+		this->ShowWindow(SW_HIDE);
+		return;
+	}
 	int xPos=0;
 	int yPos=0;
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
@@ -143,6 +181,7 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
 			yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
 			xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
+			break;
 		}
 	}
 	OBJ_Control tempObj;

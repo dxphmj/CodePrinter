@@ -295,6 +295,70 @@ void CEditFigureDlg::OnCbnSelchangeFormatCombo()
 void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CString previewEdit ;
+	GetDlgItem(IDC_PREVIEW_EDIT)-> GetWindowText(previewEdit);
+	CString firstEdit ;
+	GetDlgItem(IDC_FIRST_QUARTILE_EDIT)-> GetWindowText(firstEdit);
+	CString twoEdit ;
+	GetDlgItem(IDC_FOUR_QUARTILE_EDIT)-> GetWindowText(twoEdit);
+	CString startEdit ;
+	GetDlgItem(IDC_START_EDIT)-> GetWindowText(startEdit);
+	CString stepEdit ;
+	GetDlgItem(IDC_STEP_SIZE_EDIT)-> GetWindowText(stepEdit);
+	CString repeatEdit; 
+	GetDlgItem(IDC_REPEAT_COUNT_EDIT)-> GetWindowText(repeatEdit);
+	CString bitEdit ;
+	GetDlgItem(IDC_BIT_DATA_EDIT)-> GetWindowText(bitEdit);
+	if (theApp.bochange)
+	{
+		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+		{
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.CString2string(previewEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialFirstLimit=_ttoi(firstEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialSecondLimit=_ttoi(twoEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialStartValue=_ttoi(startEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialStep=_ttoi(stepEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialRepeat=_ttoi(repeatEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialDigits=_ttoi(bitEdit);
+
+				CString  fontText;
+				int nIndex = m_FontBox.GetCurSel();  //当前选中的项
+				switch(nIndex)
+				{
+				case 0:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=5;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 1:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=7;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 2:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=12;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 3:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=16;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				}
+				m_FontBox.GetLBText(nIndex,fontText);
+				theApp.myclassMessage.OBJ_Vec[i].strFont=theApp.myModuleMain.CString2string(fontText);
+
+				CString countStr;
+				m_countBox.GetLBText(m_countBox.GetCurSel(),countStr);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialCounter=_ttoi(countStr)-1;
+
+				theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat=m_FormatBox.GetCurSel();
+				break;
+			}
+		}
+		theApp.bochange=false;
+		ShowWindow(SW_HIDE);
+		return;
+	}
 	int xPos=0;
 	int yPos=0;
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
@@ -318,20 +382,7 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	tempObj.booBWDx=false;
 	tempObj.booBWDy=false;
 	//CEdit* pEdit = (CEdit*)GetDlgItem(IDC_PREVIEW_EDIT);
-	CString previewEdit ;
-	GetDlgItem(IDC_PREVIEW_EDIT)-> GetWindowText(previewEdit);
-	CString firstEdit ;
-	GetDlgItem(IDC_FIRST_QUARTILE_EDIT)-> GetWindowText(firstEdit);
-	CString twoEdit ;
-	GetDlgItem(IDC_FOUR_QUARTILE_EDIT)-> GetWindowText(twoEdit);
-	CString startEdit ;
-	GetDlgItem(IDC_START_EDIT)-> GetWindowText(startEdit);
-	CString stepEdit ;
-	GetDlgItem(IDC_STEP_SIZE_EDIT)-> GetWindowText(stepEdit);
-	CString repeatEdit; 
-	GetDlgItem(IDC_REPEAT_COUNT_EDIT)-> GetWindowText(repeatEdit);
-	CString bitEdit ;
-	GetDlgItem(IDC_BIT_DATA_EDIT)-> GetWindowText(bitEdit);
+
 
 	tempObj.strText=theApp.myModuleMain.CString2string(previewEdit);
 	tempObj.intSerialFirstLimit=_ttoi(firstEdit);

@@ -863,6 +863,7 @@ void CLabelDlg::OnBnClickedRepeatButton()
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i].booFocus)
 		{
+			theApp.bochange=true;
 			if (theApp.myclassMessage.OBJ_Vec[i].strType2=="text")
 			{
 				pInput->pEditText->GetDlgItem(IDC_EDIT1)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strText));
@@ -889,6 +890,41 @@ void CLabelDlg::OnBnClickedRepeatButton()
 				CComboBox *formatBox=(CComboBox *)pInput->pEditFigure->GetDlgItem(IDC_FORMAT_COMBO);
 				formatBox->SetCurSel(theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat);
 				pInput->pEditFigure->RefreshSerial();
+				pInput->pEditFigure->ShowWindow(SW_SHOW);
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="time")
+			{
+				pInput->pDate->GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strTime));
+				CComboBox *dfontBox=(CComboBox *)pInput->pDate->GetDlgItem(IDC_DATE_FONT_COMBO);
+				dfontBox->SelectString(0,theApp.myModuleMain.string2CString(theApp.myclassMessage.OBJ_Vec[i].strFont));
+				CComboBox *boOffBox=(CComboBox *)pInput->pDate->GetDlgItem(IDC_DATE_SKEW_COMBO);
+				boOffBox->SetCurSel(theApp.myclassMessage.OBJ_Vec[i].booETimeOffSet);
+				pInput->pDate->GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i].intTimeOffSet)));
+				CComboBox *whereOffBox=(CComboBox *)pInput->pDate->GetDlgItem(IDC_SKEW_UNIT_LIST);
+				whereOffBox->SetCurSel(theApp.myclassMessage.OBJ_Vec[i].strTimeOffSet);
+				pInput->pDate->ChangeTime();
+				pInput->pDate->ShowWindow(SW_SHOW);
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="logo")
+			{
+				TCHAR path[MAX_PATH];
+				//labModule.string2tchar(testpath,path);
+
+				string xmlPath;
+				if(ShowPathDlg(path, MAX_PATH,2))
+				{
+					xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
+					theApp.myclassMessage.OBJ_Vec[i].ReadBmp(const_cast<char*>(xmlPath.c_str()));//这个最好返回一个bool变量,就能省去if了
+					if (theApp.myclassMessage.OBJ_Vec[i].intLineSize<=0||theApp.myclassMessage.OBJ_Vec[i].intRowSize<=0)
+					{
+						return;
+					}
+					theApp.myclassMessage.OBJ_Vec[i].strText=xmlPath;
+				}
+			}
+			else if (theApp.myclassMessage.OBJ_Vec[i].strType2=="logo")
+			{
+				pInput->pBarCode->ShowWindow(SW_SHOW);
 			}
 			break;
 		}
