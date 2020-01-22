@@ -124,10 +124,10 @@ BOOL CUserDlg::OnInitDialog()
 void CUserDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CListBox* m_errBox=(CListBox*)pUserOpen->GetDlgItem(IDC_NOT_GRANTED_LIST);
+	CListBox* m_errBox=(CListBox*)pUserOpen->GetDlgItem(IDC_OPEN_NOT_GRANTED_LIST);
 	m_errBox->ResetContent();
 
-	CListBox* m_grantedBox=(CListBox*)pUserOpen->GetDlgItem(IDC_GRANTED_LIST);
+	CListBox* m_grantedBox=(CListBox*)pUserOpen->GetDlgItem(IDC_OPEN_GRANTED_LIST);
 	m_grantedBox->ResetContent();
 	string filePathName="Storage Card\\System\\UserPower\\";
 	filePathName=filePathName+theApp.myUserPower.nowUser.userName+".txt";
@@ -155,8 +155,8 @@ void CUserDlg::OnBnClickedOpenButton()
 		m_errBox->SetCurSel(0);
 	}
 
-	pUserOpen->GetDlgItem(IDC_USER_NAME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myUserPower.nowUser.userName));
-	pUserOpen->GetDlgItem(IDC_PASSWARD_EDIT)->SetWindowText(_T(""));
+	pUserOpen->GetDlgItem(IDC_OPEN_NAME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myUserPower.nowUser.userName));
+	pUserOpen->GetDlgItem(IDC_OPEN_PASSWARD_EDIT)->SetWindowText(_T(""));
 	showUserDlg(IDD_USER_OPEN_DIALOG);
 }
 

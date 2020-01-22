@@ -42,4 +42,7 @@ public:
 	CCustomStatic m_openUnauthorizedStatic;
 	CCustomStatic m_openPasswordStatic;
 	CCustomStatic m_openAuthorizedStatic;
+
+	CEdit m_open_nameEdit;
+	CEdit m_open_passwordEdit;
 };

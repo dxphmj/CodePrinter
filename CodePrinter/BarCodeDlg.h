@@ -51,4 +51,6 @@ public:
 	afx_msg void OnBnClickedCode128Btn();
 	afx_msg void OnBnClickedCode39Btn();
 	CCustomStatic m_barText;
+	CImageButton m_barcodeFigureBtn;
+	CImageButton m_barcodeDateBtn;
 };

@@ -25,6 +25,7 @@ void CDateDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATE_CLOSE_BTN, m_returnIB);
 	DDX_Control(pDX, IDC_DATE_OK_BTN, m_okIB);
 	DDX_Control(pDX, IDC_DATE_REFRESH_BTN, m_freshIB);
+	DDX_Control(pDX, IDC_DATE_ADD_BTN, m_dateAddBtn);
 	DDX_Control(pDX, IDC_DATE_SKEW_VALUE_EDIT, m_skewValue);
 	DDX_Control(pDX, IDC_DATE_PREVIEW_STATIC, m_previewStatic);
 	DDX_Control(pDX, IDC_DATE_TIME_STATIC, m_dateTimeStatic);
@@ -71,6 +72,9 @@ BOOL CDateDlg::OnInitDialog()
 	m_okIB.SizeToContent(); 
 	m_freshIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_freshIB.SizeToContent(); 
+
+	m_dateAddBtn.LoadBitmaps(IDB_70_45_1_BITMAP,IDB_70_45_BITMAP,0,0,IDB_70_45_1_BITMAP,true);
+	m_dateAddBtn.SizeToContent(); 
 
 	m_skewValue.SetFont(theApp.m_EditFont);
 	GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
