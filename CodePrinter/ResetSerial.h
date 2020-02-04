@@ -12,7 +12,7 @@
 class CResetSerial : public CDialog
 {
 	DECLARE_DYNAMIC(CResetSerial)
-
+	
 public:
 	CResetSerial(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CResetSerial();
@@ -51,5 +51,10 @@ public:
 	CCustomStatic m_serial2_cur_static;
 	CCustomStatic m_serial3_cur_static;
 	CCustomStatic m_serial4_cur_static;
-
+	bool boDlgOpen;
+	afx_msg void OnBnClickedResetSerial1Btn();
+	afx_msg void OnBnClickedResetSerial2Btn();
+	afx_msg void OnBnClickedResetSerial3Btn();
+	afx_msg void OnBnClickedResetSerial4Btn();
+	afx_msg void OnBnClickedAllResetBtn();
 };

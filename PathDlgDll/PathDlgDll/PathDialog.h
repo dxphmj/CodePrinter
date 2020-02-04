@@ -97,6 +97,7 @@ public:
 	bool CopyFileM(LPCTSTR pTo,LPCTSTR pFrom);
 	bool MoveFileM(LPCTSTR pTo,LPCTSTR pFrom);
 	afx_msg void OnBnClickedButtonNewfile();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

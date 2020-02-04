@@ -28,4 +28,5 @@ public:
 	CImageButton m_CLOBUT;
 	CString m_nameSTR;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

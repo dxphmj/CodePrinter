@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "ResetSerial.h"
-
+#include "CodePrinterDlg.h"
 
 // CResetSerial 对话框
 
@@ -13,7 +13,7 @@ IMPLEMENT_DYNAMIC(CResetSerial, CDialog)
 CResetSerial::CResetSerial(CWnd* pParent /*=NULL*/)
 	: CDialog(CResetSerial::IDD, pParent)
 {
-
+	boDlgOpen=false;
 }
 
 CResetSerial::~CResetSerial()
@@ -52,6 +52,11 @@ void CResetSerial::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CResetSerial, CDialog)
 	ON_BN_CLICKED(IDC_RESET_SERIAL_RETURN_BTN, &CResetSerial::OnBnClickedResetSerialReturnBtn)
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_RESET_SERIAL1_BTN, &CResetSerial::OnBnClickedResetSerial1Btn)
+	ON_BN_CLICKED(IDC_RESET_SERIAL2_BTN, &CResetSerial::OnBnClickedResetSerial2Btn)
+	ON_BN_CLICKED(IDC_RESET_SERIAL3_BTN, &CResetSerial::OnBnClickedResetSerial3Btn)
+	ON_BN_CLICKED(IDC_RESET_SERIAL4_BTN, &CResetSerial::OnBnClickedResetSerial4Btn)
+	ON_BN_CLICKED(IDC_ALL_RESET_BTN, &CResetSerial::OnBnClickedAllResetBtn)
 END_MESSAGE_MAP()
 
 
@@ -88,6 +93,7 @@ BOOL CResetSerial::OnInitDialog()
 void CResetSerial::OnBnClickedResetSerialReturnBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	boDlgOpen=false;
 	this->ShowWindow(SW_HIDE);
 }
 
@@ -99,4 +105,54 @@ HBRUSH CResetSerial::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush; 
+}
+
+void CResetSerial::OnBnClickedResetSerial1Btn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myclassMessage.SerialCountSet[0] = true;
+	theApp.myclassMessage.SerialCountNew = false;
+	//CString tempNum;
+	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
+	mainDlg->m_Label->allMessageSub();
+}
+
+void CResetSerial::OnBnClickedResetSerial2Btn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myclassMessage.SerialCountSet[1] = true;
+	theApp.myclassMessage.SerialCountNew = false;
+	//CString tempNum;
+	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
+	mainDlg->m_Label->allMessageSub();
+}
+
+void CResetSerial::OnBnClickedResetSerial3Btn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myclassMessage.SerialCountSet[2] = true;
+	theApp.myclassMessage.SerialCountNew = false;
+	//CString tempNum;
+	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
+	mainDlg->m_Label->allMessageSub();
+}
+
+void CResetSerial::OnBnClickedResetSerial4Btn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	theApp.myclassMessage.SerialCountSet[3] = true;
+	theApp.myclassMessage.SerialCountNew = false;
+	//CString tempNum;
+	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
+	mainDlg->m_Label->allMessageSub();
+}
+
+void CResetSerial::OnBnClickedAllResetBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	memset(theApp.myclassMessage.SerialCountSet,true,4*sizeof(bool));
+	theApp.myclassMessage.SerialCountNew = false;
+	//CString tempNum;
+	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
+	mainDlg->m_Label->allMessageSub();
 }
