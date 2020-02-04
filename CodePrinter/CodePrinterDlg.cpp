@@ -334,10 +334,10 @@ BOOL CCodePrinterDlg::OnInitDialog()
  
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	SetTimer(TIMER1,300,NULL);	
+	
 
 #endif 	
-
+	SetTimer(TIMER1,300,NULL);	
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
@@ -782,9 +782,9 @@ void CCodePrinterDlg::GetFaultInfo()
 	//故障列表要清除，但又得防止刷新太快，最好判断一下如果列表中已显示该类型故障就不用添加了。
   //  m_Fault->m_faultList.ResetContent();
 
-    
+    m_Fault->m_faultList.SetItemHeight(0,40);
 	//墨水温度传感器故障
-    if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
+    if (theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == false)
 	{
 		theApp.myStatusClass.staInkTemSenFauLas = true;
 		CString csMsg ;
@@ -792,7 +792,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
-		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.AddString(csMsg);				
 	}
 	else if(theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == true)
 	{
@@ -800,7 +800,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 
 	//喷头温度传感器故障
-	if (theApp.myStatusClass.staPriHeaTemFau == true && theApp.myStatusClass.staPriHeaTemFauLas == false)
+	if (theApp.myStatusClass.staPriHeaTemFau == false && theApp.myStatusClass.staPriHeaTemFauLas == false)
 	{
 		theApp.myStatusClass.staPriHeaTemFauLas = true;
 		CString csMsg ;
