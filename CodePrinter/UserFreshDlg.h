@@ -34,4 +34,5 @@ public:
 
 	CListBox m_userNameList;
 	CEdit m_passwordEdit;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

@@ -45,4 +45,5 @@ public:
 
 	CEdit m_open_nameEdit;
 	CEdit m_open_passwordEdit;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

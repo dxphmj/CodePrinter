@@ -174,3 +174,25 @@ HBRUSH CUserFreshDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 
 
+
+BOOL CUserFreshDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_FRESH_PASSWARD_EDIT);
+	ASSERT(pEdit && pEdit->GetSafeHwnd());
+	if(WM_LBUTTONDOWN == pMsg->message && pEdit->GetSafeHwnd() == pMsg->hwnd)
+	{
+		//pEdit->SetFocus();
+		//pEdit->SetSel(-1);
+		CString str;
+		pEdit-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		//CString ts;
+		//ts.Format(L"%s",_T("sdfsa"));
+		str=myCExportDlg.GetInputText(str);
+		pEdit-> SetWindowText(str);
+		return TRUE;
+	}
+	return CDialog::PreTranslateMessage(pMsg);
+}

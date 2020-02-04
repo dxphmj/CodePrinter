@@ -43,4 +43,5 @@ public:
 
 	CListBox m_notGrantedList;
 	CListBox m_grantedList;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
