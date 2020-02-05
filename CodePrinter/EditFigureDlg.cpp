@@ -153,7 +153,7 @@ void CEditFigureDlg::RefreshSerial()
 		{
 			PreviewText=PreviewText+"0";
 		}
-		PreviewText=PreviewText+theApp.myclassMessage.to_String(startNum);
+		PreviewText=PreviewText+OBJ_Control::to_String(startNum);
 		PreviewText=PreviewText.substr(PreviewText.size()-digital,digital);
 		GetDlgItem(IDC_PREVIEW_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(PreviewText));
 		break;
@@ -162,12 +162,12 @@ void CEditFigureDlg::RefreshSerial()
 		{
 			PreviewText=PreviewText+" ";
 		}
-		PreviewText=PreviewText+theApp.myclassMessage.to_String(startNum);
+		PreviewText=PreviewText+OBJ_Control::to_String(startNum);
 		PreviewText=PreviewText.substr(PreviewText.size()-digital,digital);
 		GetDlgItem(IDC_PREVIEW_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(PreviewText));
 		break;
 	case 2:
-		PreviewText=theApp.myclassMessage.to_String(startNum);
+		PreviewText=OBJ_Control::to_String(startNum);
 		int n= digital-PreviewText.length();
 		for (int a=0;a<n;a++)
 		{

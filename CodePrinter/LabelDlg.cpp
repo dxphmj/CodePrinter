@@ -530,7 +530,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
         pixelComboBox.ResetContent();
 		for (int i=1;i<=5;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(i)));
 		}
 		pixelComboBox.SetCurSel(4);
         break;
@@ -540,7 +540,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=7;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(i)));
 		}
 		pixelComboBox.SetCurSel(6);
         break;
@@ -549,7 +549,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=9;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(i)));
 		}
 		pixelComboBox.SetCurSel(8);
 		break;
@@ -558,7 +558,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=12;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(i)));
 		}
 		pixelComboBox.SetCurSel(11);
 		break;
@@ -567,7 +567,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=19;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(i)));
 		}
 		pixelComboBox.SetCurSel(18);
         break;
@@ -576,14 +576,14 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		pixelComboBox.ResetContent();
 		for (int i=1;i<=25;i++)
 		{
-			pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(i)));
+			pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(i)));
 		}
 		pixelComboBox.SetCurSel(24);
 		break;
 	case 6:
 		matrix = 14;
 		pixelComboBox.ResetContent();
-		pixelComboBox.AddString(stringToLPCWSTR(theApp.myclassMessage.to_String(14)));
+		pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(14)));
         pixelComboBox.SetCurSel(13);
 
 	}
@@ -1809,10 +1809,10 @@ void CLabelDlg::changeDis()
 	{
 		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
 		{
-			GetDlgItem(IDC_STATIC_WV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowSize)));
-			GetDlgItem(IDC_STATIC_HV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineSize)));
-			GetDlgItem(IDC_STATIC_XV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowStart)));
-			GetDlgItem(IDC_STATIC_YV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineStart)));
+			GetDlgItem(IDC_STATIC_WV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowSize)));
+			GetDlgItem(IDC_STATIC_HV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineSize)));
+			GetDlgItem(IDC_STATIC_XV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myclassMessage.OBJ_Vec.at(i).intRowStart)));
+			GetDlgItem(IDC_STATIC_YV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myclassMessage.OBJ_Vec.at(i).intLineStart)));
 		return;
 		}
 	}

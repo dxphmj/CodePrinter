@@ -240,7 +240,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	//CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
 	//string timeErr="Storage Card\\System\\Error\\";
-	//timeErr=timeErr+theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay())+".txt";
+	//timeErr=timeErr+OBJ_Control::to_String(localT.GetYear())+OBJ_Control::to_String(localT.GetMonth())+OBJ_Control::to_String(localT.GetDay())+".txt";
 	//ofstream timeErrout(timeErr.c_str(), ios::out |ios::trunc);
 	//timeErrout.close();
 	//ofstream out99("Storage Card\\System\\Error\\99999999.TXT", ios::out |ios::trunc);
@@ -1346,9 +1346,9 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//日期
 		CTime localT=CTime::GetCurrentTime(); 	
 
-		m_currentDate = theApp.myclassMessage.to_String(localT.GetYear())+"/"+theApp.myclassMessage.to_String(localT.GetMonth())+"/"+theApp.myclassMessage.to_String(localT.GetDay());
+		m_currentDate = OBJ_Control::to_String(localT.GetYear())+"/"+OBJ_Control::to_String(localT.GetMonth())+"/"+OBJ_Control::to_String(localT.GetDay());
 		//时间
-		m_currentTime = theApp.myclassMessage.to_String(localT.GetHour())+":"+theApp.myclassMessage.to_String(localT.GetMinute())+":"+theApp.myclassMessage.to_String(localT.GetSecond());
+		m_currentTime = OBJ_Control::to_String(localT.GetHour())+":"+OBJ_Control::to_String(localT.GetMinute())+":"+OBJ_Control::to_String(localT.GetSecond());
 
 		
 		//开打印中
@@ -1408,16 +1408,16 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 	
 		//实时压力
-		m_Ink->GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPressure)));
+		m_Ink->GetDlgItem(IDC_PRESSURE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staPressure)));
 		//实时泵速	
-		m_Ink->GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staBumSpe)));
-		m_Ink->GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkTem)));
-		m_Ink->GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriHeaTem)));
-		m_Ink->GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLev)));
-		m_Ink->GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staSolLev)));
-		m_Ink->GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staTarVis)));
-		m_Ink->GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR((theApp.myStatusClass.staActVis)>0?theApp.myclassMessage.to_String(theApp.myStatusClass.staActVis):"***"));
-		m_Ink->GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staHigVol)));
+		m_Ink->GetDlgItem(IDC_PUMP_SPEED_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staBumSpe)));
+		m_Ink->GetDlgItem(IDC_INK_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staInkTem)));
+		m_Ink->GetDlgItem(IDC_PRINTHEAD_TEMP_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staPriHeaTem)));
+		m_Ink->GetDlgItem(IDC_INK_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staInkLev)));
+		m_Ink->GetDlgItem(IDC_SOLVENT_LEV_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staSolLev)));
+		m_Ink->GetDlgItem(IDC_TARGET_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staTarVis)));
+		m_Ink->GetDlgItem(IDC_ACTUAL_VISCO_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR((theApp.myStatusClass.staActVis)>0?OBJ_Control::to_String(theApp.myStatusClass.staActVis):"***"));
+		m_Ink->GetDlgItem(IDC_HIGH_VOL_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staHigVol)));
 
 
 		//实时相位
@@ -1751,7 +1751,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		    
 		}*/
 		//自动分裂电压
-		m_Ink->m_phas->GetDlgItem(IDC_MODULATION_NUM_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staAutModVol)));
+		m_Ink->m_phas->GetDlgItem(IDC_MODULATION_NUM_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staAutModVol)));
 		//墨水时间分析改写并显示
 		//if (theApp.myStatusClass.staSetTimeEna == false)
 		//{
@@ -1762,7 +1762,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//		m_Ink->m_setup->GetDlgItem(IDC_STATIC_TIMEREST_SETUP)->SetWindowText(_T("Disabled"));
 		//	}			
 		//	string tempLifeTime;
-		//	tempLifeTime = theApp.myclassMessage.to_String((theApp.myStatusClass.staInkLifeTime)/60);
+		//	tempLifeTime = OBJ_Control::to_String((theApp.myStatusClass.staInkLifeTime)/60);
 		//	CString m_tmptLifeTime;
 		//	m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->GetWindowText(m_tmptLifeTime);
 		//	if (theApp.myModuleMain.string2CString(tempLifeTime) != m_tmptLifeTime)
@@ -1792,7 +1792,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
 		//				string m_tmpt;
-		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLifeTime) + "minutes";
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + OBJ_Control::to_String(theApp.myStatusClass.staInkLifeTime) + "minutes";
 		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
 		//			}
 		//		}
@@ -1831,13 +1831,13 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.ServiceTimeLasXML = theApp.myTimClass.ServiceTimeLasXML -1;
 		//				//denghanshu
-		//				m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.ServiceTimeLasXML/60)));
+		//				m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(OBJ_Control::to_String(theApp.myTimClass.ServiceTimeLasXML/60)));
 		//			}
 		//			if (theApp.myTimClass.InkLifeTimeLasXML > 0)
 		//			{
 		//				theApp.myTimClass.InkLifeTimeLasXML = theApp.myTimClass.InkLifeTimeLasXML -1;
 		//				//denghanshu
-		//				m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60)));
+		//				m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60)));
 		//			}
 		//			theApp.myTimClass.dateTimLasWri = localT;
 		//		}
@@ -1859,7 +1859,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.InkDateTimLas = localT;
 		//				string m_tmpt;
-		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
 		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
 		//			}
 		//		}
@@ -1869,7 +1869,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.InkDateTimLas = localT;
 		//				string m_tmpt;
-		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
 		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
 		//			}
 		//		}
@@ -1879,7 +1879,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.InkDateTimLas = localT;
 		//				string m_tmpt;
-		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
 		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
 		//			}
 		//		}
@@ -1901,7 +1901,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.SerDateTimLas = localT;
 		//				string m_tmpt;
-		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
 		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
 		//			}
 		//		}
@@ -1911,7 +1911,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.SerDateTimLas = localT;
 		//				string m_tmpt;
-		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
 		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
 		//			}
 		//		}
@@ -1921,7 +1921,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//			{
 		//				theApp.myTimClass.SerDateTimLas = localT;
 		//				string m_tmpt;
-		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
 		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
 		//			}
 		//		}
@@ -1997,9 +1997,9 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 			
 		//产品计数器
-		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
+		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staProCou)));
 		//打印计数器
-		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
+		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staPriCou)));
 
 		theApp.myModuleMain.refalsetimedata();
 		if (theApp.myclassMessage.boDynamic)
