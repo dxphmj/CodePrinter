@@ -152,8 +152,20 @@ BOOL CConfigurationDlg::OnInitDialog()
 		m_HBitmap[i] = PngImage.CreatHBitmap(); 
 	}
 	m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;;
-	pcf_diagram_select();
- 
+	pcf_diagram_select(); 
+
+	m_reverse.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_inverse.SetFont(theApp.m_ListBoxFont);
+	m_speedWay.SetFont(theApp.m_ListBoxFont);
+
+	m_reverse.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
+	m_reverse.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
+
+	m_inverse.SendMessage(CB_SETITEMHEIGHT,-1,25);
+	m_inverse.SendMessage(CB_SETITEMHEIGHT,0,25);
+
+	m_speedWay.SendMessage(CB_SETITEMHEIGHT,-1,25);
+	m_speedWay.SendMessage(CB_SETITEMHEIGHT,0,25);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -230,6 +242,7 @@ void CConfigurationDlg::OnBnClickedSavePcf()
 	CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
 	pPcfConfig.save_pcf_to_xml();
 	pPcfConfig.download_pcf();
+	pPcfConfig.get_pcf_from_xml();
 	GetParent()->GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pcfNameDlg);
 }
 

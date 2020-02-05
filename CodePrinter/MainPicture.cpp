@@ -53,9 +53,9 @@ void MainPicture::OnPaint()
 	//ÃÓ≥‰—’…´
 	GetClientRect(&rectClient);
 	CRect drawRect=rectClient;
-	drawRect.top=rectClient.top+(32-theApp.myclassMessage.Pixel-1)*pixSize;
+	drawRect.top=rectClient.top+(32-theApp.mainPicPixel)*pixSize;
 	CRect bkRect=rectClient;
-	bkRect.bottom=(32-theApp.myclassMessage.Pixel-1)*pixSize;
+	bkRect.bottom=(32-theApp.mainPicPixel)*pixSize;
 	dcMem.FillSolidRect(bkRect,theApp.m_BKcolor);
 	dcMem.FillSolidRect(drawRect,RGB(255,255,255));   //ÃÓ≥‰—’…´
 
@@ -64,7 +64,7 @@ void MainPicture::OnPaint()
 	CBrush *pBrush; //æ…± À¢
 	cbrush.CreateSolidBrush(RGB(0,0,0)); 
 	cwrush.CreateSolidBrush(RGB(255,255,255));
-	int pixel = theApp.myclassMessage.Pixel+1;
+	//int pixel = theApp.myclassMessage.Pixel+1;
 	if(1)
 	{
 		//ª≠Õ¯∏Ò
@@ -74,11 +74,11 @@ void MainPicture::OnPaint()
 		pOldPen = dcMem.SelectObject(&cPen); //‘ÿ»Î± À¢
 		for (int i=0;i<=rectClient.Width();)// ˙
 		{
-			dcMem.MoveTo(i,rectClient.Height()-pixSize*pixel-1);
+			dcMem.MoveTo(i,rectClient.Height()-pixSize*theApp.mainPicPixel-1);
 			dcMem.LineTo(i,rectClient.Height());
 			i+=pixSize;
 		}
-		for (int j=rectClient.Height()-pixSize*pixel-1;j<=rectClient.Height();)
+		for (int j=rectClient.Height()-pixSize*theApp.mainPicPixel-1;j<=rectClient.Height();)
 		{
 			dcMem.MoveTo(0,j);
 			dcMem.LineTo(rectClient.Width(),j);
@@ -92,50 +92,53 @@ void MainPicture::OnPaint()
 	///theApp.myclassMessage.DrawDot(&dcMem);
 
 	//int recSize=4;
-	for (int i=0;i<(theApp.myclassMessage.Pixel+1);i++)
+	for (int ni=0;ni<theApp.myclassMessage.OBJ_Vec.size();ni++)
 	{
-		for (int j=0;j<theApp.myclassMessage.intRowMax;j++)
+		if (theApp.myclassMessage.OBJ_Vec[ni].strType2!="serial"&&theApp.myclassMessage.OBJ_Vec[ni].strType2!="time")
 		{
-			if (theApp.myclassMessage.boDotMes[i][j])
+			for (int i=theApp.myclassMessage.OBJ_Vec[ni].intLineStart;i<(theApp.myclassMessage.OBJ_Vec[ni].intLineSize+theApp.myclassMessage.OBJ_Vec[ni].intLineStart);i++)
 			{
-				int tx=j*pixSize+1;
-				int ty=129-(i+1)*pixSize;
-				int bx=(j+1)*pixSize;
-				int by=129-i*pixSize-1;
-				pBrush=dcMem.SelectObject(&cbrush);
-				//LPCRECT xyRect;
-				//xyRect->left=tx;
-				//xyRect->top=ty;
-				//xyRect->bottom=by;
-				//xyRect->right=bx;
-				//dcMem.FillSolidRect(tx,ty,bx,by,RGB(0,0,0));
-				dcMem.Rectangle(tx,ty,bx,by);
+				for (int j=theApp.myclassMessage.OBJ_Vec[ni].intRowStart;j<(theApp.myclassMessage.OBJ_Vec[ni].intRowSize+theApp.myclassMessage.OBJ_Vec[ni].intRowStart);j++)
+				{
+					if (theApp.myclassMessage.boDotMes[i][j])
+					{
+						int tx=j*pixSize+1;
+						int ty=129-(i+1)*pixSize;
+						int bx=(j+1)*pixSize;
+						int by=129-i*pixSize-1;
+						pBrush=dcMem.SelectObject(&cbrush);
+						dcMem.Rectangle(tx,ty,bx,by);
+					}
+				}
 			}
-			//else
-			//{
-			//	
-			//	int tx=j*pixSize+1;
-			//	int ty=129-(i+1)*pixSize;
-			//	int bx=(j+1)*pixSize;
-			//	int by=129-i*pixSize-1;
-			//	pBrush=dcMem.SelectObject(&cwrush);
-			//	//LPCRECT xyRect;
-			//	//xyRect->left=tx;
-			//	//xyRect->top=ty;
-			//	//xyRect->bottom=by;
-			//	//xyRect->right=bx;
-			//	//dcMem.FillSolidRect(tx,ty,bx,by,RGB(0,0,0));
-			//	dcMem.Rectangle(tx,ty,bx,by);
-			//	
-			//}
 		}
 	}
+	//if (!theApp.myclassMessage.boDynamic)
+	//{
+	//	//for (int i=0;i<(theApp.myclassMessage.Pixel+1);i++)
+	//	for (int i=0;i<theApp.mainPicPixel;i++)
+	//	{
+	//		for (int j=0;j<theApp.myclassMessage.intRowMax;j++)
+	//		{
+	//			if (theApp.myclassMessage.boDotMes[i][j])
+	//			{
+	//				int tx=j*pixSize+1;
+	//				int ty=129-(i+1)*pixSize;
+	//				int bx=(j+1)*pixSize;
+	//				int by=129-i*pixSize-1;
+	//				pBrush=dcMem.SelectObject(&cbrush);
+	//				dcMem.Rectangle(tx,ty,bx,by);
+	//			}
+	//		}
+	//	}
+	//}
+
 	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//ªÊ÷∆Õº∆¨µΩ÷˜dc
 	//dcMem.SelectObject(pOldBitmap);//«Â¿Ì
 	dcMem.DeleteDC();      // …æ≥˝ƒ⁄¥ÊDC
 	bitmapTemp.DeleteObject();      // …æ≥˝ƒ⁄¥ÊŒªÕº
 	//theApp.myclassMessage.DrawDot(pDC);
-
+	theApp.boDrawMainPic=true;
 	ReleaseDC(pDC); 
 }
 
@@ -163,6 +166,7 @@ UINT methoddis(LPVOID pParam)
 	CBrush* pBrush; //æ…± À¢					
 	cbrushB.CreateSolidBrush(RGB(0,0,0)); 
 	cbrushW.CreateSolidBrush(RGB(255,255,255));
+	pDC->SelectStockObject(NULL_PEN);
 	//ªÊ÷∆
 	//pBrush=pDC->SelectObject(&cbrushB);
 	//for(int sw=0;sw<intSW;sw++)
@@ -174,7 +178,7 @@ UINT methoddis(LPVOID pParam)
 
 
 
-	while(1)
+	while(theApp.mythreadDynamicBoo)
 	{
 		while(theApp.boDrawMainPic)
 		{
@@ -201,11 +205,11 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize,
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize+1,
 											(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32 + i - theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -224,10 +228,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize+1,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -248,10 +252,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize+1,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -268,10 +272,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize,(k+1)*pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -295,11 +299,11 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize,
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize+1,
 											(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32 + i - theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -318,10 +322,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize+1,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -342,10 +346,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize+1,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -362,10 +366,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize,(k+1)*pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -389,11 +393,11 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize,
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize+1,
 											(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32 + i - theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -412,10 +416,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize+1,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -436,10 +440,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize+1,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -456,10 +460,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize,(k+1)*pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -483,11 +487,11 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize,
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 + i - theApp.myclassMessage.pixelMesdis) * pixSize+1,
 											(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32 + i - theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -506,10 +510,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle((intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]) * pixSize+1,(31 - i) * pixSize+1,(intDynamicRowEnd - k + theApp.myclassMessage.intQSerialRowStartdis[j]+1) * pixSize,(32-i)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 									tmptInt = tmptInt - 1;
@@ -530,10 +534,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31+i-theApp.myclassMessage.pixelMesdis)*pixSize+1,(k+1)*pixSize,(32+i-theApp.myclassMessage.pixelMesdis)*pixSize);
+										//AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -550,10 +554,10 @@ UINT methoddis(LPVOID pParam)
 										} 
 										else
 										{
-											pBrush=pDC->SelectObject(&cbrushW);
+											pDC->SelectStockObject(WHITE_BRUSH);
 										}
-										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize,(k+1)*pixSize,(32-i)*pixSize);
-										AfxGetApp()->PumpMessage();
+										pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+										////AfxGetApp()->PumpMessage();
 										Sleep(1);
 									}
 								}
@@ -564,9 +568,430 @@ UINT methoddis(LPVOID pParam)
 				} 
 				else
 				{
+					int tmptInt=intDynamicRowEnd;
+					for (int k=theApp.myclassMessage.intQSerialStartValue[j];k<=intDynamicRowEnd;k++)
+					{
+						BYTE tempByte1= intMesDis1[k * 2 + 11];
+						BYTE tempByte2 = intMesDis1[k * 2 + 11 + 1];
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,0))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,31*pixSize+1,(k+1)*pixSize,(32)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,1))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-8)*pixSize+1,(k+1)*pixSize,(32-8)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,2))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-1)*pixSize+1,(k+1)*pixSize,(32-1)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,3))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-9)*pixSize+1,(k+1)*pixSize,(32-9)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,4))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-2)*pixSize+1,(k+1)*pixSize,(32-2)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,5))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-10)*pixSize+1,(k+1)*pixSize,(32-11)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,6))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-3)*pixSize+1,(k+1)*pixSize,(32-3)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,7))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-11)*pixSize+1,(k+1)*pixSize,(32-11)*pixSize);
+						Sleep(1);
+
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,0))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-4)*pixSize+1,(k+1)*pixSize,(32-4)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,1))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-12)*pixSize+1,(k+1)*pixSize,(32-12)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,2))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-5)*pixSize+1,(k+1)*pixSize,(32-5)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,3))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-13)*pixSize+1,(k+1)*pixSize,(32-13)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,4))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-6)*pixSize+1,(k+1)*pixSize,(32-6)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,5))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-14)*pixSize+1,(k+1)*pixSize,(32-14)*pixSize);
+						Sleep(1);
+
+					}
+
 				}
 			}
+
+			for (int j=0;j<theApp.myclassMessage.bytTimeConCoundis;j++)
+			{
+				int intDynamicRowEnd = theApp.myclassMessage.intTimeRowStartdis[j] + theApp.myclassMessage.intTimeRowSizedis[j] - 1;
+				if (theApp.myclassMessage.matrixMesdis!=14)
+				{
+					if (theApp.myclassMessage.pixelMesdis<8)
+					{
+						for (int k=theApp.myclassMessage.intTimeRowStartdis[j];k<=intDynamicRowEnd;k++)
+						{
+							for (int i=0;i<=theApp.myclassMessage.pixelMesdis;i++)
+							{
+								if (theApp.myModuleMain.MesDisIsB(intMesDis1[11+k],i))
+								{
+									pBrush=pDC->SelectObject(&cbrushB);
+								} 
+								else
+								{
+									pDC->SelectStockObject(WHITE_BRUSH);
+								}
+								pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+								//AfxGetApp()->PumpMessage();
+								Sleep(1);
+							}
+						}
+					} 
+					else if (theApp.myclassMessage.pixelMesdis>7&&theApp.myclassMessage.pixelMesdis<16)
+					{
+
+						for (int k=theApp.myclassMessage.intTimeRowStartdis[j];k<=intDynamicRowEnd;k++)
+						{
+							for (int i=0;i<=theApp.myclassMessage.pixelMesdis;i++)
+							{
+								if (theApp.myModuleMain.MesDisIsB(intMesDis1[11 + 2 * k] + (intMesDis1[11 + 2 * k + 1] * pow(2 , 8)),i))
+								{
+									pBrush=pDC->SelectObject(&cbrushB);
+								} 
+								else
+								{
+									pDC->SelectStockObject(WHITE_BRUSH);
+								}
+								pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+								//AfxGetApp()->PumpMessage();
+								Sleep(1);
+							}
+						}
+
+					}
+					else if (theApp.myclassMessage.pixelMesdis>15&&theApp.myclassMessage.pixelMesdis<24)
+					{
+
+						for (int k=theApp.myclassMessage.intTimeRowStartdis[j];k<=intDynamicRowEnd;k++)
+						{
+							for (int i=0;i<=theApp.myclassMessage.pixelMesdis;i++)
+							{
+								if (theApp.myModuleMain.MesDisIsB(intMesDis1[11 + 3 * k] + (intMesDis1[11 + 3 * k + 1] * pow(2 , 8))+ (intMesDis1[11 + 3 * k + 2] * pow(2 , 16)),i))
+								{
+									pBrush=pDC->SelectObject(&cbrushB);
+								} 
+								else
+								{
+									pDC->SelectStockObject(WHITE_BRUSH);
+								}
+								pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+								//AfxGetApp()->PumpMessage();
+								Sleep(1);
+							}
+						}
+					}
+					else if (theApp.myclassMessage.pixelMesdis>23)
+					{
+						for (int k=theApp.myclassMessage.intTimeRowStartdis[j];k<=intDynamicRowEnd;k++)
+						{
+							for (int i=0;i<=theApp.myclassMessage.pixelMesdis;i++)
+							{
+								if (theApp.myModuleMain.MesDisIsB(intMesDis1[11 + 4 * k] + (intMesDis1[11 + 4 * k + 1] * pow(2 , 8))+ (intMesDis1[11 + 4 * k + 2] * pow(2 , 16))+ (intMesDis1[11 + 4 * k + 3] * pow(2 , 24)),i))
+								{
+									pBrush=pDC->SelectObject(&cbrushB);
+								} 
+								else
+								{
+									pDC->SelectStockObject(WHITE_BRUSH);
+								}
+								pDC->Rectangle(k*pixSize+1,(31 - i)*pixSize+1,(k+1)*pixSize,(32-i)*pixSize);
+								////AfxGetApp()->PumpMessage();
+								Sleep(1);
+							}
+						}
+					}
+				} 
+				else
+				{
+					int tmptInt=intDynamicRowEnd;
+					for (int k=theApp.myclassMessage.intTimeRowStartdis[j];k<=intDynamicRowEnd;k++)
+					{
+						BYTE tempByte1= intMesDis1[k * 2 + 11];
+						BYTE tempByte2 = intMesDis1[k * 2 + 11 + 1];
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,0))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,31*pixSize+1,(k+1)*pixSize,(32)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,1))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-8)*pixSize+1,(k+1)*pixSize,(32-8)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,2))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-1)*pixSize+1,(k+1)*pixSize,(32-1)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,3))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-9)*pixSize+1,(k+1)*pixSize,(32-9)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,4))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-2)*pixSize+1,(k+1)*pixSize,(32-2)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,5))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-10)*pixSize+1,(k+1)*pixSize,(32-11)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,6))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-3)*pixSize+1,(k+1)*pixSize,(32-3)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte1,7))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-11)*pixSize+1,(k+1)*pixSize,(32-11)*pixSize);
+						Sleep(1);
+
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,0))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-4)*pixSize+1,(k+1)*pixSize,(32-4)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,1))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-12)*pixSize+1,(k+1)*pixSize,(32-12)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,2))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-5)*pixSize+1,(k+1)*pixSize,(32-5)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,3))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-13)*pixSize+1,(k+1)*pixSize,(32-13)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,4))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-6)*pixSize+1,(k+1)*pixSize,(32-6)*pixSize);
+						Sleep(1);
+
+						if (theApp.myModuleMain.MesDisIsB(tempByte2,5))
+						{
+							pBrush=pDC->SelectObject(&cbrushB);
+						} 
+						else
+						{
+							pDC->SelectStockObject(WHITE_BRUSH);
+						}
+						pDC->Rectangle(k*pixSize+1,(31-14)*pixSize+1,(k+1)*pixSize,(32-14)*pixSize);
+						Sleep(1);
+
+					}
+
+				}
+			}//
 		}
+		Sleep(50);
 	}
 
 	//…æ≥˝

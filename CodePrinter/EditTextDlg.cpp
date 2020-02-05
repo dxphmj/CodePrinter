@@ -27,6 +27,10 @@ void CEditTextDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, Combo_Font, fontComboBox);
 	DDX_Control(pDX, IDC_EDITTEXT_CLOSE_BTN, m_returnIB);
 	DDX_Control(pDX, IDC_BUTTON_EDITOK, m_okIB);
+	DDX_Control(pDX, Static_Text, m_textStatic);
+	DDX_Control(pDX, Static_Font, m_fontStatic);
+	DDX_Control(pDX, Static_DataField, m_dataFieldStatic);
+	DDX_Control(pDX, IDC_EDIT1, m_textEdit);
 }
 
 
@@ -50,8 +54,10 @@ BOOL CEditTextDlg::OnInitDialog()
 	fontComboBox.AddString(_T("7x5"));
 	fontComboBox.AddString(_T("12x12"));
 	fontComboBox.AddString(_T("16x12"));
-
 	fontComboBox.SetCurSel(1);
+	fontComboBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	fontComboBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	fontComboBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	GetDlgItem(IDC_EDITTEXT_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BUTTON_EDITOK)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
@@ -60,6 +66,8 @@ BOOL CEditTextDlg::OnInitDialog()
 	m_returnIB.SizeToContent(); 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
+
+	m_textEdit.SetFont(theApp.m_EditFont);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -123,9 +131,47 @@ void CEditTextDlg::OnCbnSelchangeFont()
 void CEditTextDlg::OnBnClickedButtonEditok()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	
-	//ModuleMain fontModule;
-
+	if (theApp.bochange)
+	{
+		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+		{
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			{
+				CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
+				CString strText;
+				pEdit-> GetWindowText(strText);
+				//tempObj.strText=theApp.myModuleMain.CString2string(strText);
+				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+				CString  fontText;
+				int nIndex = fontComboBox.GetCurSel();  //当前选中的项
+				switch(nIndex)
+				{
+				case 0:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=5;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 1:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=7;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 2:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=12;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 3:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=16;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				}
+				fontComboBox.GetLBText(nIndex,fontText);
+				theApp.myclassMessage.OBJ_Vec[i].strFont=theApp.myModuleMain.CString2string(fontText);
+				break;
+			}
+		}
+		theApp.bochange=false;
+		this->ShowWindow(SW_HIDE);
+		return;
+	}
 	int xPos=0;
 	int yPos=0;
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
@@ -135,6 +181,7 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
 			yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
 			xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
+			break;
 		}
 	}
 	OBJ_Control tempObj;
@@ -151,7 +198,14 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
 	CString strText;
 	pEdit-> GetWindowText(strText);
-	tempObj.strText=theApp.myModuleMain.CString2string(strText);
+	//tempObj.strText=theApp.myModuleMain.CString2string(strText);
+	tempObj.strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+	//USES_CONVERSION;
+	////函数T2A和W2A均支持ATL和MFC中的字符
+	////char * pFileName = T2A(str);  
+	//const char * tempTEXT = W2A(strText.GetBuffer(0));
+	//tempObj.strText=tempTEXT;
+	//delete tempTEXT;
 	//tempObj.strText="中国";
 	CString  fontText;
 	int nIndex = fontComboBox.GetCurSel();  //当前选中的项

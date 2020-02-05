@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CInkSetupDlg ¶Ô»°¿ò
 
@@ -37,4 +38,15 @@ public:
 
 	afx_msg void OnStnClickedInkSetupInktypeStatic();
 
+	CCustomStatic m_setupSizeStatic;
+	CCustomStatic m_setupRateStatic;
+	CCustomStatic m_setupInkTypeStatic;
+	CCustomStatic m_setupConStatic;
+	CCustomStatic m_setupSleepModeStatic;
+	CCustomStatic m_setupTimeResetStatic;
+	CCustomStatic m_setupNextTimeStatic;
+	CCustomStatic m_setupLastTimeStatic;
+	CCustomStatic m_setupSolLevStatic;
+	CCustomStatic m_setupInkLevStatic;
+	CCustomStatic m_timeResetStatic;
 };

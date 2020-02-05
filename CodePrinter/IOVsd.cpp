@@ -187,7 +187,7 @@ BOOL CIOVsd::Send(LPTSTR lpszSendString, INT nszSendStringLen)
 	if (m_pSerialPort)
 		m_pSerialPort->Send((BYTE *)lpszSendString,nszSendStringLen,&iSendLen);
 
-	BYTE bySendBuffer[64] = {0};
+	BYTE bySendBuffer[1024] = {0};
 	memcpy(bySendBuffer,lpszSendString,nszSendStringLen);
 // 	CString csMsg = _T("");
 // 	csMsg.Format("COM:%d--TX:PacketType:%d--Len:%d ",m_nComIndx,bySendBuffer[1],nszSendStringLen);

@@ -31,7 +31,9 @@ void CInksystemconfig::get_inksystem_from_xml()
 	m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SetCurSel(nCur);
 	
 	//开机默认晶振频率
-	str = dealXml.ReadXml(_T("inksystem.xml"),_T("ModulationFrequency"), _T("64000"), _T("Storage Card\\System"));
+	//str = dealXml.ReadXml(_T("inksystem.xml"),_T("ModulationFrequency"), _T("64000"), _T("Storage Card\\System"));
+	str=_T("64000");
+	//str=theApp.myModuleMain.string2CString(theApp.myModuleMain.ReadXml("inksystem.xml","ModulationFrequency", "64000", "Storage Card\\System"));
 	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.SelectString(0,str);
 	m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.SetCurSel(nCur);
 	

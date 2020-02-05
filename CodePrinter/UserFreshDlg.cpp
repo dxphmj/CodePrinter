@@ -26,6 +26,11 @@ void CUserFreshDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_CLOSE, m_pReturn);
 	DDX_Control(pDX, IDC_BUTTON_OK, m_pbtnOK);
+	
+	DDX_Control(pDX, IDC_USER_FRESH_NAME_STATIC, m_freshUserNameStatic);
+	DDX_Control(pDX, IDC_FRESH_PASSWORD_STATIC, m_freshPasswordStatic);
+	DDX_Control(pDX, IDC_FRESH_USER_NAME_LIST, m_userNameList);
+	DDX_Control(pDX, IDC_FRESH_PASSWARD_EDIT, m_passwordEdit);
 }
 
 
@@ -57,6 +62,8 @@ BOOL CUserFreshDlg::OnInitDialog()
 	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pbtnOK.SizeToContent(); 
 
+	m_userNameList.SetItemHeight(0,20);
+	m_passwordEdit.SetFont(theApp.m_EditFont);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -167,3 +174,25 @@ HBRUSH CUserFreshDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 
 
+
+BOOL CUserFreshDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_FRESH_PASSWARD_EDIT);
+	ASSERT(pEdit && pEdit->GetSafeHwnd());
+	if(WM_LBUTTONDOWN == pMsg->message && pEdit->GetSafeHwnd() == pMsg->hwnd)
+	{
+		//pEdit->SetFocus();
+		//pEdit->SetSel(-1);
+		CString str;
+		pEdit-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		//CString ts;
+		//ts.Format(L"%s",_T("sdfsa"));
+		str=myCExportDlg.GetInputText(str);
+		pEdit-> SetWindowText(str);
+		return TRUE;
+	}
+	return CDialog::PreTranslateMessage(pMsg);
+}

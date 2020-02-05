@@ -110,6 +110,7 @@ BEGIN_MESSAGE_MAP(CCodePrinterDlg, CDialog)
 	ON_WM_TIMER()
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_RESET_COUNT_BTN, &CCodePrinterDlg::OnBnClickedResetCountBtn)
+	ON_BN_CLICKED(IDC_RESET_SERIAL_BTN, &CCodePrinterDlg::OnBnClickedResetSerialBtn)
 END_MESSAGE_MAP()
 
 
@@ -144,6 +145,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi = new CConfigurationDlg;
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
+	m_resetSerial = new CResetSerial;
 
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
@@ -179,6 +181,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Label->Create(IDD_LABEL_DIALOG,this);
 	m_Label->MoveWindow(nX,nY,nWidth,nHeight); 
 	
+	m_resetSerial->Create(IDD_RESET_SERIAL_DIALOG,this);
+	m_resetSerial->MoveWindow(nX,nY,nWidth,nHeight); 
 	 
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
@@ -229,6 +233,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 
 #ifndef _DEBUG
+//#ifdef def_ttl
 	//串口初始化
 	theApp.myModuleMain.InitCommMsg();
 #endif
@@ -302,7 +307,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//SetTimer(TIMER1,300,NULL);	
     //墨水配置初始化
-	/*
+
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 	pInksysConfig.get_inksystem_from_xml();
@@ -315,10 +320,11 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pPcfConfig.m_pcfName);
 	m_Confi->pcfNameDlg=pPcfConfig.m_pcfName;
-*/	
+	
 
 #ifndef _DEBUG
 //#ifdef def_ttl
+
 	LPTSTR strTempCmd;
 	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
 	strTempCmd=(LPTSTR)readArr;	 
@@ -328,10 +334,10 @@ BOOL CCodePrinterDlg::OnInitDialog()
  
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	SetTimer(TIMER1,300,NULL);	
+	
 
 #endif 	
-
+	SetTimer(TIMER1,300,NULL);	
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
@@ -446,8 +452,15 @@ void CCodePrinterDlg::OnBnClickedPauseprintButton()
 	theApp.myStatusClass.download_inksystem_control03();
 }
 
+void CCodePrinterDlg::OnBnClickedResetSerialBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	showDlg(IDD_RESET_SERIAL_DIALOG);
+}
+
 void CCodePrinterDlg::showDlg(int ID)
 {
+	theApp.boDrawMainPic=false;
 	m_Fault->ShowWindow(SW_HIDE);
 	m_System->ShowWindow(SW_HIDE);
 	m_User->ShowWindow(SW_HIDE);
@@ -455,6 +468,7 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_Confi->ShowWindow(SW_HIDE);
 	m_FileMan->ShowWindow(SW_HIDE);
 	m_Ink->ShowWindow(SW_HIDE);
+	m_resetSerial->ShowWindow(SW_HIDE);
 	wstring tempstr,tempstr2;
 	CString cstr,cstr2;
 	if(ID == IDD_SYSTEM_DIALOG)
@@ -523,6 +537,61 @@ void CCodePrinterDlg::showDlg(int ID)
 	{
 		m_OnOff->ShowWindow(SW_SHOW);
 	}*/
+	else if(ID == IDD_RESET_SERIAL_DIALOG)
+	{
+			m_resetSerial->boDlgOpen=true;
+			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(_T(""));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(_T(""));
+
+			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(_T(""));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(_T(""));
+
+			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(_T(""));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(_T(""));
+
+			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(_T(""));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(_T(""));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(_T(""));
+
+		
+		if (theApp.myclassMessage.boCountEn[0])
+		{
+			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
+			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[0])));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
+		}
+		if (theApp.myclassMessage.boCountEn[1])
+		{
+			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
+			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[1])));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
+		}
+		if (theApp.myclassMessage.boCountEn[2])
+		{
+			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
+			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[2])));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
+		}
+		if (theApp.myclassMessage.boCountEn[3])
+		{
+			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
+			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[3])));
+			//m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
+			m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
+		}
+		m_resetSerial->ShowWindow(SW_SHOW);
+		
+	}
 }
 
 void CCodePrinterDlg::UpdateValve()
@@ -764,9 +833,9 @@ void CCodePrinterDlg::GetFaultInfo()
 	//故障列表要清除，但又得防止刷新太快，最好判断一下如果列表中已显示该类型故障就不用添加了。
   //  m_Fault->m_faultList.ResetContent();
 
-    
+    m_Fault->m_faultList.SetItemHeight(0,40);
 	//墨水温度传感器故障
-    if (theApp.myStatusClass.staInkTemSenFau == true && theApp.myStatusClass.staInkTemSenFauLas == false)
+    if (theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == false)
 	{
 		theApp.myStatusClass.staInkTemSenFauLas = true;
 		CString csMsg ;
@@ -774,7 +843,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
-		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.AddString(csMsg);				
 	}
 	else if(theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == true)
 	{
@@ -782,7 +851,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 
 	//喷头温度传感器故障
-	if (theApp.myStatusClass.staPriHeaTemFau == true && theApp.myStatusClass.staPriHeaTemFauLas == false)
+	if (theApp.myStatusClass.staPriHeaTemFau == false && theApp.myStatusClass.staPriHeaTemFauLas == false)
 	{
 		theApp.myStatusClass.staPriHeaTemFauLas = true;
 		CString csMsg ;
@@ -1257,6 +1326,10 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		
 	case TIMER1:
 	{
+		//系统日期
+	   CTime tmSCan=CTime::GetCurrentTime();
+	   CString szTime=tmSCan.Format(_T("%Y-%m-%d %H:%M:%S"));
+	   GetDlgItem(IDC_TIME_STATIC)->SetWindowText(szTime);
 		 //KillTimer(TIMER1);
 		 if (theApp.myUserPower.isChangeUser)
 		 {
@@ -1680,186 +1753,186 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//自动分裂电压
 		m_Ink->m_phas->GetDlgItem(IDC_MODULATION_NUM_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staAutModVol)));
 		//墨水时间分析改写并显示
-		if (theApp.myStatusClass.staSetTimeEna == false)
-		{
-			CString m_tmptSetTime;
-			m_Ink->m_setup->GetDlgItem(IDC_STATIC)->GetWindowText(m_tmptSetTime);
-			if ( m_tmptSetTime != "Disabled")
-			{
-				m_Ink->m_setup->GetDlgItem(IDC_STATIC)->SetWindowText(_T("Disabled"));
-			}			
-			string tempLifeTime;
-			tempLifeTime = theApp.myclassMessage.to_String((theApp.myStatusClass.staInkLifeTime)/60);
-			CString m_tmptLifeTime;
-			m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->GetWindowText(m_tmptLifeTime);
-			if (theApp.myModuleMain.string2CString(tempLifeTime) != m_tmptLifeTime)
-			{
-				m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(tempLifeTime));
-				m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(tempLifeTime));
-			}
-			CTime localT = CTime::GetCurrentTime(); 				
-			CTimeSpan m_timeSpan;
-			m_timeSpan = localT- theApp.myTimClass.InkDateTimLas;
-			CTimeSpan m_timeSpanWri;
-			m_timeSpanWri = localT- theApp.myTimClass.dateTimLasWri;
-			if (theApp.myStatusClass.staInkLifeTime == 0)
-			{
-				if (theApp.myTimClass.InkLifeTimeLas > 0 )
-				{
-					CString csMsg ;
-					csMsg.Format(_T("Ink has expired"));
-					string m_tmpt;
-					m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
-					csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
-					m_Fault->m_faultList.AddString(csMsg);
-				}
-				else if (theApp.myStatusClass.staInkLifeTime < 120) //小于2小时，每分钟提醒一次
-				{
-					if ((theApp.myStatusClass.staInkLifeTime+1)< theApp.myTimClass.InkLifeTimeLas)		
-					{
-						theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLifeTime) + "minutes";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-				else if (theApp.myStatusClass.staInkLifeTime < 600)//小于10小时，每十分钟提醒一次
-				{
-					if ((theApp.myStatusClass.staInkLifeTime + 10)< theApp.myTimClass.InkLifeTimeLas)		
-					{
-						theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + tempLifeTime + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-				else if (theApp.myStatusClass.staInkLifeTime < 6000)//小于100小时，每一小时提醒一次
-				{
-					if ((theApp.myStatusClass.staInkLifeTime + 60)< theApp.myTimClass.InkLifeTimeLas)		
-					{
-						theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + tempLifeTime + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-			}
-			else if (theApp.myStatusClass.staSetTimeEna == true)
-			{
-				CTime localT = CTime::GetCurrentTime(); 				
-				CTimeSpan m_timeSpan;
-				m_timeSpan = localT- theApp.myTimClass.InkDateTimLas;
-				CTimeSpan m_timeSpanWri;
-				m_timeSpanWri = localT- theApp.myTimClass.dateTimLasWri;
-				if (m_timeSpanWri.GetTotalSeconds()>59)//一分钟写一次维护时间
-				{
-					//写XML时间
-					if (theApp.myTimClass.ServiceTimeLasXML > 0)
-					{
-						theApp.myTimClass.ServiceTimeLasXML = theApp.myTimClass.ServiceTimeLasXML -1;
-						//denghanshu
-						m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.ServiceTimeLasXML/60)));
-					}
-					if (theApp.myTimClass.InkLifeTimeLasXML > 0)
-					{
-						theApp.myTimClass.InkLifeTimeLasXML = theApp.myTimClass.InkLifeTimeLasXML -1;
-						//denghanshu
-						m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60)));
-					}
-					theApp.myTimClass.dateTimLasWri = localT;
-				}
-				if (theApp.myTimClass.InkLifeTimeLasXML == 0)
-				{
-					if (theApp.myTimClass.boInkLifeTime == true )
-					{
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "                  " + "Ink has expired";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-						theApp.myTimClass.boInkLifeTime = false; 
-					}
-					//还有vb界面弹框，但是c++没有做，为防止以后加，特在此留一下标记
+		//if (theApp.myStatusClass.staSetTimeEna == false)
+		//{
+		//	CString m_tmptSetTime;
+		//	m_Ink->m_setup->GetDlgItem(IDC_STATIC_TIMEREST_SETUP)->GetWindowText(m_tmptSetTime);
+		//	if ( m_tmptSetTime != "Disabled")
+		//	{
+		//		m_Ink->m_setup->GetDlgItem(IDC_STATIC_TIMEREST_SETUP)->SetWindowText(_T("Disabled"));
+		//	}			
+		//	string tempLifeTime;
+		//	tempLifeTime = theApp.myclassMessage.to_String((theApp.myStatusClass.staInkLifeTime)/60);
+		//	CString m_tmptLifeTime;
+		//	m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->GetWindowText(m_tmptLifeTime);
+		//	if (theApp.myModuleMain.string2CString(tempLifeTime) != m_tmptLifeTime)
+		//	{
+		//		m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(tempLifeTime));
+		//		m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(tempLifeTime));
+		//	}
+		//	CTime localT = CTime::GetCurrentTime(); 				
+		//	CTimeSpan m_timeSpan;
+		//	m_timeSpan = localT- theApp.myTimClass.InkDateTimLas;
+		//	CTimeSpan m_timeSpanWri;
+		//	m_timeSpanWri = localT- theApp.myTimClass.dateTimLasWri;
+		//	if (theApp.myStatusClass.staInkLifeTime == 0)
+		//	{
+		//		if (theApp.myTimClass.InkLifeTimeLas > 0 )
+		//		{
+		//			CString csMsg ;
+		//			csMsg.Format(_T("Ink has expired"));
+		//			string m_tmpt;
+		//			m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+		//			csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
+		//			m_Fault->m_faultList.AddString(csMsg);
+		//		}
+		//		else if (theApp.myStatusClass.staInkLifeTime < 120) //小于2小时，每分钟提醒一次
+		//		{
+		//			if ((theApp.myStatusClass.staInkLifeTime+1)< theApp.myTimClass.InkLifeTimeLas)		
+		//			{
+		//				theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + theApp.myclassMessage.to_String(theApp.myStatusClass.staInkLifeTime) + "minutes";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//		else if (theApp.myStatusClass.staInkLifeTime < 600)//小于10小时，每十分钟提醒一次
+		//		{
+		//			if ((theApp.myStatusClass.staInkLifeTime + 10)< theApp.myTimClass.InkLifeTimeLas)		
+		//			{
+		//				theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + tempLifeTime + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//		else if (theApp.myStatusClass.staInkLifeTime < 6000)//小于100小时，每一小时提醒一次
+		//		{
+		//			if ((theApp.myStatusClass.staInkLifeTime + 60)< theApp.myTimClass.InkLifeTimeLas)		
+		//			{
+		//				theApp.myTimClass.InkLifeTimeLas = theApp.myStatusClass.staInkLifeTime;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               " + "Ink life remaining " + tempLifeTime + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//	}
+		//	else if (theApp.myStatusClass.staSetTimeEna == true)
+		//	{
+		//		CTime localT = CTime::GetCurrentTime(); 				
+		//		CTimeSpan m_timeSpan;
+		//		m_timeSpan = localT- theApp.myTimClass.InkDateTimLas;
+		//		CTimeSpan m_timeSpanWri;
+		//		m_timeSpanWri = localT- theApp.myTimClass.dateTimLasWri;
+		//		if (m_timeSpanWri.GetTotalSeconds()>59)//一分钟写一次维护时间
+		//		{
+		//			//写XML时间
+		//			if (theApp.myTimClass.ServiceTimeLasXML > 0)
+		//			{
+		//				theApp.myTimClass.ServiceTimeLasXML = theApp.myTimClass.ServiceTimeLasXML -1;
+		//				//denghanshu
+		//				m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.ServiceTimeLasXML/60)));
+		//			}
+		//			if (theApp.myTimClass.InkLifeTimeLasXML > 0)
+		//			{
+		//				theApp.myTimClass.InkLifeTimeLasXML = theApp.myTimClass.InkLifeTimeLasXML -1;
+		//				//denghanshu
+		//				m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60)));
+		//			}
+		//			theApp.myTimClass.dateTimLasWri = localT;
+		//		}
+		//		if (theApp.myTimClass.InkLifeTimeLasXML == 0)
+		//		{
+		//			if (theApp.myTimClass.boInkLifeTime == true )
+		//			{
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "                  " + "Ink has expired";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//				theApp.myTimClass.boInkLifeTime = false; 
+		//			}
+		//			//还有vb界面弹框，但是c++没有做，为防止以后加，特在此留一下标记
 
-				}
-				else if (theApp.myTimClass.InkLifeTimeLasXML < 120)//小于2小时，每分钟提示一次
-				{
-					if (m_timeSpan.GetTotalSeconds() > 59)
-					{
-						theApp.myTimClass.InkDateTimLas = localT;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-				else if (theApp.myTimClass.InkLifeTimeLasXML < 600)//小于10小时，每10分钟提示一次
-				{
-					if (m_timeSpan.GetTotalMinutes() > 9)
-					{
-						theApp.myTimClass.InkDateTimLas = localT;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-				else if (theApp.myTimClass.InkLifeTimeLasXML < 6000)//小于100小时，每小时提示一次
-				{
-					if (m_timeSpan.GetTotalMinutes() > 59)
-					{
-						theApp.myTimClass.InkDateTimLas = localT;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-				if (theApp.myTimClass.ServiceTimeLasXML == 0)
-				{
-					if (theApp.myTimClass.boServiceTime == true)
-					{
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "                  " + "Time to servicing now";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-						theApp.myTimClass.boServiceTime = false;
-					}
-					//还有vb界面弹框，但是c++没有做，为防止以后加，特在此留一下标记
+		//		}
+		//		else if (theApp.myTimClass.InkLifeTimeLasXML < 120)//小于2小时，每分钟提示一次
+		//		{
+		//			if (m_timeSpan.GetTotalSeconds() > 59)
+		//			{
+		//				theApp.myTimClass.InkDateTimLas = localT;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//		else if (theApp.myTimClass.InkLifeTimeLasXML < 600)//小于10小时，每10分钟提示一次
+		//		{
+		//			if (m_timeSpan.GetTotalMinutes() > 9)
+		//			{
+		//				theApp.myTimClass.InkDateTimLas = localT;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//		else if (theApp.myTimClass.InkLifeTimeLasXML < 6000)//小于100小时，每小时提示一次
+		//		{
+		//			if (m_timeSpan.GetTotalMinutes() > 59)
+		//			{
+		//				theApp.myTimClass.InkDateTimLas = localT;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Ink life remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//		if (theApp.myTimClass.ServiceTimeLasXML == 0)
+		//		{
+		//			if (theApp.myTimClass.boServiceTime == true)
+		//			{
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "                  " + "Time to servicing now";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//				theApp.myTimClass.boServiceTime = false;
+		//			}
+		//			//还有vb界面弹框，但是c++没有做，为防止以后加，特在此留一下标记
 
-				}
-				else if (theApp.myTimClass.ServiceTimeLasXML < 120)//小于2小时，每分钟提示一次
-				{
-					if (m_timeSpan.GetTotalSeconds() > 59)
-					{
-						theApp.myTimClass.SerDateTimLas = localT;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-				else if (theApp.myTimClass.ServiceTimeLasXML < 600)//小于10小时，每10分钟提示一次
-				{
-					if (m_timeSpan.GetTotalMinutes() > 9)
-					{
-						theApp.myTimClass.SerDateTimLas = localT;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-				else if (theApp.myTimClass.ServiceTimeLasXML < 6000)//小于100小时，每小时提示一次
-				{
-					if (m_timeSpan.GetTotalMinutes() > 59)
-					{
-						theApp.myTimClass.SerDateTimLas = localT;
-						string m_tmpt;
-						m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
-						m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
-					}
-				}
-			}
-			
+		//		}
+		//		else if (theApp.myTimClass.ServiceTimeLasXML < 120)//小于2小时，每分钟提示一次
+		//		{
+		//			if (m_timeSpan.GetTotalSeconds() > 59)
+		//			{
+		//				theApp.myTimClass.SerDateTimLas = localT;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//		else if (theApp.myTimClass.ServiceTimeLasXML < 600)//小于10小时，每10分钟提示一次
+		//		{
+		//			if (m_timeSpan.GetTotalMinutes() > 9)
+		//			{
+		//				theApp.myTimClass.SerDateTimLas = localT;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//		else if (theApp.myTimClass.ServiceTimeLasXML < 6000)//小于100小时，每小时提示一次
+		//		{
+		//			if (m_timeSpan.GetTotalMinutes() > 59)
+		//			{
+		//				theApp.myTimClass.SerDateTimLas = localT;
+		//				string m_tmpt;
+		//				m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "                  " + "Next servicing remaining" + theApp.myclassMessage.to_String(theApp.myTimClass.InkLifeTimeLasXML/60) + "hours";
+		//				m_Fault->m_faultList.AddString(theApp.myModuleMain.string2CString(m_tmpt));
+		//			}
+		//		}
+		//	}
+		//	
 
 
-		}
+		//}
 
 		
-		
+		//以上有坑，先注掉
 
 		//准备好及绿灯处理
 		if (theApp.myStatusClass.staSysRea == true && theApp.myTimClass.staSysReaLas == false  )
@@ -1921,17 +1994,69 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			m_ButFault.SizeToContent(); 
 		}
         m_ButFault.Invalidate();
-		//系统日期
-		string m_systemDate;
-		m_systemDate = theApp.myclassMessage.to_String(localT.GetYear())+"-"+theApp.myclassMessage.to_String(localT.GetMonth())+"-"+theApp.myclassMessage.to_String(localT.GetDay());		
-		GetDlgItem(IDC_TIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(m_systemDate));
-		GetDlgItem(IDC_CURRENTTIME_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(CCodePrinterDlg::m_currentTime));
-
+		
+			
 		//产品计数器
 		GetDlgItem(IDC_STATIC_PROCOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staProCou)));
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myclassMessage.to_String(theApp.myStatusClass.staPriCou)));
 
+		theApp.myModuleMain.refalsetimedata();
+		if (theApp.myclassMessage.boDynamic)
+		{
+			if (theApp.myclassMessage.boCountEn[0])
+			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
+			}
+			if (theApp.myclassMessage.boCountEn[1])
+			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
+			}
+			if (theApp.myclassMessage.boCountEn[2])
+			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
+			}
+			if (theApp.myclassMessage.boCountEn[3])
+			{
+				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
+			}
+			if (m_resetSerial->boDlgOpen)
+			{
+				if (theApp.myclassMessage.boCountEn[0])
+				{
+					m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
+				}
+				if (theApp.myclassMessage.boCountEn[1])
+				{
+					m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
+				}
+				if (theApp.myclassMessage.boCountEn[2])
+				{
+					m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
+				}
+				if (theApp.myclassMessage.boCountEn[3])
+				{
+					m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
+				}
+			}
+			//////下面还有序列号重置界面的刷新，，没此界面，战时不写
+			//If pangro_serial_reset.Location.X = 0 Then
+			//	'  pangro_serial_resetbo = True
+			//	If boCountEn(0) = True Then
+			//	labval_serial_reset_cv0.Text = CountNumForPre(0)
+			//	End If
+
+			//	If boCountEn(1) = True Then
+			//	labval_serial_reset_cv1.Text = CountNumForPre(1)
+			//	End If
+			//	If boCountEn(2) = True Then
+			//	labval_serial_reset_cv2.Text = CountNumForPre(2)
+			//	End If
+			//	If boCountEn(3) = True Then
+			//	labval_serial_reset_cv3.Text = CountNumForPre(3)
+			//	End If
+			//	End If
+		}
 		//SetTimer(TIMER1,300,NULL);	
 	}
 

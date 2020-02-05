@@ -5,6 +5,7 @@
 //#include "ModuleMain.h"
 #include "InputDlg.h"
 #include "DesignStatic.h"
+#include "CustomStatic.h"
 
 // CLabelDlg 对话框
 
@@ -19,6 +20,7 @@ public:
 	bool isFrame;
 	void getMessageDot();
 	void selectPixel();
+	void allMessageSub();
 	CInputDlg *pInput;
 
 public:
@@ -118,4 +120,10 @@ public:
 	CBitmap m_PicBitmap[5];  // CBitmap对象，用于加载位图  
 	HBITMAP m_PichBmp[5];
 	afx_msg void OnBnClickedDeleteButton();
+	CCustomStatic m_matrixStatic;
+	CCustomStatic m_pixelStatic;
+	CCustomStatic m_reversalStatic;
+	CCustomStatic m_perversionStatic;
+	CComboBox m_reversalCombo;
+	CComboBox m_reversionCombo;
 };

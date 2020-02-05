@@ -1,5 +1,7 @@
 #pragma once
 #include "ImageButton.h"
+#include "CustomStatic.h"
+#include "afxwin.h"
 
 // CDateDlg 对话框
 
@@ -10,7 +12,7 @@ class CDateDlg : public CDialog
 public:
 	CDateDlg(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CDateDlg();
-
+	void ChangeTime();
 // 对话框数据
 	enum { IDD = IDD_DATE_DIALOG };
 
@@ -25,5 +27,25 @@ public:
 	CImageButton m_returnIB;
 	CImageButton m_okIB;
 	CImageButton m_freshIB;
+	CImageButton m_dateAddBtn;
 	CEdit m_skewValue;
+	CCustomStatic m_previewStatic;
+	CCustomStatic m_dateTimeStatic;
+	CCustomStatic m_formatStatic;
+	CCustomStatic m_fontStatic;
+	CCustomStatic m_skewStatic;
+	CCustomStatic m_skewVauleStatic;
+	CCustomStatic m_skewUnitStatic;
+	afx_msg void OnCbnSelchangeDateSkewCombo();
+
+	CListBox m_formatList;
+	CListBox m_skewUnitList;
+	CComboBox m_dateFontCombo;
+	CComboBox m_dateSkewCombo;
+
+	afx_msg void OnBnClickedDateAddBtn();
+	afx_msg void OnBnClickedDateRefreshBtn();
+	afx_msg void OnLbnSelchangeSkewUnitList();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	afx_msg void OnBnClickedDateOkBtn();
 };

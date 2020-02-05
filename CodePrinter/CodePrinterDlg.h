@@ -17,6 +17,7 @@
 
 #include "OnOffDlg.h"
 #include "NumKey.h"
+#include "ResetSerial.h"
 #define TIMER1 1
 
 // CCodePrinterDlg ¶Ô»°¿ò
@@ -67,6 +68,7 @@ public:
 	afx_msg void OnBnClickedStartprintButton();
 	afx_msg void OnBnClickedPauseprintButton();
 	afx_msg void OnBnClickedResetCountBtn();
+	afx_msg void OnBnClickedResetSerialBtn();
 	CImageButton m_ButFault;
 	CImageButton m_ButSystem;
 	CImageButton m_ButUser;
@@ -87,7 +89,7 @@ public:
 	CFileManaDlg *m_FileMan;
 	CInkSystemDlg *m_Ink;
 	CFaultDlg *m_Fault;
-
+	CResetSerial *m_resetSerial;
 
 	COnOffDlg *m_OnOff;
 	CNumKey *m_pNumKey;

@@ -121,6 +121,9 @@ BOOL CInputDlg::OnInitDialog()
 void CInputDlg::OnBnClickedEdittextButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	pEditText->GetDlgItem(IDC_EDIT1)->SetWindowText(_T(""));
+	CComboBox *tempBox=(CComboBox*)pEditText->GetDlgItem(Combo_Font);
+	tempBox->SetCurSel(1);
 	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_EDITTEXT_DIALOG);
 }
@@ -177,12 +180,25 @@ void CInputDlg::OnBnClickedEditfigureButton()
 		return;
 	}
 	pEditFigure->RefreshSerial();
+	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_EDITFIGURE_DIALOG);
 }
 
 void CInputDlg::OnBnClickedEditdateButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	pDate->GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->SetWindowText(_T(""));
+	CComboBox *dfontBox=(CComboBox *)pDate->GetDlgItem(IDC_DATE_FONT_COMBO);
+	dfontBox->SetCurSel(1);
+	CComboBox *boOffBox=(CComboBox *)pDate->GetDlgItem(IDC_DATE_SKEW_COMBO);
+	boOffBox->SetCurSel(0);
+	pDate->GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
+	CComboBox *whereOffBox=(CComboBox *)pDate->GetDlgItem(IDC_SKEW_UNIT_LIST);
+	whereOffBox->SetCurSel(0);
+	CComboBox *formatOffBox=(CComboBox *)pDate->GetDlgItem(IDC_FORMAT_LIST);
+	formatOffBox->SetCurSel(0);
+	pDate->ChangeTime();
+	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_DATE_DIALOG);
 }
 
@@ -232,6 +248,7 @@ void CInputDlg::OnBnClickedEditpictureButton()
 		bmpObj.booFocus=true;
 		theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
 	}
+	this->ShowWindow(SW_HIDE);
 }
 
 void CInputDlg::OnBnClickedBarcodeButton()
@@ -249,6 +266,7 @@ void CInputDlg::OnBnClickedInputCloseBtn()
 
 void CInputDlg::showInputDlg(int ID)
 {
+	theApp.bochange=false;
 	pEditText->ShowWindow(SW_HIDE);
 	pEditFigure->ShowWindow(SW_HIDE);
 	pDate->ShowWindow(SW_HIDE);

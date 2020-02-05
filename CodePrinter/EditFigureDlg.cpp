@@ -28,6 +28,23 @@ void CEditFigureDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_FONT_COMBO, m_FontBox);
 	DDX_Control(pDX, IDC_FORMAT_COMBO, m_FormatBox);
 	DDX_Control(pDX, IDC_COUNTER_COMBO, m_countBox);
+	DDX_Control(pDX, IDC_PREVIEW_STATIC, m_previewStatic);
+	DDX_Control(pDX, IDC_FIRST_QUARTILE_STATIC, m_firstQuartileStatic);
+	DDX_Control(pDX, IDC_FOUR_QUARTILE_STATIC, m_fourQuartileStatic);
+	DDX_Control(pDX, IDC_START_STATIC, m_startStatic);
+	DDX_Control(pDX, IDC_STEP_SIZE_STATIC, m_stepSizeStatic);
+	DDX_Control(pDX, IDC_REPEAT_COUNT_STATIC, m_repeatCountStatic);
+	DDX_Control(pDX, IDC_BIT_DATA_STATIC, m_bitStatic);
+	DDX_Control(pDX, IDC_COUNTER_STATIC, m_counterStatic);
+	DDX_Control(pDX, IDC_FONT_STATIC, m_fontStatic);
+	DDX_Control(pDX, IDC_FORMAT_STATIC, m_formatStatic);
+	DDX_Control(pDX, IDC_PREVIEW_EDIT, m_previewEdit);
+	DDX_Control(pDX, IDC_FIRST_QUARTILE_EDIT, m_firstQuartileEdit);
+	DDX_Control(pDX, IDC_FOUR_QUARTILE_EDIT, m_fourQuartileEdit);
+	DDX_Control(pDX, IDC_START_EDIT, m_startEdit);
+	DDX_Control(pDX, IDC_STEP_SIZE_EDIT, m_stepSizeEdit);
+	DDX_Control(pDX, IDC_REPEAT_COUNT_EDIT, m_repeatCountEdit);
+	DDX_Control(pDX, IDC_BIT_DATA_EDIT, m_bitDataEdit);
 }
 
 
@@ -56,16 +73,37 @@ BOOL CEditFigureDlg::OnInitDialog()
 	m_returnIB.SizeToContent(); 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
+
+	m_countBox.AddString(_T("待添加"));
+	m_countBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_countBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_countBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+
 	m_FontBox.AddString(_T("5x5"));
 	m_FontBox.AddString(_T("7x5"));
 	m_FontBox.AddString(_T("12x12"));
 	m_FontBox.AddString(_T("16x12"));
 	m_FontBox.SetCurSel(1);
+	m_FontBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_FontBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_FontBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
 
 	m_FormatBox.AddString(_T("Leading Zeroes"));
 	m_FormatBox.AddString(_T("Leading Blanks"));
 	m_FormatBox.AddString(_T("Left Aligned"));
 	m_FormatBox.SetCurSel(0);
+	m_FormatBox.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
+	m_FormatBox.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_FormatBox.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+
+	m_previewEdit.SetFont(theApp.m_EditFont);
+	m_firstQuartileEdit.SetFont(theApp.m_EditFont);
+	m_fourQuartileEdit.SetFont(theApp.m_EditFont);
+	m_startEdit.SetFont(theApp.m_EditFont);
+	m_stepSizeEdit.SetFont(theApp.m_EditFont);
+	m_repeatCountEdit.SetFont(theApp.m_EditFont);
+	m_bitDataEdit.SetFont(theApp.m_EditFont);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -257,6 +295,70 @@ void CEditFigureDlg::OnCbnSelchangeFormatCombo()
 void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CString previewEdit ;
+	GetDlgItem(IDC_PREVIEW_EDIT)-> GetWindowText(previewEdit);
+	CString firstEdit ;
+	GetDlgItem(IDC_FIRST_QUARTILE_EDIT)-> GetWindowText(firstEdit);
+	CString twoEdit ;
+	GetDlgItem(IDC_FOUR_QUARTILE_EDIT)-> GetWindowText(twoEdit);
+	CString startEdit ;
+	GetDlgItem(IDC_START_EDIT)-> GetWindowText(startEdit);
+	CString stepEdit ;
+	GetDlgItem(IDC_STEP_SIZE_EDIT)-> GetWindowText(stepEdit);
+	CString repeatEdit; 
+	GetDlgItem(IDC_REPEAT_COUNT_EDIT)-> GetWindowText(repeatEdit);
+	CString bitEdit ;
+	GetDlgItem(IDC_BIT_DATA_EDIT)-> GetWindowText(bitEdit);
+	if (theApp.bochange)
+	{
+		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+		{
+			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			{
+				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.CString2string(previewEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialFirstLimit=_ttoi(firstEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialSecondLimit=_ttoi(twoEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialStartValue=_ttoi(startEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialStep=_ttoi(stepEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialRepeat=_ttoi(repeatEdit);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialDigits=_ttoi(bitEdit);
+
+				CString  fontText;
+				int nIndex = m_FontBox.GetCurSel();  //当前选中的项
+				switch(nIndex)
+				{
+				case 0:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=5;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 1:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=7;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 2:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=12;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				case 3:
+					theApp.myclassMessage.OBJ_Vec[i].intLineSize=16;
+					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					break;
+				}
+				m_FontBox.GetLBText(nIndex,fontText);
+				theApp.myclassMessage.OBJ_Vec[i].strFont=theApp.myModuleMain.CString2string(fontText);
+
+				CString countStr;
+				m_countBox.GetLBText(m_countBox.GetCurSel(),countStr);
+				theApp.myclassMessage.OBJ_Vec[i].intSerialCounter=_ttoi(countStr)-1;
+
+				theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat=m_FormatBox.GetCurSel();
+				break;
+			}
+		}
+		theApp.bochange=false;
+		ShowWindow(SW_HIDE);
+		return;
+	}
 	int xPos=0;
 	int yPos=0;
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
@@ -280,20 +382,7 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	tempObj.booBWDx=false;
 	tempObj.booBWDy=false;
 	//CEdit* pEdit = (CEdit*)GetDlgItem(IDC_PREVIEW_EDIT);
-	CString previewEdit ;
-	GetDlgItem(IDC_PREVIEW_EDIT)-> GetWindowText(previewEdit);
-	CString firstEdit ;
-	GetDlgItem(IDC_FIRST_QUARTILE_EDIT)-> GetWindowText(firstEdit);
-	CString twoEdit ;
-	GetDlgItem(IDC_FOUR_QUARTILE_EDIT)-> GetWindowText(twoEdit);
-	CString startEdit ;
-	GetDlgItem(IDC_START_EDIT)-> GetWindowText(startEdit);
-	CString stepEdit ;
-	GetDlgItem(IDC_STEP_SIZE_EDIT)-> GetWindowText(stepEdit);
-	CString repeatEdit; 
-	GetDlgItem(IDC_REPEAT_COUNT_EDIT)-> GetWindowText(repeatEdit);
-	CString bitEdit ;
-	GetDlgItem(IDC_BIT_DATA_EDIT)-> GetWindowText(bitEdit);
+
 
 	tempObj.strText=theApp.myModuleMain.CString2string(previewEdit);
 	tempObj.intSerialFirstLimit=_ttoi(firstEdit);
@@ -333,6 +422,6 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	tempObj.bytSerialFormat=m_FormatBox.GetCurSel();
 	tempObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
-	theApp.myclassMessage.CounterEditMes[tempObj.intSerialCounter-1]=true;
+	theApp.myclassMessage.CounterEditMes[tempObj.intSerialCounter]=true;
 	this->ShowWindow(SW_HIDE);
 }

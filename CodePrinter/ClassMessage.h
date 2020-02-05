@@ -12,6 +12,20 @@ typedef unsigned char BYTE;
 #else
 #define MESSAGEEDIT_API  _declspec(dllimport)
 #endif
+//const class nullptr_t
+//{
+//public:
+//	template<class T>
+//	inline operator T*() const
+//	{ return 0; }
+//
+//	template<class C, class T>
+//	inline operator T C::*() const
+//	{ return 0; }
+//
+//private:
+//	void operator&() const;
+//} nullptr = {};
 
 namespace MyNameSpace
 {
@@ -34,9 +48,11 @@ namespace MyNameSpace
 		string strFont;//字段的字体（有的类型有，有的类型没有）
 		string strText;//字段的text属性，即内容
 		string strTime;//字段的time属性，即时间格式
-		bool booETimeOffSet;//字段的时间偏移开关（faulse为关闭，true为开启）
+
+		int booETimeOffSet;//字段的时间偏移开关（faulse为关闭，true为开启）
 		int intTimeOffSet;//字段的时间偏移值
-		string strTimeOffSet;//字段的时间偏移类型
+		int strTimeOffSet;//字段的时间偏移类型
+
 		int intSerialFirstLimit;//字段的FirstLimit属性，即序列号第一象限
 		int intSerialSecondLimit;//字段的SecondLimit属性，即序列号第二象限
 		int intSerialStartValue;//字段的StartValue属性，即序列号起始值
@@ -108,10 +124,10 @@ namespace MyNameSpace
 		//vector<BYTE> bytTempDataVec;
 
        /////////////////////////////////////////////
-        queue<vector<BYTE>> ForPreQue;//序列号队列
+        
 		bool CounterEditMes[4];
 		///xiansiyong
-		queue<vector<BYTE>> boDotForPreQue;//动态显示队列
+		
 		vector<BYTE> intMesDis;
 		int bytSerialConCoundis;
 		int intDotMesRowdis;
@@ -119,13 +135,14 @@ namespace MyNameSpace
 		int pixelMesdis;
 		bool boReversedis, boInversedis;
 		int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4], intQSerialRowSizedis[4], intQSerialRowStartdis[4];
-		queue<vector<int>> intCounNumForPreQue ; //'主界面及计数器显示动态字符池
+		
 		int CountNumForPre[4];
 		///时间
 		int bytTimeConCoun ;
 		int bytTimeConCoundis;
 		string strTimeFormat[1][4] ;
-		string strTimeFont[4], strETimeOffSet[4], strTimeOffSetUint[4];
+		string strTimeFont[4];
+		int strETimeOffSet[4], strTimeOffSetUint[4];
 		string strETimetext[4];
 		////
 		bool SerialCountNew;//是否为新建

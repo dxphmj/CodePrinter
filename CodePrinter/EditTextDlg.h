@@ -1,6 +1,7 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
+#include "CustomStatic.h"
 
 // CEditTextDlg ¶Ô»°¿ò
 
@@ -30,4 +31,8 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CImageButton m_returnIB;
 	CImageButton m_okIB;
+	CCustomStatic m_textStatic;
+	CCustomStatic m_fontStatic;
+	CCustomStatic m_dataFieldStatic;
+	CEdit m_textEdit;
 };

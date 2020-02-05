@@ -29,6 +29,15 @@ void CUserNewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RIGHT_MOVE_BTN, m_pRight_move);
 	DDX_Control(pDX, IDC_LEFT_MOVE_BTN, m_pLeft_move);
 
+	DDX_Control(pDX, IDC_USER_NEW_NAME_STATIC, m_newUserNameStatic);
+	DDX_Control(pDX, IDC_USER_NEW_UNAUTHORIZED_STATIC, m_newUnauthorizedStatic);
+	DDX_Control(pDX, IDC_NEW_PASSWARD_STATIC, m_newPasswordStatic);
+	DDX_Control(pDX, IDC_USER_NEW_AUTHORIZED_STATIC, m_newAuthorizedStatic);
+
+	DDX_Control(pDX, IDC_USER_NAME_EDIT, m_new_userNameEdit);
+	DDX_Control(pDX, IDC_PASSWARD_EDIT, m_new_passwordEdit);
+	DDX_Control(pDX, IDC_NOT_GRANTED_LIST, m_notGrantedList);
+	DDX_Control(pDX, IDC_GRANTED_LIST, m_grantedList);
 }
 
 
@@ -70,6 +79,13 @@ BOOL CUserNewDlg::OnInitDialog()
 	m_pRight_move.SizeToContent(); 
 	m_pLeft_move.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_pLeft_move.SizeToContent(); 
+
+	m_new_userNameEdit.SetFont(theApp.m_EditFont);
+	m_new_passwordEdit.SetFont(theApp.m_EditFont);
+
+	m_notGrantedList.SetItemHeight(0,20);
+	m_grantedList.SetItemHeight(0,20);
+
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -236,3 +252,41 @@ HBRUSH CUserNewDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 
 
+
+BOOL CUserNewDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_USER_NAME_EDIT);
+	CEdit* kEdit = (CEdit*)GetDlgItem(IDC_PASSWARD_EDIT);
+	ASSERT(pEdit && pEdit->GetSafeHwnd());
+	ASSERT(kEdit && kEdit->GetSafeHwnd());
+	if(WM_LBUTTONDOWN == pMsg->message && pEdit->GetSafeHwnd() == pMsg->hwnd)
+	{
+		//pEdit->SetFocus();
+		//pEdit->SetSel(-1);
+		CString str;
+		pEdit-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		//CString ts;
+		//ts.Format(L"%s",_T("sdfsa"));
+		str=myCExportDlg.GetInputText(str);
+		pEdit-> SetWindowText(str);
+		return TRUE;
+	}
+	else if(WM_LBUTTONDOWN == pMsg->message && kEdit->GetSafeHwnd() == pMsg->hwnd)
+	{
+		//pEdit->SetFocus();
+		//pEdit->SetSel(-1);
+		CString str;
+		kEdit-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		//CString ts;
+		//ts.Format(L"%s",_T("sdfsa"));
+		str=myCExportDlg.GetInputText(str);
+		kEdit-> SetWindowText(str);
+		return TRUE;
+	}
+	return CDialog::PreTranslateMessage(pMsg);
+}

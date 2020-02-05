@@ -33,6 +33,11 @@ void CUserDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DELETE_BTN, m_userDelete);
 	DDX_Control(pDX, IDC_USER_FRESH_BTN, m_userFresh);
 	DDX_Control(pDX, IDC_USER_OK_BTN, m_userOk);
+
+	DDX_Control(pDX, IDC_USER_CURUSERS_STATIC, m_curUsersStatic);
+	DDX_Control(pDX, IDC_USER_NAME_STATIC, m_userNameStatic);
+	DDX_Control(pDX, IDC_EDIT_NOWUSER, m_nowUserEdit);
+	DDX_Control(pDX, IDC_LIST_ALLUSER, m_allUserList);
 }
 
 
@@ -110,7 +115,8 @@ BOOL CUserDlg::OnInitDialog()
 	m_userOk.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_userOk.SizeToContent(); 
 
-
+	m_nowUserEdit.SetFont(theApp.m_EditFont);
+	m_allUserList.SetItemHeight(0,20);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -118,10 +124,10 @@ BOOL CUserDlg::OnInitDialog()
 void CUserDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CListBox* m_errBox=(CListBox*)pUserOpen->GetDlgItem(IDC_NOT_GRANTED_LIST);
+	CListBox* m_errBox=(CListBox*)pUserOpen->GetDlgItem(IDC_OPEN_NOT_GRANTED_LIST);
 	m_errBox->ResetContent();
 
-	CListBox* m_grantedBox=(CListBox*)pUserOpen->GetDlgItem(IDC_GRANTED_LIST);
+	CListBox* m_grantedBox=(CListBox*)pUserOpen->GetDlgItem(IDC_OPEN_GRANTED_LIST);
 	m_grantedBox->ResetContent();
 	string filePathName="Storage Card\\System\\UserPower\\";
 	filePathName=filePathName+theApp.myUserPower.nowUser.userName+".txt";
@@ -149,8 +155,8 @@ void CUserDlg::OnBnClickedOpenButton()
 		m_errBox->SetCurSel(0);
 	}
 
-	pUserOpen->GetDlgItem(IDC_USER_NAME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myUserPower.nowUser.userName));
-	pUserOpen->GetDlgItem(IDC_PASSWARD_EDIT)->SetWindowText(_T(""));
+	pUserOpen->GetDlgItem(IDC_OPEN_NAME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myUserPower.nowUser.userName));
+	pUserOpen->GetDlgItem(IDC_OPEN_PASSWARD_EDIT)->SetWindowText(_T(""));
 	showUserDlg(IDD_USER_OPEN_DIALOG);
 }
 

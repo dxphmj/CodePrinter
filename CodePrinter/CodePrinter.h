@@ -45,9 +45,15 @@ public:
 //
 	BYTE bytSlaveStatus[37];
 	queue<vector<BYTE>> queCtr;//命令队列
+	queue<vector<BYTE>> ForPreQue;//序列号队列
+	queue<vector<BYTE>> boDotForPreQue;//动态显示队列
+	queue<vector<int>> intCounNumForPreQue ; //'主界面及计数器显示动态字符池
 	int readCount;
 	BYTE bytStatus[37];
 // 实现
+	//bool boMythreadDynamic;
+	//bool boMythreadDynamicdis;
+	int mainPicPixel;//主界面显示行数
 	bool boTTL;
 	bool boDrawMainPic;//主界面动态绘制开关
 	bool mythreadDynamicBoo;//动态线程开关
@@ -67,6 +73,7 @@ public:
 	CIOVsd myCIOVsd;
 	ModuleMain myModuleMain;
 	UserPower myUserPower;
+	bool bochange;//用于判断是否为更改；
 	DECLARE_MESSAGE_MAP()
 };
 

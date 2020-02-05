@@ -314,10 +314,10 @@
 				Optimization="2"
 				FavorSizeOrSpeed="2"
 				AdditionalIncludeDirectories="..\KEYBOARD\KEYBOARD"
-				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL;NO_PNG"
 				MinimalRebuild="false"
 				RuntimeLibrary="0"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -711,6 +711,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ResetSerial.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -961,6 +965,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ResetSerial.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
@@ -1027,6 +1035,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\70x45´¿À¶°´Å¥--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\70x45´¿À¶°´Å¥.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\80x55´¿À¶°´Å¥.bmp"
 				>
 			</File>
@@ -1053,7 +1069,7 @@
 			<File
 				RelativePath=".\res\ang0.png"
 				>
-			</File>			
+			</File>
 			<File
 				RelativePath=".\res\ang1.bmp"
 				>
@@ -1061,7 +1077,7 @@
 			<File
 				RelativePath=".\res\ang1.png"
 				>
-			</File>			
+			</File>
 			<File
 				RelativePath=".\res\ang10.bmp"
 				>
@@ -1069,7 +1085,7 @@
 			<File
 				RelativePath=".\res\ang10.png"
 				>
-			</File>			
+			</File>
 			<File
 				RelativePath=".\res\ang10.png"
 				>
@@ -1077,7 +1093,7 @@
 			<File
 				RelativePath=".\res\ang11.png"
 				>
-			</File>						
+			</File>
 			<File
 				RelativePath=".\res\ang11.png"
 				>
@@ -1091,11 +1107,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang13.png"
+				RelativePath=".\res\ang13.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang13.bmp"
+				RelativePath=".\res\ang13.png"
 				>
 			</File>
 			<File
@@ -1679,22 +1695,21 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\É¾³ý.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\fault\É¾³ý.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\É¾³ý.bmp"
-				>
-			</File>
-			<File 
-				RelativePath=".\res\fault\É¾³ý.bmp" 
+				RelativePath=".\res\fault\É¾³ý.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\¼Ó--.bmp"
 				>
 			</File>
-			
 			<File
 				RelativePath=".\res\¼Ó.bmp"
 				>
@@ -2349,6 +2364,10 @@
 			</File>
 			<File
 				RelativePath=".\qrcode\png.c"
+				>
+			</File>
+			<File
+				RelativePath=".\png.h"
 				>
 			</File>
 			<File

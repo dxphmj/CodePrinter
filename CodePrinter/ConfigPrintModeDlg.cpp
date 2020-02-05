@@ -34,6 +34,10 @@ void CConfigPrintModeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CONFIG_CLOSE_BTN, m_returnIB);
 	DDX_Control(pDX, IDC_CONFIG_OK_BTN, m_okIB);
 	DDX_Control(pDX, IDC_REAPEAT_COUNT_EDIT, m_edit_repeatCount);
+	DDX_Control(pDX, IDC_PRINT_MODE_STATIC, m_printModeStatic);
+	DDX_Control(pDX, IDC_WORK_LIST_STATIC, m_workListStatic);
+	DDX_Control(pDX, IDC_REAPEAT_COUNT_STATIC, m_reapeatCountStatic);
+	DDX_Control(pDX, IDC_VIRTUAL_PRINT_STATIC, m_virtualPrintStatic);
 }
 
 
@@ -79,14 +83,17 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 	m_printMode.AddString(L"OFF");
 	m_printMode.AddString(L"Continuous");
 	m_printMode.SetCurSel(0);
+	m_printMode.SetItemHeight(0,20);
 
 	m_workList.AddString(L"OFF");
 	m_workList.AddString(L"ON");
 	m_workList.SetCurSel(0);
+	m_workList.SetItemHeight(0,20);
 
 	m_virtualPrint.AddString(L"OFF");
 	m_virtualPrint.AddString(L"ON");
 	m_virtualPrint.SetCurSel(0);
+	m_virtualPrint.SetItemHeight(0,20);
 
 	GetDlgItem(IDC_CONFIG_CLOSE_BTN)->SetWindowPos(NULL,20,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CONFIG_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);

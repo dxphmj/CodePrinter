@@ -2,7 +2,7 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 //#include "ModuleMain.h"
-
+#include "CustomStatic.h"
 // CEnvDlg ¶Ô»°¿ò
 
 class CEnvDlg : public CDialog
@@ -28,5 +28,12 @@ public:
 	afx_msg void OnBnClickedLanSelButton();
 public:
 	CImageButton m_ButLanSel;
+
 	void ControlTextChange();
+
+	CCustomStatic m_evn_timeStatic;
+	CCustomStatic m_evn_dateStatic;
+	CCustomStatic m_evn_languageStatic;
+	CEdit m_envTimeEdit;
+	CEdit m_envDateEdit;
 };

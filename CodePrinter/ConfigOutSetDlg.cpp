@@ -37,6 +37,15 @@ void CConfigOutSetDlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Control(pDX, IDC_CONFIG_OSRETURN_BTN, m_outSetReturn);
 	DDX_Control(pDX, IDC_OUTSET_OK_BTN, m_outSetOk);
+	DDX_Control(pDX, IDC_PCF_OUTSET_PRINTDIRE_STATIC, m_outsetPrintDir);
+	DDX_Control(pDX, IDC_OUTSET_ENCODESIGN_STATIC, m_outsetEncodeSign);
+	DDX_Control(pDX, IDC_OUTSET_FREQMULTI_STATIC, m_outsetPreqmulti);
+	DDX_Control(pDX, IDC_OUTSET_IMPULSE_STATIC, m_outsetImpulse);
+	DDX_Control(pDX, IDC_OUTSET_LENGTH_STATIC, m_outsetLength);
+	DDX_Control(pDX, IDC_OUTSET_PRODUCT_DETE_STATIC, m_outsetProduct);
+	DDX_Control(pDX, IDC_OUTSET_ACTIVELEV_STATIC, m_outsetActiveLev);
+	DDX_Control(pDX, IDC_OUTSET_CUR_LEV_STATIC, m_outsetCurLev);
+	DDX_Control(pDX, IDC_OUTSET_TRIGGER_LEN_STATIC, m_outsetTrigger);
 }
 
 
@@ -58,15 +67,23 @@ BOOL CConfigOutSetDlg::OnInitDialog()
 	// TODO:  在此添加额外的初始化
 	m_printDire.AddString(_T("forward"));
 	m_printDire.AddString(_T("Backward"));
+	m_printDire.SetItemHeight(0,20);
 	m_encodeSign.AddString(_T("1 Phase"));	
 	m_encodeSign.AddString(_T("2 Phase"));	
+	m_encodeSign.SetItemHeight(0,20);
 	m_productDete.AddString(_T("OFF"));	
 	m_productDete.AddString(_T("ON"));
+	m_productDete.SetItemHeight(0,20);
 	m_activeLev.AddString(_T("Low"));	
 	m_activeLev.AddString(_T("High"));
+	m_activeLev.SetItemHeight(0,20);
 	m_FreqMulti.AddString(_T("ON"));
 	m_FreqMulti.AddString(_T("OFF"));
 	m_FreqMulti.SetCurSel(1);	
+	m_FreqMulti.SetFont(theApp.m_ListBoxFont);
+	m_FreqMulti.SendMessage(CB_SETITEMHEIGHT,-1,30);//设置下拉框高度
+	m_FreqMulti.SendMessage(CB_SETITEMHEIGHT,0,30);//设置下拉框条目高度
+
 	m_impulse.SetWindowText(_T("2500"));	
 	m_impulse.SetFont(theApp.m_EditFont);
 	m_length.SetWindowText(_T("200"));	
