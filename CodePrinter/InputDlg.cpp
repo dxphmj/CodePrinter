@@ -216,36 +216,36 @@ void CInputDlg::OnBnClickedEditpictureButton()
 		int yPos=0;
 		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 		{
-			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
 			{
-				theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
-				yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
-				xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
+				theApp.myclassMessage.OBJ_Vec.at(i)->booFocus=false;
+				yPos=theApp.myclassMessage.OBJ_Vec.at(i)->intLineStart;
+				xPos=theApp.myclassMessage.OBJ_Vec.at(i)->intRowSize+theApp.myclassMessage.OBJ_Vec.at(i)->intRowStart;
 			}
 		}
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
 		//CImage myImage;
 		//myImage.Load(NULL);
-		OBJ_Control bmpObj;
-		bmpObj.intLineStart=yPos;
-		bmpObj.intRowStart=xPos;
-		bmpObj.ReadBmp(const_cast<char*>(xmlPath.c_str()));//这个最好返回一个bool变量,就能省去if了
-        if (bmpObj.intLineSize<=0||bmpObj.intRowSize<=0)
+		OBJ_Control* bmpObj = new OBJ_Control;
+		bmpObj->intLineStart=yPos;
+		bmpObj->intRowStart=xPos;
+		bmpObj->ReadBmp(const_cast<char*>(xmlPath.c_str()));//这个最好返回一个bool变量,就能省去if了
+        if (bmpObj->intLineSize<=0||bmpObj->intRowSize<=0)
         {
 			return;
         }
-		bmpObj.strType1="text";
-		bmpObj.strType2="logo";
+		bmpObj->strType1="text";
+		bmpObj->strType2="logo";
 		//以下先写死
-		bmpObj.intSW=1;
-		bmpObj.intSS=0;
-		bmpObj.booNEG=false;
-		bmpObj.booBWDx=false;
-		bmpObj.booBWDy=false;
+		bmpObj->intSW=1;
+		bmpObj->intSS=0;
+		bmpObj->booNEG=false;
+		bmpObj->booBWDx=false;
+		bmpObj->booBWDy=false;
 
 		//bmpObj.strFont="7x5";
-		bmpObj.strText=xmlPath;
-		bmpObj.booFocus=true;
+		bmpObj->strText=xmlPath;
+		bmpObj->booFocus=true;
 		theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
 	}
 	this->ShowWindow(SW_HIDE);

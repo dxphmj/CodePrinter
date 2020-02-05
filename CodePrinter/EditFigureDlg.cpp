@@ -313,45 +313,45 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	{
 		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 		{
-			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
 			{
-				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.CString2string(previewEdit);
-				theApp.myclassMessage.OBJ_Vec[i].intSerialFirstLimit=_ttoi(firstEdit);
-				theApp.myclassMessage.OBJ_Vec[i].intSerialSecondLimit=_ttoi(twoEdit);
-				theApp.myclassMessage.OBJ_Vec[i].intSerialStartValue=_ttoi(startEdit);
-				theApp.myclassMessage.OBJ_Vec[i].intSerialStep=_ttoi(stepEdit);
-				theApp.myclassMessage.OBJ_Vec[i].intSerialRepeat=_ttoi(repeatEdit);
-				theApp.myclassMessage.OBJ_Vec[i].intSerialDigits=_ttoi(bitEdit);
+				theApp.myclassMessage.OBJ_Vec[i]->strText=theApp.myModuleMain.CString2string(previewEdit);
+				theApp.myclassMessage.OBJ_Vec[i]->intSerialFirstLimit=_ttoi(firstEdit);
+				theApp.myclassMessage.OBJ_Vec[i]->intSerialSecondLimit=_ttoi(twoEdit);
+				theApp.myclassMessage.OBJ_Vec[i]->intSerialStartValue=_ttoi(startEdit);
+				theApp.myclassMessage.OBJ_Vec[i]->intSerialStep=_ttoi(stepEdit);
+				theApp.myclassMessage.OBJ_Vec[i]->intSerialRepeat=_ttoi(repeatEdit);
+				theApp.myclassMessage.OBJ_Vec[i]->intSerialDigits=_ttoi(bitEdit);
 
 				CString  fontText;
 				int nIndex = m_FontBox.GetCurSel();  //当前选中的项
 				switch(nIndex)
 				{
 				case 0:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=5;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=5;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 1:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=7;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=7;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 2:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=12;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=12;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 3:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=16;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=16;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				}
 				m_FontBox.GetLBText(nIndex,fontText);
-				theApp.myclassMessage.OBJ_Vec[i].strFont=theApp.myModuleMain.CString2string(fontText);
+				theApp.myclassMessage.OBJ_Vec[i]->strFont=theApp.myModuleMain.CString2string(fontText);
 
 				CString countStr;
 				m_countBox.GetLBText(m_countBox.GetCurSel(),countStr);
-				theApp.myclassMessage.OBJ_Vec[i].intSerialCounter=_ttoi(countStr)-1;
+				theApp.myclassMessage.OBJ_Vec[i]->intSerialCounter=_ttoi(countStr)-1;
 
-				theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat=m_FormatBox.GetCurSel();
+				theApp.myclassMessage.OBJ_Vec[i]->bytSerialFormat=m_FormatBox.GetCurSel();
 				break;
 			}
 		}
@@ -363,65 +363,65 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	int yPos=0;
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
-		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+		if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
 		{
-			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
-			yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
-			xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
+			theApp.myclassMessage.OBJ_Vec.at(i)->booFocus=false;
+			yPos=theApp.myclassMessage.OBJ_Vec.at(i)->intLineStart;
+			xPos=theApp.myclassMessage.OBJ_Vec.at(i)->intRowSize+theApp.myclassMessage.OBJ_Vec.at(i)->intRowStart;
 		}
 	}
-	OBJ_Control tempObj;
-	tempObj.intLineStart=yPos;
-	tempObj.intRowStart=xPos;
-	tempObj.strType1="text";
-	tempObj.strType2="serial";
+	OBJ_Control* tempObj = new OBJ_Control;
+	tempObj->intLineStart=yPos;
+	tempObj->intRowStart=xPos;
+	tempObj->strType1="text";
+	tempObj->strType2="serial";
 	//以下先写死
-	tempObj.intSW=1;
-	tempObj.intSS=0;
-	tempObj.booNEG=false;
-	tempObj.booBWDx=false;
-	tempObj.booBWDy=false;
+	tempObj->intSW=1;
+	tempObj->intSS=0;
+	tempObj->booNEG=false;
+	tempObj->booBWDx=false;
+	tempObj->booBWDy=false;
 	//CEdit* pEdit = (CEdit*)GetDlgItem(IDC_PREVIEW_EDIT);
 
 
-	tempObj.strText=theApp.myModuleMain.CString2string(previewEdit);
-	tempObj.intSerialFirstLimit=_ttoi(firstEdit);
-	tempObj.intSerialSecondLimit=_ttoi(twoEdit);
-	tempObj.intSerialStartValue=_ttoi(startEdit);
-	tempObj.intSerialStep=_ttoi(stepEdit);
-	tempObj.intSerialRepeat=_ttoi(repeatEdit);
-	tempObj.intSerialDigits=_ttoi(bitEdit);
+	tempObj->strText=theApp.myModuleMain.CString2string(previewEdit);
+	tempObj->intSerialFirstLimit=_ttoi(firstEdit);
+	tempObj->intSerialSecondLimit=_ttoi(twoEdit);
+	tempObj->intSerialStartValue=_ttoi(startEdit);
+	tempObj->intSerialStep=_ttoi(stepEdit);
+	tempObj->intSerialRepeat=_ttoi(repeatEdit);
+	tempObj->intSerialDigits=_ttoi(bitEdit);
 	CString  fontText;
 	int nIndex = m_FontBox.GetCurSel();  //当前选中的项
 	switch(nIndex)
 	{
 	case 0:
-		tempObj.intLineSize=5;
-		tempObj.intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=5;
+		tempObj->intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	case 1:
-		tempObj.intLineSize=7;
-		tempObj.intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=7;
+		tempObj->intRowSize=previewEdit.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	case 2:
-		tempObj.intLineSize=12;
-		tempObj.intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=12;
+		tempObj->intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	case 3:
-		tempObj.intLineSize=16;
-		tempObj.intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=16;
+		tempObj->intRowSize=previewEdit.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	}
 	m_FontBox.GetLBText(nIndex,fontText);
-	tempObj.strFont=theApp.myModuleMain.CString2string(fontText);
+	tempObj->strFont=theApp.myModuleMain.CString2string(fontText);
 
 	CString countStr;
 	m_countBox.GetLBText(m_countBox.GetCurSel(),countStr);
-	tempObj.intSerialCounter=_ttoi(countStr)-1;
+	tempObj->intSerialCounter=_ttoi(countStr)-1;
 
-	tempObj.bytSerialFormat=m_FormatBox.GetCurSel();
-	tempObj.booFocus=true;
+	tempObj->bytSerialFormat=m_FormatBox.GetCurSel();
+	tempObj->booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
-	theApp.myclassMessage.CounterEditMes[tempObj.intSerialCounter]=true;
+	theApp.myclassMessage.CounterEditMes[tempObj->intSerialCounter]=true;
 	this->ShowWindow(SW_HIDE);
 }
