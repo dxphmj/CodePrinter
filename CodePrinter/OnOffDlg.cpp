@@ -4,8 +4,36 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "OnOffDlg.h"
+#include "CodePrinterDlg.h"
 
-
+#define ARABIC					0 
+#define CHINESE_SIMPLIFIED		1
+#define CHINESE_TRADITIONAL		2
+#define CZECH					3
+#define DUTCH					4
+#define ENGLISH					5 
+#define ESTONIAN				6 
+#define FARSI					7 
+#define FINNISH					8 
+#define FRENCH					9 
+#define GERMAN					10 
+#define HINDI					11 
+#define HUNGARIAN				12 
+#define ITALIAN					13 
+#define JAPANESE				14 
+#define KANNADA					15 
+#define KOREAN					16 
+#define POLISH					17 
+#define PORTUGUESE				18 
+#define ROMANIAN				19 
+#define RUSSIAN					20 
+#define SERBIAN					21 
+#define SPANISH					22 
+#define SWEDISH					23 
+#define TAMIL					24 
+#define THAI					25 
+#define TURKISH					26 
+#define VIETNAMESE				27 
 // COnOffDlg 对话框
 
 IMPLEMENT_DYNAMIC(COnOffDlg, CDialog)
@@ -118,7 +146,25 @@ BOOL COnOffDlg::OnInitDialog()
 	m_ButFast.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
 	m_ButFast.SizeToContent(); 
 
-
+	//多语言
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
+	int nIndex = pCodeDlg->m_System->pEvn->m_langeageList.GetCurSel();  //当前语言选中的项
+	wstring lanStr;
+	switch(nIndex)
+	{
+	case CHINESE_SIMPLIFIED: //CHINESE_SIMPLIFIED
+		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
+		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
+		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+		break;
+	case ENGLISH://ENGLISH
+		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
+		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
+		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+		break;
+	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

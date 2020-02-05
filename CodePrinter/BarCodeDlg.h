@@ -40,4 +40,5 @@ public:
 	CImageButton m_code39IB;
 	CImageButton m_code128IB;
 	CImageButton m_okIB;
+	afx_msg void OnStnClickedBarcodeSetStatic();
 };

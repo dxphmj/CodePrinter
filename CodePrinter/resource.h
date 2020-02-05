@@ -254,7 +254,9 @@
 #define IDC_ODBC_BUTTON                 1037
 #define IDC_SAVE_BUTTON                 1038
 #define Static_Text                     1039
+#define IDC_EDITTEXT_TEXT_STATIC        1039
 #define Static_Font                     1040
+#define IDC_EDITTEXT_FONT_STATIC        1040
 #define IDC_EDIT5                       1041
 #define IDC_EDIT1                       1042
 #define IDC_EDIT2                       1043
@@ -323,6 +325,8 @@
 #define Save_Button                     1120
 #define IDC_COMBO_MATRIX                1121
 #define Static_DataField                1122
+#define IDC_EDITTEXT_DATAFIELD_STATICStatic_DataField 1122
+#define IDC_EDITTEXT_DATAFIELD_STATIC   1122
 #define Combo_Font                      1123
 #define IDC_EDIT6                       1124
 #define IDC_DELETE_BTN                  1125
@@ -701,6 +705,9 @@
 #define IDC_CONFI_SAVE_BTN              1716
 #define IDC_SHRIK_Z_EDIT                1800
 #define IDC_CLOSE_F_EDIT                1801
+#define IDC_DATE_DATETIME_STATIC        1802
+#define IDC_BARCODE_SIZE_STATIC         1803
+#define IDC_BARCODE_DYNAMIC_EDIT_STATIC 1804
 
 // Next default values for new objects
 // 
@@ -708,7 +715,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        467
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1802
+#define _APS_NEXT_CONTROL_VALUE         1805
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

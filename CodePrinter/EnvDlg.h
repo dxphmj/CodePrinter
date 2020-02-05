@@ -28,4 +28,5 @@ public:
 	afx_msg void OnBnClickedLanSelButton();
 public:
 	CImageButton m_ButLanSel;
+	void ControlTextChange();
 };
