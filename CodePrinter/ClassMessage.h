@@ -97,7 +97,11 @@ class MESSAGEEDIT_API ClassMessage
 		 ClassMessage(void);
 		 ~ClassMessage(void);
 	public:
+ 
 		vector<OBJ_Control*> OBJ_Vec;
+ 
+		vector<OBJ_Control> lastObj_Vec;
+ 
 		int Matrix;
 		string strMatrix;
 		int Pixel;

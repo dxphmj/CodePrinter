@@ -304,8 +304,8 @@ BOOL CLabelDlg::OnInitDialog()
 	theApp.myclassMessage.getLabFromXml();
 	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 	selectPixel();
-	//OnBnClickedDownloadButton();	
-	allMessageSub();
+	OnBnClickedDownloadButton();	
+	//allMessageSub();
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -1136,6 +1136,8 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
+	theApp.myclassMessage.lastObj_Vec.clear();
+	theApp.myclassMessage.lastObj_Vec=theApp.myclassMessage.OBJ_Vec;
 	allMessageSub();
 
 //	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
