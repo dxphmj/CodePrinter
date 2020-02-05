@@ -93,11 +93,11 @@ void MainPicture::OnPaint()
 	//int recSize=4;
 	for (int ni=0;ni<theApp.myclassMessage.lastObj_Vec.size();ni++)
 	{
-		if (theApp.myclassMessage.lastObj_Vec[ni].strType2!="serial"&&theApp.myclassMessage.lastObj_Vec[ni].strType2!="time")
+		if (theApp.myclassMessage.lastObj_Vec[ni]->strType2!="serial"&&theApp.myclassMessage.lastObj_Vec[ni]->strType2!="time")
 		{
-			for (int i=theApp.myclassMessage.lastObj_Vec[ni].intLineStart;i<(theApp.myclassMessage.lastObj_Vec[ni].intLineSize+theApp.myclassMessage.lastObj_Vec[ni].intLineStart);i++)
+			for (int i=theApp.myclassMessage.lastObj_Vec[ni]->intLineStart;i<(theApp.myclassMessage.lastObj_Vec[ni]->intLineSize+theApp.myclassMessage.lastObj_Vec[ni]->intLineStart);i++)
 			{
-				for (int j=theApp.myclassMessage.lastObj_Vec[ni].intRowStart;j<(theApp.myclassMessage.lastObj_Vec[ni].intRowSize+theApp.myclassMessage.lastObj_Vec[ni].intRowStart);j++)
+				for (int j=theApp.myclassMessage.lastObj_Vec[ni]->intRowStart;j<(theApp.myclassMessage.lastObj_Vec[ni]->intRowSize+theApp.myclassMessage.lastObj_Vec[ni]->intRowStart);j++)
 				{
 					if (theApp.myclassMessage.boDotMes[i][j])
 					{

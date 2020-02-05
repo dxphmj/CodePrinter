@@ -97,11 +97,8 @@ class MESSAGEEDIT_API ClassMessage
 		 ClassMessage(void);
 		 ~ClassMessage(void);
 	public:
- 
 		vector<OBJ_Control*> OBJ_Vec;
- 
-		vector<OBJ_Control> lastObj_Vec;
- 
+		vector<OBJ_Control*> lastObj_Vec;
 		int Matrix;
 		string strMatrix;
 		int Pixel;
@@ -109,8 +106,9 @@ class MESSAGEEDIT_API ClassMessage
 		string Inverse;
 		bool boReverse;//翻转，颠倒，由喷印设置中更改
 		bool boInverse;
-        bool boDotMes[32][255];
-		int intRowMax;//intDotMesRow
+		bool boDotMes[32][255];/////    int N=5, M=6; //vector<vector<int> > obj(N, vector<int>(M)); //定义二维动态数组5行6列 
+		int scrMaxRow;//滚动条用
+		int intRowMax;//intDotMesRow//用于主界面显示等
 		int bytRowByteMul;//一列由几个byte表示
 		bool boDynamic;//是否动态打印
 		bool boPrintNow;//是否即时打印

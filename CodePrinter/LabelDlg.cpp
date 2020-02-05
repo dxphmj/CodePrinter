@@ -1137,7 +1137,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
 	theApp.myclassMessage.lastObj_Vec.clear();
-	theApp.myclassMessage.lastObj_Vec=theApp.myclassMessage.OBJ_Vec;
+	theApp.myclassMessage.lastObj_Vec= theApp.myclassMessage.OBJ_Vec;
 	allMessageSub();
 
 //	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
