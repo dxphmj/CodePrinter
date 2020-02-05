@@ -48,9 +48,13 @@ public:
 	CImageButton m_code39IB;
 	CImageButton m_code128IB;
 	CImageButton m_okIB;
+
+	afx_msg void OnStnClickedBarcodeSetStatic();
+
 	afx_msg void OnBnClickedCode128Btn();
 	afx_msg void OnBnClickedCode39Btn();
 	CCustomStatic m_barText;
 	CImageButton m_barcodeFigureBtn;
 	CImageButton m_barcodeDateBtn;
+
 };
