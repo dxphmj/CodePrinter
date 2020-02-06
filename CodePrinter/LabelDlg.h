@@ -126,4 +126,8 @@ public:
 	CCustomStatic m_perversionStatic;
 	CComboBox m_reversalCombo;
 	CComboBox m_reversionCombo;
+	// °×ÆÁ¹ö¶¯Ìõ
+	
+	CScrollBar m_ScrollLab;
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

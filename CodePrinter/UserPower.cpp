@@ -132,7 +132,7 @@ void UserPower::SaveUser()
 	
 	for(map<string,UserStruct>::iterator iter=userMap.begin();iter!=userMap.end();iter++ )
 	{
-		string tempUNK=iter->first+"|"+iter->second.userName+","+iter->second.userKey+","+iter->second.fatherName+","+theApp.myclassMessage.to_String(iter->second.userLevel);
+		string tempUNK=iter->first+"|"+iter->second.userName+","+iter->second.userKey+","+iter->second.fatherName+","+OBJ_Control::to_String(iter->second.userLevel);
 		outUser<<tempUNK<<endl;
 	}
 	outUser.close();

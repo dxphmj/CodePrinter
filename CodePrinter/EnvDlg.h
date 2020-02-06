@@ -28,6 +28,9 @@ public:
 	afx_msg void OnBnClickedLanSelButton();
 public:
 	CImageButton m_ButLanSel;
+
+	void ControlTextChange();
+
 	CCustomStatic m_evn_timeStatic;
 	CCustomStatic m_evn_dateStatic;
 	CCustomStatic m_evn_languageStatic;

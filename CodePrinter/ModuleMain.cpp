@@ -474,8 +474,8 @@ void StatusClass::getstatu()
 	staChaFau = (GETnBIT_from_bytStatus(4, 1, 1)==_T("1")?true:false) ;  //'充电故障
 	staPhaFau = (GETnBIT_from_bytStatus(4, 2, 1)==_T("1")?true:false) ;  //'相位故障
 	staHigVolFau = (GETnBIT_from_bytStatus(4, 3, 1)==_T("1")?true:false) ; // '高压故障
-	staSolLevFau = theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(4, 5, 1)==_T("1")?true:false) +theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(4, 4, 1)==_T("1")?true:false);  //'溶剂液位状态
-	staInkLevFau = theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(4, 7, 1)==_T("1")?true:false) + theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(4, 6, 1)==_T("1")?true:false);  //'墨水液位状态
+	staSolLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 5, 1)==_T("1")?true:false) +OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 4, 1)==_T("1")?true:false);  //'溶剂液位状态
+	staInkLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 7, 1)==_T("1")?true:false) + OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 6, 1)==_T("1")?true:false);  //'墨水液位状态
 	staPrnting = (GETnBIT_from_bytStatus(5, 0, 1)==_T("1")?true:false) ; // '打印中
 	//'staBufOveFau = IIf(GETnBIT_from_bytStatus(5, 2, 1)==_T("1"));  // '文本buf溢出
 	staHigVolSwi = (GETnBIT_from_bytStatus(5, 3, 1)==_T("1")?true:false)  ; //'高压开关
@@ -519,7 +519,7 @@ void StatusClass::getstatu()
 	if (!staSetTimeEna)
 	{
 		staInkLifeTime = (theApp.bytStatus[36] & 31) * pow(256 , 3) + theApp.bytStatus[35] * pow(256 , 2) + theApp.bytStatus[34] * 256 + theApp.bytStatus[33];   // '墨水时间
-		staRFID =  theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(36, 7, 1)==_T("1")?true:false) + theApp.myclassMessage.to_String(GETnBIT_from_bytStatus(36, 6, 1)==_T("1")?true:false); //'RFID状态
+		staRFID =  OBJ_Control::to_String(GETnBIT_from_bytStatus(36, 7, 1)==_T("1")?true:false) + OBJ_Control::to_String(GETnBIT_from_bytStatus(36, 6, 1)==_T("1")?true:false); //'RFID状态
 	}
 }
 
@@ -714,7 +714,7 @@ CString GETnBIT_from_bytReadData(int I , int m , int n )
 {
 	string tempCstr="";
 	ModuleMain tempstringToLPCWSTR;
-	tempCstr="00000000"+theApp.myclassMessage.DEC_to_BIN(theApp.myCIOVsd.m_pRecvBuf[I+4]);
+	tempCstr="00000000"+OBJ_Control::DEC_to_BIN(theApp.myCIOVsd.m_pRecvBuf[I+4]);
 
     //tempCstr=tempCstr.Mid(tempCstr.GetLength()-m,n);
 	CString cstringStr= tempstringToLPCWSTR.stringToLPCWSTR(tempCstr);
@@ -725,7 +725,7 @@ CString GETnBIT_from_bytStatus(int I , int m , int n )
 {
 	string tempCstr="";
 	ModuleMain tempstringToLPCWSTR;
-	tempCstr="00000000"+theApp.myclassMessage.DEC_to_BIN(theApp.bytStatus[I]);
+	tempCstr="00000000"+OBJ_Control::DEC_to_BIN(theApp.bytStatus[I]);
 
 	//tempCstr=tempCstr.Mid(tempCstr.GetLength()-m,n);
 
@@ -1074,7 +1074,7 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+"0";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum0);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum0);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 1:
@@ -1082,11 +1082,11 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+" ";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum0);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum0);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 2:
-							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum0);
+							strTemp = OBJ_Control::to_String(theApp.myclassMessage.CountNum0);
 							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
 							for (int a=0;a<n;a++)
 							{
@@ -1137,7 +1137,7 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+"0";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum1);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum1);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 1:
@@ -1145,11 +1145,11 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+" ";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum1);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum1);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 2:
-							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum1);
+							strTemp = OBJ_Control::to_String(theApp.myclassMessage.CountNum1);
 							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
 							for (int a=0;a<n;a++)
 							{
@@ -1200,7 +1200,7 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+"0";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum2);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum2);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 1:
@@ -1208,11 +1208,11 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+" ";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum2);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum2);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 2:
-							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum2);
+							strTemp = OBJ_Control::to_String(theApp.myclassMessage.CountNum2);
 							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
 							for (int a=0;a<n;a++)
 							{
@@ -1263,7 +1263,7 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+"0";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum3);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum3);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 1:
@@ -1271,11 +1271,11 @@ UINT method1(LPVOID pParam)
 							{
 								strTemp=strTemp+" ";//123456789
 							}
-							strTemp = strTemp +theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum3);
+							strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum3);
 							StrSerialText=strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
 							break;
 						case 2:
-							strTemp = theApp.myclassMessage.to_String(theApp.myclassMessage.CountNum3);
+							strTemp = OBJ_Control::to_String(theApp.myclassMessage.CountNum3);
 							int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
 							for (int a=0;a<n;a++)
 							{
@@ -1355,7 +1355,7 @@ string ModuleMain::SerialFormatToText(int Value, int Digits, int Format)
 		{
 			strTemp=strTemp+"0";
 		}
-		strTemp=strTemp+theApp.myclassMessage.to_String(Value);
+		strTemp=strTemp+OBJ_Control::to_String(Value);
 		OutPutSerialText=strTemp.substr(strTemp.length()-Digits,Digits);
 		break;
 	case 1:
@@ -1363,11 +1363,11 @@ string ModuleMain::SerialFormatToText(int Value, int Digits, int Format)
 		{
 			strTemp=strTemp+" ";
 		}
-		strTemp=strTemp+theApp.myclassMessage.to_String(Value);
+		strTemp=strTemp+OBJ_Control::to_String(Value);
 		OutPutSerialText=strTemp.substr(strTemp.length()-Digits,Digits);
 		break;
 	case 2:
-		strTemp=theApp.myclassMessage.to_String(Value);
+		strTemp=OBJ_Control::to_String(Value);
 		int n=Digits-strTemp.length();
 		for(int a=0;a<n;a++)
 		{

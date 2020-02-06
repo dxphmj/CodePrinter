@@ -89,7 +89,7 @@ BOOL CFaultDlg::OnInitDialog()
 	get_error_name();
 	CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
 	string timeErr="Storage Card\\System\\Error\\";
-	Errorlog_name=theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay());
+	Errorlog_name=OBJ_Control::to_String(localT.GetYear())+OBJ_Control::to_String(localT.GetMonth())+OBJ_Control::to_String(localT.GetDay());
 	timeErr=timeErr+Errorlog_name+".txt";
 	ofstream timeErrout(timeErr.c_str(), ios::app);
 	timeErrout.close();

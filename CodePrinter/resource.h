@@ -259,7 +259,9 @@
 #define IDC_ODBC_BUTTON                 1037
 #define IDC_SAVE_BUTTON                 1038
 #define Static_Text                     1039
+#define IDC_EDITTEXT_TEXT_STATIC        1039
 #define Static_Font                     1040
+#define IDC_EDITTEXT_FONT_STATIC        1040
 #define IDC_EDIT5                       1041
 #define IDC_LOCAL_PORT_EDIT             1041
 #define IDC_EDIT1                       1042
@@ -337,6 +339,8 @@
 #define Save_Button                     1120
 #define IDC_COMBO_MATRIX                1121
 #define Static_DataField                1122
+#define IDC_EDITTEXT_DATAFIELD_STATICStatic_DataField 1122
+#define IDC_EDITTEXT_DATAFIELD_STATIC   1122
 #define Combo_Font                      1123
 #define IDC_EDIT6                       1124
 #define IDC_SUB_NET_MASK_EDIT           1124
@@ -755,6 +759,11 @@
 #define IDC_OPEN_PASSWARD_EDIT          1840
 #define IDC_OPEN_NOT_GRANTED_LIST       1841
 #define IDC_OPEN_GRANTED_LIST           1842
+#define IDC_DATE_DATETIME_STATIC        1843
+#define IDC_BARCODE_SIZE_STATIC         1844
+#define IDC_BARCODE_DYNAMIC_EDIT_STATIC 1845
+#define IDC_SCROLLBAR1                  1846
+#define IDC_SCROLLBAR_LABEL             1846
 
 // Next default values for new objects
 // 
@@ -762,7 +771,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        470
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1843
+#define _APS_NEXT_CONTROL_VALUE         1848
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

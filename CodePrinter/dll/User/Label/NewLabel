@@ -1,4 +1,4 @@
-﻿<MES>
+<MES>
   <PRO>
     <Matrix>1L25M</Matrix>
     <Pixel>25</Pixel>
@@ -19,20 +19,5 @@
     <BWDy>False</BWDy>
     <setFONT>7x5</setFONT>
     <setTEXT>A300</setTEXT>
-  </OBJ>
-  <OBJ>
-    <TYPE1>text</TYPE1>
-    <TYPE2>text</TYPE2>
-    <LineStart>0</LineStart>
-    <RowStart>0</RowStart>
-    <LineSize>7</LineSize>
-    <RowSize>36</RowSize>
-    <SW>1</SW>
-    <SS>0</SS>
-    <NEG>False</NEG>
-    <BWDx>False</BWDx>
-    <BWDy>False</BWDy>
-    <setFONT>7x5</setFONT>
-    <setTEXT>Series</setTEXT>
   </OBJ>
 </MES>
