@@ -18,9 +18,11 @@ typedef unsigned char BYTE;
 
 class MESSAGEEDIT_API OBJ_Control
 {
-public://参数
+public: 
     OBJ_Control(void);
 	~OBJ_Control(void);
+
+public://参数
 	string strDuan;//信息段的标识位
 	string strType1;//字段类型
 	string strType2;	//字段实际类型
@@ -56,7 +58,6 @@ public://参数
 	string strqrcodeECCLevel;//二维码的容错率等级
 	int intqrcodeQuietZone;//二维码空白框层数
 
-
     bool boQRBig;
 	int intQRVersion;
 	int intQRErrLevel;
@@ -83,11 +84,11 @@ public://方法
 	static string DEC_to_BIN(long long Dec);
 	static string to_String(int n);
 	static long long BIN_to_DEC(string Bin);
-
-
-private:
-	map<string,int> fntMap;
-
+	void DrawLogoQRcodeDM(CDC* pDC);
+	void DrawText(CDC* pDC);
+	void Draw5x5_7x5Text(CDC* pDC,int nFontRow,int nFontCol,int nBytesOneWord);
+	void Draw12x12Text(CDC* pDC);
+	void Draw16x12Text(CDC* pDC);
 };
  
 class MESSAGEEDIT_API ClassMessage
@@ -96,8 +97,8 @@ class MESSAGEEDIT_API ClassMessage
 		 ClassMessage(void);
 		 ~ClassMessage(void);
 	public:
-		vector<OBJ_Control> OBJ_Vec;
-		vector<OBJ_Control> lastObj_Vec;
+		vector<OBJ_Control*> OBJ_Vec;
+		vector<OBJ_Control*> lastObj_Vec;
 		int Matrix;
 		string strMatrix;
 		int Pixel;
@@ -106,7 +107,9 @@ class MESSAGEEDIT_API ClassMessage
 		bool boReverse;//翻转，颠倒，由喷印设置中更改
 		bool boInverse;
 		bool boDotMes[32][255];/////    int N=5, M=6; //vector<vector<int> > obj(N, vector<int>(M)); //定义二维动态数组5行6列 
-		int scrMaxRow;
+
+		int scrMaxRow;//滚动条用
+
 		int intRowMax;//intDotMesRow//用于主界面显示等
 		int bytRowByteMul;//一列由几个byte表示
 		bool boDynamic;//是否动态打印
