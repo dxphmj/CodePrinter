@@ -831,45 +831,48 @@ void CCodePrinterDlg::UpdateValve()
 void CCodePrinterDlg::GetFaultInfo()
 {
 	//故障列表要清除，但又得防止刷新太快，最好判断一下如果列表中已显示该类型故障就不用添加了。
-  //  m_Fault->m_faultList.ResetContent();
-
-    m_Fault->m_faultList.SetItemHeight(0,40);
+  //  m_Fault->m_faultList.ResetContent();    
 	//墨水温度传感器故障
-    if (theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == false)
+    if (theApp.myStatusClass.staInkTemSenFau == false && m_Fault->m_staInkTemSenFauLas == false)
 	{
-		theApp.myStatusClass.staInkTemSenFauLas = true;
+		/*theApp.myStatusClass.staInkTemSenFauLas = true;*/
+		m_Fault->m_staInkTemSenFauLas = true;
 		CString csMsg ;
 		csMsg.Format(_T("Ink temperature sensor fault"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
-		m_Fault->m_faultList.AddString(csMsg);				
+		m_Fault->m_faultList.AddString(csMsg);		
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if(theApp.myStatusClass.staInkTemSenFau == false && theApp.myStatusClass.staInkTemSenFauLas == true)
+	else if(theApp.myStatusClass.staInkTemSenFau == false && m_Fault->m_staInkTemSenFauLas == true)
 	{
-	   theApp.myStatusClass.staInkTemSenFauLas = false;
+	   m_Fault->m_staInkTemSenFauLas = false;
 	}
 
 	//喷头温度传感器故障
-	if (theApp.myStatusClass.staPriHeaTemFau == false && theApp.myStatusClass.staPriHeaTemFauLas == false)
+	if (theApp.myStatusClass.staPriHeaTemFau == false && m_Fault->m_staPriHeaTemFauLas == false)
 	{
-		theApp.myStatusClass.staPriHeaTemFauLas = true;
+	/*	theApp.myStatusClass.staPriHeaTemFauLas = true;*/
+		m_Fault->m_staPriHeaTemFauLas = true;
 		CString csMsg ;
 		csMsg.Format(_T("Printhead temperature sensor fault"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staPriHeaTemFau == false && theApp.myStatusClass.staPriHeaTemFauLas == true)
+	else if (theApp.myStatusClass.staPriHeaTemFau == false && m_Fault->m_staPriHeaTemFauLas == true)
 	{
-		theApp.myStatusClass.staPriHeaTemFauLas = false;
+		m_Fault->m_staPriHeaTemFauLas = false;
 	}
 
 	//泵超速保护
-	if (theApp.myStatusClass.staBumSpeOveFau == true	 && theApp.myStatusClass.staBumSpeOveFauLas == false)
+	if (theApp.myStatusClass.staBumSpeOveFau == true && m_Fault->m_staBumSpeOveFauLas == false)
 	{
-		theApp.myStatusClass.staBumSpeOveFauLas = true;
+		//theApp.myStatusClass.staBumSpeOveFauLas = true;
+		m_Fault->m_staBumSpeOveFauLas = true;
 		//缺starting up
 
 		/*m_Onoff->SetWindowText(_T("Starting Up"));*/
@@ -888,17 +891,19 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staBumSpeOveFau == false && theApp.myStatusClass.staBumSpeOveFauLas == true)
+	else if (theApp.myStatusClass.staBumSpeOveFau == false && m_Fault->m_staBumSpeOveFauLas == true)
 	{
-		theApp.myStatusClass.staBumSpeOveFauLas = false;
+		m_Fault->m_staBumSpeOveFauLas = false;
 	}
 
 
 	//过压保护
-	if (theApp.myStatusClass.staPreOveFau == true && theApp.myStatusClass.staPreOveFauLas == false)
+	if (theApp.myStatusClass.staPreOveFau == true && m_Fault->m_staPreOveFauLas == false)
 	{
-		theApp.myStatusClass.staPreOveFauLas = true;
+		//theApp.myStatusClass.staPreOveFauLas = true;
+		m_Fault->m_staPreOveFauLas = true;
 		//缺starting up
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
@@ -915,40 +920,49 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staPreOveFau == false && theApp.myStatusClass.staPreOveFauLas == true)
+	else if (theApp.myStatusClass.staPreOveFau == false && m_Fault->m_staPreOveFauLas == true)
 	{
-		theApp.myStatusClass.staPreOveFauLas = false;
+		m_Fault->m_staPreOveFauLas = false;
 	}
 
 
 	//粘度异常
-	if (theApp.myStatusClass.staVisAbnFau == true && theApp.myStatusClass.staVisAbnFauLas == false)
+	if (theApp.myStatusClass.staVisAbnFau == true && m_Fault->m_staVisAbnFauLas == false)
 	{
-		theApp.myStatusClass.staVisAbnFauLas = true;
+		//theApp.myStatusClass.staVisAbnFauLas = true;
+		m_Fault->m_staVisAbnFauLas = true;
 		CString csMsg ;
 		csMsg.Format(_T("Ink Visco abnormal"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
+	}
+	else if (theApp.myStatusClass.staVisAbnFau == false && m_Fault->m_staVisAbnFauLas == true)
+	{
+		m_Fault->m_staVisAbnFauLas = false;
 	}
 
 
 	//粘度计故障
-	if (theApp.myStatusClass.staVisSenFau == true && theApp.myStatusClass.staVisSenFauLas == false)
+	if (theApp.myStatusClass.staVisSenFau == true && m_Fault->m_staVisSenFauLas == false)
 	{
-		theApp.myStatusClass.staVisSenFauLas = true;
+		//theApp.myStatusClass.staVisSenFauLas = true;
+		m_Fault->m_staVisSenFauLas = true;
 		CString csMsg ;
 		csMsg.Format(_T("Viscometer fault"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staVisSenFau == false && theApp.myStatusClass.staVisSenFauLas == true)
+	else if (theApp.myStatusClass.staVisSenFau == false && m_Fault->m_staVisSenFauLas == true)
 	{
-		theApp.myStatusClass.staVisSenFauLas = false;
+		m_Fault->m_staVisSenFauLas = false;
 	}
 
 
@@ -960,9 +974,10 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 	else
 	{
-		if (theApp.myStatusClass.staInkFloFau == true && theApp.myStatusClass.staInkFloFauLas == false)
+		if (theApp.myStatusClass.staInkFloFau == true && m_Fault->m_staInkFloFauLas == false)
 		{
-			theApp.myStatusClass.staInkFloFauLas = true;
+			//theApp.myStatusClass.staInkFloFauLas = true;
+			m_Fault->m_staInkFloFauLas = true;
 			//缺starting up
 
 			theApp.myStatusClass.ctr0X03bit0 = 0;		
@@ -973,20 +988,21 @@ void CCodePrinterDlg::GetFaultInfo()
 			theApp.myStatusClass.ctr0X00bit1 = 1;
 			theApp.myStatusClass.ctr0X00bit0 = 0;
 			theApp.myStatusClass.download_inksystem_control00();
-			CString csMsg ;
+			CString csMsg;
 			csMsg.Format(_T("Recyle fault"));
 			string m_tmpt;
 			m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 			csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 			m_Fault->m_faultList.AddString(csMsg);
+			m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 			m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Abnormal"));
 		}		
 		
 		else if (theApp.myStatusClass.staInkFloFau == false)
 		{
-			if (theApp.myStatusClass.staInkFloFauLas == true  )
+			if (m_Fault->m_staInkFloFauLas == true  )
 			{
-				theApp.myStatusClass.staInkFloFauLas = false;
+				m_Fault->m_staInkFloFauLas = false;
 				
 			}
 			m_Ink->GetDlgItem(IDC_INKFLOW_EDIT)->SetWindowText(_T("Normal"));
@@ -995,9 +1011,10 @@ void CCodePrinterDlg::GetFaultInfo()
 
 
 	//风扇故障
-	if (theApp.myStatusClass.staFanFau == true && theApp.myStatusClass.staFanFauLas == false)
+	if (theApp.myStatusClass.staFanFau == true && m_Fault->m_staFanFauLas == false)
 	{
-		theApp.myStatusClass.staFanFauLas = true;
+		//theApp.myStatusClass.staFanFauLas = true;
+		 m_Fault->m_staFanFauLas = true;
 		//缺starting up
 		
 		theApp.myStatusClass.ctr0X03bit0 = 0;
@@ -1014,17 +1031,19 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staFanFau == false && theApp.myStatusClass.staFanFauLas == true)
+	else if (theApp.myStatusClass.staFanFau == false && m_Fault->m_staFanFauLas == true)
 	{
-		theApp.myStatusClass.staFanFauLas = false;
+		 m_Fault->m_staFanFauLas = false;
 	}
 
 
 	//充电故障
-	if (theApp.myStatusClass.staChaFau == true && theApp.myStatusClass.staChaFauLas == false)
+	if (theApp.myStatusClass.staChaFau == true && m_Fault->m_staChaFauLas == false)
 	{
-		theApp.myStatusClass.staChaFauLas = true;
+		//theApp.myStatusClass.staChaFauLas = true;
+		m_Fault->m_staChaFauLas = true;
 		m_PicHead.SetMachineStatus(_T("充电故障"));//Charge fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
@@ -1035,17 +1054,19 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staChaFau == false && theApp.myStatusClass.staChaFauLas == true)
+	else if (theApp.myStatusClass.staChaFau == false && m_Fault->m_staChaFauLas == true)
 	{
-		theApp.myStatusClass.staChaFauLas = false;
+		m_Fault->m_staChaFauLas = false;
 	}
 
 
 	//相位故障
-	if (theApp.myStatusClass.staPhaFau == true && theApp.myStatusClass.staPhaFauLas == false)
+	if (theApp.myStatusClass.staPhaFau == true && m_Fault->m_staPhaFauLas == false)
 	{
-		theApp.myStatusClass.staPhaFauLas = true;
+		//theApp.myStatusClass.staPhaFauLas = true;
+		m_Fault->m_staPhaFauLas = true;
 		m_PicHead.SetMachineStatus(_T("相位故障"));//Phase fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
@@ -1056,17 +1077,19 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staPhaFau == false && theApp.myStatusClass.staPhaFauLas == true)
+	else if (theApp.myStatusClass.staPhaFau == false && m_Fault->m_staPhaFauLas == true)
 	{
-		theApp.myStatusClass.staPhaFauLas = false;
+		m_Fault->m_staPhaFauLas = false;
 	}
 
 
 	//高压故障
-	if (theApp.myStatusClass.staHigVolFau == true && theApp.myStatusClass.staHigVolFauLas == false)
+	if (theApp.myStatusClass.staHigVolFau == true && m_Fault->m_staHigVolFauLas == false)
 	{
-		theApp.myStatusClass.staHigVolFauLas = true;
+		//theApp.myStatusClass.staHigVolFauLas = true;
+		m_Fault->m_staHigVolFauLas = true;
 		//缺starting up
 
 		
@@ -1084,37 +1107,40 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staHigVolFau == false && theApp.myStatusClass.staHigVolFauLas == true)
+	else if (theApp.myStatusClass.staHigVolFau == false && m_Fault->m_staHigVolFauLas == true)
 	{
-		theApp.myStatusClass.staHigVolFauLas = false;
+		m_Fault->m_staHigVolFauLas = false;
 	}
 
 
 	//溶剂液位状态
-	if (theApp.myStatusClass.staSolLevFau == "00" && theApp.myTimClass.staSolLevFauLas != "00" && theApp.myStatusClass.staInkLevFau == "00")
+	if (theApp.myStatusClass.staSolLevFau == "00" && m_Fault->m_staSolLevFauLas != "00" && theApp.myStatusClass.staInkLevFau == "00")
 	{
-		theApp.myTimClass.staSolLevFauLas = "00";
-		/*picAlarmBlue.Tag = "im004"
-		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
+		//theApp.myTimClass.staSolLevFauLas = "00";
+		m_Fault->m_staSolLevFauLas = "00";
 		m_PicHead.SetBlueAlarm(false);
 	}
-	else if (theApp.myStatusClass.staSolLevFau == "01" && theApp.myTimClass.staSolLevFauLas != "01")
+	else if (theApp.myStatusClass.staSolLevFau == "01" && m_Fault->m_staSolLevFauLas != "01")
 	{
-		theApp.myTimClass.staSolLevFauLas = "01";
-		CString csMsg ;
+		//theApp.myTimClass.staSolLevFauLas = "01";
+		m_Fault->m_staSolLevFauLas = "01";
+		CString csMsg;
 		csMsg.Format(_T("Add solvent"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
 		m_PicHead.SetBlueAlarm(true);
 	}
-	else if (theApp.myStatusClass.staSolLevFau == "10" && theApp.myTimClass.staSolLevFauLas != "10")
+	else if (theApp.myStatusClass.staSolLevFau == "10" && m_Fault->m_staSolLevFauLas != "10")
 	{
-		theApp.myTimClass.staSolLevFauLas = "10";
+		//theApp.myTimClass.staSolLevFauLas = "10";
+		m_Fault->m_staSolLevFauLas = "10";
 		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
@@ -1124,10 +1150,12 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staSolLevFau == "11" && theApp.myTimClass.staSolLevFauLas != "11")
+	else if (theApp.myStatusClass.staSolLevFau == "11" && m_Fault->m_staSolLevFauLas != "11")
 	{
-		theApp.myTimClass.staSolLevFauLas = "11";
+		//theApp.myTimClass.staSolLevFauLas = "11";
+		m_Fault->m_staSolLevFauLas = "11";
 		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
@@ -1137,21 +1165,24 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
 
 	//墨水液位状态
-	if (theApp.myStatusClass.staInkLevFau == "00" && theApp.myTimClass.staInkLevFauLas != "00" && theApp.myStatusClass.staSolLevFau == "00")
+	if (theApp.myStatusClass.staInkLevFau == "00" && m_Fault->m_staInkLevFauLas != "00" && theApp.myStatusClass.staSolLevFau == "00")
 	{
-		theApp.myTimClass.staInkLevFauLas = "00";
+		//theApp.myTimClass.staInkLevFauLas = "00";
+		m_Fault->m_staInkLevFauLas = "00";
 		m_PicHead.SetBlueAlarm(false);
 		/*picAlarmBlue.Tag = "im004"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im004*/
 		theApp.myTimClass.staInkEmpFau = false;
 		theApp.myTimClass.staInkOveFau = false;
 	}
-	else if (theApp.myStatusClass.staInkLevFau == "01" && theApp.myTimClass.staInkLevFauLas != "01")
+	else if (theApp.myStatusClass.staInkLevFau == "01" && m_Fault->m_staInkLevFauLas != "01")
 	{
-		theApp.myTimClass.staInkLevFauLas = "01";
+		//theApp.myTimClass.staInkLevFauLas = "01";
+		m_Fault->m_staInkLevFauLas = "01";
 		m_PicHead.SetBlueAlarm(true);
 		/*picAlarmBlue.Tag = "im003"
 		picAlarmBlue.Image = My.Resources.ResourceBng.im003*/
@@ -1163,10 +1194,12 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staInkLevFau == "10" && theApp.myTimClass.staInkLevFauLas != "10")
+	else if (theApp.myStatusClass.staInkLevFau == "10" && m_Fault->m_staInkLevFauLas != "10")
 	{
-		theApp.myTimClass.staInkLevFauLas = "10";
+		//theApp.myTimClass.staInkLevFauLas = "10";
+		m_Fault->m_staInkLevFauLas = "10";
 		//缺starting up
 
 		theApp.myStatusClass.ctr0X00bit5 = 0;
@@ -1183,10 +1216,12 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staInkLevFau == "11" && theApp.myTimClass.staInkLevFauLas != "11")
+	else if (theApp.myStatusClass.staInkLevFau == "11" && m_Fault->m_staInkLevFauLas != "11")
 	{
-		theApp.myTimClass.staInkLevFauLas = "11";
+		//theApp.myTimClass.staInkLevFauLas = "11";
+		m_Fault->m_staInkLevFauLas = "11";
 		//缺starting up
 
 		theApp.myStatusClass.ctr0X00bit5 = 0;
@@ -1203,29 +1238,33 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 
     }
 
 	//电眼过快
-	if (theApp.myStatusClass.staProSenFas == true && theApp.myStatusClass.staProSenFasLas == false)
+	if (theApp.myStatusClass.staProSenFas == true && m_Fault->m_staProSenFasLas == false)
 	{
-		theApp.myStatusClass.staProSenFasLas = true;
+		//theApp.myStatusClass.staProSenFasLas = true;
+		m_Fault->m_staProSenFasLas = true;
 		CString csMsg ;
 		csMsg.Format(_T("Much too product"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staProSenFas == false && theApp.myStatusClass.staProSenFasLas == true)
+	else if (theApp.myStatusClass.staProSenFas == false && m_Fault->m_staProSenFasLas == true)
 	{
-		theApp.myStatusClass.staProSenFasLas = false;
+		m_Fault->m_staProSenFasLas = false;
 	}
 
 	//自动分裂失败
-	if (theApp.myStatusClass.staAutModFau == true && theApp.myStatusClass.staAutModFauLas == false)
+	if (theApp.myStatusClass.staAutModFau == true && m_Fault->m_staAutModFauLas == false)
 	{
-		theApp.myStatusClass.staAutModFauLas = true;
+		//theApp.myStatusClass.staAutModFauLas = true;
+		m_Fault->m_staAutModFauLas = true;
 		m_PicHead.SetMachineStatus(_T("Fault Condition"));
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
@@ -1236,16 +1275,18 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staAutModFau == false && theApp.myStatusClass.staAutModFauLas == true)
+	else if (theApp.myStatusClass.staAutModFau == false && m_Fault->m_staAutModFauLas == true)
 	{
-		theApp.myStatusClass.staAutModFauLas = false;
+		m_Fault->m_staAutModFauLas = false;
 	}
 
 	//阀故障
-	if(theApp.myStatusClass.staValFau == true && theApp.myStatusClass.staValFauLas == false) 
+	if(theApp.myStatusClass.staValFau == true && m_Fault->m_staValFauLas == false) 
 	{
-		theApp.myStatusClass.staValFauLas = true;
+		//theApp.myStatusClass.staValFauLas = true;
+		m_Fault->m_staValFauLas = true;
 		//缺starting up
 		
 		theApp.myStatusClass.ctr0X03bit0 = 0;
@@ -1262,43 +1303,49 @@ void CCodePrinterDlg::GetFaultInfo()
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if(theApp.myStatusClass.staValFau == false && theApp.myStatusClass.staValFauLas == true) 
+	else if(theApp.myStatusClass.staValFau == false && m_Fault->m_staValFauLas == true) 
 	{
-		theApp.myStatusClass.staValFauLas = false;
+		m_Fault->m_staValFauLas = false;
 	}
 
 	//编码器过快
-	if (theApp.myStatusClass.staLinFas == true && theApp.myStatusClass.staLinFasLas == false )
+	if (theApp.myStatusClass.staLinFas == true && m_Fault->m_staLinFasLas == false )
 	{
-		theApp.myStatusClass.staLinFasLas = true;
+		//theApp.myStatusClass.staLinFasLas = true;
+		m_Fault->m_staLinFasLas = true;
 		CString csMsg ;
 		csMsg.Format(_T("Too fast"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staLinFas == false && theApp.myStatusClass.staLinFasLas == true )
+	else if (theApp.myStatusClass.staLinFas == false && m_Fault->m_staLinFasLas == true )
 	{
-		theApp.myStatusClass.staLinFasLas = false;
+		m_Fault->m_staLinFasLas = false;
 	}
 
 	//恒温故障
-	if (theApp.myStatusClass.staPriHeaHotFau == true && theApp.myStatusClass.staPriHeaHotFauLas == false )
+	if (theApp.myStatusClass.staPriHeaHotFau == true && m_Fault->m_staPriHeaHotFauLas == false )
 	{
-		theApp.myStatusClass.staPriHeaHotFauLas = true;
+		//theApp.myStatusClass.staPriHeaHotFauLas = true;
+		m_Fault->m_staPriHeaHotFauLas = true;
 		CString csMsg ;
 		csMsg.Format(_T("Constant temperature fault"));
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
+		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
 	}
-	else if (theApp.myStatusClass.staPriHeaHotFau == false && theApp.myStatusClass.staPriHeaHotFauLas == true )
+	else if (theApp.myStatusClass.staPriHeaHotFau == false && m_Fault->m_staPriHeaHotFauLas == true )
 	{
-		theApp.myStatusClass.staPriHeaHotFauLas = false;
+		m_Fault->m_staPriHeaHotFauLas = false;
 	}
+	    m_Fault->m_faultList.SetItemHeight(0,35);
 }
 
 
@@ -1336,20 +1383,16 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			 ChangeBottonEnable();
 			 theApp.myUserPower.isChangeUser=false;
 		 }
-
+		 //日期
+		m_currentDate = theApp.myModuleMain.CString2string(tmSCan.Format(_T("%Y/%m/%d")));
+		//时间
+		m_currentTime = theApp.myModuleMain.CString2string(tmSCan.Format(_T("%H:%M:%S")));
 		theApp.myStatusClass.byStatusFromSlaveState();
 		theApp.myStatusClass.getstatu();
         
 		UpdateValve(); //更新各种阀的信息，通过颜色显示出来，蓝色表示没按下去
 
 		GetFaultInfo(); //获得各种故障信息
-		//日期
-		CTime localT=CTime::GetCurrentTime(); 	
-
-		m_currentDate = theApp.myclassMessage.to_String(localT.GetYear())+"/"+theApp.myclassMessage.to_String(localT.GetMonth())+"/"+theApp.myclassMessage.to_String(localT.GetDay());
-		//时间
-		m_currentTime = theApp.myclassMessage.to_String(localT.GetHour())+":"+theApp.myclassMessage.to_String(localT.GetMinute())+":"+theApp.myclassMessage.to_String(localT.GetSecond());
-
 		
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
