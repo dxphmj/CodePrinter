@@ -42,6 +42,11 @@ public:
 // ÷ÿ–¥
 public:
 	virtual BOOL InitInstance();
+
+public:
+	void InitCommMsg();
+	void refalsetimedata();
+
 //
 	BYTE bytSlaveStatus[37];
 	queue<vector<BYTE>> queCtr;//√¸¡Ó∂”¡–

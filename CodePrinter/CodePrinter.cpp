@@ -131,3 +131,35 @@ BOOL CCodePrinterApp::InitInstance()
 	return FALSE;
 }
 
+void CCodePrinterApp::InitCommMsg()
+{
+	MyDcb tempDcb;
+	tempDcb.nComPort=4;
+	tempDcb.BaudRate=115200;
+	tempDcb.ByteSize=(BYTE)8;
+	tempDcb.Parity=(BYTE)0;
+	tempDcb.StopBits=(BYTE)0;
+	tempDcb.bIsSave=true;
+	myCIOVsd.SetComIndx(tempDcb.nComPort);
+	if (!myCIOVsd.OpenComm(tempDcb))
+	{
+		CString csMsg ;//= _T("串口4打开失败!");
+		csMsg.Format(_T("串口%d打开失败!"),tempDcb.nComPort);
+		AfxMessageBox(csMsg);
+	}
+}
+
+//时间序列号刷新时间
+void CCodePrinterApp::refalsetimedata()
+{
+	if (myclassMessage.bytTimeConCoun>0)
+	{
+		boETimetextLock.Lock();
+		for (int j=0;j<myclassMessage.bytTimeConCoun;j++)
+		{
+			myclassMessage.strETimetext[j] = 
+				myModuleMain.TimeFormatToText(myModuleMain.string2CString(myclassMessage.strTimeFormat[0][j]),myclassMessage.strETimeOffSet[j],myclassMessage.intTimeOffSetdis[j],myclassMessage.strTimeOffSetUint[j]);
+		}
+		boETimetextLock.Unlock();
+	}
+}

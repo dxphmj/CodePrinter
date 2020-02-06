@@ -45,7 +45,6 @@ public:
     void GetFaultInfo(); //获得各种故障信息
     void UpdatePhase();
 
-
 // 实现
 protected:
 	HICON m_hIcon;

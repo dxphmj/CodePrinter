@@ -1069,7 +1069,7 @@ void CLabelDlg::allMessageSub()
 		//theApp.boDotForPreQue.push(bytPrintDataAll1);
 		theApp.myclassMessage.intMesDis=theApp.ForPreQue.front();
 		theApp.ForPreQue.pop();
-		theApp.myModuleMain.getSerialDotBuf2();
+		theApp.myclassMessage.getSerialDotBuf2();
 		theApp.myclassMessage.boPrintNow=true;
 		theApp.boPrintNowLock.Unlock();
 
@@ -1130,9 +1130,7 @@ void CLabelDlg::allMessageSub()
 }
 //开始打印
 void CLabelDlg::OnBnClickedDownloadButton()
-{
-
-	
+{	
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
@@ -1328,6 +1326,9 @@ void CLabelDlg::getMessageDot()
 	//memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
 	memset(theApp.myclassMessage.boDotMes, false, sizeof(bool)*32*255);
 	//vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();
+
+	theApp.myclassMessage.getdot(); 
+/*
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i]->strType1=="text")//TYPE1
@@ -1552,6 +1553,7 @@ void CLabelDlg::getMessageDot()
 		{
 		}
 	}
+	*/
 	if (theApp.myclassMessage.boDynamic)
 	{
 		memcpy(theApp.myclassMessage.intTimeRowSizedis,theApp.myclassMessage.intTimeRowSize,4*sizeof(int));

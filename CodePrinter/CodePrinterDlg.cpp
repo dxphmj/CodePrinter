@@ -235,7 +235,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 #ifndef _DEBUG
 //#ifdef def_ttl
 	//串口初始化
-	theApp.myModuleMain.InitCommMsg();
+	theApp.InitCommMsg();
 #endif
 
 	//CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
@@ -337,7 +337,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 
 #endif 	
-	SetTimer(TIMER1,300,NULL);	
+//	SetTimer(TIMER1,300,NULL);	
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
@@ -2001,7 +2001,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staPriCou)));
 
-		theApp.myModuleMain.refalsetimedata();
+		theApp.refalsetimedata();
 		if (theApp.myclassMessage.boDynamic)
 		{
 			if (theApp.myclassMessage.boCountEn[0])

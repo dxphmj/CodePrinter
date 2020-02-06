@@ -59,27 +59,20 @@ BOOL CDateDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	CRect rect;
-	GetWindowRect(&rect);
+	
+	//m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	//m_returnIB.SizeToContent(); 
+	//m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	//m_okIB.SizeToContent(); 
+	//m_freshIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_RANGE_BITMAP);
+	//m_freshIB.SizeToContent();
+	//m_dateAddBtn.LoadBitmaps(IDB_70_45_1_BITMAP,IDB_70_45_BITMAP,0,0,IDB_70_45_1_BITMAP,true);
+	//m_dateAddBtn.SizeToContent(); 
 
-	GetDlgItem(IDC_DATE_CLOSE_BTN)->SetWindowPos(NULL,20,420,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_DATE_OK_BTN)->SetWindowPos(NULL,700,420,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_DATE_REFRESH_BTN)->SetWindowPos(NULL,500,420,70,45,SWP_SHOWWINDOW);
-
-	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_returnIB.SizeToContent(); 
-	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_okIB.SizeToContent(); 
-	m_freshIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_freshIB.SizeToContent(); 
-
-	m_dateAddBtn.LoadBitmaps(IDB_70_45_1_BITMAP,IDB_70_45_BITMAP,0,0,IDB_70_45_1_BITMAP,true);
-	m_dateAddBtn.SizeToContent(); 
-
-	m_skewValue.SetFont(theApp.m_EditFont);
-	GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
-	m_formatList.SetItemHeight(0,20);
-	m_skewUnitList.SetItemHeight(0,20);
+//	m_skewValue.SetFont(theApp.m_EditFont);
+//	GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
+//	m_formatList.SetItemHeight(0,20);
+//	m_skewUnitList.SetItemHeight(0,20);
 	m_skewUnitList.AddString(_T("Year"));
 	m_skewUnitList.AddString(_T("Month"));
 	m_skewUnitList.AddString(_T("Day"));
@@ -255,7 +248,7 @@ void CDateDlg::ChangeTime()
 	GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->GetWindowText(timeFormatStr);
 	CString fuckStr;
 	m_skewValue.GetWindowText(fuckStr);
-	CString nowTimeStr=theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
+	CString nowTimeStr;//=theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
 	GetDlgItem(IDC_DATE_PREVIEW_EDIT)->SetWindowText(nowTimeStr);
 }
 void CDateDlg::OnLbnSelchangeSkewUnitList()

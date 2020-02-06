@@ -24,10 +24,14 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedDateCloseBtn();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	CImageButton m_returnIB;
-	CImageButton m_okIB;
-	CImageButton m_freshIB;
-	CImageButton m_dateAddBtn;
+	//CImageButton m_returnIB;
+	//CImageButton m_okIB;
+	//CImageButton m_freshIB;
+	//CImageButton m_dateAddBtn;
+	CButton m_returnIB;
+	CButton m_okIB;
+	CButton m_dateAddBtn;
+	CButton m_freshIB;
 	CEdit m_skewValue;
 	CCustomStatic m_previewStatic;
 	CCustomStatic m_dateTimeStatic;
