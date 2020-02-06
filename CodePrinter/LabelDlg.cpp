@@ -206,7 +206,7 @@ BOOL CLabelDlg::OnInitDialog()
     m_designArea.SetWindowPos(NULL,-1,-1,781,161, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
 	//滚动条
 	m_ScrollLab.SetWindowPos(NULL,-1,162,781,20, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
-	m_ScrollLab.SetScrollRange(0, 99);  
+	m_ScrollLab.SetScrollRange(0, 108);  
 	SCROLLINFO tempLps;
 	m_ScrollLab.GetScrollInfo(&tempLps);
 	tempLps.nPage=10;
@@ -337,7 +337,26 @@ void CLabelDlg::OnPaint()
 		//theApp.scrPox=theApp.myclassMessage.scrMaxRow-156;
 		SCROLLINFO tempSCR;
 		m_ScrollLab.GetScrollInfo(&tempSCR);
-		tempSCR.nMax=theApp.myclassMessage.scrMaxRow-156;
+		tempSCR.nMax=theApp.myclassMessage.scrMaxRow-147;
+		int pos=m_ScrollLab.GetScrollPos();
+		if (pos>tempSCR.nMax-9)
+		{
+			m_ScrollLab.SetScrollPos(0);
+			theApp.scrPox=0;
+		}
+		m_ScrollLab.SetScrollInfo(&tempSCR);
+	}
+	else
+	{
+		SCROLLINFO tempSCR;
+		m_ScrollLab.GetScrollInfo(&tempSCR);
+		tempSCR.nMax=108;
+		int pos=m_ScrollLab.GetScrollPos();
+		if (pos>tempSCR.nMax-9)
+		{
+			m_ScrollLab.SetScrollPos(0);
+			theApp.scrPox=0;
+		}
 		m_ScrollLab.SetScrollInfo(&tempSCR);
 	}
 	m_designArea.Invalidate();
@@ -733,6 +752,10 @@ void CLabelDlg::OnBnClickedRshiftButton()
 		if (theApp.myclassMessage.OBJ_Vec[i]->booFocus)
 		{
 			theApp.myclassMessage.OBJ_Vec[i]->intRowStart++;
+			if (theApp.myclassMessage.scrMaxRow<theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart)
+			{
+				theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+			}
 			OnPaint();
 			break;
 		}
@@ -777,6 +800,10 @@ void CLabelDlg::OnBnClickedRqshiftButton()
 		if (theApp.myclassMessage.OBJ_Vec[i]->booFocus)
 		{
 			theApp.myclassMessage.OBJ_Vec[i]->intRowStart=theApp.myclassMessage.OBJ_Vec[i]->intRowStart+3;
+			if (theApp.myclassMessage.scrMaxRow<theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart)
+			{
+				theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+			}
 			OnPaint();
 			break;
 		}
@@ -821,6 +848,8 @@ void CLabelDlg::OnBnClickedOpenButton()
 		//xmlPath+="sss.xml";
 		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
 		theApp.myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
+		theApp.scrPox=0;
+		m_ScrollLab.SetScrollPos(0);
 	}
 
 	//myclassMessage.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
@@ -972,24 +1001,30 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 		int nRow;
 		int nCol;	 
 		nRow = (161-point.y) / 5;
-		nCol = point.x / 5;
+		nCol = (point.x / 5)+theApp.scrPox;
 		/*for (size_t i = 0; i < theApp.myclassMessage.OBJ_Vec.size(); i++)
 		{
 			theApp.myclassMessage.OBJ_Vec[i]->booFocus = false;
 		}*/
 		vector<OBJ_Control*>::iterator itr = theApp.myclassMessage.OBJ_Vec.begin();
+		bool isFind=false;
 		while (itr != theApp.myclassMessage.OBJ_Vec.end())
-		{		
-			 
+		{					 
 			(*itr)->booFocus = false;
+			if (isFind)
+			{
+				++itr;
+				continue;
+			}
 			if (nRow>=(*itr)->intLineStart&&nRow<=((*itr)->intLineStart+(*itr)->intLineSize)
 				&&nCol>=(*itr)->intRowStart&&nCol<=((*itr)->intRowStart+(*itr)->intRowSize))
 			{
 				(*itr)->booFocus=true;
-				OnPaint();
+				isFind=true;
 			}
 			++itr;
 		}
+		OnPaint();
 	}
 	
 	CDialog::OnLButtonDown(nFlags, point);
@@ -1350,17 +1385,57 @@ void CLabelDlg::getMessageDot()
 	theApp.intCounNumForPreQue=queue<vector<int>>();
 	//theApp.myclassMessage.intDotMesRow=0
 	//memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
-	memset(theApp.myclassMessage.boDotMes, false, sizeof(bool)*32*255);
+	//memset(theApp.myclassMessage.boDotMes, false, sizeof(bool)*32*255);
+	theApp.myclassMessage.boDotMes.clear();
+	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	{
+		if (theApp.myclassMessage.intRowMax < (theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart))
+		{
+			theApp.myclassMessage.intRowMax = theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+			theApp.myclassMessage.intDotMesRowdis = theApp.myclassMessage.intRowMax;
+			theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.intRowMax;
+		}
+	}
+	//if (theApp.myclassMessage.scrMaxRow>255)
+	//{
+	//	//theApp.scrPox=theApp.myclassMessage.scrMaxRow-156;
+	//	SCROLLINFO tempSCR;
+	//	m_ScrollLab.GetScrollInfo(&tempSCR);
+	//	tempSCR.nMax=theApp.myclassMessage.scrMaxRow-147;
+	//	if (tempSCR.nPos>tempSCR.nMax-9)
+	//	{
+	//		tempSCR.nPos=tempSCR.nMax-9;
+	//	}
+	//	m_ScrollLab.SetScrollInfo(&tempSCR);
+	//}
+	//else
+	//{
+	//	SCROLLINFO tempSCR;
+	//	m_ScrollLab.GetScrollInfo(&tempSCR);
+	//	tempSCR.nMax=99;
+	//	if (tempSCR.nMax<tempSCR.nPos)
+	//	{
+	//		tempSCR.nPos=tempSCR.nMax;
+	//	}
+	//	m_ScrollLab.SetScrollInfo(&tempSCR);
+	//}
+
+	if (theApp.myclassMessage.intDotMesRowdis<10)
+	{
+		theApp.myclassMessage.intDotMesRowdis=10;
+	}
+	vector<vector <bool> > ivec(32 ,vector<bool>(theApp.myclassMessage.intDotMesRowdis,false));
+	theApp.myclassMessage.boDotMes=ivec;
 	//vector<OBJ_Control>::iterator objIter=theApp.myclassMessage.OBJ_Vec.begin();
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i]->strType1=="text")//TYPE1
 		{
-			if (theApp.myclassMessage.intRowMax < (theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart))
-			{
-				theApp.myclassMessage.intRowMax = theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-				theApp.myclassMessage.intDotMesRowdis = theApp.myclassMessage.intRowMax;
-			}
+			//if (theApp.myclassMessage.intRowMax < (theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart))
+			//{
+			//	theApp.myclassMessage.intRowMax = theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+			//	theApp.myclassMessage.intDotMesRowdis = theApp.myclassMessage.intRowMax;
+			//}
 			if (theApp.myclassMessage.OBJ_Vec[i]->strType2=="text")
 			{
 				theApp.myclassMessage.getdot(theApp.myclassMessage.OBJ_Vec[i]->strFont,theApp.myclassMessage.OBJ_Vec[i]->booBWDy,theApp.myclassMessage.OBJ_Vec[i]->booBWDx,theApp.myclassMessage.OBJ_Vec[i]->booNEG,theApp.myclassMessage.OBJ_Vec[i]->strText,
@@ -1667,6 +1742,9 @@ void CLabelDlg::OnBnClickedClsButton()
 	memset(theApp.myclassMessage.CounterEditMes,false,sizeof(bool)*4);
 	m_ssValue=0;
 	m_zoomLevel=1;
+	theApp.scrPox=0;
+	m_ScrollLab.SetScrollPos(0);
+	theApp.myclassMessage.scrMaxRow=0;
 	UpdateData(FALSE);
 	OnPaint();
 }
@@ -1682,7 +1760,6 @@ void CLabelDlg::OnBnClickedShrinkButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i]->intSW--;
 				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
-
 				OnPaint();
 			}
 			
@@ -1702,7 +1779,22 @@ void CLabelDlg::OnBnClickedZoomButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i]->intSW++;
 				//theApp.myclassMessage.OBJ_Vec[i].intRowSize=
-
+				switch(theApp.myclassMessage.OBJ_Vec[i]->intSW)
+				{
+				case 2:
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=theApp.myclassMessage.OBJ_Vec[i]->intRowSize*2;
+					break;
+				case 3:
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=theApp.myclassMessage.OBJ_Vec[i]->intRowSize/2*3;
+					break;
+				case 4:
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=theApp.myclassMessage.OBJ_Vec[i]->intRowSize/3*4;
+					break;
+				}
+				if (theApp.myclassMessage.scrMaxRow<theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart)
+				{
+					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+				}
 				OnPaint();
 			}
 			break;
@@ -1742,7 +1834,11 @@ void CLabelDlg::OnBnClickedFarButton()
 			{
 				theApp.myclassMessage.OBJ_Vec[i]->intSS++;
 				//GetDlgItem(IDC_EDIT1).SetWindowText(theApp.myclassMessage.OBJ_Vec[i].intSW);
-
+				theApp.myclassMessage.OBJ_Vec[i]->intRowSize=theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->strText.size();
+				if (theApp.myclassMessage.scrMaxRow<theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart)
+				{
+					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+				}
 				OnPaint();
 			}
 			break;
@@ -1875,6 +1971,7 @@ void CLabelDlg::OnBnClickedCopyButton()
 			OBJ_Control* tempObj = NULL;
 			tempObj=theApp.myclassMessage.OBJ_Vec.at(i);
 			tempObj->intRowStart=tempObj->intRowStart+tempObj->intRowSize;
+
 			if (tempObj->strType2=="serial")
 			{
 				if (!theApp.myclassMessage.CounterEditMes[0])
@@ -1907,6 +2004,10 @@ void CLabelDlg::OnBnClickedCopyButton()
 					AfxMessageBox(csMsg);
 					return;
 				}
+			}
+			if (theApp.myclassMessage.scrMaxRow<tempObj->intRowStart+tempObj->intRowSize)
+			{
+				theApp.myclassMessage.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
 			}
 			theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
 			theApp.myclassMessage.OBJ_Vec.at(i)->booFocus=false;
@@ -1966,20 +2067,26 @@ void CLabelDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		break;   
 		// 如果滚动到最右端，则pos为100  
 	case SB_RIGHT:   
-		pos = tempSCR.nMax;   
+		pos = tempSCR.nMax; 
 		break;     
-		// 如果拖动滚动块滚动到指定位置，则pos赋值为nPos的值  
+		  //gundongshi
+	case SB_THUMBTRACK:
+		pos = nPos;
+		theApp.scrPox=pos;
+		m_designArea.Invalidate();
+		break;
+		// 如果拖动滚动块滚动到指定位置，则pos赋值为nPos的值
 	case SB_THUMBPOSITION:   
-		pos = nPos;   
+		pos = nPos;
 		break;   
 		// 下面的m_horiScrollbar.SetScrollPos(pos);执行时会第二次进入此函数，最终确定滚动块位置，并且会直接到default分支，所以在此处设置编辑框中显示数值  
 	default:   
 		//SetDlgItemInt(IDC_HSCROLL_EDIT, pos);
 		theApp.scrPox=pos;
-		
+		m_designArea.Invalidate();
 		return;   
 	}   
-	m_designArea.Invalidate();
+	
 	// 设置滚动块位置  
 	m_ScrollLab.SetScrollPos(pos);  
 
