@@ -244,8 +244,16 @@ void CInputDlg::OnBnClickedEditpictureButton()
 		bmpObj->booBWDy=false;
 
 		//bmpObj.strFont="7x5";
+
+
+		if ((bmpObj->intRowStart+bmpObj->intRowSize)>theApp.myclassMessage.scrMaxRow)
+		{
+			theApp.myclassMessage.scrMaxRow=bmpObj->intRowStart+bmpObj->intRowSize;
+		}
+
 		bmpObj->strText=xmlPath;
 		bmpObj->booFocus=true;
+
 		theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
 	}
 	this->ShowWindow(SW_HIDE);

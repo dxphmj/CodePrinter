@@ -337,12 +337,21 @@ void CDateDlg::OnBnClickedDateOkBtn()
 				theApp.myclassMessage.OBJ_Vec[i]->booETimeOffSet=m_dateSkewCombo.GetCurSel();
 				CString timeOffText;
 				GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->GetWindowText(timeOffText);
+
+
+				if ((theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize)>theApp.myclassMessage.scrMaxRow)
+				{
+					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize;
+				}
+
 				theApp.myclassMessage.OBJ_Vec[i]->intTimeOffSet=_ttoi(timeOffText);
 				theApp.myclassMessage.OBJ_Vec[i]->strTimeOffSet=m_skewUnitList.GetCurSel();
+
 				break;
 			}
 		}
 		theApp.bochange=false;
+
 		ShowWindow(SW_HIDE);
 		return;
 	}
@@ -408,7 +417,15 @@ void CDateDlg::OnBnClickedDateOkBtn()
 	tempObj->intTimeOffSet=_ttoi(timeOffText);
 	tempObj->strTimeOffSet=m_skewUnitList.GetCurSel();
 
+
+
+	if ((tempObj->intRowStart+tempObj->intRowSize)>theApp.myclassMessage.scrMaxRow)
+	{
+		theApp.myclassMessage.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
+	}
+
 	tempObj->booFocus=true;
+
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);
 }

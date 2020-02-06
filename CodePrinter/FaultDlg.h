@@ -51,4 +51,24 @@ public:
 	CImageButton m_delete;
 	CImageButton m_next;
 	CImageButton m_before;
+//故障信息标志位
+public:
+	bool m_staInkTemSenFauLas;//墨水温度传感器
+	bool m_staPriHeaTemFauLas;//喷头温度传感器
+	bool m_staBumSpeOveFauLas;//泵超速保护
+	bool m_staPreOveFauLas;   //过压保护
+	bool m_staVisAbnFauLas;   //粘度异常
+	bool m_staVisSenFauLas;   //粘度计故障
+	bool m_staInkFloFauLas;   //回收故障
+	bool m_staFanFauLas;      //风扇故障
+	bool m_staChaFauLas;      //充电故障
+	bool m_staPhaFauLas;      //相位故障
+	bool m_staHigVolFauLas;   //高压故障
+	string m_staSolLevFauLas; //溶剂液位状态
+	string m_staInkLevFauLas; //墨水液位状态
+	bool m_staProSenFasLas;   //电眼过快 
+	bool m_staAutModFauLas;   //自动分裂失败
+	bool m_staValFauLas;      //阀故障
+	bool m_staLinFasLas;      //编码器过快
+	bool m_staPriHeaHotFauLas;//恒温故障
 };
