@@ -189,23 +189,24 @@ public://参数，待定
 	bool boDotBmp[32][255];//加载bmp用
 	int xMaxBmp,yMaxBmp;//用来记录本次加载图片的大小
 
+	vector<vector<bool>> m_TempboDotMes; //临时用，没有任何意义
 
 public://方法
  
 	void DrawFrame(CDC* pDC);
     void DrawDot(CDC* pDC);
-    void GetDot(bool(*boDotMes)[255]);
+    void GetDot(vector<vector<bool>>& boDotMes);
     void ReadBmp(char* strFileName);
 	static std::wstring stringToWstring(const std::string& str);
 	static bool readBin(string FontName,int offset,char *arr, int DataLen );
 	static string DEC_to_BIN(long long Dec);
 	static string to_String(int n);
 	static long long BIN_to_DEC(string Bin);
-	void DrawText(CDC* pDC,bool(*boDotMes)[255]=NULL);
-	void DrawLogoQRcodeDM(CDC* pDC,bool(*boDotMes)[255]=NULL);
-	void Draw5x5_7x5Text(CDC* pDC,int nFontRow,int nFontCol,int nBytesOneWord,bool(*boDotMes)[255]=NULL);
-	void Draw12x12Text(CDC* pDC,bool(*boDotMes)[255]=NULL);
-	void Draw16x12Text(CDC* pDC,bool(*boDotMes)[255]=NULL);
+	void DrawText(CDC* pDC,vector<vector<bool>>& boDotMes);
+	void DrawLogoQRcodeDM(CDC* pDC,vector<vector<bool>>& boDotMes);
+	void Draw5x5_7x5Text(CDC* pDC,int nFontRow,int nFontCol,int nBytesOneWord,vector<vector<bool>>& boDotMes);
+	void Draw12x12Text(CDC* pDC,vector<vector<bool>>& boDotMes);
+	void Draw16x12Text(CDC* pDC,vector<vector<bool>>& boDotMes);
 
 };
  
@@ -224,7 +225,7 @@ class MESSAGEEDIT_API ClassMessage
 		string Inverse;
 		bool boReverse;//翻转，颠倒，由喷印设置中更改
 		bool boInverse;
-		vector<vector<bool> > boDotMes;/////    int N=5, M=6; //vector<vector<int> > obj(N, vector<int>(M)); //定义二维动态数组5行6列 
+		vector<vector<bool>> boDotMes;/////    int N=5, M=6; //vector<vector<int> > obj(N, vector<int>(M)); //定义二维动态数组5行6列 
 		int scrMaxRow;//滚动条用
 		int intRowMax;//intDotMesRow//用于主界面显示等
 		int bytRowByteMul;//一列由几个byte表示
