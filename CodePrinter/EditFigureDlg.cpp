@@ -352,6 +352,10 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 				theApp.myclassMessage.OBJ_Vec[i].intSerialCounter=_ttoi(countStr)-1;
 
 				theApp.myclassMessage.OBJ_Vec[i].bytSerialFormat=m_FormatBox.GetCurSel();
+				if ((theApp.myclassMessage.OBJ_Vec[i].intRowStart+theApp.myclassMessage.OBJ_Vec[i].intRowSize)>theApp.myclassMessage.scrMaxRow)
+				{
+					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i].intRowStart+theApp.myclassMessage.OBJ_Vec[i].intRowSize;
+				}
 				break;
 			}
 		}
@@ -421,6 +425,10 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 
 	tempObj.bytSerialFormat=m_FormatBox.GetCurSel();
 	tempObj.booFocus=true;
+	if ((tempObj.intRowStart+tempObj.intRowSize)>theApp.myclassMessage.scrMaxRow)
+	{
+		theApp.myclassMessage.scrMaxRow=tempObj.intRowStart+tempObj.intRowSize;
+	}
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
 	theApp.myclassMessage.CounterEditMes[tempObj.intSerialCounter]=true;
 	this->ShowWindow(SW_HIDE);

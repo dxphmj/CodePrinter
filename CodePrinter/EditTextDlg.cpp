@@ -165,6 +165,10 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 				}
 				fontComboBox.GetLBText(nIndex,fontText);
 				theApp.myclassMessage.OBJ_Vec[i].strFont=theApp.myModuleMain.CString2string(fontText);
+				if ((theApp.myclassMessage.OBJ_Vec[i].intRowStart+theApp.myclassMessage.OBJ_Vec[i].intRowSize)>theApp.myclassMessage.scrMaxRow)
+				{
+					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i].intRowStart+theApp.myclassMessage.OBJ_Vec[i].intRowSize;
+				}
 				break;
 			}
 		}
@@ -232,7 +236,10 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 	tempObj.strFont=theApp.myModuleMain.CString2string(fontText);
 
 
-
+	if ((tempObj.intRowStart+tempObj.intRowSize)>theApp.myclassMessage.scrMaxRow)
+	{
+		theApp.myclassMessage.scrMaxRow=tempObj.intRowStart+tempObj.intRowSize;
+	}
 	tempObj.booFocus=true;
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);

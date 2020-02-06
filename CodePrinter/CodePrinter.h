@@ -53,6 +53,7 @@ public:
 // 实现
 	//bool boMythreadDynamic;
 	//bool boMythreadDynamicdis;
+	int scrPox;//滚动条位置
 	int mainPicPixel;//主界面显示行数
 	bool boTTL;
 	bool boDrawMainPic;//主界面动态绘制开关

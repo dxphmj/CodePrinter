@@ -241,6 +241,10 @@ void CBarCodeDlg::Create2Dcode(int nType)
 		}
     }
 	bmpObj.strText=theApp.myModuleMain.CString2string(str);
+	if ((bmpObj.intRowStart+bmpObj.intRowSize)>theApp.myclassMessage.scrMaxRow)
+	{
+		theApp.myclassMessage.scrMaxRow=bmpObj.intRowStart+bmpObj.intRowSize;
+	}
 	bmpObj.booFocus = true;
 	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj); 
 }
