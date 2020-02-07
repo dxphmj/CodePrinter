@@ -19,17 +19,11 @@ MainPicture::~MainPicture()
 {
 }
 
-
 BEGIN_MESSAGE_MAP(MainPicture, CStatic)
 	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
-
-
 // MainPicture 消息处理程序
-
-
-
 void MainPicture::OnPaint()
 {
 	//CPaintDC dc(this); // device context for painting
@@ -38,19 +32,15 @@ void MainPicture::OnPaint()
 	CWnd::Default();   // 让控件画它自己的东西
 	CClientDC  dc(this);
 	//////////////////////////////////////////////////////////////////////////
-	int pixSize=4;
-
-	////
 	CDC* pDC = &dc;
 	CRect rectClient;
 	CDC dcMem,dcBkgnd;
-	CBitmap bitmapTemp;//, *pOldBitmap;
-	//GetClientRect(&rectClient);//获取窗口信息
+	CBitmap bitmapTemp; 
 	bitmapTemp.CreateCompatibleBitmap(pDC, 640, 129);//创建内存位图
 	dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
-	//pOldBitmap = dcMem.SelectObject(&bitmapTemp);//将内存位图选入内存dc
 	dcMem.SelectObject(&bitmapTemp);
 	//填充颜色
+	int pixSize = 4;
 	GetClientRect(&rectClient);
 	CRect drawRect=rectClient;
 	drawRect.top=rectClient.top+(32-theApp.mainPicPixel)*pixSize;
@@ -60,11 +50,9 @@ void MainPicture::OnPaint()
 	dcMem.FillSolidRect(drawRect,RGB(255,255,255));   //填充颜色
 
 	CBrush cbrush;
-	CBrush cwrush;
-	CBrush *pBrush; //旧笔刷
+ 	CBrush *pBrush; //旧笔刷
 	cbrush.CreateSolidBrush(RGB(0,0,0)); 
-	cwrush.CreateSolidBrush(RGB(255,255,255));
-	//int pixel = theApp.myclassMessage.Pixel+1;
+ 	//int pixel = theApp.myclassMessage.Pixel+1;
 	if(1)
 	{
 		//画网格
@@ -88,30 +76,10 @@ void MainPicture::OnPaint()
 		cPen.DeleteObject();		 
 		//isFrame=false;
 	}
-	///theApp.myclassMessage.DrawDot(&dcMem);
 
-	//int recSize=4;
-	for (int ni=0;ni<theApp.myclassMessage.lastObj_Vec.size();ni++)
-	{
-		if (theApp.myclassMessage.lastObj_Vec[ni]->strType2!="serial"&&theApp.myclassMessage.lastObj_Vec[ni]->strType2!="time")
-		{
-			for (int i=theApp.myclassMessage.lastObj_Vec[ni]->intLineStart;i<(theApp.myclassMessage.lastObj_Vec[ni]->intLineSize+theApp.myclassMessage.lastObj_Vec[ni]->intLineStart);i++)
-			{
-				for (int j=theApp.myclassMessage.lastObj_Vec[ni]->intRowStart;j<(theApp.myclassMessage.lastObj_Vec[ni]->intRowSize+theApp.myclassMessage.lastObj_Vec[ni]->intRowStart);j++)
-				{
-					if (theApp.myclassMessage.boDotMes[i][j])
-					{
-						int tx=j*pixSize+1;
-						int ty=129-(i+1)*pixSize;
-						int bx=(j+1)*pixSize;
-						int by=129-i*pixSize-1;
-						pBrush=dcMem.SelectObject(&cbrush);
-						dcMem.Rectangle(tx,ty,bx,by);
-					}
-				}
-			}
-		}
-	}
+	pBrush = dcMem.SelectObject(&cbrush);
+	theApp.myclassMessage.DrawMainPageDot(&dcMem);
+	
 	//if (!theApp.myclassMessage.boDynamic)
 	//{
 	//	//for (int i=0;i<(theApp.myclassMessage.Pixel+1);i++)
@@ -133,11 +101,13 @@ void MainPicture::OnPaint()
 	//}
 
 	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//绘制图片到主dc
-	//dcMem.SelectObject(pOldBitmap);//清理
-	dcMem.DeleteDC();      // 删除内存DC
+
+	dcMem.SelectObject(pBrush);
+	cbrush.DeleteObject();
+
+ 	dcMem.DeleteDC();               // 删除内存DC
 	bitmapTemp.DeleteObject();      // 删除内存位图
-	//theApp.myclassMessage.DrawDot(pDC);
-	theApp.boDrawMainPic=true;
+ 	theApp.boDrawMainPic=true;
 	ReleaseDC(pDC); 
 }
 
@@ -173,9 +143,6 @@ UINT methoddis(LPVOID pParam)
 	//	CRect rect((intRowStart+bmpWidth-i-1)*5+1,161-(intLineStart+bmpHeight-j)*5-1+1,(intRowStart+bmpWidth-i)*5,161-(intLineStart+bmpHeight-j-1)*5-1);
 	//	pDC->Ellipse(&rect);
 	//}
-
-
-
 
 	while(theApp.mythreadDynamicBoo)
 	{
@@ -998,6 +965,5 @@ UINT methoddis(LPVOID pParam)
 	pDC->SelectObject(pBrush); //恢复笔刷
 	cbrushB.DeleteObject();
 	cbrushW.DeleteObject();
-	pBrush->DeleteObject();
 	return 0;
 }

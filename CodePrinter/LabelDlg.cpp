@@ -949,7 +949,7 @@ void CLabelDlg::OnBnClickedRepeatButton()
 				pInput->pDate->GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.OBJ_Vec[i]->intTimeOffSet)));
 				CComboBox *whereOffBox=(CComboBox *)pInput->pDate->GetDlgItem(IDC_SKEW_UNIT_LIST);
 				whereOffBox->SetCurSel(theApp.myclassMessage.OBJ_Vec[i]->strTimeOffSet);
-				pInput->pDate->ChangeTime();
+				//pInput->pDate->ChangeTime();
 				pInput->pDate->ShowWindow(SW_SHOW);
 			}
 			else if (theApp.myclassMessage.OBJ_Vec[i]->strType2=="logo")

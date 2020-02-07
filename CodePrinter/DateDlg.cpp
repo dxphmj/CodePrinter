@@ -73,6 +73,7 @@ BOOL CDateDlg::OnInitDialog()
 //	GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
 //	m_formatList.SetItemHeight(0,20);
 //	m_skewUnitList.SetItemHeight(0,20);
+	/*
 	m_skewUnitList.AddString(_T("Year"));
 	m_skewUnitList.AddString(_T("Month"));
 	m_skewUnitList.AddString(_T("Day"));
@@ -120,6 +121,7 @@ BOOL CDateDlg::OnInitDialog()
 	dataList->AddString(_T("%B - Full month name"));
 	dataList->AddString(_T("%p - am / pm"));
 	dataList->SetCurSel(0);
+	*/
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -135,35 +137,35 @@ HBRUSH CDateDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  在此更改 DC 的任何属性
-	if(nCtlColor == CTLCOLOR_STATIC)
-	{		 
-		pDC->SelectObject(theApp.m_StaticFont);
-		pDC->SetBkMode(TRANSPARENT);
-		pDC->SetTextColor(RGB(0,0,0));	
-		return theApp.m_StaticBrush;
-	}
-	if(nCtlColor == CTLCOLOR_EDIT)
-	{ 
-	// 	pDC->SelectObject(theApp.m_EditFont);
-		pDC->SetBkMode(TRANSPARENT);
-		pDC->SetTextColor(RGB(0,0,0));	
-		return theApp.m_StaticBrush;
-	}
-	if(nCtlColor == CTLCOLOR_LISTBOX)
-	{
-		pDC->SelectObject(theApp.m_ListBoxFont);
-		pDC->SetBkMode(TRANSPARENT);
-		pDC->SetTextColor(RGB(0,0,0));	
-		return theApp.m_ListBoxBrush;
-	}
-	pDC->SetBkColor(theApp.m_BKcolor);	
-	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	//if(nCtlColor == CTLCOLOR_STATIC)
+	//{		 
+	//	pDC->SelectObject(theApp.m_StaticFont);
+	//	pDC->SetBkMode(TRANSPARENT);
+	//	pDC->SetTextColor(RGB(0,0,0));	
+	//	return theApp.m_StaticBrush;
+	//}
+	//if(nCtlColor == CTLCOLOR_EDIT)
+	//{ 
+	//// 	pDC->SelectObject(theApp.m_EditFont);
+	//	pDC->SetBkMode(TRANSPARENT);
+	//	pDC->SetTextColor(RGB(0,0,0));	
+	//	return theApp.m_StaticBrush;
+	//}
+	//if(nCtlColor == CTLCOLOR_LISTBOX)
+	//{
+	//	pDC->SelectObject(theApp.m_ListBoxFont);
+	//	pDC->SetBkMode(TRANSPARENT);
+	//	pDC->SetTextColor(RGB(0,0,0));	
+	//	return theApp.m_ListBoxBrush;
+	//}
+	//pDC->SetBkColor(theApp.m_BKcolor);	
+	//// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
 }
 void CDateDlg::OnCbnSelchangeDateSkewCombo()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	ChangeTime();
+	//ChangeTime();
 }
 
 void CDateDlg::OnBnClickedDateAddBtn()
@@ -232,18 +234,19 @@ void CDateDlg::OnBnClickedDateAddBtn()
 	GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->SetWindowText(timeFormatStr);
 	CString fuckStr;
 	m_skewValue.GetWindowText(fuckStr);
-	CString nowTimeStr=theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
+	CString nowTimeStr;//=theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
 	GetDlgItem(IDC_DATE_PREVIEW_EDIT)->SetWindowText(nowTimeStr);
 }
 
 void CDateDlg::OnBnClickedDateRefreshBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	ChangeTime();
+	//ChangeTime();
 }
 
 void CDateDlg::ChangeTime()
 {
+	return;
 	CString timeFormatStr;
 	GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->GetWindowText(timeFormatStr);
 	CString fuckStr;
@@ -254,11 +257,13 @@ void CDateDlg::ChangeTime()
 void CDateDlg::OnLbnSelchangeSkewUnitList()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	ChangeTime();
+	//ChangeTime();
 }
 
+/*
 BOOL CDateDlg::PreTranslateMessage(MSG* pMsg)
 {
+	
 	// TODO: 在此添加专用代码和/或调用基类
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_DATE_DATE_TIME_EDIT);
 	CEdit* cEdit = (CEdit*)GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT);
@@ -289,9 +294,10 @@ BOOL CDateDlg::PreTranslateMessage(MSG* pMsg)
 
 	//CEdit *pEdit = &m_edit_fiexd;
 	ChangeTime();
+	 
 	return CDialog::PreTranslateMessage(pMsg);
 }
-
+*/
 void CDateDlg::OnBnClickedDateOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -357,15 +363,8 @@ void CDateDlg::OnBnClickedDateOkBtn()
 	}
 	int xPos=0;
 	int yPos=0;
-	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
-	{
-		if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
-		{
-			theApp.myclassMessage.OBJ_Vec.at(i)->booFocus=false;
-			yPos=theApp.myclassMessage.OBJ_Vec.at(i)->intLineStart;
-			xPos=theApp.myclassMessage.OBJ_Vec.at(i)->intRowSize+theApp.myclassMessage.OBJ_Vec.at(i)->intRowStart;
-		}
-	}
+	theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
+
 	OBJ_Control* tempObj = new OBJ_Control;
 	tempObj->intLineStart=yPos;
 	tempObj->intRowStart=xPos;

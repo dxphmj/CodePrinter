@@ -99,7 +99,6 @@ public:
    string jinzhi10to16(int pre) ;
    bool MesDisIsB(int MesDis,int isNumber);
    string SerialFormatToText(int Value, int Digits, int Format);
-   void getSerialDotBuf2(); 
    string TimeFormatToText(CString InPutTimeFormat,int tempstrETimeOffSet, int tempintTimeOffSet, int tempstrTimeOffSetUint);
 
 public://字符转换库
@@ -246,6 +245,7 @@ class MESSAGEEDIT_API ClassMessage
 		bool boReversedis, boInversedis;
 		int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4], intQSerialRowSizedis[4], intQSerialRowStartdis[4];
 		void getSerialDotBuf2();
+		void GetNextObjPosition(int& xPos, int &yPos);//获得下一个对象绘制的起始位置
 
 		int CountNumForPre[4];
 		///时间
@@ -301,9 +301,11 @@ class MESSAGEEDIT_API ClassMessage
 		 string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
 		 BYTE getByteFromDot(bool boDot,int moveNum); 
 		 void DrawDot(CDC* pDC);
+		 void DrawMainPageDot(CDC* pDC);
+
 		 void getdot();
-		 void getdot(string tempfont, bool tempBWDy, bool tempBWDx , bool tempNEG, string tempsetTEXT , int tempRowSize, int tempLineSize, int tempLineStart , int tempRowStart , int tempSS , int tempSW );
 		 vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
+
 
 	public://XML
 		void ReadObjectsFromXml(char* strFileName);
