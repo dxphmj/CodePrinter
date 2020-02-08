@@ -215,46 +215,47 @@ class MESSAGEEDIT_API ClassMessage
 		 ClassMessage(void);
 		 ~ClassMessage(void);
 	public:
-		vector<OBJ_Control*> OBJ_Vec;
-		vector<OBJ_Control*> lastObj_Vec;
-		int Matrix;
-		string strMatrix;
-		int Pixel;
+		vector<OBJ_Control*> OBJ_Vec;//编辑用
+		vector<OBJ_Control*> lastObj_Vec;//主界面显示用
+		int Matrix;//行数
+		string strMatrix;//行数：1L7M
+		int Pixel;//实际行数
 		string Reverse;//是否群体控制
-		string Inverse;
+		string Inverse;//是否群体控制//这俩没用
 		bool boReverse;//翻转，颠倒，由喷印设置中更改
-		bool boInverse;
-		vector<vector<bool>> boDotMes;/////    int N=5, M=6; //vector<vector<int> > obj(N, vector<int>(M)); //定义二维动态数组5行6列 
+		bool boInverse;//翻转，颠倒，由喷印设置中更改
+		vector<vector<bool>> boDotMes;//点阵///    int N=5, M=6; //vector<vector<int> > obj(N, vector<int>(M)); //定义二维动态数组5行6列 
 		int scrMaxRow;//滚动条用
 		int intRowMax;//intDotMesRow//用于主界面显示等
 		int bytRowByteMul;//一列由几个byte表示
 		bool boDynamic;//是否动态打印
 		bool boPrintNow;//是否即时打印
-		//vector<BYTE> bytTempDataVec;
+
 
        /////////////////////////////////////////////
         
 		bool CounterEditMes[4];
 		///xiansiyong
 		
-		vector<BYTE> intMesDis;
-		int bytSerialConCoundis;
-		int intDotMesRowdis;
-		int matrixMesdis ;
-		int pixelMesdis;
-		bool boReversedis, boInversedis;
-		int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4], intQSerialRowSizedis[4], intQSerialRowStartdis[4];
-		void getSerialDotBuf2();
+		vector<BYTE> intMesDis;//动态显示用
+		int bytSerialConCoundis;//动态显示用，序列号数
+		int intDotMesRowdis;//动态显示用，列数
+		int matrixMesdis ;//动态显示用，行数
+		int pixelMesdis;//动态显示用，实际行数
+		bool boReversedis, boInversedis;//动态显示用，翻转颠倒
+		int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4];//动态显示用
+		int intQSerialRowSizedis[4], intQSerialRowStartdis[4];//动态显示用
+		void getSerialDotBuf2();//生成对应格式序列号
 		void GetNextObjPosition(int& xPos, int &yPos);//获得下一个对象绘制的起始位置
 
-		int CountNumForPre[4];
+		int CountNumForPre[4];//序列号计数器用
 		///时间
-		int bytTimeConCoun ;
-		int bytTimeConCoundis;
-		string strTimeFormat[1][4] ;
-		string strTimeFont[4];
-		int strETimeOffSet[4], strTimeOffSetUint[4];
-		string strETimetext[4];
+		int bytTimeConCoun ;//时间数量
+		int bytTimeConCoundis;//动态显示用，时间数量
+		string strTimeFormat[1][4] ;//时间格式
+		string strTimeFont[4];//时间字体
+		int strETimeOffSet[4], strTimeOffSetUint[4];//时间偏置用
+		string strETimetext[4];//时间文本
 		////
 		bool SerialCountNew;//是否为新建
 		bool SerialCountSet[3];//重置序列号
@@ -267,26 +268,26 @@ class MESSAGEEDIT_API ClassMessage
 		int intQSerialStep[4];//步长
 		int bytQSerialFormat[4];//格式
 		int bytQSerialDigits[4];//位数
-		int CountNum0, CountNum1, CountNum2, CountNum3, CountNumRep0, CountNumRep1, CountNumRep2, CountNumRep3 ;
-		string strQSerialFont[4];
-		bool boTimeBWDy[4], boTimeBWDx[4], boTimeNEG[4], boQSerialBWDy[4], boQSerialBWDx[4], boQSerialNEG[4] ;
+		int CountNum[4], CountNumRep[4];//序列号值和重复次数
+		string strQSerialFont[4];//序列号字体
+		bool boTimeBWDy[4], boTimeBWDx[4], boTimeNEG[4], boQSerialBWDy[4], boQSerialBWDx[4], boQSerialNEG[4] ;//序列号相关属性，以dis结尾的是显示用
 		int bytTimeSS[4], bytTimeSW[4], bytTimeLineSize[4], bytTimeLineStart[4], bytQSerialSS[4], bytQSerialSW[4], bytQSerialLineSize[4], bytQSerialLineStart[4] ;
 		int intTimeRowSize[4], intTimeRowStart[4], intTimeOffSetdis[4], intQSerialRowSize[4], intQSerialRowStart[4] ;
 		bool boCountEn[4];//是否更新主界面static序列号
 
-		void getdigitaldot();
+		void getdigitaldot();//获得基本字库
 		UINT32* searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
 			int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
-			int tempNEGinteger, int tempBWDxinteger);
+			int tempNEGinteger, int tempBWDxinteger);//5*5，7*5用，
 		UINT32* searchworddata12(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
 			int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
-			int tempNEGinteger, int byte1int , int byte2int);
+			int tempNEGinteger, int byte1int , int byte2int);//12*12，16*12用
 
-		BYTE byteUPsidedown(BYTE a,BYTE bBit);
-		UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);
+		BYTE byteUPsidedown(BYTE a,BYTE bBit);//上下颠倒
+		UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);//32位移动
 		vector<BYTE> DotToByte1(int tempintDotRowStart, int tempintDotRowEnd, vector<BYTE> bytTempData,string tempfont, bool tempBWDy, bool tempBWDx ,bool tempNEG , 
-			string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW);
-		map<string,vector<BYTE>> bytdigital5x5LineMap;
+			string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW);//动态打印内容获取函数
+		map<string,vector<BYTE>> bytdigital5x5LineMap;//基本字库0-9a-zA-Z
 		map<string,vector<BYTE>> bytdigital7x5LineMap;
 		map<string,vector<BYTE>> bytdigital12x12LineMap;
 		map<string,vector<BYTE>> bytdigital16x12LineMap;
@@ -302,6 +303,7 @@ class MESSAGEEDIT_API ClassMessage
 		 BYTE getByteFromDot(bool boDot,int moveNum); 
 		 void DrawDot(CDC* pDC);
 		 void DrawMainPageDot(CDC* pDC);
+ 		 void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
 
 		 void getdot();
 		 vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);

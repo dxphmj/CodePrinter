@@ -165,7 +165,7 @@ HBRUSH CDateDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CDateDlg::OnCbnSelchangeDateSkewCombo()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	//ChangeTime();
+	ChangeTime();
 }
 
 void CDateDlg::OnBnClickedDateAddBtn()
@@ -241,7 +241,7 @@ void CDateDlg::OnBnClickedDateAddBtn()
 void CDateDlg::OnBnClickedDateRefreshBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	//ChangeTime();
+	ChangeTime();
 }
 
 void CDateDlg::ChangeTime()
@@ -257,7 +257,7 @@ void CDateDlg::ChangeTime()
 void CDateDlg::OnLbnSelchangeSkewUnitList()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	//ChangeTime();
+	ChangeTime();
 }
 
 /*
