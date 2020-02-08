@@ -639,7 +639,7 @@ UINT method1(LPVOID pParam)
 					case 0:
 						if (theApp.myclassMessage.CountNumRep0<theApp.myclassMessage.intQSerialRepeat[i])
 						{
-							theApp.myclassMessage.CountNumRep0=theApp.myclassMessage.CountNumRep0+1;
+							theApp.myclassMessage.CountNumRep0++;//=theApp.myclassMessage.CountNumRep0+1;
 						} 
 						else
 						{
