@@ -304,7 +304,7 @@ class MESSAGEEDIT_API ClassMessage
 		 void DrawDot(CDC* pDC);
 		 void DrawMainPageDot(CDC* pDC);
  		 void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
-
+		 void CreateSerialTimeDynamic();
 		 void getdot();
 		 vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
 
