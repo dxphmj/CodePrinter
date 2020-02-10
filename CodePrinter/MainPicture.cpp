@@ -53,8 +53,7 @@ void MainPicture::OnPaint()
  	CBrush *pBrush; //¾É±ÊË¢
 	cbrush.CreateSolidBrush(RGB(0,0,0)); 
  	//int pixel = theApp.myclassMessage.Pixel+1;
-	if(1)
-	{
+
 		//»­Íø¸ñ
 		CPen cPen; 
 		cPen.CreatePen(PS_SOLID,1,RGB(220,220,220)); 
@@ -75,6 +74,12 @@ void MainPicture::OnPaint()
 		dcMem.SelectObject(pOldPen);
 		cPen.DeleteObject();		 
 		//isFrame=false;
+	if (theApp.mainPicMatrx==14)
+	{
+		CRect bkRect=rectClient;
+		bkRect.bottom=(32-7)*pixSize;
+		bkRect.top=(32-8)*pixSize;
+		dcMem.FillSolidRect(bkRect,theApp.m_BKcolor);
 	}
 
 	pBrush = dcMem.SelectObject(&cbrush);
@@ -120,8 +125,8 @@ UINT methoddis(LPVOID pParam)
 			{
 				int intDynamicRowEnd = theApp.myclassMessage.intQSerialRowStartdis[j] + theApp.myclassMessage.intQSerialRowSizedis[j] - 1;
 				int nRowStartdis = theApp.myclassMessage.intQSerialRowStartdis[j];
-				int nStartValue = theApp.myclassMessage.intQSerialStartValue[j];
-			    theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nStartValue,pDC);				
+				//int nStartValue = theApp.myclassMessage.intQSerialRowStartdis[j];
+			    theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);				
 			}
 
 			for (int j = 0; j < theApp.myclassMessage.bytTimeConCoundis; j++)

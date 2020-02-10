@@ -621,7 +621,7 @@ void CLabelDlg::OnCbnSelchangeComboMatrix()
 		matrix = 14;
 		pixelComboBox.ResetContent();
 		pixelComboBox.AddString(stringToLPCWSTR(OBJ_Control::to_String(14)));
-        pixelComboBox.SetCurSel(13);
+        pixelComboBox.SetCurSel(0);
 
 	}
 	//myclassMessage.Pixel=pixelComboBox.GetCurSel()+1;
@@ -638,6 +638,10 @@ void CLabelDlg::OnCbnSelchangeCombo2()
 	int nIndex = pixelComboBox.GetCurSel();  //当前选中的项
 	pixel=nIndex;
 	theApp.myclassMessage.Pixel=pixel;
+	if (theApp.myclassMessage.Matrix==14)
+	{
+		theApp.myclassMessage.Pixel=14;
+	}
 	//pixelComboBox.GetLBText(nIndex,strText);
 	//ss<<strText;
 	//ss>>pixel;
@@ -653,12 +657,27 @@ void CLabelDlg::OnBnClickedUshiftButton()
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i]->booFocus)
 		{
-			if ((theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize)>=(pixel+1))
+			if (theApp.myclassMessage.Matrix==14)
 			{
-				break;
+				if ((theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize)>=15)
+				{
+					break;
+				}
+				else if (((theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize)>=(7))&&((theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize)<15))
+				{
+					theApp.myclassMessage.OBJ_Vec[i]->intLineStart=8;
+					OnPaint();
+				} 
+			} 
+			else
+			{
+				if ((theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize)>=(pixel+1))
+				{
+					break;
+				}
+				theApp.myclassMessage.OBJ_Vec[i]->intLineStart++;
+				OnPaint();
 			}
-			theApp.myclassMessage.OBJ_Vec[i]->intLineStart++;
-			OnPaint();
 			break;
 		}
 	}
@@ -715,12 +734,24 @@ void CLabelDlg::OnBnClickedDshiftButton()
 	{
 		if (theApp.myclassMessage.OBJ_Vec[i]->booFocus)
 		{
-			if ((theApp.myclassMessage.OBJ_Vec[i]->intLineStart)<=0)
+			if (theApp.myclassMessage.Matrix==14)
 			{
-				break;
+				if ((theApp.myclassMessage.OBJ_Vec[i]->intLineStart)<=0)
+				{
+					break;
+				}
+				theApp.myclassMessage.OBJ_Vec[i]->intLineStart=0;
+				OnPaint();
+			} 
+			else
+			{
+				if ((theApp.myclassMessage.OBJ_Vec[i]->intLineStart)<=0)
+				{
+					break;
+				}
+				theApp.myclassMessage.OBJ_Vec[i]->intLineStart--;
+				OnPaint();
 			}
-			theApp.myclassMessage.OBJ_Vec[i]->intLineStart--;
-			OnPaint();
 			break;
 		}
 	}
@@ -1039,7 +1070,7 @@ void CLabelDlg::allMessageSub()
 	//2、取值并发送至下位机 download_pcf()
 
 	theApp.mainPicPixel=theApp.myclassMessage.Pixel+1;
-
+	theApp.mainPicMatrx=theApp.myclassMessage.Matrix;
 	BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
 	//3、关闭动态打印线程（若有）
 	if (theApp.mythreadDynamicBoo)
