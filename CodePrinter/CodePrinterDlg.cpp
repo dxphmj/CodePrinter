@@ -167,7 +167,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
  
 	m_User->Create(IDD_USER_DIALOG,this);
 	m_User->MoveWindow(nX,nY,nWidth,nHeight);
-
  
 	m_Confi->Create(IDD_CONFIGURATION_DIALOG,this);
 	m_Confi->MoveWindow(nX,nY,nWidth,nHeight);

@@ -315,8 +315,7 @@ BOOL CLabelDlg::OnInitDialog()
 	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 	selectPixel();
 	OnBnClickedDownloadButton();	
-	//allMessageSub();
-	return TRUE;  // return TRUE unless you set the focus to a control
+ 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
  
@@ -331,7 +330,9 @@ void CLabelDlg::OnBnClickedInputButton()
 void CLabelDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
+
 	changeDis();
+
 	if (theApp.myclassMessage.scrMaxRow>255)
 	{
 		//theApp.scrPox=theApp.myclassMessage.scrMaxRow-156;
@@ -409,147 +410,6 @@ void CLabelDlg::OnPaint()
 		m_picOverturn.SetBitmap(m_PichBmp[0]);
 		m_picBNG.SetBitmap(m_PichBmp[0]);
 	}
-	/*
-	CDC* pDC = m_designArea.GetDC();
-	CRect rectClient;
-	CDC dcMem,dcBkgnd;
-	CBitmap bitmapTemp;//, *pOldBitmap;
-	//GetClientRect(&rectClient);//获取窗口信息
-	bitmapTemp.CreateCompatibleBitmap(pDC, 781, 161);//创建内存位图
-	dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
-	//pOldBitmap = dcMem.SelectObject(&bitmapTemp);//将内存位图选入内存dc
-	dcMem.SelectObject(&bitmapTemp);
-	//填充颜色
-	m_designArea.GetClientRect(&rectClient);
-	dcMem.FillSolidRect(rectClient,RGB(255,255,255));   //填充颜色
-	
-	CBrush cbrush;
-	CBrush* pBrush; //旧笔刷
-	if(isFrame)
-	{//画网格
-		CPen cPen; 
-		cPen.CreatePen(PS_SOLID,1,RGB(220,220,220)); 
-		CPen* pOldPen; 
-		pOldPen = dcMem.SelectObject(&cPen); //载入笔刷
-		for (int i=0;i<=rectClient.Width();)//竖
-		{
-			dcMem.MoveTo(i,rectClient.Height()-5*pixel-1);
-			dcMem.LineTo(i,rectClient.Height());
-			i+=5;
-		}
-		for (int j=rectClient.Height()-5*pixel-1;j<=rectClient.Height();)
-		{
-			dcMem.MoveTo(0,j);
-			dcMem.LineTo(rectClient.Width(),j);
-			j+=5;
-		}
-		dcMem.SelectObject(pOldPen);
-		cPen.DeleteObject();
-		pOldPen->DeleteObject();
-		//isFrame=false;
-	}
-	theApp.myclassMessage.DrawDot(&dcMem);
-	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//绘制图片到主dc
-	//dcMem.SelectObject(pOldBitmap);//清理
-	dcMem.DeleteDC();      // 删除内存DC
-	bitmapTemp.DeleteObject();      // 删除内存位图
-	//theApp.myclassMessage.DrawDot(pDC);
-	//m_designArea.Invalidate();
-	ReleaseDC(pDC); 
-
-	
-
-
-	*/
-/*
-	CPaintDC dc(this); // device context for painting
-	// TODO: 在此处添加消息处理程序代码
-	// 不为绘图消息调用 CDialogEx::OnPaint()
-
-	CDC* pDC = m_designArea.GetDC();
-	//先清除打印预览内容
-	CBrush cbrush;
-	CBrush* pBrush; //旧笔刷
-	CRect rect;
-	m_designArea.GetClientRect(&rect);
-	cbrush.CreateSolidBrush(RGB(255,255,255)); 
-	pBrush=pDC->SelectObject(&cbrush); //载入笔刷
-	pDC->Rectangle(&rect); //绘制矩形		
-	pDC->SelectObject(pBrush); //恢复笔刷
-	cbrush.DeleteObject();
-	pBrush->DeleteObject();
-	if(isFrame)
-	{//画网格
-		CPen cPen; 
-		cPen.CreatePen(PS_SOLID,1,RGB(220,220,220)); 
-		CPen* pOldPen; 
-		pOldPen = pDC->SelectObject(&cPen); //载入笔刷
-		for (int i=0;i<=rect.Width();)//竖
-		{
-			pDC->MoveTo(i,rect.Height()-5*pixel-1);
-			pDC->LineTo(i,rect.Height());
-            i+=5;
-		}
-        for (int j=rect.Height()-5*pixel-1;j<=rect.Height();)
-        {
-			pDC->MoveTo(0,j);
-			pDC->LineTo(rect.Width(),j);
-			j+=5;
-        }
-		pDC->SelectObject(pOldPen);
-		cPen.DeleteObject();
-		pOldPen->DeleteObject();
-		//isFrame=false;
-	}
-
-
-	if(m_bDesign)
-	{
-		//绘制设计结果
-		//m_PrintObjectsDeal.DrawObjects(pDC,m_nStepPixels);
-	}
-	else
-	{		 
-		//CPen cPen; 
-		//cPen.CreatePen(PS_SOLID,1,RGB(252,157,154)); 
-		//CPen* pOldPen; 
-		//pOldPen = pDC->SelectObject(&cPen); //载入笔刷
-
-		//for(int i = 0; i < m_nRowSum; i++)
-		//{
-		//	pDC->MoveTo(0,i*m_nStepPixels);
-		//	pDC->LineTo(m_nStepPixels*m_nColSum,i*m_nStepPixels);
-		//}
-		//for(int i = 0; i < m_nColSum; i++)
-		//{
-		//	pDC->MoveTo(i*m_nStepPixels,0);
-		//	pDC->LineTo(i*m_nStepPixels,m_nStepPixels*m_nRowSum);
-		//}
-		//pDC->SelectObject(pOldPen);
-		//cPen.DeleteObject();
-		//pOldPen->DeleteObject();
-
-		//CBrush cbrush;
-		//CBrush* pBrush; //旧笔刷	
-		//cbrush.CreateSolidBrush(RGB(0,0,0)); 
-		//pBrush = pDC->SelectObject(&cbrush); //载入笔刷
-
-		//for(int i = 0; i < m_nRowSum; i++)
-		//	for(int j = 0; j < m_nColSum; j++)
-		//		DrawOnePoint(pDC,i,j);
-
-		//pDC->SelectObject(pBrush); //恢复笔刷
-		//cbrush.DeleteObject();
-		//pBrush->DeleteObject();
-	}
-
-	theApp.myclassMessage.DrawDot(pDC);
-
-	//myOBJ_Control.DrowDot(pDC);
-	//myOBJ_Control.DrawFrame(pDC);
-	ReleaseDC(pDC); 
-*/
-
 }
 //选择Matrix
 void CLabelDlg::OnCbnSelchangeComboMatrix()
@@ -804,7 +664,8 @@ void CLabelDlg::OnBnClickedRqshiftButton()
 			{
 				theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
 			}
-			OnPaint();
+			m_designArea.Invalidate();
+			//OnPaint();
 			break;
 		}
 	}
@@ -982,8 +843,6 @@ void CLabelDlg::OnBnClickedRepeatButton()
 			break;
 		}
 	}
-
-
 }
 
 //重写鼠标点击
@@ -1558,7 +1417,7 @@ void CLabelDlg::changeDis()
 			GetDlgItem(IDC_STATIC_HV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myclassMessage.OBJ_Vec.at(i)->intLineSize)));
 			GetDlgItem(IDC_STATIC_XV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myclassMessage.OBJ_Vec.at(i)->intRowStart)));
 			GetDlgItem(IDC_STATIC_YV)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myclassMessage.OBJ_Vec.at(i)->intLineStart)));
-		return;
+			return;
 		}
 	}
 	GetDlgItem(IDC_STATIC_WV)->SetWindowText(_T("*"));

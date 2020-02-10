@@ -87,7 +87,7 @@ BOOL CInputDlg::OnInitDialog()
  	pBarCode->MoveWindow(nX,nY,nWidth,nHeight);
  	pBarCode->ShowWindow(SW_HIDE);
 
-//要改
+    //要改
 	CRect rect1;
 	GetDlgItem(IDC_EDITFIGURE_BUTTON)->GetWindowRect(&rect1);
 
