@@ -395,7 +395,8 @@ UINT TTLcomLoop(LPVOID pParam)
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 									if (strTempCmdLen>11)
-									{////动态显示相关
+									{
+										//动态显示相关
 										vector<BYTE> intMesDis1;
 										intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
 										theApp.boDotForPreQue.push(intMesDis1);
@@ -631,13 +632,13 @@ UINT method1(LPVOID pParam)
 			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
 
 			theApp.boPrintNowLock.Lock();
-				theApp.ForPreQue.push(bytPrintDataAll1);
-				
+
+				theApp.ForPreQue.push(bytPrintDataAll1);				
 				vector<int> tempCounNum;
 				for(int i = 0; i < 4; i++)
-					tempCounNum.push_back(theApp.myclassMessage.CountNum[i]);
-				 
+					tempCounNum.push_back(theApp.myclassMessage.CountNum[i]);				 
 				theApp.intCounNumForPreQue.push(tempCounNum);
+
 			theApp.boPrintNowLock.Unlock();
 		}
 		else 
