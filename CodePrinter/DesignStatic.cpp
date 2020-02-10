@@ -65,7 +65,7 @@ void CDesignStatic::OnPaint()
 	CBrush cbrush;
 	CBrush* pBrush; //æ…± À¢
 	int pixel = theApp.myclassMessage.Pixel+1;
-	if(1)
+	if(theApp.myclassMessage.Matrix!=14)//≈–∂œ «∑ÒŒ™2l7m
 	{
 		//ª≠Õ¯∏Ò
 		CPen cPen; 
@@ -99,6 +99,51 @@ void CDesignStatic::OnPaint()
 		dcMem.SelectObject(pOldPen);
 		cRPen.DeleteObject();		 
 		//isFrame=false;
+	}
+	else
+	{
+		//ª≠Õ¯∏Ò
+		CPen cPen; 
+		cPen.CreatePen(PS_SOLID,1,RGB(220,220,220)); 
+		CPen* pOldPen; 
+		pOldPen = dcMem.SelectObject(&cPen); //‘ÿ»Î± À¢
+		for (int i=0;i<=bitRect.Width();)// ˙
+		{
+			dcMem.MoveTo(i,bitRect.Height()-5*7-1);
+			dcMem.LineTo(i,bitRect.Height());
+			dcMem.MoveTo(i,bitRect.Height()-5*15-1);
+			dcMem.LineTo(i,bitRect.Height()-5*8-1);
+			i+=5;
+		}
+		for (int j=bitRect.Height()-5*7-1;j<=bitRect.Height();)
+		{
+			dcMem.MoveTo(0,j);
+			dcMem.LineTo(bitRect.Width(),j);
+			j+=5;
+		}
+		for (int j=bitRect.Height()-5*15-1;j<=bitRect.Height()-5*8-1;)
+		{
+			dcMem.MoveTo(0,j);
+			dcMem.LineTo(bitRect.Width(),j);
+			j+=5;
+		}
+		dcMem.SelectObject(pOldPen);
+		cPen.DeleteObject();
+
+		//ª≠∫Ïœﬂ
+		CPen cRPen; 
+		cRPen.CreatePen(PS_SOLID,1,RGB(255,0,0)); 
+		pOldPen = dcMem.SelectObject(&cRPen); //‘ÿ»Î± À¢
+		dcMem.MoveTo(bitRect.left,bitRect.Height()-1);
+		dcMem.LineTo(bitRect.right,bitRect.Height()-1);
+		dcMem.MoveTo(bitRect.left,bitRect.Height()-5*7-1);
+		dcMem.LineTo(bitRect.right,bitRect.Height()-5*7-1);
+		dcMem.MoveTo(bitRect.left,bitRect.Height()-5*8-1);
+		dcMem.LineTo(bitRect.right,bitRect.Height()-5*8-1);
+		dcMem.MoveTo(bitRect.left,bitRect.Height()-5*15-1);
+		dcMem.LineTo(bitRect.right,bitRect.Height()-5*15-1);
+		dcMem.SelectObject(pOldPen);
+		cRPen.DeleteObject();	
 	}
 	theApp.myclassMessage.DrawDot(&dcMem);
 
