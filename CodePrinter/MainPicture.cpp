@@ -126,8 +126,8 @@ UINT methoddis(LPVOID pParam)
 				{	
 					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
 					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					int nStartValue = theApp.myclassMessage.OBJ_Vec[i]->intSerialStartValue;
-					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nStartValue,pDC);		
+					//int nStartValue = theApp.myclassMessage.OBJ_Vec[i]->intSerialStartValue;
+					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);		
 				}
 				else if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "time")
 				{	
