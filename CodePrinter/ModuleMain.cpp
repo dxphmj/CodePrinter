@@ -395,7 +395,8 @@ UINT TTLcomLoop(LPVOID pParam)
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 									if (strTempCmdLen>11)
-									{////动态显示相关
+									{
+										//动态显示相关
 										vector<BYTE> intMesDis1;
 										intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
 										theApp.boDotForPreQue.push(intMesDis1);
@@ -620,127 +621,24 @@ UINT TTLcomLoop(LPVOID pParam)
 	return 0;
 }
 
-//序列号生成线程
+//序列号及时间生成线程
 UINT method1(LPVOID pParam)
 {
 	while(theApp.mythreadDynamicBoo)
 	{
 		if (theApp.ForPreQue.size() < 2 )
 		{
-			if (theApp.myclassMessage.bytSerialConCoun > 0)
-			{
-				string StrSerialText = "";
-				string strTemp = "";
-				for (int i= 0; i< theApp.myclassMessage.bytSerialConCoun; i++)
-				{
-					 
-					if (theApp.myclassMessage.CountNumRep[i] < theApp.myclassMessage.intQSerialRepeat[i])
-					{
-						theApp.myclassMessage.CountNumRep[i]++; 
-					} 
-					else
-					{
-						theApp.myclassMessage.CountNumRep[i] = 1;
-						if (theApp.myclassMessage.intQSerialFirstLimit[i]<theApp.myclassMessage.intQSerialSecondLimit[i])
-						{
-							int tempValue = theApp.myclassMessage.CountNum[i]+theApp.myclassMessage.intQSerialStep[i];
-							if (tempValue > theApp.myclassMessage.intQSerialSecondLimit[i])
-							{
-								theApp.myclassMessage.CountNum[i] = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] - 1; //'超第二象限的计算公式
-							} 
-							else
-							{
-								theApp.myclassMessage.CountNum[i] = tempValue;
-							}
-						}
-						else if (theApp.myclassMessage.intQSerialFirstLimit[i] > theApp.myclassMessage.intQSerialSecondLimit[i])
-						{
-							int tempValue = theApp.myclassMessage.CountNum[i]-theApp.myclassMessage.intQSerialStep[i];
-							if (tempValue < theApp.myclassMessage.intQSerialSecondLimit[i])
-							{
-								theApp.myclassMessage.CountNum[i] = tempValue - theApp.myclassMessage.intQSerialSecondLimit[i] + theApp.myclassMessage.intQSerialFirstLimit[i] + 1; //'超第二象限的计算公式
-							} 
-							else
-							{
-								theApp.myclassMessage.CountNum[i] = tempValue;
-							}
-						}
-					}
-
-					switch(theApp.myclassMessage.bytQSerialFormat[i])
-					{
-					case 0:
-						for (int a = 0; a < theApp.myclassMessage.bytQSerialDigits[i]; a++)
-						{
-							strTemp = strTemp+"0";//123456789
-						}
-						strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum[i]);
-						StrSerialText = strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
-						break;
-					case 1:
-						for (int a = 0; a < theApp.myclassMessage.bytQSerialDigits[i]; a++)
-						{
-							strTemp = strTemp+" ";//123456789
-						}
-						strTemp = strTemp +OBJ_Control::to_String(theApp.myclassMessage.CountNum[i]);
-						StrSerialText = strTemp.substr(strTemp.length()-theApp.myclassMessage.bytQSerialDigits[i],theApp.myclassMessage.bytQSerialDigits[i]);
-						break;
-					case 2:
-						strTemp = OBJ_Control::to_String(theApp.myclassMessage.CountNum[i]);
-						int n = theApp.myclassMessage.bytQSerialDigits[i]-strTemp.length();
-						for (int a = 0; a < n; a++)
-						{
-							strTemp = strTemp+" ";
-						}
-						StrSerialText = strTemp;
-						break;
-					}
-					 
-					 
-					int intRowEnd = theApp.myclassMessage.intQSerialRowStart[i] + theApp.myclassMessage.intQSerialRowSize[i];
-					vector<BYTE> ttVec;
-					ttVec = theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intQSerialRowStart[i], intRowEnd, theApp.myclassMessage.bytPrintDataAll, theApp.myclassMessage.strQSerialFont[i], 
-						theApp.myclassMessage.boQSerialBWDy[i], theApp.myclassMessage.boQSerialBWDx[i], theApp.myclassMessage.boQSerialNEG[i], StrSerialText, theApp.myclassMessage.intQSerialRowSize[i], 
-						theApp.myclassMessage.bytQSerialLineSize[i],theApp.myclassMessage.bytQSerialLineStart[i], theApp.myclassMessage.intQSerialRowStart[i], theApp.myclassMessage.bytQSerialSS[i], theApp.myclassMessage.bytQSerialSW[i]);
-					theApp.myclassMessage.bytPrintDataAll.clear();
-					theApp.myclassMessage.bytPrintDataAll = ttVec;
-				}
-			}
-
-			if (theApp.myclassMessage.bytTimeConCoun > 0)
-			{
-				string *strETimetext1=new string[theApp.myclassMessage.bytTimeConCoun];
-				theApp.boETimetextLock.Lock();
-				for(int strI = 0;strI < theApp.myclassMessage.bytTimeConCoun; strI++)
-				{
-					strETimetext1[strI] = theApp.myclassMessage.strETimetext[strI];
-				}
-				theApp.boETimetextLock.Unlock();
-				for (int j = 0;j < theApp.myclassMessage.bytTimeConCoun; j++)
-				{
-					int intRowEnd = theApp.myclassMessage.intTimeRowStart[j] + theApp.myclassMessage.intTimeRowSize[j];
-					vector<BYTE> ttVec;
-					if (strETimetext1[j].length() != 0)
-					{
-						ttVec = theApp.myclassMessage.DotToByte1(theApp.myclassMessage.intTimeRowStart[j], intRowEnd, theApp.myclassMessage.bytPrintDataAll, 
-							theApp.myclassMessage.strTimeFont[j], theApp.myclassMessage.boTimeBWDy[j], theApp.myclassMessage.boTimeBWDx[j], theApp.myclassMessage.boTimeNEG[j], 
-							strETimetext1[j], theApp.myclassMessage.intTimeRowSize[j], theApp.myclassMessage.bytTimeLineSize[j], theApp.myclassMessage.bytTimeLineStart[j], 
-							theApp.myclassMessage.intTimeRowStart[j], theApp.myclassMessage.bytTimeSS[j], theApp.myclassMessage.bytTimeSW[j]);
-						theApp.myclassMessage.bytPrintDataAll.clear();
-						theApp.myclassMessage.bytPrintDataAll = ttVec;
-					}
-				}
-				delete []strETimetext1;
-			}
+			theApp.myclassMessage.CreateSerialTimeDynamic();
 			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
+
 			theApp.boPrintNowLock.Lock();
-			theApp.ForPreQue.push(bytPrintDataAll1);
-			
-			vector<int> tempCounNum;
-			for(int i = 0; i < 4; i++)
-				tempCounNum.push_back(theApp.myclassMessage.CountNum[i]);
-			 
-			theApp.intCounNumForPreQue.push(tempCounNum);
+
+				theApp.ForPreQue.push(bytPrintDataAll1);				
+				vector<int> tempCounNum;
+				for(int i = 0; i < 4; i++)
+					tempCounNum.push_back(theApp.myclassMessage.CountNum[i]);				 
+				theApp.intCounNumForPreQue.push(tempCounNum);
+
 			theApp.boPrintNowLock.Unlock();
 		}
 		else 

@@ -92,7 +92,7 @@ void MainPicture::OnPaint()
 
  	dcMem.DeleteDC();               // É¾³ıÄÚ´æDC
 	bitmapTemp.DeleteObject();      // É¾³ıÄÚ´æÎ»Í¼
- 	theApp.boDrawMainPic=true;
+ 	theApp.boDrawMainPic = true;
 	ReleaseDC(pDC); 	
 }
 

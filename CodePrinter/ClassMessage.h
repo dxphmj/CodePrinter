@@ -38,46 +38,9 @@ class MESSAGEEDIT_API ModuleMain//通用算法库
 public:
 	ModuleMain(void);
 	~ModuleMain(void);
-	CString string2CString(string str){return Utf8ToUnicode(str).c_str();
-		//int unicodeLen = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);  
-		//// 给指向缓冲区的指针变量分配内存    
-		//wchar_t *pUnicode = (wchar_t*)malloc(sizeof(wchar_t)*unicodeLen);  
-		//// 开始向缓冲区转换字节    
-		//MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, pUnicode, unicodeLen);  
-		//wstring ret_str = pUnicode;  
-		//free(pUnicode);  
-		//return ret_str; 
-	}
+	CString string2CString(string str){return Utf8ToUnicode(str).c_str();}
 	std::string ASCToUTF8(const std::string& str) ;
-	string CString2string(CString cstr){
-		
-		/*string st = W2A(strT.GetBuffer());*/
-		return UnicodeToUtf8_CSTR(cstr);
-		//int iLen = cstr.GetLength() + 1;
-		//char* pSrc = cstr.GetBuffer(iLen * sizeof(char));
-		//string strRet = string(pSrc);
-		//cstr.ReleaseBuffer(iLen);
-		//return strRet;
-		//USES_CONVERSION;
-		//return W2A(cstr.GetString(),CP_UTF8);
-
-		//string str;
-		//str.resize(cstr.GetLength()*2);
-		//WideCharToMultiByte(CP_ACP,0,cstr,cstr.GetLength(),&str[0],(int)str.size(),NULL,NULL);
-		//return str;
-		//CStringW cs = L"中文English";
-		//CStringA temp = cstr.GetBuffer(0); //通过转化，temp接受了原来字符串的多字节形式
-		//string dst = temp.GetBuffer(0); //现在就可以将值直接赋给string类型了
-		//return dst;
-
-		//USES_CONVERSION;
-		//std::string str(W2A(cstr));
-		//return str;
-
-		//USES_CONVERSION;
-		//string city=CT2CA(cstr);
-		//return city;
-	}
+	string CString2string(CString cstr){return UnicodeToUtf8_CSTR(cstr);}
 	LPCWSTR stringToLPCWSTR(std::string orig);
     string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP);
 	string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
@@ -127,7 +90,9 @@ public://字符转换库
 	string IntToString(char i);  
 	string IntToString(double i);
 
-};
+public:
+	 
+ };
 
 
 class MESSAGEEDIT_API OBJ_Control
@@ -149,8 +114,8 @@ public://参数
 	bool booBWDy;//字段沿Y轴镜像（faulse为关闭，true为开启）
 	string strFont;//字段的字体（有的类型有，有的类型没有）
 	string strText;//字段的text属性，即内容
-	string strTime;//字段的time属性，即时间格式
 
+	string strTime;//字段的time属性，即时间格式
 	int booETimeOffSet;//字段的时间偏移开关（faulse为关闭，true为开启）
 	int intTimeOffSet;//字段的时间偏移值
 	int strTimeOffSet;//字段的时间偏移类型
@@ -163,6 +128,9 @@ public://参数
     BYTE intSerialDigits;//字段的Digital属性，即序列号位数值
 	int intSerialCounter;//第几个序列号
 	BYTE bytSerialFormat;//字段的SerialFormat属性，即序列号格式
+	int CountNum; //序列号当前值的大小
+	int CountNumRep; //序列号当前重复的大小
+
 	int intLineSize;//字段的行数
 	int intRowSize;//字段的列数
 	int intLineStart;//字段的开始行
@@ -187,7 +155,7 @@ public://参数，待定
 
 	bool boDotBmp[32][255];//加载bmp用
 	int xMaxBmp,yMaxBmp;//用来记录本次加载图片的大小
-
+	 
 	vector<vector<bool>> m_TempboDotMes; //临时用，没有任何意义
 
 public://方法
@@ -207,6 +175,24 @@ public://方法
 	void Draw12x12Text(CDC* pDC,vector<vector<bool>>& boDotMes);
 	void Draw16x12Text(CDC* pDC,vector<vector<bool>>& boDotMes);
 
+	void CreateTimeDynamic(vector<BYTE>& bytPrintDataAll,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,
+									map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
+									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes);
+	void CreateSerialDynamic(vector<BYTE>& bytPrintDataAll);
+	void CreateSerialDynamic(vector<BYTE>& bytPrintDataAll,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
+									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes);
+	vector<BYTE> DotToByte1(int tempintDotRowStart, int tempintDotRowEnd, vector<BYTE>& bytTempData,string tempfont, bool tempBWDy, bool tempBWDx ,bool tempNEG , 
+							string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,
+							map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
+									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes);
+	BYTE byteUPsidedown(BYTE a,BYTE bBit);
+	UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);
+	UINT32* searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
+				int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
+				int tempNEGinteger, int tempBWDxinteger,UINT32 *IntMes);
+	UINT32* searchworddata12(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
+							int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
+							int tempNEGinteger, int byte1int , int byte2int,UINT32 *IntMes); 
 };
  
 class MESSAGEEDIT_API ClassMessage
@@ -304,7 +290,7 @@ class MESSAGEEDIT_API ClassMessage
 		 void DrawDot(CDC* pDC);
 		 void DrawMainPageDot(CDC* pDC);
  		 void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
-
+		 void CreateSerialTimeDynamic();
 		 void getdot();
 		 vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
 

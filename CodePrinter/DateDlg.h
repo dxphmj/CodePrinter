@@ -22,18 +22,13 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
-	//CImageButton m_returnIB;
-	//CImageButton m_okIB;
-	//CImageButton m_freshIB;
-	//CImageButton m_dateAddBtn;
-	CButton m_returnIB;
-	CButton m_okIB;
-	CButton m_dateAddBtn;
-	CButton m_freshIB;
+	CImageButton m_returnIB;
+	CImageButton m_okIB;
+	CImageButton m_freshIB;
+	CImageButton m_dateAddBtn;
 	CEdit m_skewValue;
 	CCustomStatic m_previewStatic;
-	CCustomStatic m_dateTimeStatic;
-	CCustomStatic m_formatStatic;
+ 	CCustomStatic m_formatStatic;
 	CCustomStatic m_fontStatic;
 	CCustomStatic m_skewStatic;
 	CCustomStatic m_skewVauleStatic;
@@ -44,7 +39,7 @@ public:
 	CComboBox m_dateFontCombo;
 	CComboBox m_dateSkewCombo;
 
-	//virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnBnClickedDateCloseBtn();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnBnClickedDateAddBtn();
