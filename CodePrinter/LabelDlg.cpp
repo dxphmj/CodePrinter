@@ -1079,9 +1079,9 @@ void CLabelDlg::getMessageDot()
 	}
 	theApp.myclassMessage.intRowMax = 0;//intDotMesRow
 	theApp.myclassMessage.intDotMesRowdis = 0;
-	theApp.myclassMessage.bytTimeConCoun = 0;
-	theApp.myclassMessage.bytSerialConCoun = 0;
-	theApp.intCounNumForPreQue = queue<vector<int>>();
+//	theApp.myclassMessage.bytTimeConCoun = 0;
+//	theApp.myclassMessage.bytSerialConCoun = 0;
+//	theApp.intCounNumForPreQue = queue<vector<int>>();
 	//theApp.myclassMessage.intDotMesRow=0
 	//memset(theApp.myclassMessage.boDotMes,false,sizeof(theApp.myclassMessage.boDotMes));
 	//memset(theApp.myclassMessage.boDotMes, false, sizeof(bool)*32*255);
@@ -1130,20 +1130,20 @@ void CLabelDlg::getMessageDot()
  
 	if (theApp.myclassMessage.boDynamic)
 	{
-		memcpy(theApp.myclassMessage.intTimeRowSizedis,theApp.myclassMessage.intTimeRowSize,4*sizeof(int));
+		/*memcpy(theApp.myclassMessage.intTimeRowSizedis,theApp.myclassMessage.intTimeRowSize,4*sizeof(int));
 		memcpy(theApp.myclassMessage.intTimeRowStartdis,theApp.myclassMessage.intTimeRowStart,4*sizeof(int));
 		memcpy(theApp.myclassMessage.intQSerialRowSizedis,theApp.myclassMessage.intQSerialRowSize,4*sizeof(int));
 		memcpy(theApp.myclassMessage.intQSerialRowStartdis,theApp.myclassMessage.intQSerialRowStart,4*sizeof(int));
-		memcpy(theApp.myclassMessage.bintTimelineStartdis,theApp.myclassMessage.bytTimeLineStart,4*sizeof(int));
+		memcpy(theApp.myclassMessage.bintTimelineStartdis,theApp.myclassMessage.bytTimeLineStart,4*sizeof(int));*/
 		theApp.myclassMessage.pixelMesdis = theApp.myclassMessage.Pixel;
 		theApp.myclassMessage.matrixMesdis = theApp.myclassMessage.Matrix;
-		theApp.myclassMessage.bytTimeConCoundis = theApp.myclassMessage.bytTimeConCoun;
-		theApp.myclassMessage.bytSerialConCoundis = theApp.myclassMessage.bytSerialConCoun;
-		vector<int> tempCountVec;
+		/*theApp.myclassMessage.bytTimeConCoundis = theApp.myclassMessage.bytTimeConCoun;
+		theApp.myclassMessage.bytSerialConCoundis = theApp.myclassMessage.bytSerialConCoun;*/
+		/*vector<int> tempCountVec;
 		for(int i = 0; i < 4; i++)
 			tempCountVec.push_back(theApp.myclassMessage.CountNum[i]);
 		 
-		theApp.intCounNumForPreQue.push(tempCountVec);
+		theApp.intCounNumForPreQue.push(tempCountVec);*/
 	}
 } 
 

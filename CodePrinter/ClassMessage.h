@@ -229,8 +229,8 @@ class MESSAGEEDIT_API ClassMessage
 		int matrixMesdis ;//动态显示用，行数
 		int pixelMesdis;//动态显示用，实际行数
 		bool boReversedis, boInversedis;//动态显示用，翻转颠倒
-		int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4];//动态显示用
-		int intQSerialRowSizedis[4], intQSerialRowStartdis[4];//动态显示用
+		//int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4];//动态显示用
+		//int intQSerialRowSizedis[4], intQSerialRowStartdis[4];//动态显示用
 		void getSerialDotBuf2();//生成对应格式序列号
 		void GetNextObjPosition(int& xPos, int &yPos);//获得下一个对象绘制的起始位置
 
@@ -239,38 +239,30 @@ class MESSAGEEDIT_API ClassMessage
 		int bytTimeConCoun ;//时间数量
 		int bytTimeConCoundis;//动态显示用，时间数量
 		string strTimeFormat[1][4] ;//时间格式
-		string strTimeFont[4];//时间字体
-		int strETimeOffSet[4], strTimeOffSetUint[4];//时间偏置用
-		string strETimetext[4];//时间文本
+		//string strTimeFont[4];//时间字体
+		//int strETimeOffSet[4], strTimeOffSetUint[4];//时间偏置用
+		//string strETimetext[4];//时间文本
 		////
 		bool SerialCountNew;//是否为新建
 		bool SerialCountSet[3];//重置序列号
-		int bytSerialConCoun;//序列号计数
-		int bytQserialCounter[4];//序列号计数器
-		int intQSerialRepeat[4];//重复值
-		int intQSerialFirstLimit[4];//第一象限
-		int intQSerialSecondLimit[4];//第二象限
-		int intQSerialStartValue[4];//开始值
-		int intQSerialStep[4];//步长
-		int bytQSerialFormat[4];//格式
-		int bytQSerialDigits[4];//位数
-		int CountNum[4], CountNumRep[4];//序列号值和重复次数
-		string strQSerialFont[4];//序列号字体
-		bool boTimeBWDy[4], boTimeBWDx[4], boTimeNEG[4], boQSerialBWDy[4], boQSerialBWDx[4], boQSerialNEG[4] ;//序列号相关属性，以dis结尾的是显示用
-		int bytTimeSS[4], bytTimeSW[4], bytTimeLineSize[4], bytTimeLineStart[4], bytQSerialSS[4], bytQSerialSW[4], bytQSerialLineSize[4], bytQSerialLineStart[4] ;
-		int intTimeRowSize[4], intTimeRowStart[4], intTimeOffSetdis[4], intQSerialRowSize[4], intQSerialRowStart[4] ;
-		bool boCountEn[4];//是否更新主界面static序列号
+		//int bytSerialConCoun;//序列号计数
+		//int bytQserialCounter[4];//序列号计数器
+		//int intQSerialRepeat[4];//重复值
+		//int intQSerialFirstLimit[4];//第一象限
+		//int intQSerialSecondLimit[4];//第二象限
+		//int intQSerialStartValue[4];//开始值
+		//int intQSerialStep[4];//步长
+		//int bytQSerialFormat[4];//格式
+		//int bytQSerialDigits[4];//位数
+		//int CountNum[4], CountNumRep[4];//序列号值和重复次数
+		//string strQSerialFont[4];//序列号字体
+		//bool boTimeBWDy[4], boTimeBWDx[4], boTimeNEG[4], boQSerialBWDy[4], boQSerialBWDx[4], boQSerialNEG[4] ;//序列号相关属性，以dis结尾的是显示用
+		//int bytTimeSS[4], bytTimeSW[4], bytTimeLineSize[4], bytTimeLineStart[4], bytQSerialSS[4], bytQSerialSW[4], bytQSerialLineSize[4], bytQSerialLineStart[4] ;
+		//int intTimeRowSize[4], intTimeRowStart[4], intTimeOffSetdis[4], intQSerialRowSize[4], intQSerialRowStart[4] ;
+		//bool boCountEn[4];//是否更新主界面static序列号
 
 		void getdigitaldot();//获得基本字库
-		UINT32* searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
-			int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
-			int tempNEGinteger, int tempBWDxinteger);//5*5，7*5用，
-		UINT32* searchworddata12(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
-			int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
-			int tempNEGinteger, int byte1int , int byte2int);//12*12，16*12用
-
-		BYTE byteUPsidedown(BYTE a,BYTE bBit);//上下颠倒
-		UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);//32位移动
+		
 		vector<BYTE> DotToByte1(int tempintDotRowStart, int tempintDotRowEnd, vector<BYTE> bytTempData,string tempfont, bool tempBWDy, bool tempBWDx ,bool tempNEG , 
 			string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW);//动态打印内容获取函数
 		map<string,vector<BYTE>> bytdigital5x5LineMap;//基本字库0-9a-zA-Z

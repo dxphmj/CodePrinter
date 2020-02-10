@@ -110,29 +110,30 @@ UINT methoddis(LPVOID pParam)
 	//dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
 	////pOldBitmap = dcMem.SelectObject(&bitmapTemp);//将内存位图选入内存dc
 	//dcMem.SelectObject(&bitmapTemp);
-
 	
 	while(theApp.mythreadDynamicBoo)
 	{
 		while(theApp.boDrawMainPic)
 		{
-			for (int j = 0; j < theApp.myclassMessage.bytSerialConCoundis; j++)
-			{
-				int intDynamicRowEnd = theApp.myclassMessage.intQSerialRowStartdis[j] + theApp.myclassMessage.intQSerialRowSizedis[j] - 1;
-				int nRowStartdis = theApp.myclassMessage.intQSerialRowStartdis[j];
-				int nStartValue = theApp.myclassMessage.intQSerialStartValue[j];
-			    theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nStartValue,pDC);				
+			for(int i = 0; i < theApp.myclassMessage.OBJ_Vec.size(); i++)
+			{		 
+				if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "serial")
+				{	
+					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
+					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+					int nStartValue = theApp.myclassMessage.OBJ_Vec[i]->intSerialStartValue;
+					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nStartValue,pDC);		
+				}
+				else if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "time")
+				{	
+					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
+					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+					 
+					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);		
+				}
 			}
-
-			for (int j = 0; j < theApp.myclassMessage.bytTimeConCoundis; j++)
-			{
-				int intDynamicRowEnd = theApp.myclassMessage.intTimeRowStartdis[j] + theApp.myclassMessage.intTimeRowSizedis[j] - 1;
-				int nRowStartdis = theApp.myclassMessage.intTimeRowStartdis[j];
-
-				theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);
-			} 
 		}
-		Sleep(50);
+		Sleep(10);
 	}
 
 	return 0;

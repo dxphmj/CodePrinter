@@ -152,7 +152,7 @@ void CCodePrinterApp::InitCommMsg()
 //时间序列号刷新时间
 void CCodePrinterApp::refalsetimedata()
 {
-	if (myclassMessage.bytTimeConCoun>0)
+	/*if (myclassMessage.bytTimeConCoun>0)
 	{
 		boETimetextLock.Lock();
 		for (int j=0;j<myclassMessage.bytTimeConCoun;j++)
@@ -161,5 +161,5 @@ void CCodePrinterApp::refalsetimedata()
 				myModuleMain.TimeFormatToText(myModuleMain.string2CString(myclassMessage.strTimeFormat[0][j]),myclassMessage.strETimeOffSet[j],myclassMessage.intTimeOffSetdis[j],myclassMessage.strTimeOffSetUint[j]);
 		}
 		boETimetextLock.Unlock();
-	}
+	}*/
 }

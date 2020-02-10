@@ -402,7 +402,7 @@ UINT TTLcomLoop(LPVOID pParam)
 										theApp.boDotForPreQue.push(intMesDis1);
 										theApp.myclassMessage.intMesDis=theApp.boDotForPreQue.front();
 										theApp.boDotForPreQue.pop();
-										vector<int> tempCountVec;
+										/*vector<int> tempCountVec;
 										tempCountVec = theApp.intCounNumForPreQue.front();
 
 										theApp.intCounNumForPreQue.pop();
@@ -410,7 +410,7 @@ UINT TTLcomLoop(LPVOID pParam)
 										for (int num=0;num<tempCountVec.size();num++)
 										{
 											theApp.myclassMessage.CountNumForPre[num]=tempCountVec[num];
-										}
+										}*/
 									} 
 									else
 									{
@@ -634,10 +634,10 @@ UINT method1(LPVOID pParam)
 			theApp.boPrintNowLock.Lock();
 
 				theApp.ForPreQue.push(bytPrintDataAll1);				
-				vector<int> tempCounNum;
+				/*vector<int> tempCounNum;
 				for(int i = 0; i < 4; i++)
 					tempCounNum.push_back(theApp.myclassMessage.CountNum[i]);				 
-				theApp.intCounNumForPreQue.push(tempCounNum);
+				theApp.intCounNumForPreQue.push(tempCounNum);*/
 
 			theApp.boPrintNowLock.Unlock();
 		}
