@@ -120,21 +120,34 @@ UINT methoddis(LPVOID pParam)
 	{
 		while(theApp.boDrawMainPic)
 		{
+			//int nowRow=0;
 			for(int i = 0; i < theApp.myclassMessage.OBJ_Vec.size(); i++)
 			{		 
 				if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "serial")
 				{	
 					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
 					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					//int nStartValue = theApp.myclassMessage.OBJ_Vec[i]->intSerialStartValue;
-					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);		
+					int intDynamicLineStart=theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
+					int intDynamicLineEnd=theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
+					if (intDynamicLineEnd>theApp.myclassMessage.pixelMesdis)
+					{
+						intDynamicLineEnd=theApp.myclassMessage.pixelMesdis;
+					}
+					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,intDynamicLineStart,intDynamicLineEnd,pDC);
+					//nowRow=intDynamicRowEnd;
 				}
 				else if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "time")
 				{	
 					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
 					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					 
-					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);		
+					int intDynamicLineStart=theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
+					int intDynamicLineEnd=theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
+					if (intDynamicLineEnd>theApp.myclassMessage.pixelMesdis)
+					{
+						intDynamicLineEnd=theApp.myclassMessage.pixelMesdis;
+					}
+					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,intDynamicLineStart,intDynamicLineEnd,pDC);
+					//nowRow=intDynamicRowEnd;
 				}
 			}
 		}
