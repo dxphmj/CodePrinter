@@ -99,14 +99,15 @@ class MESSAGEEDIT_API OBJ_Control
 {
 public: 
     OBJ_Control(void);
+	OBJ_Control(OBJ_Control* pObj);
 	~OBJ_Control(void);
 
 public://参数
 	string strDuan;//信息段的标识位
 	string strType1;//字段类型
 	string strType2;	//字段实际类型
-	int intX;//字段原点X坐标（默认为0）
-	int intY;//字段原点Y坐标（默认为0）
+	//int intX;//字段原点X坐标（默认为0）
+	//int intY;//字段原点Y坐标（默认为0）
 	int intSW;//字段的加粗属性（默认为0）
 	int intSS;//字段的字距（默认为0）
 	bool booNEG;//字段的反色（faulse为不反，true为反）
@@ -187,10 +188,10 @@ public://方法
 									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes);
 	BYTE byteUPsidedown(BYTE a,BYTE bBit);
 	UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);
-	UINT32* searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
+	void searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
 				int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
 				int tempNEGinteger, int tempBWDxinteger,UINT32 *IntMes);
-	UINT32* searchworddata12(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
+	void searchworddata12(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
 							int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
 							int tempNEGinteger, int byte1int , int byte2int,UINT32 *IntMes); 
 };
@@ -216,29 +217,25 @@ class MESSAGEEDIT_API ClassMessage
 		int bytRowByteMul;//一列由几个byte表示
 		bool boDynamic;//是否动态打印
 		bool boPrintNow;//是否即时打印
-
-
-       /////////////////////////////////////////////
         
 		bool CounterEditMes[4];
-		///xiansiyong
-		
+		UINT32 *IntMes;//动态数组
 		vector<BYTE> intMesDis;//动态显示用
-		int bytSerialConCoundis;//动态显示用，序列号数
+		//int bytSerialConCoundis;//动态显示用，序列号数
 		int intDotMesRowdis;//动态显示用，列数
-		int matrixMesdis ;//动态显示用，行数
-		int pixelMesdis;//动态显示用，实际行数
+		int matrixMesdis ;//动态显示用，绘制区域最大允许的行数
+		int pixelMesdis;//动态显示用，打印时实际占用的行数
 		bool boReversedis, boInversedis;//动态显示用，翻转颠倒
 		//int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4];//动态显示用
 		//int intQSerialRowSizedis[4], intQSerialRowStartdis[4];//动态显示用
 		void getSerialDotBuf2();//生成对应格式序列号
 		void GetNextObjPosition(int& xPos, int &yPos);//获得下一个对象绘制的起始位置
 
-		int CountNumForPre[4];//序列号计数器用
+		//int CountNumForPre[4];//序列号计数器用
 		///时间
-		int bytTimeConCoun ;//时间数量
-		int bytTimeConCoundis;//动态显示用，时间数量
-		string strTimeFormat[1][4] ;//时间格式
+		//int bytTimeConCoun ;//时间数量
+		//int bytTimeConCoundis;//动态显示用，时间数量
+		//string strTimeFormat[1][4] ;//时间格式
 		//string strTimeFont[4];//时间字体
 		//int strETimeOffSet[4], strTimeOffSetUint[4];//时间偏置用
 		//string strETimetext[4];//时间文本
@@ -270,22 +267,22 @@ class MESSAGEEDIT_API ClassMessage
 		map<string,vector<BYTE>> bytdigital12x12LineMap;
 		map<string,vector<BYTE>> bytdigital16x12LineMap;
 
-		UINT32 *IntMes;//动态数组
 		///////////////////////////////////////
 		vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
 		vector<BYTE> bytPrintDataAll;//空时自动发送BUF
 		////////////////////////////////////
 
  	public:
-		 string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
-		 BYTE getByteFromDot(bool boDot,int moveNum); 
-		 void DrawDot(CDC* pDC);
-		 void DrawMainPageDot(CDC* pDC);
- 		 void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
-		 void CreateSerialTimeDynamic();
-		 void getdot();
-		 vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
-
+		string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
+		BYTE getByteFromDot(bool boDot,int moveNum); 
+		void DrawDot(CDC* pDC);
+		void DrawMainPageDot(CDC* pDC);
+		void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
+		void CreateSerialTimeDynamic();
+		void getdot();
+		vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
+		void OBJ_VecCopy2lastObj_Vec();
+		void ClearlastObj_Vec();
 
 	public://XML
 		void ReadObjectsFromXml(char* strFileName);
@@ -294,6 +291,7 @@ class MESSAGEEDIT_API ClassMessage
 		string labName;
 		void createLABXML();
 		void getLabFromXml();
+
 };
 
 

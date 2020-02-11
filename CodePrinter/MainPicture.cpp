@@ -115,30 +115,23 @@ UINT methoddis(LPVOID pParam)
 	//dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
 	////pOldBitmap = dcMem.SelectObject(&bitmapTemp);//将内存位图选入内存dc
 	//dcMem.SelectObject(&bitmapTemp);
-	
+
+ 	
 	while(theApp.mythreadDynamicBoo)
 	{
 		while(theApp.boDrawMainPic)
 		{
 			for(int i = 0; i < theApp.myclassMessage.OBJ_Vec.size(); i++)
 			{		 
-				if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "serial")
+				if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "serial" || theApp.myclassMessage.OBJ_Vec[i]->strType2 == "time")
 				{	
 					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
 					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					//int nStartValue = theApp.myclassMessage.OBJ_Vec[i]->intSerialStartValue;
-					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);		
-				}
-				else if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "time")
-				{	
-					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
-					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					 
 					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,nRowStartdis,pDC);		
 				}
 			}
 		}
-		Sleep(10);
+		Sleep(100);
 	}
 
 	return 0;
