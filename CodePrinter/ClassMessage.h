@@ -273,11 +273,13 @@ class MESSAGEEDIT_API ClassMessage
 		////////////////////////////////////
 
  	public:
+
 		string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//²é
 		BYTE getByteFromDot(bool boDot,int moveNum); 
 		void DrawDot(CDC* pDC);
 		void DrawMainPageDot(CDC* pDC);
 		void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
+ 		void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int intDynamicLineStart,int intDynamicLineEnd,CDC* pDC);
 		void CreateSerialTimeDynamic();
 		void getdot();
 		vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
