@@ -12,6 +12,19 @@
 #include "afxwin.h"
 
 using namespace std;
+
+#define ALB_SET_FIRST_LEN   	23
+#define ALB_SET_LAST_LEN   		35
+
+#define FIRST        			0
+#define LAST           			1
+#define MIDDLE         			2
+#define ALONE          			3
+
+#define ARBIC_START_ADDR 		(0x621)
+#define ARBIC_END_ADDR   		(0x64A)
+
+typedef unsigned short int      uint16_t; 
 // CKeyBoardDlg 对话框
 class CKeyBoardDlg : public CDialog
 {
@@ -102,9 +115,16 @@ public:
 	afx_msg void OnBnClickedMainFont13();
 	afx_msg void OnBnClickedMainFont14();
 	afx_msg void OnBnClickedMainFont15();
-
+	afx_msg void OnEnChangeEditInput();
 public:
 	COLORREF m_BKcolor;
 	CBrush m_DlgBrush;
+////////////阿语连体
+public:
+	CString disposeinputtext( CString inputtext );//阿拉伯连体
+	CString ArabicLan(CString inputstring);
+	void W2C(wchar_t w_cn , char c_cn[]);
+	CString ConvertWCHARToHex(CString Data, long nDataLength);//CString转16进制
+	CString HexStrToCString(CString HexStr);//16进制转CString
 };
 
