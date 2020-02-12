@@ -397,10 +397,10 @@ UINT TTLcomLoop(LPVOID pParam)
 									if (strTempCmdLen>11)
 									{
 										//动态显示相关
-										vector<BYTE> intMesDis1;
-										intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
+										vector<BYTE> intMesDis1 = tempQueVec;
+									//	intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
 										theApp.boDotForPreQue.push(intMesDis1);
-										theApp.myclassMessage.intMesDis=theApp.boDotForPreQue.front();
+										theApp.myclassMessage.intMesDis = theApp.boDotForPreQue.front();
 										theApp.boDotForPreQue.pop();
 										/*vector<int> tempCountVec;
 										tempCountVec = theApp.intCounNumForPreQue.front();
@@ -628,7 +628,7 @@ UINT method1(LPVOID pParam)
 	{
 		if (theApp.ForPreQue.size() < 2 )
 		{
-			theApp.myclassMessage.CreateSerialTimeDynamic();
+			theApp.myclassMessage.getSerialTimeDotBuf();
 			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
 
 			theApp.boPrintNowLock.Lock();

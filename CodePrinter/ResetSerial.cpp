@@ -114,7 +114,7 @@ void CResetSerial::OnBnClickedResetSerial1Btn()
 	theApp.myclassMessage.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->allMessageSub();
+	mainDlg->m_Label->DownlaodMessage();
 }
 
 void CResetSerial::OnBnClickedResetSerial2Btn()
@@ -124,7 +124,7 @@ void CResetSerial::OnBnClickedResetSerial2Btn()
 	theApp.myclassMessage.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->allMessageSub();
+	mainDlg->m_Label->DownlaodMessage();
 }
 
 void CResetSerial::OnBnClickedResetSerial3Btn()
@@ -134,7 +134,7 @@ void CResetSerial::OnBnClickedResetSerial3Btn()
 	theApp.myclassMessage.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->allMessageSub();
+	mainDlg->m_Label->DownlaodMessage();
 }
 
 void CResetSerial::OnBnClickedResetSerial4Btn()
@@ -144,7 +144,7 @@ void CResetSerial::OnBnClickedResetSerial4Btn()
 	theApp.myclassMessage.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->allMessageSub();
+	mainDlg->m_Label->DownlaodMessage();
 }
 
 void CResetSerial::OnBnClickedAllResetBtn()
@@ -154,5 +154,5 @@ void CResetSerial::OnBnClickedAllResetBtn()
 	theApp.myclassMessage.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->allMessageSub();
+	mainDlg->m_Label->DownlaodMessage();
 }

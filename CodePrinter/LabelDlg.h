@@ -20,7 +20,7 @@ public:
 	bool isFrame;
 	void getMessageDot();
 	void selectPixel();
-	void allMessageSub();
+	void DownlaodMessage();
 	CInputDlg *pInput;
 
 public:

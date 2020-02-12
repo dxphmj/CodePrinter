@@ -73,12 +73,12 @@ public:
 	DWORD TTLcomID;
 	Language myLanguage;
 	ClassMessage myclassMessage;
+	ModuleMain myModuleMain;
 	CCriticalSection bytSlaveStatusLock;//读取状态
 	CCriticalSection boPrintNowLock;//打印
 	CCriticalSection boQueCtrLock;//命令
 	CCriticalSection boETimetextLock;//时间
 	CIOVsd myCIOVsd;
-	ModuleMain myModuleMain;
 	UserPower myUserPower;
 	bool bochange;//用于判断是否为更改；
 	DECLARE_MESSAGE_MAP()

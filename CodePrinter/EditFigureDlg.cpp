@@ -142,37 +142,31 @@ void CEditFigureDlg::RefreshSerial()
 	string PreviewText;
 	CString strDigit;
 	GetDlgItem(IDC_BIT_DATA_EDIT)->GetWindowText(strDigit);
-	int digital=_ttoi(strDigit);
+	int digital = _ttoi(strDigit);
 	CString strStart;
 	GetDlgItem(IDC_START_EDIT)->GetWindowText(strStart);
-	int startNum=_ttoi(strStart);
+	int startNum = _ttoi(strStart);
 	switch(m_FormatBox.GetCurSel())
 	{
 	case 0:
-		for (int a=0;a<digital;a++)
-		{
-			PreviewText=PreviewText+"0";
-		}
-		PreviewText=PreviewText+OBJ_Control::to_String(startNum);
-		PreviewText=PreviewText.substr(PreviewText.size()-digital,digital);
+		for (int a = 0;a < digital; a++)
+			PreviewText = PreviewText+"0";
+		PreviewText = PreviewText+OBJ_Control::to_String(startNum);
+		PreviewText = PreviewText.substr(PreviewText.size()-digital,digital);
 		GetDlgItem(IDC_PREVIEW_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(PreviewText));
 		break;
 	case 1:
-		for (int a=0;a<digital;a++)
-		{
-			PreviewText=PreviewText+" ";
-		}
-		PreviewText=PreviewText+OBJ_Control::to_String(startNum);
-		PreviewText=PreviewText.substr(PreviewText.size()-digital,digital);
+		for (int a = 0; a < digital; a++)
+			PreviewText = PreviewText+" ";
+ 		PreviewText = PreviewText+OBJ_Control::to_String(startNum);
+		PreviewText = PreviewText.substr(PreviewText.size()-digital,digital);
 		GetDlgItem(IDC_PREVIEW_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(PreviewText));
 		break;
 	case 2:
-		PreviewText=OBJ_Control::to_String(startNum);
-		int n= digital-PreviewText.length();
-		for (int a=0;a<n;a++)
-		{
-			PreviewText=PreviewText+" ";
-		}
+		PreviewText = OBJ_Control::to_String(startNum);
+		int n = digital-PreviewText.length();
+		for (int a = 0; a < n; a++)
+			PreviewText = PreviewText+" ";
 		GetDlgItem(IDC_PREVIEW_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(PreviewText));
 		break;
 	}
@@ -383,7 +377,6 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	tempObj->booBWDy=false;
 	//CEdit* pEdit = (CEdit*)GetDlgItem(IDC_PREVIEW_EDIT);
 
-
 	tempObj->strText=theApp.myModuleMain.CString2string(previewEdit);
 	tempObj->intSerialFirstLimit=_ttoi(firstEdit);
 	tempObj->intSerialSecondLimit=_ttoi(twoEdit);
@@ -429,6 +422,5 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	tempObj->booFocus=true;
 
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
-	theApp.myclassMessage.CounterEditMes[tempObj->intSerialCounter]=true;
-	this->ShowWindow(SW_HIDE);
+ 	this->ShowWindow(SW_HIDE);
 }

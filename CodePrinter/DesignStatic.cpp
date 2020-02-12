@@ -146,13 +146,9 @@ void CDesignStatic::OnPaint()
 		cRPen.DeleteObject();	
 	}
 	theApp.myclassMessage.DrawDot(&dcMem);
-
-
-	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, theApp.scrPox*5, 0, SRCCOPY);//绘制图片到主dc
-	//dcMem.SelectObject(pOldBitmap);//清理
+	pDC->BitBlt(0,0,rectClient.Width(),rectClient.Height(),&dcMem,theApp.scrPox*5,0,SRCCOPY);//绘制图片到主dc
 
 	dcMem.DeleteDC();      // 删除内存DC
 	bitmapTemp.DeleteObject();      // 删除内存位图
-
 	ReleaseDC(pDC); 
 }
