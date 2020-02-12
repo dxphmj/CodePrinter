@@ -1081,8 +1081,8 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
-	theApp.myclassMessage.ClearlastObj_Vec();
-	theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
+	//theApp.myclassMessage.ClearlastObj_Vec();
+	//theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
 
 	allMessageSub();
 
