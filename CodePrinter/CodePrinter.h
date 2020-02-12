@@ -42,6 +42,11 @@ public:
 // 重写
 public:
 	virtual BOOL InitInstance();
+
+public:
+	void InitCommMsg();
+	void refalsetimedata();
+
 //
 	BYTE bytSlaveStatus[37];
 	queue<vector<BYTE>> queCtr;//命令队列
@@ -55,6 +60,7 @@ public:
 	//bool boMythreadDynamicdis;
 	int scrPox;//滚动条位置
 	int mainPicPixel;//主界面显示行数
+	int mainPicMatrx;//主界面行数设置
 	bool boTTL;
 	bool boDrawMainPic;//主界面动态绘制开关
 	bool mythreadDynamicBoo;//动态线程开关

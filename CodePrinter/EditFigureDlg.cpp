@@ -369,15 +369,7 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 	}
 	int xPos=0;
 	int yPos=0;
-	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
-	{
-		if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
-		{
-			theApp.myclassMessage.OBJ_Vec.at(i)->booFocus=false;
-			yPos=theApp.myclassMessage.OBJ_Vec.at(i)->intLineStart;
-			xPos=theApp.myclassMessage.OBJ_Vec.at(i)->intRowSize+theApp.myclassMessage.OBJ_Vec.at(i)->intRowStart;
-		}
-	}
+	theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
 	OBJ_Control* tempObj = new OBJ_Control;
 	tempObj->intLineStart=yPos;
 	tempObj->intRowStart=xPos;

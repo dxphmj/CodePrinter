@@ -167,7 +167,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
  
 	m_User->Create(IDD_USER_DIALOG,this);
 	m_User->MoveWindow(nX,nY,nWidth,nHeight);
-
  
 	m_Confi->Create(IDD_CONFIGURATION_DIALOG,this);
 	m_Confi->MoveWindow(nX,nY,nWidth,nHeight);
@@ -235,7 +234,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 #ifndef _DEBUG
 //#ifdef def_ttl
 	//串口初始化
-	theApp.myModuleMain.InitCommMsg();
+	theApp.InitCommMsg();
 #endif
 
 	//CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
@@ -337,7 +336,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 
 #endif 	
-	SetTimer(TIMER1,300,NULL);	
+//	SetTimer(TIMER1,300,NULL);	
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
@@ -561,34 +560,34 @@ void CCodePrinterDlg::showDlg(int ID)
 			m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(_T(""));
 
 		
-		if (theApp.myclassMessage.boCountEn[0])
-		{
-			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
-			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[0])));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
-		}
-		if (theApp.myclassMessage.boCountEn[1])
-		{
-			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
-			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[1])));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
-		}
-		if (theApp.myclassMessage.boCountEn[2])
-		{
-			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
-			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[2])));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
-		}
-		if (theApp.myclassMessage.boCountEn[3])
-		{
-			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
-			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[3])));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
-		}
+		//if (theApp.myclassMessage.boCountEn[0])
+		//{
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[0])));
+		//	//m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
+		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
+		//}
+		//if (theApp.myclassMessage.boCountEn[1])
+		//{
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[1])));
+		//	//m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
+		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
+		//}
+		//if (theApp.myclassMessage.boCountEn[2])
+		//{
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[2])));
+		//	//m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
+		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
+		//}
+		//if (theApp.myclassMessage.boCountEn[3])
+		//{
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
+		//	m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[3])));
+		//	//m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
+		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
+		//}
 		m_resetSerial->ShowWindow(SW_SHOW);
 		
 	}
@@ -1718,10 +1717,10 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staPriCou)));
 
-		theApp.myModuleMain.refalsetimedata();
+		theApp.refalsetimedata();
 		if (theApp.myclassMessage.boDynamic)
 		{
-			if (theApp.myclassMessage.boCountEn[0])
+			/*if (theApp.myclassMessage.boCountEn[0])
 			{
 				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
 			}
@@ -1736,10 +1735,10 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			if (theApp.myclassMessage.boCountEn[3])
 			{
 				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
-			}
+			}*/
 			if (m_resetSerial->boDlgOpen)
 			{
-				if (theApp.myclassMessage.boCountEn[0])
+				/*if (theApp.myclassMessage.boCountEn[0])
 				{
 					m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
 				}
@@ -1754,7 +1753,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				if (theApp.myclassMessage.boCountEn[3])
 				{
 					m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
-				}
+				}*/
 			}
 			//////下面还有序列号重置界面的刷新，，没此界面，战时不写
 			//If pangro_serial_reset.Location.X = 0 Then
