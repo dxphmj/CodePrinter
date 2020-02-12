@@ -87,7 +87,7 @@ BOOL CInputDlg::OnInitDialog()
  	pBarCode->MoveWindow(nX,nY,nWidth,nHeight);
  	pBarCode->ShowWindow(SW_HIDE);
 
-//要改
+    //要改
 	CRect rect1;
 	GetDlgItem(IDC_EDITFIGURE_BUTTON)->GetWindowRect(&rect1);
 
@@ -187,18 +187,18 @@ void CInputDlg::OnBnClickedEditfigureButton()
 void CInputDlg::OnBnClickedEditdateButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	pDate->GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->SetWindowText(_T(""));
-	CComboBox *dfontBox=(CComboBox *)pDate->GetDlgItem(IDC_DATE_FONT_COMBO);
-	dfontBox->SetCurSel(1);
-	CComboBox *boOffBox=(CComboBox *)pDate->GetDlgItem(IDC_DATE_SKEW_COMBO);
-	boOffBox->SetCurSel(0);
-	pDate->GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
-	CComboBox *whereOffBox=(CComboBox *)pDate->GetDlgItem(IDC_SKEW_UNIT_LIST);
-	whereOffBox->SetCurSel(0);
-	CComboBox *formatOffBox=(CComboBox *)pDate->GetDlgItem(IDC_FORMAT_LIST);
-	formatOffBox->SetCurSel(0);
-	pDate->ChangeTime();
-	this->ShowWindow(SW_HIDE);
+	//pDate->GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->SetWindowText(_T(""));
+	//CComboBox *dfontBox=(CComboBox *)pDate->GetDlgItem(IDC_DATE_FONT_COMBO);
+	//dfontBox->SetCurSel(1);
+	//CComboBox *boOffBox=(CComboBox *)pDate->GetDlgItem(IDC_DATE_SKEW_COMBO);
+	//boOffBox->SetCurSel(0);
+	//pDate->GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
+	//CComboBox *whereOffBox=(CComboBox *)pDate->GetDlgItem(IDC_SKEW_UNIT_LIST);
+	//whereOffBox->SetCurSel(0);
+	//CComboBox *formatOffBox=(CComboBox *)pDate->GetDlgItem(IDC_FORMAT_LIST);
+	//formatOffBox->SetCurSel(0);
+	//pDate->ChangeTime();
+//	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_DATE_DIALOG);
 }
 
@@ -214,38 +214,34 @@ void CInputDlg::OnBnClickedEditpictureButton()
 	{
 		int xPos=0;
 		int yPos=0;
-		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
-		{
-			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
-			{
-				theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
-				yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
-				xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
-			}
-		}
+		theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
-		//CImage myImage;
-		//myImage.Load(NULL);
-		OBJ_Control bmpObj;
-		bmpObj.intLineStart=yPos;
-		bmpObj.intRowStart=xPos;
-		bmpObj.ReadBmp(const_cast<char*>(xmlPath.c_str()));//这个最好返回一个bool变量,就能省去if了
-        if (bmpObj.intLineSize<=0||bmpObj.intRowSize<=0)
+		 
+		OBJ_Control* bmpObj = new OBJ_Control;
+		bmpObj->intLineStart=yPos;
+		bmpObj->intRowStart=xPos;
+		bmpObj->ReadBmp(const_cast<char*>(xmlPath.c_str()));//这个最好返回一个bool变量,就能省去if了
+        if (bmpObj->intLineSize<=0||bmpObj->intRowSize<=0)
         {
 			return;
         }
-		bmpObj.strType1="text";
-		bmpObj.strType2="logo";
+		bmpObj->strType1="text";
+		bmpObj->strType2="logo";
 		//以下先写死
-		bmpObj.intSW=1;
-		bmpObj.intSS=0;
-		bmpObj.booNEG=false;
-		bmpObj.booBWDx=false;
-		bmpObj.booBWDy=false;
+		bmpObj->intSW=1;
+		bmpObj->intSS=0;
+		bmpObj->booNEG=false;
+		bmpObj->booBWDx=false;
+		bmpObj->booBWDy=false;
 
-		//bmpObj.strFont="7x5";
-		bmpObj.strText=xmlPath;
-		bmpObj.booFocus=true;
+		if ((bmpObj->intRowStart+bmpObj->intRowSize)>theApp.myclassMessage.scrMaxRow)
+		{
+			theApp.myclassMessage.scrMaxRow=bmpObj->intRowStart+bmpObj->intRowSize;
+		}
+
+		bmpObj->strText=xmlPath;
+		bmpObj->booFocus=true;
+
 		theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
 	}
 	this->ShowWindow(SW_HIDE);

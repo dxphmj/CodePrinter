@@ -182,43 +182,34 @@ void CBarCodeDlg::Create2Dcode(int nType)
 	std::string strTmp = ASCToUTF8(QRTEXT);
 	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
 	generated = 1;
- 	//if (error_number < 5)  
-	//	error_number = ZBarcode_Print(my_symbol, rotate_angle);
+
 
 	int xPos=0;
 	int yPos=0;
-	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
-	{
-		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
-		{
-			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
-			yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
-			xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
-		}
-	}
- 
-	OBJ_Control bmpObj;
-	bmpObj.intLineStart=yPos;
-	bmpObj.intRowStart=xPos;
-	bmpObj.strType1="text";
-	bmpObj.strType2="qrcode";
+	theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
+	 
+	OBJ_Control* bmpObj = new OBJ_Control;
+	bmpObj->intLineStart = yPos;
+	bmpObj->intRowStart = xPos;
+	bmpObj->strType1 = "text";
+	bmpObj->strType2 = "qrcode";
 
-	bmpObj.intQRVersion=VersionBox.GetCurSel()+1;
-	bmpObj.intQRErrLevel=ErrLevelBox.GetCurSel();
-	bmpObj.intQREncodingMode=EncodingModeBox.GetCurSel();
-	bmpObj.boQRBig = true;	 
-	int version = bmpObj.intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
- 	int casesensitive = bmpObj.boQRBig;//是否区分大小写，true/false
+	bmpObj->intQRVersion = VersionBox.GetCurSel()+1;
+	bmpObj->intQRErrLevel = ErrLevelBox.GetCurSel();
+	bmpObj->intQREncodingMode = EncodingModeBox.GetCurSel();
+	bmpObj->boQRBig = true;	 
+	int version = bmpObj->intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
+ 	int casesensitive = bmpObj->boQRBig;//是否区分大小写，true/false
 
- 	bmpObj.intLineSize=my_symbol->bitmap_height;
-	bmpObj.intRowSize=my_symbol->bitmap_width;
+ 	bmpObj->intLineSize = my_symbol->bitmap_height;
+	bmpObj->intRowSize = my_symbol->bitmap_width;
 
 	//以下先写死
-	bmpObj.intSW=1;
-	bmpObj.intSS=0;
-	bmpObj.booNEG=false;
-	bmpObj.booBWDx=false;
-	bmpObj.booBWDy=false;
+	bmpObj->intSW = 1;
+	bmpObj->intSS = 0;
+	bmpObj->booNEG = false;
+	bmpObj->booBWDx = false;
+	bmpObj->booBWDy = false;
 	i = 0;
 	int r, g, b;
 
@@ -232,16 +223,22 @@ void CBarCodeDlg::Create2Dcode(int nType)
             i += 3;
 			if (r == 0 && g == 0 && b == 0)
 			{
-				bmpObj.boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+				bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
 			}
 			else
 			{
-				bmpObj.boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
+				bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
 			}
 		}
     }
-	bmpObj.strText=theApp.myModuleMain.CString2string(str);
-	bmpObj.booFocus = true;
+
+	bmpObj->strText = theApp.myModuleMain.CString2string(str);
+	if((bmpObj->intRowStart+bmpObj->intRowSize) > theApp.myclassMessage.scrMaxRow)
+	{
+		theApp.myclassMessage.scrMaxRow = bmpObj->intRowStart+bmpObj->intRowSize;
+	}
+	bmpObj->booFocus = true;
+
 	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj); 
 }
 

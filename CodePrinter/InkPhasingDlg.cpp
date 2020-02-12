@@ -154,7 +154,7 @@ void CInkPhasingDlg::OnBnClickedPhasingAddBtn()
 	UpdateData(false);
 
 	//download_inksystem_mv();
-	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",theApp.myclassMessage.to_String(m_fixed),"Storage Card\\System");
+	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",OBJ_Control::to_String(m_fixed),"Storage Card\\System");
 
 
 	save_inksystem_mv_to_xml();
@@ -177,7 +177,7 @@ void CInkPhasingDlg::OnBnClickedPashingCutBtn()
 
 	//save_inksystem_mv_to_xml();
 	//download_inksystem_mv();
-	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",theApp.myclassMessage.to_String(m_fixed),"Storage Card\\System");
+	//theApp.myModuleMain.changeXml("inksystem.xml","ModulationVoltage",OBJ_Control::to_String(m_fixed),"Storage Card\\System");
 	
 
 	save_inksystem_mv_to_xml();

@@ -13,7 +13,7 @@
 #ifndef __AFXWIN_H__
 	#error "在包含此文件之前包含“stdafx.h”以生成 PCH 文件"
 #endif
-using namespace MyNameSpace;
+
 #ifdef STANDARDSHELL_UI_MODEL
 #include "resource.h"
 #endif
@@ -42,6 +42,11 @@ public:
 // 重写
 public:
 	virtual BOOL InitInstance();
+
+public:
+	void InitCommMsg();
+	void refalsetimedata();
+
 //
 	BYTE bytSlaveStatus[37];
 	queue<vector<BYTE>> queCtr;//命令队列
@@ -53,7 +58,9 @@ public:
 // 实现
 	//bool boMythreadDynamic;
 	//bool boMythreadDynamicdis;
+	int scrPox;//滚动条位置
 	int mainPicPixel;//主界面显示行数
+	int mainPicMatrx;//主界面行数设置
 	bool boTTL;
 	bool boDrawMainPic;//主界面动态绘制开关
 	bool mythreadDynamicBoo;//动态线程开关

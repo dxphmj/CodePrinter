@@ -28,7 +28,6 @@ void CDateDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATE_ADD_BTN, m_dateAddBtn);
 	DDX_Control(pDX, IDC_DATE_SKEW_VALUE_EDIT, m_skewValue);
 	DDX_Control(pDX, IDC_DATE_PREVIEW_STATIC, m_previewStatic);
-	DDX_Control(pDX, IDC_DATE_TIME_STATIC, m_dateTimeStatic);
 	DDX_Control(pDX, IDC_DATE_FORMAT_STATIC, m_formatStatic);
 	DDX_Control(pDX, IDC_DATE_FONT_STATIC, m_fontStatic);
 	DDX_Control(pDX, IDC_DATE_SKEW_STATIC, m_skewStatic);
@@ -59,20 +58,13 @@ BOOL CDateDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	CRect rect;
-	GetWindowRect(&rect);
-
-	GetDlgItem(IDC_DATE_CLOSE_BTN)->SetWindowPos(NULL,20,420,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_DATE_OK_BTN)->SetWindowPos(NULL,700,420,70,45,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_DATE_REFRESH_BTN)->SetWindowPos(NULL,500,420,70,45,SWP_SHOWWINDOW);
-
+	
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_returnIB.SizeToContent(); 
 	m_okIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_okIB.SizeToContent(); 
 	m_freshIB.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_RANGE_BITMAP);
-	m_freshIB.SizeToContent(); 
-
+	m_freshIB.SizeToContent();
 	m_dateAddBtn.LoadBitmaps(IDB_70_45_1_BITMAP,IDB_70_45_BITMAP,0,0,IDB_70_45_1_BITMAP,true);
 	m_dateAddBtn.SizeToContent(); 
 
@@ -80,6 +72,7 @@ BOOL CDateDlg::OnInitDialog()
 	GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
 	m_formatList.SetItemHeight(0,20);
 	m_skewUnitList.SetItemHeight(0,20);
+	
 	m_skewUnitList.AddString(_T("Year"));
 	m_skewUnitList.AddString(_T("Month"));
 	m_skewUnitList.AddString(_T("Day"));
@@ -127,6 +120,7 @@ BOOL CDateDlg::OnInitDialog()
 	dataList->AddString(_T("%B - Full month name"));
 	dataList->AddString(_T("%p - am / pm"));
 	dataList->SetCurSel(0);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -151,7 +145,6 @@ HBRUSH CDateDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	if(nCtlColor == CTLCOLOR_EDIT)
 	{ 
-	// 	pDC->SelectObject(theApp.m_EditFont);
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(0,0,0));	
 		return theApp.m_StaticBrush;
@@ -239,7 +232,7 @@ void CDateDlg::OnBnClickedDateAddBtn()
 	GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->SetWindowText(timeFormatStr);
 	CString fuckStr;
 	m_skewValue.GetWindowText(fuckStr);
-	CString nowTimeStr=theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
+	CString nowTimeStr = theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
 	GetDlgItem(IDC_DATE_PREVIEW_EDIT)->SetWindowText(nowTimeStr);
 }
 
@@ -255,7 +248,7 @@ void CDateDlg::ChangeTime()
 	GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->GetWindowText(timeFormatStr);
 	CString fuckStr;
 	m_skewValue.GetWindowText(fuckStr);
-	CString nowTimeStr=theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
+	CString nowTimeStr = theApp.myModuleMain.string2CString(theApp.myModuleMain.TimeFormatToText(timeFormatStr,m_dateSkewCombo.GetCurSel(),_ttoi(fuckStr),m_skewUnitList.GetCurSel()));
 	GetDlgItem(IDC_DATE_PREVIEW_EDIT)->SetWindowText(nowTimeStr);
 }
 void CDateDlg::OnLbnSelchangeSkewUnitList()
@@ -263,9 +256,10 @@ void CDateDlg::OnLbnSelchangeSkewUnitList()
 	// TODO: 在此添加控件通知处理程序代码
 	ChangeTime();
 }
-
+ 
 BOOL CDateDlg::PreTranslateMessage(MSG* pMsg)
 {
+	
 	// TODO: 在此添加专用代码和/或调用基类
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_DATE_DATE_TIME_EDIT);
 	CEdit* cEdit = (CEdit*)GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT);
@@ -296,9 +290,10 @@ BOOL CDateDlg::PreTranslateMessage(MSG* pMsg)
 
 	//CEdit *pEdit = &m_edit_fiexd;
 	ChangeTime();
+	 
 	return CDialog::PreTranslateMessage(pMsg);
 }
-
+ 
 void CDateDlg::OnBnClickedDateOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -306,116 +301,126 @@ void CDateDlg::OnBnClickedDateOkBtn()
 	{
 		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 		{
-			if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
+			if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
 			{
 				CEdit* pEdit = (CEdit*)GetDlgItem(IDC_DATE_PREVIEW_EDIT);
 				CString strText;
 				pEdit-> GetWindowText(strText);
-				theApp.myclassMessage.OBJ_Vec[i].strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+				theApp.myclassMessage.OBJ_Vec[i]->strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
 
 				CString formatText;
 				GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->GetWindowText(formatText);
-				theApp.myclassMessage.OBJ_Vec[i].strTime=theApp.myModuleMain.CString2string(formatText);
+				theApp.myclassMessage.OBJ_Vec[i]->strTime=theApp.myModuleMain.CString2string(formatText);
 
 				CString  fontText;
 				int nIndex = m_dateFontCombo.GetCurSel();  //当前选中的项
 				switch(nIndex)
 				{
 				case 0:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=5;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=5;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 1:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=7;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=7;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 2:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=12;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=12;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 3:
-					theApp.myclassMessage.OBJ_Vec[i].intLineSize=16;
-					theApp.myclassMessage.OBJ_Vec[i].intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=16;
+					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				}
 				m_dateFontCombo.GetLBText(nIndex,fontText);
-				theApp.myclassMessage.OBJ_Vec[i].strFont=theApp.myModuleMain.CString2string(fontText);
+				theApp.myclassMessage.OBJ_Vec[i]->strFont=theApp.myModuleMain.CString2string(fontText);
 
-				theApp.myclassMessage.OBJ_Vec[i].booETimeOffSet=m_dateSkewCombo.GetCurSel();
+				theApp.myclassMessage.OBJ_Vec[i]->booETimeOffSet=m_dateSkewCombo.GetCurSel();
 				CString timeOffText;
 				GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->GetWindowText(timeOffText);
-				theApp.myclassMessage.OBJ_Vec[i].intTimeOffSet=_ttoi(timeOffText);
-				theApp.myclassMessage.OBJ_Vec[i].strTimeOffSet=m_skewUnitList.GetCurSel();
+
+
+				if ((theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize)>theApp.myclassMessage.scrMaxRow)
+				{
+					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize;
+				}
+
+				theApp.myclassMessage.OBJ_Vec[i]->intTimeOffSet=_ttoi(timeOffText);
+				theApp.myclassMessage.OBJ_Vec[i]->strTimeOffSet=m_skewUnitList.GetCurSel();
+
 				break;
 			}
 		}
 		theApp.bochange=false;
+
 		ShowWindow(SW_HIDE);
 		return;
 	}
 	int xPos=0;
 	int yPos=0;
-	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
-	{
-		if (theApp.myclassMessage.OBJ_Vec.at(i).booFocus)
-		{
-			theApp.myclassMessage.OBJ_Vec.at(i).booFocus=false;
-			yPos=theApp.myclassMessage.OBJ_Vec.at(i).intLineStart;
-			xPos=theApp.myclassMessage.OBJ_Vec.at(i).intRowSize+theApp.myclassMessage.OBJ_Vec.at(i).intRowStart;
-		}
-	}
-	OBJ_Control tempObj;
-	tempObj.intLineStart=yPos;
-	tempObj.intRowStart=xPos;
-	tempObj.strType1="text";
-	tempObj.strType2="time";
+	theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
+
+	OBJ_Control* tempObj = new OBJ_Control;
+	tempObj->intLineStart=yPos;
+	tempObj->intRowStart=xPos;
+	tempObj->strType1="text";
+	tempObj->strType2="time";
 	//以下先写死
-	tempObj.intSW=1;
-	tempObj.intSS=0;
-	tempObj.booNEG=false;
-	tempObj.booBWDx=false;
-	tempObj.booBWDy=false;
+	tempObj->intSW=1;
+	tempObj->intSS=0;
+	tempObj->booNEG=false;
+	tempObj->booBWDx=false;
+	tempObj->booBWDy=false;
 
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_DATE_PREVIEW_EDIT);
 	CString strText;
 	pEdit-> GetWindowText(strText);
-	tempObj.strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+	tempObj->strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
 
 	CString formatText;
 	GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->GetWindowText(formatText);
-	tempObj.strTime=theApp.myModuleMain.CString2string(formatText);
+	tempObj->strTime=theApp.myModuleMain.CString2string(formatText);
 
 	CString  fontText;
 	int nIndex = m_dateFontCombo.GetCurSel();  //当前选中的项
 	switch(nIndex)
 	{
 	case 0:
-		tempObj.intLineSize=5;
-		tempObj.intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=5;
+		tempObj->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	case 1:
-		tempObj.intLineSize=7;
-		tempObj.intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=7;
+		tempObj->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	case 2:
-		tempObj.intLineSize=12;
-		tempObj.intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=12;
+		tempObj->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	case 3:
-		tempObj.intLineSize=16;
-		tempObj.intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->intLineSize=16;
+		tempObj->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 		break;
 	}
 	m_dateFontCombo.GetLBText(nIndex,fontText);
-	tempObj.strFont=theApp.myModuleMain.CString2string(fontText);
+	tempObj->strFont=theApp.myModuleMain.CString2string(fontText);
 	
-	tempObj.booETimeOffSet=m_dateSkewCombo.GetCurSel();
+	tempObj->booETimeOffSet=m_dateSkewCombo.GetCurSel();
 	CString timeOffText;
 	GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->GetWindowText(timeOffText);
-	tempObj.intTimeOffSet=_ttoi(timeOffText);
-	tempObj.strTimeOffSet=m_skewUnitList.GetCurSel();
+	tempObj->intTimeOffSet=_ttoi(timeOffText);
+	tempObj->strTimeOffSet=m_skewUnitList.GetCurSel();
 
-	tempObj.booFocus=true;
+
+
+	if ((tempObj->intRowStart+tempObj->intRowSize)>theApp.myclassMessage.scrMaxRow)
+	{
+		theApp.myclassMessage.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
+	}
+
+	tempObj->booFocus=true;
+
 	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);
 }

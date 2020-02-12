@@ -65,10 +65,10 @@ BOOL CFaultDlg::OnInitDialog()
 	GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowPos(NULL,460,420,80,55,SWP_SHOWWINDOW);
 
 	GetDlgItem(IDC_FAULT_LIST)->SetWindowPos(NULL,21,65,670,330,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_DATE_STATIC)->SetWindowPos(NULL,30, 42,200, 20,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_TIME_STATIC)->SetWindowPos(NULL,120, 42,200, 20,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_TYPE_STATIC)->SetWindowPos(NULL,200, 42,200, 20,SWP_SHOWWINDOW);
-	GetDlgItem(IDC_MESSAGE_STATIC)->SetWindowPos(NULL,300, 42,200, 20,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_DATE_STATIC)->SetWindowPos(NULL,42, 42,200, 20,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_TIME_STATIC)->SetWindowPos(NULL,191, 42,200, 20,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_TYPE_STATIC)->SetWindowPos(NULL,312, 42,200, 20,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_MESSAGE_STATIC)->SetWindowPos(NULL,440, 42,200, 20,SWP_SHOWWINDOW);
 
 	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pReturn.SizeToContent(); 
@@ -89,7 +89,7 @@ BOOL CFaultDlg::OnInitDialog()
 	get_error_name();
 	CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
 	string timeErr="Storage Card\\System\\Error\\";
-	Errorlog_name=theApp.myclassMessage.to_String(localT.GetYear())+theApp.myclassMessage.to_String(localT.GetMonth())+theApp.myclassMessage.to_String(localT.GetDay());
+	Errorlog_name=OBJ_Control::to_String(localT.GetYear())+OBJ_Control::to_String(localT.GetMonth())+OBJ_Control::to_String(localT.GetDay());
 	timeErr=timeErr+Errorlog_name+".txt";
 	ofstream timeErrout(timeErr.c_str(), ios::app);
 	timeErrout.close();
@@ -97,6 +97,29 @@ BOOL CFaultDlg::OnInitDialog()
 	out99.close();
 	nowErrDay=0;
 
+
+	//标志位初始化
+	m_staInkTemSenFauLas = false;
+	m_staPriHeaTemFauLas = false;
+	m_staBumSpeOveFauLas = false;
+	m_staPreOveFauLas = false;  
+	m_staVisAbnFauLas = false;  
+	m_staVisSenFauLas = false;  
+	m_staInkFloFauLas = false;  
+	m_staFanFauLas = false;     
+	m_staChaFauLas = false;     
+	m_staPhaFauLas = false;     
+	m_staHigVolFauLas = false; 
+	m_staSolLevFauLas =  "00";
+	m_staInkLevFauLas =  "00";
+	m_staProSenFasLas = false;  
+	m_staAutModFauLas = false;  
+	m_staValFauLas = false;     
+	m_staLinFasLas = false;     
+	m_staPriHeaHotFauLas = false;
+
+
+	
  
 	//openfailurefile("Storage Card\\System\\Error\\99999999.TXT");
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -348,6 +371,7 @@ void CFaultDlg::OnBnClickedRefreshBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
 	m_errBox->ResetContent();
+	/*m_faultList.SetItemHeight(0,35);*/
 	//get_save_error();
 	ofstream outErr99("Storage Card\\System\\Error\\99999999.TXT", ios::trunc);
 	outErr99.close();
@@ -365,27 +389,25 @@ void CFaultDlg::OnBnClickedRefreshBtn()
 
 
 	///////以上图片以后加
-	
-		theApp.myTimClass.staComFau = false;
-		theApp.myTimClass.staSolLevFauLas = "00";
-		theApp.myTimClass.staInkLevFauLas = "00";
-		theApp.myStatusClass.staInkTemSenFauLas = false;
-		theApp.myStatusClass.staPriHeaTemFauLas = false;
-		theApp.myStatusClass.staBumSpeOveFauLas = false;
-		theApp.myStatusClass.staPreOveFauLas = false;
-		theApp.myStatusClass.staVisAbnFauLas = false;
-		theApp.myStatusClass.staVisSenFauLas = false;
-		theApp.myStatusClass.staInkFloFauLas = false;
-		theApp.myStatusClass.staFanFauLas = false;
-		theApp.myStatusClass.staChaFauLas = false;
-		theApp.myStatusClass.staPhaFauLas = false;
-		theApp.myStatusClass.staHigVolFauLas = false;
-		//' staBufOveFauLas = False
-		theApp.myStatusClass.staProSenFasLas = false;
-		theApp.myStatusClass.staAutModFauLas = false;
-		theApp.myStatusClass.staValFauLas = false;
-		theApp.myStatusClass.staLinFasLas = false;
-		theApp.myStatusClass.staPriHeaHotFauLas = false;
+
+		m_staInkTemSenFauLas = false;
+		m_staPriHeaTemFauLas = false;
+		m_staBumSpeOveFauLas = false;
+		m_staPreOveFauLas = false;  
+		m_staVisAbnFauLas = false;  
+		m_staVisSenFauLas = false;  
+		m_staInkFloFauLas = false;  
+		m_staFanFauLas = false;     
+		m_staChaFauLas = false;     
+		m_staPhaFauLas = false;     
+		m_staHigVolFauLas = false; 
+		m_staSolLevFauLas =  "00";
+		m_staInkLevFauLas =  "00";
+		m_staProSenFasLas = false;  
+		m_staAutModFauLas = false;  
+		m_staValFauLas = false;     
+		m_staLinFasLas = false;     
+		m_staPriHeaHotFauLas = false;
 		//'  staBufOveFauLas = False
 		//'退出页面
 		//panError.Location = New Point(900, 0)
