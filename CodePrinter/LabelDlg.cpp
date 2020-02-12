@@ -1478,8 +1478,9 @@ void CLabelDlg::OnBnClickedCopyButton()
 	{
 		if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
 		{
-			OBJ_Control* tempObj = NULL;
-			tempObj=theApp.myclassMessage.OBJ_Vec.at(i);
+			OBJ_Control* tempObj = new OBJ_Control(theApp.myclassMessage.OBJ_Vec.at(i));
+			tempObj->strType2=theApp.myclassMessage.OBJ_Vec.at(i)->strType2;
+			//tempObj=theApp.myclassMessage.OBJ_Vec.at(i);
 			tempObj->intRowStart=tempObj->intRowStart+tempObj->intRowSize;
 
 			if (tempObj->strType2=="serial")
