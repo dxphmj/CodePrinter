@@ -1005,13 +1005,13 @@ void CLabelDlg::DownlaodMessage()
 
 			theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
 			theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
- 			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;//直接赋值效率高 //好像不需要这个变量进行中间数据交换，直接用bytPrintDataAll
+  			theApp.myclassMessage.getSerialTimeDotBuf();
+			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;//直接赋值效率高 //好像不需要这个变量进行中间数据交换，直接用bytPrintDataAll
 			//bytPrintDataAll1.insert(bytPrintDataAll1.end(),theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
- 			theApp.ForPreQue.push(bytPrintDataAll1);//为何push两次
-			theApp.ForPreQue.push(bytPrintDataAll1);
+			theApp.ForPreQue.push(bytPrintDataAll1);//为何push两次
+		//	theApp.ForPreQue.push(bytPrintDataAll1);
 			theApp.myclassMessage.intMesDis = theApp.ForPreQue.front();
 			theApp.ForPreQue.pop();
-			theApp.myclassMessage.getSerialTimeDotBuf();
 			theApp.myclassMessage.boPrintNow = true;
 		theApp.boPrintNowLock.Unlock();
 

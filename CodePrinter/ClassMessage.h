@@ -149,11 +149,13 @@ public://方法
     void DrawDot(CDC* pDC);
     void GetDot(vector<vector<bool>>& boDotMes);
     void ReadBmp(char* strFileName);
+
 	static std::wstring stringToWstring(const std::string& str);
 	static bool readBin(string FontName,int offset,char *arr, int DataLen );
 	static string DEC_to_BIN(long long Dec);
 	static string to_String(int n);
 	static long long BIN_to_DEC(string Bin);
+
 	void DrawText(CDC* pDC,vector<vector<bool>>& boDotMes);
 	void DrawLogoQRcodeDM(CDC* pDC,vector<vector<bool>>& boDotMes);
 	void Draw5x5_7x5Text(CDC* pDC,int nFontRow,int nFontCol,int nBytesOneWord,vector<vector<bool>>& boDotMes);
@@ -163,15 +165,17 @@ public://方法
 	void CreateTimeDynamic(vector<BYTE>& bytPrintDataAll,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,
 									map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
 									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes,int intRowMax);
-	//void CreateSerialDynamic(vector<BYTE>& bytPrintDataAll);
 	void CreateSerialDynamic(vector<BYTE>& bytPrintDataAll,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
 									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes,int intRowMax);
 	vector<BYTE> DotToByte1(int tempintDotRowStart, int tempintDotRowEnd, vector<BYTE>& bytTempData,string tempfont, bool tempBWDy, bool tempBWDx ,bool tempNEG , 
 							string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,
 							map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
 									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes,int intRowMax);
-	BYTE byteUPsidedown(BYTE a,BYTE bBit);
+	BYTE byteUpsidedown(BYTE a,BYTE bBit);
+	UINT32 Bits32Upsidedown2(UINT32 v,BYTE bBit);
+	UINT32 Bits32Upsidedown1(UINT32 n,BYTE bBit);
 	UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);
+
 	void searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
 				int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
 				int tempNEGinteger, int tempBWDxinteger,UINT32 *IntMes);
@@ -193,8 +197,8 @@ public:
 	int Pixel;//实际行数
 	string Reverse;//是否群体控制
 	string Inverse;//是否群体控制//这俩没用
-	bool boReverse;//翻转，颠倒，由喷印设置中更改
-	bool boInverse;//翻转，颠倒，由喷印设置中更改
+	bool boReverse;//翻转，由喷印设置中更改
+	bool boInverse;//颠倒，由喷印设置中更改
 	vector<vector<bool>> boDotMes;//点阵 
 	int scrMaxRow;//滚动条用
 	int intRowMax;//intDotMesRow//用于主界面显示等
