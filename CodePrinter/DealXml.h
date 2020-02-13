@@ -16,6 +16,9 @@ public:
 	CString ReadXml(CString FileName,CString Name,CString FaultStr,CString Path);//读XML某行
 	bool WriteXml(CString FileName,CString Name,CString Value,CString Path);//保存XML某行
 
+
+	CString GetIniXML(CString FullPath,CString RootNode,CString ChildNode,CString Attribute);//读XML子级节点某行
+	bool SetIniXML(CString FullPath,CString RootNode,CString ChildNode,CString Attribute,CString ValueStr);//保存XML子级节某行
 	//用途：将十六进制转化为十进制byte型
 	//输入：Hex(十六进制数)
 	//输入数据类型：String

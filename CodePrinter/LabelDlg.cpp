@@ -1077,8 +1077,8 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
-	theApp.myclassMessage.ClearlastObj_Vec();
-	theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
+	//theApp.myclassMessage.ClearlastObj_Vec();
+	//theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
 
 	DownlaodMessage();
 
@@ -1464,8 +1464,8 @@ void CLabelDlg::OnBnClickedCopyButton()
 		if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
 		{
 			OBJ_Control* tempObj = new OBJ_Control(theApp.myclassMessage.OBJ_Vec.at(i));
- 			tempObj->intRowStart = tempObj->intRowStart+tempObj->intRowSize;
-
+  			tempObj->intRowStart = tempObj->intRowStart+tempObj->intRowSize;
+ 
 			if (tempObj->strType2 == "serial")
 			{
 				int nSerialNums = theApp.myclassMessage.ModifyGetSerialNums();
