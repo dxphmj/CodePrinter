@@ -220,11 +220,15 @@ BOOL CLabelDlg::OnInitDialog()
 	m_reversalCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
 	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
 	m_reversalCombo.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
-
+	m_reversalCombo.AddString(_T("GLOABL"));
+	m_reversalCombo.SetCurSel(0);
+	m_reversalCombo.EnableWindow(FALSE);
 	m_reversionCombo.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
 	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
 	m_reversionCombo.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
-
+	m_reversionCombo.AddString(_T("GLOABL"));
+	m_reversionCombo.SetCurSel(0);
+	m_reversionCombo.EnableWindow(FALSE);
 	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetWindowPos(NULL,250,260,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CLOSE_F_EDIT)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetFont(theApp.m_EditFont);
@@ -914,17 +918,16 @@ void CLabelDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	CDialog::OnLButtonDown(nFlags, point);
 }
 
-//公用函数
+//生成下发打印数据
 void CLabelDlg::DownlaodMessage()
 {
 	GetParent()->GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myclassMessage.labName));
 
-	//2、取值并发送至下位机 download_pcf()
 	theApp.mainPicPixel = theApp.myclassMessage.Pixel+1;
 	theApp.mainPicMatrx = theApp.myclassMessage.Matrix;
 
 	BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
-	//3、关闭动态打印线程（若有）
+	//3、关闭动态打印线程
 	if (theApp.mythreadDynamicBoo)
 	{
 		theApp.mythreadDynamicBoo = false;
@@ -941,10 +944,8 @@ void CLabelDlg::DownlaodMessage()
 	//动态文本关
 	
 	theApp.myclassMessage.boDynamic = false;
-	//4、分析打印的信息含有的动态文本有哪些及组成的生成元素，并生成第一次的点阵
 	getMessageDot();
 
-	//以上都要放到getMessageDot中，
 	CCodePrinterDlg *pParent = (CCodePrinterDlg *)GetParent();
 	pParent->m_PictureMain.Invalidate();
  
@@ -1007,9 +1008,8 @@ void CLabelDlg::DownlaodMessage()
 			theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
   			theApp.myclassMessage.getSerialTimeDotBuf();
 			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;//直接赋值效率高 //好像不需要这个变量进行中间数据交换，直接用bytPrintDataAll
-			//bytPrintDataAll1.insert(bytPrintDataAll1.end(),theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
 			theApp.ForPreQue.push(bytPrintDataAll1);//为何push两次
-		//	theApp.ForPreQue.push(bytPrintDataAll1);
+			theApp.boDotForPreQue.push(bytPrintDataAll1);
 			theApp.myclassMessage.intMesDis = theApp.ForPreQue.front();
 			theApp.ForPreQue.pop();
 			theApp.myclassMessage.boPrintNow = true;
@@ -1077,8 +1077,8 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
-	//theApp.myclassMessage.ClearlastObj_Vec();
-	//theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
+	theApp.myclassMessage.ClearlastObj_Vec();
+	theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
 
 	DownlaodMessage();
 
@@ -1109,7 +1109,6 @@ void CLabelDlg::getMessageDot()
 	theApp.myclassMessage.intRowMax = 0;//intDotMesRow
 	theApp.myclassMessage.intDotMesRowdis = 0;
 
-	//theApp.myclassMessage.intDotMesRow=0
 	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
 	{
 		if (theApp.myclassMessage.intRowMax < (theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart))
@@ -1146,7 +1145,6 @@ void CLabelDlg::getMessageDot()
 	if (theApp.myclassMessage.intDotMesRowdis < 10)
 		theApp.myclassMessage.intDotMesRowdis = 10;
 	theApp.myclassMessage.boDotMes.clear();
- 	//vector<vector<vector<bool>>>().swap(theApp.myclassMessage.boDotMes);//清空，并释放内存
 	vector<vector<bool>> ivec(32 ,vector<bool>(theApp.myclassMessage.intDotMesRowdis,false));
 	theApp.myclassMessage.boDotMes = ivec;
  

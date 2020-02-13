@@ -2082,23 +2082,6 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 					m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
 				}*/
 			}
-			//////下面还有序列号重置界面的刷新，，没此界面，战时不写
-			//If pangro_serial_reset.Location.X = 0 Then
-			//	'  pangro_serial_resetbo = True
-			//	If boCountEn(0) = True Then
-			//	labval_serial_reset_cv0.Text = CountNumForPre(0)
-			//	End If
-
-			//	If boCountEn(1) = True Then
-			//	labval_serial_reset_cv1.Text = CountNumForPre(1)
-			//	End If
-			//	If boCountEn(2) = True Then
-			//	labval_serial_reset_cv2.Text = CountNumForPre(2)
-			//	End If
-			//	If boCountEn(3) = True Then
-			//	labval_serial_reset_cv3.Text = CountNumForPre(3)
-			//	End If
-			//	End If
 		}
 		//SetTimer(TIMER1,300,NULL);	
 	}
