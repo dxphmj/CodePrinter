@@ -172,8 +172,8 @@ public://·½·¨
 							map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
 									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes,int intRowMax);
 	BYTE byteUpsidedown(BYTE a,BYTE bBit);
+	static UINT32 Bits32Upsidedown1(UINT32 n,BYTE bBit);
 	UINT32 Bits32Upsidedown2(UINT32 v,BYTE bBit);
-	UINT32 Bits32Upsidedown1(UINT32 n,BYTE bBit);
 	UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);
 
 	void searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,

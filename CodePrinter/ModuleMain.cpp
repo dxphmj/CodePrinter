@@ -632,13 +632,7 @@ UINT method1(LPVOID pParam)
 			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
 
 			theApp.boPrintNowLock.Lock();
-
 				theApp.ForPreQue.push(bytPrintDataAll1);				
-				/*vector<int> tempCounNum;
-				for(int i = 0; i < 4; i++)
-					tempCounNum.push_back(theApp.myclassMessage.CountNum[i]);				 
-				theApp.intCounNumForPreQue.push(tempCounNum);*/
-
 			theApp.boPrintNowLock.Unlock();
 		}
 		else 

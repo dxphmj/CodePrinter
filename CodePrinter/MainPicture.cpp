@@ -54,26 +54,26 @@ void MainPicture::OnPaint()
 	cbrush.CreateSolidBrush(RGB(0,0,0)); 
  	//int pixel = theApp.myclassMessage.Pixel+1;
 
-		//ª≠Õ¯∏Ò
-		CPen cPen; 
-		cPen.CreatePen(PS_SOLID,1,RGB(220,220,220)); 
-		CPen* pOldPen; 
-		pOldPen = dcMem.SelectObject(&cPen); //‘ÿ»Î± À¢
-		for (int i=0;i<=rectClient.Width();)// ˙
-		{
-			dcMem.MoveTo(i,rectClient.Height()-pixSize*theApp.mainPicPixel-1);
-			dcMem.LineTo(i,rectClient.Height());
-			i+=pixSize;
-		}
-		for (int j=rectClient.Height()-pixSize*theApp.mainPicPixel-1;j<=rectClient.Height();)
-		{
-			dcMem.MoveTo(0,j);
-			dcMem.LineTo(rectClient.Width(),j);
-			j+=pixSize;
-		}
-		dcMem.SelectObject(pOldPen);
-		cPen.DeleteObject();		 
-		//isFrame=false;
+	//ª≠Õ¯∏Ò
+	CPen cPen; 
+	cPen.CreatePen(PS_SOLID,1,RGB(220,220,220)); 
+	CPen* pOldPen; 
+	pOldPen = dcMem.SelectObject(&cPen); //‘ÿ»Î± À¢
+	for (int i=0;i<=rectClient.Width();)// ˙
+	{
+		dcMem.MoveTo(i,rectClient.Height()-pixSize*theApp.mainPicPixel-1);
+		dcMem.LineTo(i,rectClient.Height());
+		i+=pixSize;
+	}
+	for (int j=rectClient.Height()-pixSize*theApp.mainPicPixel-1;j<=rectClient.Height();)
+	{
+		dcMem.MoveTo(0,j);
+		dcMem.LineTo(rectClient.Width(),j);
+		j+=pixSize;
+	}
+	dcMem.SelectObject(pOldPen);
+	cPen.DeleteObject();		 
+	//isFrame=false;
 	if (theApp.mainPicMatrx==14)
 	{
 		CRect bkRect=rectClient;
@@ -123,16 +123,15 @@ UINT methoddis(LPVOID pParam)
 		{
 			for(int i = 0; i < theApp.myclassMessage.OBJ_Vec.size(); i++)
 			{		 
-
 				if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "serial")
 				{	
 					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
 					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					int intDynamicLineStart=theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
-					int intDynamicLineEnd=theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
+					int intDynamicLineStart = theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
+					int intDynamicLineEnd = theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
 					if (intDynamicLineEnd>theApp.myclassMessage.pixelMesdis)
 					{
-						intDynamicLineEnd=theApp.myclassMessage.pixelMesdis;
+						intDynamicLineEnd = theApp.myclassMessage.pixelMesdis;
 					}
 					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,intDynamicLineStart,intDynamicLineEnd,pDC);
 				}
@@ -140,11 +139,11 @@ UINT methoddis(LPVOID pParam)
 				{	
 					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
 					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					int intDynamicLineStart=theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
-					int intDynamicLineEnd=theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
+					int intDynamicLineStart = theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
+					int intDynamicLineEnd = theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
 					if (intDynamicLineEnd>theApp.myclassMessage.pixelMesdis)
 					{
-						intDynamicLineEnd=theApp.myclassMessage.pixelMesdis;
+						intDynamicLineEnd = theApp.myclassMessage.pixelMesdis;
 					}
 					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,intDynamicLineStart,intDynamicLineEnd,pDC);
 				}

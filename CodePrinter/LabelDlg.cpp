@@ -966,8 +966,8 @@ void CLabelDlg::DownlaodMessage()
 		dotDataLen_l = bytPrintData.size()%256; //dotDataLen_l与dotDataLen_h共同表达了打印数据的大小dotDataLen_h*256+dotDataLen_l
 		dotDataLen_h = bytPrintData.size()/256;
 		pixelMes = (BYTE)(pixel+1);
-		matrix_name = pixelMes<<2;//低二位为模式，原程序没用到
-		pixelAll = pixelMes|0x80; //表示该数据及时生效，开始打印，将前面的清楚掉。
+		matrix_name = pixelMes<<2;//低二位为模式 
+		pixelAll = pixelMes|0x80; //表示该数据及时生效，开始打印，将前面的清除掉。
 
 		theApp.boPrintNowLock.Lock();
  			vector<BYTE>().swap(theApp.myclassMessage.bytPrintDataAll);//比clear()好，能够释放内存  
@@ -985,7 +985,6 @@ void CLabelDlg::DownlaodMessage()
 			theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_h);
 			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
 			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
-
 
 			//以下参见通信格式说明
  			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
@@ -1005,13 +1004,12 @@ void CLabelDlg::DownlaodMessage()
 
 			theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
 			theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
-  			theApp.myclassMessage.getSerialTimeDotBuf();
 			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;//直接赋值效率高 //好像不需要这个变量进行中间数据交换，直接用bytPrintDataAll
-			//bytPrintDataAll1.insert(bytPrintDataAll1.end(),theApp.myclassMessage.bytPrintDataAll.begin(),theApp.myclassMessage.bytPrintDataAll.end());
 			theApp.ForPreQue.push(bytPrintDataAll1);//为何push两次
-		//	theApp.ForPreQue.push(bytPrintDataAll1);
+			theApp.ForPreQue.push(bytPrintDataAll1);
 			theApp.myclassMessage.intMesDis = theApp.ForPreQue.front();
 			theApp.ForPreQue.pop();
+  		 	//theApp.myclassMessage.getSerialTimeDotBuf();
 			theApp.myclassMessage.boPrintNow = true;
 		theApp.boPrintNowLock.Unlock();
 
@@ -1074,11 +1072,11 @@ void CLabelDlg::DownlaodMessage()
 //开始打印
 void CLabelDlg::OnBnClickedDownloadButton()
 {	
-	//1、界面保存到目前的喷印配置xml文件和pcf文件里        createPCF()	createPCFXML()
+	//界面保存到目前的喷印配置xml文件和pcf文件里createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
-	//theApp.myclassMessage.ClearlastObj_Vec();
-	//theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
+	theApp.myclassMessage.ClearlastObj_Vec();
+	theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
 
 	DownlaodMessage();
 
