@@ -52,7 +52,6 @@ void MainPicture::OnPaint()
 	CBrush cbrush;
  	CBrush *pBrush; //旧笔刷
 	cbrush.CreateSolidBrush(RGB(0,0,0)); 
- 	//int pixel = theApp.myclassMessage.Pixel+1;
 
 	//画网格
 	CPen cPen; 
@@ -106,15 +105,6 @@ UINT methoddis(LPVOID pParam)
 
 	////
 	CDC* pDC = &dc;
-	////目前不用双重缓存
-	//CRect rectClient;
-	//CDC dcMem,dcBkgnd;
-	//CBitmap bitmapTemp;//, *pOldBitmap;
-	////GetClientRect(&rectClient);//获取窗口信息
-	//bitmapTemp.CreateCompatibleBitmap(pDC, 640, 129);//创建内存位图
-	//dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
-	////pOldBitmap = dcMem.SelectObject(&bitmapTemp);//将内存位图选入内存dc
-	//dcMem.SelectObject(&bitmapTemp);
 
  	
 	while(theApp.mythreadDynamicBoo)

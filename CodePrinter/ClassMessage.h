@@ -223,35 +223,6 @@ public:
 
 	vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
 	vector<BYTE> bytPrintDataAll;//空时自动发送BUF
-
-	//bool CounterEditMes[4];
-	//int bytSerialConCoundis;//动态显示用，序列号数
-	//int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4];//动态显示用
-	//int intQSerialRowSizedis[4], intQSerialRowStartdis[4];//动态显示用
-	//int CountNumForPre[4];//序列号计数器用
-	///时间
-	//int bytTimeConCoun ;//时间数量
-	//int bytTimeConCoundis;//动态显示用，时间数量
-	//string strTimeFormat[1][4] ;//时间格式
-	//string strTimeFont[4];//时间字体
-	//int strETimeOffSet[4], strTimeOffSetUint[4];//时间偏置用
-	//string strETimetext[4];//时间文本
-	////
-	//int bytSerialConCoun;//序列号计数
-	//int bytQserialCounter[4];//序列号计数器
-	//int intQSerialRepeat[4];//重复值
-	//int intQSerialFirstLimit[4];//第一象限
-	//int intQSerialSecondLimit[4];//第二象限
-	//int intQSerialStartValue[4];//开始值
-	//int intQSerialStep[4];//步长
-	//int bytQSerialFormat[4];//格式
-	//int bytQSerialDigits[4];//位数
-	//int CountNum[4], CountNumRep[4];//序列号值和重复次数
-	//string strQSerialFont[4];//序列号字体
-	//bool boTimeBWDy[4], boTimeBWDx[4], boTimeNEG[4], boQSerialBWDy[4], boQSerialBWDx[4], boQSerialNEG[4] ;//序列号相关属性，以dis结尾的是显示用
-	//int bytTimeSS[4], bytTimeSW[4], bytTimeLineSize[4], bytTimeLineStart[4], bytQSerialSS[4], bytQSerialSW[4], bytQSerialLineSize[4], bytQSerialLineStart[4] ;
-	//int intTimeRowSize[4], intTimeRowStart[4], intTimeOffSetdis[4], intQSerialRowSize[4], intQSerialRowStart[4] ;
-	//bool boCountEn[4];//是否更新主界面static序列号
 	
 
 public:
