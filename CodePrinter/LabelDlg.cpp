@@ -1108,38 +1108,19 @@ void CLabelDlg::getMessageDot()
 	theApp.myclassMessage.intRowMax = 0;//intDotMesRow
 	theApp.myclassMessage.intDotMesRowdis = 0;
 
-	for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+	for(int i=0;i<theApp.myclassMessage.lastObj_Vec.size();i++)
 	{
-		if (theApp.myclassMessage.intRowMax < (theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart))
+		if (theApp.myclassMessage.intRowMax < (theApp.myclassMessage.lastObj_Vec[i]->intRowSize+theApp.myclassMessage.lastObj_Vec[i]->intRowStart))
 		{
-			theApp.myclassMessage.intRowMax = theApp.myclassMessage.OBJ_Vec[i]->intRowSize+theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
+			theApp.myclassMessage.intRowMax = theApp.myclassMessage.lastObj_Vec[i]->intRowSize+theApp.myclassMessage.lastObj_Vec[i]->intRowStart;
 			theApp.myclassMessage.intDotMesRowdis = theApp.myclassMessage.intRowMax;
 			theApp.myclassMessage.scrMaxRow = theApp.myclassMessage.intRowMax;
 		}
+		if (theApp.myclassMessage.lastObj_Vec[i]->strType2 == "serial" || theApp.myclassMessage.lastObj_Vec[i]->strType2 == "time")
+		{
+			theApp.myclassMessage.boDynamic = true;
+		}
 	}
-	//if (theApp.myclassMessage.scrMaxRow>255)
-	//{
-	//	//theApp.scrPox=theApp.myclassMessage.scrMaxRow-156;
-	//	SCROLLINFO tempSCR;
-	//	m_ScrollLab.GetScrollInfo(&tempSCR);
-	//	tempSCR.nMax=theApp.myclassMessage.scrMaxRow-147;
-	//	if (tempSCR.nPos>tempSCR.nMax-9)
-	//	{
-	//		tempSCR.nPos=tempSCR.nMax-9;
-	//	}
-	//	m_ScrollLab.SetScrollInfo(&tempSCR);
-	//}
-	//else
-	//{
-	//	SCROLLINFO tempSCR;
-	//	m_ScrollLab.GetScrollInfo(&tempSCR);
-	//	tempSCR.nMax=99;
-	//	if (tempSCR.nMax<tempSCR.nPos)
-	//	{
-	//		tempSCR.nPos=tempSCR.nMax;
-	//	}
-	//	m_ScrollLab.SetScrollInfo(&tempSCR);
-	//}
 
 	if (theApp.myclassMessage.intDotMesRowdis < 10)
 		theApp.myclassMessage.intDotMesRowdis = 10;
@@ -1147,12 +1128,82 @@ void CLabelDlg::getMessageDot()
 	vector<vector<bool>> ivec(32 ,vector<bool>(theApp.myclassMessage.intDotMesRowdis,false));
 	theApp.myclassMessage.boDotMes = ivec;
  
-	theApp.myclassMessage.getdot(); 
- 
 	if (theApp.myclassMessage.boDynamic)
 	{
 		theApp.myclassMessage.pixelMesdis = theApp.myclassMessage.Pixel;
 		theApp.myclassMessage.matrixMesdis = theApp.myclassMessage.Matrix;
+		for (int i = 0;i < theApp.myclassMessage.lastObj_Vec.size();i++)
+		{
+			if (theApp.myclassMessage.lastObj_Vec.at(i)->strType2=="serial")
+			{
+				if (theApp.myclassMessage.SerialCountNew)
+				{
+					theApp.myclassMessage.lastObj_Vec[i]->CountNum = theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue;
+					theApp.myclassMessage.lastObj_Vec[i]->CountNumRep = 1;
+				}
+				else if (!theApp.myclassMessage.SerialCountNew && !theApp.myclassMessage.SerialCountSet[0])
+				{
+					theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue = theApp.myclassMessage.lastObj_Vec[i]->CountNum;
+					theApp.myclassMessage.lastObj_Vec[i]->CountNumRep = 1;
+				}
+				CCodePrinterDlg* tempDlg = (CCodePrinterDlg*)GetParent();
+				switch(theApp.myclassMessage.lastObj_Vec.at(i)->intSerialCounter)
+				{
+				case 0:
+					if (!theApp.myclassMessage.SerialCountNew && theApp.myclassMessage.SerialCountSet[0])
+					{
+						CString tempCstr;
+						tempDlg->m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->GetWindowText(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->CountNum=_ttoi(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue = theApp.myclassMessage.lastObj_Vec[i]->CountNum;
+						theApp.myclassMessage.lastObj_Vec[i]->CountNumRep = 1;
+						theApp.myclassMessage.SerialCountSet[0] = false;
+					}
+					tempDlg->m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					UpdateData(FALSE);
+					break;
+				case 1:
+					if (!theApp.myclassMessage.SerialCountNew && theApp.myclassMessage.SerialCountSet[1])
+					{
+						CString tempCstr;
+						tempDlg->m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->GetWindowText(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->CountNum=_ttoi(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue = theApp.myclassMessage.lastObj_Vec[i]->CountNum;
+						theApp.myclassMessage.lastObj_Vec[i]->CountNumRep = 1;
+						theApp.myclassMessage.SerialCountSet[1] = false;
+					}
+					tempDlg->m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					UpdateData(FALSE);
+					break;
+				case 2:
+					if (!theApp.myclassMessage.SerialCountNew && theApp.myclassMessage.SerialCountSet[2])
+					{
+						CString tempCstr;
+						tempDlg->m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->GetWindowText(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->CountNum=_ttoi(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue = theApp.myclassMessage.lastObj_Vec[i]->CountNum;
+						theApp.myclassMessage.lastObj_Vec[i]->CountNumRep = 1;
+						theApp.myclassMessage.SerialCountSet[2] = false;
+					}
+					tempDlg->m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					UpdateData(FALSE);
+					break;
+				case 3:
+					if (!theApp.myclassMessage.SerialCountNew && theApp.myclassMessage.SerialCountSet[3])
+					{
+						CString tempCstr;
+						tempDlg->m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->GetWindowText(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->CountNum=_ttoi(tempCstr);
+						theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue = theApp.myclassMessage.lastObj_Vec[i]->CountNum;
+						theApp.myclassMessage.lastObj_Vec[i]->CountNumRep = 1;
+						theApp.myclassMessage.SerialCountSet[3] = false;
+					}
+					tempDlg->m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					UpdateData(FALSE);
+					break;
+				}
+			}
+		}
 		/*theApp.myclassMessage.bytTimeConCoundis = theApp.myclassMessage.bytTimeConCoun;
 		theApp.myclassMessage.bytSerialConCoundis = theApp.myclassMessage.bytSerialConCoun;*/
 		/*vector<int> tempCountVec;
@@ -1161,6 +1212,7 @@ void CLabelDlg::getMessageDot()
 		 
 		theApp.intCounNumForPreQue.push(tempCountVec);*/
 	}
+		theApp.myclassMessage.getdot(); 
 } 
 
 void CLabelDlg::selectPixel()

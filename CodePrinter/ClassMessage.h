@@ -214,7 +214,7 @@ public:
 	bool boReversedis, boInversedis;//动态显示用，翻转颠倒
 
 	bool SerialCountNew;//是否为新建
-	bool SerialCountSet[3];//重置序列号
+	bool SerialCountSet[4];//重置序列号
 
 	map<string,vector<BYTE>> bytdigital5x5LineMap;//基本字库0-9a-zA-Z
 	map<string,vector<BYTE>> bytdigital7x5LineMap;

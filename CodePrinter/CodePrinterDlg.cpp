@@ -538,56 +538,64 @@ void CCodePrinterDlg::showDlg(int ID)
 	}*/
 	else if(ID == IDD_RESET_SERIAL_DIALOG)
 	{
-			m_resetSerial->boDlgOpen=true;
-			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(_T(""));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(_T(""));
+		m_resetSerial->boDlgOpen=true;
+		m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(_T(""));
 
-			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(_T(""));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(_T(""));
 
-			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(_T(""));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(_T(""));
 
-			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(_T(""));
-			//m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(_T(""));
-			m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(_T(""));
+		m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(_T(""));
 
-		
-		//if (theApp.myclassMessage.boCountEn[0])
-		//{
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[0])));
-		//	//m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
-		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[0])));
-		//}
-		//if (theApp.myclassMessage.boCountEn[1])
-		//{
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[1])));
-		//	//m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
-		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[1])));
-		//}
-		//if (theApp.myclassMessage.boCountEn[2])
-		//{
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[2])));
-		//	//m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
-		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[2])));
-		//}
-		//if (theApp.myclassMessage.boCountEn[3])
-		//{
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
-		//	m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialSecondLimit[3])));
-		//	//m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
-		//	m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.intQSerialFirstLimit[3])));
-		//}
+		for (int i = 0;i < theApp.myclassMessage.lastObj_Vec.size();i++)
+		{
+			if (theApp.myclassMessage.lastObj_Vec.at(i)->strType2 == "serial")
+			{
+				switch(theApp.myclassMessage.lastObj_Vec.at(i)->intSerialCounter)
+				{
+				case 0:
+						m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialFirstLimit)));
+						m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialSecondLimit)));
+						m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+						m_resetSerial->GetDlgItem(IDC_SET_VALUE1_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue)));
+					//GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					break;
+				case 1:
+					m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialFirstLimit)));
+					m_resetSerial->GetDlgItem(IDC_SERIAL2_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialSecondLimit)));
+					m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					m_resetSerial->GetDlgItem(IDC_SET_VALUE2_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue)));
+					//GetDlgItem(IDC_SEQUENCE2_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					break;
+				case 2:
+					m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialFirstLimit)));
+					m_resetSerial->GetDlgItem(IDC_SERIAL3_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialSecondLimit)));
+					m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					m_resetSerial->GetDlgItem(IDC_SET_VALUE3_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue)));
+					//GetDlgItem(IDC_SEQUENCE3_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					break;
+				case 3:
+					m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD1_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialFirstLimit)));
+					m_resetSerial->GetDlgItem(IDC_SERIAL4_QUAD2_STATIC)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialSecondLimit)));
+					m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					m_resetSerial->GetDlgItem(IDC_SET_VALUE4_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->intSerialStartValue)));
+					//GetDlgItem(IDC_SEQUENCE4_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+					break;
+				}
+			}
+		}
 		m_resetSerial->ShowWindow(SW_SHOW);
 		
 	}
@@ -2047,40 +2055,54 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		theApp.refalsetimedata();
 		if (theApp.myclassMessage.boDynamic)
 		{
-			/*if (theApp.myclassMessage.boCountEn[0])
+			for (int i = 0;i < theApp.myclassMessage.lastObj_Vec.size();i++)
 			{
-				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
+				if (theApp.myclassMessage.lastObj_Vec.at(i)->strType2 == "serial")
+				{
+					switch(theApp.myclassMessage.lastObj_Vec.at(i)->intSerialCounter)
+					{
+					case 0:
+						GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+						break;
+					case 1:
+						GetDlgItem(IDC_SEQUENCE2_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+						break;
+					case 2:
+						GetDlgItem(IDC_SEQUENCE3_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+						break;
+					case 3:
+						GetDlgItem(IDC_SEQUENCE4_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+						break;
+					}
+				}
 			}
-			if (theApp.myclassMessage.boCountEn[1])
-			{
-				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
-			}
-			if (theApp.myclassMessage.boCountEn[2])
-			{
-				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
-			}
-			if (theApp.myclassMessage.boCountEn[3])
-			{
-				GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
-			}*/
 			if (m_resetSerial->boDlgOpen)
 			{
-				/*if (theApp.myclassMessage.boCountEn[0])
+				for (int i = 0;i < theApp.myclassMessage.lastObj_Vec.size();i++)
 				{
-					m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[0])));
+					if (theApp.myclassMessage.lastObj_Vec.at(i)->strType2 == "serial")
+					{
+						switch(theApp.myclassMessage.lastObj_Vec.at(i)->intSerialCounter)
+						{
+						case 0:
+							m_resetSerial->GetDlgItem(IDC_SERIAL1_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							//GetDlgItem(IDC_SEQUENCE1_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							break;
+						case 1:
+							m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							//GetDlgItem(IDC_SEQUENCE2_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							break;
+						case 2:
+							m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							//GetDlgItem(IDC_SEQUENCE3_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							break;
+						case 3:
+							m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							//GetDlgItem(IDC_SEQUENCE4_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.lastObj_Vec[i]->CountNum)));
+							break;
+						}
+					}
 				}
-				if (theApp.myclassMessage.boCountEn[1])
-				{
-					m_resetSerial->GetDlgItem(IDC_SERIAL2_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[1])));
-				}
-				if (theApp.myclassMessage.boCountEn[2])
-				{
-					m_resetSerial->GetDlgItem(IDC_SERIAL3_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[2])));
-				}
-				if (theApp.myclassMessage.boCountEn[3])
-				{
-					m_resetSerial->GetDlgItem(IDC_SERIAL4_CUR_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.myclassMessage.CountNumForPre[3])));
-				}*/
 			}
 		}
 		//SetTimer(TIMER1,300,NULL);	
