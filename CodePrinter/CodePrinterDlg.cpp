@@ -321,6 +321,10 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi->pcfNameDlg=pPcfConfig.m_pcfName;
 	
 
+	theApp.mythreadDynamic = AfxBeginThread(CreateMessageThread,NULL,THREAD_PRIORITY_NORMAL);
+	theApp.mythreadDynamicdis = AfxBeginThread(MainpageDrawTheard,(LPVOID)&mainPicStruct,THREAD_PRIORITY_BELOW_NORMAL);
+		
+
 #ifndef _DEBUG
 //#ifdef def_ttl
 
@@ -459,7 +463,7 @@ void CCodePrinterDlg::OnBnClickedResetSerialBtn()
 
 void CCodePrinterDlg::showDlg(int ID)
 {
-	theApp.boDrawMainPic=false;
+	theApp.boDrawMainPic = false;
 	m_Fault->ShowWindow(SW_HIDE);
 	m_System->ShowWindow(SW_HIDE);
 	m_User->ShowWindow(SW_HIDE);

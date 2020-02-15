@@ -1,8 +1,6 @@
 #pragma once
 #include "afxwin.h"
 #include "ImageButton.h"
-//#include "ClassMessage.h"
-//#include "ModuleMain.h"
 #include "InputDlg.h"
 #include "DesignStatic.h"
 #include "CustomStatic.h"

@@ -393,21 +393,8 @@ UINT TTLcomLoop(LPVOID pParam)
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 									if (strTempCmdLen>11)
 									{
-										//动态显示相关
-										vector<BYTE> intMesDis1 = tempQueVec;
-									//	intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
-										theApp.boDotForPreQue.push(intMesDis1);
-										theApp.myclassMessage.intMesDis = theApp.boDotForPreQue.front();
-										theApp.boDotForPreQue.pop();
-										/*vector<int> tempCountVec;
-										tempCountVec = theApp.intCounNumForPreQue.front();
-
-										theApp.intCounNumForPreQue.pop();
-
-										for (int num=0;num<tempCountVec.size();num++)
-										{
-											theApp.myclassMessage.CountNumForPre[num]=tempCountVec[num];
-										}*/
+										//动态显示相关										
+										theApp.myclassMessage.intMesDis = tempQueVec;										 
 									} 
 									else
 									{
@@ -603,24 +590,24 @@ UINT TTLcomLoop(LPVOID pParam)
 }
 
 //序列号及时间生成线程
-UINT method1(LPVOID pParam)
+UINT CreateMessageThread(LPVOID pParam)
 {
-	while(theApp.mythreadDynamicBoo)
+	while(1)
 	{
-		if (theApp.ForPreQue.size() < 2 )
+		if(!theApp.mythreadDynamicBoo || theApp.ForPreQue.size() >= 2)
 		{
-			theApp.myclassMessage.getSerialTimeDotBuf();
-			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
+			Sleep(100);
+			continue;
+		}
+		theApp.myclassMessage.getSerialTimeDotBuf();//修改bytPrintDataAll中相应的字节数据
 
-			theApp.boPrintNowLock.Lock();
-				theApp.ForPreQue.push(bytPrintDataAll1);				
- 			theApp.boPrintNowLock.Unlock();
-		}
-		else 
-		{
-			Sleep(10);
-		}
+		//vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
+
+		theApp.boPrintNowLock.Lock();
+			theApp.ForPreQue.push(theApp.myclassMessage.bytPrintDataAll);				
+		theApp.boPrintNowLock.Unlock();
 	}
+	
 	return 0;
 }
 

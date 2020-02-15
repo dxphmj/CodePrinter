@@ -72,8 +72,7 @@ void MainPicture::OnPaint()
 	}
 	dcMem.SelectObject(pOldPen);
 	cPen.DeleteObject();		 
-	//isFrame=false;
-	if (theApp.mainPicMatrx==14)
+ 	if (theApp.mainPicMatrx==14)
 	{
 		CRect bkRect=rectClient;
 		bkRect.bottom=(32-7)*pixSize;
@@ -82,8 +81,8 @@ void MainPicture::OnPaint()
 	}
 
 	pBrush = dcMem.SelectObject(&cbrush);
-	theApp.myclassMessage.DrawMainPageDot(&dcMem);
-	
+//	theApp.myclassMessage.DrawMainPageDot(&dcMem);
+	theApp.myclassMessage.DrawAllDynamic(&dcMem);
 	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, 0, 0, SRCCOPY);//»æÖÆÍ¼Æ¬µ½Ö÷dc
 
 	dcMem.SelectObject(pBrush);
@@ -96,17 +95,36 @@ void MainPicture::OnPaint()
 }
 
 
+UINT MainpageDrawTheard(LPVOID pParam)
+{
+ 	structMP *pstructMP = (structMP *)pParam;
+	CClientDC  dc(pstructMP->myMainPicture);
+
+	int pixSize = 4;
+	CDC* pDC = &dc;
+
+	int n = 0;
+
+	while(1)
+	{
+		if(!theApp.boDrawMainPic) continue;
+
+		pstructMP->myMainPicture->Invalidate();
+
+	 //	theApp.myclassMessage.DrawAllDynamic(pDC);		 
+		Sleep(100);
+	}
+
+	return 0;
+}
+/*
 UINT methoddis(LPVOID pParam)
 {
 	structMP *pstructMP = (structMP *)pParam;
 	CClientDC  dc(pstructMP->myMainPicture);
-	//////////////////////////////////////////////////////////////////////////
+
 	int pixSize = 4;
-
-	////
-	CDC* pDC = &dc;
-
- 	
+	CDC* pDC = &dc; 	
 	while(theApp.mythreadDynamicBoo)
 	{
 		while(theApp.boDrawMainPic)
@@ -143,4 +161,4 @@ UINT methoddis(LPVOID pParam)
 	}
 
 	return 0;
-}
+}*/

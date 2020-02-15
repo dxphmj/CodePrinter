@@ -1,6 +1,6 @@
 #pragma once
 
-UINT methoddis(LPVOID pParam);
+UINT MainpageDrawTheard(LPVOID pParam);
 // MainPicture
 
 class MainPicture : public CStatic

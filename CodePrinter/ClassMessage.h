@@ -214,14 +214,14 @@ public:
 	bool boReversedis, boInversedis;//动态显示用，翻转颠倒
 
 	bool SerialCountNew;//是否为新建
-	bool SerialCountSet[3];//重置序列号
+	bool SerialCountSet[4];//重置序列号
 
 	map<string,vector<BYTE>> bytdigital5x5LineMap;//基本字库0-9a-zA-Z
 	map<string,vector<BYTE>> bytdigital7x5LineMap;
 	map<string,vector<BYTE>> bytdigital12x12LineMap;
 	map<string,vector<BYTE>> bytdigital16x12LineMap;
 
-	vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
+	vector<BYTE> bytPrintDataAllOrder;//主动发送BUF,该变量似乎没必要
 	vector<BYTE> bytPrintDataAll;//空时自动发送BUF
 	
 
@@ -239,6 +239,7 @@ public:
 	BYTE getByteFromDot(bool boDot,int moveNum); 
 	void GetNextObjPosition(int& xPos, int &yPos);//获得下一个对象绘制的起始位置
 	vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
+	void DrawAllDynamic(CDC* pDC);
 
 public://XML
 	string labPath;

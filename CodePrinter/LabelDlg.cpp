@@ -9,8 +9,8 @@
 #include <sstream>
 #include <map>
 #include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
-//#include "PathDlgDll.h"
 #include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
+
 LPCWSTR stringToLPCWSTR(std::string orig)
 {
 	size_t origsize = orig.length() + 1;
@@ -21,19 +21,6 @@ LPCWSTR stringToLPCWSTR(std::string orig)
 
 	return wcstring;
 }
-
-
-//std::string WcharToChar(const wchar_t* wp, size_t m_encode = CP_ACP)
-//{
-//	std::string str;
-//	int len = WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), NULL, 0, NULL, NULL);
-//	char	*m_char = new char[len + 1];
-//	WideCharToMultiByte(m_encode, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
-//	m_char[len] = '\0';
-//	str = m_char;
-//	delete m_char;
-//	return str;
-//}
 
 IMPLEMENT_DYNAMIC(CLabelDlg, CDialog)
 
@@ -927,147 +914,80 @@ void CLabelDlg::DownlaodMessage()
 	theApp.mainPicMatrx = theApp.myclassMessage.Matrix;
 
 	BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
-	//3、关闭动态打印线程
-	if (theApp.mythreadDynamicBoo)
-	{
-		theApp.mythreadDynamicBoo = false;
-		WaitForSingleObject(theApp.mythreadDynamic->m_hThread,INFINITE);//等待线程结束
-		theApp.boDrawMainPic = false;
-		WaitForSingleObject(theApp.mythreadDynamicdis->m_hThread,INFINITE);//等待线程结束
-		delete theApp.mythreadDynamic;//删除线程
-		delete theApp.mythreadDynamicdis;
- 
-		theApp.ForPreQue = queue<vector<BYTE>>();
-		theApp.boDotForPreQue = queue<vector<BYTE>>();
-	}
+	 
+	theApp.ForPreQue = queue<vector<BYTE>>();
+	 
 	//信息重新发送，序列号按信息里面的开始值喷，如只改变喷印参数则按计数器的值继续喷
-	//动态文本关
-	
+ 	
 	theApp.myclassMessage.boDynamic = false;
 	getMessageDot();
 
 	CCodePrinterDlg *pParent = (CCodePrinterDlg *)GetParent();
 	pParent->m_PictureMain.Invalidate();
- 
+
+	delete []theApp.myclassMessage.IntMes;
+	theApp.myclassMessage.IntMes = new UINT32[theApp.myclassMessage.intRowMax];
+	memset(theApp.myclassMessage.IntMes,0,sizeof(UINT32)*theApp.myclassMessage.intRowMax);
+	for (int j = 0; j < 32; j++)
+	{
+		for (int i = 0; i < theApp.myclassMessage.intRowMax; i++)
+		{
+			theApp.myclassMessage.IntMes[i] += ((theApp.myclassMessage.boDotMes[j][i])?1:0)*pow(2,j);
+		}
+	}
+
+	vector<BYTE> bytPrintData = theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
+	dotDataLen_l = bytPrintData.size()%256; //dotDataLen_l与dotDataLen_h共同表达了打印数据的大小dotDataLen_h*256+dotDataLen_l
+	dotDataLen_h = bytPrintData.size()/256;
+	pixelMes = (BYTE)(pixel+1);
+	matrix_name = pixelMes<<2;//低二位为模式 
+	pixelAll = pixelMes|0x80; //表示该数据及时生效，开始打印，将前面的清除掉。
+
+	theApp.boPrintNowLock.Lock();
+		vector<BYTE>().swap(theApp.myclassMessage.bytPrintDataAll);//比clear()好，能够释放内存  
+		vector<BYTE>().swap(theApp.myclassMessage.bytPrintDataAllOrder);  
+
+		//预先给vector<BYTE>分配大小，然后再使用，效率也会高点，后面改正
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x80);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x6);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0x11);
+		theApp.myclassMessage.bytPrintDataAll.push_back(matrix_name);
+		theApp.myclassMessage.bytPrintDataAll.push_back(pixelMes);
+		theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_l);
+		theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_h);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+		theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
+
+		//以下参见通信格式说明
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x80);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x6);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x11);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(matrix_name);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(pixelAll);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_l);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_h);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
+		theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
+
+		bytPrintData.push_back(0xff);
+		bytPrintData.push_back(0xff);
+
+		theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
+		theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
+		
+	theApp.boPrintNowLock.Unlock();
+	theApp.myclassMessage.boPrintNow = true;	
+	theApp.myclassMessage.intMesDis = theApp.myclassMessage.bytPrintDataAll;
+
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
 	{
-
-		delete []theApp.myclassMessage.IntMes;
-		theApp.myclassMessage.IntMes = new UINT32[theApp.myclassMessage.intRowMax];
-		memset(theApp.myclassMessage.IntMes,0,sizeof(UINT32)*theApp.myclassMessage.intRowMax);
-		for (int j = 0; j < 32; j++)
-		{
-			for (int i = 0; i < theApp.myclassMessage.intRowMax; i++)
-			{
-				theApp.myclassMessage.IntMes[i] += ((theApp.myclassMessage.boDotMes[j][i])?1:0)*pow(2,j);
-			}
-		}
-
-		vector<BYTE> bytPrintData = theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
-		dotDataLen_l = bytPrintData.size()%256; //dotDataLen_l与dotDataLen_h共同表达了打印数据的大小dotDataLen_h*256+dotDataLen_l
-		dotDataLen_h = bytPrintData.size()/256;
-		pixelMes = (BYTE)(pixel+1);
-		matrix_name = pixelMes<<2;//低二位为模式 
-		pixelAll = pixelMes|0x80; //表示该数据及时生效，开始打印，将前面的清除掉。
-
-		theApp.boPrintNowLock.Lock();
- 			vector<BYTE>().swap(theApp.myclassMessage.bytPrintDataAll);//比clear()好，能够释放内存  
-			vector<BYTE>().swap(theApp.myclassMessage.bytPrintDataAllOrder);  
-
-			//预先给vector<BYTE>分配大小，然后再使用，效率也会高点，后面改正
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x80);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x6);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x11);
-			theApp.myclassMessage.bytPrintDataAll.push_back(matrix_name);
-			theApp.myclassMessage.bytPrintDataAll.push_back(pixelMes);
-			theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_l);
-			theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_h);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
-
-			//以下参见通信格式说明
- 			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x80);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x6);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x11);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(matrix_name);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(pixelAll);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_l);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_h);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
-
-			bytPrintData.push_back(0xff);
-			bytPrintData.push_back(0xff);
-
-			theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
-			theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
-			vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;//直接赋值效率高 //好像不需要这个变量进行中间数据交换，直接用bytPrintDataAll
-			theApp.ForPreQue.push(bytPrintDataAll1);  
-			theApp.boDotForPreQue.push(bytPrintDataAll1); 
-			theApp.myclassMessage.intMesDis = theApp.ForPreQue.front();
-			theApp.ForPreQue.pop();
-  		 	//theApp.myclassMessage.getSerialTimeDotBuf();
-			theApp.myclassMessage.boPrintNow = true;
-		theApp.boPrintNowLock.Unlock();
-
+  		theApp.ForPreQue.push(theApp.myclassMessage.bytPrintDataAll);  
 		theApp.mythreadDynamicBoo = true;
-		theApp.mythreadDynamic = AfxBeginThread(method1,NULL,THREAD_PRIORITY_HIGHEST);
-		theApp.mythreadDynamic->m_bAutoDelete = FALSE;//线程为手动删除
-
-		CCodePrinterDlg *pDlg = (CCodePrinterDlg*)this->GetParent();
-		theApp.mythreadDynamicdis = AfxBeginThread(methoddis,(LPVOID)&pDlg->mainPicStruct,THREAD_PRIORITY_HIGHEST);
-		theApp.mythreadDynamicdis->m_bAutoDelete = FALSE;//线程为手动删除
-	} 
-	else
-	{
-		vector<BYTE> testByteVec;
-		testByteVec = theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
-		dotDataLen_l = testByteVec.size()%256;
-		dotDataLen_h = testByteVec.size()/256;
-		pixelMes = (BYTE)(pixel+1);
-		matrix_name = pixelMes<<2;//低二位为模式，原程序没用到
-		pixelAll = pixelMes|0x80;
-
-		theApp.boPrintNowLock.Lock();
-			vector<BYTE>().swap(theApp.myclassMessage.bytPrintDataAll);//比clear()好，能够释放内存  
-			vector<BYTE>().swap(theApp.myclassMessage.bytPrintDataAllOrder);  
-
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x80);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x6);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0x11);
-			theApp.myclassMessage.bytPrintDataAll.push_back(matrix_name);
-			theApp.myclassMessage.bytPrintDataAll.push_back(pixelMes);
-			theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_l);
-			theApp.myclassMessage.bytPrintDataAll.push_back(dotDataLen_h);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
-			theApp.myclassMessage.bytPrintDataAll.push_back(0xff);
-
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x80);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x6);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x1);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0x11);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(matrix_name);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(pixelAll);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_l);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(dotDataLen_h);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
-			theApp.myclassMessage.bytPrintDataAllOrder.push_back(0xff);
-
-			testByteVec.push_back(0xff);
-			testByteVec.push_back(0xff);
-
-			theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),testByteVec.begin(),testByteVec.end());
-			theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),testByteVec.begin(),testByteVec.end());
-			theApp.myclassMessage.boPrintNow = true;
-		theApp.boPrintNowLock.Unlock();
-	}
+ 	} 	 
 }
 
 //开始打印
@@ -1152,14 +1072,7 @@ void CLabelDlg::getMessageDot()
 	if (theApp.myclassMessage.boDynamic)
 	{
 		theApp.myclassMessage.pixelMesdis = theApp.myclassMessage.Pixel;
-		theApp.myclassMessage.matrixMesdis = theApp.myclassMessage.Matrix;
-		/*theApp.myclassMessage.bytTimeConCoundis = theApp.myclassMessage.bytTimeConCoun;
-		theApp.myclassMessage.bytSerialConCoundis = theApp.myclassMessage.bytSerialConCoun;*/
-		/*vector<int> tempCountVec;
-		for(int i = 0; i < 4; i++)
-			tempCountVec.push_back(theApp.myclassMessage.CountNum[i]);
-		 
-		theApp.intCounNumForPreQue.push(tempCountVec);*/
+		theApp.myclassMessage.matrixMesdis = theApp.myclassMessage.Matrix;		 
 	}
 } 
 
@@ -1210,8 +1123,7 @@ void CLabelDlg::selectPixel()
 void CLabelDlg::OnBnClickedLabelCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	//this->ShowWindow(SW_HIDE);
-	//GetParent()->ShowWindow(SW_SHOW);
+
 	ShowWindow(SW_HIDE);
 	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
@@ -1241,7 +1153,8 @@ void CLabelDlg::OnBnClickedClsButton()
 	UpdateData(FALSE);
 	OnPaint();
 }
-////////减粗
+
+//减粗
 void CLabelDlg::OnBnClickedShrinkButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -1259,6 +1172,7 @@ void CLabelDlg::OnBnClickedShrinkButton()
 		}
 	}
 }
+
 //加粗
 void CLabelDlg::OnBnClickedZoomButton()
 {
