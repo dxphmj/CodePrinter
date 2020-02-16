@@ -589,17 +589,47 @@ UINT TTLcomLoop(LPVOID pParam)
 	return 0;
 }
 
+
+//主动下发打印数据后如有序列号要提前生成BUF2里面的内容
+void getSerialTimeDotBuf()
+{
+	theApp.boPrintNowLock.Lock();
+ 		for(int i = 0; i < theApp.myclassMessage.lastObj_Vec.size(); i++)
+		{
+			 
+			if (theApp.myclassMessage.lastObj_Vec[i]->strType2 == "serial")
+			{					 
+				
+				 theApp.myclassMessage.lastObj_Vec[i]->CreateSerialDynamic(theApp.myclassMessage.bytPrintDataAll,theApp.myclassMessage.boReverse, theApp.myclassMessage.boInverse,
+					 theApp.myclassMessage.matrixMesdis,theApp.myclassMessage.pixelMesdis,theApp.myclassMessage.bytdigital5x5LineMap,
+					 theApp.myclassMessage.bytdigital7x5LineMap,theApp.myclassMessage.bytdigital12x12LineMap,
+					 theApp.myclassMessage.bytdigital16x12LineMap,theApp.myclassMessage.IntMes,theApp.myclassMessage.intRowMax);
+			}
+			else if (theApp.myclassMessage.lastObj_Vec[i]->strType2 == "time")
+			{					 
+				
+				 theApp.myclassMessage.lastObj_Vec[i]->CreateTimeDynamic(theApp.myclassMessage.bytPrintDataAll,theApp.myclassMessage.boReverse, theApp.myclassMessage.boInverse,
+					 theApp.myclassMessage.matrixMesdis,theApp.myclassMessage.pixelMesdis,theApp.myclassMessage.bytdigital5x5LineMap,
+					 theApp.myclassMessage.bytdigital7x5LineMap,theApp.myclassMessage.bytdigital12x12LineMap,
+					 theApp.myclassMessage.bytdigital16x12LineMap,theApp.myclassMessage.IntMes,theApp.myclassMessage.intRowMax);
+			}
+		}	 
+	theApp.boPrintNowLock.Unlock();
+	return;	 	
+}
+
+
 //序列号及时间生成线程
 UINT CreateMessageThread(LPVOID pParam)
 {
-	while(1)
+	while(theApp.mythreadDynamicBoo)
 	{
-		if(!theApp.mythreadDynamicBoo || theApp.ForPreQue.size() >= 2)
+		if(theApp.ForPreQue.size() >= 2)
 		{
 			Sleep(100);
 			continue;
 		}
-		theApp.myclassMessage.getSerialTimeDotBuf();//修改bytPrintDataAll中相应的字节数据
+		getSerialTimeDotBuf();//修改bytPrintDataAll中相应的字节数据
 
 		//vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
 

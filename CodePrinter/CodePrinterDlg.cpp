@@ -321,8 +321,8 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_Confi->pcfNameDlg=pPcfConfig.m_pcfName;
 	
 
-	theApp.mythreadDynamic = AfxBeginThread(CreateMessageThread,NULL,THREAD_PRIORITY_NORMAL);
-	theApp.mythreadDynamicdis = AfxBeginThread(MainpageDrawTheard,(LPVOID)&mainPicStruct,THREAD_PRIORITY_BELOW_NORMAL);
+	//theApp.mythreadDynamic = AfxBeginThread(CreateMessageThread,NULL,THREAD_PRIORITY_NORMAL);
+	//theApp.mythreadDynamicdis = AfxBeginThread(MainpageDrawTheard,(LPVOID)&mainPicStruct,THREAD_PRIORITY_BELOW_NORMAL);
 		
 
 #ifndef _DEBUG

@@ -928,13 +928,10 @@ void CLabelDlg::DownlaodMessage()
 	delete []theApp.myclassMessage.IntMes;
 	theApp.myclassMessage.IntMes = new UINT32[theApp.myclassMessage.intRowMax];
 	memset(theApp.myclassMessage.IntMes,0,sizeof(UINT32)*theApp.myclassMessage.intRowMax);
+
 	for (int j = 0; j < 32; j++)
-	{
 		for (int i = 0; i < theApp.myclassMessage.intRowMax; i++)
-		{
 			theApp.myclassMessage.IntMes[i] += ((theApp.myclassMessage.boDotMes[j][i])?1:0)*pow(2,j);
-		}
-	}
 
 	vector<BYTE> bytPrintData = theApp.myclassMessage.DotToByte(0,theApp.myclassMessage.intRowMax);
 	dotDataLen_l = bytPrintData.size()%256; //dotDataLen_l与dotDataLen_h共同表达了打印数据的大小dotDataLen_h*256+dotDataLen_l
@@ -978,21 +975,30 @@ void CLabelDlg::DownlaodMessage()
 
 		theApp.myclassMessage.bytPrintDataAll.insert(theApp.myclassMessage.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
 		theApp.myclassMessage.bytPrintDataAllOrder.insert(theApp.myclassMessage.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
-		
-	theApp.boPrintNowLock.Unlock();
-	theApp.myclassMessage.boPrintNow = true;	
 	theApp.myclassMessage.intMesDis = theApp.myclassMessage.bytPrintDataAll;
+	theApp.myclassMessage.boPrintNow = true;		
+	theApp.boPrintNowLock.Unlock();
 
 	if (theApp.myclassMessage.boDynamic)//是否动态打印
 	{
   		theApp.ForPreQue.push(theApp.myclassMessage.bytPrintDataAll);  
-		theApp.mythreadDynamicBoo = true;
- 	} 	 
+  	} 	 
 }
 
 //开始打印
 void CLabelDlg::OnBnClickedDownloadButton()
-{	
+{		
+    //关闭动态打印线程（若有）
+	if (theApp.mythreadDynamicBoo)
+	{
+		theApp.mythreadDynamicBoo = false;
+		WaitForSingleObject(theApp.mythreadDynamic->m_hThread,INFINITE);//等待线程结束
+		theApp.boDrawMainPic = false;
+		WaitForSingleObject(theApp.mythreadDynamicdis->m_hThread,INFINITE);//等待线程结束
+		delete theApp.mythreadDynamic;//删除线程
+		delete theApp.mythreadDynamicdis;
+	}
+	
 	//界面保存到目前的喷印配置xml文件和pcf文件里createPCF()	createPCFXML()
 	theApp.myclassMessage.createLABXML();
 	theApp.myclassMessage.SerialCountNew = true;
@@ -1000,6 +1006,17 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	theApp.myclassMessage.OBJ_VecCopy2lastObj_Vec();
 
 	DownlaodMessage();
+
+ 	if (theApp.myclassMessage.boDynamic)//是否动态打印
+	{
+		theApp.mythreadDynamicBoo = true;
+		theApp.mythreadDynamic = AfxBeginThread(CreateMessageThread,NULL,THREAD_PRIORITY_NORMAL);
+		theApp.mythreadDynamic->m_bAutoDelete = FALSE;//线程为手动删除
+
+		CCodePrinterDlg *pDlg = (CCodePrinterDlg*)this->GetParent();
+		theApp.mythreadDynamicdis = AfxBeginThread(MainpageDrawTheard,(LPVOID)&pDlg->mainPicStruct,THREAD_PRIORITY_BELOW_NORMAL);
+		theApp.mythreadDynamicdis->m_bAutoDelete=  FALSE;//线程为手动删除
+	}
 
 	ShowWindow(SW_HIDE);
 }
@@ -1538,3 +1555,5 @@ void CLabelDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 }
+
+
