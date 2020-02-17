@@ -72,7 +72,8 @@ public:
 	StatusClass myStatusClass;
 	DWORD TTLcomID;
 	Language myLanguage;
-	ClassMessage myclassMessage;
+	ClassMessage m_MessageEdit;//打印信息编辑用
+	ClassMessage m_MessagePrint;//打印时及主界面显示用
 	ModuleMain myModuleMain;
 	CCriticalSection bytSlaveStatusLock;//读取状态
 	CCriticalSection boPrintNowLock;//打印

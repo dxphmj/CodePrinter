@@ -363,14 +363,14 @@ UINT TTLcomLoop(LPVOID pParam)
 						strTempCmdLen=tempQueVec.size();
 						strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 					}
-					else if (theApp.myclassMessage.boPrintNow)
+					else if (theApp.m_MessageEdit.boPrintNow)
 					{
 						theApp.boPrintNowLock.Lock();
-						if (theApp.myclassMessage.bytPrintDataAllOrder.size()>11)
+						if (theApp.m_MessageEdit.bytPrintDataAllOrder.size()>11)
 						{
-							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
-							strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
-							theApp.myclassMessage.boPrintNow=false;
+							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAllOrder,theApp.m_MessageEdit.bytPrintDataAllOrder.size());
+							strTempCmdLen=theApp.m_MessageEdit.bytPrintDataAllOrder.size();
+							theApp.m_MessageEdit.boPrintNow=false;
 						} 
 						else
 						{
@@ -379,11 +379,11 @@ UINT TTLcomLoop(LPVOID pParam)
 						}
 						theApp.boPrintNowLock.Unlock();
 					}
-					else if (!theApp.myclassMessage.boPrintNow)
+					else if (!theApp.m_MessageEdit.boPrintNow)
 					{
 						if (GETnBIT_from_bytReadData(6,2,1)!=_T("1"))
 						{
-							if (theApp.myclassMessage.boDynamic)
+							if (theApp.m_MessageEdit.boDynamic)
 							{
 								if (theApp.ForPreQue.size()>0)
 								{
@@ -394,7 +394,7 @@ UINT TTLcomLoop(LPVOID pParam)
 									if (strTempCmdLen>11)
 									{
 										//动态显示相关										
-										theApp.myclassMessage.intMesDis = tempQueVec;										 
+										theApp.m_MessageEdit.intMesDis = tempQueVec;										 
 									} 
 									else
 									{
@@ -410,10 +410,10 @@ UINT TTLcomLoop(LPVOID pParam)
 							} 
 							else
 							{
-								if (theApp.myclassMessage.bytPrintDataAll.size()>11)
+								if (theApp.m_MessageEdit.bytPrintDataAll.size()>11)
 								{
-									strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAll,theApp.myclassMessage.bytPrintDataAll.size());
-									strTempCmdLen=theApp.myclassMessage.bytPrintDataAll.size();
+									strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAll,theApp.m_MessageEdit.bytPrintDataAll.size());
+									strTempCmdLen=theApp.m_MessageEdit.bytPrintDataAll.size();
 									if (strTempCmdLen<12)
 									{
 										strTempCmd=(LPTSTR)readArr;
@@ -459,14 +459,14 @@ UINT TTLcomLoop(LPVOID pParam)
 					strTempCmdLen=tempQueVec.size();
 					strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,strTempCmdLen);
 				} 
-				else if(theApp.myclassMessage.boPrintNow)
+				else if(theApp.m_MessageEdit.boPrintNow)
 				{
 					theApp.boPrintNowLock.Lock();
-					if (theApp.myclassMessage.bytPrintDataAllOrder.size()>11)
+					if (theApp.m_MessageEdit.bytPrintDataAllOrder.size()>11)
 					{
-						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.myclassMessage.bytPrintDataAllOrder,theApp.myclassMessage.bytPrintDataAllOrder.size());
-						strTempCmdLen=theApp.myclassMessage.bytPrintDataAllOrder.size();
-						theApp.myclassMessage.boPrintNow=false;
+						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAllOrder,theApp.m_MessageEdit.bytPrintDataAllOrder.size());
+						strTempCmdLen=theApp.m_MessageEdit.bytPrintDataAllOrder.size();
+						theApp.m_MessageEdit.boPrintNow=false;
 					} 
 					else
 					{
@@ -475,7 +475,7 @@ UINT TTLcomLoop(LPVOID pParam)
 					}
 					theApp.boPrintNowLock.Unlock();
 				}
-				else if (!theApp.myclassMessage.boPrintNow)
+				else if (!theApp.m_MessageEdit.boPrintNow)
 				{
 					strTempCmd=(LPTSTR)readArr;
 					strTempCmdLen=8;
@@ -534,7 +534,7 @@ UINT TTLcomLoop(LPVOID pParam)
 			//}
 			//theApp.boQueCtrLock.Unlock();
 
-			//if (theApp.myclassMessage.boDynamic)
+			//if (theApp.m_MessageEdit.boDynamic)
 			//{
 			//	if (theApp.ForPreQue.size()>0)
 			//	{
@@ -549,7 +549,7 @@ UINT TTLcomLoop(LPVOID pParam)
 			//				vector<BYTE> intMesDis1;
 			//				intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
 			//				theApp.boDotForPreQue.push(intMesDis1);
-			//				theApp.myclassMessage.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
+			//				theApp.m_MessageEdit.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
 			//				theApp.boDotForPreQue.pop();
 			//				vector<int> tempCountVec;
 			//				if (theApp.intCounNumForPreQue.size()>0)
@@ -560,7 +560,7 @@ UINT TTLcomLoop(LPVOID pParam)
 
 			//					for (int num=0;num<tempCountVec.size();num++)
 			//					{
-			//						theApp.myclassMessage.CountNumForPre[num]=tempCountVec[num];
+			//						theApp.m_MessageEdit.CountNumForPre[num]=tempCountVec[num];
 			//					}
 			//				}
 			//			} 
@@ -589,35 +589,33 @@ UINT TTLcomLoop(LPVOID pParam)
 	return 0;
 }
 
-
-//主动下发打印数据后如有序列号要提前生成BUF2里面的内容
+//生成动态变化的打印数据到m_MessageEdit.bytPrintDataAll
 void getSerialTimeDotBuf()
 {
 	theApp.boPrintNowLock.Lock();
- 		for(int i = 0; i < theApp.myclassMessage.lastObj_Vec.size(); i++)
+ 		for(int i = 0; i < theApp.m_MessagePrint.OBJ_Vec.size(); i++)
 		{
 			 
-			if (theApp.myclassMessage.lastObj_Vec[i]->strType2 == "serial")
+			if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "serial")
 			{					 
 				
-				 theApp.myclassMessage.lastObj_Vec[i]->CreateSerialDynamic(theApp.myclassMessage.bytPrintDataAll,theApp.myclassMessage.boReverse, theApp.myclassMessage.boInverse,
-					 theApp.myclassMessage.matrixMesdis,theApp.myclassMessage.pixelMesdis,theApp.myclassMessage.bytdigital5x5LineMap,
-					 theApp.myclassMessage.bytdigital7x5LineMap,theApp.myclassMessage.bytdigital12x12LineMap,
-					 theApp.myclassMessage.bytdigital16x12LineMap,theApp.myclassMessage.IntMes,theApp.myclassMessage.intRowMax);
+				 theApp.m_MessagePrint.OBJ_Vec[i]->CreateSerialDynamic(theApp.m_MessagePrint.bytPrintDataAll,theApp.m_MessagePrint.boReverse, theApp.m_MessagePrint.boInverse,
+					 theApp.m_MessagePrint.Matrix,theApp.m_MessagePrint.Pixel,theApp.m_MessagePrint.bytdigital5x5LineMap,
+					 theApp.m_MessagePrint.bytdigital7x5LineMap,theApp.m_MessagePrint.bytdigital12x12LineMap,
+					 theApp.m_MessagePrint.bytdigital16x12LineMap,theApp.m_MessagePrint.IntMes,theApp.m_MessagePrint.intRowMax);
 			}
-			else if (theApp.myclassMessage.lastObj_Vec[i]->strType2 == "time")
+			else if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "time")
 			{					 
 				
-				 theApp.myclassMessage.lastObj_Vec[i]->CreateTimeDynamic(theApp.myclassMessage.bytPrintDataAll,theApp.myclassMessage.boReverse, theApp.myclassMessage.boInverse,
-					 theApp.myclassMessage.matrixMesdis,theApp.myclassMessage.pixelMesdis,theApp.myclassMessage.bytdigital5x5LineMap,
-					 theApp.myclassMessage.bytdigital7x5LineMap,theApp.myclassMessage.bytdigital12x12LineMap,
-					 theApp.myclassMessage.bytdigital16x12LineMap,theApp.myclassMessage.IntMes,theApp.myclassMessage.intRowMax);
+				 theApp.m_MessagePrint.OBJ_Vec[i]->CreateTimeDynamic(theApp.m_MessagePrint.bytPrintDataAll,theApp.m_MessagePrint.boReverse, theApp.m_MessagePrint.boInverse,
+					 theApp.m_MessagePrint.Matrix,theApp.m_MessagePrint.Pixel,theApp.m_MessagePrint.bytdigital5x5LineMap,
+					 theApp.m_MessagePrint.bytdigital7x5LineMap,theApp.m_MessagePrint.bytdigital12x12LineMap,
+					 theApp.m_MessagePrint.bytdigital16x12LineMap,theApp.m_MessagePrint.IntMes,theApp.m_MessagePrint.intRowMax);
 			}
 		}	 
 	theApp.boPrintNowLock.Unlock();
 	return;	 	
 }
-
 
 //序列号及时间生成线程
 UINT CreateMessageThread(LPVOID pParam)
@@ -631,10 +629,10 @@ UINT CreateMessageThread(LPVOID pParam)
 		}
 		getSerialTimeDotBuf();//修改bytPrintDataAll中相应的字节数据
 
-		//vector<BYTE> bytPrintDataAll1 = theApp.myclassMessage.bytPrintDataAll;
+		//vector<BYTE> bytPrintDataAll1 = theApp.m_MessagePrint.bytPrintDataAll;
 
 		theApp.boPrintNowLock.Lock();
-			theApp.ForPreQue.push(theApp.myclassMessage.bytPrintDataAll);				
+			theApp.ForPreQue.push(theApp.m_MessagePrint.bytPrintDataAll);				
 		theApp.boPrintNowLock.Unlock();
 	}
 	

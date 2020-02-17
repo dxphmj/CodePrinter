@@ -138,7 +138,7 @@ void CInputDlg::OnBnClickedEditfigureButton()
 	pEditFigure->GetDlgItem(IDC_REPEAT_COUNT_EDIT)->SetWindowText(_T("1"));
 	pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(_T("9"));
 
-	int nSerialNums = theApp.myclassMessage.ModifyGetSerialNums();
+	int nSerialNums = theApp.m_MessageEdit.ModifyGetSerialNums();
 	if(nSerialNums == 4){
 		CString csMsg=_T("操作失败！\n序列号已满！") ;//= _T("串口4打开失败!");
 		AfxMessageBox(csMsg);
@@ -187,7 +187,7 @@ void CInputDlg::OnBnClickedEditpictureButton()
 	{
 		int xPos=0;
 		int yPos=0;
-		theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
+		theApp.m_MessageEdit.GetNextObjPosition(xPos,yPos);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
 		 
 		OBJ_Control* bmpObj = new OBJ_Control;
@@ -207,15 +207,15 @@ void CInputDlg::OnBnClickedEditpictureButton()
 		bmpObj->booBWDx=false;
 		bmpObj->booBWDy=false;
 
-		if ((bmpObj->intRowStart+bmpObj->intRowSize)>theApp.myclassMessage.scrMaxRow)
+		if ((bmpObj->intRowStart+bmpObj->intRowSize)>theApp.m_MessageEdit.scrMaxRow)
 		{
-			theApp.myclassMessage.scrMaxRow=bmpObj->intRowStart+bmpObj->intRowSize;
+			theApp.m_MessageEdit.scrMaxRow=bmpObj->intRowStart+bmpObj->intRowSize;
 		}
 
 		bmpObj->strText=xmlPath;
 		bmpObj->booFocus=true;
 
-		theApp.myclassMessage.OBJ_Vec.push_back(bmpObj);
+		theApp.m_MessageEdit.OBJ_Vec.push_back(bmpObj);
 	}
 	this->ShowWindow(SW_HIDE);
 }

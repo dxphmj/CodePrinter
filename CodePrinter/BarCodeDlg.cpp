@@ -186,7 +186,7 @@ void CBarCodeDlg::Create2Dcode(int nType)
 
 	int xPos=0;
 	int yPos=0;
-	theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
+	theApp.m_MessageEdit.GetNextObjPosition(xPos,yPos);
 	 
 	OBJ_Control* bmpObj = new OBJ_Control;
 	bmpObj->intLineStart = yPos;
@@ -233,13 +233,13 @@ void CBarCodeDlg::Create2Dcode(int nType)
     }
 
 	bmpObj->strText = theApp.myModuleMain.CString2string(str);
-	if((bmpObj->intRowStart+bmpObj->intRowSize) > theApp.myclassMessage.scrMaxRow)
+	if((bmpObj->intRowStart+bmpObj->intRowSize) > theApp.m_MessageEdit.scrMaxRow)
 	{
-		theApp.myclassMessage.scrMaxRow = bmpObj->intRowStart+bmpObj->intRowSize;
+		theApp.m_MessageEdit.scrMaxRow = bmpObj->intRowStart+bmpObj->intRowSize;
 	}
 	bmpObj->booFocus = true;
 
-	theApp.myclassMessage.OBJ_Vec.push_back(bmpObj); 
+	theApp.m_MessageEdit.OBJ_Vec.push_back(bmpObj); 
 }
 
 void CBarCodeDlg::OnBnClickedQrCodeBtn()

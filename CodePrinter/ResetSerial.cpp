@@ -48,7 +48,6 @@ void CResetSerial::DoDataExchange(CDataExchange* pDX)
 
 }
 
-
 BEGIN_MESSAGE_MAP(CResetSerial, CDialog)
 	ON_BN_CLICKED(IDC_RESET_SERIAL_RETURN_BTN, &CResetSerial::OnBnClickedResetSerialReturnBtn)
 	ON_WM_CTLCOLOR()
@@ -58,7 +57,6 @@ BEGIN_MESSAGE_MAP(CResetSerial, CDialog)
 	ON_BN_CLICKED(IDC_RESET_SERIAL4_BTN, &CResetSerial::OnBnClickedResetSerial4Btn)
 	ON_BN_CLICKED(IDC_ALL_RESET_BTN, &CResetSerial::OnBnClickedAllResetBtn)
 END_MESSAGE_MAP()
-
 
 // CResetSerial 消息处理程序
 
@@ -110,49 +108,49 @@ HBRUSH CResetSerial::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CResetSerial::OnBnClickedResetSerial1Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.myclassMessage.SerialCountSet[0] = true;
-	theApp.myclassMessage.SerialCountNew = false;
+	theApp.m_MessageEdit.SerialCountSet[0] = true;
+	theApp.m_MessageEdit.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->DownlaodMessage();
+	mainDlg->m_Label->CreatePrintData();
 }
 
 void CResetSerial::OnBnClickedResetSerial2Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.myclassMessage.SerialCountSet[1] = true;
-	theApp.myclassMessage.SerialCountNew = false;
+	theApp.m_MessageEdit.SerialCountSet[1] = true;
+	theApp.m_MessageEdit.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->DownlaodMessage();
+	mainDlg->m_Label->CreatePrintData();
 }
 
 void CResetSerial::OnBnClickedResetSerial3Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.myclassMessage.SerialCountSet[2] = true;
-	theApp.myclassMessage.SerialCountNew = false;
+	theApp.m_MessageEdit.SerialCountSet[2] = true;
+	theApp.m_MessageEdit.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->DownlaodMessage();
+	mainDlg->m_Label->CreatePrintData();
 }
 
 void CResetSerial::OnBnClickedResetSerial4Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.myclassMessage.SerialCountSet[3] = true;
-	theApp.myclassMessage.SerialCountNew = false;
+	theApp.m_MessageEdit.SerialCountSet[3] = true;
+	theApp.m_MessageEdit.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->DownlaodMessage();
+	mainDlg->m_Label->CreatePrintData();
 }
 
 void CResetSerial::OnBnClickedAllResetBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	memset(theApp.myclassMessage.SerialCountSet,true,4*sizeof(bool));
-	theApp.myclassMessage.SerialCountNew = false;
+	memset(theApp.m_MessageEdit.SerialCountSet,true,4*sizeof(bool));
+	theApp.m_MessageEdit.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
-	mainDlg->m_Label->DownlaodMessage();
+	mainDlg->m_Label->CreatePrintData();
 }

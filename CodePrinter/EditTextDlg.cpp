@@ -133,45 +133,45 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 	// TODO: 在此添加控件通知处理程序代码
 	if (theApp.bochange)
 	{
-		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+		for(int i=0;i<theApp.m_MessageEdit.OBJ_Vec.size();i++)
 		{
-			if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
+			if (theApp.m_MessageEdit.OBJ_Vec.at(i)->booFocus)
 			{
 				CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
 				CString strText;
 				pEdit-> GetWindowText(strText);
 				//tempObj.strText=theApp.myModuleMain.CString2string(strText);
-				theApp.myclassMessage.OBJ_Vec[i]->strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+				theApp.m_MessageEdit.OBJ_Vec[i]->strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
 				CString  fontText;
 				int nIndex = fontComboBox.GetCurSel();  //当前选中的项
 				switch(nIndex)
 				{
 				case 0:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=5;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=5;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 1:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=7;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=7;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 2:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=12;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=12;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 3:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=16;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=16;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				}
 				fontComboBox.GetLBText(nIndex,fontText);
 
 
-				if ((theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize)>theApp.myclassMessage.scrMaxRow)
+				if ((theApp.m_MessageEdit.OBJ_Vec[i]->intRowStart+theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize)>theApp.m_MessageEdit.scrMaxRow)
 				{
-					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize;
+					theApp.m_MessageEdit.scrMaxRow=theApp.m_MessageEdit.OBJ_Vec[i]->intRowStart+theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize;
 				}
 
-				theApp.myclassMessage.OBJ_Vec[i]->strFont=theApp.myModuleMain.CString2string(fontText);
+				theApp.m_MessageEdit.OBJ_Vec[i]->strFont=theApp.myModuleMain.CString2string(fontText);
 
 				break;
 			}
@@ -182,7 +182,7 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 	}
 	int xPos=0;
 	int yPos=0;
-	theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
+	theApp.m_MessageEdit.GetNextObjPosition(xPos,yPos);
 	OBJ_Control* tempObj = new OBJ_Control;
 	tempObj->intLineStart=yPos;
 	tempObj->intRowStart=xPos;
@@ -232,15 +232,15 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 
 
 
-	if ((tempObj->intRowStart+tempObj->intRowSize)>theApp.myclassMessage.scrMaxRow)
+	if ((tempObj->intRowStart+tempObj->intRowSize)>theApp.m_MessageEdit.scrMaxRow)
 	{
-		theApp.myclassMessage.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
+		theApp.m_MessageEdit.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
 	}
 
 
 	tempObj->booFocus=true;
 
-	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
+	theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);
 }
 

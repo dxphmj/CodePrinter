@@ -12,14 +12,18 @@ class CLabelDlg : public CDialog
 	DECLARE_DYNAMIC(CLabelDlg)
 public:
 	int matrix;
-	int pixel;
-	
-	//ModuleMain labModule;
-	bool isFrame;
-	void getMessageDot();
-	void selectPixel();
-	void DownlaodMessage();
+	int pixel;	
+ 	bool isFrame;
 	CInputDlg *pInput;
+	bool m_bDesign;	
+	int m_zoomLevel;
+	int m_ssValue;
+
+	void changeDis();
+	void showInputDlg(int ID);
+	void selectPixel();
+	void CreatePrintData();
+	void getMessageDot();
 
 public:
 	CLabelDlg(CWnd* pParent = NULL);   // 标准构造函数
@@ -28,8 +32,6 @@ public:
 // 对话框数据
 	enum { IDD = IDD_LABEL_DIALOG };
 
-	bool m_bDesign;	
-    CDesignStatic m_designArea;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
@@ -37,6 +39,18 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+
+	CBitmap m_PicBitmap[5];  // CBitmap对象，用于加载位图  
+	HBITMAP m_PichBmp[5];
+	CStatic m_picBNG;
+	CStatic m_picOverturn;
+    CDesignStatic m_designArea;
+	CCustomStatic m_matrixStatic;
+	CCustomStatic m_pixelStatic;
+	CCustomStatic m_reversalStatic;
+	CCustomStatic m_perversionStatic;
+	CComboBox m_reversalCombo;
+	CComboBox m_reversionCombo;	
 	CComboBox ComboMatrix;
 	CComboBox pixelComboBox;
 	
@@ -66,14 +80,10 @@ public:
 	CImageButton m_copy;
 	CImageButton m_delete;
 
-
-	afx_msg void OnBnClickedInputButton();
-	
+	afx_msg void OnBnClickedInputButton();	
 	afx_msg void OnPaint();
-	afx_msg void OnCbnSelchangeComboMatrix();
-	
+	afx_msg void OnCbnSelchangeComboMatrix();	
 	afx_msg void OnCbnSelchangeCombo2();
-
 	afx_msg void OnBnClickedUshiftButton();
 	afx_msg void OnBnClickedLselectButton();
 	afx_msg void OnBnClickedRselectButton();
@@ -88,44 +98,21 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnBnClickedDownloadButton();
 	afx_msg void OnBnClickedLabelCloseBtn();
-	void showInputDlg(int ID);
-
     afx_msg void OnBnClickedZoomButton();
-
 	afx_msg void OnBnClickedClsButton();
-	int m_zoomLevel;
-	int m_ssValue;
-	afx_msg void OnBnClickedShrinkButton();
-	
+	afx_msg void OnBnClickedShrinkButton();	
 	afx_msg void OnBnClickedCloseUserBtn();
 	afx_msg void OnBnClickedFarButton();
 	afx_msg void OnBnClickedNozzleValveBtn();
 	afx_msg void OnBnClickedAddbackBtn();
 	afx_msg void OnBnClickedUdmirrorButton();
 	afx_msg void OnBnClickedLrmirrorButton();
-
 	afx_msg void OnStnClickedStaticW();
-	void changeDis();
-
-
+	afx_msg void OnBnClickedCopyButton();
+	afx_msg void OnBnClickedDeleteButton();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
-	afx_msg void OnBnClickedCopyButton();
-
-	CStatic m_picBNG;
-	CStatic m_picOverturn;
-
-	CBitmap m_PicBitmap[5];  // CBitmap对象，用于加载位图  
-	HBITMAP m_PichBmp[5];
-	afx_msg void OnBnClickedDeleteButton();
-	CCustomStatic m_matrixStatic;
-	CCustomStatic m_pixelStatic;
-	CCustomStatic m_reversalStatic;
-	CCustomStatic m_perversionStatic;
-	CComboBox m_reversalCombo;
-	CComboBox m_reversionCombo;
-	// 白屏滚动条
-	
+	// 白屏滚动条	
 	CScrollBar m_ScrollLab;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

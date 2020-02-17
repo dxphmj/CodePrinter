@@ -187,32 +187,34 @@ public://方法
 class MESSAGEEDIT_API ClassMessage
 {
 public:
-	 ClassMessage(void);
-	 ~ClassMessage(void);
+	ClassMessage(void);
+	~ClassMessage(void);
+
+	ClassMessage& operator=(const ClassMessage& );
+
 public:
-	vector<OBJ_Control*> OBJ_Vec;//编辑用
-	vector<OBJ_Control*> lastObj_Vec;//主界面显示用
-	int Matrix;//行数
+	vector<OBJ_Control*> OBJ_Vec;
+
+	int Matrix;//最大可设计的行数
+	int Pixel; //实际要打印的行数（像素高度）
+	int intRowMax;//打印的最大列数（最小打印列数永远是0）
 	string strMatrix;//行数：1L7M
-	int Pixel;//实际行数
+
 	string Reverse;//是否群体控制
 	string Inverse;//是否群体控制//这俩没用
+
 	bool boReverse;//翻转，由喷印设置中更改
 	bool boInverse;//颠倒，由喷印设置中更改
-	vector<vector<bool>> boDotMes;//点阵 
+
 	int scrMaxRow;//滚动条用
-	int intRowMax;//intDotMesRow//用于主界面显示等
-	int bytRowByteMul;//一列由几个byte表示
 	bool boDynamic;//是否动态打印
 	bool boPrintNow;//是否即时打印
     
+	//主界面显示
+	vector<vector<bool>> boDotMes;//点阵 
 	UINT32 *IntMes;//动态数组
 	vector<BYTE> intMesDis;//动态显示用
-	int intDotMesRowdis;//动态显示用，列数
-	int matrixMesdis ;//动态显示用，绘制区域最大允许的行数
-	int pixelMesdis;//动态显示用，打印时实际占用的行数
-	bool boReversedis, boInversedis;//动态显示用，翻转颠倒
-
+ 
 	bool SerialCountNew;//是否为新建
 	bool SerialCountSet[4];//重置序列号
 
@@ -222,8 +224,7 @@ public:
 	map<string,vector<BYTE>> bytdigital16x12LineMap;
 
 	vector<BYTE> bytPrintDataAllOrder;//主动发送BUF,该变量似乎没必要
-	vector<BYTE> bytPrintDataAll;//空时自动发送BUF
-	
+	vector<BYTE> bytPrintDataAll;//存储动态打印生成的字节	
 
 public:
 	void DrawDot(CDC* pDC);
@@ -231,8 +232,7 @@ public:
 	void DrawMainPageDot(CDC* pDC);
 	void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
 	void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int intDynamicLineStart,int intDynamicLineEnd,CDC* pDC);
-	void OBJ_VecCopy2lastObj_Vec();
-	void ClearlastObj_Vec();
+ 	void ClearOBJ_Vec();
 	void getSerialTimeDotBuf(); 
 	void getdigitaldot();//获得基本字库
 	int  ModifyGetSerialNums();

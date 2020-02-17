@@ -265,8 +265,8 @@ void CConfigurationDlg::OnBnClickedConfiOpenBtn()
 		//AfxMessageBox(path);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
 		//xmlPath+="sss.xml";
-		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
-		//theApp.myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
+		//m_MessageEdit.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+		//theApp.m_MessageEdit.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
 		CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
 		pPcfConfig.getPcfFromXml(xmlPath);
 		pcfNameDlg=pPcfConfig.m_pcfName;
@@ -294,8 +294,8 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 		//AfxMessageBox(path);
 		xmlPath=theApp.myModuleMain.TCHAR2STRING(path);
 		//xmlPath+="sss.xml";
-		//myclassMessage.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
-		//theApp.myclassMessage.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
+		//m_MessageEdit.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
+		//theApp.m_MessageEdit.ReadObjectsFromXml(const_cast<char*>(xmlPath.c_str()));
 		CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
 		pPcfConfig.savePcfToXml(xmlPath);//此处需要能创建xml
 		pcfNameDlg=pPcfConfig.m_pcfName;

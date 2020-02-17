@@ -79,7 +79,7 @@ void MainPicture::OnPaint()
 		bkRect.top = (32-8)*m_pixSize;
 		m_dcMem.FillSolidRect(bkRect,theApp.m_BKcolor);
 	}
-	theApp.myclassMessage.DrawAllDynamic(&m_dcMem);
+	theApp.m_MessagePrint.DrawAllDynamic(&m_dcMem);
 	m_pDC->BitBlt(0,0,m_rectClient.Width(),m_rectClient.Height(),&m_dcMem,0,0,SRCCOPY);//绘制图片到主dc
 
  	theApp.boDrawMainPic = true;
@@ -99,62 +99,18 @@ UINT MainpageDrawTheard(LPVOID pParam)
 		{
 			if(theApp.ForPreQue.size() >= 2)
 			{
-				theApp.myclassMessage.intMesDis = theApp.ForPreQue.front();;
+				theApp.m_MessagePrint.intMesDis = theApp.ForPreQue.front();;
 				theApp.ForPreQue.pop();
 			}
 
-			theApp.myclassMessage.DrawAllDynamic(pDC);		 
+			theApp.m_MessagePrint.DrawAllDynamic(pDC);		 
 			//Sleep(10);
 		}
 	}
 
 	return 0;
 }
-/*
-UINT methoddis(LPVOID pParam)
-{
-	structMP *pstructMP = (structMP *)pParam;
-	CClientDC  dc(pstructMP->myMainPicture);
 
-	int pixSize = 4;
-	CDC* pDC = &dc; 	
-	while(theApp.mythreadDynamicBoo)
-	{
-		while(theApp.boDrawMainPic)
-		{
-			for(int i = 0; i < theApp.myclassMessage.OBJ_Vec.size(); i++)
-			{		 
-				if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "serial")
-				{	
-					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
-					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					int intDynamicLineStart = theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
-					int intDynamicLineEnd = theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
-					if (intDynamicLineEnd>theApp.myclassMessage.pixelMesdis)
-					{
-						intDynamicLineEnd = theApp.myclassMessage.pixelMesdis;
-					}
-					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,intDynamicLineStart,intDynamicLineEnd,pDC);
-				}
-				else if (theApp.myclassMessage.OBJ_Vec[i]->strType2 == "time")
-				{	
-					int intDynamicRowEnd = theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize-1;
-					int nRowStartdis = theApp.myclassMessage.OBJ_Vec[i]->intRowStart;
-					int intDynamicLineStart = theApp.myclassMessage.OBJ_Vec[i]->intLineStart;
-					int intDynamicLineEnd = theApp.myclassMessage.OBJ_Vec[i]->intLineStart+theApp.myclassMessage.OBJ_Vec[i]->intLineSize-1;
-					if (intDynamicLineEnd>theApp.myclassMessage.pixelMesdis)
-					{
-						intDynamicLineEnd = theApp.myclassMessage.pixelMesdis;
-					}
-					theApp.myclassMessage.DrawSerialTimeDynamic(nRowStartdis,intDynamicRowEnd,intDynamicLineStart,intDynamicLineEnd,pDC);
-				}
-			}
-		}
-		Sleep(100);
-	}
-
-	return 0;
-	}*/
 BOOL MainPicture::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
