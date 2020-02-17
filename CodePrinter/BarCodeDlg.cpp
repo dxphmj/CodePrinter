@@ -124,10 +124,13 @@ BOOL CBarCodeDlg::OnInitDialog()
 
 	m_barcodeDateBtn.LoadBitmaps(IDB_EDIT_DATE1_BITMAP,IDB_EDIT_DATE2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_barcodeDateBtn.SizeToContent(); 
+
+	m_nCodeType = 58;
+	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"QR_CODE Setting");
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
-
 
 void CBarCodeDlg::OnBnClickedBarcodeCloseBtn()
 {
@@ -182,7 +185,6 @@ void CBarCodeDlg::Create2Dcode(int nType)
 	std::string strTmp = ASCToUTF8(QRTEXT);
 	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
 	generated = 1;
-
 
 	int xPos=0;
 	int yPos=0;

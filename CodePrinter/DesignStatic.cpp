@@ -12,29 +12,19 @@ IMPLEMENT_DYNAMIC(CDesignStatic, CStatic)
 
 CDesignStatic::CDesignStatic()
 {
-
 }
 
 CDesignStatic::~CDesignStatic()
 {
 }
 
-
 BEGIN_MESSAGE_MAP(CDesignStatic, CStatic)
 	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
-
-
 // CDesignStatic 消息处理程序
-
-
-
 void CDesignStatic::OnPaint()
 {
-	//CPaintDC dc(this); // device context for painting
-	// TODO: 在此处添加消息处理程序代码
-	// 不为绘图消息调用 CStatic::OnPaint()
 	CWnd::Default();   // 让控件画它自己的东西
 	CClientDC  dc(this);
 

@@ -1023,22 +1023,15 @@ void CLabelDlg::getMessageDot()
 	CCodePrinterDlg *pParent = (CCodePrinterDlg *)GetParent();
 	int nCurSel = pParent->m_Confi->m_reverse.GetCurSel();
 	if (nCurSel == 0)
-	{
 		theApp.m_MessagePrint.boReverse = false;
-	} 
 	else
-	{
 		theApp.m_MessagePrint.boReverse = true;
-	}
 	nCurSel = pParent->m_Confi->m_inverse.GetCurSel();
 	if (nCurSel == 0)
-	{
 		theApp.m_MessagePrint.boInverse = false;
-	} 
 	else
-	{
 		theApp.m_MessagePrint.boInverse = true;
-	}
+
 	theApp.m_MessagePrint.intRowMax = 0;
 
 	for(int i=0;i<theApp.m_MessagePrint.OBJ_Vec.size();i++)
@@ -1049,19 +1042,14 @@ void CLabelDlg::getMessageDot()
 			theApp.m_MessagePrint.scrMaxRow = theApp.m_MessagePrint.intRowMax;
 		}
 		if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "serial" || theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "time")
-		{
 			theApp.m_MessagePrint.boDynamic = true;
-		}
 	}
 
-	theApp.m_MessagePrint.boDotMes.clear();
-	vector<vector<bool>> ivec(32 ,vector<bool>(theApp.m_MessagePrint.intRowMax<10?10:theApp.m_MessagePrint.intRowMax,false));//为何不能小于10
-	theApp.m_MessagePrint.boDotMes = ivec;
- 
 	if (theApp.m_MessagePrint.boDynamic)
 	{
 		for (int i = 0;i < theApp.m_MessagePrint.OBJ_Vec.size();i++)
 		{
+			//下段代码功能是什么？
 			if (theApp.m_MessagePrint.OBJ_Vec.at(i)->strType2=="serial")
 			{
 				if (theApp.m_MessagePrint.SerialCountNew)
@@ -1131,8 +1119,7 @@ void CLabelDlg::getMessageDot()
 					break;
 				}
 			}
-		}		
- 
+		}
 	}
 	theApp.m_MessagePrint.getdot(); 
 } 

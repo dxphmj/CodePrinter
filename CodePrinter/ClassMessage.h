@@ -140,7 +140,7 @@ public://参数
 	int intQRErrLevel;
 	int intQREncodingMode;
 
-	bool boDotBmp[32][255];//加载bmp用
+	bool boDotBmp[32][255];//显示bmp,条形码，二维码用
 	bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框 
  
 public://方法
@@ -197,7 +197,7 @@ public:
 
 	int Matrix;//最大可设计的行数
 	int Pixel; //实际要打印的行数（像素高度）
-	int intRowMax;//打印的最大列数（最小打印列数永远是0）
+	int intRowMax;//最大的打印列数（最小打印列数永远是0）
 	string strMatrix;//行数：1L7M
 
 	string Reverse;//是否群体控制
@@ -208,12 +208,13 @@ public:
 
 	int scrMaxRow;//滚动条用
 	bool boDynamic;//是否动态打印
-	bool boPrintNow;//是否即时打印
+	bool boPrintNow;//是否即时打印，？
     
-	//主界面显示
-	vector<vector<bool>> boDotMes;//点阵 
-	UINT32 *IntMes;//动态数组
-	vector<BYTE> intMesDis;//动态显示用
+	vector<vector<bool>> boDotMes;//从obj中获得[32][intRowMax]点阵信息，根据点阵的bool值每列组合成一个整数IntMes[intRowMax] 
+	UINT32 *IntMes;//大小intRowMax个整数，每个整数四个字节，表示1列点阵打印信息，主要用来在动态生成打印信息时统一表达整个打印区域
+	vector<BYTE> intMesDis;//主界面显示时表达已打印的信息（字节流，根据Pixel的值每列1-4个字节，排列顺序时先每列从下往上，再从左向右
+	vector<BYTE> bytPrintDataAllOrder;//?
+	vector<BYTE> bytPrintDataAll;//存储动态打印时根据计数器生成的打印字节流，intMesDis其实就等于bytPrintDataAll	
  
 	bool SerialCountNew;//是否为新建
 	bool SerialCountSet[4];//重置序列号
@@ -223,8 +224,6 @@ public:
 	map<string,vector<BYTE>> bytdigital12x12LineMap;
 	map<string,vector<BYTE>> bytdigital16x12LineMap;
 
-	vector<BYTE> bytPrintDataAllOrder;//主动发送BUF,该变量似乎没必要
-	vector<BYTE> bytPrintDataAll;//存储动态打印生成的字节	
 
 public:
 	void DrawDot(CDC* pDC);
