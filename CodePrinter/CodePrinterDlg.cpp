@@ -14,6 +14,9 @@
 #include <fstream>
 #include "Inksystemconfig.h"
 #include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
+#include "ClientContext.h"
+#include "ClientManager.h"
+#include <Winsock2.h>
 //#include "Tchar.h”
 #include "PcfConfig.h"
 
@@ -127,7 +130,21 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 
 	// TODO: 在此添加额外的初始化代码
-	SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
+		//全屏显示
+		//隐藏HHTaskBar窗口代码如下:       
+		HWND hTaskBar = ::FindWindow(TEXT("HHTaskBar"), NULL);        
+	if (hTaskBar != NULL)       
+	{       
+		::EnableWindow(hTaskBar, FALSE);       
+		::ShowWindow(hTaskBar, SW_HIDE);       
+	}       
+
+	int iFullWidth  = GetSystemMetrics(SM_CXSCREEN);
+	int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
+	::SetWindowPos(this->m_hWnd, HWND_TOPMOST, 0, 0, iFullWidth, iFullHeight,
+		SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
+
+	//SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );
 	bool iniLanXml;
 	iniLanXml = theApp.myLanguage.readLanguageXml("ChineseSimplified.xml");
@@ -2237,3 +2254,284 @@ void CCodePrinterDlg::OnBnClickedResetCountBtn()
 	theApp.myPcfClass.pcf0X00bit5=0;
 	theApp.myPcfClass.pcf0X00bit6=0;
 }
+
+
+/*
+ * 接收客户端连接请求
+ */
+//DWORD WINAPI CCodePrinterDlg::AcceptThread( void *pParam )
+//{
+//	CCodePrinterDlg	*pServView = (CCodePrinterDlg*)pParam;	//主窗口指针
+//	HANDLE		hComPort = pServView->m_hCompPort;	//完成端口
+//	SOCKET		sListen = pServView->m_sListen;		//监听套接字
+//	SOCKET		sAccept = INVALID_SOCKET;			//接受套接字
+//	while(pServView->m_bRunning)
+//	{
+//		DWORD dwRet;
+//		dwRet = WSAWaitForMultipleEvents(1,			//等待网络事件
+//										&pServView->m_hEvent2,
+//										FALSE,
+//										100,
+//										FALSE);		
+//		if(!pServView->m_bRunning)					//服务器停止服务
+//			break;
+//		
+//		if (dwRet == WSA_WAIT_TIMEOUT)				//函数调用超时
+//			continue;
+//		
+//		WSANETWORKEVENTS events;					//查看发生的网络事件
+//		int nRet = WSAEnumNetworkEvents(pServView->m_sListen,
+//										pServView->m_hEvent2,//事件对象被重置
+//										&events);		
+//		if (nRet == SOCKET_ERROR)
+//		{
+//			AfxMessageBox(_T("WSAEnumNetworkEvents函数错误"));
+//			break;
+//		}
+//
+//		if ( events.lNetworkEvents & FD_ACCEPT)		//发生FD_ACCEPT网络事件
+//		{
+//			if ( events.iErrorCode[FD_ACCEPT_BIT] == 0 && pServView->m_bRunning)
+//			{
+//				//接受客户端请求
+//				SOCKADDR_IN servAddr;
+//				int	serAddrLen = sizeof(servAddr);	   
+//				if ((sAccept = WSAAccept(sListen, 
+//										(SOCKADDR*)&servAddr,
+//										&serAddrLen,
+//										NULL, 
+//										0)) == SOCKET_ERROR)
+//				{
+//					AfxMessageBox(_T("WSAAccept函数错误"));
+//					break;
+//				}
+//				//创建客户端节点
+//				CClientContext *pClient = new CClientContext(sAccept,pServView);				
+//				if (CreateIoCompletionPort((HANDLE)sAccept,	//套接字与完成端口关联起来
+//							hComPort,
+//							(DWORD) pClient,//完成键
+//							0) == NULL)
+//				//if (bind(sAccept,	//套接字与完成端口关联起来
+//				//							(SOCKADDR)hComPort,
+//				//							sizeof(sAccept)
+//				//							) == NULL)
+//				{
+//					return -1;
+//				}
+//				
+//				//加入管理客户端链表
+//				CClientManager *pClientMgr = CClientManager::GetClientManager();
+//				pClientMgr->AddClient(pClient);
+//				
+//				if(!pClient->AsyncRecvHead())				//接收数据
+//				{
+//					pClientMgr->DeleteClient(pClient);
+//				}				
+//			}
+//		}		
+//	}
+//
+//	//释放资源
+//	CClientManager *pClientMgr = CClientManager::GetClientManager();
+//	pClientMgr->DeleteAllClient();
+//	pClientMgr->ReleaseManager();
+//	return 0;
+//}
+//
+///*
+// * 服务线程
+// */
+//DWORD WINAPI CCodePrinterDlg::ServiceThread( void *pParam )
+//{
+//	CCodePrinterDlg *pServerView = (CCodePrinterDlg*)pParam;//主窗口指针
+//	HANDLE		hComPort = pServerView->m_hCompPort;//完成端口
+//	
+//	DWORD			dwIoSize;		//传输字节数
+//	CClientContext	*pClient;		//客户端指针
+//	LPOVERLAPPED	lpOverlapped;	//重叠结构指针
+//	bool			bExit = FALSE;	//服务线程退出
+//	while (!bExit)
+//	{
+//		dwIoSize = -1;
+//		lpOverlapped = NULL;
+//		pClient = NULL;
+//		//等待I/O操作结果
+//		BOOL bIORet = GetQueuedCompletionStatus(hComPort,
+//												&dwIoSize,
+//												(LPDWORD) &pClient,
+//												&lpOverlapped,
+//												INFINITE);
+//		//失败的操作完成
+//		if (FALSE == bIORet && NULL != pClient)
+//		{	
+//			//客户端断开
+//			if (CClientContext::DOING == pClient->m_eState 
+//				|| CClientContext::LOGIN == pClient->m_eState)
+//			{
+//				pClient->m_eState = CClientContext::DISCON;
+//				pClient->SaveDisConnectState();
+//			}
+//			CClientManager *pClientMgr = CClientManager::GetClientManager();
+//			pClientMgr->DeleteClient(pClient);				
+//		}
+//		//成功的操作完成
+//		if(bIORet && lpOverlapped && pClient) 
+//		{				
+//			CClientManager *pClientMgr = CClientManager::GetClientManager();
+//		 
+//			pClient->m_strSendData.m_nSpeedTheory = pServerView->m_nSpeed;
+//
+//			CString strTmp = pServerView->m_cRecieveInfo;
+//			int nPos = strTmp.Find(_T("Output"));
+//			if(nPos)
+//			{
+//				strTmp = strTmp.Trim(_T(" Output"));
+//				strTmp.TrimLeft();
+//				strTmp.TrimRight();
+//				pClient->m_strSendData.m_dTemp = atof(theApp.myModuleMain.CString2ConstChar(strTmp));
+//			}
+//
+//			pClient->m_strSendData.m_nFrictionSensor = 1200;//pServerView->m_nFrictionSensor;
+//			pClient->m_strSendData.m_nStrainSensor = 1300;//pServerView->m_nStrainSensor;
+//
+//			pClientMgr->ProcessIO(pClient, lpOverlapped, dwIoSize);				
+//		}	
+//		//服务器退出
+//		if(pClient == NULL&& lpOverlapped ==NULL && !pServerView->m_bRunning)
+//		{
+//			bExit = TRUE;
+//		}		
+//	}
+//	return 0;
+//}
+//
+//
+//void CCodePrinterDlg::OnServerStart() 
+//{
+//	int	reVal;						//返回值
+//	
+//	//初始化套接字动态库
+//	WSADATA wsaData;	
+//	if ((reVal = WSAStartup(0x0202, &wsaData)) != 0)
+//	{
+//		AfxMessageBox(_T("初始化套接字动态库错误!"));
+//		return ;
+//	}
+//
+//	//创建套接字
+//	if ((m_sListen = WSASocket(AF_INET,
+//		SOCK_STREAM,
+//		0,
+//		NULL, 
+//		0,
+//		WSA_FLAG_OVERLAPPED)) == INVALID_SOCKET)
+//	{
+//		AfxMessageBox(_T("创建套接字错误!"));
+//		WSACleanup();
+//		return ;
+//	} 
+//	#define IPV4(a,b,c,d) ((a<<24)|(b<<16)|(c<<8)|(d<<0))
+//
+//	m_shServPort = 502;
+//	m_dwServIP = IPV4(169,254,180,2);//2130706433;//
+//	 
+//
+//	//绑定套接字
+//	SOCKADDR_IN	servAddr;//服务器地址
+//	servAddr.sin_family = AF_INET;
+//	servAddr.sin_addr.s_addr = htonl(m_dwServIP);
+//	servAddr.sin_port = htons(m_shServPort);	
+//	if (bind(m_sListen, (SOCKADDR*)&servAddr, sizeof(servAddr)) 
+//		== SOCKET_ERROR)
+//	{
+//		AfxMessageBox(_T("绑定套接字错误!"));
+//		closesocket(m_sListen);
+//		WSACleanup();
+//		return ;
+//	}
+//
+//	//监听
+//	if(listen(m_sListen, SOMAXCONN) == SOCKET_ERROR)
+//	{
+//		AfxMessageBox(_T("监听套接字错误!"));
+//		closesocket(m_sListen);
+//		WSACleanup();
+//		return ;
+//	}
+//
+//	m_bRunning = TRUE;	//服务器运行
+//
+//	//创建接受客户端连接事件对象
+//	m_hEvent2 = WSACreateEvent();
+//	if ( m_hEvent2 == WSA_INVALID_EVENT )
+//	{	
+//		closesocket(m_sListen);
+//		WSACleanup();
+//		return ;
+//	}
+//
+//	//为监听套接字注册FD_ACCEPT网络事件
+//	int nRet = WSAEventSelect(m_sListen,
+//		m_hEvent2,
+//		FD_ACCEPT);	
+//	if ( nRet == SOCKET_ERROR )
+//	{
+//		AfxMessageBox(_T("注册网络事件错误!"));
+//		closesocket(m_sListen);
+//		WSACleanup();
+//		return ;
+//	}
+//
+//	// 创建完成端口
+//	if ((m_hCompPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0)) == NULL)
+//	{
+//		AfxMessageBox(_T("创建完成端口失败!"));
+//		WSACloseEvent(m_hEvent2);
+//		closesocket(m_sListen);
+//		WSACleanup();
+//		return ;
+//	}
+//
+//	//创建接受客户端请求线程
+//	DWORD dwThreadID;
+//	m_hThread[0] = CreateThread(NULL, 
+//		0,
+//		AcceptThread,
+//		this, 
+//		0,  
+//		&dwThreadID);
+//	if (NULL == m_hThread[0])
+//	{
+//		AfxMessageBox(_T("创建接受客户端线程失败!"));
+//		WSACloseEvent(m_hEvent2);
+//		closesocket(m_sListen);
+//		WSACleanup();
+//		return;
+//	}
+//	m_nThreadNum = 1;
+//
+//	//获取CPU数量
+//	SYSTEM_INFO SystemInfo;
+//	GetSystemInfo(&SystemInfo);
+//
+//	//创建服务线程
+//	for(int i = 0; i < SystemInfo.dwNumberOfProcessors * 2; i++)
+//	{
+//		if ((m_hThread[m_nThreadNum++] = CreateThread(NULL, 
+//			0,
+//			ServiceThread,
+//			this,
+//			0, 
+//			&dwThreadID)) == NULL)
+//		{
+//			AfxMessageBox(_T("创建服务线程失败!"));
+//			WSACloseEvent(m_hEvent2);
+//			closesocket(m_sListen);
+//			WSACleanup();
+//			return ;
+//		}
+//
+//	}
+//	//设置定时器，每1分钟发送WM_TIMER消息
+//	//SetTimer(1, 1000 * 60 * 1,NULL);
+//}
