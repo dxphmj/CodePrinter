@@ -16,6 +16,7 @@
 #include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
 //#include "Tchar.h”
 #include "PcfConfig.h"
+#include "DealXml.h"
 
 #define  def_ttl 1
 
@@ -1543,16 +1544,19 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//		if (m_timeSpanWri.GetTotalSeconds()>59)//一分钟写一次维护时间
 		//		{
 		//			//写XML时间
+		//			CDealXml dealXml;
 		//			if (theApp.myTimClass.ServiceTimeLasXML > 0)
 		//			{
 		//				theApp.myTimClass.ServiceTimeLasXML = theApp.myTimClass.ServiceTimeLasXML -1;
-		//				//denghanshu
+		//				CString m_serviceTime  /*theApp.myModuleMain.string2CString(OBJ_Control::to_String(theApp.myTimClass.ServiceTimeLasXML))*/;
+		//				dealXml.SetIniXML(_T("\nandflash\ini.xml"), _T("Ini"), _T("OperaTime"), _T("ServiceTime"), m_serviceTime);
 		//				m_Ink->m_setup->GetDlgItem(IDC_NEXT_SERVICE_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(OBJ_Control::to_String(theApp.myTimClass.ServiceTimeLasXML/60)));
 		//			}
 		//			if (theApp.myTimClass.InkLifeTimeLasXML > 0)
 		//			{
 		//				theApp.myTimClass.InkLifeTimeLasXML = theApp.myTimClass.InkLifeTimeLasXML -1;
-		//				//denghanshu
+		//				CString m_InkLifeTime /*= theApp.myModuleMain.string2CString(OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML))*/;
+		//				dealXml.SetIniXML(_T("\nandflash\ini.xml"), _T("Ini"), _T("OperaTime"),_T("InkLifeTime"),m_InkLifeTime);
 		//				m_Ink->m_setup->GetDlgItem(IDC_INK_LIFE_TIME_EDIT)->SetWindowText(theApp.myModuleMain.string2CString(OBJ_Control::to_String(theApp.myTimClass.InkLifeTimeLasXML/60)));
 		//			}
 		//			theApp.myTimClass.dateTimLasWri = localT;

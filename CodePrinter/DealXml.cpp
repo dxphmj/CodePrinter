@@ -85,8 +85,7 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 				if (pValue)
 				{
 					pValue->SetValue(valueStr);
-				}
-				
+				}				
 				mydoc.SaveFile();
 				return true;
 			}	
