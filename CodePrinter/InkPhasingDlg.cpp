@@ -297,6 +297,7 @@ void CInkPhasingDlg::OnEnSetfocusFixedEdit()
 	CEdit *pEdit = &m_edit_fiexd;
 
 	CCodePrinterDlg* dlg;
+
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
 	dlg->OpenNumKeyBoard(pEdit);
 }
