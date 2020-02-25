@@ -567,6 +567,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ClientContext.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ClientManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CodePrinter.cpp"
 				>
 			</File>
@@ -818,6 +826,14 @@
 			</File>
 			<File
 				RelativePath=".\BtnST.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ClientContext.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ClientManager.h"
 				>
 			</File>
 			<File
@@ -2123,27 +2139,11 @@
 			Name="xml"
 			>
 			<File
-				RelativePath=".\xml\tinystr.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\xml\tinystr.h"
 				>
 			</File>
 			<File
-				RelativePath=".\xml\tinyxml.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\xml\tinyxml.h"
-				>
-			</File>
-			<File
-				RelativePath=".\xml\tinyxmlerror.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\xml\tinyxmlparser.cpp"
 				>
 			</File>
 		</Filter>

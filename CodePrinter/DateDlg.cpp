@@ -299,55 +299,55 @@ void CDateDlg::OnBnClickedDateOkBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	if (theApp.bochange)
 	{
-		for(int i=0;i<theApp.myclassMessage.OBJ_Vec.size();i++)
+		for(int i=0;i<theApp.m_MessageEdit.OBJ_Vec.size();i++)
 		{
-			if (theApp.myclassMessage.OBJ_Vec.at(i)->booFocus)
+			if (theApp.m_MessageEdit.OBJ_Vec.at(i)->booFocus)
 			{
 				CEdit* pEdit = (CEdit*)GetDlgItem(IDC_DATE_PREVIEW_EDIT);
 				CString strText;
 				pEdit-> GetWindowText(strText);
-				theApp.myclassMessage.OBJ_Vec[i]->strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+				theApp.m_MessageEdit.OBJ_Vec[i]->strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
 
 				CString formatText;
 				GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->GetWindowText(formatText);
-				theApp.myclassMessage.OBJ_Vec[i]->strTime=theApp.myModuleMain.CString2string(formatText);
+				theApp.m_MessageEdit.OBJ_Vec[i]->strTime=theApp.myModuleMain.CString2string(formatText);
 
 				CString  fontText;
 				int nIndex = m_dateFontCombo.GetCurSel();  //当前选中的项
 				switch(nIndex)
 				{
 				case 0:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=5;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=5;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 1:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=7;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=7;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 2:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=12;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=12;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				case 3:
-					theApp.myclassMessage.OBJ_Vec[i]->intLineSize=16;
-					theApp.myclassMessage.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
+					theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize=16;
+					theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize=strText.GetLength()*13;//////////这是个坑，注意阿拉伯语要改这
 					break;
 				}
 				m_dateFontCombo.GetLBText(nIndex,fontText);
-				theApp.myclassMessage.OBJ_Vec[i]->strFont=theApp.myModuleMain.CString2string(fontText);
+				theApp.m_MessageEdit.OBJ_Vec[i]->strFont=theApp.myModuleMain.CString2string(fontText);
 
-				theApp.myclassMessage.OBJ_Vec[i]->booETimeOffSet=m_dateSkewCombo.GetCurSel();
+				theApp.m_MessageEdit.OBJ_Vec[i]->booETimeOffSet=m_dateSkewCombo.GetCurSel();
 				CString timeOffText;
 				GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->GetWindowText(timeOffText);
 
 
-				if ((theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize)>theApp.myclassMessage.scrMaxRow)
+				if ((theApp.m_MessageEdit.OBJ_Vec[i]->intRowStart+theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize)>theApp.m_MessageEdit.scrMaxRow)
 				{
-					theApp.myclassMessage.scrMaxRow=theApp.myclassMessage.OBJ_Vec[i]->intRowStart+theApp.myclassMessage.OBJ_Vec[i]->intRowSize;
+					theApp.m_MessageEdit.scrMaxRow=theApp.m_MessageEdit.OBJ_Vec[i]->intRowStart+theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize;
 				}
 
-				theApp.myclassMessage.OBJ_Vec[i]->intTimeOffSet=_ttoi(timeOffText);
-				theApp.myclassMessage.OBJ_Vec[i]->strTimeOffSet=m_skewUnitList.GetCurSel();
+				theApp.m_MessageEdit.OBJ_Vec[i]->intTimeOffSet=_ttoi(timeOffText);
+				theApp.m_MessageEdit.OBJ_Vec[i]->strTimeOffSet=m_skewUnitList.GetCurSel();
 
 				break;
 			}
@@ -359,7 +359,7 @@ void CDateDlg::OnBnClickedDateOkBtn()
 	}
 	int xPos=0;
 	int yPos=0;
-	theApp.myclassMessage.GetNextObjPosition(xPos,yPos);
+	theApp.m_MessageEdit.GetNextObjPosition(xPos,yPos);
 
 	OBJ_Control* tempObj = new OBJ_Control;
 	tempObj->intLineStart=yPos;
@@ -414,13 +414,13 @@ void CDateDlg::OnBnClickedDateOkBtn()
 
 
 
-	if ((tempObj->intRowStart+tempObj->intRowSize)>theApp.myclassMessage.scrMaxRow)
+	if ((tempObj->intRowStart+tempObj->intRowSize)>theApp.m_MessageEdit.scrMaxRow)
 	{
-		theApp.myclassMessage.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
+		theApp.m_MessageEdit.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
 	}
 
 	tempObj->booFocus=true;
 
-	theApp.myclassMessage.OBJ_Vec.push_back(tempObj);
+	theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);
 }

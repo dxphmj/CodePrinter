@@ -153,13 +153,13 @@ void CCodePrinterApp::InitCommMsg()
 //时间序列号刷新时间
 void CCodePrinterApp::refalsetimedata()
 {
-	/*if (myclassMessage.bytTimeConCoun>0)
+	/*if (m_MessageEdit.bytTimeConCoun>0)
 	{
 		boETimetextLock.Lock();
-		for (int j=0;j<myclassMessage.bytTimeConCoun;j++)
+		for (int j=0;j<m_MessageEdit.bytTimeConCoun;j++)
 		{
-			myclassMessage.strETimetext[j] = 
-				myModuleMain.TimeFormatToText(myModuleMain.string2CString(myclassMessage.strTimeFormat[0][j]),myclassMessage.strETimeOffSet[j],myclassMessage.intTimeOffSetdis[j],myclassMessage.strTimeOffSetUint[j]);
+			m_MessageEdit.strETimetext[j] = 
+				myModuleMain.TimeFormatToText(myModuleMain.string2CString(m_MessageEdit.strTimeFormat[0][j]),m_MessageEdit.strETimeOffSet[j],m_MessageEdit.intTimeOffSetdis[j],m_MessageEdit.strTimeOffSetUint[j]);
 		}
 		boETimetextLock.Unlock();
 	}*/

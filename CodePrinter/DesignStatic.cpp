@@ -12,29 +12,19 @@ IMPLEMENT_DYNAMIC(CDesignStatic, CStatic)
 
 CDesignStatic::CDesignStatic()
 {
-
 }
 
 CDesignStatic::~CDesignStatic()
 {
 }
 
-
 BEGIN_MESSAGE_MAP(CDesignStatic, CStatic)
 	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
-
-
 // CDesignStatic 消息处理程序
-
-
-
 void CDesignStatic::OnPaint()
 {
-	//CPaintDC dc(this); // device context for painting
-	// TODO: 在此处添加消息处理程序代码
-	// 不为绘图消息调用 CStatic::OnPaint()
 	CWnd::Default();   // 让控件画它自己的东西
 	CClientDC  dc(this);
 
@@ -44,13 +34,13 @@ void CDesignStatic::OnPaint()
 	CBitmap bitmapTemp;//, *pOldBitmap;
 	//GetClientRect(&rectClient);//获取窗口信息
 	int tempNeed;
-	if (theApp.myclassMessage.scrMaxRow<256)
+	if (theApp.m_MessageEdit.scrMaxRow<256)
 	{
 		tempNeed=1276;
 	}
 	else
 	{
-		tempNeed=theApp.myclassMessage.scrMaxRow*5 + 1;
+		tempNeed=theApp.m_MessageEdit.scrMaxRow*5 + 1;
 	}
 	bitmapTemp.CreateCompatibleBitmap(pDC, tempNeed, 161);//创建内存位图
 	dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
@@ -64,8 +54,8 @@ void CDesignStatic::OnPaint()
 	
 	CBrush cbrush;
 	CBrush* pBrush; //旧笔刷
-	int pixel = theApp.myclassMessage.Pixel+1;
-	if(theApp.myclassMessage.Matrix!=14)//判断是否为2l7m
+	int pixel = theApp.m_MessageEdit.Pixel+1;
+	if(theApp.m_MessageEdit.Matrix!=14)//判断是否为2l7m
 	{
 		//画网格
 		CPen cPen; 
@@ -145,14 +135,10 @@ void CDesignStatic::OnPaint()
 		dcMem.SelectObject(pOldPen);
 		cRPen.DeleteObject();	
 	}
-	theApp.myclassMessage.DrawDot(&dcMem);
-
-
-	pDC->BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMem, theApp.scrPox*5, 0, SRCCOPY);//绘制图片到主dc
-	//dcMem.SelectObject(pOldBitmap);//清理
+	theApp.m_MessageEdit.DrawDot(&dcMem);
+	pDC->BitBlt(0,0,rectClient.Width(),rectClient.Height(),&dcMem,theApp.scrPox*5,0,SRCCOPY);//绘制图片到主dc
 
 	dcMem.DeleteDC();      // 删除内存DC
 	bitmapTemp.DeleteObject();      // 删除内存位图
-
 	ReleaseDC(pDC); 
 }

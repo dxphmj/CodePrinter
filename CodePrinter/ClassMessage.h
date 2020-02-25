@@ -51,7 +51,6 @@ public:
    const char* CString2ConstChar(CString str);
    void DisableAllBtn(HWND hwnd,bool booOpen);
    void ReportPower();
-   //string CString2string(CString csStrData);
    //字符转数字
    int charToDigit(char c);
    int jinzhi16to10(string pre);
@@ -89,10 +88,7 @@ public://字符转换库
 	string IntToString(int i);  
 	string IntToString(char i);  
 	string IntToString(double i);
-
-public:
-	 
- };
+};
 
 
 class MESSAGEEDIT_API OBJ_Control
@@ -106,8 +102,6 @@ public://参数
 	string strDuan;//信息段的标识位
 	string strType1;//字段类型
 	string strType2;	//字段实际类型
-	//int intX;//字段原点X坐标（默认为0）
-	//int intY;//字段原点Y坐标（默认为0）
 	int intSW;//字段的加粗属性（默认为0）
 	int intSS;//字段的字距（默认为0）
 	bool booNEG;//字段的反色（faulse为不反，true为反）
@@ -145,31 +139,23 @@ public://参数
 	int intQRVersion;
 	int intQRErrLevel;
 	int intQREncodingMode;
-	bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框
-public://参数，待定
-	string img;//此为logo图片，vb中为Image类型
-    //vector<vector<bool>> logobmp;//不明
 
-    //vector<vector<bool>> LogoDotToMes;//改变后的Logo图片点阵用于下发数据用
-    //vector<vector<bool>> LogoDot;//logo点阵
-
-
-	bool boDotBmp[32][255];//加载bmp用
-	int xMaxBmp,yMaxBmp;//用来记录本次加载图片的大小
-	 
-	vector<vector<bool>> m_TempboDotMes; //临时用，没有任何意义
-
+	bool boDotBmp[32][255];//显示bmp,条形码，二维码用
+	bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框 
+ 
 public://方法
  
 	void DrawFrame(CDC* pDC);
     void DrawDot(CDC* pDC);
     void GetDot(vector<vector<bool>>& boDotMes);
     void ReadBmp(char* strFileName);
+
 	static std::wstring stringToWstring(const std::string& str);
 	static bool readBin(string FontName,int offset,char *arr, int DataLen );
 	static string DEC_to_BIN(long long Dec);
 	static string to_String(int n);
 	static long long BIN_to_DEC(string Bin);
+
 	void DrawText(CDC* pDC,vector<vector<bool>>& boDotMes);
 	void DrawLogoQRcodeDM(CDC* pDC,vector<vector<bool>>& boDotMes);
 	void Draw5x5_7x5Text(CDC* pDC,int nFontRow,int nFontCol,int nBytesOneWord,vector<vector<bool>>& boDotMes);
@@ -178,16 +164,18 @@ public://方法
 
 	void CreateTimeDynamic(vector<BYTE>& bytPrintDataAll,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,
 									map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
-									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes);
-	void CreateSerialDynamic(vector<BYTE>& bytPrintDataAll);
+									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes,int intRowMax);
 	void CreateSerialDynamic(vector<BYTE>& bytPrintDataAll,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
-									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes);
+									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes,int intRowMax);
 	vector<BYTE> DotToByte1(int tempintDotRowStart, int tempintDotRowEnd, vector<BYTE>& bytTempData,string tempfont, bool tempBWDy, bool tempBWDx ,bool tempNEG , 
 							string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW,bool boReverse, bool boInverse,int matrixMesdis,int pixelMesdis,
 							map<string,vector<BYTE>> bytdigital5x5LineMap,map<string,vector<BYTE>> bytdigital7x5LineMap,
-									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes);
-	BYTE byteUPsidedown(BYTE a,BYTE bBit);
+									map<string,vector<BYTE>> bytdigital12x12LineMap,map<string,vector<BYTE>> bytdigital16x12LineMap,UINT32 *IntMes,int intRowMax);
+	BYTE byteUpsidedown(BYTE a,BYTE bBit);
+	static UINT32 Bits32Upsidedown1(UINT32 n,BYTE bBit);
+	UINT32 Bits32Upsidedown2(UINT32 v,BYTE bBit);
 	UINT32 int32shift(UINT32 a, BYTE y,UINT32 b, BYTE h);
+
 	void searchworddata(bool tempBWDy, bool tempBWDx , bool tempNEG , string tempsetTEXT , int tempRowSize ,
 				int tempLineSize , int tempLineStart , int tempRowStart, int tempSS, int tempSW, int line , map<string,vector<BYTE>> bytdigitalfont,
 				int tempNEGinteger, int tempBWDxinteger,UINT32 *IntMes);
@@ -198,102 +186,68 @@ public://方法
  
 class MESSAGEEDIT_API ClassMessage
 {
-	public:
-		 ClassMessage(void);
-		 ~ClassMessage(void);
-	public:
-		vector<OBJ_Control*> OBJ_Vec;//编辑用
-		vector<OBJ_Control*> lastObj_Vec;//主界面显示用
-		int Matrix;//行数
-		string strMatrix;//行数：1L7M
-		int Pixel;//实际行数
-		string Reverse;//是否群体控制
-		string Inverse;//是否群体控制//这俩没用
-		bool boReverse;//翻转，颠倒，由喷印设置中更改
-		bool boInverse;//翻转，颠倒，由喷印设置中更改
-		vector<vector<bool>> boDotMes;//点阵///    int N=5, M=6; //vector<vector<int> > obj(N, vector<int>(M)); //定义二维动态数组5行6列 
-		int scrMaxRow;//滚动条用
-		int intRowMax;//intDotMesRow//用于主界面显示等
-		int bytRowByteMul;//一列由几个byte表示
-		bool boDynamic;//是否动态打印
-		bool boPrintNow;//是否即时打印
-        
-		bool CounterEditMes[4];
-		UINT32 *IntMes;//动态数组
-		vector<BYTE> intMesDis;//动态显示用
-		//int bytSerialConCoundis;//动态显示用，序列号数
-		int intDotMesRowdis;//动态显示用，列数
-		int matrixMesdis ;//动态显示用，绘制区域最大允许的行数
-		int pixelMesdis;//动态显示用，打印时实际占用的行数
-		bool boReversedis, boInversedis;//动态显示用，翻转颠倒
-		//int intTimeRowSizedis[4], intTimeRowStartdis[4], bintTimelineStartdis[4];//动态显示用
-		//int intQSerialRowSizedis[4], intQSerialRowStartdis[4];//动态显示用
-		void getSerialDotBuf2();//生成对应格式序列号
-		void GetNextObjPosition(int& xPos, int &yPos);//获得下一个对象绘制的起始位置
+public:
+	ClassMessage(void);
+	~ClassMessage(void);
 
-		//int CountNumForPre[4];//序列号计数器用
-		///时间
-		//int bytTimeConCoun ;//时间数量
-		//int bytTimeConCoundis;//动态显示用，时间数量
-		//string strTimeFormat[1][4] ;//时间格式
-		//string strTimeFont[4];//时间字体
-		//int strETimeOffSet[4], strTimeOffSetUint[4];//时间偏置用
-		//string strETimetext[4];//时间文本
-		////
-		bool SerialCountNew;//是否为新建
-		bool SerialCountSet[3];//重置序列号
-		//int bytSerialConCoun;//序列号计数
-		//int bytQserialCounter[4];//序列号计数器
-		//int intQSerialRepeat[4];//重复值
-		//int intQSerialFirstLimit[4];//第一象限
-		//int intQSerialSecondLimit[4];//第二象限
-		//int intQSerialStartValue[4];//开始值
-		//int intQSerialStep[4];//步长
-		//int bytQSerialFormat[4];//格式
-		//int bytQSerialDigits[4];//位数
-		//int CountNum[4], CountNumRep[4];//序列号值和重复次数
-		//string strQSerialFont[4];//序列号字体
-		//bool boTimeBWDy[4], boTimeBWDx[4], boTimeNEG[4], boQSerialBWDy[4], boQSerialBWDx[4], boQSerialNEG[4] ;//序列号相关属性，以dis结尾的是显示用
-		//int bytTimeSS[4], bytTimeSW[4], bytTimeLineSize[4], bytTimeLineStart[4], bytQSerialSS[4], bytQSerialSW[4], bytQSerialLineSize[4], bytQSerialLineStart[4] ;
-		//int intTimeRowSize[4], intTimeRowStart[4], intTimeOffSetdis[4], intQSerialRowSize[4], intQSerialRowStart[4] ;
-		//bool boCountEn[4];//是否更新主界面static序列号
+	ClassMessage& operator=(const ClassMessage& );
 
-		void getdigitaldot();//获得基本字库
-		
-		vector<BYTE> DotToByte1(int tempintDotRowStart, int tempintDotRowEnd, vector<BYTE> bytTempData,string tempfont, bool tempBWDy, bool tempBWDx ,bool tempNEG , 
-			string tempsetTEXT, int tempRowSize, int tempLineSize , int tempLineStart , int tempRowStart , int tempSS , int tempSW);//动态打印内容获取函数
-		map<string,vector<BYTE>> bytdigital5x5LineMap;//基本字库0-9a-zA-Z
-		map<string,vector<BYTE>> bytdigital7x5LineMap;
-		map<string,vector<BYTE>> bytdigital12x12LineMap;
-		map<string,vector<BYTE>> bytdigital16x12LineMap;
+public:
+	vector<OBJ_Control*> OBJ_Vec;
 
-		///////////////////////////////////////
-		vector<BYTE> bytPrintDataAllOrder;//主动发送BUF
-		vector<BYTE> bytPrintDataAll;//空时自动发送BUF
-		////////////////////////////////////
+	int Matrix;//最大可设计的行数
+	int Pixel; //实际要打印的行数（像素高度）
+	int intRowMax;//最大的打印列数（最小打印列数永远是0）
+	string strMatrix;//行数：1L7M
 
- 	public:
+	string Reverse;//是否群体控制
+	string Inverse;//是否群体控制//这俩没用
 
-		string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
-		BYTE getByteFromDot(bool boDot,int moveNum); 
-		void DrawDot(CDC* pDC);
-		void DrawMainPageDot(CDC* pDC);
-		void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
- 		void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int intDynamicLineStart,int intDynamicLineEnd,CDC* pDC);
-		void CreateSerialTimeDynamic();
-		void getdot();
-		vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
-		void OBJ_VecCopy2lastObj_Vec();
-		void ClearlastObj_Vec();
+	bool boReverse;//翻转，由喷印设置中更改
+	bool boInverse;//颠倒，由喷印设置中更改
 
-	public://XML
-		void ReadObjectsFromXml(char* strFileName);
-		void SaveObjectsToXml(char* strFileName);
-		string labPath;
-		string labName;
-		void createLABXML();
-		void getLabFromXml();
+	int scrMaxRow;//滚动条用
+	bool boDynamic;//是否动态打印
+	bool boPrintNow;//是否即时打印，？
+    
+	vector<vector<bool>> boDotMes;//从obj中获得[32][intRowMax]点阵信息，根据点阵的bool值每列组合成一个整数IntMes[intRowMax] 
+	UINT32 *IntMes;//大小intRowMax个整数，每个整数四个字节，表示1列点阵打印信息，主要用来在动态生成打印信息时统一表达整个打印区域
+	vector<BYTE> intMesDis;//主界面显示时表达已打印的信息（字节流，根据Pixel的值每列1-4个字节，排列顺序时先每列从下往上，再从左向右
+	vector<BYTE> bytPrintDataAllOrder;//?
+	vector<BYTE> bytPrintDataAll;//存储动态打印时根据计数器生成的打印字节流，intMesDis其实就等于bytPrintDataAll	
+ 
+	bool SerialCountNew;//是否为新建
+	bool SerialCountSet[4];//重置序列号
 
+	map<string,vector<BYTE>> bytdigital5x5LineMap;//基本字库0-9a-zA-Z
+	map<string,vector<BYTE>> bytdigital7x5LineMap;
+	map<string,vector<BYTE>> bytdigital12x12LineMap;
+	map<string,vector<BYTE>> bytdigital16x12LineMap;
+
+
+public:
+	void DrawDot(CDC* pDC);
+	void getdot();
+	void DrawMainPageDot(CDC* pDC);
+	void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
+	void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int intDynamicLineStart,int intDynamicLineEnd,CDC* pDC);
+ 	void ClearOBJ_Vec();
+	void getSerialTimeDotBuf(); 
+	void getdigitaldot();//获得基本字库
+	int  ModifyGetSerialNums();
+	BYTE getByteFromDot(bool boDot,int moveNum); 
+	void GetNextObjPosition(int& xPos, int &yPos);//获得下一个对象绘制的起始位置
+	vector<BYTE> DotToByte(int tempintDotRowStart, int tempintDotRowEnd);
+	void DrawAllDynamic(CDC* pDC);
+
+public://XML
+	string labPath;
+	string labName;
+	string ReadXml(string xmlFileName,string nameStr,string faultValue,string path);//查
+	void ReadObjectsFromXml(char* strFileName);
+	void SaveObjectsToXml(char* strFileName);
+	void createLABXML();
+	void getLabFromXml();
 };
 
 

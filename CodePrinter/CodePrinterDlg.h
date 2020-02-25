@@ -14,7 +14,7 @@
 #include "InkSystemDlg.h"
 #include "PictureStatic.h"
 #include "MainPicture.h"
-
+#include "Resource.h"
 #include "OnOffDlg.h"
 #include "NumKey.h"
 #include "ResetSerial.h"
@@ -107,4 +107,25 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	void ChangeBottonEnable();
 
+
+public:
+	void OnServerStart(); 
+	static	DWORD WINAPI AcceptThread(void *pParam);//接受客户端请求
+	static	DWORD WINAPI ServiceThread(void *pParam);//服务线程
+
+public: 
+	BOOL			m_bRunning;						//服务器运行状态 
+	DWORD m_dwServIP;	//服务器IP地址
+	SHORT m_shServPort;	//服务器端口
+
+
+	int m_nSpeed; // mm/min
+CString m_cRecieveInfo;
+
+protected:
+	HANDLE			m_hCompPort;					//完成端口句柄
+	SOCKET			m_sListen;						//监听套接字 
+	HANDLE			m_hThread[20];	                //子线程=监听线程+服务线程
+	int				m_nThreadNum;					//实际线程数量
+	HANDLE			m_hEvent2;						//监听事件句柄
 };
