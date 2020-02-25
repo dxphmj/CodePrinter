@@ -57,4 +57,5 @@ public:
 	afx_msg void OnBnClickedResetSerial3Btn();
 	afx_msg void OnBnClickedResetSerial4Btn();
 	afx_msg void OnBnClickedAllResetBtn();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
