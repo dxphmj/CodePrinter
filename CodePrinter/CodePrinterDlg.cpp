@@ -61,6 +61,8 @@
 #define IDC_SEQUENCING_OFF					WM_USER+3028
 #define IDC_PRINTER_OFF						WM_USER+3029
 
+#define ID_ON_OFF_TITLE						WM_USER+3030
+
 
 
 
