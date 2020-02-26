@@ -167,6 +167,14 @@ BOOL COnOffDlg::OnInitDialog()
 		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
 		this->SetWindowText(lanStr.c_str());
 		break;
+	case ARABIC:
+		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
+		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
+		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
+		this->SetWindowText(lanStr.c_str());
+		break;
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

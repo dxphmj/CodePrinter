@@ -142,6 +142,13 @@ void CEnvDlg::OnCbnSelchangeLanguageCombo()
 			ControlTextChange();
 		}
 		break;
+	case ARABIC:
+		isRead= theApp.myLanguage.readLanguageXml("Arabic.xml");
+		if (isRead)
+		{
+			ControlTextChange();
+		}
+		break;
 	default:
 		return;
 	}
