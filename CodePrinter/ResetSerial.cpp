@@ -108,8 +108,8 @@ HBRUSH CResetSerial::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CResetSerial::OnBnClickedResetSerial1Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.m_MessageEdit.SerialCountSet[0] = true;
-	theApp.m_MessageEdit.SerialCountNew = false;
+	theApp.m_MessagePrint.SerialCountSet[0] = true;
+	theApp.m_MessagePrint.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
 	mainDlg->m_Label->CreatePrintData();
@@ -118,8 +118,8 @@ void CResetSerial::OnBnClickedResetSerial1Btn()
 void CResetSerial::OnBnClickedResetSerial2Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.m_MessageEdit.SerialCountSet[1] = true;
-	theApp.m_MessageEdit.SerialCountNew = false;
+	theApp.m_MessagePrint.SerialCountSet[1] = true;
+	theApp.m_MessagePrint.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
 	mainDlg->m_Label->CreatePrintData();
@@ -128,8 +128,8 @@ void CResetSerial::OnBnClickedResetSerial2Btn()
 void CResetSerial::OnBnClickedResetSerial3Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.m_MessageEdit.SerialCountSet[2] = true;
-	theApp.m_MessageEdit.SerialCountNew = false;
+	theApp.m_MessagePrint.SerialCountSet[2] = true;
+	theApp.m_MessagePrint.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
 	mainDlg->m_Label->CreatePrintData();
@@ -138,8 +138,8 @@ void CResetSerial::OnBnClickedResetSerial3Btn()
 void CResetSerial::OnBnClickedResetSerial4Btn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	theApp.m_MessageEdit.SerialCountSet[3] = true;
-	theApp.m_MessageEdit.SerialCountNew = false;
+	theApp.m_MessagePrint.SerialCountSet[3] = true;
+	theApp.m_MessagePrint.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
 	mainDlg->m_Label->CreatePrintData();
@@ -148,9 +148,66 @@ void CResetSerial::OnBnClickedResetSerial4Btn()
 void CResetSerial::OnBnClickedAllResetBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	memset(theApp.m_MessageEdit.SerialCountSet,true,4*sizeof(bool));
-	theApp.m_MessageEdit.SerialCountNew = false;
+	memset(theApp.m_MessagePrint.SerialCountSet,true,4*sizeof(bool));
+	theApp.m_MessagePrint.SerialCountNew = false;
 	//CString tempNum;
 	CCodePrinterDlg* mainDlg=(CCodePrinterDlg*)GetParent();
 	mainDlg->m_Label->CreatePrintData();
+}
+
+BOOL CResetSerial::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	CEdit* pEdit1 = (CEdit*)GetDlgItem(IDC_SET_VALUE1_EDIT);
+	CEdit* pEdit2 = (CEdit*)GetDlgItem(IDC_SET_VALUE2_EDIT);
+	CEdit* pEdit3 = (CEdit*)GetDlgItem(IDC_SET_VALUE3_EDIT);
+	CEdit* pEdit4 = (CEdit*)GetDlgItem(IDC_SET_VALUE4_EDIT);
+	//CEdit* kEdit = (CEdit*)GetDlgItem(IDC_PASSWARD_EDIT);
+	ASSERT(pEdit1 && pEdit1->GetSafeHwnd());
+	ASSERT(pEdit2 && pEdit2->GetSafeHwnd());
+	ASSERT(pEdit3 && pEdit3->GetSafeHwnd());
+	ASSERT(pEdit4 && pEdit4->GetSafeHwnd());
+	if(WM_LBUTTONDOWN == pMsg->message && pEdit1->GetSafeHwnd() == pMsg->hwnd)
+	{
+		CString str;
+		pEdit1-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		str=myCExportDlg.GetInputText(str);
+		pEdit1-> SetWindowText(str);
+		return TRUE;
+	}
+	else if(WM_LBUTTONDOWN == pMsg->message && pEdit2->GetSafeHwnd() == pMsg->hwnd)
+	{
+		CString str;
+		pEdit2-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		str=myCExportDlg.GetInputText(str);
+		pEdit2-> SetWindowText(str);
+		return TRUE;
+	}
+	else if(WM_LBUTTONDOWN == pMsg->message && pEdit3->GetSafeHwnd() == pMsg->hwnd)
+	{
+		CString str;
+		pEdit3-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		str=myCExportDlg.GetInputText(str);
+		pEdit3-> SetWindowText(str);
+		return TRUE;
+	}
+	else if(WM_LBUTTONDOWN == pMsg->message && pEdit4->GetSafeHwnd() == pMsg->hwnd)
+	{
+		CString str;
+		pEdit4-> GetWindowText(str);
+
+		CExportDlg myCExportDlg;
+		str=myCExportDlg.GetInputText(str);
+		pEdit4-> SetWindowText(str);
+		return TRUE;
+	}
+
+
+	return CDialog::PreTranslateMessage(pMsg);
 }

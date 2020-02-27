@@ -145,7 +145,6 @@ BOOL COnOffDlg::OnInitDialog()
 	m_ButSequence.SizeToContent(); 
 	m_ButFast.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_70_45_BITMAP,true);
 	m_ButFast.SizeToContent(); 
-
 	//多语言
 	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	int nIndex = pCodeDlg->m_System->pEvn->m_langeageList.GetCurSel();  //当前语言选中的项
@@ -157,12 +156,24 @@ BOOL COnOffDlg::OnInitDialog()
 		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
 		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
 		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
+		this->SetWindowText(lanStr.c_str());
 		break;
 	case ENGLISH://ENGLISH
 		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
 		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
 		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
 		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
+		this->SetWindowText(lanStr.c_str());
+		break;
+	case ARABIC:
+		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
+		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
+		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
+		this->SetWindowText(lanStr.c_str());
 		break;
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control

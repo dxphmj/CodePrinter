@@ -117,7 +117,7 @@ void CNumKey::getNumFromEdit( CEdit *pEdit )
 
 void CNumKey::OnBnClickedButtonKeyEsc()
 {
-//	m_edit->GetParent()->SetFocus();
+	m_edit->GetParent()->SetFocus();
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(m_pCodePrinterDlg);
 	

@@ -142,6 +142,13 @@ void CEnvDlg::OnCbnSelchangeLanguageCombo()
 			ControlTextChange();
 		}
 		break;
+	case ARABIC:
+		isRead= theApp.myLanguage.readLanguageXml("Arabic.xml");
+		if (isRead)
+		{
+			ControlTextChange();
+		}
+		break;
 	default:
 		return;
 	}
@@ -565,4 +572,8 @@ void CEnvDlg::ControlTextChange()
 	pCodeDlg->m_Fault->GetDlgItem(IDC_TYPE_STATIC)->SetWindowText(lanStr.c_str());
 	lanStr=theApp.myLanguage.LanguageMap["IDC_MESSAGE_STATIC"];
 	pCodeDlg->m_Fault->GetDlgItem(IDC_MESSAGE_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_L_HISTORY_BTN"];
+	pCodeDlg->m_Fault->GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_R_HISTORY_BTN"];
+	pCodeDlg->m_Fault->GetDlgItem(IDC_R_HISTORY_BTN)->SetWindowText(lanStr.c_str());
 }
