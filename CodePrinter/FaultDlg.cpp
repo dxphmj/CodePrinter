@@ -72,9 +72,9 @@ BOOL CFaultDlg::OnInitDialog()
 
 	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pReturn.SizeToContent(); 
-	m_LHistory.LoadBitmaps(IDB_L_HISTORY1_BITMAP,IDB_L_HISTORY2_BITMAP,0,0,IDB_80_55_BITMAP,true);
+	m_LHistory.LoadBitmaps(IDB_L_HISTORY1_BITMAP,IDB_L_HISTORY2_BITMAP,0,0,IDB_L_HISTORY1_BITMAP,true);
 	m_LHistory.SizeToContent(); 
-	m_RHistory.LoadBitmaps(IDB_R_HISTORY1_BITMAP,IDB_R_HISTORY1_BITMAP,0,0,IDB_80_55_BITMAP,true);
+	m_RHistory.LoadBitmaps(IDB_R_HISTORY1_BITMAP,IDB_R_HISTORY1_BITMAP,0,0,IDB_R_HISTORY1_BITMAP,true);
 	m_RHistory.SizeToContent(); 
 	m_refresh.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_refresh.SizeToContent(); 

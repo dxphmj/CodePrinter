@@ -350,10 +350,10 @@ BOOL CCodePrinterDlg::OnInitDialog()
  
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	
+	SetTimer(TIMER1,300,NULL);	
 
 #endif 	
-//	SetTimer(TIMER1,300,NULL);	
+	
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
