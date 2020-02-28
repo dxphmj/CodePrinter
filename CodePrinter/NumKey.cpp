@@ -5,6 +5,8 @@
 #include "CodePrinter.h"
 #include "NumKey.h"
 #include "CodePrinterDlg.h"
+#include "InkParDlg.h"
+#include "InkSystemDlg.h"
 
 
 // CNumKey 对话框
@@ -117,33 +119,35 @@ void CNumKey::getNumFromEdit( CEdit *pEdit )
 
 void CNumKey::OnBnClickedButtonKeyEsc()
 {
-	m_edit->GetParent()->SetFocus();
+	CInkSystemDlg* pardlg;
+	pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());;
+	pardlg->m_par->m_parPressureStatic.SetFocus();
+	pardlg->m_phas->m_fixedStatic.SetFocus();
+
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(m_pCodePrinterDlg);
 	
 	delete dlg->m_pNumKey;
 	dlg->m_pNumKey = NULL;
 	m_edit = NULL;
- //   this->DestroyWindow();
 
-	//this->GetParent()->SetFocus();
-	//this->ShowWindow(SW_HIDE);
-	//isShow = true;
-	//m_edit = NULL;
 	// TODO: 在此添加控件通知处理程序代码
 }
 void CNumKey::OnBnClickedButtonKeyOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CInkSystemDlg* pardlg;
+	pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());;
+	pardlg->m_par->m_parPressureStatic.SetFocus();
+	pardlg->m_phas->m_fixedStatic.SetFocus();
+
 	CCodePrinterDlg* dlg;
-	dlg = (CCodePrinterDlg*)(m_edit->GetParent()->GetParent()->GetParent());
+	dlg = (CCodePrinterDlg*)(m_pCodePrinterDlg);
 
 	delete dlg->m_pNumKey;
 	dlg->m_pNumKey = NULL;
 	m_edit = NULL;
-	//this->GetParent()->SetFocus();
-	//this->ShowWindow(SW_HIDE);
-	//isShow = true;
+
 }
 void CNumKey::OnBnClickedButtonKeyDel()
 {
