@@ -89,16 +89,16 @@ BOOL CInkSystemDlg::OnInitDialog()
 
 	m_inkAdv->Create(IDD_INK_ADVANCE_DIALOG,this);
 	m_inkAdv->MoveWindow(nX+310,nY,nWidth,nHeight);
-
+	/*theApp.SetProgressBar(55);*/
 	m_setup->Create(IDD_INK_SETUP_DIALOG,this);
 	m_setup->MoveWindow(nX,nY,nWidth,nHeight);
-
+	
 	m_par->Create(IDD_INK_PAR_DIALOG,this);
 	m_par->MoveWindow(nX,nY,nWidth,nHeight);
-	
+	theApp.SetProgressBar(60);
 	m_phas->Create(IDD_INK_PHASING_DIALOG,this);
 	m_phas->MoveWindow(nX,nY,nWidth,nHeight);
-
+	
 	m_inkAdv->ShowWindow(SW_HIDE);
 	m_setup->ShowWindow(SW_HIDE);
 	m_par->ShowWindow(SW_HIDE);
@@ -127,10 +127,11 @@ BOOL CInkSystemDlg::OnInitDialog()
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
 	m_returnIB.SizeToContent(); 
-
+	theApp.SetProgressBar(65);
 	//´ýÌí¼Ó²ÊÉ«Í¼Æ¬
 	m_usualIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_usualIB.SizeToContent(); 
+
 	m_advanceIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_advanceIB.SizeToContent(); 
 	m_setupIB.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);

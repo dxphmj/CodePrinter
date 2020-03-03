@@ -172,7 +172,7 @@ BOOL CLabelDlg::OnInitDialog()
 	GetDlgItem(IDC_UDMIRROR_BUTTON)->SetWindowPos(NULL,380,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_LRMIRROR_BUTTON)->SetWindowPos(NULL,484,320,45,40,SWP_SHOWWINDOW);
 	m_picOverturn.SetWindowPos(NULL,430,320,45,40,SWP_SHOWWINDOW);
-	
+	theApp.SetProgressBar(75);
 	//为矩阵组合框添加元素
 	//combo_matrix.SetDroppedWidth(10);  //改变下拉列表下的宽度 
 	ComboMatrix.AddString(_T("1L5M"));
@@ -217,7 +217,7 @@ BOOL CLabelDlg::OnInitDialog()
 	GetDlgItem(IDC_CLOSE_F_EDIT)->SetWindowPos(NULL,250,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_SHRIK_Z_EDIT)->SetFont(theApp.m_EditFont);
 	GetDlgItem(IDC_CLOSE_F_EDIT)->SetFont(theApp.m_EditFont);
-
+	
 	//彩色按钮
 	m_input.LoadBitmaps(IDB_INPUT1_BITMAP,IDB_INPUT2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_input.SizeToContent(); 
@@ -227,7 +227,7 @@ BOOL CLabelDlg::OnInitDialog()
 	m_copy.SizeToContent(); 
 	m_delete.LoadBitmaps(IDB_LABEL_DELETE1_BITMAP,IDB_LABEL_DELETE2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_delete.SizeToContent(); 
-
+	
 	m_shrink.LoadBitmaps(IDB_SHRINK1_BITMAP,IDB_SHRINK2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_shrink.SizeToContent(); 
 	m_zoom.LoadBitmaps(IDB_ZOOM1_BITMAP,IDB_ZOOM2_BITMAP,0,0,IDB_45_40_BITMAP);
@@ -236,7 +236,7 @@ BOOL CLabelDlg::OnInitDialog()
 	m_notback.SizeToContent(); 
 	m_addback.LoadBitmaps(IDB_ADDBACK1_BITMAP,IDB_ADDBACK2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_addback.SizeToContent(); 
-
+	
 	m_close.LoadBitmaps(IDB_CLOSE1_BITMAP,IDB_CLOSE2_BITMAP,0,0,IDB_45_40_BITMAP);
 	m_close.SizeToContent(); 
 	m_far.LoadBitmaps(IDB_FAR1_BITMAP,IDB_FAR2_BITMAP,0,0,IDB_45_40_BITMAP);
@@ -253,6 +253,7 @@ BOOL CLabelDlg::OnInitDialog()
 	m_U_shift.SizeToContent(); 
 	m_D_shift.LoadBitmaps(IDB_D_SHIFT1_BITMAP,IDB_D_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_D_shift.SizeToContent(); 
+	
 	m_L_shift.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_L_shift.SizeToContent(); 
 	m_R_shift.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT1_BITMAP,0,0,IDB_60_35_BITMAP);
@@ -271,7 +272,7 @@ BOOL CLabelDlg::OnInitDialog()
 	m_save.SizeToContent();
 	m_return.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_return.SizeToContent();
-	
+	theApp.SetProgressBar(80);
 
 	//test
 

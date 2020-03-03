@@ -164,3 +164,11 @@ void CCodePrinterApp::refalsetimedata()
 		boETimetextLock.Unlock();
 	}*/
 }
+
+void CCodePrinterApp::SetProgressBar(int nPos)
+{
+	 CDealXml dealmxl;
+	 CString strPos;
+	 strPos.Format(L"%d",nPos);
+	 dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),strPos,_T("Storage Card\\System"));
+}

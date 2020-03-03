@@ -78,7 +78,7 @@ BOOL CUserDlg::OnInitDialog()
 
 	pUserFresh->Create(IDD_USER_FRESH_DIALOG,this);
 	pUserFresh->MoveWindow(nX,nY,nWidth,nHeight);
-
+	theApp.SetProgressBar(25);
 
 	GetDlgItem(IDC_EDIT_NOWUSER)->SetWindowText(theApp.myModuleMain.string2CString(theApp.myUserPower.nowUser.userName));
 	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_LIST_ALLUSER);

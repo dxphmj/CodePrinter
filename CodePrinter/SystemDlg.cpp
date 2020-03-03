@@ -90,6 +90,7 @@ BOOL CSystemDlg::OnInitDialog()
 	m_freshDown.SizeToContent(); 
 	m_sysReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_sysReturn.SizeToContent(); 
+	theApp.SetProgressBar(15);
 	m_sysOk.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_sysOk.SizeToContent(); 
 	m_dhcp.LoadBitmaps(IDB_DHCP1_BITMAP,IDB_DHCP2_BITMAP,0,0,IDB_80_55_BITMAP);

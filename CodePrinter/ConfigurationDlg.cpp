@@ -97,9 +97,11 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_ConfigPM->Create(IDD_CONFIG_PRINT_MODE_DIALOG,this);
 	m_ConfigPM->MoveWindow(nX,nY,nWidth,nHeight);
 	m_ConfigPM->ShowWindow(SW_HIDE);
+    theApp.SetProgressBar(35);
  	m_ConfigOS->Create(IDD_CONFIG_OUTSET_DIALOG,this);
 	m_ConfigOS->MoveWindow(nX,nY,nWidth,nHeight);
 	m_ConfigOS->ShowWindow(SW_HIDE);
+	theApp.SetProgressBar(40);
  
 	m_reverse.AddString(L"OFF");
 	m_reverse.AddString(L"ON");
@@ -138,12 +140,15 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_configOkIB.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_configOkIB.SizeToContent(); 
 
+
+	
+
 	m_edit_height.SetFont(theApp.m_EditFont);
 	m_edit_repeatDis.SetFont(theApp.m_EditFont);
 	m_edit_dotPitch.SetFont(theApp.m_EditFont);
 	m_edit_delay.SetFont(theApp.m_EditFont);
 	m_edit_speed.SetFont(theApp.m_EditFont);
-
+	theApp.SetProgressBar(45);
 	//////////////////////////////////////////////////////////////////////////
 	for(int i = 0; i < 8; i++)
 	{
@@ -153,7 +158,7 @@ BOOL CConfigurationDlg::OnInitDialog()
 	}
 	m_nPcfPic = IDB_SETUP_017-IDB_SETUP_017;;
 	pcf_diagram_select(); 
-
+	
 	m_reverse.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
 	m_inverse.SetFont(theApp.m_ListBoxFont);
 	m_speedWay.SetFont(theApp.m_ListBoxFont);

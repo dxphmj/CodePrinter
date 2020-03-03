@@ -46,8 +46,8 @@ public:
 public:
 	void InitCommMsg();
 	void refalsetimedata();
-
-//
+    void SetProgressBar(int nPos);
+ //
 	BYTE bytSlaveStatus[37];
 	queue<vector<BYTE>> queCtr;//命令队列
 	queue<vector<BYTE>> ForPreQue;//序列号队列

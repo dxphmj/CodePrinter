@@ -18,6 +18,7 @@
 #include "OnOffDlg.h"
 #include "NumKey.h"
 #include "ResetSerial.h"
+#include "DealXml.h"
 #define TIMER1 1
 
 // CCodePrinterDlg ¶Ô»°¿ò

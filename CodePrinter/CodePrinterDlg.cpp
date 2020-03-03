@@ -122,16 +122,19 @@ END_MESSAGE_MAP()
 
 // CCodePrinterDlg 消息处理程序
 
+
+
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
+	this->ShowWindow(SW_HIDE);
+   
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
-
-
+	//dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("10"),_T("Storage Card\\System"));
+    theApp.SetProgressBar(5);
 	// TODO: 在此添加额外的初始化代码
 		//全屏显示
 		//隐藏HHTaskBar窗口代码如下:       
@@ -146,7 +149,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
 	::SetWindowPos(this->m_hWnd, HWND_TOPMOST, 0, 0, iFullWidth, iFullHeight,
 		SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
-
 	//SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
 	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );
 	bool iniLanXml;
@@ -155,7 +157,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	lanStr=theApp.myLanguage.LanguageMap["IDC_MACHINE_STATUS"];
     m_PicHead.SetMachineStatus(lanStr.c_str());//Shut Down
 	m_PicHead.ShowLogo(true);
-	
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 	mainPicStruct.myMainPicture=&m_PictureMain;
 	m_Fault = new CFaultDlg;
@@ -166,7 +167,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
 	m_resetSerial = new CResetSerial;
-
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
@@ -178,31 +178,34 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	int nY = 80;
 	int nWidth = 800;
 	int nHeight = 500;
- 
+	
 	m_Fault->Create(IDD_FAULT_DIALOG,this);
 	m_Fault->MoveWindow(nX,nY,nWidth,nHeight); 
  	
 	m_System->Create(IDD_SYSTEM_DIALOG,this);
 	m_System->MoveWindow(nX,nY,nWidth,nHeight);
- 
+	theApp.SetProgressBar(20);
 	m_User->Create(IDD_USER_DIALOG,this);
 	m_User->MoveWindow(nX,nY,nWidth,nHeight);
- 
+	theApp.SetProgressBar(30);
+	
 	m_Confi->Create(IDD_CONFIGURATION_DIALOG,this);
-	m_Confi->MoveWindow(nX,nY,nWidth,nHeight);
- 
+ 	m_Confi->MoveWindow(nX,nY,nWidth,nHeight);
+	theApp.SetProgressBar(50);
+
 	m_FileMan->Create(IDD_FILEMANA_DIALOG,this);
 	m_FileMan->MoveWindow(nX,nY,nWidth,nHeight);
- 
+	theApp.SetProgressBar(55);
 	m_Ink->Create(IDD_INKSYSTEM_DIALOG,this);
 	m_Ink->MoveWindow(nX,nY,nWidth,nHeight); 
-	 
+	theApp.SetProgressBar(70);
 	m_Label->Create(IDD_LABEL_DIALOG,this);
 	m_Label->MoveWindow(nX,nY,nWidth,nHeight); 
+	theApp.SetProgressBar(85);
 	
 	m_resetSerial->Create(IDD_RESET_SERIAL_DIALOG,this);
 	m_resetSerial->MoveWindow(nX,nY,nWidth,nHeight); 
-	 
+
 	//右侧一列设置按钮的位置及大小
 	GetDlgItem(IDC_FAULT_BUTTON)->SetWindowPos(NULL,710,10,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_SYSTEM_BUTTON)->SetWindowPos(NULL,700,100,80,55,SWP_SHOWWINDOW);
@@ -218,14 +221,13 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_ONOROFF_BUTTON)->SetWindowPos(NULL,50,450,80,50,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_STARTPRINT_BUTTON)->SetWindowPos(NULL,280,420,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetWindowPos(NULL,450,420,80,55,SWP_SHOWWINDOW);
-	
 	//彩色按钮
-
+	//dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("90"),_T("Storage Card\\System"));
 	m_ButResetCounter.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_ButResetCounter.SizeToContent(); 
 	m_ButResetSerial.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_ButResetSerial.SizeToContent(); 
-
+	/*theApp.SetProgressBar(90);*/
 	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButFault.SizeToContent(); 
 	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_80_55_BITMAP);
@@ -240,6 +242,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButFileMana.SizeToContent(); 
 	m_ButInk.LoadBitmaps(IDB_INKSYSTEM1_BITMAP,IDB_INKSYSTEM2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButInk.SizeToContent(); 
+	theApp.SetProgressBar(90);
 
 	m_ButOnOrOff.LoadBitmaps(IDB_ONOFF1_BITMAP,IDB_ONOFF2_BITMAP,0,0,IDB_ONOFF1_BITMAP);
 	m_ButOnOrOff.SizeToContent(); 
@@ -247,8 +250,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_StartPrint.SizeToContent(); 
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT1_BITMAP,IDB_PAUSE_PRINT2_BITMAP,0,0,IDB_PAUSE_PRINT1_BITMAP);
 	m_PausePrint.SizeToContent(); 
-
+	//dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));
 	//m_PictureMain.Invalidate();
+	theApp.SetProgressBar(95);
 
 
 #ifndef _DEBUG
@@ -317,7 +321,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		GetDlgItem(IDC_STATIC_LABNAME)->SetWindowText(_T("Default.lab"));
 	}
 	delete testFile;
-
+	/*dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("80"),_T("Storage Card\\System"));*/
 	//theApp.myStatusClass.download_inksystem_control03();
 
 
@@ -326,7 +330,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//SetTimer(TIMER1,300,NULL);	
     //墨水配置初始化
-
+	theApp.SetProgressBar(100);
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 	pInksysConfig.get_inksystem_from_xml();
@@ -339,7 +343,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 	GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pPcfConfig.m_pcfName);
 	m_Confi->pcfNameDlg = pPcfConfig.m_pcfName;
-	
+	//dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));
 #ifndef _DEBUG
 //#ifdef def_ttl
 
@@ -358,7 +362,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 	m_pNumKey = NULL;
 	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
+	
 
+	/*dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));*/
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -1807,7 +1813,6 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 
 HBRUSH CCodePrinterDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-
 	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 	if(nCtlColor == CTLCOLOR_STATIC)
 	{		 

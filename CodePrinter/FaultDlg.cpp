@@ -80,11 +80,12 @@ BOOL CFaultDlg::OnInitDialog()
 	m_refresh.SizeToContent(); 
 	m_delete.LoadBitmaps(IDB_DELETE1_BITMAP,IDB_DELETE2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_delete.SizeToContent(); 
+	theApp.SetProgressBar(10);
 	m_next.LoadBitmaps(IDB_NEXT1_BITMAP,IDB_NEXT2_BITMAP,0,0,IDB_70_45_BITMAP);
 	m_next.SizeToContent(); 
 	m_before.LoadBitmaps(IDB_BEFORE1_BITMAP,IDB_BEFORE2_BITMAP,0,0,IDB_70_45_BITMAP);
 	m_before.SizeToContent(); 
-
+	
 	getAllErrorFile();
 	get_error_name();
 	CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
