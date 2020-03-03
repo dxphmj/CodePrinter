@@ -149,7 +149,7 @@ BOOL CLabelDlg::OnInitDialog()
 	pInput->Create(IDD_INPUT_DIALOG,this);
 	pInput->MoveWindow(0,260,800,340);
 	pInput->ShowWindow(SW_HIDE);
-
+	theApp.SetProgressBar(75);
 	//设置按钮的位置及大小
 	GetDlgItem(IDC_INPUT_BUTTON)->SetWindowPos(NULL,200,200,60,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_REPEAT_BUTTON)->SetWindowPos(NULL,290,200,60,40,SWP_SHOWWINDOW);
@@ -172,7 +172,7 @@ BOOL CLabelDlg::OnInitDialog()
 	GetDlgItem(IDC_UDMIRROR_BUTTON)->SetWindowPos(NULL,380,320,45,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_LRMIRROR_BUTTON)->SetWindowPos(NULL,484,320,45,40,SWP_SHOWWINDOW);
 	m_picOverturn.SetWindowPos(NULL,430,320,45,40,SWP_SHOWWINDOW);
-	theApp.SetProgressBar(75);
+	
 	//为矩阵组合框添加元素
 	//combo_matrix.SetDroppedWidth(10);  //改变下拉列表下的宽度 
 	ComboMatrix.AddString(_T("1L5M"));

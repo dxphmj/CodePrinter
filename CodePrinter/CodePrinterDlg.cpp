@@ -201,7 +201,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	theApp.SetProgressBar(70);
 	m_Label->Create(IDD_LABEL_DIALOG,this);
 	m_Label->MoveWindow(nX,nY,nWidth,nHeight); 
-	theApp.SetProgressBar(85);
+	/*theApp.SetProgressBar(85);*/
 	
 	m_resetSerial->Create(IDD_RESET_SERIAL_DIALOG,this);
 	m_resetSerial->MoveWindow(nX,nY,nWidth,nHeight); 
@@ -227,7 +227,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButResetCounter.SizeToContent(); 
 	m_ButResetSerial.LoadBitmaps(IDB_RANGE_BITMAP,IDB_RANGE2_BITMAP,0,0,IDB_80_55_BITMAP,true);
 	m_ButResetSerial.SizeToContent(); 
-	/*theApp.SetProgressBar(90);*/
+	theApp.SetProgressBar(85);
 	m_ButFault.LoadBitmaps(IDB_FAULT1_BITMAP,IDB_FAULT2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_ButFault.SizeToContent(); 
 	m_ButSystem.LoadBitmaps(IDB_SYSTEM1_BITMAP,IDB_SYSTEM2_BITMAP,0,0,IDB_80_55_BITMAP);
