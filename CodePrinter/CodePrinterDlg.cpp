@@ -175,9 +175,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\LanguageXml"), NULL);//多语言文件夹，以后移动到system文件夹下比较好
 	int nX = 0;
-	int nY = 80;
+	int nY = 75;
 	int nWidth = 800;
-	int nHeight = 500;
+	int nHeight = 525;
 	
 	m_Fault->Create(IDD_FAULT_DIALOG,this);
 	m_Fault->MoveWindow(nX,nY,nWidth,nHeight); 

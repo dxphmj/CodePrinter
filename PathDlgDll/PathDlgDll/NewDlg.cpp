@@ -79,7 +79,7 @@ BOOL CNewDlg::OnInitDialog()
 	m_CLOBUT.LoadBitmaps(IDB_BITMAP_CLOUP,IDB_BITMAP_CLODOWN,0,0,IDB_BITMAP_CLOUP);
 	m_CLOBUT.SizeToContent(); 
 
-	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );
+	SetWindowPos(NULL,0,75,800,525,SWP_SHOWWINDOW );
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }

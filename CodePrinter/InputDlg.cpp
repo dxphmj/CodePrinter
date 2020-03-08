@@ -66,7 +66,7 @@ BOOL CInputDlg::OnInitDialog()
 	int nX = 0;
 	int nY = 75;
 	int nWidth = 800;
-	int nHeight = 600-nY;
+	int nHeight = 525;
 	pEditText->Create(IDD_EDITTEXT_DIALOG,this);
 	pEditText->MoveWindow(nX,nY,nWidth,nHeight);
 	pEditText->ShowWindow(SW_HIDE);
