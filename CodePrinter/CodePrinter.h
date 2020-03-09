@@ -83,6 +83,10 @@ public:
 	UserPower myUserPower;
 	bool bochange;//用于判断是否为更改；
 	DECLARE_MESSAGE_MAP()
+public:
+	BYTE m_lastOnOffStatue;//上次开关机状态
+	BYTE m_lastStartPrint;//上次喷印状态
+	
 };
 
 extern CCodePrinterApp theApp;

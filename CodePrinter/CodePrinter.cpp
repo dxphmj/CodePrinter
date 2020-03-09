@@ -34,6 +34,8 @@ CCodePrinterApp theApp;
 
 BOOL CCodePrinterApp::InitInstance()
 {
+	m_lastOnOffStatue = 0;
+	m_lastStartPrint = 0;
 	mainPicPixel=7;
 	mainPicMatrx=9;
 	if (!AfxSocketInit())

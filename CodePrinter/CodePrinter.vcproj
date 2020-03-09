@@ -1703,6 +1703,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\ÇÐ»»ÓÃ»§--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ÇÐ»»ÓÃ»§.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\É¾³ý--.bmp"
 				>
 			</File>
@@ -1715,11 +1723,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\É¾³ý.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\É¾³ý.bmp"
+				RelativePath=".\res\É¾³ýÓÃ»§--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\É¾³ýÓÃ»§.bmp"
 				>
 			</File>
 			<File
@@ -1743,11 +1759,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\SMALL\ÓÒ--.bmp"
+				RelativePath=".\res\fault\ÓÒ--.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\ÓÒ--.bmp"
+				RelativePath=".\res\SMALL\ÓÒ--.bmp"
 				>
 			</File>
 			<File
@@ -1839,19 +1855,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\×ó--.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\SMALL\×ó--.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\×ó.bmp"
+				RelativePath=".\res\fault\×ó--.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\SMALL\×ó.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\×ó.bmp"
 				>
 			</File>
 			<File
@@ -1880,6 +1896,14 @@
 			</File>
 			<File
 				RelativePath=".\res\¿ªÊ¼ÅçÓ¡.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\¿ªÊ¼ÅçÓ¡22--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\¿ªÊ¼ÅçÓ¡22.bmp"
 				>
 			</File>
 			<File
@@ -1971,6 +1995,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\ÐÂ½¨ÓÃ»§ÐÂ--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ÐÂ½¨ÓÃ»§ÐÂ.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\ÎÞÌî³ä--.bmp"
 				>
 			</File>
@@ -1992,6 +2024,14 @@
 			</File>
 			<File
 				RelativePath=".\res\ÔÝÍ£ÅçÓ¡.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ÔÝÍ£ÅçÓ¡22--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ÔÝÍ£ÅçÓ¡22.bmp"
 				>
 			</File>
 			<File
@@ -2068,6 +2108,14 @@
 			</File>
 			<File
 				RelativePath=".\res\±à¼­ÓÃ»§.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±à¼­ÓÃ»§ÐÂ--.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\±à¼­ÓÃ»§ÐÂ.bmp"
 				>
 			</File>
 			<File

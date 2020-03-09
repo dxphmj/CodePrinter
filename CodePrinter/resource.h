@@ -217,6 +217,20 @@
 #define IDD_RESET_SERIAL_DIALOG         467
 #define IDB_BITMAP1                     469
 #define IDB_70_45_1_BITMAP              469
+#define IDB_START_PRINT3_BITMAP         470
+#define IDB_START_PRINT4_BITMAP         471
+#define IDB_PAUSE_PRINT3_BITMAP         472
+#define IDB_PAUSE_PRINT4_BITMAP         473
+#define IDB_USER_NEWUSER1_BITMAP        474
+#define IDB_USER_NEWUSER2_BITMAP        475
+#define IDB_USER_EDITUSER1_BITMAP       476
+#define IDB_USER_EDITUSER2_BITMAP       477
+#define IDB_USER_DELEUSER1_BITMAP       478
+#define IDB_USER_DELEUSER2_BITMAP       479
+#define IDB_USER_CHANGEUSER1_BITMAP     480
+#define IDB_BITMAP8                     481
+#define IDB_USER_CHANGEUSER2_BITMAP     481
+#define IDB_BITMAP9                     493
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -769,7 +783,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        470
+#define _APS_NEXT_RESOURCE_VALUE        494
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1848
 #define _APS_NEXT_SYMED_VALUE           148
