@@ -148,6 +148,10 @@ BOOL COnOffDlg::OnInitDialog()
 	//多语言
 	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	int nIndex = pCodeDlg->m_System->pEvn->m_langeageList.GetCurSel();  //当前语言选中的项
+	while ( nIndex == -1 )
+	{
+		nIndex = CHINESE_SIMPLIFIED;//默认为中文
+	}
 	wstring lanStr;
 	switch(nIndex)
 	{

@@ -244,6 +244,34 @@
 	<IDC_SEQUENCING_ON>系统开机中</IDC_SEQUENCING_ON>
 	<IDC_SEQUENCING_OFF>系统关机中</IDC_SEQUENCING_OFF>
 	<IDC_PRINTER_OFF>关闭打印</IDC_PRINTER_OFF>
+<!--故障信息翻译-->
+	<Inktemperaturesensorfault>墨水温度传感器故障</Inktemperaturesensorfault>
+	<Printheadtemperaturesensorfault>打印头温度传感器故障</Printheadtemperaturesensorfault>
+	<Pumpspeedabnormal>泵转速异常</Pumpspeedabnormal>
+	<Pressureabnormal>压力异常</Pressureabnormal>
+	<InkViscoabnormal>墨水粘度异常</InkViscoabnormal>
+	<Viscometerfault>粘度计故障</Viscometerfault>
+	<Recylefault>回收故障</Recylefault>
+	<Fanfault>风扇故障</Fanfault>
+	<Highvoltagefault>高压故障</Highvoltagefault>
+	
+	<Addsolvent>添加溶剂</Addsolvent>
+	<Solventempty>溶剂空</Solventempty>
+	<Solventoverfull>溶剂过满</Solventoverfull>
+	<Addink>添加墨水</Addink>
+	<Inkempty>墨水空</Inkempty>
+	<Inkoverfull>墨水过满</Inkoverfull>
+	<Muchtooproduct>电眼过快</Muchtooproduct>
+	<Automodulationfault>自动分裂失败</Automodulationfault>
+	<Valvefault>阀故障</Valvefault>
+	<Toofast>编码器过快</Toofast>
+	<Constanttemperaturefault>恒温故障</Constanttemperaturefault>
+	<Inkhasexpired>墨水过期</Inkhasexpired>
+	<Inkliferemaining>墨水寿命剩余</Inkliferemaining>
+	<minutes>分钟</minutes>
+	<hours>小时</hours>
+	<Timetoservicingnow>服务时间已到</Timetoservicingnow>
+	<Nextservicingremaining>距下次服务时间还有</Nextservicingremaining>
 </Lan>
 
 

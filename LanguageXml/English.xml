@@ -244,7 +244,34 @@
 	<IDC_SEQUENCING_ON>Sequencing On</IDC_SEQUENCING_ON>
 	<IDC_SEQUENCING_OFF>Sequencing Off</IDC_SEQUENCING_OFF>
 	<IDC_PRINTER_OFF>Printer Off</IDC_PRINTER_OFF>
-
+<!--故障信息翻译-->
+	<Inktemperaturesensorfault>Ink temperature sensor fault</Inktemperaturesensorfault>
+	<Printheadtemperaturesensorfault>Printhead temperature sensor fault</Printheadtemperaturesensorfault>
+	<Pumpspeedabnormal>Pump speed abnormal</Pumpspeedabnormal>
+	<Pressureabnormal>Pressure abnormal</Pressureabnormal>
+	<InkViscoabnormal>Ink Visco abnormal</InkViscoabnormal>
+	<Viscometerfault>Viscometer fault</Viscometerfault>
+	<Recylefault>Recyle fault</Recylefault>
+	<Fanfault>Fan fault</Fanfault>
+	<Highvoltagefault>High voltage fault</Highvoltagefault>
+	
+	<Addsolvent>Add solvent</Addsolvent>
+	<Solventempty>Solvent empty</Solventempty>
+	<Solventoverfull>Solvent overfull</Solventoverfull>
+	<Addink>Add ink</Addink>
+	<Inkempty>Ink empty</Inkempty>
+	<Inkoverfull>Ink overfull</Inkoverfull>
+	<Muchtooproduct>Much too product</Muchtooproduct>
+	<Automodulationfault>Auto modulation fault</Automodulationfault>
+	<Valvefault>Valve fault</Valvefault>
+	<Toofast>Too fast</Toofast>
+	<Constanttemperaturefault>Constant temperature fault</Constanttemperaturefault>
+	<Inkhasexpired>Ink has expired</Inkhasexpired>
+	<Inkliferemaining>Ink life remaining</Inkliferemaining>
+	<minutes>minutes</minutes>
+	<hours>hours</hours>
+	<Timetoservicingnow>Time to servicing now</Timetoservicingnow>
+	<Nextservicingremaining>Next servicing remaining</Nextservicingremaining>
 </Lan>
 
 

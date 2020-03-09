@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "ImageButton.h"
+#include "afxwin.h"
 using namespace std;
 // CFaultDlg ¶Ô»°¿ò
 
@@ -71,4 +72,8 @@ public:
 	bool m_staValFauLas;      //·§¹ÊÕÏ
 	bool m_staLinFasLas;      //±àÂëÆ÷¹ı¿ì
 	bool m_staPriHeaHotFauLas;//ºãÎÂ¹ÊÕÏ
+	afx_msg void OnLbnSelchangeFaultList();
+	CStatic m_ErrorTrans;
+public:
+	vector<CString> split(CString str ,CString segStr);//×Ö·û´®·Ö¸î
 };

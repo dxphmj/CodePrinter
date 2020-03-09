@@ -7,6 +7,34 @@
 #include <fstream>
 #include "CodePrinterDlg.h"
 
+#define ARABIC					0 
+#define CHINESE_SIMPLIFIED		1
+#define CHINESE_TRADITIONAL		2
+#define CZECH					3
+#define DUTCH					4
+#define ENGLISH					5 
+#define ESTONIAN				6 
+#define FARSI					7 
+#define FINNISH					8 
+#define FRENCH					9 
+#define GERMAN					10 
+#define HINDI					11 
+#define HUNGARIAN				12 
+#define ITALIAN					13 
+#define JAPANESE				14 
+#define KANNADA					15 
+#define KOREAN					16 
+#define POLISH					17 
+#define PORTUGUESE				18 
+#define ROMANIAN				19 
+#define RUSSIAN					20 
+#define SERBIAN					21 
+#define SPANISH					22 
+#define SWEDISH					23 
+#define TAMIL					24 
+#define THAI					25 
+#define TURKISH					26 
+#define VIETNAMESE				27 
 // CFaultDlg 对话框
 
 IMPLEMENT_DYNAMIC(CFaultDlg, CDialog)
@@ -33,6 +61,7 @@ void CFaultDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DELETE_BTN, m_delete);
 	DDX_Control(pDX,IDC_NEXT_BTN,m_next);
 	DDX_Control(pDX, IDC_BEFORE_BTN, m_before);
+	DDX_Control(pDX, IDC_MUL_LANGV_STATIC, m_ErrorTrans);
 }
 
 
@@ -46,6 +75,7 @@ BEGIN_MESSAGE_MAP(CFaultDlg, CDialog)
 	ON_BN_CLICKED(IDC_R_HISTORY_BTN, &CFaultDlg::OnBnClickedRHistoryBtn)
 	ON_WM_CTLCOLOR()
 
+	ON_LBN_SELCHANGE(IDC_FAULT_LIST, &CFaultDlg::OnLbnSelchangeFaultList)
 END_MESSAGE_MAP()
 
 
@@ -63,13 +93,14 @@ BOOL CFaultDlg::OnInitDialog()
 	GetDlgItem(IDC_REFRESH_BTN)->SetWindowPos(NULL,700,420,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_R_HISTORY_BTN)->SetWindowPos(NULL,580,420,80,55,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowPos(NULL,460,420,80,55,SWP_SHOWWINDOW);
-
+	
 	GetDlgItem(IDC_FAULT_LIST)->SetWindowPos(NULL,21,65,670,330,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_DATE_STATIC)->SetWindowPos(NULL,42, 42,200, 20,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_TIME_STATIC)->SetWindowPos(NULL,191, 42,200, 20,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_TYPE_STATIC)->SetWindowPos(NULL,312, 42,200, 20,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_MESSAGE_STATIC)->SetWindowPos(NULL,440, 42,200, 20,SWP_SHOWWINDOW);
 
+	GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowPos(NULL,160,435,250,33,SWP_SHOWWINDOW);
 	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pReturn.SizeToContent(); 
 	m_LHistory.LoadBitmaps(IDB_L_HISTORY1_BITMAP,IDB_L_HISTORY2_BITMAP,0,0,IDB_L_HISTORY1_BITMAP,true);
@@ -353,6 +384,7 @@ void CFaultDlg::OnBnClickedBeforeBtn()
 	{
 		m_errBox->SetCurSel(m_errBox->GetCurSel()-1);
 	}
+	OnLbnSelchangeFaultList();
 }
 
 //下
@@ -364,6 +396,7 @@ void CFaultDlg::OnBnClickedNextBtn()
 	{
 		m_errBox->SetCurSel(m_errBox->GetCurSel()+1);
 	}
+	OnLbnSelchangeFaultList();
 }
 
 //重置
@@ -467,4 +500,68 @@ HBRUSH CFaultDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+
+void CFaultDlg::OnLbnSelchangeFaultList()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
+	int aIndex;
+	CString errorStr;
+	aIndex=m_errBox->GetCurSel(); 
+	m_errBox->GetText(aIndex,errorStr);
+	vector< CString >SplitOut = split(errorStr,_T("          "));//分割符为10个空格
+	m_ErrorTrans.SetWindowText(SplitOut.at(2));
+
+	CString tempstr = SplitOut.at(2);
+	tempstr.Replace(_T(" "),NULL);//去除字符串中所有空格
+	
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
+	int nIndex = pCodeDlg->m_System->pEvn->m_langeageList.GetCurSel();  //当前语言选中的项
+	while ( nIndex == -1 )
+	{
+		nIndex = CHINESE_SIMPLIFIED;//默认为中文
+	}
+	wstring lanStr;
+	string error = CT2A(tempstr.GetBuffer());
+	switch(nIndex)
+	{
+	case CHINESE_SIMPLIFIED: //CHINESE_SIMPLIFIED
+		lanStr=theApp.myLanguage.LanguageMap[error];
+		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		break;
+	case ENGLISH://ENGLISH
+		lanStr=theApp.myLanguage.LanguageMap[error];
+		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		break;
+	case ARABIC:
+		lanStr=theApp.myLanguage.LanguageMap[error];
+		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		break;
+	}
+}
+
+std::vector<CString> CFaultDlg::split(CString str ,CString segStr)
+{
+	int length = str.GetLength();
+	vector< CString >SplitOut;
+ 
+	CString strTemp = str;  
+	int iIndex = 0;  
+	while (1)  
+	{  
+		iIndex = strTemp.Find(segStr);  
+		if(iIndex >= 0)  
+		{  
+			SplitOut.push_back(strTemp.Left(iIndex));  
+			strTemp = strTemp.Right(strTemp.GetLength()-iIndex-segStr.GetLength());  
+		}  
+		else  
+		{  
+			break;  
+		}  
+	}  
+	SplitOut.push_back(strTemp);  
+
+	return SplitOut; 
 }

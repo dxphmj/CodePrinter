@@ -413,6 +413,8 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 	else
 		m_Fault->m_strPreOperation = m_PicHead.m_strOperation;
 	m_PicHead.SetOperationString(_T("¹ÊÕÏ")); //Fault System
+
+	m_Fault->m_ErrorTrans.SetWindowText(NULL);//Çå¿Õ·­Òë
 	showDlg(IDD_FAULT_DIALOG);
 	m_Fault->ShowWindow(SW_SHOW);	
 }

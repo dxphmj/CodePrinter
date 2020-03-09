@@ -244,6 +244,34 @@
 	<IDC_SEQUENCING_ON>النظام بدأ</IDC_SEQUENCING_ON>
 	<IDC_SEQUENCING_OFF>النظام يغلق</IDC_SEQUENCING_OFF>
 	<IDC_PRINTER_OFF>أطفئ الطباعة</IDC_PRINTER_OFF>
+<!--故障信息翻译-->
+	<Inktemperaturesensorfault>خطاء بحساس حرارة الحبر</Inktemperaturesensorfault>
+	<Printheadtemperaturesensorfault>حطاء بحساس حرارة الراس</Printheadtemperaturesensorfault>
+	<Pumpspeedabnormal>سرعة المضخة غير صحيحة</Pumpspeedabnormal>
+	<Pressureabnormal>ضغط غير صحيح</Pressureabnormal>
+	<InkViscoabnormal>اللزوجة خطأ</InkViscoabnormal>
+	<Viscometerfault>حساس اللزوجة خاطئ</Viscometerfault>
+	<Recylefault>خطأ اعادة التدوير</Recylefault>
+	<Fanfault>خطأ بالمروحة</Fanfault>
+	<Highvoltagefault>خطأ بالجعد العالي</Highvoltagefault>
+	
+	<Addsolvent>اضافة مذيب</Addsolvent>
+	<Solventempty>مذيب فارغ</Solventempty>
+	<Solventoverfull>مذيب فوق المستوى</Solventoverfull>
+	<Addink>اضافة حبر</Addink>
+	<Inkempty>حبر فارغ</Inkempty>
+	<Inkoverfull>حبر فوق المستوى</Inkoverfull>
+	<Muchtooproduct>منتجات كثيرة</Muchtooproduct>
+	<Automodulationfault>خطا ترميز</Automodulationfault>
+	<Valvefault>خطا بالصمام</Valvefault>
+	<Toofast>سريع جدا</Toofast>
+	<Constanttemperaturefault>خطا بتثبيت الحرارة</Constanttemperaturefault>
+	<Inkhasexpired>انتهاء صلاحية الحبر</Inkhasexpired>
+	<Inkliferemaining>صلاحية الحبر المتبقية</Inkliferemaining>
+	<minutes>دقائق</minutes>
+	<hours>ساعات</hours>
+	<Timetoservicingnow>وقت الخدمة قد حان</Timetoservicingnow>
+	<Nextservicingremaining>وقت الخدمة التالي المتاح</Nextservicingremaining>
 </Lan>
 
 
