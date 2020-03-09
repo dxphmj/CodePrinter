@@ -64,9 +64,9 @@ BOOL CUserDlg::OnInitDialog()
 	pUserFresh = new CUserFreshDlg;
 
 	int nX = 0;
-	int nY = 80;
+	int nY = 75;
 	int nWidth = 800;
-	int nHeight = 520;
+	int nHeight = 525;
 	pUserOpen->Create(IDD_USER_OPEN_DIALOG,this);
 	pUserOpen->MoveWindow(nX,nY,nWidth,nHeight);
 
