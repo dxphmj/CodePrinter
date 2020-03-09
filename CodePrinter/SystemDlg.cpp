@@ -77,9 +77,9 @@ BOOL CSystemDlg::OnInitDialog()
  	pVersion->Create(IDD_VERSION_DIALOG,this);
 
 	int nX = 0;
-	int nY = 100;
+	int nY = 75;
 	int nWidth = 800;
-	int nHeight = 350;
+	int nHeight = 375;
 	pEvn->MoveWindow(nX,nY,nWidth,nHeight);
 	pCom->MoveWindow(nX,nY,nWidth,nHeight);
 	pVersion->MoveWindow(nX,nY,nWidth,nHeight);	 

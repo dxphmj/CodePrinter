@@ -138,7 +138,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	// TODO: 在此添加额外的初始化代码
 		//全屏显示
 		//隐藏HHTaskBar窗口代码如下:       
-		HWND hTaskBar = ::FindWindow(TEXT("HHTaskBar"), NULL);        
+	HWND hTaskBar = ::FindWindow(TEXT("HHTaskBar"), NULL);        
 	if (hTaskBar != NULL)       
 	{       
 		::EnableWindow(hTaskBar, FALSE);       
@@ -175,9 +175,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\LanguageXml"), NULL);//多语言文件夹，以后移动到system文件夹下比较好
 	int nX = 0;
-	int nY = 80;
+	int nY = 75;
 	int nWidth = 800;
-	int nHeight = 500;
+	int nHeight = 525;
 	
 	m_Fault->Create(IDD_FAULT_DIALOG,this);
 	m_Fault->MoveWindow(nX,nY,nWidth,nHeight); 
@@ -356,14 +356,27 @@ BOOL CCodePrinterDlg::OnInitDialog()
  
 	theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//定时器初始化 (不要在定时器后面初始化)
-	SetTimer(TIMER1,300,NULL);	
+		
 
 #endif 	
-	
-	m_pNumKey = NULL;
-	GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
-	
-
+	SetTimer(TIMER1,300,NULL);
+	//m_pNumKey = NULL;
+	//GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
+	//HWND hWnd = NULL;
+	//hWnd = ::FindWindow(NULL,_T("Load"));
+	//if (hWnd == NULL)
+	//{
+	//	return TRUE;
+	//}
+	//
+	//DWORD dwProcessId;
+	////得到该窗口的进程ID
+	//GetWindowThreadProcessId(hWnd,&dwProcessId);
+	////从进程ID打开进程句柄
+	//HANDLE handle = OpenProcess(0,false,dwProcessId);
+	////强制终止进程
+	//TerminateProcess(handle,0);
+	//::SendMessage(hWnd,WM_CLOSE,0,0);
 	/*dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));*/
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -866,7 +879,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	//故障列表要清除，但又得防止刷新太快，最好判断一下如果列表中已显示该类型故障就不用添加了。
   //  m_Fault->m_faultList.ResetContent();    
 	//墨水温度传感器故障
-    if (theApp.myStatusClass.staInkTemSenFau == false && m_Fault->m_staInkTemSenFauLas == false)
+    if (theApp.myStatusClass.staInkTemSenFau == true && m_Fault->m_staInkTemSenFauLas == false)
 	{
 		/*theApp.myStatusClass.staInkTemSenFauLas = true;*/
 		m_Fault->m_staInkTemSenFauLas = true;
@@ -884,7 +897,7 @@ void CCodePrinterDlg::GetFaultInfo()
 	}
 
 	//喷头温度传感器故障
-	if (theApp.myStatusClass.staPriHeaTemFau == false && m_Fault->m_staPriHeaTemFauLas == false)
+	if (theApp.myStatusClass.staPriHeaTemFau == true && m_Fault->m_staPriHeaTemFauLas == false)
 	{
 	/*	theApp.myStatusClass.staPriHeaTemFauLas = true;*/
 		m_Fault->m_staPriHeaTemFauLas = true;
@@ -1460,15 +1473,35 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 			}//系统准备好
 
 		}//开了打印功能和系统准备好
-
-		//打印按钮的开启
-		if (theApp.myStatusClass.ctr0X03bit0 == 0 ) //开打印功能，1开启
+		//判断开关机
+		if (theApp.myStatusClass.ctr0X00bit0 == 0 && theApp.m_lastOnOffStatue == 1)//关机
 		{
-			
+			m_ButOnOrOff.LoadBitmaps(IDB_ONOFF1_BITMAP,IDB_ONOFF1_BITMAP,0,0,IDB_ONOFF1_BITMAP);
+			m_ButOnOrOff.SizeToContent(); 
+			theApp.m_lastOnOffStatue = 0;
 		}
-		else if (theApp.myStatusClass.ctr0X03bit0 == 1 )
+		else if (theApp.myStatusClass.ctr0X00bit0 == 1 && theApp.m_lastOnOffStatue == 0)//开机
 		{
-
+			m_ButOnOrOff.LoadBitmaps(IDB_ONOFF2_BITMAP,IDB_ONOFF2_BITMAP,0,0,IDB_ONOFF2_BITMAP);
+			m_ButOnOrOff.SizeToContent(); 
+			theApp.m_lastOnOffStatue = 1;
+		}
+		//打印按钮的开启
+		if (theApp.myStatusClass.ctr0X03bit0 == 0 && theApp.m_lastStartPrint == 1) //开打印功能，1开启
+		{
+			m_StartPrint.LoadBitmaps(IDB_START_PRINT1_BITMAP,IDB_START_PRINT2_BITMAP,0,0,IDB_START_PRINT1_BITMAP);
+			m_StartPrint.SizeToContent(); 
+			m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT3_BITMAP,IDB_PAUSE_PRINT4_BITMAP,0,0,IDB_PAUSE_PRINT3_BITMAP);
+			m_PausePrint.SizeToContent(); 
+			theApp.m_lastStartPrint = 0;
+		}
+		else if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.m_lastStartPrint == 0)
+		{
+			m_StartPrint.LoadBitmaps(IDB_START_PRINT3_BITMAP,IDB_START_PRINT4_BITMAP,0,0,IDB_START_PRINT3_BITMAP);
+			m_StartPrint.SizeToContent(); 
+			m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT1_BITMAP,IDB_PAUSE_PRINT2_BITMAP,0,0,IDB_PAUSE_PRINT1_BITMAP);
+			m_PausePrint.SizeToContent(); 
+			theApp.m_lastStartPrint = 1;
 		}		
 
        //当前电平

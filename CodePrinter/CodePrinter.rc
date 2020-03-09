@@ -193,7 +193,7 @@ BEGIN
     EDITTEXT        IDC_DOT_PITCH_EDIT,381,25,40,23,ES_AUTOHSCROLL
     LTEXT           "延时[mm]",IDC_DELAY_STATIC,406,66,36,12
     EDITTEXT        IDC_DELAY_EDIT,407,81,40,23,ES_AUTOHSCROLL
-    COMBOBOX        IDC_SPEED_WAY_COMBO,367,230,48,46,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_SPEED_WAY_COMBO,367,230,61,46,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "速度模式",IDC_SPEED_WAY_STATIC,368,215,42,12
     LTEXT           "速度[m/min]",IDC_SPEED_STATIC,453,215,54,12
     EDITTEXT        IDC_SPEED_EDIT,453,230,40,23,ES_AUTOHSCROLL
@@ -1168,6 +1168,18 @@ IDB_BEFORE2_BITMAP      BITMAP                  "res\\fault\\上--.bmp"
 IDB_DELETE1_BITMAP      BITMAP                  "res\\fault\\删除.bmp"
 IDB_DELETE2_BITMAP      BITMAP                  "res\\fault\\删除--.bmp"
 IDB_70_45_1_BITMAP      BITMAP                  "res\\70x45纯蓝按钮.bmp"
+IDB_START_PRINT3_BITMAP BITMAP                  "res\\开始喷印22.bmp"
+IDB_START_PRINT4_BITMAP BITMAP                  "res\\开始喷印22--.bmp"
+IDB_PAUSE_PRINT3_BITMAP BITMAP                  "res\\暂停喷印22.bmp"
+IDB_PAUSE_PRINT4_BITMAP BITMAP                  "res\\暂停喷印22--.bmp"
+IDB_USER_NEWUSER1_BITMAP BITMAP                  "res\\新建用户新.bmp"
+IDB_USER_NEWUSER2_BITMAP BITMAP                  "res\\新建用户新--.bmp"
+IDB_USER_EDITUSER1_BITMAP BITMAP                  "res\\编辑用户新.bmp"
+IDB_USER_EDITUSER2_BITMAP BITMAP                  "res\\编辑用户新--.bmp"
+IDB_USER_DELEUSER1_BITMAP BITMAP                  "res\\删除用户.bmp"
+IDB_USER_DELEUSER2_BITMAP BITMAP                  "res\\删除用户--.bmp"
+IDB_USER_CHANGEUSER1_BITMAP BITMAP                  "res\\切换用户.bmp"
+IDB_USER_CHANGEUSER2_BITMAP BITMAP                  "res\\切换用户--.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

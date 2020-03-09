@@ -174,7 +174,7 @@ BOOL CPathDialog::OnInitDialog()
 	//testTree->SetBkColor(m_BKcolor);///不是成员
 	//delete m_Font;
 
-	SetWindowPos(NULL,0,80,800,520,SWP_SHOWWINDOW );	
+	SetWindowPos(NULL,0,75,800,525,SWP_SHOWWINDOW );	
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE

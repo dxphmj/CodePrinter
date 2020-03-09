@@ -64,9 +64,9 @@ BOOL CUserDlg::OnInitDialog()
 	pUserFresh = new CUserFreshDlg;
 
 	int nX = 0;
-	int nY = 80;
+	int nY = 75;
 	int nWidth = 800;
-	int nHeight = 520;
+	int nHeight = 525;
 	pUserOpen->Create(IDD_USER_OPEN_DIALOG,this);
 	pUserOpen->MoveWindow(nX,nY,nWidth,nHeight);
 
@@ -104,13 +104,13 @@ BOOL CUserDlg::OnInitDialog()
 
 	m_userReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RETURN1_BITMAP);
 	m_userReturn.SizeToContent(); 
-	m_userOpen.LoadBitmaps(IDB_USER_OPEN1_BITMAP,IDB_USER_OPEN2_BITMAP,0,0,IDB_USER_OPEN1_BITMAP);
+	m_userOpen.LoadBitmaps(IDB_USER_EDITUSER1_BITMAP,IDB_USER_EDITUSER2_BITMAP,0,0,IDB_USER_EDITUSER1_BITMAP);
 	m_userOpen.SizeToContent(); 
-	m_userNew.LoadBitmaps(IDB_USER_NEW1_BITMAP,IDB_USER_NEW2_BITMAP,0,0,IDB_USER_NEW1_BITMAP);
+	m_userNew.LoadBitmaps(IDB_USER_NEWUSER1_BITMAP,IDB_USER_NEWUSER2_BITMAP,0,0,IDB_USER_NEWUSER1_BITMAP);
 	m_userNew.SizeToContent(); 
-	m_userDelete.LoadBitmaps(IDB_USER_DELE1_BITMAP,IDB_USER_DELE2_BITMAP,0,0,IDB_USER_DELE1_BITMAP);
+	m_userDelete.LoadBitmaps(IDB_USER_DELEUSER1_BITMAP,IDB_USER_DELEUSER2_BITMAP,0,0,IDB_USER_DELEUSER1_BITMAP);
 	m_userDelete.SizeToContent(); 
-	m_userFresh.LoadBitmaps(IDB_FRESH1_BITMAP,IDB_FRESH2_BITMAP,0,0,IDB_FRESH1_BITMAP);
+	m_userFresh.LoadBitmaps(IDB_USER_CHANGEUSER1_BITMAP,IDB_USER_CHANGEUSER2_BITMAP,0,0,IDB_USER_CHANGEUSER1_BITMAP);
 	m_userFresh.SizeToContent(); 
 	m_userOk.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_OK1_BITMAP);
 	m_userOk.SizeToContent(); 
