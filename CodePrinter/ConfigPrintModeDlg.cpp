@@ -146,7 +146,7 @@ void CConfigPrintModeDlg::OnEnSetfocusReapeatCountEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,4);
 }
 
 void CConfigPrintModeDlg::OnBnClickedConfigOkBtn()

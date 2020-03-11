@@ -284,7 +284,7 @@ BOOL CDateDlg::PreTranslateMessage(MSG* pMsg)
 		//pEdit->SetSel(-1);
 		CCodePrinterDlg* dlg;
 		dlg = (CCodePrinterDlg*)(GetParent()->GetParent()->GetParent());
-		dlg->OpenNumKeyBoard(cEdit);
+		dlg->OpenNumKeyBoard(cEdit,6);
 		return TRUE;
 	}
 

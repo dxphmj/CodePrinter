@@ -299,7 +299,7 @@ void CInkPhasingDlg::OnEnSetfocusFixedEdit()
 	CCodePrinterDlg* dlg;
 
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,2);
 }
 
 void CInkPhasingDlg::download_inksystem_mv()

@@ -25,6 +25,7 @@ public:
 	int m_EditId;
 	CEdit *m_edit;
 	bool isShow;
+	int m_dlgNum;
 	CWnd* m_pCodePrinterDlg;
 	
 public:

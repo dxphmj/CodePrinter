@@ -155,7 +155,7 @@ void CConfigOutSetDlg::OnEnSetfocusImpulseEdit()
 	CEdit *pEdit = &m_impulse;
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,3);
 }
 
 void CConfigOutSetDlg::OnEnSetfocusTriggerLenEdit()
@@ -165,7 +165,7 @@ void CConfigOutSetDlg::OnEnSetfocusTriggerLenEdit()
 	CEdit *pEdit = &m_triggerLen;
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,3);
 }
 
 void CConfigOutSetDlg::OnEnSetfocusLengthEdit()
@@ -175,7 +175,7 @@ void CConfigOutSetDlg::OnEnSetfocusLengthEdit()
 	CEdit *pEdit = &m_length;
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,3);
 }
 
 void CConfigOutSetDlg::OnBnClickedOutsetOkBtn()

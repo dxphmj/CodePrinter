@@ -99,7 +99,7 @@ public:
 	
 public:
 	void showDlg(int ID);
-	void OpenNumKeyBoard(CEdit * pWnd);
+	void OpenNumKeyBoard(CEdit * pWnd,int dlgNum);
 
 public:
 

@@ -22,7 +22,7 @@
 #include "DealXml.h"
 
 #define  def_ttl 1
-
+//对话框左上角
 #define ID_SYSTEM_MANAGEMENT				WM_USER+3000
 #define ID_SYSTEM_NETWORK					WM_USER+3001
 #define ID_SYSTEM_COM						WM_USER+3002
@@ -54,15 +54,16 @@
 
 #define ID_ERROR_INFORMATION				WM_USER+3023
 
+//打印机状态
 #define IDC_MACHINE_STATUS					WM_USER+3024
 #define IDC_READY_TO_PRINT					WM_USER+3025
 #define IDC_SYSTEM_READY					WM_USER+3026
 #define IDC_SEQUENCING_ON					WM_USER+3027
 #define IDC_SEQUENCING_OFF					WM_USER+3028
 #define IDC_PRINTER_OFF						WM_USER+3029
-
-#define ID_ON_OFF_TITLE						WM_USER+3030
-
+//开关机界面
+#define ID_ON_TITLE							WM_USER+3030
+#define ID_OFF_TITLE						WM_USER+3031
 
 
 
@@ -360,7 +361,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 
 #endif 	
 	SetTimer(TIMER1,300,NULL);
-	//m_pNumKey = NULL;
+	m_pNumKey = NULL;
 	//GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 	//HWND hWnd = NULL;
 	//hWnd = ::FindWindow(NULL,_T("Load"));
@@ -402,12 +403,13 @@ void CCodePrinterDlg::OnBnClickedLabelButton()
 	showDlg(IDD_LABEL_DIALOG);
 }
 
-void CCodePrinterDlg::OpenNumKeyBoard(CEdit * pWnd)
+void CCodePrinterDlg::OpenNumKeyBoard(CEdit * pWnd,int dlgNum)
 {
 	if(!m_pNumKey)
 	{
 		m_pNumKey = new CNumKey();
 		m_pNumKey->Create( IDD_DIALOG_NUMKEY,pWnd->GetParent()); 
+		m_pNumKey->m_dlgNum = dlgNum;
 		m_pNumKey->m_edit = pWnd;
 		m_pNumKey->ShowWindow(SW_SHOW);
 		m_pNumKey->m_pCodePrinterDlg = this;

@@ -160,24 +160,48 @@ BOOL COnOffDlg::OnInitDialog()
 		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
 		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
 		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
-		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
-		this->SetWindowText(lanStr.c_str());
+		if (theApp.m_lastOnOffStatue = 0)//关机
+		{
+			lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
+			this->SetWindowText(lanStr.c_str());
+		} 
+		else if (theApp.m_lastOnOffStatue = 1)//开机
+		{
+			lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
+			this->SetWindowText(lanStr.c_str());
+		}
 		break;
 	case ENGLISH://ENGLISH
 		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
 		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
 		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
 		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
-		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
-		this->SetWindowText(lanStr.c_str());
+		if (theApp.m_lastOnOffStatue = 0)//关机
+		{
+			lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
+			this->SetWindowText(lanStr.c_str());
+		} 
+		else if (theApp.m_lastOnOffStatue = 1)//开机
+		{
+			lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
+			this->SetWindowText(lanStr.c_str());
+		}
 		break;
 	case ARABIC:
 		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
 		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
 		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
 		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
-		lanStr=theApp.myLanguage.LanguageMap["ID_ON_OFF_TITLE"];
-		this->SetWindowText(lanStr.c_str());
+		if (theApp.m_lastOnOffStatue = 0)//关机
+		{
+			lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
+			this->SetWindowText(lanStr.c_str());
+		} 
+		else if (theApp.m_lastOnOffStatue = 1)//开机
+		{
+			lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
+			this->SetWindowText(lanStr.c_str());
+		}
 		break;
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control

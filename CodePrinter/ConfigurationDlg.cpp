@@ -444,7 +444,7 @@ void CConfigurationDlg::OnEnSetfocusHeightEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,5);
 }
 
 void CConfigurationDlg::OnEnSetfocusRepeatDisEdit()
@@ -454,7 +454,7 @@ void CConfigurationDlg::OnEnSetfocusRepeatDisEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,5);
 }
 
 void CConfigurationDlg::OnEnSetfocusDotPitchEdit()
@@ -464,7 +464,7 @@ void CConfigurationDlg::OnEnSetfocusDotPitchEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,5);
 }
 void CConfigurationDlg::OnEnSetfocusSpeedEdit()
 {
@@ -473,7 +473,7 @@ void CConfigurationDlg::OnEnSetfocusSpeedEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,5);
 }
 
 void CConfigurationDlg::OnEnSetfocusDelayEdit()
@@ -483,5 +483,5 @@ void CConfigurationDlg::OnEnSetfocusDelayEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,5);
 }

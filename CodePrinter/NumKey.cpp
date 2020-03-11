@@ -8,7 +8,8 @@
 #include "InkParDlg.h"
 #include "InkSystemDlg.h"
 
-
+#define InkParDlg     1
+#define InkPhasingDlg 2
 // CNumKey 对话框
 
 IMPLEMENT_DYNAMIC(CNumKey, CDialog)
@@ -119,14 +120,23 @@ void CNumKey::getNumFromEdit( CEdit *pEdit )
 
 void CNumKey::OnBnClickedButtonKeyEsc()
 {
+	m_edit->GetParent()->SetFocus();
+
 	CInkSystemDlg* pardlg;
-	pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());;
-	pardlg->m_par->m_parPressureStatic.SetFocus();
-	pardlg->m_phas->m_fixedStatic.SetFocus();
+	if ( m_dlgNum == InkParDlg )
+	{
+		pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());
+		pardlg->m_par->m_parPressureStatic.SetFocus();
+	}
+	else if ( m_dlgNum == InkPhasingDlg )
+	{
+		pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());
+		pardlg->m_phas->m_fixedStatic.SetFocus();
+	}
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(m_pCodePrinterDlg);
-	
+
 	delete dlg->m_pNumKey;
 	dlg->m_pNumKey = NULL;
 	m_edit = NULL;
@@ -136,10 +146,19 @@ void CNumKey::OnBnClickedButtonKeyEsc()
 void CNumKey::OnBnClickedButtonKeyOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	m_edit->GetParent()->SetFocus();
+
 	CInkSystemDlg* pardlg;
-	pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());;
-	pardlg->m_par->m_parPressureStatic.SetFocus();
-	pardlg->m_phas->m_fixedStatic.SetFocus();
+	if ( m_dlgNum == InkParDlg )
+	{
+		pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());
+		pardlg->m_par->m_parPressureStatic.SetFocus();
+	}
+	else if ( m_dlgNum == InkPhasingDlg )
+	{
+		pardlg = (CInkSystemDlg*)(m_edit->GetParent()->GetParent());
+		pardlg->m_phas->m_fixedStatic.SetFocus();
+	}
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(m_pCodePrinterDlg);

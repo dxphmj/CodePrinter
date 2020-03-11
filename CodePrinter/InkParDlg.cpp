@@ -154,7 +154,7 @@ void CInkParDlg::OnEnSetfocusParPressureEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 
 }
 
@@ -165,7 +165,7 @@ void CInkParDlg::OnEnSetfocusPrintheadTempEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusParPumpSpeedEdit()
@@ -175,7 +175,7 @@ void CInkParDlg::OnEnSetfocusParPumpSpeedEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusViscoDeviaEdit()
@@ -185,7 +185,7 @@ void CInkParDlg::OnEnSetfocusViscoDeviaEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusInkFlowLevEdit()
@@ -195,7 +195,7 @@ void CInkParDlg::OnEnSetfocusInkFlowLevEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusSolventFlowLevEdit()
@@ -205,7 +205,7 @@ void CInkParDlg::OnEnSetfocusSolventFlowLevEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusInkAddLevEdit()
@@ -215,7 +215,7 @@ void CInkParDlg::OnEnSetfocusInkAddLevEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusSolAddLevEdit()
@@ -225,7 +225,7 @@ void CInkParDlg::OnEnSetfocusSolAddLevEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusInkEmptyLevEdit()
@@ -235,7 +235,7 @@ void CInkParDlg::OnEnSetfocusInkEmptyLevEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
 
 void CInkParDlg::OnEnSetfocusSolEmptyLevEdit()
@@ -245,5 +245,5 @@ void CInkParDlg::OnEnSetfocusSolEmptyLevEdit()
 
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent()->GetParent());
-	dlg->OpenNumKeyBoard(pEdit);
+	dlg->OpenNumKeyBoard(pEdit,1);
 }
