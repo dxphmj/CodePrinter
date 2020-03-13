@@ -128,7 +128,7 @@ END_MESSAGE_MAP()
 BOOL CCodePrinterDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	this->ShowWindow(SW_HIDE);
+	//this->ShowWindow(SW_HIDE);
    
 	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
@@ -144,13 +144,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	{       
 		::EnableWindow(hTaskBar, FALSE);       
 		::ShowWindow(hTaskBar, SW_HIDE);       
-	}       
-
-	int iFullWidth  = GetSystemMetrics(SM_CXSCREEN);
-	int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
-	::SetWindowPos(this->m_hWnd, HWND_TOPMOST, 0, 0, iFullWidth, iFullHeight,
-		SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
-	//SetWindowPos(NULL,0,0,800,600,SWP_SHOWWINDOW );	
+	}       	
 	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );
 	bool iniLanXml;
 	iniLanXml = theApp.myLanguage.readLanguageXml("ChineseSimplified.xml");
@@ -331,7 +325,6 @@ BOOL CCodePrinterDlg::OnInitDialog()
  //   theApp.TTLcom=AfxBeginThread(TTLcomLoop,NULL,THREAD_PRIORITY_HIGHEST);
 	//SetTimer(TIMER1,300,NULL);	
     //墨水配置初始化
-	theApp.SetProgressBar(100);
 	CInksystemconfig pInksysConfig(this);
 	CPcfConfig pPcfConfig(this);
 	pInksysConfig.get_inksystem_from_xml();
@@ -360,6 +353,12 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		
 
 #endif 	
+	theApp.SetProgressBar(100);
+
+    int iFullWidth  = GetSystemMetrics(SM_CXSCREEN);
+	int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
+	::SetWindowPos(this->m_hWnd, HWND_TOPMOST,0,0,iFullWidth, iFullHeight,SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
+
 	SetTimer(TIMER1,300,NULL);
 	m_pNumKey = NULL;
 	//GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
