@@ -149,6 +149,20 @@ void CEnvDlg::OnCbnSelchangeLanguageCombo()
 			ControlTextChange();
 		}
 		break;
+	case DUTCH:
+		isRead= theApp.myLanguage.readLanguageXml("Dutch.xml");
+		if (isRead)
+		{
+			ControlTextChange();
+		}
+		break;
+	case HUNGARIAN:
+		isRead= theApp.myLanguage.readLanguageXml("Hungarian.xml");
+		if (isRead)
+		{
+			ControlTextChange();
+		}
+		break;
 	default:
 		return;
 	}

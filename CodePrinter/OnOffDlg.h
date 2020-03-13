@@ -29,4 +29,5 @@ public:
 	CImageButton m_ButSequence;
 	CImageButton m_ButFast;
 	virtual BOOL OnInitDialog();
+	void OnOffLanChange();
 };

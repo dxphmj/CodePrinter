@@ -152,58 +152,43 @@ BOOL COnOffDlg::OnInitDialog()
 	{
 		nIndex = CHINESE_SIMPLIFIED;//默认为中文
 	}
-	wstring lanStr;
 	switch(nIndex)
 	{
 	case CHINESE_SIMPLIFIED: //CHINESE_SIMPLIFIED
-		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
-		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
-		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
-		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
-		if (theApp.m_lastOnOffStatue = 0)//关机
-		{
-			lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
-			this->SetWindowText(lanStr.c_str());
-		} 
-		else if (theApp.m_lastOnOffStatue = 1)//开机
-		{
-			lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
-			this->SetWindowText(lanStr.c_str());
-		}
+		OnOffLanChange();
 		break;
 	case ENGLISH://ENGLISH
-		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
-		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
-		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
-		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
-		if (theApp.m_lastOnOffStatue = 0)//关机
-		{
-			lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
-			this->SetWindowText(lanStr.c_str());
-		} 
-		else if (theApp.m_lastOnOffStatue = 1)//开机
-		{
-			lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
-			this->SetWindowText(lanStr.c_str());
-		}
+		OnOffLanChange();
 		break;
 	case ARABIC:
-		lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
-		GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
-		lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
-		GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
-		if (theApp.m_lastOnOffStatue = 0)//关机
-		{
-			lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
-			this->SetWindowText(lanStr.c_str());
-		} 
-		else if (theApp.m_lastOnOffStatue = 1)//开机
-		{
-			lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
-			this->SetWindowText(lanStr.c_str());
-		}
+		OnOffLanChange();
+		break;
+	case DUTCH:
+		OnOffLanChange();
+		break;
+	case HUNGARIAN:
+		OnOffLanChange();
 		break;
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void COnOffDlg::OnOffLanChange()
+{
+	wstring lanStr;
+	lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
+	GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
+	GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+	if (theApp.m_lastOnOffStatue = 0)//关机
+	{
+		lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
+		this->SetWindowText(lanStr.c_str());
+	} 
+	else if (theApp.m_lastOnOffStatue = 1)//开机
+	{
+		lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
+		this->SetWindowText(lanStr.c_str());
+	}
 }
