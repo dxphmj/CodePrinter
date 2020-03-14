@@ -334,7 +334,9 @@ void CFaultDlg::openfailurefile(string filePathName)
 	{
 		//getline(fin, str);
 		m_errBox->AddString(theApp.myModuleMain.stringToLPCWSTR(str));
+		m_errBox->SetFont(theApp.m_StaticFont);
 	}
+	m_errBox->SetItemHeight(0,35);
 	fin.close();
 }
 //删除
@@ -463,8 +465,8 @@ void CFaultDlg::OnBnClickedLHistoryBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	if (nowErrDay<(strErrorFileNameArr.size()-1))
 	{
-		//CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
-		//m_errBox->ResetContent();
+		CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
+		m_errBox->ResetContent();
 		nowErrDay++;
 		string timeErr="Storage Card\\System\\Error\\";
 		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
@@ -477,8 +479,8 @@ void CFaultDlg::OnBnClickedRHistoryBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	if (nowErrDay>0)
 	{
-		//CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
-		//m_errBox->ResetContent();
+		CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
+		m_errBox->ResetContent();
 		nowErrDay--;
 		string timeErr="Storage Card\\System\\Error\\";
 		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
