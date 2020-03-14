@@ -778,6 +778,8 @@
 #define IDC_BARCODE_DYNAMIC_EDIT_STATIC 1845
 #define IDC_SCROLLBAR1                  1846
 #define IDC_SCROLLBAR_LABEL             1846
+#define IDC_NEWUSER_UNAUTH_STATIC       1848
+#define IDC_NEWUSER_AUTH_STATIC         1849
 
 // Next default values for new objects
 // 
@@ -785,7 +787,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        494
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1848
+#define _APS_NEXT_CONTROL_VALUE         1850
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif
