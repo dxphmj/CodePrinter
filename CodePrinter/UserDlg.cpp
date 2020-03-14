@@ -187,9 +187,12 @@ void CUserDlg::OnBnClickedDeleteBtn()
 	CString deletUser;
 	CListBox* m_allUserBox=(CListBox*)GetDlgItem(IDC_LIST_ALLUSER);
 	m_allUserBox->GetText(m_allUserBox->GetCurSel(),deletUser);
+	wstring lanStr;
+	lanStr=theApp.myLanguage.LanguageMap["IDC_USER_DEL_DEL_STATIC"];
 	CString staticEdit;
-	staticEdit.Format(_T("确定删除用户 %s ？"),deletUser);
-	pUserDelete->GetDlgItem(IDC_USER_DEL_DEL_STATIC)->SetWindowText(staticEdit);
+	staticEdit.Format(_T(" %s ？"),deletUser);
+	//staticEdit.Format(_T("确定删除用户 %s ？"),deletUser);
+	pUserDelete->GetDlgItem(IDC_USER_DEL_DEL_STATIC)->SetWindowText(lanStr.c_str()+staticEdit);
 	showUserDlg(IDD_USER_DELETE_DIALOG);
 }
 

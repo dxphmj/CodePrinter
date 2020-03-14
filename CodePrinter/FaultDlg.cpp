@@ -538,6 +538,14 @@ void CFaultDlg::OnLbnSelchangeFaultList()
 		lanStr=theApp.myLanguage.LanguageMap[error];
 		m_ErrorTrans.SetWindowText(lanStr.c_str());
 		break;
+	case DUTCH:
+		lanStr=theApp.myLanguage.LanguageMap[error];
+		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		break;
+	case HUNGARIAN:
+		lanStr=theApp.myLanguage.LanguageMap[error];
+		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		break;
 	}
 }
 

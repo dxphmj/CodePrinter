@@ -1421,16 +1421,16 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 	case TIMER1:
 	{
 		//系统日期
-	   CTime tmSCan=CTime::GetCurrentTime();
-	   CString szTime=tmSCan.Format(_T("%Y-%m-%d %H:%M:%S"));
-	   GetDlgItem(IDC_TIME_STATIC)->SetWindowText(szTime);
-		 //KillTimer(TIMER1);
-		 if (theApp.myUserPower.isChangeUser)
-		 {
-			 ChangeBottonEnable();
-			 theApp.myUserPower.isChangeUser=false;
-		 }
-		 //日期
+		CTime tmSCan=CTime::GetCurrentTime();
+		CString szTime=tmSCan.Format(_T("%Y-%m-%d %H:%M:%S"));
+		GetDlgItem(IDC_TIME_STATIC)->SetWindowText(szTime);
+		//KillTimer(TIMER1);
+		if (theApp.myUserPower.isChangeUser)
+		{
+		 ChangeBottonEnable();
+		 theApp.myUserPower.isChangeUser=false;
+		}
+		//日期
 		m_currentDate = theApp.myModuleMain.CString2string(tmSCan.Format(_T("%Y/%m/%d")));
 		//时间
 		m_currentTime = theApp.myModuleMain.CString2string(tmSCan.Format(_T("%H:%M:%S")));
