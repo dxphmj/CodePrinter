@@ -133,6 +133,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
+				AdditionalIncludeDirectories="..\..\CodePrinter\CodePrinter\lib"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;WINCE;_USRDLL;$(ARCHFAM);$(_ARCHFAM_);STANDARDSHELL_UI_MODEL;ON_EMUL"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="2"
@@ -154,6 +155,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,6.00"
+				AdditionalDependencies="KEYBOARD.lib"
 				OutputFile="../../CodePrinter/dll/PathDlgDll.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile=".\PathDlgDll.def"
