@@ -69,6 +69,7 @@ BOOL CUserNewDlg::OnInitDialog()
 	GetDlgItem(IDC_BUTTON_OK)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_LEFT_MOVE_BTN)->SetWindowPos(NULL,rect3.left,rect3.top,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_RIGHT_MOVE_BTN)->SetWindowPos(NULL,rect4.left,rect4.top,70,45,SWP_SHOWWINDOW);
+	
 
 
 	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_80_55_BITMAP);
@@ -85,7 +86,6 @@ BOOL CUserNewDlg::OnInitDialog()
 
 	m_notGrantedList.SetItemHeight(0,20);
 	m_grantedList.SetItemHeight(0,20);
-
 
 
 	return TRUE;  // return TRUE unless you set the focus to a control

@@ -61,7 +61,8 @@ void CFaultDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DELETE_BTN, m_delete);
 	DDX_Control(pDX,IDC_NEXT_BTN,m_next);
 	DDX_Control(pDX, IDC_BEFORE_BTN, m_before);
-	DDX_Control(pDX, IDC_MUL_LANGV_STATIC, m_ErrorTrans);
+	//DDX_Control(pDX, IDC_MUL_LANGV_STATIC, m_ErrorTrans);
+	DDX_Control(pDX, IDC_MUL_LANGV_STATIC, m_ErrorTransStatic);
 }
 
 
@@ -100,7 +101,7 @@ BOOL CFaultDlg::OnInitDialog()
 	GetDlgItem(IDC_TYPE_STATIC)->SetWindowPos(NULL,312, 42,200, 20,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_MESSAGE_STATIC)->SetWindowPos(NULL,440, 42,200, 20,SWP_SHOWWINDOW);
 
-	GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowPos(NULL,160,435,250,33,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowPos(NULL,150,418,270,59,SWP_SHOWWINDOW);
 	m_pReturn.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pReturn.SizeToContent(); 
 	m_LHistory.LoadBitmaps(IDB_L_HISTORY1_BITMAP,IDB_L_HISTORY2_BITMAP,0,0,IDB_L_HISTORY1_BITMAP,true);
@@ -117,6 +118,7 @@ BOOL CFaultDlg::OnInitDialog()
 	m_before.LoadBitmaps(IDB_BEFORE1_BITMAP,IDB_BEFORE2_BITMAP,0,0,IDB_70_45_BITMAP);
 	m_before.SizeToContent(); 
 	
+	GetDlgItem(IDC_MUL_LANGV_STATIC)->SetFont(theApp.m_StaticFont);
 	getAllErrorFile();
 	get_error_name();
 	CTime localT=CTime::GetCurrentTime(); //时间类，以后日期用这个！！
@@ -512,10 +514,10 @@ void CFaultDlg::OnLbnSelchangeFaultList()
 	CString errorStr;
 	aIndex=m_errBox->GetCurSel(); 
 	m_errBox->GetText(aIndex,errorStr);
-	vector< CString >SplitOut = split(errorStr,_T("          "));//分割符为10个空格
-	m_ErrorTrans.SetWindowText(SplitOut.at(2));
+	vector< CString >SplitOut = split(errorStr,_T("               "));//分割符为15个空格
+	GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(SplitOut.at(3));
 
-	CString tempstr = SplitOut.at(2);
+	CString tempstr = SplitOut.at(3);
 	tempstr.Replace(_T(" "),NULL);//去除字符串中所有空格
 	
 	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
@@ -530,23 +532,23 @@ void CFaultDlg::OnLbnSelchangeFaultList()
 	{
 	case CHINESE_SIMPLIFIED: //CHINESE_SIMPLIFIED
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
 		break;
 	case ENGLISH://ENGLISH
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
 		break;
 	case ARABIC:
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
 		break;
 	case DUTCH:
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
 		break;
 	case HUNGARIAN:
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		m_ErrorTrans.SetWindowText(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
 		break;
 	}
 }

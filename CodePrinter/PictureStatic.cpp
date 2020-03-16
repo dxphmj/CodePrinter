@@ -64,7 +64,8 @@ void CPictureStatic::OnPaint()
 		dc.SetTextColor(RGB(255, 255, 255));
 		// Í¸Ã÷
 		dc.SetBkMode(TRANSPARENT);
-		CRect rect(15,20,285,75);
+		//CRect rect(15,20,285,75);
+		CRect rect(15,0,285,75);
 		// »æÎÄ×Ö
 		dc.DrawText(m_strOperation,&rect,DT_SINGLELINE | DT_VCENTER);
 		dc.SelectObject(pof);

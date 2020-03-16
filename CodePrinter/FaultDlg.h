@@ -3,6 +3,7 @@
 #include <vector>
 #include "ImageButton.h"
 #include "afxwin.h"
+#include "CustomStatic.h"
 using namespace std;
 // CFaultDlg ¶Ô»°¿ò
 
@@ -42,7 +43,7 @@ public:
 	afx_msg void OnBnClickedRefreshBtn();
 	afx_msg void OnBnClickedLHistoryBtn();
 	afx_msg void OnBnClickedRHistoryBtn();
-
+	afx_msg void OnLbnSelchangeFaultList();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 public:
 	CImageButton m_pReturn;
@@ -72,8 +73,10 @@ public:
 	bool m_staValFauLas;      //·§¹ÊÕÏ
 	bool m_staLinFasLas;      //±àÂëÆ÷¹ý¿ì
 	bool m_staPriHeaHotFauLas;//ºãÎÂ¹ÊÕÏ
-	afx_msg void OnLbnSelchangeFaultList();
-	CStatic m_ErrorTrans;
+	
+	//CStatic m_ErrorTrans;
 public:
 	vector<CString> split(CString str ,CString segStr);//×Ö·û´®·Ö¸î
+public:
+	CCustomStatic m_ErrorTransStatic;
 };
