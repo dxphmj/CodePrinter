@@ -22,7 +22,7 @@
 #include "DealXml.h"
 
 #define  def_ttl 1
-//对话框左上角
+//对话框操作
 #define ID_SYSTEM_MANAGEMENT				WM_USER+3000
 #define ID_SYSTEM_NETWORK					WM_USER+3001
 #define ID_SYSTEM_COM						WM_USER+3002
@@ -54,6 +54,8 @@
 
 #define ID_ERROR_INFORMATION				WM_USER+3023
 
+
+
 //打印机状态
 #define IDC_MACHINE_STATUS					WM_USER+3024
 #define IDC_READY_TO_PRINT					WM_USER+3025
@@ -64,6 +66,7 @@
 //开关机界面
 #define ID_ON_TITLE							WM_USER+3030
 #define ID_OFF_TITLE						WM_USER+3031
+
 
 
 
@@ -578,6 +581,10 @@ void CCodePrinterDlg::showDlg(int ID)
 	}*/
 	else if(ID == IDD_RESET_SERIAL_DIALOG)
 	{
+		tempstr=theApp.myLanguage.LanguageMap["ID_RESET_SERIAL"];
+		cstr = tempstr.c_str();
+		m_PicHead.SetOperationString(cstr); //Fault System
+		///
 		m_resetSerial->boDlgOpen=true;
 		m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD1_STATIC)->SetWindowText(_T(""));
 		m_resetSerial->GetDlgItem(IDC_SERIAL1_QUAD2_STATIC)->SetWindowText(_T(""));

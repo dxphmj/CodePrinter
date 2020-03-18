@@ -93,6 +93,7 @@ void CResetSerial::OnBnClickedResetSerialReturnBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	boDlgOpen=false;
 	this->ShowWindow(SW_HIDE);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
 }
 
 HBRUSH CResetSerial::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)

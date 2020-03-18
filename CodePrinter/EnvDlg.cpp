@@ -590,4 +590,33 @@ void CEnvDlg::ControlTextChange()
 	pCodeDlg->m_Fault->GetDlgItem(IDC_L_HISTORY_BTN)->SetWindowText(lanStr.c_str());
 	lanStr=theApp.myLanguage.LanguageMap["IDC_R_HISTORY_BTN"];
 	pCodeDlg->m_Fault->GetDlgItem(IDC_R_HISTORY_BTN)->SetWindowText(lanStr.c_str());
+	//序列号重置界面
+	lanStr=theApp.myLanguage.LanguageMap["IDC_RESET_SERIAL_NAME_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_RESET_SERIAL_NAME_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_QUADRANT1_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_QUADRANT1_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_QUADRANT2_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_QUADRANT2_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_CUR_VALUE_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_CUR_VALUE_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_SET_VALUE_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_SET_VALUE_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_SERIAL1_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_SERIAL1_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_SERIAL2_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_SERIAL2_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_SERIAL3_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_SERIAL3_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_SERIAL4_STATIC"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_SERIAL4_STATIC)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_ALL_RESET_BTN"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_ALL_RESET_BTN)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_RESET_SERIAL1_BTN"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_RESET_SERIAL1_BTN)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_RESET_SERIAL2_BTN"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_RESET_SERIAL2_BTN)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_RESET_SERIAL3_BTN"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_RESET_SERIAL3_BTN)->SetWindowText(lanStr.c_str());
+	lanStr=theApp.myLanguage.LanguageMap["IDC_RESET_SERIAL4_BTN"];
+	pCodeDlg->m_resetSerial->GetDlgItem(IDC_RESET_SERIAL4_BTN)->SetWindowText(lanStr.c_str());
 }
