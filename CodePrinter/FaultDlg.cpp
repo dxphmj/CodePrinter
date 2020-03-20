@@ -164,7 +164,8 @@ void CFaultDlg::OnBnClickedFaultCloseBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
-	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(m_strPreOperation); 
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(m_strPreOperation);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
 }
 bool comp(const WIN32_FIND_DATA &a, const WIN32_FIND_DATA &b){return a.cFileName<b.cFileName;}
 void CFaultDlg::getAllErrorFile()
@@ -414,6 +415,8 @@ void CFaultDlg::OnBnClickedRefreshBtn()
 	ofstream outErr99("Storage Card\\System\\Error\\99999999.TXT", ios::trunc);
 	outErr99.close();
 
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
+
 		//picAlarmBlue.Tag = "im004"
 		//picAlarmBlue.Image = My.Resources.ResourceBng.im004
 		//picAlarmYellow.Tag = "im006"
@@ -467,12 +470,30 @@ void CFaultDlg::OnBnClickedLHistoryBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	if (nowErrDay<(strErrorFileNameArr.size()-1))
 	{
+
 		CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
 		m_errBox->ResetContent();
 		nowErrDay++;
 		string timeErr="Storage Card\\System\\Error\\";
 		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
 		openfailurefile(timeErr);
+		
+		wstring tempstr;
+		CString cstr,errorFileName;
+		if ( strErrorFileNameArr.at(nowErrDay) == "99999999")
+		{
+			tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
+			cstr = tempstr.c_str();
+			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
+		} 
+		else
+		{
+			tempstr=theApp.myLanguage.LanguageMap["Previouserrorlist"];
+			errorFileName = tempstr.c_str();
+			errorFileName = strErrorFileNameArr.at(nowErrDay).c_str();
+			cstr = tempstr.c_str()  + errorFileName + _T(")");
+			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
+		}
 	}
 }
 
@@ -487,6 +508,23 @@ void CFaultDlg::OnBnClickedRHistoryBtn()
 		string timeErr="Storage Card\\System\\Error\\";
 		timeErr=timeErr+strErrorFileNameArr.at(nowErrDay)+".txt";
 		openfailurefile(timeErr);
+
+		wstring tempstr;
+		CString cstr,errorFileName;
+		if ( strErrorFileNameArr.at(nowErrDay) == "99999999")
+		{
+			tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
+			cstr = tempstr.c_str();
+			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
+		} 
+		else
+		{
+			tempstr=theApp.myLanguage.LanguageMap["Previouserrorlist"];
+			errorFileName = tempstr.c_str();
+			errorFileName = strErrorFileNameArr.at(nowErrDay).c_str();
+			cstr = tempstr.c_str()  + errorFileName + _T(")");
+			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
+		}
 	}
 }
 

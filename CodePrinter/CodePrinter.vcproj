@@ -651,6 +651,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\InkCalibDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InkParDlg.cpp"
 				>
 			</File>
@@ -910,6 +914,10 @@
 			</File>
 			<File
 				RelativePath=".\InkAdvanceDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkCalibDlg.h"
 				>
 			</File>
 			<File
@@ -1719,15 +1727,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\É¾³ý.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\fault\É¾³ý.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\É¾³ý.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
 				>
 			</File>
 			<File

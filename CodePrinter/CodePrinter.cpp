@@ -57,6 +57,9 @@ BOOL CCodePrinterApp::InitInstance()
 
 	m_HeadOperationStaFont = new CFont;
 	m_HeadOperationStaFont->CreatePointFont(160, _T("Arial"), NULL);
+	
+	m_HeadSecondLineOpeStaFont = new CFont;
+	m_HeadSecondLineOpeStaFont->CreatePointFont(90, _T("Arial"), NULL);
 
 	m_EditFont = new CFont;
 	m_EditFont->CreateFont(

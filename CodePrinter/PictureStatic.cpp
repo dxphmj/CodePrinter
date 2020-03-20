@@ -68,6 +68,11 @@ void CPictureStatic::OnPaint()
 		CRect rect(15,0,285,75);
 		// 绘文字
 		dc.DrawText(m_strOperation,&rect,DT_SINGLELINE | DT_VCENTER);
+		//第二行文字
+		pof = dc.SelectObject(theApp.m_HeadSecondLineOpeStaFont);
+		CRect rect2(15,44,285,75);
+		dc.DrawText(m_strSecondLineOpe,&rect2,DT_SINGLELINE | DT_VCENTER);
+
 		dc.SelectObject(pof);
 	}
 
@@ -186,5 +191,11 @@ void CPictureStatic::SetOperationString(CString OperationString)
 	m_bShowLogo = false;
 	if(m_strOperation.CompareNoCase(_T("")) == 0) 
 		m_bShowLogo = true;
+	Invalidate();
+}
+
+void CPictureStatic::SetSecondLineOpeString(CString SecondLineOpeString)
+{
+	m_strSecondLineOpe = SecondLineOpeString;
 	Invalidate();
 }

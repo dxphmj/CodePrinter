@@ -193,6 +193,9 @@ void CUserDlg::OnBnClickedDeleteBtn()
 	staticEdit.Format(_T(" %s ？"),deletUser);
 	//staticEdit.Format(_T("确定删除用户 %s ？"),deletUser);
 	pUserDelete->GetDlgItem(IDC_USER_DEL_DEL_STATIC)->SetWindowText(lanStr.c_str()+staticEdit);
+
+	lanStr=theApp.myLanguage.LanguageMap["DeleteUser"];
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(lanStr.c_str());
 	showUserDlg(IDD_USER_DELETE_DIALOG);
 }
 
@@ -221,6 +224,7 @@ void CUserDlg::OnBnClickedCloseUserBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	showUserDlg(0);
 	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
+
 }
 
 void CUserDlg::showUserDlg(int ID)

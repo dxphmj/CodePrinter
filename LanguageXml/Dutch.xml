@@ -222,7 +222,7 @@
 	<IDC_MESSAGE_STATIC>Bericht</IDC_MESSAGE_STATIC>
 	<IDC_L_HISTORY_BTN>geschiedenis</IDC_L_HISTORY_BTN>
 	<IDC_R_HISTORY_BTN>geschiedenis</IDC_R_HISTORY_BTN>
-<!--其他-->
+<!--操作-->
 	<ID_SYSTEM_MANAGEMENT>Systeem</ID_SYSTEM_MANAGEMENT>
 	<ID_SYSTEM_NETWORK>Netwerk</ID_SYSTEM_NETWORK>
 	<ID_SYSTEM_COM>COM</ID_SYSTEM_COM>
@@ -254,6 +254,29 @@
 	
 	<ID_ERROR_INFORMATION>Fout Informatie</ID_ERROR_INFORMATION>
 	<ID_RESET_SERIAL>Serienummer opnieuw ingesteld</ID_RESET_SERIAL>
+<!--操作第二行-->
+	<Currenterrorlist>Huidige Foutlijst</Currenterrorlist>
+	<Previouserrorlist>Vorige fouten lijst (</Previouserrorlist>
+	<DeleteUser>Verwijder gebruiker</DeleteUser>
+	<CreatenewFolder>Maak een nieuwe Folder</CreatenewFolder>
+	<RenameFile>Bestand herbenoemen</RenameFile>
+	<RenameFolder>Folder herbenoemen</RenameFolder>
+	<CopyFiles>Kopieer bestanden</CopyFiles>
+	<CutFiles>Verplaats bestand</CutFiles>
+	<DeleteFiles>Delete Files</DeleteFiles>
+	<SelectPCFfile>Selecteer PCF Bestand</SelectPCFfile>
+	<SelectSavePath>Selecteer Bewaar Path</SelectSavePath>
+	<SelectLABfile>Selecteer LAB Betaand</SelectLABfile>
+	<NewLabel>NieuweLabel</NewLabel>
+	<SelectLogofile>Selecteer Logo bestand</SelectLogofile>
+	<SolventLevelCalibration>Solvent niveau Calibratie</SolventLevelCalibration>
+	<InkLevelCalibration>Inkt niveau Calibratie</InkLevelCalibration>
+<!--溶剂墨水校准界面-->
+	<Clicknext>Click voor volgende</Clicknext>
+	<Cleantheinksensorsurfaceandkeepitdry>Maak de Inkt sensor schoon en hou hem droog</Cleantheinksensorsurfaceandkeepitdry>
+	<Cleanthesolventsensorsurfacendkeepitdry>Maak de solvent sensor schoon en hou hem droog</Cleanthesolventsensorsurfacendkeepitdry>
+	<Installsensorandplugininkcartridgetoaddoinknolongerautomatically>Install sensor and plug in ink cartridge to add to ink no longer automatically</Installsensorandplugininkcartridgetoaddoinknolongerautomatically>
+	<Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>Install sensor and plug in solvent cartridge to add to ink no longer automatically</Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>
 <!--系统状态-->
 	<IDC_MACHINE_STATUS>Afzetten van printer</IDC_MACHINE_STATUS>
 	<IDC_READY_TO_PRINT>Klaar om te printen</IDC_READY_TO_PRINT>

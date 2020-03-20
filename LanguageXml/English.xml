@@ -222,7 +222,7 @@
 	<IDC_MESSAGE_STATIC>Message</IDC_MESSAGE_STATIC>
 	<IDC_L_HISTORY_BTN>history</IDC_L_HISTORY_BTN>
 	<IDC_R_HISTORY_BTN>history</IDC_R_HISTORY_BTN>
-<!--其他-->
+<!--操作-->
 	<ID_SYSTEM_MANAGEMENT>System</ID_SYSTEM_MANAGEMENT>
 	<ID_SYSTEM_NETWORK>Network</ID_SYSTEM_NETWORK>
 	<ID_SYSTEM_COM>COM</ID_SYSTEM_COM>
@@ -254,6 +254,29 @@
 	
 	<ID_ERROR_INFORMATION>Error Information</ID_ERROR_INFORMATION>
 	<ID_RESET_SERIAL>Serial Number Reset</ID_RESET_SERIAL>
+<!--操作第二行-->
+	<Currenterrorlist>Current errorlist</Currenterrorlist>
+	<Previouserrorlist>Previous errorlist (</Previouserrorlist>
+	<DeleteUser>Delete User</DeleteUser>
+	<CreatenewFolder>Create new Folder</CreatenewFolder>
+	<RenameFile>Rename File</RenameFile>
+	<RenameFolder>Rename Folder</RenameFolder>
+	<CopyFiles>Copy Files</CopyFiles>
+	<CutFiles>Cut Files</CutFiles>
+	<DeleteFiles>Delete Files</DeleteFiles>
+	<SelectPCFfile>Select PCF file</SelectPCFfile>
+	<SelectSavePath>Select Save Path</SelectSavePath>
+	<SelectLABfile>Select LAB file</SelectLABfile>
+	<NewLabel>NewLabel</NewLabel>
+	<SelectLogofile>Select Logo file</SelectLogofile>
+	<SolventLevelCalibration>Solvent Level Calibration</SolventLevelCalibration>
+	<InkLevelCalibration>Ink Level Calibration</InkLevelCalibration>
+<!--溶剂墨水校准界面-->
+	<Clicknext>Click next</Clicknext>
+	<Cleantheinksensorsurfaceandkeepitdry>Clean the ink sensor surface and keep it dry</Cleantheinksensorsurfaceandkeepitdry>
+	<Cleanthesolventsensorsurfacendkeepitdry>Clean the solvent sensor surface and keep it dry</Cleanthesolventsensorsurfacendkeepitdry>
+	<Installsensorandplugininkcartridgetoaddoinknolongerautomatically>Install sensor and plug in ink cartridge to add to ink no longer automatically</Installsensorandplugininkcartridgetoaddoinknolongerautomatically>
+	<Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>Install sensor and plug in solvent cartridge to add to solvent no longer automatically</Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>
 <!--系统状态-->
 	<IDC_MACHINE_STATUS>Printer Off</IDC_MACHINE_STATUS>
 	<IDC_READY_TO_PRINT>Ready to print</IDC_READY_TO_PRINT>

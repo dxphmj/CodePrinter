@@ -2,6 +2,7 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 #include "CustomStatic.h"
+#include "InkCalibDlg.h"
 
 // CInkSetupDlg ¶Ô»°¿ò
 
@@ -49,4 +50,8 @@ public:
 	CCustomStatic m_setupSolLevStatic;
 	CCustomStatic m_setupInkLevStatic;
 	CCustomStatic m_timeResetStatic;
+	afx_msg void OnBnClickedSolventCalibBtn();
+	afx_msg void OnBnClickedInkCalibBtn();
+public:
+	CInkCalibDlg *m_inkcalib;
 };

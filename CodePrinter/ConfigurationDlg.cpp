@@ -181,7 +181,9 @@ void CConfigurationDlg::OnBnClickedConfiCloseBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
 	showConfigDlg(0);
-	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
+
 }
 
 void CConfigurationDlg::showConfigDlg(int ID)
@@ -267,6 +269,8 @@ void CConfigurationDlg::OnBnClickedConfiOpenBtn()
 	tempstr1 = theApp.myLanguage.LanguageMap["ID_OPEN_CONFIGURATION"];
 	cstr1 = tempstr1.c_str();
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
+	tempstr1=theApp.myLanguage.LanguageMap["SelectPCFfile"];
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr1.c_str());
 	//////////////////////////////////////////////////////////////////////////
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,3))
@@ -279,9 +283,8 @@ void CConfigurationDlg::OnBnClickedConfiOpenBtn()
 		CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));
 		pPcfConfig.getPcfFromXml(xmlPath);
 		pcfNameDlg=pPcfConfig.m_pcfName;
-
 	}
-	
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(pcfNameDlg);
 	//
 }
 
@@ -296,6 +299,9 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 	tempstr1 = theApp.myLanguage.LanguageMap["ID_NEW_CONFIGURATION"];
 	cstr1 = tempstr1.c_str();
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
+
+	tempstr1=theApp.myLanguage.LanguageMap["SelectSavePath"];
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr1.c_str());
 	//////////////////////////////////////////////////////////////////////////
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,3))
@@ -312,6 +318,8 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 	tempstr1 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
 	cstr1 = tempstr1.c_str();
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(pcfNameDlg);
+
 }
 
 HBRUSH CConfigurationDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)

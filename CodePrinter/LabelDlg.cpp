@@ -693,7 +693,9 @@ void CLabelDlg::OnBnClickedSaveButton()
 	//string testpath="\\Storage Card\\user\\Label";
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
-
+	wstring tempstr;
+	tempstr=theApp.myLanguage.LanguageMap["SelectSavePath"];
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
     string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,1))
 	{
@@ -707,6 +709,10 @@ void CLabelDlg::OnBnClickedSaveButton()
 		//m_MessageEdit.SaveObjectsToXml("\\Storage Card\\user\\Label\\sss.xml");
 		theApp.m_MessageEdit.SaveObjectsToXml(const_cast<char*>(xmlPath.c_str()));
 	}	
+	CString labFileName;
+	labFileName = xmlPath.c_str();
+	labFileName.Delete(0,24);//删除路径(Storage Card\user\Label\)
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(labFileName);
 }
 
 //打开xml
@@ -715,7 +721,9 @@ void CLabelDlg::OnBnClickedOpenButton()
 	// TODO: 在此添加控件通知处理程序代码
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
-
+	wstring tempstr;
+	tempstr=theApp.myLanguage.LanguageMap["SelectLABfile"];
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,1))
 	{
@@ -727,6 +735,10 @@ void CLabelDlg::OnBnClickedOpenButton()
 		theApp.scrPox=0;
 		m_ScrollLab.SetScrollPos(0);
 	}
+	CString labFileName;
+	labFileName = xmlPath.c_str();
+	labFileName.Delete(0,24);//删除路径(Storage Card\user\Label\)
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(labFileName);
 
 	//m_MessageEdit.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
 	//if (theApp.m_MessageEdit.strMatrix=="1L5M")
@@ -1176,6 +1188,7 @@ void CLabelDlg::OnBnClickedLabelCloseBtn()
 
 	ShowWindow(SW_HIDE);
 	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
 }
 
 void CLabelDlg::showInputDlg(int ID)
@@ -1192,6 +1205,9 @@ void CLabelDlg::showInputDlg(int ID)
 //清空，新建
 void CLabelDlg::OnBnClickedClsButton()
 {
+	wstring tempstr;
+	tempstr=theApp.myLanguage.LanguageMap["NewLabel"];
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.m_MessageEdit.OBJ_Vec.clear();
 	//memset(theApp.m_MessageEdit.CounterEditMes,false,sizeof(bool)*4);
