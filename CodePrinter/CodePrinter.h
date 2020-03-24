@@ -35,6 +35,7 @@ public:
     COLORREF m_BKcolor;
 	CFont *m_HeadMachineStaFont;
 	CFont *m_HeadOperationStaFont;
+	CFont *m_HeadSecondLineOpeStaFont;
 	CFont *m_StaticFont;
 	CFont *m_EditFont;
 	CFont *m_ListBoxFont;

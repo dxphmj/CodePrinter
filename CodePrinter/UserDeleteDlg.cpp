@@ -149,5 +149,6 @@ void CUserDeleteDlg::OnBnClickedButtonCloseDel()
 	tempstr=theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
 	cstr = tempstr.c_str();
 	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetOperationString(cstr);//User Manage 
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
 }
 

@@ -10,6 +10,7 @@
 #include "PictureDlg.h"
 #include "BarCodeDlg.h"
 #include <atlimage.h>
+#include "CodePrinterDlg.h"
 #include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
 // CInputDlg ¶Ô»°¿ò
 
@@ -181,7 +182,9 @@ void CInputDlg::OnBnClickedEditpictureButton()
 	//showInputDlg(IDD_PICTURE_DIALOG);
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
-
+	wstring tempstr;
+	tempstr=theApp.myLanguage.LanguageMap["SelectLogofile"];
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,2))
 	{
@@ -217,6 +220,8 @@ void CInputDlg::OnBnClickedEditpictureButton()
 
 		theApp.m_MessageEdit.OBJ_Vec.push_back(bmpObj);
 	}
+
+
 	this->ShowWindow(SW_HIDE);
 }
 

@@ -428,7 +428,7 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 		m_Fault->m_strPreOperation = _T("");
 	else
 		m_Fault->m_strPreOperation = m_PicHead.m_strOperation;
-	m_PicHead.SetOperationString(_T("¹ÊÕÏ")); //Fault System
+	m_PicHead.SetOperationString(_T("¹ÊÕÏÐÅÏ¢")); //Fault System
 
 	m_Fault->GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(NULL);//Çå¿Õ·­Òë
 	showDlg(IDD_FAULT_DIALOG);
@@ -541,6 +541,7 @@ void CCodePrinterDlg::showDlg(int ID)
 		cstr = tempstr.c_str();
 		m_Confi->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(cstr); //Configure
+		m_PicHead.SetSecondLineOpeString(m_Confi->pcfNameDlg);
 	}
 
 	else if(ID == IDD_FILEMANA_DIALOG)
@@ -548,7 +549,7 @@ void CCodePrinterDlg::showDlg(int ID)
 		tempstr=theApp.myLanguage.LanguageMap["ID_FILE_MANAGEMENT"];
 		cstr = tempstr.c_str();
 		//m_FileMan->ShowWindow(SW_SHOW);
-		 m_PicHead.SetOperationString(cstr); //File Manage
+		m_PicHead.SetOperationString(cstr); //File Manage
 		TCHAR path[MAX_PATH];
 		//labModule.string2tchar(testpath,path);
 		
@@ -571,8 +572,11 @@ void CCodePrinterDlg::showDlg(int ID)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
 		cstr = tempstr.c_str();
-		m_Fault->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(cstr); //Fault System
+		tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
+		cstr = tempstr.c_str();
+		m_PicHead.SetSecondLineOpeString(cstr);
+		m_Fault->ShowWindow(SW_SHOW);
 	}
 	/*else if (ID == IDD_ONOFF_DIALOG)
 	{

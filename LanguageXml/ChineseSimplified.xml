@@ -222,7 +222,7 @@
 	<IDC_MESSAGE_STATIC>信息</IDC_MESSAGE_STATIC>
 	<IDC_L_HISTORY_BTN>历史记录</IDC_L_HISTORY_BTN>
 	<IDC_R_HISTORY_BTN>历史记录</IDC_R_HISTORY_BTN>
-<!--其他-->
+<!--操作-->
 	<ID_SYSTEM_MANAGEMENT>系统</ID_SYSTEM_MANAGEMENT>
 	<ID_SYSTEM_NETWORK>网络</ID_SYSTEM_NETWORK>
 	<ID_SYSTEM_COM>串口</ID_SYSTEM_COM>
@@ -254,6 +254,29 @@
 	
 	<ID_ERROR_INFORMATION>故障信息</ID_ERROR_INFORMATION>
 	<ID_RESET_SERIAL>序列号复位</ID_RESET_SERIAL>
+<!--操作第二行-->
+	<Currenterrorlist>当前故障列表</Currenterrorlist>
+	<Previouserrorlist>历史故障列表(</Previouserrorlist>
+	<DeleteUser>删除用户</DeleteUser>
+	<CreatenewFolder>创建新文件夹</CreatenewFolder>
+	<RenameFile>重命名文件</RenameFile>
+	<RenameFolder>重命名文件夹</RenameFolder>
+	<CopyFiles>文件复制</CopyFiles>
+	<CutFiles>文件剪切</CutFiles>
+	<DeleteFiles>文件删除</DeleteFiles>
+	<SelectPCFfile>选择配置文件</SelectPCFfile>
+	<SelectSavePath>选择存储路径</SelectSavePath>
+	<SelectLABfile>选择标签文件</SelectLABfile>
+	<NewLabel>新标签</NewLabel>
+	<SelectLogofile>选择商标文件</SelectLogofile>
+	<SolventLevelCalibration>溶剂液位校准</SolventLevelCalibration>
+	<InkLevelCalibration>墨水液位校准</InkLevelCalibration>
+<!--溶剂墨水校准界面-->
+	<Clicknext>点击下一步</Clicknext>
+	<Cleantheinksensorsurfaceandkeepitdry>完全拉起墨水传感器清洗表面并保持干燥</Cleantheinksensorsurfaceandkeepitdry>
+	<Cleanthesolventsensorsurfacendkeepitdry>完全拉起溶剂传感器清洗表面并保持干燥</Cleanthesolventsensorsurfacendkeepitdry>
+	<Installsensorandplugininkcartridgetoaddoinknolongerautomatically>安装传感器并插入墨盒直到不再自动添加</Installsensorandplugininkcartridgetoaddoinknolongerautomatically>
+	<Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>安装传感器并插入溶剂盒直到不再自动添加</Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>
 <!--系统状态-->
 	<IDC_MACHINE_STATUS>关机</IDC_MACHINE_STATUS>
 	<IDC_READY_TO_PRINT>准备打印</IDC_READY_TO_PRINT>

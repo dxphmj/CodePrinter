@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "InkSetupDlg.h"
+#include "CodePrinterDlg.h"
 
 
 // CInkSetupDlg 对话框
@@ -53,6 +54,8 @@ void CInkSetupDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CInkSetupDlg, CDialog)
 	ON_WM_CTLCOLOR()
 
+	ON_BN_CLICKED(IDC_SOLVENT_CALIB_BTN, &CInkSetupDlg::OnBnClickedSolventCalibBtn)
+	ON_BN_CLICKED(IDC_INK_CALIB_BTN, &CInkSetupDlg::OnBnClickedInkCalibBtn)
 END_MESSAGE_MAP()
 
 
@@ -63,6 +66,15 @@ BOOL CInkSetupDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
+	m_inkcalib =new CInkCalibDlg;
+	int nX = 0;
+	int nY = 75;
+	int nWidth = 800;
+	int nHeight = 525; //不能遮住下面的一排按钮
+
+	m_inkcalib->Create(IDD_INK_CALIB_DIALOG,this);
+	m_inkcalib->MoveWindow(nX,nY,nWidth,nHeight);
+
 	m_sizeList.AddString(L"40");
 	m_sizeList.AddString(L"50");
 	m_sizeList.AddString(L"60");
@@ -137,4 +149,40 @@ HBRUSH CInkSetupDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	pDC->SetBkColor(theApp.m_BKcolor);	
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return theApp.m_DlgBrush;
+}
+
+void CInkSetupDlg::OnBnClickedSolventCalibBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_inkcalib->LevCal_type = _T("Sol");
+	m_inkcalib->ShowWindow(SW_SHOW);
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT1_BTN)->ShowWindow(SW_SHOW);
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT2_BTN)->ShowWindow(SW_HIDE);
+	wstring tempstr;
+	tempstr=theApp.myLanguage.LanguageMap["SolventLevelCalibration"];
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+
+	tempstr=theApp.myLanguage.LanguageMap["Clicknext"];
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT_STEP_STATIC)->SetWindowText(tempstr.c_str());
+
+	tempstr=theApp.myLanguage.LanguageMap["Cleanthesolventsensorsurfacendkeepitdry"];
+	m_inkcalib->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
+}
+
+void CInkSetupDlg::OnBnClickedInkCalibBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_inkcalib->LevCal_type = _T("Ink");
+	m_inkcalib->ShowWindow(SW_SHOW);
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT1_BTN)->ShowWindow(SW_SHOW);
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT2_BTN)->ShowWindow(SW_HIDE);
+	wstring tempstr;
+	tempstr=theApp.myLanguage.LanguageMap["InkLevelCalibration"];
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+
+	tempstr=theApp.myLanguage.LanguageMap["Clicknext"];
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT_STEP_STATIC)->SetWindowText(tempstr.c_str());
+
+	tempstr=theApp.myLanguage.LanguageMap["Cleantheinksensorsurfaceandkeepitdry"];
+	m_inkcalib->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
 }

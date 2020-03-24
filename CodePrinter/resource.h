@@ -231,6 +231,7 @@
 #define IDB_BITMAP8                     481
 #define IDB_USER_CHANGEUSER2_BITMAP     481
 #define IDB_BITMAP9                     493
+#define IDD_INK_CALIB_DIALOG            495
 #define IDC_FAULT_BUTTON                1001
 #define IDC_USER_BUTTON                 1002
 #define IDC_LABEL_BUTTON                1003
@@ -718,7 +719,6 @@
 #define IDC_INKSETUP_LEV_JUST_STATIC    1591
 #define IDD_PRINT_MODE_DIALOG           1593
 #define IDC_BEFORE_BTN                  1597
-#define IDC_BUTTON1                     1599
 #define IDC_RESET_SERIAL_RETURN_BTN     1599
 #define IDB_BITMAP7                     1700
 #define IDC_FORMAT_LIST                 1701
@@ -780,14 +780,23 @@
 #define IDC_SCROLLBAR_LABEL             1846
 #define IDC_NEWUSER_UNAUTH_STATIC       1848
 #define IDC_NEWUSER_AUTH_STATIC         1849
+#define IDC_INK_CALIB_RETURN_BTN        1851
+#define IDC_CALIB_RETURN_BTN            1851
+#define IDC_INK_CALIB_NEXT2_BTN         1853
+#define IDC_CALIB_NEXT2_BTN             1853
+#define IDC_INK_CALIB_NEXT1_BTN         1854
+#define IDC_CALIB_NEXT1_BTN             1854
+#define IDC_INK_SOL_CALIB_STATIC        1855
+#define IDC_NEXT_STEP_STATIC            1856
+#define IDC_CALIB_NEXT_STEP_STATIC      1856
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        494
+#define _APS_NEXT_RESOURCE_VALUE        496
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1850
+#define _APS_NEXT_CONTROL_VALUE         1857
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

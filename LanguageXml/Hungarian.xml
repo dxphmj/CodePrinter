@@ -222,7 +222,7 @@
 	<IDC_MESSAGE_STATIC>Üzenet</IDC_MESSAGE_STATIC>
 	<IDC_L_HISTORY_BTN>történelem</IDC_L_HISTORY_BTN>
 	<IDC_R_HISTORY_BTN>történelem</IDC_R_HISTORY_BTN>
-<!--其他-->
+<!--操作-->
 	<ID_SYSTEM_MANAGEMENT>Rendszer</ID_SYSTEM_MANAGEMENT>
 	<ID_SYSTEM_NETWORK>hálózat</ID_SYSTEM_NETWORK>
 	<ID_SYSTEM_COM>COM</ID_SYSTEM_COM>
@@ -254,6 +254,29 @@
 	
 	<ID_ERROR_INFORMATION>Hibák</ID_ERROR_INFORMATION>
 	<ID_RESET_SERIAL>Sorszám nullázása</ID_RESET_SERIAL>
+<!--操作第二行-->
+	<Currenterrorlist>Aktuális hibalista</Currenterrorlist>
+	<Previouserrorlist>Korábbi hiba lista (</Previouserrorlist>
+	<DeleteUser>Felhasznßl törlése</DeleteUser>
+	<CreatenewFolder>Új mappa hozzáadása</CreatenewFolder>
+	<RenameFile>Fájl átnevezése</RenameFile>
+	<RenameFolder>Mappa átnevezése</RenameFolder>
+	<CopyFiles>Fájl másolás</CopyFiles>
+	<CutFiles>Fájl törlés</CutFiles>
+	<DeleteFiles>Fájl törlése</DeleteFiles>
+	<SelectPCFfile>PCF fájl kiválasztása</SelectPCFfile>
+	<SelectSavePath>Válassza a biztonsági mentést</SelectSavePath>
+	<SelectLABfile>IAB fájl választása</SelectLABfile>
+	<NewLabel>Új Fájl</NewLabel>
+	<SelectLogofile>Válassza ki a Logo fájlt</SelectLogofile>
+	<SolventLevelCalibration>Higító szint kalibrálása</SolventLevelCalibration>
+	<InkLevelCalibration>Tinta szint kalibrálása</InkLevelCalibration>
+<!--溶剂墨水校准界面-->
+	<Clicknext>Lépjen tovább</Clicknext>
+	<Cleantheinksensorsurfaceandkeepitdry>Tisztítsa meg az érzékelőt, majd szárítsa meg</Cleantheinksensorsurfaceandkeepitdry>
+	<Cleanthesolventsensorsurfacendkeepitdry>Tisztítsa meg az oldószer-érzékelő felületét, majd szárítsa meg</Cleanthesolventsensorsurfacendkeepitdry>
+	<Installsensorandplugininkcartridgetoaddoinknolongerautomatically>Szerelje be a szenzort és a tinta tartály kupakját.</Installsensorandplugininkcartridgetoaddoinknolongerautomatically>
+	<Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>Szerelje be a szenzort és a higító tartály kupakját.</Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>
 <!--系统状态-->
 	<IDC_MACHINE_STATUS>nyomtató kikapcsolva</IDC_MACHINE_STATUS>
 	<IDC_READY_TO_PRINT>Nyomtatásra kész</IDC_READY_TO_PRINT>

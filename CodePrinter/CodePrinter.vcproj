@@ -643,6 +643,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\InkCalibDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InkParDlg.cpp"
 				>
 			</File>
@@ -894,6 +898,10 @@
 			</File>
 			<File
 				RelativePath=".\InkAdvanceDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\InkCalibDlg.h"
 				>
 			</File>
 			<File

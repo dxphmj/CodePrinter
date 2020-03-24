@@ -15,20 +15,20 @@
 	<IDC_RESET_COUNT_BTN>إعادة تعيين العد</IDC_RESET_COUNT_BTN>
 	<IDC_RESET_SERIAL_BTN>إعادة تعيين الرقم التسلسلي</IDC_RESET_SERIAL_BTN>
 <!--序列号重置界面-->
-	<IDC_RESET_SERIAL_NAME_STATIC>名称</IDC_RESET_SERIAL_NAME_STATIC>
-	<IDC_QUADRANT1_STATIC>第一象限</IDC_QUADRANT1_STATIC>
-	<IDC_QUADRANT2_STATIC>第二象限</IDC_QUADRANT2_STATIC>
-	<IDC_CUR_VALUE_STATIC>目前值</IDC_CUR_VALUE_STATIC>
-	<IDC_SET_VALUE_STATIC>设置值</IDC_SET_VALUE_STATIC>
-	<IDC_SERIAL1_STATIC>序列1</IDC_SERIAL1_STATIC>
-	<IDC_SERIAL2_STATIC>序列2</IDC_SERIAL2_STATIC>
-	<IDC_SERIAL3_STATIC>序列3</IDC_SERIAL3_STATIC>
-	<IDC_SERIAL4_STATIC>序列4</IDC_SERIAL4_STATIC>
-	<IDC_ALL_RESET_BTN>重置所有</IDC_ALL_RESET_BTN>
-	<IDC_RESET_SERIAL1_BTN>重置</IDC_RESET_SERIAL1_BTN>
-	<IDC_RESET_SERIAL2_BTN>重置</IDC_RESET_SERIAL2_BTN>
-	<IDC_RESET_SERIAL3_BTN>重置</IDC_RESET_SERIAL3_BTN>
-	<IDC_RESET_SERIAL4_BTN>重置</IDC_RESET_SERIAL4_BTN>
+	<IDC_RESET_SERIAL_NAME_STATIC>الإسم</IDC_RESET_SERIAL_NAME_STATIC>
+	<IDC_QUADRANT1_STATIC>حدّ البداية</IDC_QUADRANT1_STATIC>
+	<IDC_QUADRANT2_STATIC>الحدّ الثّاني</IDC_QUADRANT2_STATIC>
+	<IDC_CUR_VALUE_STATIC>القيمة الحالية</IDC_CUR_VALUE_STATIC>
+	<IDC_SET_VALUE_STATIC>ضبط القيمة</IDC_SET_VALUE_STATIC>
+	<IDC_SERIAL1_STATIC>عداد ١</IDC_SERIAL1_STATIC>
+	<IDC_SERIAL2_STATIC>عداد ٢</IDC_SERIAL2_STATIC>
+	<IDC_SERIAL3_STATIC>عداد ٣</IDC_SERIAL3_STATIC>
+	<IDC_SERIAL4_STATIC>عداد ٤</IDC_SERIAL4_STATIC>
+	<IDC_ALL_RESET_BTN>إعادة تعيين الكل</IDC_ALL_RESET_BTN>
+	<IDC_RESET_SERIAL1_BTN>إعادة</IDC_RESET_SERIAL1_BTN>
+	<IDC_RESET_SERIAL2_BTN>إعادة</IDC_RESET_SERIAL2_BTN>
+	<IDC_RESET_SERIAL3_BTN>إعادة</IDC_RESET_SERIAL3_BTN>
+	<IDC_RESET_SERIAL4_BTN>إعادة</IDC_RESET_SERIAL4_BTN>
 <!--开机关机界面-->
 	<IDC_SEQUENCE_BTN>تسلسل</IDC_SEQUENCE_BTN>
 	<IDC_FAST_BTN>سريع</IDC_FAST_BTN>
@@ -222,7 +222,7 @@
 	<IDC_MESSAGE_STATIC>رسالة</IDC_MESSAGE_STATIC>
 	<IDC_L_HISTORY_BTN>السجل التاريخي</IDC_L_HISTORY_BTN>
 	<IDC_R_HISTORY_BTN>السجل التاريخي</IDC_R_HISTORY_BTN>
-<!--其他-->
+<!--操作-->
 	<ID_SYSTEM_MANAGEMENT>نظام</ID_SYSTEM_MANAGEMENT>
 	<ID_SYSTEM_NETWORK>شبكة</ID_SYSTEM_NETWORK>
 	<ID_SYSTEM_COM>المنفذ التسلسلي</ID_SYSTEM_COM>
@@ -253,7 +253,30 @@
 	<ID_INKSYSTEM_PHASING>مرحلة</ID_INKSYSTEM_PHASING>
 	
 	<ID_ERROR_INFORMATION>معلومات الخطأ</ID_ERROR_INFORMATION>
-	<ID_RESET_SERIAL>序列号重置</ID_RESET_SERIAL>
+	<ID_RESET_SERIAL>إعادة تعيين الرقم التسلسلي</ID_RESET_SERIAL>
+<!--操作第二行-->
+	<Currenterrorlist>قائمة الاخطاء</Currenterrorlist>
+	<Previouserrorlist>قائمة الاخطاء السابقة (</Previouserrorlist>
+	<DeleteUser>حذف مستخدم</DeleteUser>
+	<CreatenewFolder>فتح مجلد جديد</CreatenewFolder>
+	<RenameFile>اعادة تسمية الملف</RenameFile>
+	<RenameFolder>اعادة تسمية المجلد</RenameFolder>
+	<CopyFiles>نسخ الملفات</CopyFiles>
+	<CutFiles>قص الملف</CutFiles>
+	<DeleteFiles>حذف الملفات</DeleteFiles>
+	<SelectPCFfile>اختيار ملف PCF</SelectPCFfile>
+	<SelectSavePath>اختيار وجهة الحفظ</SelectSavePath>
+	<SelectLABfile>اختيار ملف LAB</SelectLABfile>
+	<NewLabel>العلامة الجديدة</NewLabel>
+	<SelectLogofile>اختيار ملف رسمة</SelectLogofile>
+	<SolventLevelCalibration>ضبط مستوى المذيب</SolventLevelCalibration>
+	<InkLevelCalibration>ضبط مستوى الحبر</InkLevelCalibration>
+<!--溶剂墨水校准界面-->
+	<Clicknext>اضغط على التالي</Clicknext>
+	<Cleantheinksensorsurfaceandkeepitdry>تنظيف حساس مستوى الحبر و تنشيفه</Cleantheinksensorsurfaceandkeepitdry>
+	<Cleanthesolventsensorsurfacendkeepitdry>تنظيف حساس مستوى المذيب و تنشيفه</Cleanthesolventsensorsurfacendkeepitdry>
+	<Installsensorandplugininkcartridgetoaddoinknolongerautomatically>تركيب الحساس و تركيب علبة حبر</Installsensorandplugininkcartridgetoaddoinknolongerautomatically>
+	<Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>تركيب الحساس و ادخال علبة مذيب</Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically>
 <!--系统状态-->
 	<IDC_MACHINE_STATUS>إغلاق</IDC_MACHINE_STATUS>
 	<IDC_READY_TO_PRINT>جاهز للطباعة</IDC_READY_TO_PRINT>
