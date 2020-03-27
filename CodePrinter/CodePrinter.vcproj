@@ -567,14 +567,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ClientContext.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ClientManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\CodePrinter.cpp"
 				>
 			</File>
@@ -830,14 +822,6 @@
 			</File>
 			<File
 				RelativePath=".\BtnST.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ClientContext.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ClientManager.h"
 				>
 			</File>
 			<File

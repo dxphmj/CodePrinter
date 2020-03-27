@@ -75,66 +75,37 @@
 
 
 /////////////////////////////////////
-#include <math.h>
-#include "./inc/stpLibrary/stpLibrary.h"			//包含头文件并使用动态链接库
-//#pragma comment( lib, "Ws2.lib" )
+/*应用程序定义*/
+#include "Resource.h"
 
-#include "vector"
+#include  <afxtempl.h> 
+#include "winsock2.h"
+#pragma comment(lib, "ws2.lib")
+//#import "c:\program files\common files\system\ado\msado15.dll" no_namespace rename("EOF", "adoEOF") 
 
-using namespace std;
+#define		SERVERPORT			8899						//服务器端口
+#define		THREAD_SLEEP_TIME	100							//线程睡眠时间
+#define		HEADERLEN			(sizeof(PACKETHDR))			//包头长度
+#define		WM_USER_ADDWORD		(WM_USER + 100)				//添加单词
 
-#define		PAPER_BUFFER_SIZE	(1024*10)					//试题缓冲区1024*10
-#define		ANSWER_BUFFER_SIZE	(50)						//答案缓冲区
-#define		HEADELEN			(sizeof(HDR))				//包头长度
-#define		OVERLAPPEDPLUSLEN	(sizeof(IO_OPERATION_DATA))	//扩展重叠结构长度
-#define		SERVERPORT			5561						//服务器端口
-#define		BUFFER_SIZE			(128)						//接收数据缓冲区64
-
-
-//最大子线程数量
-#define		MAX_SUBTHREAD_SIZE	(15)							//最多子线程数量 
-
-//学号长度
-#define		SNLEN				4							//学号长度
-
-//I/O操作类型
-#define		IOReadHead			10							//接收包头  //01 03 低字节在前，高字节在后
-#define		IOReadBody			11							//接收包体
-#define		IOWriteInfo			12							//接收包体
-#define		IOWriteUnLogin		13							//验证失败
-#define		IOWriteSTNAME		14							//发送姓名
-#define		IOWritePAPER		15							//发送试卷
-#define		IOEXIT				16							//客户端退出
-
-
-
-//包类型
-#define		Command03			03							//03指令
-#define		Command04			04							//04指令
-#define		STNAME				102							//学生姓名	|服务器
-#define		PAPER				103							//试卷		|
-//包头
-typedef struct _header
+//数据包头声明
+#define		ETOC				0							//英译汉
+#define		CTOE				1							//汉译英
+typedef struct _packethdr
 {
-	BYTE		usHead[6];	//地址
-	BYTE		usAdress;	//地址
-	BYTE		usCommandType;	//命令类型
-}HDR, *PHDER;
+	u_short	type;	//类型
+	u_short	len;	//数据包长度(包体)
+}PACKETHDR, *PPACKETHDR;
 
-//考生信息
-typedef struct _studentinfo
+class CCodePrinterDlg;
+typedef struct _threadparam
 {
-	CString	strSN;		//学号S:student N:Number
-	CString	strName;	//姓名
-	CString	strState;	//状态
-	u_short usGrade;	//分数
-}STUDENTINFO, *PSTUDENTINFO;
+	HWND		hServHwnd;	//主窗口句柄
+	CCodePrinterDlg *pServView;	//主窗口指针
+}THREADPARAM, *PTHREADPARAM;
 
-// I/O 操作数据结构
-typedef	struct _io_operation_data 
+class CClientSocket;
+typedef struct __threadparamC
 {
-	OVERLAPPED	overlapped;					//重叠结构
-	char		recvBuf[BUFFER_SIZE];		//接收数据缓冲区
-	HDR			hdr;						//包头
-	byte		type;						//操作类型
-}IO_OPERATION_DATA, *PIO_OPERATION_DATA;
+	CClientSocket *pClient;
+}THECLIENT,*PTHECLIENT;
