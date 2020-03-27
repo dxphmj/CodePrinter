@@ -99,15 +99,41 @@ void CInkCalibDlg::OnBnClickedCalibNext1Btn()
 	this->GetDlgItem(IDC_CALIB_NEXT1_BTN)->ShowWindow(SW_HIDE);
 	this->GetDlgItem(IDC_CALIB_NEXT2_BTN)->ShowWindow(SW_SHOW);
 	wstring tempstr;
-	if ( LevCal_type.CompareNoCase(_T("Ink")) == 0 )//墨水液位校准
+	if ( LevCal_type.CompareNoCase(_T("Ink")) == 0 )//发墨水空校准
 	{
 		tempstr=theApp.myLanguage.LanguageMap["Installsensorandplugininkcartridgetoaddoinknolongerautomatically"];
 		this->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
+		vector<BYTE> tempCtrVec;
+		tempCtrVec.push_back(0x1);
+		tempCtrVec.push_back(0x80);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x5);
+		tempCtrVec.push_back(0x4);
+		tempCtrVec.push_back(0xff);
+		tempCtrVec.push_back(0xff);
+
+		theApp.boQueCtrLock.Lock();
+		theApp.queCtr.push(tempCtrVec);
+		theApp.boQueCtrLock.Unlock();
 	} 
-	else//溶剂液位校准
+	else//发溶剂空校准
 	{
 		tempstr=theApp.myLanguage.LanguageMap["Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically"];
 		this->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
+		vector<BYTE> tempCtrVec;
+		tempCtrVec.push_back(0x1);
+		tempCtrVec.push_back(0x80);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x5);
+		tempCtrVec.push_back(0x1);
+		tempCtrVec.push_back(0xff);
+		tempCtrVec.push_back(0xff);
+
+		theApp.boQueCtrLock.Lock();
+		theApp.queCtr.push(tempCtrVec);
+		theApp.boQueCtrLock.Unlock();
 	}
 
 }
@@ -117,6 +143,38 @@ void CInkCalibDlg::OnBnClickedCalibNext2Btn()
 	// TODO: 在此添加控件通知处理程序代码
 	this->ShowWindow(SW_HIDE);
 	((CCodePrinterDlg*)GetParent()->GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
+	if ( LevCal_type.CompareNoCase(_T("Ink")) == 0 )//发溶剂盒不再自动添加时校准
+	{
+		vector<BYTE> tempCtrVec;
+		tempCtrVec.push_back(0x1);
+		tempCtrVec.push_back(0x80);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x5);
+		tempCtrVec.push_back(0x5);
+		tempCtrVec.push_back(0xff);
+		tempCtrVec.push_back(0xff);
+
+		theApp.boQueCtrLock.Lock();
+		theApp.queCtr.push(tempCtrVec);
+		theApp.boQueCtrLock.Unlock();
+	} 
+	else//发溶剂盒不再自动添加时校准
+	{
+		vector<BYTE> tempCtrVec;
+		tempCtrVec.push_back(0x1);
+		tempCtrVec.push_back(0x80);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x3);
+		tempCtrVec.push_back(0x5);
+		tempCtrVec.push_back(0x2);
+		tempCtrVec.push_back(0xff);
+		tempCtrVec.push_back(0xff);
+
+		theApp.boQueCtrLock.Lock();
+		theApp.queCtr.push(tempCtrVec);
+		theApp.boQueCtrLock.Unlock();
+	}
 }
 
 void CInkCalibDlg::OnBnClickedCalibReturnBtn()
