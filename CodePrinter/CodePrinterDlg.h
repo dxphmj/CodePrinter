@@ -19,6 +19,7 @@
 #include "NumKey.h"
 #include "ResetSerial.h"
 #include "DealXml.h"
+#include "ClientSocket.h"
 #define TIMER1 1
 
 // CCodePrinterDlg 对话框
@@ -55,6 +56,7 @@ protected:
 #if defined(_DEVICE_RESOLUTION_AWARE) && !defined(WIN32_PLATFORM_WFSP)
 	afx_msg void OnSize(UINT /*nType*/, int /*cx*/, int /*cy*/);
 #endif
+
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedLabelButton();
@@ -109,5 +111,31 @@ public:
 	void ChangeBottonEnable();
 
 public://网络
+	afx_msg LRESULT OnSocketAccept(WPARAM wParam, LPARAM lParam);	//FD_ACCEPT网络事件自定义消息
+	afx_msg LRESULT OnSocketRead(WPARAM wParam, LPARAM lParam);		//FD_READ网络事件自定义消息
+	afx_msg LRESULT OnSocketClose(WPARAM wParam, LPARAM lParam);	//FD_CLOSE网络事件自定义消息
 
+	BOOL	InitSocket(void);								//初始化套结字
+	BOOL	BeginListen(void);								//服务器开始监听
+	BOOL    StartSocket(void);								//开始通讯
+	static DWORD WINAPI ServiceThread(void *pParam);		//服务器线程函数
+
+	void	ClearSocketAndEventFromArr(const int nIndex);	//删除客户端套接字
+	void	DeleteClientNode(SOCKET s);						//从管理客户端链表删除节点
+	CClientSocket* FindClientNode(const SOCKET s);			//从管理客户端链表中查找对应的CClientSocket指针
+
+
+public:
+
+	SOCKET			m_sListen;						//监听套接字
+	WSAEVENT		m_arrEvent[MAX_NUM_EVENTS];		//套接字事件对象数组
+	SOCKET			m_arrSocket[MAX_NUM_EVENTS];	//套接字数组
+	WORD			m_nTotalEvent;					//网络事件数量
+	CImageList		*m_pImageList;					//图像列表对象
+	BOOL			m_bRuning;						//服务器运行状态
+	HANDLE			m_hEventExit;					//服务器退出事件
+
+private:
+	CObList				m_UserList;					//用户链表
+	CCriticalSection	m_csList;					//临界区对象
 };

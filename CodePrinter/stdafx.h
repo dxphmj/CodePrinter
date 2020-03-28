@@ -75,33 +75,54 @@
 
 
 /////////////////////////////////////
-/*应用程序定义*/
-#include "Resource.h"
-
-#include  <afxtempl.h> 
-#include "winsock2.h"
+//该程序声明
+//header
+#include <WINSOCK2.H>
+#include <afxmt.h>
 #pragma comment(lib, "ws2.lib")
-//#import "c:\program files\common files\system\ado\msado15.dll" no_namespace rename("EOF", "adoEOF") 
 
+//类型
+//#define		SERVMESSAGE			200							//服务器消息
+//#define		USERINFOR			201							//用户信息
+//数据包类型定义
+#define		CONTROL_CE				1					//控制
+#define		PRINT_CE				2					//打印数据下发
+#define		PRINTGET_CE				3					//打印字节传回
+#define		COLLECT_CE				4					//采集数据
+#define		COUNTER_CE				5					//计数器
+#define		OTHER_CE				6					//其他
+
+//自定义消息
+#define WM_USER_ACCEPT		(WM_USER + 200)//FD_ACCEPT
+#define WM_USER_READ		(WM_USER + 201)//FD_READ
+#define WM_USER_CLOSE		(WM_USER + 202)//FD_CLOSE
+
+
+//MACRO
 #define		SERVERPORT			8899						//服务器端口
-#define		THREAD_SLEEP_TIME	100							//线程睡眠时间
-#define		HEADERLEN			(sizeof(PACKETHDR))			//包头长度
-#define		WM_USER_ADDWORD		(WM_USER + 100)				//添加单词
+#define		MAX_NUM_EVENTS		WSA_MAXIMUM_WAIT_EVENTS		//最大事件对象数量
+#define		SERVER_WAIT_TIMEOUT	100							//睡眠时间
 
-//数据包头声明
-#define		ETOC				0							//英译汉
-#define		CTOE				1							//汉译英
+//结构大小
+#define		CLIENTPACKETLEN		(sizeof(CLINETPACKET))		//客户端数据包长度
+#define		PACKETHDRLEN		(sizeof(PACKETHDR))			//包头长度
+
+//服务器与客户端发送数据包头
 typedef struct _packethdr
 {
 	u_short	type;	//类型
 	u_short	len;	//数据包长度(包体)
 }PACKETHDR, *PPACKETHDR;
 
-class CCodePrinterDlg;
+//线程函数参数
 typedef struct _threadparam
 {
-	HWND		hServHwnd;	//主窗口句柄
-	CCodePrinterDlg *pServView;	//主窗口指针
+	HWND	hServHwnd;		//主窗口句柄
+	BOOL	*pRunning;		//线程运行状态
+	WORD	*pTotalEvent;	//事件对象数量
+	WSAEVENT*pArrEvent;		//事件对象数组
+	SOCKET	*pArrSocket;	//套接字句柄数组
+	HANDLE	hEventExit;		//线程退出事件句柄
 }THREADPARAM, *PTHREADPARAM;
 
 class CClientSocket;
