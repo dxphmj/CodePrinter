@@ -571,6 +571,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ClientSocket.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CodePrinter.cpp"
 				>
 			</File>
@@ -830,6 +834,10 @@
 			</File>
 			<File
 				RelativePath=".\BtnST.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ClientSocket.h"
 				>
 			</File>
 			<File

@@ -27,7 +27,7 @@ UserPower::UserPower(void)
 	// booSysEnvCusOK=false;//环境、自定义和对号
 
 	// booFaultDelete=false;//删除故障
-	
+	CreateDirectory(_T("Storage Card\\System"), NULL);
 	 nowUser.userName=theApp.myModuleMain.ReadXml("SoftSystem.xml","User","root","Storage Card\\System");
 	CreateDirectory(_T("Storage Card\\System\\UserPower"), NULL);
 	 //userMap.insert(make_pair("root","root"));
