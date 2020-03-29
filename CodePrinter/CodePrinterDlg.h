@@ -19,6 +19,7 @@
 #include "NumKey.h"
 #include "ResetSerial.h"
 #include "DealXml.h"
+#include "Arabicconjunction.h"
 #define TIMER1 1
 
 // CCodePrinterDlg ¶Ô»°¿ò
@@ -107,7 +108,8 @@ public:
  
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	void ChangeBottonEnable();
-
+public:
+	CArabicconjunction *m_cAbrabicconj;
 public://ÍøÂç
 
 };

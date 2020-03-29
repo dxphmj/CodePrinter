@@ -188,14 +188,18 @@ void CUserDlg::OnBnClickedDeleteBtn()
 	CListBox* m_allUserBox=(CListBox*)GetDlgItem(IDC_LIST_ALLUSER);
 	m_allUserBox->GetText(m_allUserBox->GetCurSel(),deletUser);
 	wstring lanStr;
+	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	lanStr=theApp.myLanguage.LanguageMap["IDC_USER_DEL_DEL_STATIC"];
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
 	CString staticEdit;
 	staticEdit.Format(_T(" %s ？"),deletUser);
 	//staticEdit.Format(_T("确定删除用户 %s ？"),deletUser);
-	pUserDelete->GetDlgItem(IDC_USER_DEL_DEL_STATIC)->SetWindowText(lanStr.c_str()+staticEdit);
+	pUserDelete->GetDlgItem(IDC_USER_DEL_DEL_STATIC)->SetWindowText(cstr+staticEdit);
 
 	lanStr=theApp.myLanguage.LanguageMap["DeleteUser"];
-	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(lanStr.c_str());
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 	showUserDlg(IDD_USER_DELETE_DIALOG);
 }
 
@@ -235,12 +239,13 @@ void CUserDlg::showUserDlg(int ID)
 	pUserFresh->ShowWindow(SW_HIDE);
 	wstring tempstr1,tempstr2;
 	CString cstr1,cstr2;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	if (ID == IDD_USER_OPEN_DIALOG)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_EDIT"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		pUserOpen->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
@@ -248,8 +253,8 @@ void CUserDlg::showUserDlg(int ID)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_NEW"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		pUserNew->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
@@ -257,15 +262,15 @@ void CUserDlg::showUserDlg(int ID)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_DEL"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		pUserDelete->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
 	else if (ID == IDD_USER_FRESH_DIALOG)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT_FRESH"];
-		cstr1 = tempstr1.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
 		pUserFresh->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 	}

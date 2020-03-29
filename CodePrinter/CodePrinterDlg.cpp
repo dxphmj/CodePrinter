@@ -17,6 +17,7 @@
 //#include "Tchar.h”
 #include "PcfConfig.h"
 #include "DealXml.h"
+#include "shellapi.h"
 
 #define  def_ttl 1
 //对话框操作
@@ -146,12 +147,18 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		::ShowWindow(hTaskBar, SW_HIDE);       
 	}       	
 	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );
+	//初始化读取ChineseSimplified.xml,设置系统状态shut down
 	bool iniLanXml;
 	iniLanXml = theApp.myLanguage.readLanguageXml("ChineseSimplified.xml");
 	wstring lanStr;
-	lanStr=theApp.myLanguage.LanguageMap["IDC_MACHINE_STATUS"];
-    m_PicHead.SetMachineStatus(lanStr.c_str());//Shut Down
+	CString templanstr;
+	m_cAbrabicconj = new CArabicconjunction;
+	m_cAbrabicconj->m_pCodePrinterDlg = this;
+	//lanStr=theApp.myLanguage.LanguageMap["IDC_MACHINE_STATUS"];
+	//templanstr = m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+ //   m_PicHead.SetMachineStatus(templanstr);//Shut Down
 	m_PicHead.ShowLogo(true);
+
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 	mainPicStruct.myMainPicture=&m_PictureMain;
 	m_Fault = new CFaultDlg;
@@ -162,6 +169,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_FileMan = new CFileManaDlg;
 	m_Ink = new CInkSystemDlg;
 	m_resetSerial = new CResetSerial;
+
 	//创建文件夹
 	CreateDirectory(_T("Storage Card\\System\\Error"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\PrintConfig"), NULL);
@@ -169,6 +177,12 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	CreateDirectory(_T("Storage Card\\User\\Logo"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\Font"), NULL);
 	CreateDirectory(_T("Storage Card\\User\\LanguageXml"), NULL);//多语言文件夹，以后移动到system文件夹下比较好
+	//全屏显示
+	int iFullWidth  = GetSystemMetrics(SM_CXSCREEN);
+	int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
+	::SetWindowPos(this->m_hWnd, HWND_TOPMOST,0,0,iFullWidth, iFullHeight,SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
+	m_pNumKey = NULL;
+
 	int nX = 0;
 	int nY = 75;
 	int nWidth = 800;
@@ -355,31 +369,35 @@ BOOL CCodePrinterDlg::OnInitDialog()
 #endif 	
 	theApp.SetProgressBar(100);
 
-    int iFullWidth  = GetSystemMetrics(SM_CXSCREEN);
-	int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
-	::SetWindowPos(this->m_hWnd, HWND_TOPMOST,0,0,iFullWidth, iFullHeight,SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
-
+	//int iFullWidth  = GetSystemMetrics(SM_CXSCREEN);
+	//int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
+	//::SetWindowPos(this->m_hWnd, HWND_TOPMOST,0,0,iFullWidth, iFullHeight,SWP_NOOWNERZORDER|SWP_SHOWWINDOW);
+	//m_pNumKey = NULL;
 	SetTimer(TIMER1,300,NULL);
-	m_pNumKey = NULL;
+	
 	//GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
-	//HWND hWnd = NULL;
+
+	//关闭Load程序
+	HWND hWnd = NULL;
 	//hWnd = ::FindWindow(NULL,_T("Load"));
-	//if (hWnd == NULL)
-	//{
-	//	return TRUE;
-	//}
+	hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
+	if (hWnd == NULL)
+	{
+		return TRUE;
+	}
+	
+	DWORD dwProcessId;
+	//得到该窗口的进程ID
+	GetWindowThreadProcessId(hWnd,&dwProcessId);
+	//从进程ID打开进程句柄
+	HANDLE handle = OpenProcess(0,false,dwProcessId);
+	//强制终止进程
+	TerminateProcess(handle,0);
+	::SendMessage(hWnd,WM_CLOSE,0,0);
 	//
-	//DWORD dwProcessId;
-	////得到该窗口的进程ID
-	//GetWindowThreadProcessId(hWnd,&dwProcessId);
-	////从进程ID打开进程句柄
-	//HANDLE handle = OpenProcess(0,false,dwProcessId);
-	////强制终止进程
-	//TerminateProcess(handle,0);
-	//::SendMessage(hWnd,WM_CLOSE,0,0);
+
 	/*dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));*/
 	//网络
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -512,33 +530,34 @@ void CCodePrinterDlg::showDlg(int ID)
 	m_resetSerial->ShowWindow(SW_HIDE);
 	wstring tempstr,tempstr2;
 	CString cstr,cstr2;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this;//获取主对话框指针
 	if(ID == IDD_SYSTEM_DIALOG)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_NETWORK"];
-		cstr = tempstr.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		m_System->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(cstr+_T(" > ")+cstr2);//System Manage 
 	}
 	else if (ID == IDD_USER_DIALOG)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_USER_MANAGEMENT"];
-		cstr = tempstr.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 		m_User->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(cstr);//User Manage 
 	}
 	else if(ID == IDD_LABEL_DIALOG)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_LABEL_MANAGEMENT"];
-		cstr = tempstr.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 		m_Label->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(cstr); //Label Manage
 	}
 	else if(ID == IDD_CONFIGURATION_DIALOG)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
-		cstr = tempstr.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 		m_Confi->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(cstr); //Configure
 		m_PicHead.SetSecondLineOpeString(m_Confi->pcfNameDlg);
@@ -547,7 +566,7 @@ void CCodePrinterDlg::showDlg(int ID)
 	else if(ID == IDD_FILEMANA_DIALOG)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_FILE_MANAGEMENT"];
-		cstr = tempstr.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 		//m_FileMan->ShowWindow(SW_SHOW);
 		m_PicHead.SetOperationString(cstr); //File Manage
 		TCHAR path[MAX_PATH];
@@ -563,18 +582,18 @@ void CCodePrinterDlg::showDlg(int ID)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_INKSYSTEM_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_INKSYSTEM_USUAL"];
-		cstr = tempstr.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		m_Ink->ShowWindow(SW_SHOW);
 	    m_PicHead.SetOperationString(cstr+_T(" > ")+cstr2);// Ink System
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
-		cstr = tempstr.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 	    m_PicHead.SetOperationString(cstr); //Fault System
 		tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
-		cstr = tempstr.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 		m_PicHead.SetSecondLineOpeString(cstr);
 		m_Fault->ShowWindow(SW_SHOW);
 	}
@@ -585,7 +604,7 @@ void CCodePrinterDlg::showDlg(int ID)
 	else if(ID == IDD_RESET_SERIAL_DIALOG)
 	{
 		tempstr=theApp.myLanguage.LanguageMap["ID_RESET_SERIAL"];
-		cstr = tempstr.c_str();
+		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 		m_PicHead.SetOperationString(cstr); //Fault System
 		///
 		m_resetSerial->boDlgOpen=true;
@@ -1421,6 +1440,8 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	CDialog::OnTimer(nIDEvent);
 	wstring Readytoprint,Systemready,SequencingOn,SequencingOff,PrinterOff;
+	CString tempstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this;
 	Readytoprint=theApp.myLanguage.LanguageMap["IDC_READY_TO_PRINT"];
 	Systemready=theApp.myLanguage.LanguageMap["IDC_SYSTEM_READY"];
 	SequencingOn=theApp.myLanguage.LanguageMap["IDC_SEQUENCING_ON"];
@@ -1455,13 +1476,15 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
 		{
-			m_PicHead.SetMachineStatus(Readytoprint.c_str());//Ready to print
+			tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(Readytoprint.c_str());
+			m_PicHead.SetMachineStatus(tempstr);//Ready to print
  		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
 		{
 			if (theApp.myStatusClass.staSysRea == true)//系统准备好
-			{				 
-				m_PicHead.SetMachineStatus(Systemready.c_str());//System ready
+			{
+				tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(Systemready.c_str());
+				m_PicHead.SetMachineStatus(tempstr);//System ready
 			}
 			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
 			{
@@ -1469,17 +1492,20 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
 					{
-						m_PicHead.SetMachineStatus(SequencingOn.c_str());//Sequencing On
+						tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(SequencingOn.c_str());
+						m_PicHead.SetMachineStatus(tempstr);//Sequencing On
 					}
 					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
 
 					{
-						m_PicHead.SetMachineStatus(SequencingOff.c_str());//Sequencing Off
+						tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(SequencingOff.c_str());
+						m_PicHead.SetMachineStatus(tempstr);//Sequencing Off
 					}
 				}
 				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
-				{					 
-					m_PicHead.SetMachineStatus(PrinterOff.c_str());//Printer Off
+				{	
+					tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(PrinterOff.c_str());
+					m_PicHead.SetMachineStatus(tempstr);//Printer Off
 				}//系统忙
 			}//系统准备好
 

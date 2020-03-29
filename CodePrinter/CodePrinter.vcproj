@@ -559,6 +559,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Arabicconjunction.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\BarCodeDlg.cpp"
 				>
 			</File>
@@ -808,6 +812,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Arabicconjunction.h"
+				>
+			</File>
 			<File
 				RelativePath=".\BarCodeDlg.h"
 				>
@@ -1067,11 +1075,11 @@
 				>
 			</File>
 			<File
-				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang0.bmp"
+				RelativePath=".\res\ang0.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\ang0.bmp"
+				RelativePath="G:\I-TJ20190917\ÒÑÆÁ±Î\I-TIJ\bng\ang0.bmp"
 				>
 			</File>
 			<File
@@ -1711,15 +1719,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\fault\É¾³ý.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\É¾³ý.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\fault\É¾³ý.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\fault\É¾³ý.bmp"
 				>
 			</File>
 			<File
@@ -1751,19 +1759,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\ÓÒ--.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\SMALL\ÓÒ--.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\SMALL\ÓÒ.bmp"
+				RelativePath=".\res\fault\ÓÒ--.bmp"
 				>
 			</File>
 			<File
 				RelativePath=".\res\fault\ÓÒ.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\SMALL\ÓÒ.bmp"
 				>
 			</File>
 			<File
@@ -1855,11 +1863,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\SMALL\×ó.bmp"
+				RelativePath=".\res\fault\×ó.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\fault\×ó.bmp"
+				RelativePath=".\res\SMALL\×ó.bmp"
 				>
 			</File>
 			<File

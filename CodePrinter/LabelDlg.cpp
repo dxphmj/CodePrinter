@@ -694,8 +694,11 @@ void CLabelDlg::OnBnClickedSaveButton()
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
 	wstring tempstr;
+	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	tempstr=theApp.myLanguage.LanguageMap["SelectSavePath"];
-	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
     string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,1))
 	{
@@ -722,8 +725,11 @@ void CLabelDlg::OnBnClickedOpenButton()
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
 	wstring tempstr;
+	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	tempstr=theApp.myLanguage.LanguageMap["SelectLABfile"];
-	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,1))
 	{
@@ -1205,9 +1211,13 @@ void CLabelDlg::showInputDlg(int ID)
 //清空，新建
 void CLabelDlg::OnBnClickedClsButton()
 {
+
 	wstring tempstr;
+	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	tempstr=theApp.myLanguage.LanguageMap["NewLabel"];
-	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 	// TODO: 在此添加控件通知处理程序代码
 	theApp.m_MessageEdit.OBJ_Vec.clear();
 	//memset(theApp.m_MessageEdit.CounterEditMes,false,sizeof(bool)*4);

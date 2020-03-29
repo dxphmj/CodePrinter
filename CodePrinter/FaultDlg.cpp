@@ -468,6 +468,7 @@ void CFaultDlg::OnBnClickedRefreshBtn()
 void CFaultDlg::OnBnClickedLHistoryBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	if (nowErrDay<(strErrorFileNameArr.size()-1))
 	{
 
@@ -479,19 +480,20 @@ void CFaultDlg::OnBnClickedLHistoryBtn()
 		openfailurefile(timeErr);
 		
 		wstring tempstr;
-		CString cstr,errorFileName;
+		CString cstr,cstr2,errorFileName;
 		if ( strErrorFileNameArr.at(nowErrDay) == "99999999")
 		{
 			tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
-			cstr = tempstr.c_str();
+			cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 		} 
 		else
 		{
 			tempstr=theApp.myLanguage.LanguageMap["Previouserrorlist"];
-			errorFileName = tempstr.c_str();
+			cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+			//errorFileName = tempstr.c_str();
 			errorFileName = strErrorFileNameArr.at(nowErrDay).c_str();
-			cstr = tempstr.c_str()  + errorFileName + _T(")");
+			cstr = cstr2  + errorFileName + _T(")");
 			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 		}
 	}
@@ -500,6 +502,7 @@ void CFaultDlg::OnBnClickedLHistoryBtn()
 void CFaultDlg::OnBnClickedRHistoryBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	if (nowErrDay>0)
 	{
 		CListBox* m_errBox=(CListBox*)GetDlgItem(IDC_FAULT_LIST);
@@ -510,19 +513,20 @@ void CFaultDlg::OnBnClickedRHistoryBtn()
 		openfailurefile(timeErr);
 
 		wstring tempstr;
-		CString cstr,errorFileName;
+		CString cstr,cstr2,errorFileName;
 		if ( strErrorFileNameArr.at(nowErrDay) == "99999999")
 		{
 			tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
-			cstr = tempstr.c_str();
+			cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 		} 
 		else
 		{
 			tempstr=theApp.myLanguage.LanguageMap["Previouserrorlist"];
-			errorFileName = tempstr.c_str();
+			cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+			//errorFileName = tempstr.c_str();
 			errorFileName = strErrorFileNameArr.at(nowErrDay).c_str();
-			cstr = tempstr.c_str()  + errorFileName + _T(")");
+			cstr = cstr2  + errorFileName + _T(")");
 			((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 		}
 	}
@@ -556,6 +560,7 @@ void CFaultDlg::OnLbnSelchangeFaultList()
 	GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(SplitOut.at(3));
 
 	CString tempstr = SplitOut.at(3);
+	CString tempstr2;
 	tempstr.Replace(_T(" "),NULL);//去除字符串中所有空格
 	
 	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
@@ -570,23 +575,28 @@ void CFaultDlg::OnLbnSelchangeFaultList()
 	{
 	case CHINESE_SIMPLIFIED: //CHINESE_SIMPLIFIED
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
+		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
 		break;
 	case ENGLISH://ENGLISH
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
+		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
 		break;
 	case ARABIC:
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
+		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
 		break;
 	case DUTCH:
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
+		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
 		break;
 	case HUNGARIAN:
 		lanStr=theApp.myLanguage.LanguageMap[error];
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(lanStr.c_str());
+		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
 		break;
 	}
 }

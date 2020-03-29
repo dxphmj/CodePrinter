@@ -177,18 +177,26 @@ BOOL COnOffDlg::OnInitDialog()
 void COnOffDlg::OnOffLanChange()
 {
 	wstring lanStr;
+	CString tempstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
+
 	lanStr=theApp.myLanguage.LanguageMap["IDC_SEQUENCE_BTN"];
-	GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(lanStr.c_str());
+	tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+	GetDlgItem(IDC_SEQUENCE_BTN)->SetWindowText(tempstr);
+
 	lanStr=theApp.myLanguage.LanguageMap["IDC_FAST_BTN"];
-	GetDlgItem(IDC_FAST_BTN)->SetWindowText(lanStr.c_str());
+	tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+	GetDlgItem(IDC_FAST_BTN)->SetWindowText(tempstr);
 	if (theApp.m_lastOnOffStatue = 0)//关机
 	{
 		lanStr=theApp.myLanguage.LanguageMap["ID_ON_TITLE"];
-		this->SetWindowText(lanStr.c_str());
+		tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+		this->SetWindowText(tempstr);
 	} 
 	else if (theApp.m_lastOnOffStatue = 1)//开机
 	{
 		lanStr=theApp.myLanguage.LanguageMap["ID_OFF_TITLE"];
-		this->SetWindowText(lanStr.c_str());
+		tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+		this->SetWindowText(tempstr);
 	}
 }

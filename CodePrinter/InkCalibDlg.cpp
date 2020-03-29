@@ -98,11 +98,14 @@ void CInkCalibDlg::OnBnClickedCalibNext1Btn()
 	// TODO: 在此添加控件通知处理程序代码
 	this->GetDlgItem(IDC_CALIB_NEXT1_BTN)->ShowWindow(SW_HIDE);
 	this->GetDlgItem(IDC_CALIB_NEXT2_BTN)->ShowWindow(SW_SHOW);
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent()->GetParent()->GetParent();//获取主对话框指针
 	wstring tempstr;
+	CString astr;
 	if ( LevCal_type.CompareNoCase(_T("Ink")) == 0 )//发墨水空校准
 	{
 		tempstr=theApp.myLanguage.LanguageMap["Installsensorandplugininkcartridgetoaddoinknolongerautomatically"];
-		this->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
+		astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+		this->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(astr);
 		vector<BYTE> tempCtrVec;
 		tempCtrVec.push_back(0x1);
 		tempCtrVec.push_back(0x80);
@@ -120,7 +123,8 @@ void CInkCalibDlg::OnBnClickedCalibNext1Btn()
 	else//发溶剂空校准
 	{
 		tempstr=theApp.myLanguage.LanguageMap["Installsensorandpluginsolventcartridgetoaddtosolventnolongerautomatically"];
-		this->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
+		astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+		this->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(astr);
 		vector<BYTE> tempCtrVec;
 		tempCtrVec.push_back(0x1);
 		tempCtrVec.push_back(0x80);

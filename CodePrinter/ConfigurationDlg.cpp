@@ -192,12 +192,13 @@ void CConfigurationDlg::showConfigDlg(int ID)
 	m_ConfigOS->ShowWindow(SW_HIDE);
 	wstring tempstr1,tempstr2;
 	CString cstr1,cstr2;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	if (ID == IDD_CONFIG_PRINT_MODE_DIALOG)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_PRINTMODE"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		m_ConfigPM->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 	}
@@ -205,8 +206,8 @@ void CConfigurationDlg::showConfigDlg(int ID)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_OUTSET"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		m_ConfigOS->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2); 
 
@@ -214,7 +215,7 @@ void CConfigurationDlg::showConfigDlg(int ID)
 	else if (ID == IDC_CONFI_OPEN_BTN)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_OPEN_CONFIGURATION"];
-		cstr1 = tempstr1.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
 		m_ConfigOS->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 
@@ -222,7 +223,7 @@ void CConfigurationDlg::showConfigDlg(int ID)
 	else if (ID == IDC_CONFI_SAVE_BTN)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_NEW_CONFIGURATION"];
-		cstr1 = tempstr1.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
 		m_ConfigOS->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 
@@ -266,11 +267,13 @@ void CConfigurationDlg::OnBnClickedConfiOpenBtn()
 	//更改标头
 	wstring tempstr1;
 	CString cstr1;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	tempstr1 = theApp.myLanguage.LanguageMap["ID_OPEN_CONFIGURATION"];
-	cstr1 = tempstr1.c_str();
+	cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 	tempstr1=theApp.myLanguage.LanguageMap["SelectPCFfile"];
-	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr1.c_str());
+	cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr1);
 	//////////////////////////////////////////////////////////////////////////
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,3))
@@ -296,12 +299,14 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 	//更改标头
 	wstring tempstr1;
 	CString cstr1;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	tempstr1 = theApp.myLanguage.LanguageMap["ID_NEW_CONFIGURATION"];
-	cstr1 = tempstr1.c_str();
+	cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 
 	tempstr1=theApp.myLanguage.LanguageMap["SelectSavePath"];
-	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(tempstr1.c_str());
+	cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(cstr1);
 	//////////////////////////////////////////////////////////////////////////
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,3))
@@ -316,7 +321,7 @@ void CConfigurationDlg::OnBnClickedConfiSaveBtn()
 		pcfNameDlg=pPcfConfig.m_pcfName;
 	}
 	tempstr1 = theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
-	cstr1 = tempstr1.c_str();
+	cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1); 
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(pcfNameDlg);
 
