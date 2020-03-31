@@ -284,6 +284,9 @@
 	<IDC_SEQUENCING_ON>Normál bekapcsolva</IDC_SEQUENCING_ON>
 	<IDC_SEQUENCING_OFF>Normál kikapcsolva</IDC_SEQUENCING_OFF>
 	<IDC_PRINTER_OFF>nyomtató kikapcsolva</IDC_PRINTER_OFF>
+	<IDC_CHARGE_FAULT>Töltés hiba</IDC_CHARGE_FAULT>
+	<IDC_PHASE_FAULT>Fázis hiba</IDC_PHASE_FAULT>
+	<IDC_FAULT_CONDITION>Hibaállapot</IDC_FAULT_CONDITION>
 <!--故障信息翻译-->
 	<Inktemperaturesensorfault>Tinta hőmérséklet érzékelő hiba</Inktemperaturesensorfault>
 	<Printheadtemperaturesensorfault>Nyomtató fej hőmérséklet hiba</Printheadtemperaturesensorfault>

@@ -7,34 +7,6 @@
 #include <fstream>
 #include "CodePrinterDlg.h"
 
-#define ARABIC					0 
-#define CHINESE_SIMPLIFIED		1
-#define CHINESE_TRADITIONAL		2
-#define CZECH					3
-#define DUTCH					4
-#define ENGLISH					5 
-#define ESTONIAN				6 
-#define FARSI					7 
-#define FINNISH					8 
-#define FRENCH					9 
-#define GERMAN					10 
-#define HINDI					11 
-#define HUNGARIAN				12 
-#define ITALIAN					13 
-#define JAPANESE				14 
-#define KANNADA					15 
-#define KOREAN					16 
-#define POLISH					17 
-#define PORTUGUESE				18 
-#define ROMANIAN				19 
-#define RUSSIAN					20 
-#define SERBIAN					21 
-#define SPANISH					22 
-#define SWEDISH					23 
-#define TAMIL					24 
-#define THAI					25 
-#define TURKISH					26 
-#define VIETNAMESE				27 
 // CFaultDlg 对话框
 
 IMPLEMENT_DYNAMIC(CFaultDlg, CDialog)
@@ -564,41 +536,11 @@ void CFaultDlg::OnLbnSelchangeFaultList()
 	tempstr.Replace(_T(" "),NULL);//去除字符串中所有空格
 	
 	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
-	int nIndex = pCodeDlg->m_System->pEvn->m_langeageList.GetCurSel();  //当前语言选中的项
-	while ( nIndex == -1 )
-	{
-		nIndex = CHINESE_SIMPLIFIED;//默认为中文
-	}
 	wstring lanStr;
 	string error = CT2A(tempstr.GetBuffer());
-	switch(nIndex)
-	{
-	case CHINESE_SIMPLIFIED: //CHINESE_SIMPLIFIED
-		lanStr=theApp.myLanguage.LanguageMap[error];
-		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
-		break;
-	case ENGLISH://ENGLISH
-		lanStr=theApp.myLanguage.LanguageMap[error];
-		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
-		break;
-	case ARABIC:
-		lanStr=theApp.myLanguage.LanguageMap[error];
-		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
-		break;
-	case DUTCH:
-		lanStr=theApp.myLanguage.LanguageMap[error];
-		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
-		break;
-	case HUNGARIAN:
-		lanStr=theApp.myLanguage.LanguageMap[error];
-		tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
-		GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
-		break;
-	}
+	lanStr=theApp.myLanguage.LanguageMap[error];
+	tempstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(lanStr.c_str());
+	GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(tempstr2);
 }
 
 std::vector<CString> CFaultDlg::split(CString str ,CString segStr)

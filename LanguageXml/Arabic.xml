@@ -284,6 +284,9 @@
 	<IDC_SEQUENCING_ON>النظام بدأ</IDC_SEQUENCING_ON>
 	<IDC_SEQUENCING_OFF>النظام يغلق</IDC_SEQUENCING_OFF>
 	<IDC_PRINTER_OFF>أطفئ الطباعة</IDC_PRINTER_OFF>
+	<IDC_CHARGE_FAULT>خطأ بالشحنة</IDC_CHARGE_FAULT>
+	<IDC_PHASE_FAULT>خطا تقصي الشحنة</IDC_PHASE_FAULT>
+	<IDC_FAULT_CONDITION>مسبب الخطا</IDC_FAULT_CONDITION>
 <!--故障信息翻译-->
 	<Inktemperaturesensorfault>خطاء بحساس حرارة الحبر</Inktemperaturesensorfault>
 	<Printheadtemperaturesensorfault>حطاء بحساس حرارة الراس</Printheadtemperaturesensorfault>

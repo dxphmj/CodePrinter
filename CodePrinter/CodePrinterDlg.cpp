@@ -167,8 +167,40 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_cAbrabicconj->m_pCodePrinterDlg = this;
 	//lanStr=theApp.myLanguage.LanguageMap["IDC_MACHINE_STATUS"];
 	//templanstr = m_cAbrabicconj->disposeinputtext(lanStr.c_str());
- //   m_PicHead.SetMachineStatus(templanstr);//Shut Down
+    //m_PicHead.SetMachineStatus(templanstr);//Shut Down
 	m_PicHead.ShowLogo(true);
+
+	/////////////////////关闭Load程序
+	HWND hWnd = NULL;
+	hWnd = ::FindWindow(_T("CLoadDlg"),_T("Microsoft Windows"));
+	if (NULL != hWnd) {
+		::SendMessage(hWnd, WM_CLOSE, 0, 0);
+	}
+
+	////通过进程名获取进程ID
+	////DWORD pid = GetProcessIdByName("test.exe");
+	//DWORD pid = GetProcessId(_T("Load.exe"));
+	////获取进程的最大权限
+	//HANDLE token = OpenProcess(PROCESS_ALL_ACCESS,FALSE,pid);
+	////关闭进程
+	//TerminateProcess(token, 0);
+	//HWND hWnd = NULL;
+	//hWnd = ::FindWindow(NULL,_T("Load"));
+	////hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load"));
+	//if (hWnd == NULL)
+	//{
+	//	return TRUE;
+	//}
+
+	//DWORD dwProcessId;
+	////得到该窗口的进程ID
+	//GetWindowThreadProcessId(hWnd,&dwProcessId);
+	////从进程ID打开进程句柄
+	//HANDLE handle = OpenProcess(0,false,dwProcessId);
+	////强制终止进程
+	//TerminateProcess(handle,0);
+	//::SendMessage(hWnd,WM_CLOSE,0,0);
+	//////////////////////////////////////////////////////////////////////////
 
 	m_PictureMain.SetWindowPos(NULL,0,0,640,129, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 	mainPicStruct.myMainPicture=&m_PictureMain;
@@ -388,24 +420,24 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 	//GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
-	//关闭Load程序
-	HWND hWnd = NULL;
-	//hWnd = ::FindWindow(NULL,_T("Load"));
-	hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
-	if (hWnd == NULL)
-	{
-		return TRUE;
-	}
-	
-	DWORD dwProcessId;
-	//得到该窗口的进程ID
-	GetWindowThreadProcessId(hWnd,&dwProcessId);
-	//从进程ID打开进程句柄
-	HANDLE handle = OpenProcess(0,false,dwProcessId);
-	//强制终止进程
-	TerminateProcess(handle,0);
-	::SendMessage(hWnd,WM_CLOSE,0,0);
+	////关闭Load程序
+	//HWND hWnd = NULL;
+	////hWnd = ::FindWindow(NULL,_T("Load"));
+	//hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
+	//if (hWnd == NULL)
+	//{
+	//	return TRUE;
+	//}
 	//
+	//DWORD dwProcessId;
+	////得到该窗口的进程ID
+	//GetWindowThreadProcessId(hWnd,&dwProcessId);
+	////从进程ID打开进程句柄
+	//HANDLE handle = OpenProcess(0,false,dwProcessId);
+	////强制终止进程
+	//TerminateProcess(handle,0);
+	//::SendMessage(hWnd,WM_CLOSE,0,0);
+	////
 
 	/*dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));*/
 	//网络
@@ -1136,13 +1168,19 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staChaFau == true && m_Fault->m_staChaFauLas == false)
 	{
 		//theApp.myStatusClass.staChaFauLas = true;
+		wstring chargefault;
+		CString tempstr;
+		chargefault=theApp.myLanguage.LanguageMap["IDC_CHARGE_FAULT"];
+		tempstr = m_cAbrabicconj->disposeinputtext(chargefault.c_str());
 		m_Fault->m_staChaFauLas = true;
-		m_PicHead.SetMachineStatus(_T("充电故障"));//Charge fault
+		//m_PicHead.SetMachineStatus(_T("充电故障"));//Charge fault
+		m_PicHead.SetMachineStatus(tempstr);//Charge fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
-		csMsg.Format(_T("充电故障"));//Charge fault
+		//csMsg.Format(_T("充电故障"));//Charge fault
+		csMsg.Format(_T("Charge fault"));//Charge fault
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -1159,13 +1197,18 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staPhaFau == true && m_Fault->m_staPhaFauLas == false)
 	{
 		//theApp.myStatusClass.staPhaFauLas = true;
+		wstring phasefault;
+		CString tempstr;
+		phasefault=theApp.myLanguage.LanguageMap["IDC_CHARGE_FAULT"];
+		tempstr = m_cAbrabicconj->disposeinputtext(phasefault.c_str());
 		m_Fault->m_staPhaFauLas = true;
-		m_PicHead.SetMachineStatus(_T("相位故障"));//Phase fault
+		m_PicHead.SetMachineStatus(tempstr);//Phase fault
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
 		CString csMsg ;
-		csMsg.Format(_T("相位故障"));//Phase fault
+		//csMsg.Format(_T("相位故障"));//Phase fault
+		csMsg.Format(_T("Phase fault"));//Phase fault
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Yellow" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -1195,7 +1238,8 @@ void CCodePrinterDlg::GetFaultInfo()
 		theApp.myStatusClass.ctr0X00bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control00();
 		CString csMsg ;
-		csMsg.Format(_T("高压故障"));//High voltage faul
+		//csMsg.Format(_T("高压故障"));//High voltage faul
+		csMsg.Format(_T("High voltage fault"));//High voltage fault
 		string m_tmpt;
 		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
@@ -1357,8 +1401,12 @@ void CCodePrinterDlg::GetFaultInfo()
 	if (theApp.myStatusClass.staAutModFau == true && m_Fault->m_staAutModFauLas == false)
 	{
 		//theApp.myStatusClass.staAutModFauLas = true;
+		wstring faultcondition;
+		CString tempstr;
+		faultcondition=theApp.myLanguage.LanguageMap["IDC_CHARGE_FAULT"];
+		tempstr = m_cAbrabicconj->disposeinputtext(faultcondition.c_str());
 		m_Fault->m_staAutModFauLas = true;
-		m_PicHead.SetMachineStatus(_T("Fault Condition"));
+		m_PicHead.SetMachineStatus(tempstr);//Fault Condition
 
 		theApp.myStatusClass.ctr0X03bit0 = 0;
 		theApp.myStatusClass.download_inksystem_control03();
@@ -1458,7 +1506,6 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 	CDialog::OnTimer(nIDEvent);
 	wstring Readytoprint,Systemready,SequencingOn,SequencingOff,PrinterOff;
 	CString tempstr;
-	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this;
 	Readytoprint=theApp.myLanguage.LanguageMap["IDC_READY_TO_PRINT"];
 	Systemready=theApp.myLanguage.LanguageMap["IDC_SYSTEM_READY"];
 	SequencingOn=theApp.myLanguage.LanguageMap["IDC_SEQUENCING_ON"];
@@ -1493,14 +1540,14 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//开打印中
 		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)//开了打印功能和系统准备好
 		{
-			tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(Readytoprint.c_str());
+			tempstr = m_cAbrabicconj->disposeinputtext(Readytoprint.c_str());
 			m_PicHead.SetMachineStatus(tempstr);//Ready to print
  		}
 		else if (theApp.myStatusClass.ctr0X03bit0 == 0)//未开打印功能
 		{
 			if (theApp.myStatusClass.staSysRea == true)//系统准备好
 			{
-				tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(Systemready.c_str());
+				tempstr = m_cAbrabicconj->disposeinputtext(Systemready.c_str());
 				m_PicHead.SetMachineStatus(tempstr);//System ready
 			}
 			else if (theApp.myStatusClass.staSysRea == false) //系统未准备好
@@ -1509,19 +1556,19 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					if (theApp.myStatusClass.ctr0X00bit0 == 1 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=1
 					{
-						tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(SequencingOn.c_str());
+						tempstr = m_cAbrabicconj->disposeinputtext(SequencingOn.c_str());
 						m_PicHead.SetMachineStatus(tempstr);//Sequencing On
 					}
 					else if (theApp.myStatusClass.ctr0X00bit0 == 0 /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/)//开关机位=0
 
 					{
-						tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(SequencingOff.c_str());
+						tempstr = m_cAbrabicconj->disposeinputtext(SequencingOff.c_str());
 						m_PicHead.SetMachineStatus(tempstr);//Sequencing Off
 					}
 				}
 				else if (theApp.myStatusClass.staSysBus == false /*&& picAlarmRed.Tag = "im008" && picAlarmYellow.Tag = "im006"*/ )//系统不忙
 				{	
-					tempstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(PrinterOff.c_str());
+					tempstr = m_cAbrabicconj->disposeinputtext(PrinterOff.c_str());
 					m_PicHead.SetMachineStatus(tempstr);//Printer Off
 				}//系统忙
 			}//系统准备好
