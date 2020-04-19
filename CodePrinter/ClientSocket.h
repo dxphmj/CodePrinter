@@ -20,6 +20,8 @@ public:
 	virtual ~CClientSocket();
 
 public:
+	void intTobyte(BYTE* outbyte);
+	vector<CString> Split(CString source, CString division);	//分割cstring
 	//BOOL 	Send(const u_short type, const CString &strData);	//发送数据
 	BOOL 	Send(const u_short type,const BYTE* sendData, int sentLen);	//发送数据
 	BOOL	Recv(void);											//接收数据
@@ -31,6 +33,7 @@ public:
 	WSAEVENT	m_hEvent;	//事件对象句柄
 	//CUserInfo	m_UserInfo;	//用户信息
 	bool            m_clientLive;               //是否活着
+	string			lab_name;
 private:
 	CClientSocket();
 private:

@@ -371,6 +371,14 @@ UINT TTLcomLoop(LPVOID pParam)
 							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 							strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
 							theApp.m_MessagePrint.boPrintNow=false;
+
+							if (theApp.m_UserList.GetCount()>0)
+							{
+								theApp.boSendCodeLock.Lock();
+								theApp.sendCodeque=queue<vector<BYTE>>();
+								theApp.sendCodeque.push(theApp.m_MessagePrint.bytPrintDataAllOrder);//存入网络队列
+								theApp.boSendCodeLock.Unlock();
+							}
 						} 
 						else
 						{
@@ -389,6 +397,15 @@ UINT TTLcomLoop(LPVOID pParam)
 								{
 									vector<BYTE> tempQueVec=theApp.ForPreQue.front();
 									theApp.ForPreQue.pop();
+									if (theApp.m_UserList.GetCount()>0)
+									{
+										if (theApp.sendCodeque.size()<10)
+										{
+											theApp.boSendCodeLock.Lock();
+											theApp.sendCodeque.push(theApp.m_MessagePrint.bytPrintDataAllOrder);//存入网络队列
+											theApp.boSendCodeLock.Unlock();
+										}		
+									}
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
 									if (strTempCmdLen>11)
@@ -467,6 +484,13 @@ UINT TTLcomLoop(LPVOID pParam)
 						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 						strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
 						theApp.m_MessagePrint.boPrintNow=false;
+						if (theApp.m_UserList.GetCount()>0)
+						{
+							theApp.boSendCodeLock.Lock();
+							theApp.sendCodeque=queue<vector<BYTE>>();
+							theApp.sendCodeque.push(theApp.m_MessagePrint.bytPrintDataAllOrder);//存入网络队列
+							theApp.boSendCodeLock.Unlock();
+						}
 					} 
 					else
 					{
@@ -577,6 +601,30 @@ UINT TTLcomLoop(LPVOID pParam)
 			//		strTempCmdLen=8;
 			//	}
 			//}
+					if (theApp.m_MessagePrint.boPrintNow)
+					{
+						theApp.boPrintNowLock.Lock();
+						if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+						{
+							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
+							strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
+							theApp.m_MessagePrint.boPrintNow=false;
+
+							if (theApp.m_UserList.GetCount()>0)
+							{
+								theApp.boSendCodeLock.Lock();
+								theApp.sendCodeque=queue<vector<BYTE>>();
+								theApp.sendCodeque.push(theApp.m_MessagePrint.bytPrintDataAllOrder);//存入网络队列
+								theApp.boSendCodeLock.Unlock();
+							}
+						} 
+						else
+						{
+							strTempCmd=(LPTSTR)readArr;
+							strTempCmdLen=8;
+						}
+						theApp.boPrintNowLock.Unlock();
+					}
 		}
 
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);

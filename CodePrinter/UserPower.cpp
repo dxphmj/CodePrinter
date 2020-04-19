@@ -27,71 +27,71 @@ UserPower::UserPower(void)
 	// booSysEnvCusOK=false;//环境、自定义和对号
 
 	// booFaultDelete=false;//删除故障
-	CreateDirectory(_T("Storage Card\\System"), NULL);
-	 nowUser.userName=theApp.myModuleMain.ReadXml("SoftSystem.xml","User","root","Storage Card\\System");
-	CreateDirectory(_T("Storage Card\\System\\UserPower"), NULL);
-	 //userMap.insert(make_pair("root","root"));
-	
-	 FILE *testFile;
-	 testFile = fopen("Storage Card\\System\\UserPower\\userName.txt", "r");
-	 if (testFile)
-	 {
-		 fclose(testFile);
-		 ifstream fin;
-		 fin.open(_T("Storage Card\\System\\UserPower\\userName.txt"));
-		 string str;
-		 while (getline(fin, str))
-		 {
-			 //getline(fin, str);
-			vector<string> tempUser=split(str,"|");
-			if (tempUser.size()==2)
-			{
-				//
-				vector<string> tempUserStr=split(tempUser.at(1),",");
-				UserStruct tempUT;
-				tempUT.userName=tempUserStr.at(0);
-				tempUT.userKey=tempUserStr.at(1);
-				tempUT.fatherName=tempUserStr.at(2);
-				tempUT.userLevel=atoi(tempUserStr.at(3).c_str());
-				userMap.insert(make_pair(tempUser.at(0),tempUT));
-			}
-		 }
-		 fin.close();
-	 }
-	 else
-	 {
-		 ofstream outUser("Storage Card\\System\\UserPower\\userName.txt", ios::out);
-		 outUser.close();
-	 }
+	//CreateDirectory(_T("Storage Card\\System"), NULL);
+	//nowUser.userName=theApp.myModuleMain.ReadXml("SoftSystem.xml","User","root","Storage Card\\System");
+	//CreateDirectory(_T("Storage Card\\System\\UserPower"), NULL);
+	// //userMap.insert(make_pair("root","root"));
+	//
+	// FILE *testFile;
+	// testFile = fopen("Storage Card\\System\\UserPower\\userName.txt", "r");
+	// if (testFile)
+	// {
+	//	 fclose(testFile);
+	//	 ifstream fin;
+	//	 fin.open(_T("Storage Card\\System\\UserPower\\userName.txt"));
+	//	 string str;
+	//	 while (getline(fin, str))
+	//	 {
+	//		 //getline(fin, str);
+	//		vector<string> tempUser=split(str,"|");
+	//		if (tempUser.size()==2)
+	//		{
+	//			//
+	//			vector<string> tempUserStr=split(tempUser.at(1),",");
+	//			UserStruct tempUT;
+	//			tempUT.userName=tempUserStr.at(0);
+	//			tempUT.userKey=tempUserStr.at(1);
+	//			tempUT.fatherName=tempUserStr.at(2);
+	//			tempUT.userLevel=atoi(tempUserStr.at(3).c_str());
+	//			userMap.insert(make_pair(tempUser.at(0),tempUT));
+	//		}
+	//	 }
+	//	 fin.close();
+	// }
+	// else
+	// {
+	//	 ofstream outUser("Storage Card\\System\\UserPower\\userName.txt", ios::out);
+	//	 outUser.close();
+	// }
 
-	 map<string,UserStruct>::iterator mapIter=userMap.find(nowUser.userName);
-	 if (mapIter!=userMap.end())
-	 {
-		 nowUser.userKey=mapIter->second.userKey;
-		 nowUser.userLevel=mapIter->second.userLevel;
-		 nowUser.fatherName=mapIter->second.fatherName;
-	 } 
-	 else///万一真找不到，就默认root
-	 {
-		nowUser.userName="root";
-		nowUser.userKey=rootPassKey;
-		nowUser.userLevel=0;
-		nowUser.fatherName="";
-	 }
-	 //FILE *testFile;
-	 testFile = fopen("Storage Card\\System\\UserPower\\root.txt", "r");
-	 if (testFile)
-	 {
-		 fclose(testFile);
-	 }
-	 else
-	 {
-		 ofstream outUser("Storage Card\\System\\UserPower\\root.txt", ios::out);
-		 outUser<<"ResetCount,ResetSerial,InkUsual,InkAdvance,InkSetup,InkParameter,InkPhasing,FileManage,PcfIO,PcfAll,LabelIO,LabelAll,SysNetComOK,SysEnvCusOK,FaultDelete"<<endl;
-		 outUser.close();
-	 }
+	// map<string,UserStruct>::iterator mapIter=userMap.find(nowUser.userName);
+	// if (mapIter!=userMap.end())
+	// {
+	//	 nowUser.userKey=mapIter->second.userKey;
+	//	 nowUser.userLevel=mapIter->second.userLevel;
+	//	 nowUser.fatherName=mapIter->second.fatherName;
+	// } 
+	// else///万一真找不到，就默认root
+	// {
+	//	nowUser.userName="root";
+	//	nowUser.userKey=rootPassKey;
+	//	nowUser.userLevel=0;
+	//	nowUser.fatherName="";
+	// }
+	// //FILE *testFile;
+	// testFile = fopen("Storage Card\\System\\UserPower\\root.txt", "r");
+	// if (testFile)
+	// {
+	//	 fclose(testFile);
+	// }
+	// else
+	// {
+	//	 ofstream outUser("Storage Card\\System\\UserPower\\root.txt", ios::out);
+	//	 outUser<<"ResetCount,ResetSerial,InkUsual,InkAdvance,InkSetup,InkParameter,InkPhasing,FileManage,PcfIO,PcfAll,LabelIO,LabelAll,SysNetComOK,SysEnvCusOK,FaultDelete"<<endl;
+	//	 outUser.close();
+	// }
 
-	 changeUserPower();
+	// changeUserPower();
 	//isChangeUser=true;
 }
 
@@ -251,4 +251,73 @@ void UserPower::changeUserPower()
 		}
 	}
 	isChangeUser=true;
+}
+
+void UserPower::initUser()
+{
+	CreateDirectory(_T("Storage Card\\System"), NULL);
+	nowUser.userName=theApp.myModuleMain.ReadXml("SoftSystem.xml","User","root","Storage Card\\System");
+	CreateDirectory(_T("Storage Card\\System\\UserPower"), NULL);
+	//userMap.insert(make_pair("root","root"));
+
+	FILE *testFile;
+	testFile = fopen("Storage Card\\System\\UserPower\\userName.txt", "r");
+	if (testFile)
+	{
+		fclose(testFile);
+		ifstream fin;
+		fin.open(_T("Storage Card\\System\\UserPower\\userName.txt"));
+		string str;
+		while (getline(fin, str))
+		{
+			//getline(fin, str);
+			vector<string> tempUser=split(str,"|");
+			if (tempUser.size()==2)
+			{
+				//
+				vector<string> tempUserStr=split(tempUser.at(1),",");
+				UserStruct tempUT;
+				tempUT.userName=tempUserStr.at(0);
+				tempUT.userKey=tempUserStr.at(1);
+				tempUT.fatherName=tempUserStr.at(2);
+				tempUT.userLevel=atoi(tempUserStr.at(3).c_str());
+				userMap.insert(make_pair(tempUser.at(0),tempUT));
+			}
+		}
+		fin.close();
+	}
+	else
+	{
+		ofstream outUser("Storage Card\\System\\UserPower\\userName.txt", ios::out);
+		outUser.close();
+	}
+
+	map<string,UserStruct>::iterator mapIter=userMap.find(nowUser.userName);
+	if (mapIter!=userMap.end())
+	{
+		nowUser.userKey=mapIter->second.userKey;
+		nowUser.userLevel=mapIter->second.userLevel;
+		nowUser.fatherName=mapIter->second.fatherName;
+	} 
+	else///万一真找不到，就默认root
+	{
+		nowUser.userName="root";
+		nowUser.userKey=rootPassKey;
+		nowUser.userLevel=0;
+		nowUser.fatherName="";
+	}
+	//FILE *testFile;
+	testFile = fopen("Storage Card\\System\\UserPower\\root.txt", "r");
+	if (testFile)
+	{
+		fclose(testFile);
+	}
+	else
+	{
+		ofstream outUser("Storage Card\\System\\UserPower\\root.txt", ios::out);
+		outUser<<"ResetCount,ResetSerial,InkUsual,InkAdvance,InkSetup,InkParameter,InkPhasing,FileManage,PcfIO,PcfAll,LabelIO,LabelAll,SysNetComOK,SysEnvCusOK,FaultDelete"<<endl;
+		outUser.close();
+	}
+
+	changeUserPower();
 }

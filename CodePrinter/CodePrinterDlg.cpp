@@ -1815,6 +1815,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		theApp.refalsetimedata();
 		if (theApp.m_MessagePrint.boDynamic)
 		{
+			theApp.sendCounter.clear();
 			for (int i = 0;i < theApp.m_MessagePrint.OBJ_Vec.size();i++)
 			{
 				if (theApp.m_MessagePrint.OBJ_Vec.at(i)->strType2 == "serial")
@@ -1834,6 +1835,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 						GetDlgItem(IDC_SEQUENCE4_STATIC)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myModuleMain.IntToString(theApp.m_MessagePrint.OBJ_Vec[i]->CountNum)));
 						break;
 					}
+					theApp.sendCounter.push_back(theApp.m_MessagePrint.OBJ_Vec[i]->CountNum);
 				}
 			}
 			if (m_resetSerial->boDlgOpen)
@@ -2079,9 +2081,9 @@ afx_msg LRESULT CCodePrinterDlg::OnSocketAccept( WPARAM wParam, LPARAM lParam )
 	//创建CClientSocket对象
 	CClientSocket *pClient = new CClientSocket(this, sAccept, m_arrEvent[m_nTotalEvent]);
 	
-	m_csList.Lock();
-	m_UserList.AddTail(pClient);//加入链表
-	m_csList.Unlock();
+	theApp.m_csList.Lock();
+	theApp.m_UserList.AddTail(pClient);//加入链表
+	theApp.m_csList.Unlock();
 	m_nTotalEvent++;			//总数加1
 	//注册网络事件
 	WSAEventSelect(m_sListen, m_arrEvent[wParam - WSA_WAIT_EVENT_0], FD_ACCEPT | FD_CLOSE);
@@ -2306,11 +2308,11 @@ void CCodePrinterDlg::DeleteClientNode( SOCKET s )
 	CClientSocket	*pClientSocket = NULL;	//CClientSocket指针
 	BOOL			bFinder = FALSE;		//是否找到该套接字
 
-	m_csList.Lock();//进入临界区
+	theApp.m_csList.Lock();//进入临界区
 	//遍历整个链表找到套接字对应的节点
-	for (pos1 = m_UserList.GetHeadPosition(); (pos2=pos1) != NULL;)
+	for (pos1 = theApp.m_UserList.GetHeadPosition(); (pos2=pos1) != NULL;)
 	{
-		pClientSocket = (CClientSocket*)m_UserList.GetNext(pos1);
+		pClientSocket = (CClientSocket*)theApp.m_UserList.GetNext(pos1);
 		if (pClientSocket->m_s == s)
 		{
 			bFinder = TRUE;
@@ -2318,10 +2320,10 @@ void CCodePrinterDlg::DeleteClientNode( SOCKET s )
 		}
 	}
 	ASSERT(TRUE == bFinder);
-	m_UserList.RemoveAt(pos2);	//从链表中删除该节点
+	theApp.m_UserList.RemoveAt(pos2);	//从链表中删除该节点
 	delete pClientSocket;		//释放内存
 	pClientSocket = NULL;
-	m_csList.Unlock();			//离开临界区
+	theApp.m_csList.Unlock();			//离开临界区
 	
 //	UpdateListCtrl();			//更新服务器用户列表
 //	SendUserList();				//发送用户列表	
@@ -2332,18 +2334,18 @@ void CCodePrinterDlg::DeleteClientNode( SOCKET s )
  */
 CClientSocket* CCodePrinterDlg::FindClientNode( const SOCKET s )
 {
-	m_csList.Lock();
+	theApp.m_csList.Lock();
 	POSITION pos = NULL;
-	for (pos = m_UserList.GetHeadPosition(); pos != NULL;)
+	for (pos = theApp.m_UserList.GetHeadPosition(); pos != NULL;)
 	{
-		CClientSocket *pClientSocket = (CClientSocket*)m_UserList.GetNext(pos);
+		CClientSocket *pClientSocket = (CClientSocket*)theApp.m_UserList.GetNext(pos);
 		if (pClientSocket->m_s == s)
 		{
-			m_csList.Unlock();
+			theApp.m_csList.Unlock();
 			return pClientSocket;
 		}
 	}
-	m_csList.Unlock();
+	theApp.m_csList.Unlock();
 		return NULL;
 }
 

@@ -162,6 +162,13 @@ void CUserOpenDlg::OnBnClickedButtonClose()
 void CUserOpenDlg::OnBnClickedButtonOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	if (theApp.myUserPower.nowUser.userName=="root")
+	{
+		CString csMsg ;
+		csMsg.Format(_T("错误!\n请勿修改root用户"),theApp.myModuleMain.string2CString(theApp.myUserPower.nowUser.userName));
+		AfxMessageBox(csMsg);
+		return;
+	}
 	CString csKEY;
 	GetDlgItem(IDC_OPEN_PASSWARD_EDIT)->GetWindowText(csKEY);
 	string passKey=theApp.myModuleMain.CString2string(csKEY);

@@ -90,7 +90,8 @@
 #define		PRINTGET_CE				3					//打印字节传回
 #define		COLLECT_CE				4					//采集数据
 #define		COUNTER_CE				5					//计数器
-#define		OTHER_CE				6					//其他
+#define		LAB_NAME				6					//lab名
+#define		OTHER_CE				10					//其他
 
 //自定义消息
 #define WM_USER_ACCEPT		(WM_USER + 200)//FD_ACCEPT

@@ -54,6 +54,13 @@ public:
 	queue<vector<BYTE>> ForPreQue;//序列号队列
 	queue<vector<BYTE>> boDotForPreQue;//动态显示队列
 	queue<vector<int>> intCounNumForPreQue ; //'主界面及计数器显示动态字符池
+
+	CObList				m_UserList;					//用户链表
+	CCriticalSection	m_csList;					//临界区对象
+	queue<vector<BYTE>> sendCodeque;//网络发送队列
+	CCriticalSection boSendCodeLock;//网络
+
+	vector<int> sendCounter;       //计数器值
 	int readCount;
 	BYTE bytStatus[37];
 // 实现

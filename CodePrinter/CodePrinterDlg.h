@@ -136,6 +136,6 @@ public:
 	HANDLE			m_hEventExit;					//服务器退出事件
 
 private:
-	CObList				m_UserList;					//用户链表
-	CCriticalSection	m_csList;					//临界区对象
+	//CObList				m_UserList;					//用户链表
+	//CCriticalSection	m_csList;					//临界区对象
 };

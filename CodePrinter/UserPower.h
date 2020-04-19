@@ -24,6 +24,7 @@ public:
 	void SavePower(string filePathName,vector<string> tempVec);
 	void changeUserPower();
 	//void ChangeBottonEnable(HWND hwnd);
+	void initUser();
 public:
 	bool booResetCount;//¼ÆÊýÆ÷
 	bool booResetSerial;//ÐòÁÐºÅ

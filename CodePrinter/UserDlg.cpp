@@ -56,7 +56,7 @@ END_MESSAGE_MAP()
 BOOL CUserDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+	theApp.myUserPower.initUser();
 	// TODO:  在此添加额外的初始化
 	pUserOpen = new CUserOpenDlg;
 	pUserNew = new CUserNewDlg;

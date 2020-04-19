@@ -6,8 +6,8 @@
 #include "CodePrinter.h"
 #include "ClientSocket.h"
 #include "CodePrinterDlg.h"
-
-
+#include <algorithm>
+#include <fstream>
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -65,42 +65,6 @@ BOOL CClientSocket::Recv( void )
 		return FALSE;
 	}else
 	{
-		//CString	strUserInfo;			//用户信息
-		//int	nTotalLen = 0;				//已经读取字符数量
-		//int	nDataLen = packetHdr.len;	//数据长度
-		//int	nReadLen = 0;				//每次读取字符数量 
-		//while ( nTotalLen != nDataLen )
-		//{		
-		//	char cRecv;								//接收字符
-		//	nReadLen = recv(m_s, &cRecv, 1,0);		//每次接收一个字符
-		//	if (SOCKET_ERROR == nReadLen)			//网络错误
-		//	{
-		//		if (WSAEWOULDBLOCK == WSAGetLastError())
-		//		{
-		//			continue;
-		//		}
-		//		AfxMessageBox(_T("读取客户端数据失败！"));
-		//		reVal = FALSE;
-		//	}else if (0 == nReadLen)
-		//	{
-		//		AfxMessageBox(_T("客户端关闭了连接！"));
-		//		reVal = FALSE;
-		//	}else if (nReadLen > 0)
-		//	{
-		//		if ('<' == cRecv)			//开始字符
-		//		{				
-		//			strUserInfo.Empty();
-		//			
-		//		}else if ('>' == cRecv)		//结束字符
-		//		{					
-		//			break;
-		//		}else
-		//		{
-		//			strUserInfo += cRecv;	//添加字符
-		//		}			
-		//		nTotalLen += nReadLen;
-		//	}		
-		//}
 		if (packetHdr.type == CONTROL_CE)
 		{
 			byte *mybyte=new byte[packetHdr.len];
@@ -113,22 +77,62 @@ BOOL CClientSocket::Recv( void )
 				}
 				return FALSE;
 			}
-			CString str ;
-			for (int i=0;i<nReadLen;i++)
+			//CString str ;
+			//for (int i=0;i<nReadLen;i++)
+			//{
+			//	CString temp;
+			//	temp.Format(_T("%d"),mybyte[i]);
+			//	str=str+temp;
+			//}
+			switch(mybyte[0])
 			{
-				CString temp;
-				temp.Format(_T("%d"),mybyte[i]);
-				str=str+temp;
+			case 0:
+				m_pServDlg->m_OnOff->OnBnClickedSequenceButton();
+				break;
+			case 1:
+				m_pServDlg->m_OnOff->OnBnClickedFastButton();
+				break;
+			case 2:
+				m_pServDlg->OnBnClickedStartprintButton();
+				break;
+			case 4:
+				m_pServDlg->OnBnClickedPauseprintButton();
+				break;
+			default:
+				break;
 			}
-			//str.Format(_T(“%d”), i);
-			//CString temp1,temp2;
-			//temp1.Format(_T("%d"),packetHdr.type);
-			//temp1.Format(_T("%d"),packetHdr.len);
-			//AfxMessageBox(str);
+			
 		}
 		else if(packetHdr.type == PRINT_CE)
 		{
+			const int bufferSize = 1024;
+			char buffer[bufferSize] = {0};
+			int readLen = 0;
+			string desFileName = "Storage Card\\User\\Label\\"+lab_name;
+			ofstream desFile;
+			desFile.open(desFileName.c_str(), ios::binary|ios::app);
+			if (!desFile)
+			{
+				return FALSE;
+			}
 
+			readLen = recv(m_s,buffer,packetHdr.len, 0);
+			if (SOCKET_ERROR == readLen)
+			{
+				if (WSAEWOULDBLOCK == WSAGetLastError())
+				{
+					return TRUE;
+				}
+				return FALSE;
+			}
+			else
+			{
+				desFile.write(buffer, readLen);
+			}
+
+			desFile.close();
+			theApp.m_MessageEdit.ReadObjectsFromXml(const_cast<char*>(desFileName.c_str()));
+			m_pServDlg->m_Label->OnBnClickedDownloadButton();
 		}
 		else if(packetHdr.type == COLLECT_CE)
 		{
@@ -150,9 +154,25 @@ BOOL CClientSocket::Recv( void )
 			DWORD dwThreadId;
 			m_hThreadSend = CreateThread(NULL, 0, SendThread, pParam, 0, &dwThreadId);
 		}
-		else if(packetHdr.type == OTHER_CE)
+		else if(packetHdr.type == LAB_NAME)
 		{
-
+			char *mybyte=new char[packetHdr.len];
+			int nReadLen = recv(m_s, mybyte, packetHdr.len,0);
+			if (SOCKET_ERROR == nReadLen)
+			{
+				if (WSAEWOULDBLOCK == WSAGetLastError())
+				{
+					return TRUE;
+				}
+				return FALSE;
+			}
+			CString tempCstr=theApp.myModuleMain.Utf8ToUnicode_CSTR(mybyte);
+			lab_name=theApp.myModuleMain.CString2string(tempCstr);
+			string desFileName = "Storage Card\\User\\Label\\"+lab_name;
+			ofstream desFile;
+			desFile.open(desFileName.c_str(), ios::binary|ios::trunc);
+			desFile.close();
+			delete []mybyte;
 		}
 
 		//注册网络事件
@@ -229,26 +249,41 @@ DWORD WINAPI CClientSocket::SendThread( void *pParam )
 {
 	PTHECLIENT	pThreadParam = (PTHECLIENT)pParam;
 	CClientSocket		*pClientS = pThreadParam->pClient;	//CClientSocket类指针
+	int printTimes = 0;
 	while (pClientS->m_clientLive)
 	{
-		int printTimes = 0;
-		if (theApp.myStatusClass.ctr0X03bit0 == 1 && theApp.myStatusClass.staSysRea == true)
+		if (theApp.sendCodeque.size()>0)//有打印数据
 		{
-			if (theApp.m_MessagePrint.boDynamic)
-			{
+			vector<BYTE> tempVec;
+			theApp.boSendCodeLock.Lock();
+			tempVec=theApp.sendCodeque.front();
+			theApp.sendCodeque.pop();
+			theApp.boSendCodeLock.Unlock();
+			BYTE* tempByte=new BYTE[tempVec.size()];
 
-			}
-			else
+			copy(tempVec.begin(), tempVec.end(), tempByte);
+			pClientS->Send(PRINTGET_CE,tempByte,tempVec.size());
+			printTimes++;
+			Sleep(10);
+			if (printTimes>10)
 			{
-				Sleep(100);
-				//continue;
+				pClientS->Send(COLLECT_CE,theApp.bytStatus,37);
+				printTimes=0;
+				Sleep(10);
+				if (theApp.sendCounter.size()>0)
+				{
+					BYTE* intByte=new BYTE[theApp.sendCounter.size()*4];
+					pClientS->intTobyte(intByte);
+					pClientS->Send(COUNTER_CE,intByte,theApp.sendCounter.size()*4);
+					Sleep(10);
+				}
 			}
+			continue;
 		}
 		else
 		{
-			//pClientS->Send(COLLECT_CE,theApp.bytStatus,37);
+			printTimes=0;
 			//test
-			//BYTE* testbyte=new BYTE[37];
 			BYTE testbyte[37];
 			for (int i=0;i<37;i++)
 			{
@@ -256,10 +291,53 @@ DWORD WINAPI CClientSocket::SendThread( void *pParam )
 				testbyte[i]=m_nTemp;
 			}
 			pClientS->Send(COLLECT_CE,testbyte,37);
-			//delete []testbyte;
-			Sleep(10);
+			Sleep(1000);
+			if (theApp.sendCounter.size()>0)
+			{
+				BYTE* intByte=new BYTE[theApp.sendCounter.size()*4];
+				pClientS->intTobyte(intByte);
+				pClientS->Send(COUNTER_CE,intByte,theApp.sendCounter.size()*4);
+				Sleep(10);
+			}
+			//实际用
+			//pClientS->Send(COLLECT_CE,theApp.bytStatus,37);
+			//if (theApp.m_MessagePrint.boDynamic)
+			//{
+			//	Sleep(100);
+			//}
+			//else
+			//{
+			//	Sleep(1000);
+			//}
+			
 		}
 
 	}
 	return 0;
+}
+
+void CClientSocket::intTobyte(BYTE* outbyte)
+{
+	for (int i=0;i<theApp.sendCounter.size();i++)
+	{
+		outbyte[4*i] = (byte)(theApp.sendCounter[i]);
+		outbyte[4*i+1] = (byte)(theApp.sendCounter[i] >> 8);
+		outbyte[4*i+2] = (byte)(theApp.sendCounter[i] >> 16);
+		outbyte[4*i+3] = (byte)(theApp.sendCounter[i] >> 24);
+	}
+	
+}
+
+vector<CString> CClientSocket::Split(CString source, CString division)
+{
+	//dest.RemoveAll();
+	vector<CString> rtVec;
+	int pos = 0;
+	int pre_pos = 0;
+	while( -1 != pos ){
+		pre_pos = pos;
+		pos = source.Find(division,(pos+1));
+		rtVec.push_back(source.Mid(pre_pos,(pos-pre_pos)));
+	}
+	return rtVec;
 }
