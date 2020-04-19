@@ -284,6 +284,10 @@
 	<IDC_SEQUENCING_ON>Sequencing On</IDC_SEQUENCING_ON>
 	<IDC_SEQUENCING_OFF>Sequencing Off</IDC_SEQUENCING_OFF>
 	<IDC_PRINTER_OFF>Printer Off</IDC_PRINTER_OFF>
+	<IDC_CHARGE_FAULT>Charge fault</IDC_CHARGE_FAULT>
+	<IDC_PHASE_FAULT>Phase fault</IDC_PHASE_FAULT>
+	<IDC_FAULT_CONDITION>Fault Condition</IDC_FAULT_CONDITION>
+	
 <!--故障信息翻译-->
 	<Inktemperaturesensorfault>Ink temperature sensor fault</Inktemperaturesensorfault>
 	<Printheadtemperaturesensorfault>Printhead temperature sensor fault</Printheadtemperaturesensorfault>

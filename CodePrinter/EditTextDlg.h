@@ -2,6 +2,7 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 #include "CustomStatic.h"
+#include "Resource.h"
 
 // CEditTextDlg ¶Ô»°¿ò
 

@@ -159,14 +159,19 @@ void CInkSetupDlg::OnBnClickedSolventCalibBtn()
 	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT1_BTN)->ShowWindow(SW_SHOW);
 	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT2_BTN)->ShowWindow(SW_HIDE);
 	wstring tempstr;
+	CString astr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent()->GetParent();//获取主对话框指针
 	tempstr=theApp.myLanguage.LanguageMap["SolventLevelCalibration"];
-	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+	astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(astr);
 
 	tempstr=theApp.myLanguage.LanguageMap["Clicknext"];
-	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT_STEP_STATIC)->SetWindowText(tempstr.c_str());
+	astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT_STEP_STATIC)->SetWindowText(astr);
 
 	tempstr=theApp.myLanguage.LanguageMap["Cleanthesolventsensorsurfacendkeepitdry"];
-	m_inkcalib->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
+	astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_inkcalib->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(astr);
 }
 
 void CInkSetupDlg::OnBnClickedInkCalibBtn()
@@ -177,12 +182,17 @@ void CInkSetupDlg::OnBnClickedInkCalibBtn()
 	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT1_BTN)->ShowWindow(SW_SHOW);
 	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT2_BTN)->ShowWindow(SW_HIDE);
 	wstring tempstr;
+	CString astr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent()->GetParent();//获取主对话框指针
 	tempstr=theApp.myLanguage.LanguageMap["InkLevelCalibration"];
-	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+	astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(astr);
 
 	tempstr=theApp.myLanguage.LanguageMap["Clicknext"];
-	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT_STEP_STATIC)->SetWindowText(tempstr.c_str());
+	astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_inkcalib->GetDlgItem(IDC_CALIB_NEXT_STEP_STATIC)->SetWindowText(astr);
 
 	tempstr=theApp.myLanguage.LanguageMap["Cleantheinksensorsurfaceandkeepitdry"];
-	m_inkcalib->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(tempstr.c_str());
+	astr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_inkcalib->GetDlgItem(IDC_INK_SOL_CALIB_STATIC)->SetWindowText(astr);
 }

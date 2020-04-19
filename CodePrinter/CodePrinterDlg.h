@@ -19,7 +19,11 @@
 #include "NumKey.h"
 #include "ResetSerial.h"
 #include "DealXml.h"
+
+#include "Arabicconjunction.h"
+
 #include "ClientSocket.h"
+
 #define TIMER1 1
 
 // CCodePrinterDlg 对话框
@@ -109,7 +113,8 @@ public:
  
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	void ChangeBottonEnable();
-
+public:
+	CArabicconjunction *m_cAbrabicconj;
 public://网络
 	afx_msg LRESULT OnSocketAccept(WPARAM wParam, LPARAM lParam);	//FD_ACCEPT网络事件自定义消息
 	afx_msg LRESULT OnSocketRead(WPARAM wParam, LPARAM lParam);		//FD_READ网络事件自定义消息

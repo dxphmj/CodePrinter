@@ -113,8 +113,9 @@ void CConfigOutSetDlg::OnBnClickedConfigOsreturnBtn()
 	this->ShowWindow(SW_HIDE);
 	wstring tempstr;
 	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent()->GetParent();//获取主对话框指针
 	tempstr=theApp.myLanguage.LanguageMap["ID_CONFIGURATION_MANAGEMENT"];
-	cstr = tempstr.c_str();
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
 	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetOperationString(cstr);//User Manage 
 }
 

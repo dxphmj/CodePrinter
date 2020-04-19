@@ -154,12 +154,13 @@ void CSystemDlg::showSystemDlg(int ID)
 	pVersion->ShowWindow(SW_HIDE);
 	wstring tempstr1,tempstr2;
 	CString cstr1,cstr2;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent();//获取主对话框指针
 	if (ID == IDD_SYSTEM_DIALOG)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_NETWORK"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		this->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
@@ -167,8 +168,8 @@ void CSystemDlg::showSystemDlg(int ID)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_ENV"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		pEvn->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
@@ -176,8 +177,8 @@ void CSystemDlg::showSystemDlg(int ID)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_COM"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		pCom->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}
@@ -185,8 +186,8 @@ void CSystemDlg::showSystemDlg(int ID)
 	{
 		tempstr1 = theApp.myLanguage.LanguageMap["ID_SYSTEM_MANAGEMENT"];
 		tempstr2 = theApp.myLanguage.LanguageMap["ID_SYSTEM_VERSION"];
-		cstr1 = tempstr1.c_str();
-		cstr2 = tempstr2.c_str();
+		cstr1 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr1.c_str());
+		cstr2 = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr2.c_str());
 		pVersion->ShowWindow(SW_SHOW);
 		((CCodePrinterDlg*)GetParent())->m_PicHead.SetOperationString(cstr1+_T(" > ")+cstr2);
 	}

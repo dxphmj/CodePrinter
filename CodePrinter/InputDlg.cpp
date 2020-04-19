@@ -183,8 +183,11 @@ void CInputDlg::OnBnClickedEditpictureButton()
 	TCHAR path[MAX_PATH];
 	//labModule.string2tchar(testpath,path);
 	wstring tempstr;
+	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this->GetParent()->GetParent();//获取主对话框指针
 	tempstr=theApp.myLanguage.LanguageMap["SelectLogofile"];
-	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(tempstr.c_str());
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	((CCodePrinterDlg*)GetParent()->GetParent())->m_PicHead.SetSecondLineOpeString(cstr);
 	string xmlPath;
 	if(ShowPathDlg(path, MAX_PATH,2))
 	{
