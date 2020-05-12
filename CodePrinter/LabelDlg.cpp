@@ -990,6 +990,8 @@ void CLabelDlg::CreatePrintData()
 
 		theApp.m_MessagePrint.bytPrintDataAll.insert(theApp.m_MessagePrint.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
 		theApp.m_MessagePrint.bytPrintDataAllOrder.insert(theApp.m_MessagePrint.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
+		theApp.m_MessageEdit.bytPrintDataAllOrder.clear();
+		theApp.m_MessageEdit.bytPrintDataAllOrder = theApp.m_MessagePrint.bytPrintDataAllOrder;
 	theApp.m_MessagePrint.intMesDis = theApp.m_MessagePrint.bytPrintDataAll;
 	theApp.m_MessagePrint.boPrintNow = true;		
 	theApp.boPrintNowLock.Unlock();

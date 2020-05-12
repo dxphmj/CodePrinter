@@ -63,6 +63,8 @@ public:
    string SerialFormatToText(int Value, int Digits, int Format);
    string TimeFormatToText(CString InPutTimeFormat,int tempstrETimeOffSet, int tempintTimeOffSet, int tempstrTimeOffSetUint);
 
+	static string byteToHexStr(vector<BYTE> byte_arr, int arr_len);
+
 public://×Ö·û×ª»»¿â
 	wstring AsciiToUnicode(const string& str);  
 	string  UnicodeToAscii(const wstring& wstr);  

@@ -28,6 +28,9 @@ public:
 	//void	SaveUserInfo(const CUserInfo &userInfo);			//保存用户信息
 	static DWORD WINAPI SendThread(void *pParam);//发送线程函数
 	HANDLE			m_hThreadSend;	//服务线程句柄
+	BOOL SendCstring(const u_short type, const CString &strData);
+	BOOL SendFile(const u_short type, string srcFileName);
+	BOOL SendLab(CString filePath);
 public:
 	SOCKET		m_s;		//套接字
 	WSAEVENT	m_hEvent;	//事件对象句柄

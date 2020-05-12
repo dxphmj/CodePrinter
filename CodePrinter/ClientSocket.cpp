@@ -101,7 +101,6 @@ BOOL CClientSocket::Recv( void )
 			default:
 				break;
 			}
-			
 		}
 		else if(packetHdr.type == PRINT_CE)
 		{
@@ -150,6 +149,10 @@ BOOL CClientSocket::Recv( void )
 			m_clientLive=true;
 			PTHECLIENT pParam = new THECLIENT;
 			//pParam->hServHwnd = this->GetSafeHwnd();
+			CString tempstr;
+			m_pServDlg->GetDlgItem(IDC_STATIC_LABNAME)->GetWindowText(tempstr);
+			CString filePath=_T("Storage Card\\User\\Label\\")+tempstr;
+			SendLab(filePath);
 			pParam->pClient = this;
 			DWORD dwThreadId;
 			m_hThreadSend = CreateThread(NULL, 0, SendThread, pParam, 0, &dwThreadId);
@@ -340,4 +343,151 @@ vector<CString> CClientSocket::Split(CString source, CString division)
 		rtVec.push_back(source.Mid(pre_pos,(pos-pre_pos)));
 	}
 	return rtVec;
+}
+
+//发送cstring
+BOOL CClientSocket::SendCstring(const u_short type, const CString &strData)
+{
+	//ASSERT(!strData.IsEmpty());
+
+	//int			nErrCode;				//返回值	
+	//PACKETHDR	packetHdr;				//定义包头
+
+	//packetHdr.type = type;				//类型
+	//packetHdr.len = strData.GetLength();//数据长度
+
+	////发送包头
+	//nErrCode = send(m_s, (char*)&packetHdr, PACKETHDRLEN, 0);
+	//if (SOCKET_ERROR == nErrCode)
+	//{
+	//	AfxMessageBox("发送用户列表错误！");
+	//	return FALSE;
+	//}
+	////发送包体
+	//nErrCode = send(m_s, strData, packetHdr.len, 0);
+	//if (SOCKET_ERROR == nErrCode)
+	//{
+	//	AfxMessageBox("发送用户列表错误！");
+	//	return FALSE;
+	//}
+	//return TRUE;
+
+	DWORD	dwNumberOfBytesSent;	//发送数据字节数 
+	DWORD	dwFlags = 0;			//标志
+	int		nErrCode;				//返回值
+
+	//if (m_strWord.IsEmpty())
+	//{
+	//	return TRUE;
+	//}
+	string fileName = theApp.myModuleMain.CString2string(strData);//theApp.myModuleMain.UnicodeToUtf8(LPCWSTR(strData));
+	fileName+='\0';
+	//fileName="test.lab";
+	WSABUF wsaSendBuf[2];
+	PACKETHDR hdr;
+
+	hdr.type = type;					//数据包类型
+	hdr.len = fileName.size();	//数据长度
+	//hdr.type=LAB_NAME;
+	//hdr.len=fileName.size();
+	wsaSendBuf[0].buf = (char*)&hdr;	//包头缓冲区
+	wsaSendBuf[0].len = sizeof(PACKETHDR);		//包头缓冲区长度
+	//USES_CONVERSION;
+	//const char* fileName = W2A(strData);//CString To ConstChar
+
+	wsaSendBuf[1].buf = (CHAR*)fileName.c_str();	//包体/////有问题，需转换
+	wsaSendBuf[1].len = hdr.len;		//数据长度
+
+	nErrCode = WSASend(m_s,							//发送数据
+		wsaSendBuf,
+		2,
+		&dwNumberOfBytesSent,
+		dwFlags,
+		NULL,
+		NULL);
+	if (SOCKET_ERROR == nErrCode)
+	{
+		if (WSA_IO_PENDING == WSAGetLastError())
+		{
+			return TRUE;
+		}
+		else
+		{
+			AfxMessageBox(_T("WSASend函数调用失败！"));
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+BOOL CClientSocket::SendFile(const u_short type, string srcFileName)
+{
+	DWORD	dwNumberOfBytesSent;	//发送数据字节数 
+	DWORD	dwFlags = 0;			//标志
+	int		nErrCode;				//返回值
+
+	const int bufferSize = 1024;
+	char buffer[bufferSize] = { 0 };
+	int readLen = 0;
+	//string srcFileName = "in";
+	ifstream srcFile;
+	srcFile.open(srcFileName.c_str(), ios::binary);
+	if (!srcFile) {
+		return FALSE;
+	}
+	while (!srcFile.eof()) {
+		srcFile.read(buffer, bufferSize);
+		readLen = srcFile.gcount();
+
+		WSABUF wsaSendBuf[2];
+		PACKETHDR hdr;
+		hdr.type = PRINT_CE;					//数据包类型
+		hdr.len = readLen;	//数据长度
+		wsaSendBuf[0].buf = (char*)&hdr;	//包头缓冲区
+		wsaSendBuf[0].len = sizeof(PACKETHDR);		//包头缓冲区长度
+		//USES_CONVERSION;
+		//const char* fileName = W2A(strData);//CString To ConstChar
+
+		wsaSendBuf[1].buf = buffer;	//包体/////有问题，需转换
+		wsaSendBuf[1].len = hdr.len;		//数据长度
+
+		nErrCode = WSASend(m_s,							//发送数据
+			wsaSendBuf,
+			2,
+			&dwNumberOfBytesSent,
+			dwFlags,
+			NULL,
+			NULL);
+		if (SOCKET_ERROR == nErrCode)
+		{
+			srcFile.close();
+			if (WSA_IO_PENDING == WSAGetLastError())
+			{
+				return TRUE;
+			}
+			else
+			{
+				AfxMessageBox(_T("WSASend函数调用失败！"));
+				return FALSE;
+			}
+		}
+
+	}
+	srcFile.close();
+	return TRUE;
+}
+
+BOOL CClientSocket::SendLab(CString filePath)
+{
+
+	int findPos = filePath.ReverseFind('\\');
+	CString sendStr = filePath.Right(filePath.GetLength() - findPos - 1);
+	if(!SendCstring(LAB_NAME, sendStr))
+		return FALSE;
+	Sleep(10);
+	string m_filePath = theApp.myModuleMain.CString2string(filePath);//theApp.myModuleMain.UnicodeToUtf8(LPCWSTR(filePath));
+	m_filePath+='\0';
+	if (!SendFile(PRINT_CE, m_filePath))
+		return FALSE;
+	return TRUE;
 }
