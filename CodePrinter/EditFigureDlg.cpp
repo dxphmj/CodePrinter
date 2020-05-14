@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CodePrinter.h"
 #include "EditFigureDlg.h"
+#include "InputDlg.h"
 
 
 // CEditFigureDlg 对话框
@@ -289,6 +290,11 @@ void CEditFigureDlg::OnCbnSelchangeFormatCombo()
 void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CInputDlg *pInputDlg = (CInputDlg*)this->GetParent();
+	CString tempStr;
+	GetDlgItem(IDC_PREVIEW_EDIT)->GetWindowText(tempStr);
+	pInputDlg->pBarCode->m_figureStatic.SetWindowText(tempStr);
+
 	CString previewEdit ;
 	GetDlgItem(IDC_PREVIEW_EDIT)-> GetWindowText(previewEdit);
 	CString firstEdit ;

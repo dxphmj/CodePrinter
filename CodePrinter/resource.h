@@ -789,6 +789,10 @@
 #define IDC_INK_SOL_CALIB_STATIC        1855
 #define IDC_NEXT_STEP_STATIC            1856
 #define IDC_CALIB_NEXT_STEP_STATIC      1856
+#define IDC_BARCODE_FIGURE_STATIC       1857
+#define IDC_BARCODE_L_BUTTON            1858
+#define IDC_BARCODE_R_BUTTON            1859
+#define IDC_BARCODE_DATE_STATIC         1860
 
 // Next default values for new objects
 // 
@@ -796,7 +800,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        496
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1857
+#define _APS_NEXT_CONTROL_VALUE         1861
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

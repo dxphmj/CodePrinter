@@ -172,7 +172,7 @@ void CInputDlg::OnBnClickedEditdateButton()
 	//CComboBox *formatOffBox=(CComboBox *)pDate->GetDlgItem(IDC_FORMAT_LIST);
 	//formatOffBox->SetCurSel(0);
 	//pDate->ChangeTime();
-//	this->ShowWindow(SW_HIDE);
+	this->ShowWindow(SW_HIDE);
 	showInputDlg(IDD_DATE_DIALOG);
 }
 

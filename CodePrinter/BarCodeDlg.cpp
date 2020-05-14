@@ -5,6 +5,7 @@
 #include "CodePrinter.h"
 #include "BarCodeDlg.h"
 #include "qrencode.h"
+#include "InputDlg.h"
 //#include "ModuleMain.h"
 #include "qrcode\zint.h"
 
@@ -37,9 +38,13 @@ void CBarCodeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CODE_39_BTN, m_code39IB);
 	DDX_Control(pDX, IDC_CODE_128_BTN, m_code128IB);
 	DDX_Control(pDX, IDC_BARCODE_OK_BTN, m_okIB);
+	DDX_Control(pDX, IDC_BARCODE_L_BUTTON, m_L_shiftIB);
+	DDX_Control(pDX, IDC_BARCODE_R_BUTTON, m_R_shiftIB);
 	DDX_Control(pDX, IDC_BARCODE_TEXT_STATIC, m_barText);
 	DDX_Control(pDX, IDC_BARCODE_FIGURE_BTN, m_barcodeFigureBtn);
 	DDX_Control(pDX, IDC_BARCODE_DATE_BTN, m_barcodeDateBtn);
+	DDX_Control(pDX, IDC_BARCODE_FIGURE_STATIC, m_figureStatic);
+	DDX_Control(pDX, IDC_BARCODE_DATE_STATIC, m_dateStatic);
 }
 
 BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
@@ -53,6 +58,8 @@ BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_CODE_128_BTN, &CBarCodeDlg::OnBnClickedCode128Btn)
 	ON_BN_CLICKED(IDC_CODE_39_BTN, &CBarCodeDlg::OnBnClickedCode39Btn)
+	ON_BN_CLICKED(IDC_BARCODE_FIGURE_BTN, &CBarCodeDlg::OnBnClickedBarcodeFigureBtn)
+	ON_BN_CLICKED(IDC_BARCODE_DATE_BTN, &CBarCodeDlg::OnBnClickedBarcodeDateBtn)
 END_MESSAGE_MAP()
 
 
@@ -100,6 +107,8 @@ BOOL CBarCodeDlg::OnInitDialog()
 	GetDlgItem(IDC_CODE_39_BTN)->SetWindowPos(NULL,400,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_CODE_128_BTN)->SetWindowPos(NULL,500,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BARCODE_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BARCODE_L_BUTTON)->SetWindowPos(NULL,150,70,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BARCODE_R_BUTTON)->SetWindowPos(NULL,250,70,70,45,SWP_SHOWWINDOW);
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_returnIB.SizeToContent();
@@ -125,8 +134,16 @@ BOOL CBarCodeDlg::OnInitDialog()
 	m_barcodeDateBtn.LoadBitmaps(IDB_EDIT_DATE1_BITMAP,IDB_EDIT_DATE2_BITMAP,0,0,IDB_60_40_BITMAP);
 	m_barcodeDateBtn.SizeToContent(); 
 
+	m_L_shiftIB.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
+	m_L_shiftIB.SizeToContent(); 
+
+	m_R_shiftIB.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT1_BITMAP,0,0,IDB_60_35_BITMAP);
+	m_R_shiftIB.SizeToContent(); 
+
 	m_nCodeType = 58;
 	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"QR_CODE Setting");
+
+	GetDlgItem(IDC_BARCODE_TEXT_EDIT)->SetFont(theApp.m_EditFont);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -338,4 +355,44 @@ void CBarCodeDlg::OnBnClickedCode39Btn()
 	// TODO: 在此添加控件通知处理程序代码
 	m_nCodeType = 8;
 	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"Code39 Setting");
+}
+
+void CBarCodeDlg::OnBnClickedBarcodeFigureBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CInputDlg *pInputDlg;
+	pInputDlg = (CInputDlg*)this->GetParent();
+	pInputDlg->pEditFigure->GetDlgItem(IDC_FIRST_QUARTILE_EDIT)->SetWindowText(_T("1"));
+	pInputDlg->pEditFigure->GetDlgItem(IDC_FOUR_QUARTILE_EDIT)->SetWindowText(_T("999999999"));
+	pInputDlg->pEditFigure->GetDlgItem(IDC_START_EDIT)->SetWindowText(_T("1"));
+	pInputDlg->pEditFigure->GetDlgItem(IDC_STEP_SIZE_EDIT)->SetWindowText(_T("1"));
+	pInputDlg->pEditFigure->GetDlgItem(IDC_REPEAT_COUNT_EDIT)->SetWindowText(_T("1"));
+	pInputDlg->pEditFigure->GetDlgItem(IDC_BIT_DATA_EDIT)->SetWindowText(_T("9"));
+
+	int nSerialNums = theApp.m_MessageEdit.ModifyGetSerialNums();
+	if(nSerialNums == 4){
+		CString csMsg=_T("操作失败！\n序列号已满！") ;//= _T("串口4打开失败!");
+		AfxMessageBox(csMsg);
+		return;
+	}
+
+	CComboBox *bitComBox = (CComboBox *)pInputDlg->pEditFigure->GetDlgItem(IDC_COUNTER_COMBO);
+	bitComBox->ResetContent();
+	CString str; str.Format(L"%d",nSerialNums+1);
+	bitComBox->AddString(str);
+	bitComBox->SetCurSel(0);
+	bitComBox->EnableWindow(FALSE);
+
+	pInputDlg->pEditFigure->RefreshSerial();
+
+
+	pInputDlg->pEditFigure->ShowWindow(SW_SHOW);
+}
+
+void CBarCodeDlg::OnBnClickedBarcodeDateBtn()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CInputDlg *pInputDlg;
+	pInputDlg = (CInputDlg*)this->GetParent();
+	pInputDlg->pDate->ShowWindow(SW_SHOW);
 }

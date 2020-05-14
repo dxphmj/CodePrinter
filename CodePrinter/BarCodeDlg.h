@@ -48,6 +48,8 @@ public:
 	CImageButton m_code39IB;
 	CImageButton m_code128IB;
 	CImageButton m_okIB;
+	CImageButton m_L_shiftIB;
+	CImageButton m_R_shiftIB;
 
 	afx_msg void OnStnClickedBarcodeSetStatic();
 
@@ -57,4 +59,8 @@ public:
 	CImageButton m_barcodeFigureBtn;
 	CImageButton m_barcodeDateBtn;
 
+	afx_msg void OnBnClickedBarcodeFigureBtn();
+	afx_msg void OnBnClickedBarcodeDateBtn();
+	CStatic m_figureStatic;
+	CStatic m_dateStatic;
 };
