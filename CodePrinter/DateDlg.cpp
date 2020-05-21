@@ -5,6 +5,7 @@
 #include "CodePrinter.h"
 #include "DateDlg.h"
 #include "CodePrinterDlg.h"
+#include "InputDlg.h"
 // CDateDlg 对话框
 
 IMPLEMENT_DYNAMIC(CDateDlg, CDialog)
@@ -297,6 +298,11 @@ BOOL CDateDlg::PreTranslateMessage(MSG* pMsg)
 void CDateDlg::OnBnClickedDateOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CInputDlg *pInputDlg = (CInputDlg*)this->GetParent();
+	CString tempStr;
+	GetDlgItem(IDC_DATE_PREVIEW_EDIT)->GetWindowText(tempStr);
+	pInputDlg->pBarCode->m_dateStatic.SetWindowText(tempStr);
+
 	if (theApp.bochange)
 	{
 		for(int i=0;i<theApp.m_MessageEdit.OBJ_Vec.size();i++)
