@@ -145,6 +145,7 @@ public://参数
 	bool boDotBmp[32][255];//显示bmp,条形码，二维码用
 	bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框 
  
+	vector<OBJ_Control*> Qr_Vec;//存条码组成
 public://方法
  
 	void DrawFrame(CDC* pDC);
