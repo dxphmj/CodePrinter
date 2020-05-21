@@ -240,6 +240,8 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 
 	tempObj->booFocus=true;
 
+	tempObj->isDynamicUse_OBJ = false;//ÊÇ·ñ¶¯Ì¬¶þÎ¬Âë±à¼­
+
 	theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);
 }

@@ -143,7 +143,9 @@ public://参数
 	int intQREncodingMode;
 
 	bool boDotBmp[32][255];//显示bmp,条形码，二维码用
-	bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框 
+	bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框
+
+	bool isDynamicUse_OBJ;//是否用于动态二维码
  
 public://方法
  
@@ -196,6 +198,7 @@ public:
 
 public:
 	vector<OBJ_Control*> OBJ_Vec;
+	vector<OBJ_Control*> DynOBJ_Vec;//用于动态二维码编辑
 
 	int Matrix;//最大可设计的行数
 	int Pixel; //实际要打印的行数（像素高度）
@@ -250,6 +253,8 @@ public://XML
 	void SaveObjectsToXml(char* strFileName);
 	void createLABXML();
 	void getLabFromXml();
+public:
+	bool isDynamicUse_classMessage;
 };
 
 

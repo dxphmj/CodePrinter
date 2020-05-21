@@ -2,6 +2,8 @@
 #include "afxwin.h"
 #include "ImageButton.h"
 #include "CustomStatic.h"
+#include "DesignStatic.h"
+#include "MainPicture.h"
 
 // CBarCodeDlg ¶Ô»°¿ò
 
@@ -63,4 +65,10 @@ public:
 	afx_msg void OnBnClickedBarcodeDateBtn();
 	CStatic m_figureStatic;
 	CStatic m_dateStatic;
+	CDesignStatic m_barcodeDesignArea;
+	//MainPicture m_barcodeDesignArea;
+	afx_msg void OnBnClickedBarcodeLButton();
+	afx_msg void OnBnClickedBarcodeRButton();
+	afx_msg void OnPaint();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };

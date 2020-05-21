@@ -28,6 +28,8 @@ CBarCodeDlg::~CBarCodeDlg()
 void CBarCodeDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_STATIC_BARCODE_PICTURE, m_barcodeDesignArea);
+
 	DDX_Control(pDX, IDC_BARCODE_VERSION_COMBO, VersionBox);
 	DDX_Control(pDX, IDC_BARCODE_ECC_LEV_COMBO, ErrLevelBox);
 	DDX_Control(pDX, IDC_BARCODE_ZONE_COMBO, EncodingModeBox);
@@ -60,6 +62,10 @@ BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
 	ON_BN_CLICKED(IDC_CODE_39_BTN, &CBarCodeDlg::OnBnClickedCode39Btn)
 	ON_BN_CLICKED(IDC_BARCODE_FIGURE_BTN, &CBarCodeDlg::OnBnClickedBarcodeFigureBtn)
 	ON_BN_CLICKED(IDC_BARCODE_DATE_BTN, &CBarCodeDlg::OnBnClickedBarcodeDateBtn)
+	ON_BN_CLICKED(IDC_BARCODE_L_BUTTON, &CBarCodeDlg::OnBnClickedBarcodeLButton)
+	ON_BN_CLICKED(IDC_BARCODE_R_BUTTON, &CBarCodeDlg::OnBnClickedBarcodeRButton)
+	ON_WM_PAINT()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -144,6 +150,8 @@ BOOL CBarCodeDlg::OnInitDialog()
 	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"QR_CODE Setting");
 
 	GetDlgItem(IDC_BARCODE_TEXT_EDIT)->SetFont(theApp.m_EditFont);
+
+	m_barcodeDesignArea.SetWindowPos(NULL,-1,-1,781,50, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -362,6 +370,7 @@ void CBarCodeDlg::OnBnClickedBarcodeFigureBtn()
 	// TODO: 在此添加控件通知处理程序代码
 	CInputDlg *pInputDlg;
 	pInputDlg = (CInputDlg*)this->GetParent();
+
 	pInputDlg->pEditFigure->GetDlgItem(IDC_FIRST_QUARTILE_EDIT)->SetWindowText(_T("1"));
 	pInputDlg->pEditFigure->GetDlgItem(IDC_FOUR_QUARTILE_EDIT)->SetWindowText(_T("999999999"));
 	pInputDlg->pEditFigure->GetDlgItem(IDC_START_EDIT)->SetWindowText(_T("1"));
@@ -387,6 +396,9 @@ void CBarCodeDlg::OnBnClickedBarcodeFigureBtn()
 
 
 	pInputDlg->pEditFigure->ShowWindow(SW_SHOW);
+	//////////////////////////////////////////////////////////////////////////
+	pInputDlg->pEditFigure->isDynamicUse_figureDlg = true;
+	theApp.m_MessageEdit.isDynamicUse_classMessage = true;
 }
 
 void CBarCodeDlg::OnBnClickedBarcodeDateBtn()
@@ -395,4 +407,123 @@ void CBarCodeDlg::OnBnClickedBarcodeDateBtn()
 	CInputDlg *pInputDlg;
 	pInputDlg = (CInputDlg*)this->GetParent();
 	pInputDlg->pDate->ShowWindow(SW_SHOW);
+	//////////////////////////////////////////////////////////////////////////
+	pInputDlg->pDate->isDynamicUse_dateDlg = true;
+	theApp.m_MessageEdit.isDynamicUse_classMessage = true;
+}
+
+void CBarCodeDlg::OnBnClickedBarcodeLButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.m_MessageEdit.DynOBJ_Vec.size();i++)
+	{
+		if (theApp.m_MessageEdit.DynOBJ_Vec[i]->booFocus)
+		{
+			if (i>=0)
+			{
+				vector<OBJ_Control*> tempVec;
+				tempVec = theApp.m_MessageEdit.DynOBJ_Vec;
+				int curRowStart,previousRowStart;
+				curRowStart = theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowStart;
+				previousRowStart = theApp.m_MessageEdit.DynOBJ_Vec[i-1]->intRowStart;
+
+				theApp.m_MessageEdit.DynOBJ_Vec.erase(theApp.m_MessageEdit.DynOBJ_Vec.begin()+i);
+				theApp.m_MessageEdit.DynOBJ_Vec.insert(theApp.m_MessageEdit.DynOBJ_Vec.begin()+i-1,tempVec[i]);
+				theApp.m_MessageEdit.DynOBJ_Vec[i-1]->intRowStart = curRowStart - theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowSize;
+				theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowStart = previousRowStart + theApp.m_MessageEdit.DynOBJ_Vec[i-1]->intRowSize;
+			}
+			else
+			{
+				break;
+			}
+			OnPaint();
+			break;
+		}
+	}
+	m_barcodeDesignArea.Invalidate();
+}
+
+void CBarCodeDlg::OnBnClickedBarcodeRButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i=0;i<theApp.m_MessageEdit.DynOBJ_Vec.size();i++)
+	{
+		if (theApp.m_MessageEdit.DynOBJ_Vec[i]->booFocus)
+		{
+			if (i>=0)
+			{
+				vector<OBJ_Control*> tempVec;
+				tempVec = theApp.m_MessageEdit.DynOBJ_Vec;
+				int curRowStart,nextRowStart;
+				curRowStart = theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowStart;
+				nextRowStart = theApp.m_MessageEdit.DynOBJ_Vec[i+1]->intRowStart;
+
+				theApp.m_MessageEdit.DynOBJ_Vec.erase(theApp.m_MessageEdit.DynOBJ_Vec.begin()+i);
+				theApp.m_MessageEdit.DynOBJ_Vec.insert(theApp.m_MessageEdit.DynOBJ_Vec.begin()+i+1,tempVec[i]);
+				theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowStart = nextRowStart - theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowSize;
+				theApp.m_MessageEdit.DynOBJ_Vec[i+1]->intRowStart = curRowStart + theApp.m_MessageEdit.DynOBJ_Vec[i+1]->intRowSize;
+			}
+			else
+			{
+				break;
+			}
+			OnPaint();
+			break;
+		}
+	}
+	m_barcodeDesignArea.Invalidate();
+}
+
+void CBarCodeDlg::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	// TODO: 在此处添加消息处理程序代码
+	// 不为绘图消息调用 CDialog::OnPaint()
+	theApp.m_MessageEdit.isDynamicUse_classMessage = true;
+	m_barcodeDesignArea.Invalidate();
+}
+
+//重写鼠标单击
+void CBarCodeDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+		CRect lRect;
+	m_barcodeDesignArea.GetWindowRect(&lRect);  //获取控件相对于屏幕的位置
+	ScreenToClient(&lRect);
+	//m_nSelectObjIndex = -1;
+	if((point.x >= lRect.left && point.x <= lRect.right) && (point.y >= lRect.top && point.y <= lRect.bottom))
+	{
+		point.x -= lRect.left;
+		point.y -= lRect.top;
+		int nRow;
+		int nCol;	 
+		//nRow = (161-point.y) / 5;
+		nRow = (50-point.y) / 5;
+		nCol = (point.x / 5)+theApp.scrPox;
+		/*for (size_t i = 0; i < theApp.m_MessageEdit.OBJ_Vec.size(); i++)
+		{
+			theApp.m_MessageEdit.OBJ_Vec[i]->booFocus = false;
+		}*/
+		vector<OBJ_Control*>::iterator itr = theApp.m_MessageEdit.DynOBJ_Vec.begin();
+		bool isFind=false;
+		while (itr != theApp.m_MessageEdit.DynOBJ_Vec.end())
+		{					 
+			(*itr)->booFocus = false;
+			if (isFind)
+			{
+				++itr;
+				continue;
+			}
+			if (nRow>=(*itr)->intLineStart&&nRow<=((*itr)->intLineStart+(*itr)->intLineSize)
+				&&nCol>=(*itr)->intRowStart&&nCol<=((*itr)->intRowStart+(*itr)->intRowSize))
+			{
+				(*itr)->booFocus=true;
+				isFind=true;
+			}
+			++itr;
+		}
+		OnPaint();
+	}
+
+	CDialog::OnLButtonDown(nFlags, point);
 }

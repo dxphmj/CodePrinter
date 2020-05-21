@@ -47,4 +47,6 @@ public:
 	afx_msg void OnLbnSelchangeSkewUnitList();
 	afx_msg void OnBnClickedDateOkBtn();
 	afx_msg void OnCbnSelchangeDateSkewCombo();
+
+	bool isDynamicUse_dateDlg;
 };

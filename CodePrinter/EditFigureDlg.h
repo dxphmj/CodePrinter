@@ -50,4 +50,6 @@ public:
 	CEdit m_stepSizeEdit;
 	CEdit m_repeatCountEdit;
 	CEdit m_bitDataEdit;
+
+	bool isDynamicUse_figureDlg;
 };

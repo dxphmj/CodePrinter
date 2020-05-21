@@ -257,10 +257,12 @@ void CInputDlg::showInputDlg(int ID)
 	else if (ID == IDD_EDITFIGURE_DIALOG)
 	{
 		pEditFigure->ShowWindow(SW_SHOW);
+		pEditFigure->isDynamicUse_figureDlg = false;//是否动态二维码编辑
 	}
 	else if (ID == IDD_DATE_DIALOG)
 	{
 		pDate->ShowWindow(SW_SHOW);
+		pDate->isDynamicUse_dateDlg = false;//是否动态二维码编辑
 	}
 	else if (ID == IDD_PICTURE_DIALOG)
 	{

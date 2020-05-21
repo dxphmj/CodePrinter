@@ -298,11 +298,6 @@ BOOL CDateDlg::PreTranslateMessage(MSG* pMsg)
 void CDateDlg::OnBnClickedDateOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CInputDlg *pInputDlg = (CInputDlg*)this->GetParent();
-	CString tempStr;
-	GetDlgItem(IDC_DATE_PREVIEW_EDIT)->GetWindowText(tempStr);
-	pInputDlg->pBarCode->m_dateStatic.SetWindowText(tempStr);
-
 	if (theApp.bochange)
 	{
 		for(int i=0;i<theApp.m_MessageEdit.OBJ_Vec.size();i++)
@@ -427,6 +422,22 @@ void CDateDlg::OnBnClickedDateOkBtn()
 
 	tempObj->booFocus=true;
 
-	theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
+	tempObj->isDynamicUse_OBJ = false;
+	//theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);
+
+	if ( this->isDynamicUse_dateDlg )
+	{
+		CInputDlg *pInputDlg = (CInputDlg*)this->GetParent();
+		CString tempStr;
+		GetDlgItem(IDC_DATE_PREVIEW_EDIT)->GetWindowText(tempStr);
+		pInputDlg->pBarCode->m_dateStatic.SetWindowText(tempStr);
+		
+		tempObj->isDynamicUse_OBJ =true;
+		theApp.m_MessageEdit.DynOBJ_Vec.push_back(tempObj);
+	}
+	else
+	{
+		theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
+	}
 }

@@ -314,6 +314,7 @@ void CLabelDlg::OnBnClickedInputButton()
 
 void CLabelDlg::OnPaint()
 {
+	theApp.m_MessageEdit.isDynamicUse_classMessage = false;//是否动态二维码打印
 	CPaintDC dc(this); // device context for painting
 
 	changeDis();

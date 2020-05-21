@@ -290,11 +290,6 @@ void CEditFigureDlg::OnCbnSelchangeFormatCombo()
 void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CInputDlg *pInputDlg = (CInputDlg*)this->GetParent();
-	CString tempStr;
-	GetDlgItem(IDC_PREVIEW_EDIT)->GetWindowText(tempStr);
-	pInputDlg->pBarCode->m_figureStatic.SetWindowText(tempStr);
-
 	CString previewEdit ;
 	GetDlgItem(IDC_PREVIEW_EDIT)-> GetWindowText(previewEdit);
 	CString firstEdit ;
@@ -426,7 +421,23 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 
 	tempObj->bytSerialFormat=m_FormatBox.GetCurSel();
 	tempObj->booFocus=true;
-
-	theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
+	
+	tempObj->isDynamicUse_OBJ = false;
+	//theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
  	this->ShowWindow(SW_HIDE);
+
+	if ( this->isDynamicUse_figureDlg )
+	{
+		CInputDlg *pInputDlg = (CInputDlg*)this->GetParent();
+		CString tempStr;
+		GetDlgItem(IDC_PREVIEW_EDIT)->GetWindowText(tempStr);
+		pInputDlg->pBarCode->m_figureStatic.SetWindowText(tempStr);
+		
+		tempObj->isDynamicUse_OBJ = true;
+		theApp.m_MessageEdit.DynOBJ_Vec.push_back(tempObj);
+	}
+	else
+	{
+		theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
+	}
 }
