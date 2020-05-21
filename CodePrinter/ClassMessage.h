@@ -147,6 +147,7 @@ public://参数
 
 	bool isDynamicUse_OBJ;//是否用于动态二维码
  
+	vector<OBJ_Control*> Qr_Vec;//存条码组成
 public://方法
  
 	void DrawFrame(CDC* pDC);
