@@ -794,6 +794,7 @@
 #define IDC_BARCODE_R_BUTTON            1859
 #define IDC_BARCODE_DATE_STATIC         1860
 #define IDC_STATIC_BARCODE_PICTURE      1861
+#define IDC_BARCODE_DELETE_BUTTON       1862
 
 // Next default values for new objects
 // 
@@ -801,7 +802,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        496
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1862
+#define _APS_NEXT_CONTROL_VALUE         1863
 #define _APS_NEXT_SYMED_VALUE           148
 #endif
 #endif

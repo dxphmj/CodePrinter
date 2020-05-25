@@ -42,6 +42,7 @@ void CBarCodeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BARCODE_OK_BTN, m_okIB);
 	DDX_Control(pDX, IDC_BARCODE_L_BUTTON, m_L_shiftIB);
 	DDX_Control(pDX, IDC_BARCODE_R_BUTTON, m_R_shiftIB);
+	DDX_Control(pDX, IDC_BARCODE_DELETE_BUTTON, m_DeleteIB);
 	DDX_Control(pDX, IDC_BARCODE_TEXT_STATIC, m_barText);
 	DDX_Control(pDX, IDC_BARCODE_FIGURE_BTN, m_barcodeFigureBtn);
 	DDX_Control(pDX, IDC_BARCODE_DATE_BTN, m_barcodeDateBtn);
@@ -66,6 +67,7 @@ BEGIN_MESSAGE_MAP(CBarCodeDlg, CDialog)
 	ON_BN_CLICKED(IDC_BARCODE_R_BUTTON, &CBarCodeDlg::OnBnClickedBarcodeRButton)
 	ON_WM_PAINT()
 	ON_WM_LBUTTONDOWN()
+	ON_BN_CLICKED(IDC_BARCODE_DELETE_BUTTON, &CBarCodeDlg::OnBnClickedBarcodeDelButton)
 END_MESSAGE_MAP()
 
 
@@ -115,6 +117,7 @@ BOOL CBarCodeDlg::OnInitDialog()
 	GetDlgItem(IDC_BARCODE_OK_BTN)->SetWindowPos(NULL,700,390,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BARCODE_L_BUTTON)->SetWindowPos(NULL,150,70,70,45,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BARCODE_R_BUTTON)->SetWindowPos(NULL,250,70,70,45,SWP_SHOWWINDOW);
+	GetDlgItem(IDC_BARCODE_DELETE_BUTTON)->SetWindowPos(NULL,350,70,70,45,SWP_SHOWWINDOW);
 
 	m_returnIB.LoadBitmaps(IDB_RETURN1_BITMAP,IDB_RETURN2_BITMAP,0,0,IDB_RANGE_BITMAP);
 	m_returnIB.SizeToContent();
@@ -145,6 +148,9 @@ BOOL CBarCodeDlg::OnInitDialog()
 
 	m_R_shiftIB.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT1_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_R_shiftIB.SizeToContent(); 
+
+	m_DeleteIB.LoadBitmaps(IDB_LABEL_DELETE1_BITMAP,IDB_LABEL_DELETE2_BITMAP,0,0,IDB_60_40_BITMAP);
+	m_DeleteIB.SizeToContent(); 
 
 	m_nCodeType = 58;
 	GetDlgItem(IDC_BARCODE_SET_STATIC)->SetWindowText(L"QR_CODE Setting");
@@ -301,8 +307,49 @@ BOOL CBarCodeDlg::PreTranslateMessage(MSG* pMsg)
 		//ts.Format(L"%s",_T("sdfsa"));
 		str=myCExportDlg.GetInputText(str);
 		pEdit-> SetWindowText(str);
+
+		//////////////////////////////////////////////////////////////////////////
+		int xPos=0;
+		int yPos=0;
+		theApp.m_MessageEdit.GetNextObjPosition(xPos,yPos);
+		OBJ_Control* tempObj = new OBJ_Control;
+		tempObj->intLineStart=yPos;
+		tempObj->intRowStart=xPos;
+		tempObj->strType1="text";
+		tempObj->strType2="text";
+		//以下先写死
+		tempObj->intSW=1;
+		tempObj->intSS=0;
+		tempObj->booNEG=false;
+		tempObj->booBWDx=false;
+		tempObj->booBWDy=false;
+
+		CString strText;
+		pEdit->GetWindowText(strText);
+		//tempObj.strText=theApp.myModuleMain.CString2string(strText);
+		tempObj->strText=theApp.myModuleMain.UnicodeToUtf8_CSTR(strText);
+
+		CString  fontText = _T("7x5");//默认为7x5
+		tempObj->intLineSize=7;
+		tempObj->intRowSize=strText.GetLength()*6;//////////这是个坑，注意阿拉伯语要改这
+		tempObj->strFont=theApp.myModuleMain.CString2string(fontText);
+
+		if ((tempObj->intRowStart+tempObj->intRowSize)>theApp.m_MessageEdit.scrMaxRow)
+		{
+			theApp.m_MessageEdit.scrMaxRow=tempObj->intRowStart+tempObj->intRowSize;
+		}
+
+		tempObj->booFocus=true;
+		tempObj->isDynamicUse_OBJ = true;//是否动态二维码编辑
+
+		theApp.m_MessageEdit.DynOBJ_Vec.push_back(tempObj);
+		theApp.m_MessageEdit.isDynamicUse_classMessage = true;
+		//////////////////////////////////////////////////////////////////////////
+
 		return TRUE;
 	}
+
+
 	return CDialog::PreTranslateMessage(pMsg);
 }
 
@@ -460,8 +507,8 @@ void CBarCodeDlg::OnBnClickedBarcodeRButton()
 
 				theApp.m_MessageEdit.DynOBJ_Vec.erase(theApp.m_MessageEdit.DynOBJ_Vec.begin()+i);
 				theApp.m_MessageEdit.DynOBJ_Vec.insert(theApp.m_MessageEdit.DynOBJ_Vec.begin()+i+1,tempVec[i]);
-				theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowStart = nextRowStart - theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowSize;
-				theApp.m_MessageEdit.DynOBJ_Vec[i+1]->intRowStart = curRowStart + theApp.m_MessageEdit.DynOBJ_Vec[i+1]->intRowSize;
+				theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowStart = nextRowStart - theApp.m_MessageEdit.DynOBJ_Vec[i+1]->intRowSize;
+				theApp.m_MessageEdit.DynOBJ_Vec[i+1]->intRowStart = curRowStart + theApp.m_MessageEdit.DynOBJ_Vec[i]->intRowSize;
 			}
 			else
 			{
@@ -470,6 +517,29 @@ void CBarCodeDlg::OnBnClickedBarcodeRButton()
 			OnPaint();
 			break;
 		}
+	}
+	m_barcodeDesignArea.Invalidate();
+}
+void CBarCodeDlg::OnBnClickedBarcodeDelButton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for(vector<OBJ_Control*>::iterator iterTemp=theApp.m_MessageEdit.DynOBJ_Vec.begin();iterTemp!=theApp.m_MessageEdit.DynOBJ_Vec.end();iterTemp++)
+	{
+		if ((*iterTemp)->booFocus)
+		{
+			int curRowSize = (*iterTemp)->intRowSize;
+			theApp.m_MessageEdit.DynOBJ_Vec.erase(iterTemp);
+			for (iterTemp;iterTemp!=theApp.m_MessageEdit.DynOBJ_Vec.end();iterTemp++)
+			{
+				(*iterTemp)->intRowStart = (*iterTemp)->intRowStart - curRowSize;
+			}
+			break;
+		}
+	}
+	vector<OBJ_Control*>::iterator iterTemp = theApp.m_MessageEdit.DynOBJ_Vec.begin();
+	if (iterTemp != theApp.m_MessageEdit.DynOBJ_Vec.end())
+	{
+		(*iterTemp)->booFocus = true;
 	}
 	m_barcodeDesignArea.Invalidate();
 }
@@ -527,3 +597,5 @@ void CBarCodeDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CDialog::OnLButtonDown(nFlags, point);
 }
+
+

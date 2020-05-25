@@ -70,6 +70,9 @@ BOOL CDateDlg::OnInitDialog()
 	m_dateAddBtn.SizeToContent(); 
 
 	m_skewValue.SetFont(theApp.m_EditFont);
+	GetDlgItem(IDC_DATE_PREVIEW_EDIT)->SetFont(theApp.m_EditFont);
+	GetDlgItem(IDC_DATE_DATE_TIME_EDIT)->SetFont(theApp.m_EditFont);
+
 	GetDlgItem(IDC_DATE_SKEW_VALUE_EDIT)->SetWindowText(_T("0"));
 	m_formatList.SetItemHeight(0,20);
 	m_skewUnitList.SetItemHeight(0,20);

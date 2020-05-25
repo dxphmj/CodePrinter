@@ -52,6 +52,7 @@ public:
 	CImageButton m_okIB;
 	CImageButton m_L_shiftIB;
 	CImageButton m_R_shiftIB;
+	CImageButton m_DeleteIB;
 
 	afx_msg void OnStnClickedBarcodeSetStatic();
 
@@ -71,4 +72,5 @@ public:
 	afx_msg void OnBnClickedBarcodeRButton();
 	afx_msg void OnPaint();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnBnClickedBarcodeDelButton();
 };

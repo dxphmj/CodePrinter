@@ -54,7 +54,7 @@ void CDesignStatic::OnPaint()
 	
 	CBrush cbrush;
 	CBrush* pBrush; //旧笔刷
-	int pixel = theApp.m_MessageEdit.Pixel+1;
+	int pixel = theApp.m_MessageEdit.Pixel+1;//控制行数
 	if(theApp.m_MessageEdit.Matrix!=14)//判断是否为2l7m
 	{
 		//画网格

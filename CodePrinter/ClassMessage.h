@@ -255,7 +255,7 @@ public://XML
 	void createLABXML();
 	void getLabFromXml();
 public:
-	bool isDynamicUse_classMessage;
+	bool isDynamicUse_classMessage;//是否动态打印二维码
 };
 
 
