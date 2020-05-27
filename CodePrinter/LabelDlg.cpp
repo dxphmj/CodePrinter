@@ -1019,7 +1019,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 	//将编辑内容赋值给打印内容
 	theApp.m_MessagePrint = theApp.m_MessageEdit;
-	
+	theApp.m_MessagePrint.DynOBJ_Vec = theApp.m_MessageEdit.DynOBJ_Vec;
 	//保存参数到目前的喷印配置xml文件和pcf文件里createPCF()	createPCFXML()
 	theApp.m_MessagePrint.createLABXML();
 	theApp.m_MessagePrint.SerialCountNew = true;
@@ -1063,7 +1063,7 @@ void CLabelDlg::getMessageDot()
 			theApp.m_MessagePrint.intRowMax = theApp.m_MessagePrint.OBJ_Vec[i]->intRowSize+theApp.m_MessagePrint.OBJ_Vec[i]->intRowStart;
 			theApp.m_MessagePrint.scrMaxRow = theApp.m_MessagePrint.intRowMax;
 		}
-		if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "serial" || theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "time")
+		if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "serial" || theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "time"|| theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "qrcode")
 			theApp.m_MessagePrint.boDynamic = true;
 	}
 

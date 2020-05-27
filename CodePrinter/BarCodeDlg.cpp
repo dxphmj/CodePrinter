@@ -157,7 +157,7 @@ BOOL CBarCodeDlg::OnInitDialog()
 
 	GetDlgItem(IDC_BARCODE_TEXT_EDIT)->SetFont(theApp.m_EditFont);
 
-	m_barcodeDesignArea.SetWindowPos(NULL,-1,-1,781,50, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
+	m_barcodeDesignArea.SetWindowPos(NULL,-1,-1,781,37, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);//781, 161
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -210,10 +210,17 @@ void CBarCodeDlg::Create2Dcode(int nType)
 
 	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_BARCODE_TEXT_EDIT);
 	CString str;
-	pEdit-> GetWindowText(str);     
+	pEdit-> GetWindowText(str);
 	USES_CONVERSION;	
 	char * QRTEXT = W2A(str.GetBuffer(0));	
 	std::string strTmp = ASCToUTF8(QRTEXT);
+	//////////////////////////////////////////////////////////////////////////
+	strTmp = "";
+	for(int i = 0; i < theApp.m_MessageEdit.DynOBJ_Vec.size(); i++)
+	{
+		strTmp += theApp.m_MessageEdit.DynOBJ_Vec[i]->strText;
+	}
+	//////////////////////////////////////////////////////////////////////////
 	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
 	generated = 1;
 
@@ -265,12 +272,14 @@ void CBarCodeDlg::Create2Dcode(int nType)
 		}
     }
 
-	bmpObj->strText = theApp.myModuleMain.CString2string(str);
+	//bmpObj->strText = theApp.myModuleMain.CString2string(str);
+	bmpObj->strText = strTmp;
 	if((bmpObj->intRowStart+bmpObj->intRowSize) > theApp.m_MessageEdit.scrMaxRow)
 	{
 		theApp.m_MessageEdit.scrMaxRow = bmpObj->intRowStart+bmpObj->intRowSize;
 	}
 	bmpObj->booFocus = true;
+	bmpObj->isDynamicUse_OBJ = false;
 
 	theApp.m_MessageEdit.OBJ_Vec.push_back(bmpObj); 
 }

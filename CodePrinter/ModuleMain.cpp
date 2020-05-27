@@ -7,6 +7,9 @@
 #include<cstdio> 
 #include <math.h>
 #include <sstream>//使用该库函数的ostringstream，将int变成string
+
+#include "qrcode\zint.h"
+#include "CodePrinterDlg.h"
  
 void StatusClass::byStatusFromSlaveState()
 {
@@ -641,6 +644,85 @@ UINT TTLcomLoop(LPVOID pParam)
 void getSerialTimeDotBuf()
 {
 	theApp.boPrintNowLock.Lock();
+		//////////////////////////////////////////////////////////////////////////
+		for(int i = 0; i < theApp.m_MessagePrint.DynOBJ_Vec.size(); i++)
+		{
+			if (theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "serial")
+			{		
+				int &CountNumRep = theApp.m_MessagePrint.DynOBJ_Vec[i]->CountNumRep;
+				int &CountNum = theApp.m_MessagePrint.DynOBJ_Vec[i]->CountNum;;
+				int &intSerialStep = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialStep;
+				int &intSerialRepeat = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialRepeat;
+				int &intSerialFirstLimit = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialFirstLimit;
+				int &intSerialSecondLimit = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialSecondLimit;
+				BYTE &bytSerialFormat = theApp.m_MessagePrint.DynOBJ_Vec[i]->bytSerialFormat;
+				BYTE &intSerialDigits = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialDigits;
+				if (CountNumRep < intSerialRepeat)
+					CountNumRep++; 
+				else
+				{
+					CountNumRep = 1;
+					if (intSerialFirstLimit < intSerialSecondLimit)
+					{
+						int tempValue = CountNum+intSerialStep;
+						if (tempValue > intSerialSecondLimit)
+						{
+							CountNum = tempValue - intSerialSecondLimit + intSerialFirstLimit - 1; //'超第二象限的计算公式
+						} 
+						else
+						{
+							CountNum = tempValue;
+						}
+					}
+					else if (intSerialFirstLimit > intSerialSecondLimit)
+					{
+						int tempValue = CountNum-intSerialStep;
+						if (tempValue < intSerialSecondLimit)
+						{
+							CountNum = tempValue - intSerialSecondLimit + intSerialFirstLimit + 1; //'超第二象限的计算公式
+						} 
+						else
+						{
+							CountNum = tempValue;
+						}
+					}
+				}	
+
+				string StrSerialText = "";
+				string strTemp = "";
+				switch(bytSerialFormat)
+				{
+				case 0:
+					for (int a = 0; a < intSerialDigits; a++)
+					{
+						strTemp = strTemp+"0";//123456789
+					}
+					strTemp = strTemp+OBJ_Control::to_String(CountNum);
+					StrSerialText = strTemp.substr(strTemp.length()-intSerialDigits,intSerialDigits);
+					break;
+				case 1:
+					for (int a = 0; a < intSerialDigits; a++)
+					{
+						strTemp = strTemp+" ";//123456789
+					}
+					strTemp = strTemp +OBJ_Control::to_String(CountNum);
+					StrSerialText = strTemp.substr(strTemp.length()-intSerialDigits,intSerialDigits);
+					break;
+				case 2:
+					strTemp = OBJ_Control::to_String(CountNum);
+					int n = intSerialDigits-strTemp.length();
+					for (int a = 0; a < n; a++)
+					{
+						strTemp = strTemp+" ";
+					}
+					StrSerialText = strTemp;
+					break;
+				}
+				theApp.m_MessagePrint.DynOBJ_Vec[i]->strText = StrSerialText;
+			}
+		}	
+		//////////////////////////////////////////////////////////////////////////
+
  		for(int i = 0; i < theApp.m_MessagePrint.OBJ_Vec.size(); i++)
 		{
 			 
@@ -676,7 +758,141 @@ UINT CreateMessageThread(LPVOID pParam)
 			continue;
 		}
 		getSerialTimeDotBuf();//修改bytPrintDataAll中相应的字节数据
+		
+		//////////////////////////////////////////////////////////////////////////
+		//struct zint_symbol *my_symbol;
+		//int error_number;
+		//int rotate_angle;
+		//int generated;
+		//int batch_mode;
+		//int mirror_mode;
+		//char filetype[4];
+		//int i;
 
+		//error_number = 0;
+		//rotate_angle = 0;
+		//generated = 0;
+		//my_symbol = ZBarcode_Create();
+		//my_symbol->input_mode = UNICODE_MODE;
+		//int nType = 58;
+		//my_symbol->symbology = nType;
+		//if(nType == 20 || nType == 8)
+		//	my_symbol->height = 12;	 
+
+		//my_symbol->scale = 0.5;
+		//batch_mode = 0;
+		//mirror_mode = 0;
+
+		////////////////////////////////////////////////////////////////////////////
+		//std::string strTmp = "";
+		//for(int i = 0; i < theApp.m_MessageEdit.DynOBJ_Vec.size(); i++)
+		//{
+		//	strTmp += theApp.m_MessageEdit.DynOBJ_Vec[i]->strText;
+		//}
+		////////////////////////////////////////////////////////////////////////////
+		//error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
+		//generated = 1;
+
+
+		//for(int i = 0; i < theApp.m_MessagePrint.OBJ_Vec.size(); i++)
+		//{
+		//	if ( theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "qrcode")
+		//	{
+		//		i = 0;
+		//		int r, g, b;
+
+		//		for (int row = 0; row < my_symbol->bitmap_height; row++)
+		//		{
+		//			for (int col = 0;col < my_symbol->bitmap_width; col++)
+		//			{
+		//				r = my_symbol->bitmap[i];
+		//				g = my_symbol->bitmap[i + 1];
+		//				b = my_symbol->bitmap[i + 2];
+		//				i += 3;
+		//				if (r == 0 && g == 0 && b == 0)
+		//				{
+		//					theApp.m_MessagePrint.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+		//				}
+		//				else
+		//				{
+		//					theApp.m_MessagePrint.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
+		//				}
+		//			}
+		//		}
+		//		theApp.m_MessagePrint.OBJ_Vec[i]->strText = strTmp;
+		//		if((theApp.m_MessagePrint.OBJ_Vec[i]->intRowStart+theApp.m_MessagePrint.OBJ_Vec[i]->intRowSize) > theApp.m_MessageEdit.scrMaxRow)
+		//		{
+		//			theApp.m_MessageEdit.scrMaxRow = theApp.m_MessagePrint.OBJ_Vec[i]->intRowStart+theApp.m_MessagePrint.OBJ_Vec[i]->intRowSize;
+		//		}
+		//		theApp.m_MessagePrint.OBJ_Vec[i]->booFocus = true;
+		//		theApp.m_MessagePrint.OBJ_Vec[i]->isDynamicUse_OBJ = false;
+		//	}
+		//}
+		//theApp.m_MessagePrint.getdot();
+		////******************************************************************************//
+		//int pixel = theApp.m_MessageEdit.Pixel;
+		//BYTE dotDataLen_l,dotDataLen_h,matrix_name,pixelMes,pixelAll;
+
+		//theApp.ForPreQue = queue<vector<BYTE>>();
+
+		//if(theApp.m_MessagePrint.IntMes)
+		//	delete []theApp.m_MessagePrint.IntMes;
+		//theApp.m_MessagePrint.IntMes = new UINT32[theApp.m_MessagePrint.intRowMax];
+		//memset(theApp.m_MessagePrint.IntMes,0,sizeof(UINT32)*theApp.m_MessagePrint.intRowMax);
+
+		//for (int j = 0; j < 32; j++)
+		//	for (int i = 0; i < theApp.m_MessagePrint.intRowMax; i++)
+		//		theApp.m_MessagePrint.IntMes[i] += ((theApp.m_MessagePrint.boDotMes[j][i])?1:0)*pow(2,j);
+
+		//vector<BYTE> bytPrintData = theApp.m_MessagePrint.DotToByte(0,theApp.m_MessagePrint.intRowMax);
+		//dotDataLen_l = bytPrintData.size()%256; //dotDataLen_l与dotDataLen_h共同表达了打印数据的大小dotDataLen_h*256+dotDataLen_l
+		//dotDataLen_h = bytPrintData.size()/256;
+		//pixelMes = (BYTE)(pixel+1);
+		//matrix_name = pixelMes<<2;//低二位为模式 
+		//pixelAll = pixelMes|0x80; //表示该数据及时生效，开始打印，将前面的清除掉。
+
+		//theApp.boPrintNowLock.Lock();
+		//vector<BYTE>().swap(theApp.m_MessagePrint.bytPrintDataAll);//比clear()好，能够释放内存  
+		//vector<BYTE>().swap(theApp.m_MessagePrint.bytPrintDataAllOrder);  
+
+		////预先给vector<BYTE>分配大小，然后再使用，效率也会高点，后面改正
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(0x1);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(0x80);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(0x6);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(0x1);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(0x11);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(matrix_name);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(pixelMes);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(dotDataLen_l);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(dotDataLen_h);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(0xff);
+		//theApp.m_MessagePrint.bytPrintDataAll.push_back(0xff);
+
+		////以下参见通信格式说明
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(0x1);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(0x80);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(0x6);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(0x1);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(0x11);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(matrix_name);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(pixelAll);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(dotDataLen_l);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(dotDataLen_h);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(0xff);
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.push_back(0xff);
+
+		//bytPrintData.push_back(0xff);
+		//bytPrintData.push_back(0xff);
+
+		//theApp.m_MessagePrint.bytPrintDataAll.insert(theApp.m_MessagePrint.bytPrintDataAll.end(),bytPrintData.begin(),bytPrintData.end());
+		//theApp.m_MessagePrint.bytPrintDataAllOrder.insert(theApp.m_MessagePrint.bytPrintDataAllOrder.end(),bytPrintData.begin(),bytPrintData.end());
+		//theApp.m_MessageEdit.bytPrintDataAllOrder.clear();
+		//theApp.m_MessageEdit.bytPrintDataAllOrder = theApp.m_MessagePrint.bytPrintDataAllOrder;
+		//theApp.m_MessagePrint.intMesDis = theApp.m_MessagePrint.bytPrintDataAll;
+		//theApp.m_MessagePrint.boPrintNow = true;		
+		//theApp.boPrintNowLock.Unlock();
+
+		//////////////////////////////////////////////////////////////////////////
 		//vector<BYTE> bytPrintDataAll1 = theApp.m_MessagePrint.bytPrintDataAll;
 
 		theApp.boPrintNowLock.Lock();
