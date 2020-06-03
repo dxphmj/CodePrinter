@@ -433,6 +433,8 @@ void CEditFigureDlg::OnBnClickedEditfigureOkBtn()
 		GetDlgItem(IDC_PREVIEW_EDIT)->GetWindowText(tempStr);
 		pInputDlg->pBarCode->m_figureStatic.SetWindowText(tempStr);
 		
+		tempObj->CountNum = 1;
+		tempObj->CountNumRep = 1;
 		tempObj->isDynamicUse_OBJ = true;
 		theApp.m_MessageEdit.DynOBJ_Vec.push_back(tempObj);
 	}

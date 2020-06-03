@@ -136,6 +136,7 @@ public://参数
 	string strqrcodeVersion;//二维码的版本类型
 	string strqrcodeECCLevel;//二维码的容错率等级
 	int intqrcodeQuietZone;//二维码空白框层数
+	int nBarcodeType;//二维码类型，临时随时删除
 
     bool boQRBig;
 	int intQRVersion;
@@ -238,7 +239,7 @@ public:
 	void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int nStartValue,CDC* pDC);
 	void DrawSerialTimeDynamic(int nRowStartdis,int intDynamicRowEnd,int intDynamicLineStart,int intDynamicLineEnd,CDC* pDC);
  	void ClearOBJ_Vec();
-	void getSerialTimeDotBuf(); 
+	void getSerialTimeDotBuf();
 	void getdigitaldot();//获得基本字库
 	int  ModifyGetSerialNums();
 	BYTE getByteFromDot(bool boDot,int moveNum); 

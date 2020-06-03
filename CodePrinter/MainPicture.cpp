@@ -97,9 +97,10 @@ UINT MainpageDrawTheard(LPVOID pParam)
 	{
 		while(theApp.boDrawMainPic)
 		{
+			
 			if(theApp.ForPreQue.size() >= 2)///////“‘∫Û…æµÙ
 			{
-				theApp.m_MessagePrint.intMesDis = theApp.ForPreQue.front();;
+				theApp.m_MessagePrint.intMesDis = theApp.ForPreQue.front();
 				theApp.ForPreQue.pop();
 			}
 

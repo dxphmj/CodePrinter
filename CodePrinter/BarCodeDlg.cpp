@@ -208,14 +208,15 @@ void CBarCodeDlg::Create2Dcode(int nType)
 	batch_mode = 0;
 	mirror_mode = 0;
 
-	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_BARCODE_TEXT_EDIT);
-	CString str;
-	pEdit-> GetWindowText(str);
-	USES_CONVERSION;	
-	char * QRTEXT = W2A(str.GetBuffer(0));	
-	std::string strTmp = ASCToUTF8(QRTEXT);
+	//CEdit* pEdit = (CEdit*)GetDlgItem(IDC_BARCODE_TEXT_EDIT);
+	//CString str;
+	//pEdit-> GetWindowText(str);
+	//USES_CONVERSION;	
+	//char * QRTEXT = W2A(str.GetBuffer(0));	
+	//std::string strTmp = ASCToUTF8(QRTEXT);
 	//////////////////////////////////////////////////////////////////////////
-	strTmp = "";
+
+	std::string strTmp = "";
 	for(int i = 0; i < theApp.m_MessageEdit.DynOBJ_Vec.size(); i++)
 	{
 		strTmp += theApp.m_MessageEdit.DynOBJ_Vec[i]->strText;
@@ -281,6 +282,7 @@ void CBarCodeDlg::Create2Dcode(int nType)
 	bmpObj->booFocus = true;
 	bmpObj->isDynamicUse_OBJ = false;
 
+	bmpObj->nBarcodeType = nType;
 	theApp.m_MessageEdit.OBJ_Vec.push_back(bmpObj); 
 }
 

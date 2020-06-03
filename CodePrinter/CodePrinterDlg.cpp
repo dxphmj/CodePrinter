@@ -169,14 +169,9 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//templanstr = m_cAbrabicconj->disposeinputtext(lanStr.c_str());
     //m_PicHead.SetMachineStatus(templanstr);//Shut Down
 	m_PicHead.ShowLogo(true);
+	theApp.m_MessageEdit.isDynamicUse_classMessage = false;
 
 	/////////////////////关闭Load程序
-	HWND hWnd = NULL;
-	hWnd = ::FindWindow(_T("CLoadDlg"),_T("Microsoft Windows"));
-	if (NULL != hWnd) {
-		::SendMessage(hWnd, WM_CLOSE, 0, 0);
-	}
-
 	////通过进程名获取进程ID
 	////DWORD pid = GetProcessIdByName("test.exe");
 	//DWORD pid = GetProcessId(_T("Load.exe"));
