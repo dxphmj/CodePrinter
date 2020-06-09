@@ -136,7 +136,7 @@ public://参数
 	string strqrcodeVersion;//二维码的版本类型
 	string strqrcodeECCLevel;//二维码的容错率等级
 	int intqrcodeQuietZone;//二维码空白框层数
-	int nBarcodeType;//二维码类型，临时随时删除
+	int nBarcodeType;//二维码类型
 
     bool boQRBig;
 	int intQRVersion;

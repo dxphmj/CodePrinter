@@ -11,6 +11,8 @@
 #include "..\KEYBOARD\KEYBOARD\ExportDlg.h"
 #include "..\PathDlgDll\PathDlgDll\PathDlgDll.h"
 
+#include "qrcode\zint.h"
+
 LPCWSTR stringToLPCWSTR(std::string orig)
 {
 	size_t origsize = orig.length() + 1;
@@ -746,6 +748,100 @@ void CLabelDlg::OnBnClickedOpenButton()
 	labFileName = xmlPath.c_str();
 	labFileName.Delete(0,24);//删除路径(Storage Card\user\Label\)
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(labFileName);
+	//////////////////////////////////////////////////////////////////////////
+	for(int i = 0; i < theApp.m_MessageEdit.OBJ_Vec.size(); i++)
+	{
+		if (theApp.m_MessageEdit.OBJ_Vec[i]->strType2 == "qrcode")
+		{
+			struct zint_symbol *my_symbol;
+			int error_number;
+			int rotate_angle;
+			int generated;
+			int batch_mode;
+			int mirror_mode;
+			char filetype[4];
+			int a;
+
+			error_number = 0;
+			rotate_angle = 0;
+			generated = 0;
+			my_symbol = ZBarcode_Create();
+			my_symbol->input_mode = UNICODE_MODE;
+			int nType;
+			nType = 58;//先写死
+			my_symbol->symbology = nType;
+			if(nType == 20 || nType == 8)
+			my_symbol->height = 12;	 
+
+			int hhh = my_symbol->height;
+			my_symbol->scale = 0.5;
+			batch_mode = 0;
+			mirror_mode = 0;
+
+			std::string strTmp = "";
+			strTmp = theApp.m_MessageEdit.OBJ_Vec[i]->strText;
+
+			error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
+			generated = 1;
+
+			//********************************************
+			OBJ_Control* bmpObj = new OBJ_Control;
+			bmpObj->intLineStart = theApp.m_MessageEdit.OBJ_Vec[i]->intLineStart;
+			bmpObj->intRowStart = theApp.m_MessageEdit.OBJ_Vec[i]->intRowStart;
+			bmpObj->strType1 = "text";
+			bmpObj->strType2 = "qrcode";
+
+			bmpObj->intQRVersion = theApp.m_MessageEdit.OBJ_Vec[i]->intQRVersion;
+			bmpObj->intQRErrLevel = theApp.m_MessageEdit.OBJ_Vec[i]->intQRErrLevel;
+			bmpObj->intQREncodingMode = theApp.m_MessageEdit.OBJ_Vec[i]->intQREncodingMode;
+			bmpObj->boQRBig = true;	 
+			int version = bmpObj->intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
+			int casesensitive = bmpObj->boQRBig;//是否区分大小写，true/false
+
+			bmpObj->intLineSize = my_symbol->bitmap_height;
+			bmpObj->intRowSize = my_symbol->bitmap_width;
+
+			bmpObj->intLineSize = theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize;
+			bmpObj->intRowSize = theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize;
+
+			//以下先写死
+			bmpObj->intSW = theApp.m_MessageEdit.OBJ_Vec[i]->intSW;
+			bmpObj->intSS = theApp.m_MessageEdit.OBJ_Vec[i]->intSS;
+			bmpObj->booNEG = theApp.m_MessageEdit.OBJ_Vec[i]->booNEG;
+			bmpObj->booBWDx = theApp.m_MessageEdit.OBJ_Vec[i]->booBWDx;
+			bmpObj->booBWDy = theApp.m_MessageEdit.OBJ_Vec[i]->booBWDy;
+
+			a = 0;
+			int r, g, b;
+
+			for (int row = 0; row < my_symbol->bitmap_height; row++)
+			{
+			for (int col = 0;col < my_symbol->bitmap_width; col++)
+			{
+			r = my_symbol->bitmap[a];
+			g = my_symbol->bitmap[a + 1];
+			b = my_symbol->bitmap[a + 2];
+			a += 3;
+			if (r == 0 && g == 0 && b == 0)
+			{
+			bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+			}
+			else
+			{
+			bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
+			}
+			}
+			}
+			delete my_symbol;
+			bmpObj->strText = strTmp;
+
+			bmpObj->booFocus = true;
+			bmpObj->isDynamicUse_OBJ = false;
+
+			bmpObj->nBarcodeType = nType;
+			theApp.m_MessageEdit.OBJ_Vec[i] = bmpObj;
+		}
+	}
 
 	//m_MessageEdit.ReadObjectsFromXml("\\Storage Card\\user\\Label\\sss.xml");
 	//if (theApp.m_MessageEdit.strMatrix=="1L5M")
@@ -1063,8 +1159,18 @@ void CLabelDlg::getMessageDot()
 			theApp.m_MessagePrint.intRowMax = theApp.m_MessagePrint.OBJ_Vec[i]->intRowSize+theApp.m_MessagePrint.OBJ_Vec[i]->intRowStart;
 			theApp.m_MessagePrint.scrMaxRow = theApp.m_MessagePrint.intRowMax;
 		}
-		if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "serial" || theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "time"|| theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "qrcode")
+		if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "serial" || theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "time" )
 			theApp.m_MessagePrint.boDynamic = true;
+		if ( theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "qrcode" )
+		{
+			for(int i=0;i<theApp.m_MessagePrint.DynOBJ_Vec.size();i++)
+			{
+				if ( theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "serial" || theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "time")
+				{
+					theApp.m_MessagePrint.boDynamic = true;
+				}
+			}
+		}
 	}
 
 	if (theApp.m_MessagePrint.boDynamic)
@@ -1488,6 +1594,10 @@ void CLabelDlg::OnBnClickedDeleteButton()
 		if ((*iterTemp)->booFocus)
 		{
 			theApp.m_MessageEdit.ModifyGetSerialNums();
+			if ((*iterTemp)->strType2 == "qrcode")
+			{
+				theApp.m_MessageEdit.DynOBJ_Vec.clear();
+			}
 			theApp.m_MessageEdit.OBJ_Vec.erase(iterTemp);
 			break;
 		}
