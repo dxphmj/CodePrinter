@@ -789,7 +789,7 @@ void getBarcodeDotBuf()
 				}
 			}	
 			//***************************生成打印数据**********************************//
-
+			
 			struct zint_symbol *my_symbol;
 			int error_number;
 			int rotate_angle;
@@ -805,7 +805,8 @@ void getBarcodeDotBuf()
 			my_symbol = ZBarcode_Create();
 			my_symbol->input_mode = UNICODE_MODE;
 			int nType;
-			nType = 58;
+			//nType = 58;
+			nType = theApp.m_MessagePrint.OBJ_Vec[i]->nBarcodeType;
 			my_symbol->symbology = nType;
 			if(nType == 20 || nType == 8)
 				my_symbol->height = 12;	 

@@ -153,7 +153,8 @@ BOOL CClientSocket::Recv( void )
 					my_symbol = ZBarcode_Create();
 					my_symbol->input_mode = UNICODE_MODE;
 					int nType;
-					nType = 58;//ÏÈÐ´ËÀ
+					//nType = 58;//ÏÈÐ´ËÀ
+					nType = theApp.m_MessageEdit.OBJ_Vec[i]->nBarcodeType;
 					my_symbol->symbology = nType;
 					if(nType == 20 || nType == 8)
 					my_symbol->height = 12;	 
