@@ -240,7 +240,7 @@ void CEditTextDlg::OnBnClickedButtonEditok()
 
 	tempObj->booFocus=true;
 
-	tempObj->isDynamicUse_OBJ = false;//是否动态二维码编辑
+	tempObj->isDynamicUse_OBJ = false;//用于判断是否在二维码编辑界面绘制
 
 	theApp.m_MessageEdit.OBJ_Vec.push_back(tempObj);
 	this->ShowWindow(SW_HIDE);

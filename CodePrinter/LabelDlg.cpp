@@ -339,61 +339,30 @@ BOOL CLabelDlg::OnInitDialog()
 			generated = 1;
 
 			//********************************************
-			OBJ_Control* bmpObj = new OBJ_Control;
-			bmpObj->intLineStart = theApp.m_MessageEdit.OBJ_Vec[i]->intLineStart;
-			bmpObj->intRowStart = theApp.m_MessageEdit.OBJ_Vec[i]->intRowStart;
-			bmpObj->strType1 = "text";
-			bmpObj->strType2 = "qrcode";
-
-			bmpObj->intQRVersion = theApp.m_MessageEdit.OBJ_Vec[i]->intQRVersion;
-			bmpObj->intQRErrLevel = theApp.m_MessageEdit.OBJ_Vec[i]->intQRErrLevel;
-			bmpObj->intQREncodingMode = theApp.m_MessageEdit.OBJ_Vec[i]->intQREncodingMode;
-			bmpObj->boQRBig = true;	 
-			int version = bmpObj->intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
-			int casesensitive = bmpObj->boQRBig;//是否区分大小写，true/false
-
-			bmpObj->intLineSize = my_symbol->bitmap_height;
-			bmpObj->intRowSize = my_symbol->bitmap_width;
-
-			bmpObj->intLineSize = theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize;
-			bmpObj->intRowSize = theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize;
-
-			//以下先写死
-			bmpObj->intSW = theApp.m_MessageEdit.OBJ_Vec[i]->intSW;
-			bmpObj->intSS = theApp.m_MessageEdit.OBJ_Vec[i]->intSS;
-			bmpObj->booNEG = theApp.m_MessageEdit.OBJ_Vec[i]->booNEG;
-			bmpObj->booBWDx = theApp.m_MessageEdit.OBJ_Vec[i]->booBWDx;
-			bmpObj->booBWDy = theApp.m_MessageEdit.OBJ_Vec[i]->booBWDy;
-
+			memset(theApp.m_MessageEdit.OBJ_Vec[i]->boDotBmp,false,32*255*sizeof(bool));
 			a = 0;
 			int r, g, b;
-
 			for (int row = 0; row < my_symbol->bitmap_height; row++)
 			{
-			for (int col = 0;col < my_symbol->bitmap_width; col++)
-			{
-			r = my_symbol->bitmap[a];
-			g = my_symbol->bitmap[a + 1];
-			b = my_symbol->bitmap[a + 2];
-			a += 3;
-			if (r == 0 && g == 0 && b == 0)
-			{
-			bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+				for (int col = 0;col < my_symbol->bitmap_width; col++)
+				{
+					r = my_symbol->bitmap[a];
+					g = my_symbol->bitmap[a + 1];
+					b = my_symbol->bitmap[a + 2];
+					a += 3;
+					if (r == 0 && g == 0 && b == 0)
+					{
+						theApp.m_MessageEdit.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+					}
+					else
+					{
+						theApp.m_MessageEdit.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
+					}
+				}
 			}
-			else
-			{
-			bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
-			}
-			}
-			}
-			delete my_symbol;
-			bmpObj->strText = strTmp;
-
-			bmpObj->booFocus = true;
-			bmpObj->isDynamicUse_OBJ = false;
-
-			bmpObj->nBarcodeType = nType;
-			theApp.m_MessageEdit.OBJ_Vec[i] = bmpObj;
+			ZBarcode_Delete(my_symbol);
+			theApp.m_MessageEdit.OBJ_Vec[i]->booFocus = true;
+			theApp.m_MessageEdit.OBJ_Vec[i]->isDynamicUse_OBJ = false;
 		}
 	}
 
@@ -412,7 +381,7 @@ void CLabelDlg::OnBnClickedInputButton()
 
 void CLabelDlg::OnPaint()
 {
-	theApp.m_MessageEdit.isDynamicUse_classMessage = false;//是否动态二维码打印
+	theApp.m_MessageEdit.isDynamicUse_classMessage = false;//用于判断是否在条形码编辑界面绘制
 	CPaintDC dc(this); // device context for painting
 
 	changeDis();
@@ -882,61 +851,30 @@ void CLabelDlg::OnBnClickedOpenButton()
 			generated = 1;
 
 			//********************************************
-			OBJ_Control* bmpObj = new OBJ_Control;
-			bmpObj->intLineStart = theApp.m_MessageEdit.OBJ_Vec[i]->intLineStart;
-			bmpObj->intRowStart = theApp.m_MessageEdit.OBJ_Vec[i]->intRowStart;
-			bmpObj->strType1 = "text";
-			bmpObj->strType2 = "qrcode";
-
-			bmpObj->intQRVersion = theApp.m_MessageEdit.OBJ_Vec[i]->intQRVersion;
-			bmpObj->intQRErrLevel = theApp.m_MessageEdit.OBJ_Vec[i]->intQRErrLevel;
-			bmpObj->intQREncodingMode = theApp.m_MessageEdit.OBJ_Vec[i]->intQREncodingMode;
-			bmpObj->boQRBig = true;	 
-			int version = bmpObj->intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
-			int casesensitive = bmpObj->boQRBig;//是否区分大小写，true/false
-
-			bmpObj->intLineSize = my_symbol->bitmap_height;
-			bmpObj->intRowSize = my_symbol->bitmap_width;
-
-			bmpObj->intLineSize = theApp.m_MessageEdit.OBJ_Vec[i]->intLineSize;
-			bmpObj->intRowSize = theApp.m_MessageEdit.OBJ_Vec[i]->intRowSize;
-
-			//以下先写死
-			bmpObj->intSW = theApp.m_MessageEdit.OBJ_Vec[i]->intSW;
-			bmpObj->intSS = theApp.m_MessageEdit.OBJ_Vec[i]->intSS;
-			bmpObj->booNEG = theApp.m_MessageEdit.OBJ_Vec[i]->booNEG;
-			bmpObj->booBWDx = theApp.m_MessageEdit.OBJ_Vec[i]->booBWDx;
-			bmpObj->booBWDy = theApp.m_MessageEdit.OBJ_Vec[i]->booBWDy;
-
+			memset(theApp.m_MessageEdit.OBJ_Vec[i]->boDotBmp,false,32*255*sizeof(bool));
 			a = 0;
 			int r, g, b;
-
 			for (int row = 0; row < my_symbol->bitmap_height; row++)
 			{
-			for (int col = 0;col < my_symbol->bitmap_width; col++)
-			{
-			r = my_symbol->bitmap[a];
-			g = my_symbol->bitmap[a + 1];
-			b = my_symbol->bitmap[a + 2];
-			a += 3;
-			if (r == 0 && g == 0 && b == 0)
-			{
-			bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+				for (int col = 0;col < my_symbol->bitmap_width; col++)
+				{
+					r = my_symbol->bitmap[a];
+					g = my_symbol->bitmap[a + 1];
+					b = my_symbol->bitmap[a + 2];
+					a += 3;
+					if (r == 0 && g == 0 && b == 0)
+					{
+						theApp.m_MessageEdit.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+					}
+					else
+					{
+						theApp.m_MessageEdit.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
+					}
+				}
 			}
-			else
-			{
-			bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
-			}
-			}
-			}
-			delete my_symbol;
-			bmpObj->strText = strTmp;
-
-			bmpObj->booFocus = true;
-			bmpObj->isDynamicUse_OBJ = false;
-
-			bmpObj->nBarcodeType = nType;
-			theApp.m_MessageEdit.OBJ_Vec[i] = bmpObj;
+			ZBarcode_Delete(my_symbol);
+			theApp.m_MessageEdit.OBJ_Vec[i]->booFocus = true;
+			theApp.m_MessageEdit.OBJ_Vec[i]->isDynamicUse_OBJ = false;
 		}
 	}
 
@@ -1212,6 +1150,7 @@ void CLabelDlg::OnBnClickedDownloadButton()
 
 	//将编辑内容赋值给打印内容
 	theApp.m_MessagePrint = theApp.m_MessageEdit;
+	theApp.m_MessagePrint.OBJ_Vec = theApp.m_MessageEdit.OBJ_Vec;
 	theApp.m_MessagePrint.DynOBJ_Vec = theApp.m_MessageEdit.DynOBJ_Vec;
 	//保存参数到目前的喷印配置xml文件和pcf文件里createPCF()	createPCFXML()
 	theApp.m_MessagePrint.createLABXML();
@@ -1260,9 +1199,13 @@ void CLabelDlg::getMessageDot()
 			theApp.m_MessagePrint.boDynamic = true;
 		if ( theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "qrcode" )
 		{
-			for(int i=0;i<theApp.m_MessagePrint.DynOBJ_Vec.size();i++)
+			//if (theApp.m_MessagePrint.OBJ_Vec[i]->intDynamicQRPrint == 1 )
+			//{
+			//	theApp.m_MessagePrint.boDynamic = true;
+			//}
+			for(int j=0;j<theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec.size();j++)
 			{
-				if ( theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "serial" || theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "time")
+				if ( theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strType2 == "serial" || theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strType2 == "time")
 				{
 					theApp.m_MessagePrint.boDynamic = true;
 				}
@@ -1656,6 +1599,12 @@ void CLabelDlg::OnBnClickedCopyButton()
 		if (theApp.m_MessageEdit.OBJ_Vec.at(i)->booFocus)
 		{
 			OBJ_Control* tempObj = new OBJ_Control(theApp.m_MessageEdit.OBJ_Vec.at(i));
+			for(int j = 0; j < theApp.m_MessageEdit.OBJ_Vec[i]->Qr_Vec.size(); j++)
+			{
+				OBJ_Control* Obj = new OBJ_Control(theApp.m_MessageEdit.OBJ_Vec[i]->Qr_Vec.at(j));
+				tempObj->Qr_Vec.push_back(Obj);
+			}
+			tempObj->isDynamicUse_OBJ = theApp.m_MessageEdit.OBJ_Vec.at(i)->isDynamicUse_OBJ;//
   			tempObj->intRowStart = tempObj->intRowStart+tempObj->intRowSize;
  
 			if (tempObj->strType2 == "serial")

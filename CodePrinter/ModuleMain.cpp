@@ -702,18 +702,106 @@ void getBarcodeDotBuf()
 		if (theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "qrcode")
 		{
 			//***************************序列号及时间变化**********************************//
-			for(int i = 0; i < theApp.m_MessagePrint.DynOBJ_Vec.size(); i++)
+			//for(int i = 0; i < theApp.m_MessagePrint.DynOBJ_Vec.size(); i++)
+			//{
+			//	if (theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "serial")
+			//	{		
+			//		int &CountNumRep = theApp.m_MessagePrint.DynOBJ_Vec[i]->CountNumRep;
+			//		int &CountNum = theApp.m_MessagePrint.DynOBJ_Vec[i]->CountNum;
+			//		int &intSerialStep = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialStep;
+			//		int &intSerialRepeat = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialRepeat;
+			//		int &intSerialFirstLimit = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialFirstLimit;
+			//		int &intSerialSecondLimit = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialSecondLimit;
+			//		BYTE &bytSerialFormat = theApp.m_MessagePrint.DynOBJ_Vec[i]->bytSerialFormat;
+			//		BYTE &intSerialDigits = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialDigits;
+			//		if (CountNumRep < intSerialRepeat)
+			//			CountNumRep++; 
+			//		else
+			//		{
+			//			CountNumRep = 1;
+			//			if (intSerialFirstLimit < intSerialSecondLimit)
+			//			{
+			//				int tempValue = CountNum+intSerialStep;
+			//				if (tempValue > intSerialSecondLimit)
+			//				{
+			//					CountNum = tempValue - intSerialSecondLimit + intSerialFirstLimit - 1; //'超第二象限的计算公式
+			//				} 
+			//				else
+			//				{
+			//					CountNum = tempValue;
+			//				}
+			//			}
+			//			else if (intSerialFirstLimit > intSerialSecondLimit)
+			//			{
+			//				int tempValue = CountNum-intSerialStep;
+			//				if (tempValue < intSerialSecondLimit)
+			//				{
+			//					CountNum = tempValue - intSerialSecondLimit + intSerialFirstLimit + 1; //'超第二象限的计算公式
+			//				} 
+			//				else
+			//				{
+			//					CountNum = tempValue;
+			//				}
+			//			}
+			//		}	
+
+			//		string StrSerialText = "";
+			//		string strTemp = "";
+			//		switch(bytSerialFormat)
+			//		{
+			//		case 0:
+			//			for (int a = 0; a < intSerialDigits; a++)
+			//			{
+			//				strTemp = strTemp+"0";//123456789
+			//			}
+			//			strTemp = strTemp+OBJ_Control::to_String(CountNum);
+			//			StrSerialText = strTemp.substr(strTemp.length()-intSerialDigits,intSerialDigits);
+			//			break;
+			//		case 1:
+			//			for (int a = 0; a < intSerialDigits; a++)
+			//			{
+			//				strTemp = strTemp+" ";//123456789
+			//			}
+			//			strTemp = strTemp +OBJ_Control::to_String(CountNum);
+			//			StrSerialText = strTemp.substr(strTemp.length()-intSerialDigits,intSerialDigits);
+			//			break;
+			//		case 2:
+			//			strTemp = OBJ_Control::to_String(CountNum);
+			//			int n = intSerialDigits-strTemp.length();
+			//			for (int a = 0; a < n; a++)
+			//			{
+			//				strTemp = strTemp+" ";
+			//			}
+			//			StrSerialText = strTemp;
+			//			break;
+			//		}
+			//		theApp.m_MessagePrint.DynOBJ_Vec[i]->strText = StrSerialText;
+			//	}
+			//	else if (theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "time")
+			//	{
+			//		string strTime = theApp.m_MessagePrint.DynOBJ_Vec[i]->strTime;
+			//		int booETimeOffSet = theApp.m_MessagePrint.DynOBJ_Vec[i]->booETimeOffSet;
+			//		int intTimeOffSet = theApp.m_MessagePrint.DynOBJ_Vec[i]->intTimeOffSet;
+			//		int strTimeOffSet = theApp.m_MessagePrint.DynOBJ_Vec[i]->strTimeOffSet;
+			//		ModuleMain myModuleMain;
+			//		string strText = myModuleMain.TimeFormatToText(myModuleMain.string2CString(strTime),booETimeOffSet,intTimeOffSet,strTimeOffSet);
+			//		theApp.m_MessagePrint.DynOBJ_Vec[i]->strText = strText;
+			//	}
+			//}	
+			//***************************生成打印数据**********************************//
+			for(int j = 0; j < theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec.size(); j++)
 			{
-				if (theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "serial")
-				{		
-					int &CountNumRep = theApp.m_MessagePrint.DynOBJ_Vec[i]->CountNumRep;
-					int &CountNum = theApp.m_MessagePrint.DynOBJ_Vec[i]->CountNum;
-					int &intSerialStep = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialStep;
-					int &intSerialRepeat = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialRepeat;
-					int &intSerialFirstLimit = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialFirstLimit;
-					int &intSerialSecondLimit = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialSecondLimit;
-					BYTE &bytSerialFormat = theApp.m_MessagePrint.DynOBJ_Vec[i]->bytSerialFormat;
-					BYTE &intSerialDigits = theApp.m_MessagePrint.DynOBJ_Vec[i]->intSerialDigits;
+
+				if (theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strType2 == "serial")
+				{					 
+					int &CountNumRep = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->CountNumRep;
+					int &CountNum = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->CountNum;
+					int &intSerialStep = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->intSerialStep;
+					int &intSerialRepeat = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->intSerialRepeat;
+					int &intSerialFirstLimit = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->intSerialFirstLimit;
+					int &intSerialSecondLimit = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->intSerialSecondLimit;
+					BYTE &bytSerialFormat = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->bytSerialFormat;
+					BYTE &intSerialDigits = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->intSerialDigits;
 					if (CountNumRep < intSerialRepeat)
 						CountNumRep++; 
 					else
@@ -775,21 +863,20 @@ void getBarcodeDotBuf()
 						StrSerialText = strTemp;
 						break;
 					}
-					theApp.m_MessagePrint.DynOBJ_Vec[i]->strText = StrSerialText;
+					theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strText = StrSerialText;
 				}
-				else if (theApp.m_MessagePrint.DynOBJ_Vec[i]->strType2 == "time")
-				{
-					string strTime = theApp.m_MessagePrint.DynOBJ_Vec[i]->strTime;
-					int booETimeOffSet = theApp.m_MessagePrint.DynOBJ_Vec[i]->booETimeOffSet;
-					int intTimeOffSet = theApp.m_MessagePrint.DynOBJ_Vec[i]->intTimeOffSet;
-					int strTimeOffSet = theApp.m_MessagePrint.DynOBJ_Vec[i]->strTimeOffSet;
+				else if (theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strType2 == "time")
+				{					 
+
+					string strTime = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strTime;
+					int booETimeOffSet = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->booETimeOffSet;
+					int intTimeOffSet = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->intTimeOffSet;
+					int strTimeOffSet = theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strTimeOffSet;
 					ModuleMain myModuleMain;
 					string strText = myModuleMain.TimeFormatToText(myModuleMain.string2CString(strTime),booETimeOffSet,intTimeOffSet,strTimeOffSet);
-					theApp.m_MessagePrint.DynOBJ_Vec[i]->strText = strText;
+					theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[j]->strText = strText;
 				}
 			}	
-			//***************************生成打印数据**********************************//
-			
 			struct zint_symbol *my_symbol;
 			int error_number;
 			int rotate_angle;
@@ -817,43 +904,18 @@ void getBarcodeDotBuf()
 			mirror_mode = 0;
 
 			std::string strTmp = "";
-			for(int i = 0; i < theApp.m_MessageEdit.DynOBJ_Vec.size(); i++)
+			//for(int i = 0; i < theApp.m_MessageEdit.DynOBJ_Vec.size(); i++)
+			for(int m = 0; m < theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec.size(); m++)
 			{
-				strTmp += theApp.m_MessageEdit.DynOBJ_Vec[i]->strText;
+				strTmp += theApp.m_MessagePrint.OBJ_Vec[i]->Qr_Vec[m]->strText;
 			}
-
+			theApp.m_MessagePrint.OBJ_Vec[i]->strText = strTmp;
 			error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
 			generated = 1;
-			
-			//********************************************
-			OBJ_Control* bmpObj = new OBJ_Control;
-			bmpObj->intLineStart = theApp.m_MessagePrint.OBJ_Vec[i]->intLineStart;
-			bmpObj->intRowStart = theApp.m_MessagePrint.OBJ_Vec[i]->intRowStart;
-			bmpObj->strType1 = "text";
-			bmpObj->strType2 = "qrcode";
-
-			//bmpObj->intQRVersion = VersionBox.GetCurSel()+1;
-			//bmpObj->intQRErrLevel = ErrLevelBox.GetCurSel();
-			//bmpObj->intQREncodingMode = EncodingModeBox.GetCurSel();
-			bmpObj->boQRBig = true;	 
-			int version = bmpObj->intQRVersion;//设置版本号，这里设为2，对应尺寸：25 * 25
-			int casesensitive = bmpObj->boQRBig;//是否区分大小写，true/false
-
-			bmpObj->intLineSize = my_symbol->bitmap_height;
-			bmpObj->intRowSize = my_symbol->bitmap_width;
-
-			bmpObj->intLineSize = theApp.m_MessagePrint.OBJ_Vec[i]->intLineSize;
-			bmpObj->intRowSize = theApp.m_MessagePrint.OBJ_Vec[i]->intRowSize;
-
-			//以下先写死
-			bmpObj->intSW = 1;
-			bmpObj->intSS = 0;
-			bmpObj->booNEG = false;
-			bmpObj->booBWDx = false;
-			bmpObj->booBWDy = false;
+			//////////////////////////////////////////////////////////////////////////
+			memset(theApp.m_MessagePrint.OBJ_Vec[i]->boDotBmp,false,32*255*sizeof(bool));
 			a = 0;
 			int r, g, b;
-
 			for (int row = 0; row < my_symbol->bitmap_height; row++)
 			{
 				for (int col = 0;col < my_symbol->bitmap_width; col++)
@@ -864,58 +926,15 @@ void getBarcodeDotBuf()
 					a += 3;
 					if (r == 0 && g == 0 && b == 0)
 					{
-						bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
+						theApp.m_MessagePrint.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
 					}
 					else
 					{
-						bmpObj->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
+						theApp.m_MessagePrint.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
 					}
 				}
 			}
-			delete my_symbol;
-			bmpObj->strText = strTmp;
-
-			bmpObj->booFocus = true;
-			bmpObj->isDynamicUse_OBJ = false;
-
-			bmpObj->nBarcodeType = nType;
-			theApp.m_MessagePrint.OBJ_Vec.clear();
-			theApp.m_MessagePrint.OBJ_Vec.push_back(bmpObj); 
-
-			//***************************************************************************
-			//a = 0;
-			//int r, g, b;
-			//for(int i = 0; i < theApp.m_MessagePrint.OBJ_Vec.size(); i++)
-			//{
-			//	if ( theApp.m_MessagePrint.OBJ_Vec[i]->strType2 == "qrcode")
-			//	{
-			//		for (int row = 0; row < my_symbol->bitmap_height; row++)
-			//		{
-			//			for (int col = 0;col < my_symbol->bitmap_width; col++)
-			//			{
-			//				r = my_symbol->bitmap[a];
-			//				g = my_symbol->bitmap[a + 1];
-			//				b = my_symbol->bitmap[a + 2];
-			//				a += 3;
-			//				if (r == 0 && g == 0 && b == 0)
-			//				{
-			//					theApp.m_MessagePrint.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = true;
-			//				}
-			//				else
-			//				{
-			//					theApp.m_MessagePrint.OBJ_Vec[i]->boDotBmp[col][my_symbol->bitmap_height-row-1] = false;
-			//				}
-			//			}
-			//		}
-			//		theApp.m_MessagePrint.OBJ_Vec[i]->strText = strTmp;
-			//		//if((theApp.m_MessagePrint.OBJ_Vec[i]->intRowStart+theApp.m_MessagePrint.OBJ_Vec[i]->intRowSize) > theApp.m_MessageEdit.scrMaxRow)
-			//		//{
-			//		//	theApp.m_MessageEdit.scrMaxRow = theApp.m_MessagePrint.OBJ_Vec[i]->intRowStart+theApp.m_MessagePrint.OBJ_Vec[i]->intRowSize;
-			//		//}
-			//		theApp.m_MessagePrint.OBJ_Vec[i]->booFocus = true;
-			//		theApp.m_MessagePrint.OBJ_Vec[i]->isDynamicUse_OBJ = false;
-			//	}
-			//}
+			ZBarcode_Delete(my_symbol);
 			theApp.m_MessagePrint.getdot();
 			//******************************************************************************//
 			int pixel = theApp.m_MessageEdit.Pixel;

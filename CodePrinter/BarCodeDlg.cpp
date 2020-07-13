@@ -222,9 +222,10 @@ void CBarCodeDlg::Create2Dcode(int nType)
 		strTmp += theApp.m_MessageEdit.DynOBJ_Vec[i]->strText;
 	}
 	//////////////////////////////////////////////////////////////////////////
-	error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
+    error_number = ZBarcode_Encode_and_Buffer(my_symbol, (unsigned char*) strTmp.c_str(),strTmp.length(),rotate_angle);
 	generated = 1;
-
+	
+	theApp.m_MessageEdit.isDynamicUse_classMessage = false;//
 	int xPos=0;
 	int yPos=0;
 	theApp.m_MessageEdit.GetNextObjPosition(xPos,yPos);
@@ -273,6 +274,8 @@ void CBarCodeDlg::Create2Dcode(int nType)
 		}
     }
 
+
+	ZBarcode_Delete(my_symbol);
 	//bmpObj->strText = theApp.myModuleMain.CString2string(str);
 	bmpObj->strText = strTmp;
 	if((bmpObj->intRowStart+bmpObj->intRowSize) > theApp.m_MessageEdit.scrMaxRow)
@@ -282,7 +285,15 @@ void CBarCodeDlg::Create2Dcode(int nType)
 	bmpObj->booFocus = true;
 	bmpObj->isDynamicUse_OBJ = false;
 
+	for(int i=0;i<theApp.m_MessageEdit.DynOBJ_Vec.size();i++)
+	{
+		if ( theApp.m_MessageEdit.DynOBJ_Vec[i]->strType2 == "serial" || theApp.m_MessageEdit.DynOBJ_Vec[i]->strType2 == "time")
+		{
+			bmpObj->intDynamicQRPrint = 1;//动态二维码打印
+		}
+	}
 	bmpObj->nBarcodeType = nType;
+	bmpObj->Qr_Vec = theApp.m_MessageEdit.DynOBJ_Vec;
 	theApp.m_MessageEdit.OBJ_Vec.push_back(bmpObj); 
 }
 
@@ -351,10 +362,9 @@ BOOL CBarCodeDlg::PreTranslateMessage(MSG* pMsg)
 		}
 
 		tempObj->booFocus=true;
-		tempObj->isDynamicUse_OBJ = true;//是否动态二维码编辑
+		tempObj->isDynamicUse_OBJ = true;//用于判断是否在二维码编辑界面绘制
 
 		theApp.m_MessageEdit.DynOBJ_Vec.push_back(tempObj);
-		theApp.m_MessageEdit.isDynamicUse_classMessage = true;
 		//////////////////////////////////////////////////////////////////////////
 
 		return TRUE;

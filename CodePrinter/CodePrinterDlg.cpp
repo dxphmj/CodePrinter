@@ -415,24 +415,24 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 	//GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
-	////关闭Load程序
-	//HWND hWnd = NULL;
-	////hWnd = ::FindWindow(NULL,_T("Load"));
-	//hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
-	//if (hWnd == NULL)
-	//{
-	//	return TRUE;
-	//}
+	//关闭Load程序
+	HWND hWnd = NULL;
+	//hWnd = ::FindWindow(NULL,_T("Load"));
+	hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
+	if (hWnd == NULL)
+	{
+		return TRUE;
+	}
+	
+	DWORD dwProcessId;
+	//得到该窗口的进程ID
+	GetWindowThreadProcessId(hWnd,&dwProcessId);
+	//从进程ID打开进程句柄
+	HANDLE handle = OpenProcess(0,false,dwProcessId);
+	//强制终止进程
+	TerminateProcess(handle,0);
+	::SendMessage(hWnd,WM_CLOSE,0,0);
 	//
-	//DWORD dwProcessId;
-	////得到该窗口的进程ID
-	//GetWindowThreadProcessId(hWnd,&dwProcessId);
-	////从进程ID打开进程句柄
-	//HANDLE handle = OpenProcess(0,false,dwProcessId);
-	////强制终止进程
-	//TerminateProcess(handle,0);
-	//::SendMessage(hWnd,WM_CLOSE,0,0);
-	////
 
 	/*dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));*/
 	//网络

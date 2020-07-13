@@ -231,6 +231,13 @@ void CInputDlg::OnBnClickedEditpictureButton()
 void CInputDlg::OnBnClickedBarcodeButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	theApp.m_MessageEdit.DynOBJ_Vec.clear();
+	CInputDlg *pInputDlg = (CInputDlg*)this;
+	pInputDlg->pBarCode->m_figureStatic.SetWindowText(_T(""));
+	pInputDlg->pBarCode->m_dateStatic.SetWindowText(_T(""));
+	CEdit* pEdit = (CEdit*)pInputDlg->pBarCode->GetDlgItem(IDC_BARCODE_TEXT_EDIT);
+	pEdit-> SetWindowText(_T(""));
+
 	showInputDlg(IDD_BARCODE_DIALOG);
 	this->ShowWindow(SW_HIDE);
 }

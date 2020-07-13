@@ -146,7 +146,8 @@ public://参数
 	bool boDotBmp[32][255];//显示bmp,条形码，二维码用
 	bool booFocus;//焦点是否显示,True:显示蓝框,False:显示红框
 
-	bool isDynamicUse_OBJ;//是否用于动态二维码
+	bool isDynamicUse_OBJ;//用于判断是否在二维码编辑界面绘制
+	int intDynamicQRPrint;//判断是否动态打印二维码，1：是，0：否
  
 	vector<OBJ_Control*> Qr_Vec;//存条码组成
 public://方法
@@ -256,7 +257,7 @@ public://XML
 	void createLABXML();
 	void getLabFromXml();
 public:
-	bool isDynamicUse_classMessage;//是否动态打印二维码
+	bool isDynamicUse_classMessage;//用于判断是否在条形码编辑界面绘制
 };
 
 
