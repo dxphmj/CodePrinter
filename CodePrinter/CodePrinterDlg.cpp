@@ -295,13 +295,14 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	m_ButOnOrOff.SizeToContent(); 
 	m_StartPrint.LoadBitmaps(IDB_START_PRINT1_BITMAP,IDB_START_PRINT2_BITMAP,0,0,IDB_START_PRINT1_BITMAP);
 	m_StartPrint.SizeToContent(); 
+	theApp.SetProgressBar(95);
 	m_PausePrint.LoadBitmaps(IDB_PAUSE_PRINT1_BITMAP,IDB_PAUSE_PRINT2_BITMAP,0,0,IDB_PAUSE_PRINT1_BITMAP);
 	m_PausePrint.SizeToContent(); 
 	//dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));
 	//m_PictureMain.Invalidate();
-	theApp.SetProgressBar(95);
-
-
+	//theApp.SetProgressBar(95);
+	theApp.SetProgressBar(100);
+	
 #ifndef _DEBUG
 //#ifdef def_ttl
 	//串口初始化
@@ -390,6 +391,26 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	GetDlgItem(IDC_STATIC_PCFNAME)->SetWindowText(pPcfConfig.m_pcfName);
 	m_Confi->pcfNameDlg = pPcfConfig.m_pcfName;
 	//dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));
+	//////////////////////////////////////////////////////////////////////////
+	//theApp.SetProgressBar(100);
+	//关闭Load程序
+	HWND hWnd = NULL;
+	hWnd = ::FindWindow(NULL,_T("Load"));
+	//hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
+	if (hWnd == NULL)
+	{
+		return TRUE;
+	}
+
+	DWORD dwProcessId;
+	//得到该窗口的进程ID
+	GetWindowThreadProcessId(hWnd,&dwProcessId);
+	//从进程ID打开进程句柄
+	HANDLE handle = OpenProcess(0,false,dwProcessId);
+	//强制终止进程
+	TerminateProcess(handle,0);
+	::SendMessage(hWnd,WM_CLOSE,0,0);
+	//////////////////////////////////////////////////////////////////////////
 #ifndef _DEBUG
 //#ifdef def_ttl
 
@@ -405,7 +426,7 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		
 
 #endif 	
-	theApp.SetProgressBar(100);
+	//theApp.SetProgressBar(100);
 
 	//int iFullWidth  = GetSystemMetrics(SM_CXSCREEN);
 	//int iFullHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -415,23 +436,23 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	
 	//GetDlgItem(IDC_PAUSEPRINT_BUTTON)->SetFocus();
 
-	//关闭Load程序
-	HWND hWnd = NULL;
-	//hWnd = ::FindWindow(NULL,_T("Load"));
-	hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
-	if (hWnd == NULL)
-	{
-		return TRUE;
-	}
-	
-	DWORD dwProcessId;
-	//得到该窗口的进程ID
-	GetWindowThreadProcessId(hWnd,&dwProcessId);
-	//从进程ID打开进程句柄
-	HANDLE handle = OpenProcess(0,false,dwProcessId);
-	//强制终止进程
-	TerminateProcess(handle,0);
-	::SendMessage(hWnd,WM_CLOSE,0,0);
+	////关闭Load程序
+	//HWND hWnd = NULL;
+	////hWnd = ::FindWindow(NULL,_T("Load"));
+	//hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
+	//if (hWnd == NULL)
+	//{
+	//	return TRUE;
+	//}
+	//
+	//DWORD dwProcessId;
+	////得到该窗口的进程ID
+	//GetWindowThreadProcessId(hWnd,&dwProcessId);
+	////从进程ID打开进程句柄
+	//HANDLE handle = OpenProcess(0,false,dwProcessId);
+	////强制终止进程
+	//TerminateProcess(handle,0);
+	//::SendMessage(hWnd,WM_CLOSE,0,0);
 	//
 
 	/*dealmxl.WriteXml(_T("LoadConfig.xml"),_T("Value"),_T("100"),_T("Storage Card\\System"));*/
