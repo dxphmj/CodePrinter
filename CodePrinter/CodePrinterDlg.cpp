@@ -18,7 +18,7 @@
 #include "PcfConfig.h"
 #include "DealXml.h"
 #include "shellapi.h"
-
+#include "GetRegValue.h"
 #define  def_ttl 1
 //对话框操作
 #define ID_SYSTEM_MANAGEMENT				WM_USER+3000
@@ -158,6 +158,22 @@ BOOL CCodePrinterDlg::OnInitDialog()
 		::ShowWindow(hTaskBar, SW_HIDE);       
 	}       	
 	m_PicHead.SetWindowPos(NULL,0,0,800,75,SWP_SHOWWINDOW );
+
+	//注册表相关//以下先注掉
+	//string strValue = GetRegValue(2, "Drivers\USB\ClientDrivers\USB8024", "DLL");
+	//if (strValue!="USB8024.DLL")
+	//{
+	//	AfxMessageBox(_T("Hardware failure"));
+	//	return true;
+	//}
+	//strValue = GetRegValue(2, "VBS\VBSID", "ID");
+	//if (strValue!="{B54F3741-5B07-11cf-A4B0-11AAB54A55E8}")
+	//{
+	//	AfxMessageBox(_T("Hardware failure"));
+	//	return true;
+	//}
+	/////以上
+
 	//初始化读取ChineseSimplified.xml,设置系统状态shut down
 	bool iniLanXml;
 	iniLanXml = theApp.myLanguage.readLanguageXml("ChineseSimplified.xml");

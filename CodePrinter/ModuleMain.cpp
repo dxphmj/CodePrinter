@@ -52,6 +52,11 @@ void StatusClass::getstatu()
 	staBum = (GETnBIT_from_bytStatus(0, 3, 1)==_T("1")?true:false)   ;   //'泵开关
 	staHarFin = (GETnBIT_from_bytStatus(0, 4, 1)==_T("1")?true:false) ;  //'下位机复位完成
 	staCleFauFin = (GETnBIT_from_bytStatus(0, 5, 1)==_T("1")?true:false) ;// '清除故障完成
+	//6命令执行完成、7休眠模式工作中
+	staComExeFin=(GETnBIT_from_bytStatus(0, 6, 1)==_T("1")?true:false) ;//bit6:  0 没有执行命令， 1 命令执行完成
+	staSleMod=(GETnBIT_from_bytStatus(0, 7, 1)==_T("1")?true:false) ;//Bit7:  1 休眠模式工作中，0 休眠中
+
+
 	staNozVal = (GETnBIT_from_bytStatus(1, 0, 1)==_T("1")?true:false);   //'喷嘴阀
 	staFeeVal = (GETnBIT_from_bytStatus(1, 1, 1)==_T("1")?true:false) ;  //'供墨阀
 	staBleVal = (GETnBIT_from_bytStatus(1, 2, 1)==_T("1")?true:false) ;  //'排气阀
@@ -59,6 +64,8 @@ void StatusClass::getstatu()
 	staSolVal = (GETnBIT_from_bytStatus(1, 4, 1)==_T("1")?true:false) ;  //'溶剂阀
 	staVisVal = (GETnBIT_from_bytStatus(1, 5, 1)==_T("1")?true:false) ;  //'粘度阀
 	staWasVal = (GETnBIT_from_bytStatus(1, 6, 1)==_T("1")?true:false) ;  //'冲洗阀
+	staValFau = (GETnBIT_from_bytStatus(1, 7, 1)==_T("1")?true:false) ;  //阀故障Bit7: 电磁阀故障,0正常，1故障
+	
 	staInkFloSenOff = (GETnBIT_from_bytStatus(2, 0, 1)==_T("1")?true:false) ;  //'关回收
 	staCloInkLin = (GETnBIT_from_bytStatus(2, 1, 1)==_T("1")?true:false) ;  //'关墨线
 	staAddSol = (GETnBIT_from_bytStatus(2, 2, 1)==_T("1")?true:false)  ; //'添加溶剂
@@ -74,20 +81,29 @@ void StatusClass::getstatu()
 	staVisAbnFau = (GETnBIT_from_bytStatus(3, 4, 1)==_T("1")?true:false) ;  //'粘度异常
 	staVisSenFau = (GETnBIT_from_bytStatus(3, 5, 1)==_T("1")?true:false) ; //'粘度计故障
 	staInkFloFau = (GETnBIT_from_bytStatus(3, 6, 1)==_T("1")?true:false)  ; //'回收故障
-	staPriHeaCle = (GETnBIT_from_bytStatus(3, 7, 1)==_T("1")?true:false) ;  //'开关机清洗
+	staPriHeaCle = (GETnBIT_from_bytStatus(3, 7, 1)==_T("1")?true:false) ;  //'开关机清洗//现在变为清洗负压故障，应该是一个意思
+	//bit7: 清洗负压故障，0 正常，1负压不足；
+
 	staFanFau = (GETnBIT_from_bytStatus(4, 0, 1)==_T("1")?true:false) ; // '风扇故障
 	staChaFau = (GETnBIT_from_bytStatus(4, 1, 1)==_T("1")?true:false) ;  //'充电故障
 	staPhaFau = (GETnBIT_from_bytStatus(4, 2, 1)==_T("1")?true:false) ;  //'相位故障
 	staHigVolFau = (GETnBIT_from_bytStatus(4, 3, 1)==_T("1")?true:false) ; // '高压故障
 	staSolLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 5, 1)==_T("1")?true:false) +OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 4, 1)==_T("1")?true:false);  //'溶剂液位状态
 	staInkLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 7, 1)==_T("1")?true:false) + OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 6, 1)==_T("1")?true:false);  //'墨水液位状态
+	
 	staPrnting = (GETnBIT_from_bytStatus(5, 0, 1)==_T("1")?true:false) ; // '打印中
+	staSerNumRes= (GETnBIT_from_bytStatus(5, 1, 1)==_T("1")?true:false) ;//Bit1: 序列号复位开关，0 按键无按下，1 按键按下，读取后自动清0
+
 	//'staBufOveFau = IIf(GETnBIT_from_bytStatus(5, 2, 1)==_T("1"));  // '文本buf溢出
 	staHigVolSwi = (GETnBIT_from_bytStatus(5, 3, 1)==_T("1")?true:false)  ; //'高压开关
 	staActProSen = (GETnBIT_from_bytStatus(5, 4, 1)==_T("1")?true:false)  ; //'电眼当前电平
 	staProSenFas = (GETnBIT_from_bytStatus(5, 5, 1)==_T("1")?true:false) ;  ////'电眼过快
 	staAutModFau = (GETnBIT_from_bytStatus(5, 6, 1)==_T("1")?true:false) ; // '自动分裂失败
-	staValFau = (GETnBIT_from_bytStatus(5, 7, 1)==_T("1")?true:false) ;  //'阀故障
+
+	//Bit7: 墨水休眠允许 0 不允许休眠功能，1 允许休眠功能，注：由上位机发命令配置
+	staInkSleAll = (GETnBIT_from_bytStatus(5, 7, 1)==_T("1")?true:false) ;  //变为墨水休眠允许，阀故障转到1里
+	
+
 	staPrinted = (GETnBIT_from_bytStatus(6, 0, 1)==_T("1")?true:false)  ; //'打印完成
 	staRemPrinSwi = (GETnBIT_from_bytStatus(6, 1, 1)==_T("1")?true:false); //  '远程打印开关
 	//'staBufFul = (GETnBIT_from_bytStatus(6, 2, 1)==_T("1"));   //'文本buf满
@@ -119,6 +135,12 @@ void StatusClass::getstatu()
 	staPriCou = theApp.bytStatus[30] * pow(256 , 3) + theApp.bytStatus[29] * pow(256 , 2 )+ theApp.bytStatus[28] * 256 + theApp.bytStatus[27];      // '打印计数器
 	staPixDotNee = theApp.bytStatus[31];                                  // '列构成点数
 	staAutModVol = theApp.bytStatus[32];                                  // '自动分裂电压
+	//33-36 墨水时间相关？
+	//0x21~0x24: 	打印时间，其中0x24(byte3)bit7~6表示卡状态，00 无卡，10 卡无效，11刷卡成功,读取后状态位会自动清0；
+	//bit5表示刷卡功能，0 禁止刷卡，1 允许刷卡;
+	//新增：
+	//读卡器：
+	//	串口波特率：2400bps，起始位1，数据8位，停止位1，奇偶位没有
 
 	staSetTimeEna = (GETnBIT_from_bytStatus(36, 5, 1)==_T("1")?true:false);   //'维护、墨水时间更改功能开放
 	if (!staSetTimeEna)
@@ -299,6 +321,26 @@ void StatusClass::download_inksystem_control03()
 	tempCtrVec.push_back(0x3);
 	tempCtrVec.push_back(0x3);
 	tempCtrVec.push_back(ctr0X03);
+	tempCtrVec.push_back(0xff);
+	tempCtrVec.push_back(0xff);
+
+	theApp.boQueCtrLock.Lock();
+	theApp.queCtr.push(tempCtrVec);
+	theApp.boQueCtrLock.Unlock();
+}
+
+
+void StatusClass::download_inksystem_control05()
+{
+
+	//ctr0X05 = ctr0X05bit11*2048+ctr0X05bit10*1024+ctr0X05bit5*32+ctr0X05bit4 * 16 + ctr0X05bit2 * 4 + ctr0X05bit1 * 2 ;
+	vector<BYTE> tempCtrVec;
+	tempCtrVec.push_back(0x1);
+	tempCtrVec.push_back(0x80);
+	tempCtrVec.push_back(0x3);
+	tempCtrVec.push_back(0x3);
+	tempCtrVec.push_back(0x5);
+	tempCtrVec.push_back(ctr0X05);//此处直接下发ctr0x05
 	tempCtrVec.push_back(0xff);
 	tempCtrVec.push_back(0xff);
 
@@ -509,7 +551,7 @@ UINT TTLcomLoop(LPVOID pParam)
 				theApp.boQueCtrLock.Unlock();
 			}
 		} 
-		else if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[3]==0x20)
+		else// if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[3]==0x20)
 		{
 			bytComErr++;
 			if (bytComErr>10)
@@ -528,106 +570,106 @@ UINT TTLcomLoop(LPVOID pParam)
 				}
 			} 
 		}
-		else    ///////////////用于测试。以后删掉
-		{
-			//bytComErr++;
-			//if (bytComErr>10)
-			//{/////弹出对话框
-			//	int result =MessageBox( NULL,TEXT("无应答，是否继续") , TEXT("选择") ,MB_YESNO);
-			//	switch(result)
-			//	{
-			//	case IDYES:
-			//		bytComErr=0;
-			//		strTempCmd=(LPTSTR)readArr;
-			//		strTempCmdLen=8;
-			//		break;
-			//	case IDNO:
-			//		AfxMessageBox(_T("串口无应答！\n请联系管理员！"));
-			//		break;
-			//	}
-			//} 
-			//strTempCmd=(LPTSTR)readArr;
-			//strTempCmdLen=8;
+		//else    ///////////////用于测试。以后删掉
+		//{
+		//	//bytComErr++;
+		//	//if (bytComErr>10)
+		//	//{/////弹出对话框
+		//	//	int result =MessageBox( NULL,TEXT("无应答，是否继续") , TEXT("选择") ,MB_YESNO);
+		//	//	switch(result)
+		//	//	{
+		//	//	case IDYES:
+		//	//		bytComErr=0;
+		//	//		strTempCmd=(LPTSTR)readArr;
+		//	//		strTempCmdLen=8;
+		//	//		break;
+		//	//	case IDNO:
+		//	//		AfxMessageBox(_T("串口无应答！\n请联系管理员！"));
+		//	//		break;
+		//	//	}
+		//	//} 
+		//	//strTempCmd=(LPTSTR)readArr;
+		//	//strTempCmdLen=8;
 
-			/////////以下代码测试用
-			//theApp.boQueCtrLock.Lock();
-			//if (theApp.queCtr.size()>0)
-			//{
-			//	vector<BYTE> tempQueVec=theApp.queCtr.front();
-			//	theApp.queCtr.pop();
-			//	strTempCmdLen=tempQueVec.size();
-			//	strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-			//}
-			//theApp.boQueCtrLock.Unlock();
+		//	/////////以下代码测试用
+		//	//theApp.boQueCtrLock.Lock();
+		//	//if (theApp.queCtr.size()>0)
+		//	//{
+		//	//	vector<BYTE> tempQueVec=theApp.queCtr.front();
+		//	//	theApp.queCtr.pop();
+		//	//	strTempCmdLen=tempQueVec.size();
+		//	//	strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+		//	//}
+		//	//theApp.boQueCtrLock.Unlock();
 
-			//if (theApp.m_MessageEdit.boDynamic)
-			//{
-			//	if (theApp.ForPreQue.size()>0)
-			//	{
-			//		theApp.boPrintNowLock.Lock();
-			//			vector<BYTE> tempQueVec=theApp.ForPreQue.front();
-			//			theApp.ForPreQue.pop();
-			//		
-			//			strTempCmdLen=tempQueVec.size();
-			//			strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-			//			if (strTempCmdLen>11)
-			//			{////动态显示相关
-			//				vector<BYTE> intMesDis1;
-			//				intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
-			//				theApp.boDotForPreQue.push(intMesDis1);
-			//				theApp.m_MessageEdit.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
-			//				theApp.boDotForPreQue.pop();
-			//				vector<int> tempCountVec;
-			//				if (theApp.intCounNumForPreQue.size()>0)
-			//				{
-			//					tempCountVec = theApp.intCounNumForPreQue.front();
+		//	//if (theApp.m_MessageEdit.boDynamic)
+		//	//{
+		//	//	if (theApp.ForPreQue.size()>0)
+		//	//	{
+		//	//		theApp.boPrintNowLock.Lock();
+		//	//			vector<BYTE> tempQueVec=theApp.ForPreQue.front();
+		//	//			theApp.ForPreQue.pop();
+		//	//		
+		//	//			strTempCmdLen=tempQueVec.size();
+		//	//			strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
+		//	//			if (strTempCmdLen>11)
+		//	//			{////动态显示相关
+		//	//				vector<BYTE> intMesDis1;
+		//	//				intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
+		//	//				theApp.boDotForPreQue.push(intMesDis1);
+		//	//				theApp.m_MessageEdit.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
+		//	//				theApp.boDotForPreQue.pop();
+		//	//				vector<int> tempCountVec;
+		//	//				if (theApp.intCounNumForPreQue.size()>0)
+		//	//				{
+		//	//					tempCountVec = theApp.intCounNumForPreQue.front();
 
-			//					theApp.intCounNumForPreQue.pop();
+		//	//					theApp.intCounNumForPreQue.pop();
 
-			//					for (int num=0;num<tempCountVec.size();num++)
-			//					{
-			//						theApp.m_MessageEdit.CountNumForPre[num]=tempCountVec[num];
-			//					}
-			//				}
-			//			} 
-			//			else
-			//			{
-			//				strTempCmd=(LPTSTR)readArr;
-			//				strTempCmdLen=8;
-			//			}
-			//		theApp.boPrintNowLock.Unlock();
-			//	} 
-			//	else
-			//	{
-			//		strTempCmd=(LPTSTR)readArr;
-			//		strTempCmdLen=8;
-			//	}
-			//}
-					if (theApp.m_MessagePrint.boPrintNow)
-					{
-						theApp.boPrintNowLock.Lock();
-						if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
-						{
-							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
-							strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
-							theApp.m_MessagePrint.boPrintNow=false;
+		//	//					for (int num=0;num<tempCountVec.size();num++)
+		//	//					{
+		//	//						theApp.m_MessageEdit.CountNumForPre[num]=tempCountVec[num];
+		//	//					}
+		//	//				}
+		//	//			} 
+		//	//			else
+		//	//			{
+		//	//				strTempCmd=(LPTSTR)readArr;
+		//	//				strTempCmdLen=8;
+		//	//			}
+		//	//		theApp.boPrintNowLock.Unlock();
+		//	//	} 
+		//	//	else
+		//	//	{
+		//	//		strTempCmd=(LPTSTR)readArr;
+		//	//		strTempCmdLen=8;
+		//	//	}
+		//	//}
+		//			if (theApp.m_MessagePrint.boPrintNow)
+		//			{
+		//				theApp.boPrintNowLock.Lock();
+		//				if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+		//				{
+		//					strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
+		//					strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
+		//					theApp.m_MessagePrint.boPrintNow=false;
 
-							if (theApp.m_UserList.GetCount()>0)
-							{
-								theApp.boSendCodeLock.Lock();
-								theApp.sendCodeque=queue<vector<BYTE>>();
-								theApp.sendCodeque.push(theApp.m_MessagePrint.bytPrintDataAllOrder);//存入网络队列
-								theApp.boSendCodeLock.Unlock();
-							}
-						} 
-						else
-						{
-							strTempCmd=(LPTSTR)readArr;
-							strTempCmdLen=8;
-						}
-						theApp.boPrintNowLock.Unlock();
-					}
-		}
+		//					if (theApp.m_UserList.GetCount()>0)
+		//					{
+		//						theApp.boSendCodeLock.Lock();
+		//						theApp.sendCodeque=queue<vector<BYTE>>();
+		//						theApp.sendCodeque.push(theApp.m_MessagePrint.bytPrintDataAllOrder);//存入网络队列
+		//						theApp.boSendCodeLock.Unlock();
+		//					}
+		//				} 
+		//				else
+		//				{
+		//					strTempCmd=(LPTSTR)readArr;
+		//					strTempCmdLen=8;
+		//				}
+		//				theApp.boPrintNowLock.Unlock();
+		//			}
+		//}
 
         theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
 
