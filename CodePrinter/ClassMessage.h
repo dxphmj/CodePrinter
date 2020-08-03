@@ -206,6 +206,7 @@ public:
 	int Matrix;//最大可设计的行数
 	int Pixel; //实际要打印的行数（像素高度）
 	int intRowMax;//最大的打印列数（最小打印列数永远是0）
+	int pcfintDotMesRow;
 	string strMatrix;//行数：1L7M
 
 	string Reverse;//是否群体控制

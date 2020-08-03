@@ -712,6 +712,7 @@ void getSerialTimeDotBuf()
 //序列号及时间生成线程
 UINT CreateMessageThread(LPVOID pParam)
 {
+
 	while(theApp.mythreadDynamicBoo)
 	{
 		if(theApp.ForPreQue.size() >= 2)

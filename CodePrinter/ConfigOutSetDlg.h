@@ -53,4 +53,7 @@ public:
 	CCustomStatic m_outsetActiveLev;
 	CCustomStatic m_outsetCurLev;
 	CCustomStatic m_outsetTrigger;
+	int m_intImpulse;
+	int m_intLength;
+	int m_intTriggerLen;
 };

@@ -5,6 +5,7 @@
 #include "CodePrinter.h"
 #include "ConfigOutSetDlg.h"
 #include "CodePrinterDlg.h"
+#include <math.h>
 
 // CConfigOutSet 对话框
 
@@ -13,6 +14,9 @@ IMPLEMENT_DYNAMIC(CConfigOutSetDlg, CDialog)
 CConfigOutSetDlg::CConfigOutSetDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CConfigOutSetDlg::IDD, pParent)
 	,m_currentLevelStr("High")
+	, m_intImpulse(0)
+	, m_intLength(0)
+	, m_intTriggerLen(0)
 {
         
 }
@@ -46,6 +50,9 @@ void CConfigOutSetDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_OUTSET_ACTIVELEV_STATIC, m_outsetActiveLev);
 	DDX_Control(pDX, IDC_OUTSET_CUR_LEV_STATIC, m_outsetCurLev);
 	DDX_Control(pDX, IDC_OUTSET_TRIGGER_LEN_STATIC, m_outsetTrigger);
+	DDX_Text(pDX, IDC_IMPULSE_EDIT, m_intImpulse);
+	DDX_Text(pDX, IDC_LENGTH_EDIT, m_intLength);
+	DDX_Text(pDX, IDC_TRIGGER_LEN_EDIT, m_intTriggerLen);
 }
 
 
@@ -182,8 +189,77 @@ void CConfigOutSetDlg::OnEnSetfocusLengthEdit()
 void CConfigOutSetDlg::OnBnClickedOutsetOkBtn()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	//
+	try
+	{  
+		if ( m_intLength == 0 )
+			m_intLength = 0;
+	}
+	catch (CException* e)
+	{
+	}
+
+	try
+	{  
+		if ( m_intTriggerLen == 0 )
+			m_intTriggerLen = 0;
+	}
+	catch (CException* e)
+	{
+	}
+	try
+	{  
+		if ( m_intImpulse == 0 )
+			m_intImpulse = 0;
+	}
+	catch (CException* e)
+	{
+	}
+	//确认更改，并返回配置页面
 	CConfigurationDlg* dlg;
 	dlg = (CConfigurationDlg*)(GetParent());
+	ModuleMain myModuleMain;
+	int nIndex = dlg->m_ConfigPM->m_printMode.GetCurSel();//判断打印模式
+	int nIndex1 = dlg->m_speedWay.GetCurSel();//判断内部外部打印
+	//
+	//try
+	//{  
+	//	switch(nIndex)
+	//	{
+	//	case 2:
+	//		switch(nIndex1)
+	//		{
+	//		case 0:
+	//			if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+	//			{
+	//				dlg->m_floatlabLength = ceil((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessageEdit.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+	//			} 
+	//			else
+	//			{
+	//			}
+	//			break;
+	//		case 1:
+
+	//			break;
+	//		}
+	//		break;
+	//	case 1:
+	//		switch(nIndex1)
+	//		{
+	//		case 0:
+
+	//			break;
+	//		case 1:
+
+	//			break;
+	//		}
+	//		break;
+	//	}	
+	//}
+	//catch (CException* e)
+	//{
+	//}
+	////////////////////////////////////////////////////////////////////////
 
 	dlg->OnBnClickedSavePcf();
 }

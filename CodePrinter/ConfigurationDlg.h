@@ -78,4 +78,7 @@ public:
 	afx_msg void OnEnSetfocusRepeatDisEdit();
 	CEdit m_edit_dotPitch;
 	afx_msg void OnEnSetfocusDotPitchEdit();
+	CComboBox m_disMode;
+	CEdit m_labLength;
+	float m_floatlabLength;
 };

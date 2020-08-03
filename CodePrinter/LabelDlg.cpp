@@ -1212,7 +1212,8 @@ void CLabelDlg::getMessageDot()
 			}
 		}
 	}
-
+	theApp.m_MessagePrint.pcfintDotMesRow = theApp.m_MessagePrint.intRowMax;
+	
 	if (theApp.m_MessagePrint.boDynamic)
 	{
 		for (int i = 0;i < theApp.m_MessagePrint.OBJ_Vec.size();i++)

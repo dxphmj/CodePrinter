@@ -20,6 +20,7 @@ CConfigurationDlg::CConfigurationDlg(CWnd* pParent /*=NULL*/)
 	, m_delay(100)
 	, m_repeatDis(300)
 	, m_speed(20)
+	, m_floatlabLength(0)
 {
 
 }
@@ -51,6 +52,9 @@ void CConfigurationDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_HEIGHT_EDIT, m_edit_height);
 	DDX_Control(pDX, IDC_REPEAT_DIS_EDIT, m_edit_repeatDis);
 	DDX_Control(pDX, IDC_DOT_PITCH_EDIT, m_edit_dotPitch);
+	DDX_Control(pDX, IDC_DIS_MODE_COMBO, m_disMode);
+	DDX_Control(pDX, IDC_LAB_LENGTH_EDIT, m_labLength);
+	DDX_Text(pDX, IDC_LAB_LENGTH_EDIT, m_floatlabLength);
 }
 
 
@@ -115,6 +119,12 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_speedWay.AddString(L"Variable");
 	m_speedWay.SetCurSel(0);
 
+	m_disMode.AddString(L"Start to Start");
+	m_disMode.AddString(L"End to Start");
+	m_disMode.SetCurSel(0);
+
+	m_labLength.SetWindowText(L"25.4");
+
 	CRect rect1;
 	GetDlgItem(IDC_CONFI_CLOSE_BTN)->GetWindowRect(&rect1);
 
@@ -148,6 +158,7 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_edit_dotPitch.SetFont(theApp.m_EditFont);
 	m_edit_delay.SetFont(theApp.m_EditFont);
 	m_edit_speed.SetFont(theApp.m_EditFont);
+	m_labLength.SetFont(theApp.m_EditFont);
 	theApp.SetProgressBar(45);
 	//////////////////////////////////////////////////////////////////////////
 	for(int i = 0; i < 8; i++)
@@ -162,6 +173,7 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_reverse.SetFont(theApp.m_ListBoxFont); //设置下拉框字体
 	m_inverse.SetFont(theApp.m_ListBoxFont);
 	m_speedWay.SetFont(theApp.m_ListBoxFont);
+	m_disMode.SetFont(theApp.m_ListBoxFont);
 
 	m_reverse.SendMessage(CB_SETITEMHEIGHT,-1,25);//设置下拉框高度
 	m_reverse.SendMessage(CB_SETITEMHEIGHT,0,25);//设置下拉框条目高度
@@ -171,6 +183,9 @@ BOOL CConfigurationDlg::OnInitDialog()
 
 	m_speedWay.SendMessage(CB_SETITEMHEIGHT,-1,25);
 	m_speedWay.SendMessage(CB_SETITEMHEIGHT,0,25);
+
+	m_disMode.SendMessage(CB_SETITEMHEIGHT,-1,25);
+	m_disMode.SendMessage(CB_SETITEMHEIGHT,0,25);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -245,6 +260,62 @@ void CConfigurationDlg::OnBnClickedOutSetBtn()
 void CConfigurationDlg::OnBnClickedSavePcf()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	//后来加的
+	if ( !(m_dotPitch > 0))
+		m_dotPitch = 0.423;
+	if (  !(m_delay > 0) )
+		m_edit_delay.SetWindowText(_T("1"));
+	if (  !(m_height > 0) )
+		m_edit_height.SetWindowText(_T("1"));
+	if ( !(m_repeatDis > 0) )
+		m_repeatDis = 0;
+	
+	int nIndex = m_speedWay.GetCurSel();//判断内部外部打印
+	int nIndex2 = m_disMode.GetCurSel();//判断间隔方式
+	int nIndex3 = m_ConfigPM->m_printMode.GetCurSel();//判断打印模式
+	try
+	{  
+		switch(nIndex3)
+		{
+		case 0://连续打印
+			switch(nIndex)
+			{
+			case 0://内部
+				switch(nIndex2)//判断间隔方式
+				{
+				case 0://头到头
+					if ( m_repeatDis < m_floatlabLength )
+						m_repeatDis = m_floatlabLength + 10*m_speed/60;
+					break;
+				case 1://尾到头
+					if ( m_repeatDis < 10*m_speed/60 )
+						m_repeatDis = 10*m_speed/60;
+					break;
+				}
+				break;
+			case 1://外部
+				switch(nIndex2)//判断间隔方式
+				{
+				case 0://头到头
+					if ( m_repeatDis < m_floatlabLength )
+						m_repeatDis = m_floatlabLength + (m_ConfigOS->m_FreqMulti.GetCurSel()+1)*(m_ConfigOS->m_intImpulse*10)/(m_ConfigOS->m_intLength);
+					break;
+				case 1://尾到头
+					if (m_repeatDis < (m_ConfigOS->m_FreqMulti.GetCurSel()+1)*(m_ConfigOS->m_intImpulse*10)/(m_ConfigOS->m_intLength) )
+						m_repeatDis = (m_ConfigOS->m_FreqMulti.GetCurSel()+1)*(m_ConfigOS->m_intImpulse*10)/(m_ConfigOS->m_intLength);
+					break;
+				}
+				break;
+			}	
+			break;
+		}
+
+	}
+	catch (CException* e)
+	{
+	}
+
+
 	
 	//界面保存到目前的喷印配置xml文件和pcf文件里  
 	CPcfConfig pPcfConfig((CCodePrinterDlg*)(this->GetParent()));

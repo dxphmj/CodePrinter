@@ -81,8 +81,10 @@ BOOL CConfigPrintModeDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	m_printMode.AddString(L"OFF");
+	m_printMode.AddString(L"Single");
 	m_printMode.AddString(L"Continuous");
+	m_printMode.AddString(L"Repetition");
+
 	m_printMode.SetCurSel(0);
 	m_printMode.SetItemHeight(0,20);
 
@@ -157,5 +159,6 @@ void CConfigPrintModeDlg::OnBnClickedConfigOkBtn()
 	dlg = (CConfigurationDlg*)(GetParent());
 
 	dlg->OnBnClickedSavePcf();
+	this->ShowWindow(SW_HIDE);
 
 }
