@@ -218,47 +218,71 @@ void CConfigOutSetDlg::OnBnClickedOutsetOkBtn()
 	//确认更改，并返回配置页面
 	CConfigurationDlg* dlg;
 	dlg = (CConfigurationDlg*)(GetParent());
-	ModuleMain myModuleMain;
 	int nIndex = dlg->m_ConfigPM->m_printMode.GetCurSel();//判断打印模式
 	int nIndex1 = dlg->m_speedWay.GetCurSel();//判断内部外部打印
-	//
-	//try
-	//{  
-	//	switch(nIndex)
-	//	{
-	//	case 2:
-	//		switch(nIndex1)
-	//		{
-	//		case 0:
-	//			if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
-	//			{
-	//				dlg->m_floatlabLength = ceil((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessageEdit.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
-	//			} 
-	//			else
-	//			{
-	//			}
-	//			break;
-	//		case 1:
-
-	//			break;
-	//		}
-	//		break;
-	//	case 1:
-	//		switch(nIndex1)
-	//		{
-	//		case 0:
-
-	//			break;
-	//		case 1:
-
-	//			break;
-	//		}
-	//		break;
-	//	}	
-	//}
-	//catch (CException* e)
-	//{
-	//}
+	
+	try
+	{  
+		switch(nIndex)
+		{
+		case 2:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil((theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow * (dlg->m_ConfigPM->m_repeatCount+1) + dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				}
+				break;
+			case 1:
+				try
+				{  
+					dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount);
+				}
+				catch (CException* e)
+				{
+					dlg->m_ConfigOS->m_intLength = 200;
+					dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount);
+				}
+				break;
+			}
+			break;
+		case 1:
+		case 0:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil(ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil(theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				}
+				break;
+			case 1:
+				try
+				{  
+					dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow);
+				}
+				catch (CException* e)
+				{
+					dlg->m_ConfigOS->m_intLength = 200;
+					dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow);
+				}
+				break;
+			}
+			break;
+		}	
+	}
+	catch (CException* e)
+	{
+	}
 	////////////////////////////////////////////////////////////////////////
 
 	dlg->OnBnClickedSavePcf();

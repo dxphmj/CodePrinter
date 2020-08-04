@@ -81,6 +81,9 @@ BEGIN_MESSAGE_MAP(CConfigurationDlg, CDialog)
 	ON_EN_SETFOCUS(IDC_HEIGHT_EDIT, &CConfigurationDlg::OnEnSetfocusHeightEdit)
 	ON_EN_SETFOCUS(IDC_REPEAT_DIS_EDIT, &CConfigurationDlg::OnEnSetfocusRepeatDisEdit)
 	ON_EN_SETFOCUS(IDC_DOT_PITCH_EDIT, &CConfigurationDlg::OnEnSetfocusDotPitchEdit)
+	ON_CBN_SELCHANGE(IDC_SPEED_WAY_COMBO, &CConfigurationDlg::OnCbnSelchangeSpeedWayCombo)
+	ON_EN_CHANGE(IDC_DOT_PITCH_EDIT, &CConfigurationDlg::OnEnChangeDotPitchEdit)
+	ON_EN_CHANGE(IDC_SPEED_EDIT, &CConfigurationDlg::OnEnChangeSpeedEdit)
 END_MESSAGE_MAP()
 
 
@@ -119,8 +122,10 @@ BOOL CConfigurationDlg::OnInitDialog()
 	m_speedWay.AddString(L"Variable");
 	m_speedWay.SetCurSel(0);
 
-	m_disMode.AddString(L"Start to Start");
-	m_disMode.AddString(L"End to Start");
+	//m_disMode.AddString(L"Start to Start");
+	//m_disMode.AddString(L"End to Start");
+	m_disMode.InsertString( 0,L"Start to Start");
+	m_disMode.InsertString( 1,L"End to Start");
 	m_disMode.SetCurSel(0);
 
 	m_labLength.SetWindowText(L"25.4");
@@ -277,7 +282,7 @@ void CConfigurationDlg::OnBnClickedSavePcf()
 	{  
 		switch(nIndex3)
 		{
-		case 0://连续打印
+		case 1://连续打印
 			switch(nIndex)
 			{
 			case 0://内部
@@ -568,4 +573,238 @@ void CConfigurationDlg::OnEnSetfocusDelayEdit()
 	CCodePrinterDlg* dlg;
 	dlg = (CCodePrinterDlg*)(GetParent());
 	dlg->OpenNumKeyBoard(pEdit,5);
+}
+//速度模式改变时打印信息实际长度变化
+void CConfigurationDlg::OnCbnSelchangeSpeedWayCombo()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CConfigurationDlg* dlg;
+	dlg = (CConfigurationDlg*)(this);
+	int nIndex = dlg->m_ConfigPM->m_printMode.GetCurSel();//判断打印模式
+	int nIndex1 = dlg->m_speedWay.GetCurSel();//判断内部外部打印
+
+	try
+	{  
+		switch(nIndex)
+		{
+		case 2:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil(((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed/3840)*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount));
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil(((theApp.myStatusClass.staPixDotNee * dlg->m_speed/3840) * theApp.m_MessagePrint.pcfintDotMesRow * (dlg->m_ConfigPM->m_repeatCount+1) + dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount));
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount);
+				break;
+			}
+			break;
+		case 1:
+		case 0:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed)/3840*theApp.m_MessagePrint.pcfintDotMesRow);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil((theApp.myStatusClass.staPixDotNee * dlg->m_speed/3840) * theApp.m_MessagePrint.pcfintDotMesRow);
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow);
+				break;
+			}
+			break;
+		}	
+	}
+	catch (CException* e)
+	{
+	}
+
+}
+
+void CConfigurationDlg::OnEnChangeDotPitchEdit()
+{
+	// TODO:  如果该控件是 RICHEDIT 控件，则它将不会
+	// 发送该通知，除非重写 CDialog::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
+	CConfigurationDlg* dlg;
+	dlg = (CConfigurationDlg*)(GetParent());
+	int nIndex = dlg->m_ConfigPM->m_printMode.GetCurSel();//判断打印模式
+	int nIndex1 = dlg->m_speedWay.GetCurSel();//判断内部外部打印
+
+	try
+	{  
+		switch(nIndex)
+		{
+		case 2:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil((theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow * (dlg->m_ConfigPM->m_repeatCount+1) + dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount);
+				break;
+			}
+			break;
+		case 1:
+		case 0:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil(ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil(theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow);
+				break;
+			}
+			break;
+		}	
+	}
+	catch (CException* e)
+	{
+	}
+}
+
+void CConfigurationDlg::OnEnChangeSpeedEdit()
+{
+	// TODO:  如果该控件是 RICHEDIT 控件，则它将不会
+	// 发送该通知，除非重写 CDialog::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
+	CConfigurationDlg* dlg;
+	dlg = (CConfigurationDlg*)(GetParent());
+	int nIndex = dlg->m_ConfigPM->m_printMode.GetCurSel();//判断打印模式
+	int nIndex1 = dlg->m_speedWay.GetCurSel();//判断内部外部打印
+
+	try
+	{  
+		switch(nIndex)
+		{
+		case 2:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil((theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow * (dlg->m_ConfigPM->m_repeatCount+1) + dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount);
+				break;
+			}
+			break;
+		case 1:
+		case 0:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil(ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil(theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow);
+				break;
+			}
+			break;
+		}	
+	}
+	catch (CException* e)
+	{
+	}
+}
+
+void CConfigurationDlg::getlablength()
+{
+	CConfigurationDlg* dlg;
+	dlg = (CConfigurationDlg*)(GetParent());
+	int nIndex = dlg->m_ConfigPM->m_printMode.GetCurSel();//判断打印模式
+	int nIndex1 = dlg->m_speedWay.GetCurSel();//判断内部外部打印
+
+	try
+	{  
+		switch(nIndex)
+		{
+		case 2:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil((ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil((theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow * (dlg->m_ConfigPM->m_repeatCount+1) + dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount)/3840);
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow*(dlg->m_ConfigPM->m_repeatCount+1)+dlg->m_repeatDis*dlg->m_ConfigPM->m_repeatCount);
+				break;
+			}
+			break;
+		case 1:
+		case 0:
+			switch(nIndex1)
+			{
+			case 0:
+				if (dlg->m_dotPitch*3840/dlg->m_speed > theApp.myStatusClass.staPixDotNee)
+				{
+					dlg->m_floatlabLength = ceil(ceil(dlg->m_dotPitch*3840/dlg->m_speed)*dlg->m_speed*theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				} 
+				else
+				{
+					dlg->m_floatlabLength = ceil(theApp.myStatusClass.staPixDotNee * dlg->m_speed * theApp.m_MessagePrint.pcfintDotMesRow/3840);
+				}
+				break;
+			case 1:
+				dlg->m_floatlabLength = ceil(((ceil((dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)*dlg->m_ConfigOS->m_intImpulse*dlg->m_dotPitch/dlg->m_ConfigOS->m_intLength))*dlg->m_ConfigOS->m_intLength/(dlg->m_ConfigOS->m_intImpulse*(dlg->m_ConfigOS->m_FreqMulti.GetCurSel()+1)))*theApp.m_MessagePrint.pcfintDotMesRow);
+				break;
+			}
+			break;
+		}	
+	}
+	catch (CException* e)
+	{
+	}
 }

@@ -1170,6 +1170,8 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	}
 
 	ShowWindow(SW_HIDE);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
 }
 
 void CLabelDlg::getMessageDot()

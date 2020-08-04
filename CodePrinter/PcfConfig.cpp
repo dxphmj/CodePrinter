@@ -4,6 +4,7 @@
 #include "CodePrinterDlg.h"
 #include "DealXml.h"
 #include <cmath>
+#include <math.h>
 
 CPcfConfig::CPcfConfig(CCodePrinterDlg* pCodeDlg)
 {
@@ -47,29 +48,43 @@ void CPcfConfig::getPcfFromXml(string pcfNamePath)
 	strLABlabForMName = pcf_currentname;
 
 	//¹ÊÕÏÍ£Ö¹ÅçÓ¡(ĞéÄâ´òÓ¡)
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
-	int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+	int nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("0"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
+	//int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
 
 	//¸ßÑ¹£¨×Ö¸ß£©
 	tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
 	m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
 
 	//ÅçÓ¡·½Ïò,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
-	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("0"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
-
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
 
 	//ÎÄ×ÖÕı·´,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
-	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("0"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+
+	//ÖØ¸´¾àÀë²âÁ¿·½Ê½,Ä¬ÈÏ¹Ì¶¨
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("distfrom"), _T("0"), pcf_currentpath));
+	m_pCodePrinterDlg->m_Confi->m_disMode.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("distfrom"), _T("Start to Start"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_disMode.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_disMode.SetCurSel(nCur);
 
 	//²úÏßÔË¶¯·½Ê½£º¹Ì¶¨£¬¿É±ä,,,,Ä¬ÈÏ¹Ì¶¨
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
-	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Way"), _T("0"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
 
 	//±àÂëÆ÷ĞÅºÅÏàÊı
 	tempstr = dealXml.ReadXml(pcf_currentname,_T("EncoderSignal"), _T("2 Phase"), pcf_currentpath);
@@ -126,17 +141,19 @@ void CPcfConfig::getPcfFromXml(string pcfNamePath)
 	m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
 
 	//ÅçÓ¡Ä£Ê½
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("Single"), pcf_currentpath);
-	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("0"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("Single"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
 
 	//Á¬Ğø¼ä¸ô¾àÀë
 	tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatDistance"), _T("100"), pcf_currentpath);
 	m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
 
 	//ÖØ¸´¼ÆÊıÖµ
-	//tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
-	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
+	tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
+	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
 
 	//¹¤×÷ÁĞ±í£¨´Ë°æ±¾²»¿ÉÓÃ£©
 	//tempstr = dealXml.ReadXml(pcf_currentname,_T("JoblistEnable"), _T("OFF"), pcf_currentpath);
@@ -144,19 +161,25 @@ void CPcfConfig::getPcfFromXml(string pcfNamePath)
 	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_workList.SetCurSel(nCur);
 
 	//ÊÇ·ñÆôÓÃµçÑÛ
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
-	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("1"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
 
 	//µçÑÛÓĞĞ§µçÆ½
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
-	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("0"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
 
 	//±àÂëÆ÷Ç°½ø·½Ïò
-	tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
-	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+	nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("0"), pcf_currentpath));
 	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
+	//tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
+	//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
 
 	//±àÂëÆ÷1×ªÂö³åÊı
 	tempstr = dealXml.ReadXml(pcf_currentname,_T("ImpulsesRoration"), _T("2500"), pcf_currentpath);
@@ -169,7 +192,6 @@ void CPcfConfig::getPcfFromXml(string pcfNamePath)
 	//´¥·¢ºó½ûÖ¹´¥·¢³¤¶È
 	tempstr = dealXml.ReadXml(pcf_currentname,_T("TriggerLength"), _T("300"), pcf_currentpath);
 	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.SetWindowText(tempstr);
-	//labval_gui_pcf.Text = pcf_currentname;	
 }
 void CPcfConfig::get_pcf_from_xml()
 {
@@ -191,29 +213,43 @@ void CPcfConfig::get_pcf_from_xml()
 		strLABlabForMName = pcf_currentname;
 		
 		//¹ÊÕÏÍ£Ö¹ÅçÓ¡(ĞéÄâ´òÓ¡)
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
-		int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+		int nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
+		//int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
 		
 		//¸ßÑ¹£¨×Ö¸ß£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
 
 		//ÅçÓ¡·½Ïò,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
-		
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
 		
 		//ÎÄ×ÖÕı·´,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+
+		//ÖØ¸´¾àÀë²âÁ¿·½Ê½,Ä¬ÈÏ¹Ì¶¨
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("distfrom"), _T("0"), pcf_currentpath));
+		m_pCodePrinterDlg->m_Confi->m_disMode.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("distfrom"), _T("Start to Start"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_disMode.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_disMode.SetCurSel(nCur);
 		
 		//²úÏßÔË¶¯·½Ê½£º¹Ì¶¨£¬¿É±ä,,,,Ä¬ÈÏ¹Ì¶¨
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Way"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
 		
 		//±àÂëÆ÷ĞÅºÅÏàÊı
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("EncoderSignal"), _T("2 Phase"), pcf_currentpath);
@@ -270,17 +306,19 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
 
 		//ÅçÓ¡Ä£Ê½
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("Single"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("Single"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
 		
 		//Á¬Ğø¼ä¸ô¾àÀë
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatDistance"), _T("100"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
 		
 		//ÖØ¸´¼ÆÊıÖµ
-		//tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
-		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
+		tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
+		m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
 
 		//¹¤×÷ÁĞ±í£¨´Ë°æ±¾²»¿ÉÓÃ£©
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("JoblistEnable"), _T("OFF"), pcf_currentpath);
@@ -288,19 +326,25 @@ void CPcfConfig::get_pcf_from_xml()
 		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_workList.SetCurSel(nCur);
 		
 		//ÊÇ·ñÆôÓÃµçÑÛ
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("1"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
 
 		//µçÑÛÓĞĞ§µçÆ½
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
 		
 		//±àÂëÆ÷Ç°½ø·½Ïò
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
 
 		//±àÂëÆ÷1×ªÂö³åÊı
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("ImpulsesRoration"), _T("2500"), pcf_currentpath);
@@ -313,7 +357,6 @@ void CPcfConfig::get_pcf_from_xml()
 		//´¥·¢ºó½ûÖ¹´¥·¢³¤¶È
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("TriggerLength"), _T("300"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_triggerLen.SetWindowText(tempstr);
-		//labval_gui_pcf.Text = pcf_currentname;	
 	}
 	else
 	{
@@ -322,29 +365,43 @@ void CPcfConfig::get_pcf_from_xml()
 		pcf_currentname = _T("PrintConfig.xml");
 		pcf_currentpath = _T("Storage Card\\System");
 		//¹ÊÕÏÍ£Ö¹ÅçÓ¡(ĞéÄâ´òÓ¡)
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
-		int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+		int nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ErrorStopPrinting"), _T("OFF"), pcf_currentpath);
+		//int nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.SetCurSel(nCur);
 
 		//¸ßÑ¹£¨×Ö¸ß£©
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintHeight"), _T("70"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_height = _wtoi(tempstr);
 
 		//ÅçÓ¡·½Ïò,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
-
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Reverse"), _T("OFF"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_reverse.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_reverse.SetCurSel(nCur);
 
 		//ÎÄ×ÖÕı·´,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Inverse"), _T("OFF"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_inverse.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_inverse.SetCurSel(nCur);
+
+		//ÖØ¸´¾àÀë²âÁ¿·½Ê½,Ä¬ÈÏ¹Ì¶¨
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("distfrom"), _T("0"), pcf_currentpath));
+		m_pCodePrinterDlg->m_Confi->m_disMode.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("distfrom"), _T("Start to Start"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_disMode.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_disMode.SetCurSel(nCur);
 
 		//²úÏßÔË¶¯·½Ê½£º¹Ì¶¨£¬¿É±ä,,,,Ä¬ÈÏ¹Ì¶¨
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("Way"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("Way"), _T("Fixed"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_speedWay.SetCurSel(nCur);
 
 		//±àÂëÆ÷ĞÅºÅÏàÊı
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("EncoderSignal"), _T("2 Phase"), pcf_currentpath);
@@ -384,7 +441,7 @@ void CPcfConfig::get_pcf_from_xml()
 		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SelectString(0,tempstr);
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_FreqMulti.SetCurSel(nCur);
 
-		//ÁĞ¼ä¾à,,,,Ä¬ÈÏÎªÄÚ²¿»®ËÙÂÊÇÒÔ¼Îª800£¬ËÙ¶ÈÎª20Ã×/·ÖÖÓ£¬6ÁĞ×Ö¿íÎª2.54mm
+		//ÁĞ¼ä¾à,Ä¬ÈÏÎªÄÚ²¿»®ËÙÂÊÇÒÔ¼Îª800£¬ËÙ¶ÈÎª20Ã×/·ÖÖÓ£¬6ÁĞ×Ö¿íÎª2.54mm
 		USES_CONVERSION;
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("DotPitch"), _T("0.423"), pcf_currentpath);
 		m_pCodePrinterDlg->m_Confi->m_dotPitch = atof(W2A(tempstr.GetBuffer(0)));
@@ -401,17 +458,19 @@ void CPcfConfig::get_pcf_from_xml()
 		m_pCodePrinterDlg->m_Confi->m_delay = _wtoi(tempstr);
 
 		//ÅçÓ¡Ä£Ê½
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("Single"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("PrintMode"), _T("Single"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.SetCurSel(nCur);
 
 		//Á¬Ğø¼ä¸ô¾àÀë
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatDistance"), _T("100"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
+		m_pCodePrinterDlg->m_Confi->m_repeatDis = _wtoi(tempstr);
 
 		//ÖØ¸´¼ÆÊıÖµ
-		//tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
-		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
+		tempstr = dealXml.ReadXml(pcf_currentname,_T("RepeatCount"), _T("0"), pcf_currentpath);
+		m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount =  _wtoi(tempstr);
 
 		//¹¤×÷ÁĞ±í£¨´Ë°æ±¾²»¿ÉÓÃ£©
 		//tempstr = dealXml.ReadXml(pcf_currentname,_T("JoblistEnable"), _T("OFF"), pcf_currentpath);
@@ -419,19 +478,25 @@ void CPcfConfig::get_pcf_from_xml()
 		//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_workList.SetCurSel(nCur);
 
 		//ÊÇ·ñÆôÓÃµçÑÛ
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("1"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ProductSensor"), _T("ON"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.SetCurSel(nCur);
 
 		//µçÑÛÓĞĞ§µçÆ½
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ActiveLevel"), _T("Low"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.SetCurSel(nCur);
 
 		//±àÂëÆ÷Ç°½ø·½Ïò
-		tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
-		nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+		nCur = _wtoi(dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("0"), pcf_currentpath));
 		m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
+		//tempstr = dealXml.ReadXml(pcf_currentname,_T("ForwardDirection"), _T("Forward"), pcf_currentpath);
+		//nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SelectString(0,tempstr);
+		//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.SetCurSel(nCur);
 
 		//±àÂëÆ÷1×ªÂö³åÊı
 		tempstr = dealXml.ReadXml(pcf_currentname,_T("ImpulsesRoration"), _T("2500"), pcf_currentpath);
@@ -515,14 +580,14 @@ void CPcfConfig::download_pcf()//¿ª»úÒ»¶¨ÏÈgetfromxml£¬ÔÙÏÂ·¢¡£¸Ä¶¯ºóÏÈ±£´æÔÙÏÂ·
 		case 1:
 			try
 			{
-				nTmp = m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed 
-					+ (m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed)*theApp.m_MessagePrint.pcfintDotMesRow;	
+				nTmp = ceil(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed) 
+					+ ceil(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed)*theApp.m_MessagePrint.pcfintDotMesRow;	
 			}
 			catch (CException* e)
 			{
 				m_pCodePrinterDlg->m_Confi->m_speed = 20;
-				nTmp = m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed 
-					+ (m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed)*theApp.m_MessagePrint.pcfintDotMesRow;	
+				nTmp = ceil(m_pCodePrinterDlg->m_Confi->m_repeatDis * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed) 
+					+ ceil(m_pCodePrinterDlg->m_Confi->m_dotPitch * 3840.0 / m_pCodePrinterDlg->m_Confi->m_speed)*theApp.m_MessagePrint.pcfintDotMesRow;	
 
 			}
 			break;
@@ -1029,9 +1094,10 @@ void CPcfConfig::save_pcf_to_xml()
 	pcf_currentpath = dealXml.ReadXml(_T("PrintConfig.xml"),_T("CurrentPath"), _T("\Storage Card\System"), _T("Storage Card\\System"));
 	
      //¹ÊÕÏÍ£Ö¹ÅçÓ¡(ĞéÄâ´òÓ¡)
- 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
-    m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetText(nCur,strTmp);
-    dealXml.WriteXml(pcf_currentname, L"ErrorStopPrinting", strTmp,pcf_currentpath);
+	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"ErrorStopPrinting", strTmp,pcf_currentpath);
 
 	//¸ßÑ¹£¨×Ö¸ß£©
 	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_height);	
@@ -1039,17 +1105,26 @@ void CPcfConfig::save_pcf_to_xml()
 
 	//ÅçÓ¡·½Ïò,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_reverse.GetLBText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_reverse.GetLBText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"Reverse", strTmp,pcf_currentpath);
 
     //ÎÄ×ÖÕı·´,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_inverse.GetLBText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_inverse.GetLBText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"Inverse", strTmp,pcf_currentpath);
+	
+	//ÖØ¸´¾àÀë²âÁ¿·½Ê½
+	nCur = m_pCodePrinterDlg->m_Confi->m_disMode.GetCurSel();
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_disMode.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"distfrom", strTmp,pcf_currentpath);
 
 	//²úÏßÔË¶¯·½Ê½£º¹Ì¶¨£¬¿É±ä,,,,Ä¬ÈÏ¹Ì¶¨
 	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_speedWay.GetLBText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_speedWay.GetLBText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"Way", strTmp,pcf_currentpath);
 
     //±àÂëÆ÷ĞÅºÅÏàÊı
@@ -1076,27 +1151,35 @@ void CPcfConfig::save_pcf_to_xml()
 
 	//ÅçÓ¡Ä£Ê½
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"PrintMode", strTmp,pcf_currentpath);
 
     //Á¬Ğø¼ä¸ô¾àÀë
 	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_repeatDis);	
     dealXml.WriteXml(pcf_currentname, L"RepeatDistance", strTmp,pcf_currentpath);
 
+	//ÖØ¸´¼ÆÊıÖµ
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount);	
+	dealXml.WriteXml(pcf_currentname, L"RepeatCount", strTmp,pcf_currentpath);	
+
     //ÊÇ·ñÆôÓÃµçÑÛ
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"ProductSensor", strTmp,pcf_currentpath);
 
     //µçÑÛÓĞĞ§µçÆ½
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"ActiveLevel", strTmp,pcf_currentpath);
 
 
 	//±àÂëÆ÷Ç°½ø·½Ïò
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"ForwardDirection", strTmp,pcf_currentpath);
 
 	//±àÂëÆ÷1×ªÂö³åÊı
@@ -1142,7 +1225,8 @@ void CPcfConfig::savePcfToXml(string pcfNamePath)
 
 	//¹ÊÕÏÍ£Ö¹ÅçÓ¡(ĞéÄâ´òÓ¡)
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_virtualPrint.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"ErrorStopPrinting", strTmp,pcf_currentpath);
 
 	//¸ßÑ¹£¨×Ö¸ß£©
@@ -1151,17 +1235,26 @@ void CPcfConfig::savePcfToXml(string pcfNamePath)
 
 	//ÅçÓ¡·½Ïò,¾ö¶¨ÉÏÎ»»ú·¢ËÍÊı¾İÊ±ÏÈ·¢Ç°ÁĞºóÎ²ÁĞ£¬»¹ÊÇÏÈÎ²ÁĞºóÍ·ÁĞ£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 	nCur = m_pCodePrinterDlg->m_Confi->m_reverse.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_reverse.GetLBText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_reverse.GetLBText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"Reverse", strTmp,pcf_currentpath);
 
 	//ÎÄ×ÖÕı·´,¾ö¶¨ÉÏÎ»»úÁĞÊı¾İÊÇ·ñ¸ßµÍµã¶Ôµ÷£¨ĞÅÏ¢Ñ¡ÓÃÍ¨ÓÃÅäÖÃÊ±£©
 	nCur = m_pCodePrinterDlg->m_Confi->m_inverse.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_inverse.GetLBText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_inverse.GetLBText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"Inverse", strTmp,pcf_currentpath);
+
+	//ÖØ¸´¾àÀë²âÁ¿·½Ê½
+	nCur = m_pCodePrinterDlg->m_Confi->m_disMode.GetCurSel();
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_disMode.GetLBText(nCur,strTmp);
+	dealXml.WriteXml(pcf_currentname, L"distfrom", strTmp,pcf_currentpath);
 
 	//²úÏßÔË¶¯·½Ê½£º¹Ì¶¨£¬¿É±ä,,,,Ä¬ÈÏ¹Ì¶¨
 	nCur = m_pCodePrinterDlg->m_Confi->m_speedWay.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_speedWay.GetLBText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_speedWay.GetLBText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"Way", strTmp,pcf_currentpath);
 
 	//±àÂëÆ÷ĞÅºÅÏàÊı
@@ -1188,27 +1281,35 @@ void CPcfConfig::savePcfToXml(string pcfNamePath)
 
 	//ÅçÓ¡Ä£Ê½
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_printMode.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"PrintMode", strTmp,pcf_currentpath);
 
 	//Á¬Ğø¼ä¸ô¾àÀë
 	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_repeatDis);	
 	dealXml.WriteXml(pcf_currentname, L"RepeatDistance", strTmp,pcf_currentpath);
 
+	//ÖØ¸´¼ÆÊıÖµ
+	strTmp.Format(L"%d",m_pCodePrinterDlg->m_Confi->m_ConfigPM->m_repeatCount);	
+	dealXml.WriteXml(pcf_currentname, L"RepeatCount", strTmp,pcf_currentpath);	
+
 	//ÊÇ·ñÆôÓÃµçÑÛ
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_productDete.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"ProductSensor", strTmp,pcf_currentpath);
 
 	//µçÑÛÓĞĞ§µçÆ½
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_activeLev.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"ActiveLevel", strTmp,pcf_currentpath);
 
 
 	//±àÂëÆ÷Ç°½ø·½Ïò
 	nCur = m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetCurSel();
-	m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+	//m_pCodePrinterDlg->m_Confi->m_ConfigOS->m_printDire.GetText(nCur,strTmp);
 	dealXml.WriteXml(pcf_currentname, L"ForwardDirection", strTmp,pcf_currentpath);
 
 	//±àÂëÆ÷1×ªÂö³åÊı
