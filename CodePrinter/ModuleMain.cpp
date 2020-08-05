@@ -385,10 +385,10 @@ CString GETnBIT_from_bytStatus(int I , int m , int n )
 UINT TTLcomLoop(LPVOID pParam)
 {
 	theApp.boTTL=true;
-	int bytComErr=0;
-	int strTempCmdLen=0;
-	LPTSTR strTempCmd;
-	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};
+	int bytComErr=0;//串口错误次数
+	int strTempCmdLen=0;//数据长度
+	LPTSTR strTempCmd;//发送内容
+	BYTE readArr[8]={0x1,0x80,0x3,0x8f,0x0,0x25,0xaa,0x55};//读取消息命令
 	strTempCmd=(LPTSTR)readArr;
 	strTempCmdLen=8;
 	while(theApp.boTTL)
@@ -671,11 +671,11 @@ UINT TTLcomLoop(LPVOID pParam)
 		//			}
 		//}
 
-        theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);
+        theApp.myCIOVsd.Send(strTempCmd,strTempCmdLen);//第一次进先发送
 
 		Sleep(10);
 		
-		theApp.readCount=theApp.myCIOVsd.Read();
+		theApp.readCount=theApp.myCIOVsd.Read();//返回下位机读取字节数
 
 	}
 	return 0;
@@ -712,6 +712,7 @@ void getSerialTimeDotBuf()
 //序列号及时间生成线程
 UINT CreateMessageThread(LPVOID pParam)
 {
+
 	while(theApp.mythreadDynamicBoo)
 	{
 		if(theApp.ForPreQue.size() >= 2)

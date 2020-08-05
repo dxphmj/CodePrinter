@@ -1170,6 +1170,8 @@ void CLabelDlg::OnBnClickedDownloadButton()
 	}
 
 	ShowWindow(SW_HIDE);
+	((CCodePrinterDlg*)GetParent())->m_PicHead.ShowLogo(true); 
+	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
 }
 
 void CLabelDlg::getMessageDot()
@@ -1212,7 +1214,8 @@ void CLabelDlg::getMessageDot()
 			}
 		}
 	}
-
+	theApp.m_MessagePrint.pcfintDotMesRow = theApp.m_MessagePrint.intRowMax;
+	
 	if (theApp.m_MessagePrint.boDynamic)
 	{
 		for (int i = 0;i < theApp.m_MessagePrint.OBJ_Vec.size();i++)

@@ -27,8 +27,8 @@ public:
 	CListBox m_productDete;
 	CListBox m_activeLev;
 	CComboBox m_FreqMulti;
-	CEdit  m_impulse;
-	CEdit m_length;
+	CEdit  m_impulse;//ImpulsesRoration编码器1转脉冲数
+	CEdit m_length;//Cirumference同步轮周长
 	CEdit m_currentLevel;
 	CEdit m_triggerLen;
 
@@ -53,4 +53,7 @@ public:
 	CCustomStatic m_outsetActiveLev;
 	CCustomStatic m_outsetCurLev;
 	CCustomStatic m_outsetTrigger;
+	int m_intImpulse;
+	int m_intLength;
+	int m_intTriggerLen;
 };

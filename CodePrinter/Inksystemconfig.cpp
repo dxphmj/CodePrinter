@@ -21,13 +21,13 @@ void CInksystemconfig::get_inksystem_from_xml()
 	CString str = NULL;
 
 	//开机默认帕尔贴开关
-	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Peltier"), _T("OFF"), _T("Storage Card\\System"));
-	int nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
+	int nCur = _wtoi(dealXml.ReadXml(_T("inksystem.xml"),_T("Peltier"), _T("0"), _T("Storage Card\\System")));
+	//int nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
 	m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.SetCurSel(nCur);	
  
 	//开机默认睡眠开关
-	str = dealXml.ReadXml(_T("inksystem.xml"),_T("Sleep"), _T("OFF"), _T("Storage Card\\System"));
-	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
+	nCur = _wtoi(dealXml.ReadXml(_T("inksystem.xml"),_T("Sleep"), _T("OFF"), _T("Storage Card\\System")));
+	//nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SelectString(0,str);
 	m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.SetCurSel(nCur);
 	
 	//开机默认晶振频率
@@ -358,23 +358,26 @@ void CInksystemconfig::save_inksystem_to_xml()
 	
     //写帕尔贴开关
 	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.GetCurSel();
-    m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+    //m_pCodePrinterDlg->m_Ink->m_setup->m_peltierList.GetText(nCur,strTmp);
     dealXml.WriteXml(pcf_currentname, L"Peltier", strTmp,pcf_currentpath);
 
     //写睡眠开关
 	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.GetCurSel();
-    m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.GetText(nCur,strTmp);
+	strTmp.Format(L"%d",nCur);
+    //m_pCodePrinterDlg->m_Ink->m_setup->m_sleepList.GetText(nCur,strTmp);
     dealXml.WriteXml(pcf_currentname, L"Sleep", strTmp,pcf_currentpath);
 
     //写晶振频率
  	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.GetCurSel();
     m_pCodePrinterDlg->m_Ink->m_setup->m_modulFreList.GetText(nCur,strTmp);
-   dealXml.WriteXml(pcf_currentname, L"ModulationFrequency", strTmp,pcf_currentpath);
+    dealXml.WriteXml(pcf_currentname, L"ModulationFrequency", strTmp,pcf_currentpath);
 
     //写喷嘴尺寸
   	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetCurSel();
-    m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetText(nCur,strTmp);
-   dealXml.WriteXml(pcf_currentname, L"NozzleSize", strTmp,pcf_currentpath);
+	strTmp.Format(L"%d",nCur);
+    //m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetText(nCur,strTmp);
+    dealXml.WriteXml(pcf_currentname, L"NozzleSize", strTmp,pcf_currentpath);
 
     //写墨水型号
  	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_inkTypeList.GetCurSel();
