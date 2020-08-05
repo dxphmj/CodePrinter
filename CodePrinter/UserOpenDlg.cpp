@@ -171,7 +171,7 @@ void CUserOpenDlg::OnBnClickedButtonOk()
 	if (changeName=="root")
 	{
 		CString csMsg ;
-		csMsg.Format(_T("´íÎó!\nÇëÎğĞŞ¸ÄrootÓÃ»§"),theApp.myModuleMain.string2CString(theApp.myUserPower.nowUser.userName));
+		csMsg.Format(_T("´íÎó!\nÇëÎğĞŞ¸ÄrootÓÃ»§"));
 		AfxMessageBox(csMsg);
 		return;
 	}
@@ -196,14 +196,14 @@ void CUserOpenDlg::OnBnClickedButtonOk()
 					string strStr=theApp.myModuleMain.CString2string(strSelect);
 					tempStrVec.push_back(strStr);
 				}
-				string pathName="Storage Card\\System\\UserPower\\"+theApp.myUserPower.nowUser.userName+".txt";
+				string pathName="Storage Card\\System\\UserPower\\"+changeName+".txt";
 				theApp.myUserPower.SavePower(pathName,tempStrVec);
 				theApp.myUserPower.changeUserPower();
 			} 
 			else
 			{
 				CString csMsg ;
-				csMsg.Format(_T("ÃÜÂë´íÎó!\nÇëÊäÈë%sµÄÃÜÂë"),theApp.myModuleMain.string2CString(theApp.myUserPower.nowUser.userName));
+				csMsg.Format(_T("ÃÜÂë´íÎó!\nÇëÊäÈë%sµÄÃÜÂë"),changeName);
 				AfxMessageBox(csMsg);
 				return;
 			}
