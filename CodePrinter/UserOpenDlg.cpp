@@ -163,37 +163,64 @@ void CUserOpenDlg::OnBnClickedButtonClose()
 void CUserOpenDlg::OnBnClickedButtonOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if (theApp.myUserPower.nowUser.userName=="root")
+	CListBox* m_allUserBox=(CListBox*)GetParent()->GetDlgItem(IDC_LIST_ALLUSER);
+	CString ChangeUser;
+	int detInt=m_allUserBox->GetCurSel();
+	m_allUserBox->GetText(detInt,ChangeUser);
+	string changeName=theApp.myModuleMain.CString2string(ChangeUser);
+	if (changeName=="root")
 	{
 		CString csMsg ;
 		csMsg.Format(_T("错误!\n请勿修改root用户"),theApp.myModuleMain.string2CString(theApp.myUserPower.nowUser.userName));
 		AfxMessageBox(csMsg);
 		return;
 	}
-	CString csKEY;
-	GetDlgItem(IDC_OPEN_PASSWARD_EDIT)->GetWindowText(csKEY);
-	string passKey=theApp.myModuleMain.CString2string(csKEY);
-	if (passKey==theApp.myUserPower.nowUser.userKey)
+
+	map<string,UserStruct>::iterator findIter=theApp.myUserPower.userMap.find(changeName);
+	if (findIter!=theApp.myUserPower.userMap.end())
 	{
-		CListBox* m_grantedBox=(CListBox*)GetDlgItem(IDC_OPEN_GRANTED_LIST);
-		vector<string> tempStrVec;
-		for (int i=0;i<m_grantedBox->GetCount();i++)
+		UserStruct deleteUT=findIter->second;
+		if (deleteUT.userLevel>theApp.myUserPower.nowUser.userLevel)
 		{
-			CString strSelect;
-			m_grantedBox->GetText(i,strSelect);
-			string strStr=theApp.myModuleMain.CString2string(strSelect);
-			tempStrVec.push_back(strStr);
+			CString csKEY;
+			GetDlgItem(IDC_OPEN_PASSWARD_EDIT)->GetWindowText(csKEY);
+			string passKey=theApp.myModuleMain.CString2string(csKEY);
+			if (passKey==deleteUT.userKey)
+			{
+				CListBox* m_grantedBox=(CListBox*)GetDlgItem(IDC_OPEN_GRANTED_LIST);
+				vector<string> tempStrVec;
+				for (int i=0;i<m_grantedBox->GetCount();i++)
+				{
+					CString strSelect;
+					m_grantedBox->GetText(i,strSelect);
+					string strStr=theApp.myModuleMain.CString2string(strSelect);
+					tempStrVec.push_back(strStr);
+				}
+				string pathName="Storage Card\\System\\UserPower\\"+theApp.myUserPower.nowUser.userName+".txt";
+				theApp.myUserPower.SavePower(pathName,tempStrVec);
+				theApp.myUserPower.changeUserPower();
+			} 
+			else
+			{
+				CString csMsg ;
+				csMsg.Format(_T("密码错误!\n请输入%s的密码"),theApp.myModuleMain.string2CString(theApp.myUserPower.nowUser.userName));
+				AfxMessageBox(csMsg);
+				return;
+			}
+		} 
+		else
+		{
+			CString csMsg ;
+			csMsg.Format(_T("权限不足!\n您无权更改%s"),theApp.myModuleMain.string2CString(deleteUT.userName));
+			AfxMessageBox(csMsg);
+			return;
 		}
-		string pathName="Storage Card\\System\\UserPower\\"+theApp.myUserPower.nowUser.userName+".txt";
-		theApp.myUserPower.SavePower(pathName,tempStrVec);
-		theApp.myUserPower.changeUserPower();
 	} 
 	else
 	{
-		CString csMsg ;
-		csMsg.Format(_T("密码错误!\n请输入%s的密码"),theApp.myModuleMain.string2CString(theApp.myUserPower.nowUser.userName));
-		AfxMessageBox(csMsg);
-		return;
+		{
+			m_allUserBox->DeleteString(detInt);
+		}
 	}
 
 	ShowWindow(SW_HIDE);
@@ -237,21 +264,21 @@ BOOL CUserOpenDlg::PreTranslateMessage(MSG* pMsg)
 	CEdit* kEdit = (CEdit*)GetDlgItem(IDC_OPEN_PASSWARD_EDIT);
 	ASSERT(pEdit && pEdit->GetSafeHwnd());
 	ASSERT(kEdit && kEdit->GetSafeHwnd());
-	if(WM_LBUTTONDOWN == pMsg->message && pEdit->GetSafeHwnd() == pMsg->hwnd)
-	{
-		//pEdit->SetFocus();
-		//pEdit->SetSel(-1);
-		CString str;
-		pEdit-> GetWindowText(str);
+	//if(WM_LBUTTONDOWN == pMsg->message && pEdit->GetSafeHwnd() == pMsg->hwnd)
+	//{
+	//	//pEdit->SetFocus();
+	//	//pEdit->SetSel(-1);
+	//	CString str;
+	//	pEdit-> GetWindowText(str);
 
-		CExportDlg myCExportDlg;
-		//CString ts;
-		//ts.Format(L"%s",_T("sdfsa"));
-		str=myCExportDlg.GetInputText(str);
-		pEdit-> SetWindowText(str);
-		return TRUE;
-	}
-	else if(WM_LBUTTONDOWN == pMsg->message && kEdit->GetSafeHwnd() == pMsg->hwnd)
+	//	CExportDlg myCExportDlg;
+	//	//CString ts;
+	//	//ts.Format(L"%s",_T("sdfsa"));
+	//	str=myCExportDlg.GetInputText(str);
+	//	pEdit-> SetWindowText(str);
+	//	return TRUE;
+	//}
+	if(WM_LBUTTONDOWN == pMsg->message && kEdit->GetSafeHwnd() == pMsg->hwnd)
 	{
 		//pEdit->SetFocus();
 		//pEdit->SetSel(-1);

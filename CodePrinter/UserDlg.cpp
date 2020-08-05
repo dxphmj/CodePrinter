@@ -124,13 +124,18 @@ BOOL CUserDlg::OnInitDialog()
 void CUserDlg::OnBnClickedOpenButton()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	CString OpenUser;
+	int detInt=m_allUserList.GetCurSel();
+	m_allUserList.GetText(detInt,OpenUser);
+	string openNameStr=theApp.myModuleMain.CString2string(OpenUser);
+
 	CListBox* m_errBox=(CListBox*)pUserOpen->GetDlgItem(IDC_OPEN_NOT_GRANTED_LIST);
 	m_errBox->ResetContent();
 
 	CListBox* m_grantedBox=(CListBox*)pUserOpen->GetDlgItem(IDC_OPEN_GRANTED_LIST);
 	m_grantedBox->ResetContent();
 	string filePathName="Storage Card\\System\\UserPower\\";
-	filePathName=filePathName+theApp.myUserPower.nowUser.userName+".txt";
+	filePathName=filePathName+openNameStr+".txt";
 	vector<string> nowUserPower=theApp.myUserPower.GetPower(filePathName);
 	for (int i=0;i<nowUserPower.size();i++)
 	{
@@ -138,8 +143,14 @@ void CUserDlg::OnBnClickedOpenButton()
 	}
 	m_grantedBox->SetCurSel(0);
 
+	map<string,UserStruct>::iterator findIter1=theApp.myUserPower.userMap.find((openNameStr));
+	string fatherName="";
+	if (findIter1!=theApp.myUserPower.userMap.end())
+	{
+		fatherName=findIter1->second.fatherName;
+	} 
 	string fatherPathName="Storage Card\\System\\UserPower\\";
-	fatherPathName=fatherPathName+theApp.myUserPower.nowUser.fatherName+".txt";
+	fatherPathName=fatherPathName+fatherName+".txt";
 	vector<string> fatherPower=theApp.myUserPower.GetPower(fatherPathName);
 	for(int i=0;i<fatherPower.size();i++)
 	{
@@ -155,7 +166,7 @@ void CUserDlg::OnBnClickedOpenButton()
 		m_errBox->SetCurSel(0);
 	}
 
-	pUserOpen->GetDlgItem(IDC_OPEN_NAME_EDIT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(theApp.myUserPower.nowUser.userName));
+	pUserOpen->GetDlgItem(IDC_OPEN_NAME_EDIT)->SetWindowText(OpenUser);
 	pUserOpen->GetDlgItem(IDC_OPEN_PASSWARD_EDIT)->SetWindowText(_T(""));
 	showUserDlg(IDD_USER_OPEN_DIALOG);
 }
