@@ -375,8 +375,7 @@ void CInksystemconfig::save_inksystem_to_xml()
 
     //Ð´Åç×ì³ß´ç
   	nCur = m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetCurSel();
-	strTmp.Format(L"%d",nCur);
-    //m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetText(nCur,strTmp);
+    m_pCodePrinterDlg->m_Ink->m_setup->m_sizeList.GetText(nCur,strTmp);
     dealXml.WriteXml(pcf_currentname, L"NozzleSize", strTmp,pcf_currentpath);
 
     //Ð´Ä«Ë®ÐÍºÅ

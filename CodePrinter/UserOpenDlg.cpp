@@ -78,9 +78,9 @@ BOOL CUserOpenDlg::OnInitDialog()
 	m_pReturn.SizeToContent(); 
 	m_pbtnOK.LoadBitmaps(IDB_OK1_BITMAP,IDB_OK2_BITMAP,0,0,IDB_80_55_BITMAP);
 	m_pbtnOK.SizeToContent(); 
-	m_pRight_move.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pRight_move.LoadBitmaps(IDB_R_SHIFT1_BITMAP,IDB_R_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_pRight_move.SizeToContent(); 
-	m_pLeft_move.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_70_45_BITMAP);
+	m_pLeft_move.LoadBitmaps(IDB_L_SHIFT1_BITMAP,IDB_L_SHIFT2_BITMAP,0,0,IDB_60_35_BITMAP);
 	m_pLeft_move.SizeToContent();
 
 	m_open_nameEdit.SetFont(theApp.m_EditFont);

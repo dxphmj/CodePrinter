@@ -530,8 +530,18 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 	m_PicHead.SetOperationString(_T("故障信息")); //Fault System
 
 	m_Fault->GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(NULL);//清空翻译
-	showDlg(IDD_FAULT_DIALOG);
-	m_Fault->ShowWindow(SW_SHOW);	
+
+	wstring tempstr;
+	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this;//获取主对话框指针
+	tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_PicHead.SetOperationString(cstr); //Fault System
+	tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_PicHead.SetSecondLineOpeString(cstr);
+	m_Fault->ShowWindow(SW_SHOW);
+	//showDlg(IDD_FAULT_DIALOG);	
 }
 
 void CCodePrinterDlg::OnBnClickedSystemButton()
@@ -670,13 +680,13 @@ void CCodePrinterDlg::showDlg(int ID)
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
-		tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
-		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
-	    m_PicHead.SetOperationString(cstr); //Fault System
-		tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
-		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
-		m_PicHead.SetSecondLineOpeString(cstr);
-		m_Fault->ShowWindow(SW_SHOW);
+		//tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
+		//cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	 //   m_PicHead.SetOperationString(cstr); //Fault System
+		//tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
+		//cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+		//m_PicHead.SetSecondLineOpeString(cstr);
+		//m_Fault->ShowWindow(SW_SHOW);
 	}
 	/*else if (ID == IDD_ONOFF_DIALOG)
 	{
