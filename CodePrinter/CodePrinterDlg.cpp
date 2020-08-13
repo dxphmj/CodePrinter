@@ -410,22 +410,22 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//////////////////////////////////////////////////////////////////////////
 	//theApp.SetProgressBar(100);
 	//关闭Load程序
-	HWND hWnd = NULL;
-	hWnd = ::FindWindow(NULL,_T("Load"));
-	//hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
-	if (hWnd == NULL)
-	{
-		return TRUE;
-	}
+	//HWND hWnd = NULL;
+	//hWnd = ::FindWindow(NULL,_T("Load"));
+	////hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
+	//if (hWnd == NULL)
+	//{
+	//	return TRUE;
+	//}
 
-	DWORD dwProcessId;
-	//得到该窗口的进程ID
-	GetWindowThreadProcessId(hWnd,&dwProcessId);
-	//从进程ID打开进程句柄
-	HANDLE handle = OpenProcess(0,false,dwProcessId);
-	//强制终止进程
-	TerminateProcess(handle,0);
-	::SendMessage(hWnd,WM_CLOSE,0,0);
+	//DWORD dwProcessId;
+	////得到该窗口的进程ID
+	//GetWindowThreadProcessId(hWnd,&dwProcessId);
+	////从进程ID打开进程句柄
+	//HANDLE handle = OpenProcess(0,false,dwProcessId);
+	////强制终止进程
+	//TerminateProcess(handle,0);
+	//::SendMessage(hWnd,WM_CLOSE,0,0);
 	//////////////////////////////////////////////////////////////////////////
 #ifndef _DEBUG
 //#ifdef def_ttl

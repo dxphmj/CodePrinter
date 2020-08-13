@@ -410,7 +410,7 @@ UINT TTLcomLoop(LPVOID pParam)
 					else if (theApp.m_MessagePrint.boPrintNow)
 					{
 						theApp.boPrintNowLock.Lock();
-						if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+						if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>13)
 						{
 							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 							strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
@@ -452,7 +452,7 @@ UINT TTLcomLoop(LPVOID pParam)
 									}
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-									if (strTempCmdLen>11)
+									if (strTempCmdLen>13)
 									{
 										//动态显示相关										
 										theApp.m_MessagePrint.intMesDis = tempQueVec;										 
@@ -471,11 +471,11 @@ UINT TTLcomLoop(LPVOID pParam)
 							} 
 							else
 							{
-								if (theApp.m_MessagePrint.bytPrintDataAll.size()>11)
+								if (theApp.m_MessagePrint.bytPrintDataAll.size()>13)
 								{
-									strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAll,theApp.m_MessagePrint.bytPrintDataAll.size());
+									strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAll,theApp.m_MessagePrint.bytPrintDataAll.size());
 									strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAll.size();
-									if (strTempCmdLen<12)
+									if (strTempCmdLen<14)
 									{
 										strTempCmd=(LPTSTR)readArr;
 										strTempCmdLen=8;
@@ -523,9 +523,9 @@ UINT TTLcomLoop(LPVOID pParam)
 				else if(theApp.m_MessagePrint.boPrintNow)
 				{
 					theApp.boPrintNowLock.Lock();
-					if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+					if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>13)
 					{
-						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
+						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 						strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
 						theApp.m_MessagePrint.boPrintNow=false;
 						if (theApp.m_UserList.GetCount()>0)
@@ -549,6 +549,11 @@ UINT TTLcomLoop(LPVOID pParam)
 					strTempCmdLen=8;
 				}
 				theApp.boQueCtrLock.Unlock();
+			}
+			else
+			{
+				strTempCmd=(LPTSTR)readArr;
+				strTempCmdLen=8;
 			}
 		} 
 		else// if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[3]==0x20)
@@ -602,7 +607,7 @@ UINT TTLcomLoop(LPVOID pParam)
 		//	//}
 		//	//theApp.boQueCtrLock.Unlock();
 
-		//	//if (theApp.m_MessageEdit.boDynamic)
+		//	//if (theApp.m_MessagePrint.boDynamic)
 		//	//{
 		//	//	if (theApp.ForPreQue.size()>0)
 		//	//	{
@@ -612,12 +617,12 @@ UINT TTLcomLoop(LPVOID pParam)
 		//	//		
 		//	//			strTempCmdLen=tempQueVec.size();
 		//	//			strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-		//	//			if (strTempCmdLen>11)
+		//	//			if (strTempCmdLen>13)
 		//	//			{////动态显示相关
 		//	//				vector<BYTE> intMesDis1;
 		//	//				intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
 		//	//				theApp.boDotForPreQue.push(intMesDis1);
-		//	//				theApp.m_MessageEdit.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
+		//	//				theApp.m_MessagePrint.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
 		//	//				theApp.boDotForPreQue.pop();
 		//	//				vector<int> tempCountVec;
 		//	//				if (theApp.intCounNumForPreQue.size()>0)
@@ -628,7 +633,7 @@ UINT TTLcomLoop(LPVOID pParam)
 
 		//	//					for (int num=0;num<tempCountVec.size();num++)
 		//	//					{
-		//	//						theApp.m_MessageEdit.CountNumForPre[num]=tempCountVec[num];
+		//	//						theApp.m_MessagePrint.CountNumForPre[num]=tempCountVec[num];
 		//	//					}
 		//	//				}
 		//	//			} 
@@ -648,7 +653,7 @@ UINT TTLcomLoop(LPVOID pParam)
 		//			if (theApp.m_MessagePrint.boPrintNow)
 		//			{
 		//				theApp.boPrintNowLock.Lock();
-		//				if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+		//				if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>13)
 		//				{
 		//					strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 		//					strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
@@ -681,7 +686,7 @@ UINT TTLcomLoop(LPVOID pParam)
 	return 0;
 }
 
-//生成动态变化的打印数据到m_MessageEdit.bytPrintDataAll
+//生成动态变化的打印数据到m_MessagePrint.bytPrintDataAll
 void getSerialTimeDotBuf()
 {
 	theApp.boPrintNowLock.Lock();
@@ -736,7 +741,7 @@ UINT CreateMessageThread(LPVOID pParam)
 	return 0;
 }
 
-//生成动态变化的打印数据到m_MessageEdit.bytPrintDataAll
+//生成动态变化的打印数据到m_MessagePrint.bytPrintDataAll
 void getBarcodeDotBuf()
 {
 	for(int i = 0; i < theApp.m_MessagePrint.OBJ_Vec.size(); i++)
