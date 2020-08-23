@@ -245,8 +245,8 @@ void CInksystemconfig::download_inksystem_parameter()
 
 	//获取压力
 	int nParam = m_pCodePrinterDlg->m_Ink->m_par->m_parPressure;
-	inksystem_parameter_0x00 = nParam & 0xFF;
-	inksystem_parameter_0x01 = nParam >> 8;
+	inksystem_parameter_0x00 = nParam & 0xFF;//低8位
+	inksystem_parameter_0x01 = nParam >> 8;//高8
 	
 	//获取泵速
 	nParam = m_pCodePrinterDlg->m_Ink->m_par->m_parPumpSpeed;
