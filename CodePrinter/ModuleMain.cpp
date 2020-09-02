@@ -384,7 +384,7 @@ CString GETnBIT_from_bytReadData(int I , int m , int n )
 //}
 int GETnBIT_from_bytStatus(int I , int m , int n )
 {
-	return (theApp.bytStatus[I] >> (m-1)) & 0x01;
+	return (theApp.bytStatus[I] >> m) & 0x01;
 }
 
 //串口线程
@@ -406,7 +406,7 @@ UINT TTLcomLoop(LPVOID pParam)
 			{
 				bytComErr=0;
 				theApp.boQueCtrLock.Lock();
-					if (theApp.queCtr.size()>0)
+					if (theApp.queCtr.size()>0)//命令队列
 					{
 						vector<BYTE> tempQueVec=theApp.queCtr.front();
 						theApp.queCtr.pop();
@@ -439,11 +439,11 @@ UINT TTLcomLoop(LPVOID pParam)
 					}
 					else if (!theApp.m_MessagePrint.boPrintNow)
 					{
-						if (GETnBIT_from_bytReadData(6,2,1)!=_T("1"))
+						if (GETnBIT_from_bytReadData(6,2,1)!=_T("1"))//文本buf满
 						{
 							if (theApp.m_MessagePrint.boDynamic)
 							{
-								if (theApp.ForPreQue.size()>0)
+								if (theApp.ForPreQue.size()>0)//序列号队列
 								{
 									vector<BYTE> tempQueVec=theApp.ForPreQue.front();
 									theApp.ForPreQue.pop();
@@ -475,7 +475,7 @@ UINT TTLcomLoop(LPVOID pParam)
 									strTempCmdLen=8;
 								}
 							} 
-							else
+							else//不是动态打印
 							{
 								if (theApp.m_MessagePrint.bytPrintDataAll.size()>13)
 								{

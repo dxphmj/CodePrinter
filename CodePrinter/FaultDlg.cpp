@@ -140,9 +140,9 @@ void CFaultDlg::OnBnClickedFaultCloseBtn()
 	((CCodePrinterDlg*)GetParent())->m_PicHead.SetSecondLineOpeString(_T(""));
 }
 bool comp(const WIN32_FIND_DATA &a, const WIN32_FIND_DATA &b){return a.cFileName<b.cFileName;}
-void CFaultDlg::getAllErrorFile()
+void CFaultDlg::getAllErrorFile()//获取所有，删除空的多的
 {
-	vector<WIN32_FIND_DATA> allErrVec;
+	vector<WIN32_FIND_DATA> allErrVec;//WIN32_FIND_DATA保存的文件信息
 	vector<WIN32_FIND_DATA> detErrVec;
 	CString szCurDir=_T("Storage Card\\System\\Error\\");
 	HANDLE hFind = INVALID_HANDLE_VALUE;
@@ -153,13 +153,13 @@ void CFaultDlg::getAllErrorFile()
 	lstrcpy(szPath, szCurDir);
 	if(szPath[lstrlen(szCurDir)-1] != _T('\\'))
 		lstrcat(szPath, _T("\\"));
-	lstrcat(szPath, _T("*.*"));
+	lstrcat(szPath, _T("*.*"));//末尾添加_T("*.*")
 
-	hFind = FindFirstFile(szPath, &wfd);
+	hFind = FindFirstFile(szPath, &wfd);//查找指定目录的第一个文件或目录并返回它的句柄
 	bRet = ((hFind == INVALID_HANDLE_VALUE) ? FALSE : TRUE);
 	while(bRet)
 	{
-		if(wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		if(wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)//这个判断语句是通过 将dwFileAttributes和FILE_ATTRIBUTE_DIRECTORY做位的与运算 来判断所找到的项目是不是文件夹
 		{
 			if(wfd.cFileName[0] != _T('.'))
 			{

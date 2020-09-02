@@ -1079,11 +1079,12 @@ void CLabelDlg::CreatePrintData()
 	for (int j = 0; j < 32; j++)
 		for (int i = 0; i < theApp.m_MessagePrint.intRowMax; i++)
 			theApp.m_MessagePrint.IntMes[i] += ((theApp.m_MessagePrint.boDotMes[j][i])?1:0)*pow(2,j);
-
+			
+	
 	vector<BYTE> bytPrintData = theApp.m_MessagePrint.DotToByte(0,theApp.m_MessagePrint.intRowMax);
 	dotDataLen_l = bytPrintData.size()%256; //dotDataLen_l与dotDataLen_h共同表达了打印数据的大小dotDataLen_h*256+dotDataLen_l
 	dotDataLen_h = bytPrintData.size()/256;
-	pixelMes = (BYTE)(pixel+1);
+	pixelMes = (BYTE)(pixel+1);//实际行高,pixel存索引
 	matrix_name = pixelMes<<2;//低二位为模式 
 	pixelAll = pixelMes|0x80; //表示该数据及时生效，开始打印，将前面的清除掉。
 
