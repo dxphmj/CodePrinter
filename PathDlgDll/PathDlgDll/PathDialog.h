@@ -1,5 +1,6 @@
 #include "afxwin.h"
 #include "ImageButton.h"
+#include "BMPShow.h"
 #include <vector>
 #include <fstream>
 #include <string>
@@ -31,6 +32,7 @@ private:
 	bool booAllSet;
 	bool booIsCut;
 	vector<CString> pasteVec;
+	//CDesignStatic tempbmp;
 public:
 	enum{
 		STB_HIDE = 0,
@@ -98,6 +100,8 @@ public:
 	bool MoveFileM(LPCTSTR pTo,LPCTSTR pFrom);
 	afx_msg void OnBnClickedButtonNewfile();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	afx_msg void OnPaint();
+	CDesignStatic m_BmpShow;
 };
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

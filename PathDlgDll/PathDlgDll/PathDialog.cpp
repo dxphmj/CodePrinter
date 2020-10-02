@@ -8,6 +8,7 @@
 #include "IsDeletDlg.h"
 #include "RenameDlg.h"
 #include "NewDlg.h"
+
 #include "..\..\KEYBOARD\KEYBOARD\ExportDlg.h"
 //#include <fstream>
 //#include <string>
@@ -62,6 +63,7 @@ void CPathDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_DELET, m_DETBUT);
 	DDX_Control(pDX, IDC_BUTTON_RENAME, m_reName);
 	DDX_Control(pDX, IDC_BUTTON_ALLSET, m_allSELECT);
+	DDX_Control(pDX, IDC_STATIC_BMP_SHOW, m_BmpShow);
 }
 
 
@@ -79,6 +81,7 @@ ON_BN_CLICKED(IDC_BUTTON_DELET, &CPathDialog::OnBnClickedButtonDelet)
 ON_BN_CLICKED(IDC_BUTTON_ALLSET, &CPathDialog::OnBnClickedButtonAllset)
 ON_BN_CLICKED(IDC_BUTTON_RENAME, &CPathDialog::OnBnClickedButtonRename)
 ON_BN_CLICKED(IDC_BUTTON_NEWFILE, &CPathDialog::OnBnClickedButtonNewfile)
+ON_WM_PAINT()
 END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPathDialog message handlers
@@ -151,6 +154,12 @@ BOOL CPathDialog::OnInitDialog()
 	GetDlgItem(IDC_BUTTON_RENAME)->EnableWindow(booDisplay);
 	GetDlgItem(IDC_BUTTON_DELET)->SetWindowPos(NULL,rect.left+545,rect.top+450,100,40,SWP_SHOWWINDOW);
 	GetDlgItem(IDC_BUTTON_DELET)->EnableWindow(booDisplay);
+
+	m_BmpShow.SetWindowPos(NULL,rect.left+160,rect.top+438,510,64,SWP_SHOWWINDOW);
+	if (myType!=2)
+	{
+		GetDlgItem(IDC_STATIC_BMP_SHOW)->ShowWindow(SW_HIDE);
+	}
 	m_allSELECT.LoadBitmaps(IDB_BITMAP_ALLUP,IDB_BITMAP_ALLDOWN,0,0,IDB_BITMAP_ALLUP);
 	m_allSELECT.SizeToContent(); 
 	m_NewButton.LoadBitmaps(IDB_BITMAP_NEWUP,IDB_BITMAP_NEWDOWN,0,0,IDB_BITMAP_NEWUP);
@@ -414,6 +423,7 @@ void CPathDialog::OnSelchangedTreeDirview(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		lstrcpy(m_path, GetFullPath(hti));
 		SetDlgItemText(IDC_EDIT_FULLPATH, m_path);
+		OnPaint();
 	}
 	else
 	{
@@ -957,4 +967,63 @@ void CPathDialog::OnBnClickedButtonNewfile()
 		 return TRUE;
 	 }
 	 return CDialog::PreTranslateMessage(pMsg);
+ }
+
+ void CPathDialog::OnPaint()
+ {
+	 CPaintDC dc(this); // device context for painting
+	 // TODO: 在此处添加消息处理程序代码
+	 // 不为绘图消息调用 CDialog::OnPaint()
+	// m_path
+	 if (myType==2)
+	 {
+		 CString csInfo=m_path;  
+		 if (csInfo.Find(_T(".bmp"))>=0)
+		 {
+			 HBITMAP hBitmap = (HBITMAP)::SHLoadDIBitmap(csInfo);
+
+			 BITMAP bmpObj = {0};
+			 if(::GetObject(hBitmap, sizeof(bmpObj), &bmpObj) == 0|| bmpObj.bmWidth <= 0|| bmpObj.bmHeight <= 0)
+			 {
+				 return ;
+			 }
+
+			 if(bmpObj.bmWidth > 255 || bmpObj.bmHeight > 32) return;
+			 CDC memDC ;
+			 memDC.CreateCompatibleDC(NULL); 
+			 CBitmap bitmap;
+			 bitmap.Attach(hBitmap);
+			 memDC.SelectObject(&bitmap);
+			 int intRowSize = bmpObj.bmWidth;
+			 int intLineSize = bmpObj.bmHeight;
+			 vector<vector<bool>> boDotBmp(intRowSize,vector<bool>(32));
+			 //memset(boDotBmp,false,32*255*sizeof(bool));
+			 for (int x = 0; x < intRowSize; x++)
+			 {
+				 for (int y = 0; y < intLineSize; y++)
+				 {
+					 COLORREF pixColor = memDC.GetPixel(x,y);
+					 BYTE red = GetRValue(pixColor);
+					 BYTE green = GetGValue(pixColor);
+					 BYTE blue = GetBValue(pixColor);
+					 if (red == 255 && green == 255 && blue == 255)
+					 {
+						 boDotBmp[x][y] = false;
+					 }
+					 else
+					 {
+						 boDotBmp[x][y] = true;
+					 }
+				 }
+			 }
+			 memDC.DeleteDC();
+			 m_BmpShow.bmpvec=boDotBmp;
+			 m_BmpShow.Invalidate();
+		 }
+		 else
+		 {
+			 m_BmpShow.bmpvec.clear();
+			 m_BmpShow.Invalidate();
+		 }
+	 }
  }

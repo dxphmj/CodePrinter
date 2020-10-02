@@ -26,8 +26,8 @@
 #define IDB_BITMAP_ALLDOWN              153
 #define IDD_DIALOG_RENAMEDLG            154
 #define IDB_BITMAP_PASTEUP              156
-#define IDB_BITMAP2                     158
 #define IDB_BITMAP_PASTEDOWN            157
+#define IDB_BITMAP2                     158
 #define IDC_TREE_DIRVIEW                1000
 #define IDC_EDIT_FULLPATH               1001
 #define IDC_STATIC_SELECT               1002
@@ -38,6 +38,7 @@
 #define IDC_BUTTON_ALLSET               1008
 #define IDC_EDIT_RENAMEEDIT             1009
 #define IDC_EDIT_NEWNAME                1010
+#define IDC_STATIC_BMP_SHOW             1011
 
 // Next default values for new objects
 // 
@@ -45,7 +46,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        158
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1011
+#define _APS_NEXT_CONTROL_VALUE         1012
 #define _APS_NEXT_SYMED_VALUE           104
 #endif
 #endif
