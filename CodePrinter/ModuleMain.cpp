@@ -45,73 +45,74 @@ void StatusClass::byStatusFromSlaveState()
 
 void StatusClass::getstatu()
 {
-	staSysRea = GETnBIT_from_bytStatus(0, 0, 1)==_T("1")?true:false;  //系统准备好
-//	staSysRea = (GETnBIT_from_bytStatus(0, 0, 1)==_T("1"));  //系统准备好
-	staSysBus = (GETnBIT_from_bytStatus(0, 1, 1)==_T("1")?true:false) ;  //系统忙
-	staBumMod = (GETnBIT_from_bytStatus(0, 2, 1)==_T("1")?true:false)  ; //泵模式
-	staBum = (GETnBIT_from_bytStatus(0, 3, 1)==_T("1")?true:false)   ;   //'泵开关
-	staHarFin = (GETnBIT_from_bytStatus(0, 4, 1)==_T("1")?true:false) ;  //'下位机复位完成
-	staCleFauFin = (GETnBIT_from_bytStatus(0, 5, 1)==_T("1")?true:false) ;// '清除故障完成
+	//staSysRea = GETnBIT_from_bytStatus(0, 0, 1)==_T("1")?true:false;  //系统准备好
+	staSysRea = GETnBIT_from_bytStatus(0, 0, 1)==1?true:false;  //系统准备好
+	//staSysRea = (GETnBIT_from_bytStatus(0, 0, 1)==1);  //系统准备好
+	staSysBus = (GETnBIT_from_bytStatus(0, 1, 1)==1?true:false) ;  //系统忙
+	staBumMod = (GETnBIT_from_bytStatus(0, 2, 1)==1?true:false)  ; //泵模式
+	staBum = (GETnBIT_from_bytStatus(0, 3, 1)==1?true:false)   ;   //'泵开关
+	staHarFin = (GETnBIT_from_bytStatus(0, 4, 1)==1?true:false) ;  //'下位机复位完成
+	staCleFauFin = (GETnBIT_from_bytStatus(0, 5, 1)==1?true:false) ;// '清除故障完成
 	//6命令执行完成、7休眠模式工作中
-	staComExeFin=(GETnBIT_from_bytStatus(0, 6, 1)==_T("1")?true:false) ;//bit6:  0 没有执行命令， 1 命令执行完成
-	staSleMod=(GETnBIT_from_bytStatus(0, 7, 1)==_T("1")?true:false) ;//Bit7:  1 休眠模式工作中，0 休眠中
+	staComExeFin=(GETnBIT_from_bytStatus(0, 6, 1)==1?true:false) ;//bit6:  0 没有执行命令， 1 命令执行完成
+	staSleMod=(GETnBIT_from_bytStatus(0, 7, 1)==1?true:false) ;//Bit7:  1 休眠模式工作中，0 休眠中
 
 
-	staNozVal = (GETnBIT_from_bytStatus(1, 0, 1)==_T("1")?true:false);   //'喷嘴阀
-	staFeeVal = (GETnBIT_from_bytStatus(1, 1, 1)==_T("1")?true:false) ;  //'供墨阀
-	staBleVal = (GETnBIT_from_bytStatus(1, 2, 1)==_T("1")?true:false) ;  //'排气阀
-	staFluVal = (GETnBIT_from_bytStatus(1, 3, 1)==_T("1")?true:false) ;  //'清洗阀
-	staSolVal = (GETnBIT_from_bytStatus(1, 4, 1)==_T("1")?true:false) ;  //'溶剂阀
-	staVisVal = (GETnBIT_from_bytStatus(1, 5, 1)==_T("1")?true:false) ;  //'粘度阀
-	staWasVal = (GETnBIT_from_bytStatus(1, 6, 1)==_T("1")?true:false) ;  //'冲洗阀
-	staValFau = (GETnBIT_from_bytStatus(1, 7, 1)==_T("1")?true:false) ;  //阀故障Bit7: 电磁阀故障,0正常，1故障
+	staNozVal = (GETnBIT_from_bytStatus(1, 0, 1)==1?true:false);   //'喷嘴阀
+	staFeeVal = (GETnBIT_from_bytStatus(1, 1, 1)==1?true:false) ;  //'供墨阀
+	staBleVal = (GETnBIT_from_bytStatus(1, 2, 1)==1?true:false) ;  //'排气阀
+	staFluVal = (GETnBIT_from_bytStatus(1, 3, 1)==1?true:false) ;  //'清洗阀
+	staSolVal = (GETnBIT_from_bytStatus(1, 4, 1)==1?true:false) ;  //'溶剂阀
+	staVisVal = (GETnBIT_from_bytStatus(1, 5, 1)==1?true:false) ;  //'粘度阀
+	staWasVal = (GETnBIT_from_bytStatus(1, 6, 1)==1?true:false) ;  //'冲洗阀
+	staValFau = (GETnBIT_from_bytStatus(1, 7, 1)==1?true:false) ;  //阀故障Bit7: 电磁阀故障,0正常，1故障
 	
-	staInkFloSenOff = (GETnBIT_from_bytStatus(2, 0, 1)==_T("1")?true:false) ;  //'关回收
-	staCloInkLin = (GETnBIT_from_bytStatus(2, 1, 1)==_T("1")?true:false) ;  //'关墨线
-	staAddSol = (GETnBIT_from_bytStatus(2, 2, 1)==_T("1")?true:false)  ; //'添加溶剂
-	staDetVis = (GETnBIT_from_bytStatus(2, 3, 1)==_T("1")?true:false)  ; //'测试粘度
-	staWasNoz = (GETnBIT_from_bytStatus(2, 4, 1)==_T("1")?true:false)  ; //'冲洗喷头
-	staSucNoz = (GETnBIT_from_bytStatus(2, 5, 1)==_T("1")?true:false)   ;//'反吸喷嘴
-	staAdjInkLin = (GETnBIT_from_bytStatus(2, 6, 1)==_T("1")?true:false) ; // '墨路校正
-	staInkCir = (GETnBIT_from_bytStatus(2, 7, 1)==_T("1")?true:false)  ; //'墨路循环
-	staInkTemSenFau = (GETnBIT_from_bytStatus(3, 0, 1)==_T("1")?true:false)  ; //'墨水温度传感器故障
-	staPriHeaTemFau = (GETnBIT_from_bytStatus(3, 1, 1)==_T("1")?true:false) ;  //'喷头温度传感器故障
-	staBumSpeOveFau = (GETnBIT_from_bytStatus(3, 2, 1)==_T("1")?true:false) ;  //'泵超速保护
-	staPreOveFau = (GETnBIT_from_bytStatus(3, 3, 1)==_T("1")?true:false)  ; //'过压保护
-	staVisAbnFau = (GETnBIT_from_bytStatus(3, 4, 1)==_T("1")?true:false) ;  //'粘度异常
-	staVisSenFau = (GETnBIT_from_bytStatus(3, 5, 1)==_T("1")?true:false) ; //'粘度计故障
-	staInkFloFau = (GETnBIT_from_bytStatus(3, 6, 1)==_T("1")?true:false)  ; //'回收故障
-	staPriHeaCle = (GETnBIT_from_bytStatus(3, 7, 1)==_T("1")?true:false) ;  //'开关机清洗//现在变为清洗负压故障，应该是一个意思
+	staInkFloSenOff = (GETnBIT_from_bytStatus(2, 0, 1)==1?true:false) ;  //'关回收
+	staCloInkLin = (GETnBIT_from_bytStatus(2, 1, 1)==1?true:false) ;  //'关墨线
+	staAddSol = (GETnBIT_from_bytStatus(2, 2, 1)==1?true:false)  ; //'添加溶剂
+	staDetVis = (GETnBIT_from_bytStatus(2, 3, 1)==1?true:false)  ; //'测试粘度
+	staWasNoz = (GETnBIT_from_bytStatus(2, 4, 1)==1?true:false)  ; //'冲洗喷头
+	staSucNoz = (GETnBIT_from_bytStatus(2, 5, 1)==1?true:false)   ;//'反吸喷嘴
+	staAdjInkLin = (GETnBIT_from_bytStatus(2, 6, 1)==1?true:false) ; // '墨路校正
+	staInkCir = (GETnBIT_from_bytStatus(2, 7, 1)==1?true:false)  ; //'墨路循环
+	staInkTemSenFau = (GETnBIT_from_bytStatus(3, 0, 1)==1?true:false)  ; //'墨水温度传感器故障
+	staPriHeaTemFau = (GETnBIT_from_bytStatus(3, 1, 1)==1?true:false) ;  //'喷头温度传感器故障
+	staBumSpeOveFau = (GETnBIT_from_bytStatus(3, 2, 1)==1?true:false) ;  //'泵超速保护
+	staPreOveFau = (GETnBIT_from_bytStatus(3, 3, 1)==1?true:false)  ; //'过压保护
+	staVisAbnFau = (GETnBIT_from_bytStatus(3, 4, 1)==1?true:false) ;  //'粘度异常
+	staVisSenFau = (GETnBIT_from_bytStatus(3, 5, 1)==1?true:false) ; //'粘度计故障
+	staInkFloFau = (GETnBIT_from_bytStatus(3, 6, 1)==1?true:false)  ; //'回收故障
+	staPriHeaCle = (GETnBIT_from_bytStatus(3, 7, 1)==1?true:false) ;  //'开关机清洗//现在变为清洗负压故障，应该是一个意思
 	//bit7: 清洗负压故障，0 正常，1负压不足；
 
-	staFanFau = (GETnBIT_from_bytStatus(4, 0, 1)==_T("1")?true:false) ; // '风扇故障
-	staChaFau = (GETnBIT_from_bytStatus(4, 1, 1)==_T("1")?true:false) ;  //'充电故障
-	staPhaFau = (GETnBIT_from_bytStatus(4, 2, 1)==_T("1")?true:false) ;  //'相位故障
-	staHigVolFau = (GETnBIT_from_bytStatus(4, 3, 1)==_T("1")?true:false) ; // '高压故障
-	staSolLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 5, 1)==_T("1")?true:false) +OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 4, 1)==_T("1")?true:false);  //'溶剂液位状态
-	staInkLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 7, 1)==_T("1")?true:false) + OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 6, 1)==_T("1")?true:false);  //'墨水液位状态
+	staFanFau = (GETnBIT_from_bytStatus(4, 0, 1)==1?true:false) ; // '风扇故障
+	staChaFau = (GETnBIT_from_bytStatus(4, 1, 1)==1?true:false) ;  //'充电故障
+	staPhaFau = (GETnBIT_from_bytStatus(4, 2, 1)==1?true:false) ;  //'相位故障
+	staHigVolFau = (GETnBIT_from_bytStatus(4, 3, 1)==1?true:false) ; // '高压故障
+	staSolLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 5, 1)==1?true:false) +OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 4, 1)==1?true:false);  //'溶剂液位状态
+	staInkLevFau = OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 7, 1)==1?true:false) + OBJ_Control::to_String(GETnBIT_from_bytStatus(4, 6, 1)==1?true:false);  //'墨水液位状态
 	
-	staPrnting = (GETnBIT_from_bytStatus(5, 0, 1)==_T("1")?true:false) ; // '打印中
-	staSerNumRes= (GETnBIT_from_bytStatus(5, 1, 1)==_T("1")?true:false) ;//Bit1: 序列号复位开关，0 按键无按下，1 按键按下，读取后自动清0
+	staPrnting = (GETnBIT_from_bytStatus(5, 0, 1)==1?true:false) ; // '打印中
+	staSerNumRes= (GETnBIT_from_bytStatus(5, 1, 1)==1?true:false) ;//Bit1: 序列号复位开关，0 按键无按下，1 按键按下，读取后自动清0
 
-	//'staBufOveFau = IIf(GETnBIT_from_bytStatus(5, 2, 1)==_T("1"));  // '文本buf溢出
-	staHigVolSwi = (GETnBIT_from_bytStatus(5, 3, 1)==_T("1")?true:false)  ; //'高压开关
-	staActProSen = (GETnBIT_from_bytStatus(5, 4, 1)==_T("1")?true:false)  ; //'电眼当前电平
-	staProSenFas = (GETnBIT_from_bytStatus(5, 5, 1)==_T("1")?true:false) ;  ////'电眼过快
-	staAutModFau = (GETnBIT_from_bytStatus(5, 6, 1)==_T("1")?true:false) ; // '自动分裂失败
+	//'staBufOveFau = IIf(GETnBIT_from_bytStatus(5, 2, 1)==1);  // '文本buf溢出
+	staHigVolSwi = (GETnBIT_from_bytStatus(5, 3, 1)==1?true:false)  ; //'高压开关
+	staActProSen = (GETnBIT_from_bytStatus(5, 4, 1)==1?true:false)  ; //'电眼当前电平
+	staProSenFas = (GETnBIT_from_bytStatus(5, 5, 1)==1?true:false) ;  ////'电眼过快
+	staAutModFau = (GETnBIT_from_bytStatus(5, 6, 1)==1?true:false) ; // '自动分裂失败
 
 	//Bit7: 墨水休眠允许 0 不允许休眠功能，1 允许休眠功能，注：由上位机发命令配置
-	staInkSleAll = (GETnBIT_from_bytStatus(5, 7, 1)==_T("1")?true:false) ;  //变为墨水休眠允许，阀故障转到1里
+	staInkSleAll = (GETnBIT_from_bytStatus(5, 7, 1)==1?true:false) ;  //变为墨水休眠允许，阀故障转到1里
 	
 
-	staPrinted = (GETnBIT_from_bytStatus(6, 0, 1)==_T("1")?true:false)  ; //'打印完成
-	staRemPrinSwi = (GETnBIT_from_bytStatus(6, 1, 1)==_T("1")?true:false); //  '远程打印开关
-	//'staBufFul = (GETnBIT_from_bytStatus(6, 2, 1)==_T("1"));   //'文本buf满
-	staBufRea = (GETnBIT_from_bytStatus(6, 3, 1)==_T("1")?true:false) ;  //'信息准备好
-	staEncDir = (GETnBIT_from_bytStatus(6, 4, 1)==_T("1")?true:false) ;  //'编码器方向
-	staLinFas = (GETnBIT_from_bytStatus(6, 5, 1)==_T("1")?true:false) ;  //'编码器过快
-	staPriHeaHot = (GETnBIT_from_bytStatus(6, 6, 1)==_T("1")?true:false);  // '恒温状态
-	staPriHeaHotFau = (GETnBIT_from_bytStatus(6, 7, 1)==_T("1")?true:false) ; // '恒温故障
+	staPrinted = (GETnBIT_from_bytStatus(6, 0, 1)==1?true:false)  ; //'打印完成
+	staRemPrinSwi = (GETnBIT_from_bytStatus(6, 1, 1)==1?true:false); //  '远程打印开关
+	//'staBufFul = (GETnBIT_from_bytStatus(6, 2, 1)==1);   //'文本buf满
+	staBufRea = (GETnBIT_from_bytStatus(6, 3, 1)==1?true:false) ;  //'信息准备好
+	staEncDir = (GETnBIT_from_bytStatus(6, 4, 1)==1?true:false) ;  //'编码器方向
+	staLinFas = (GETnBIT_from_bytStatus(6, 5, 1)==1?true:false) ;  //'编码器过快
+	staPriHeaHot = (GETnBIT_from_bytStatus(6, 6, 1)==1?true:false);  // '恒温状态
+	staPriHeaHotFau = (GETnBIT_from_bytStatus(6, 7, 1)==1?true:false) ; // '恒温故障
 	if (theApp.bytStatus[8] * 256 +theApp. bytStatus[7] > 5000)  //'实时压力
 	{
 		staPressure=theApp.bytStatus[8] * 256 + theApp.bytStatus[7] - 65536;
@@ -142,11 +143,11 @@ void StatusClass::getstatu()
 	//读卡器：
 	//	串口波特率：2400bps，起始位1，数据8位，停止位1，奇偶位没有
 
-	staSetTimeEna = (GETnBIT_from_bytStatus(36, 5, 1)==_T("1")?true:false);   //'维护、墨水时间更改功能开放
+	staSetTimeEna = (GETnBIT_from_bytStatus(36, 5, 1)==1?true:false);   //'维护、墨水时间更改功能开放
 	if (!staSetTimeEna)
 	{
 		staInkLifeTime = (theApp.bytStatus[36] & 31) * pow(256 , 3) + theApp.bytStatus[35] * pow(256 , 2) + theApp.bytStatus[34] * 256 + theApp.bytStatus[33];   // '墨水时间
-		staRFID =  OBJ_Control::to_String(GETnBIT_from_bytStatus(36, 7, 1)==_T("1")?true:false) + OBJ_Control::to_String(GETnBIT_from_bytStatus(36, 6, 1)==_T("1")?true:false); //'RFID状态
+		staRFID =  OBJ_Control::to_String(GETnBIT_from_bytStatus(36, 7, 1)==1?true:false) + OBJ_Control::to_String(GETnBIT_from_bytStatus(36, 6, 1)==1?true:false); //'RFID状态
 	}
 }
 
@@ -313,6 +314,7 @@ void StatusClass::download_inksystem_control02()
 }
 void StatusClass::download_inksystem_control03()
 {
+	//ctr0X03 = ctr0X03bit7 * 128 + ctr0X03bit6 * 64 + ctr0X03bit5 * 32 + ctr0X03bit4 * 16 + ctr0X03bit3 * 8 + ctr0X03bit1 * 2 + ctr0X03bit0
 	ctr0X03 = ctr0X03bit6 * 64 + ctr0X03bit3 * 8 + ctr0X03bit1 * 2 + ctr0X03bit0;
 	vector<BYTE> tempCtrVec;
 	tempCtrVec.push_back(0x1);
@@ -369,17 +371,21 @@ CString GETnBIT_from_bytReadData(int I , int m , int n )
 	return cstringStr.Mid(cstringStr.GetLength()-m-1,n);
 }
 
-CString GETnBIT_from_bytStatus(int I , int m , int n )
+//CString GETnBIT_from_bytStatus(int I , int m , int n )
+//{
+//	string tempCstr="";
+//	ModuleMain tempstringToLPCWSTR;
+//	tempCstr="00000000"+OBJ_Control::DEC_to_BIN(theApp.bytStatus[I]);
+//
+//	//tempCstr=tempCstr.Mid(tempCstr.GetLength()-m,n);
+//
+//	CString cstringStr= tempstringToLPCWSTR.stringToLPCWSTR(tempCstr);
+//	int dd=cstringStr.GetLength();
+//	return cstringStr.Mid(cstringStr.GetLength()-m-1,n);
+//}
+int GETnBIT_from_bytStatus(int I , int m , int n )
 {
-	string tempCstr="";
-	ModuleMain tempstringToLPCWSTR;
-	tempCstr="00000000"+OBJ_Control::DEC_to_BIN(theApp.bytStatus[I]);
-
-	//tempCstr=tempCstr.Mid(tempCstr.GetLength()-m,n);
-
-	CString cstringStr= tempstringToLPCWSTR.stringToLPCWSTR(tempCstr);
-	int dd=cstringStr.GetLength();
-	return cstringStr.Mid(cstringStr.GetLength()-m-1,n);
+	return (theApp.bytStatus[I] >> m) & 0x01;
 }
 
 //串口线程
@@ -401,7 +407,7 @@ UINT TTLcomLoop(LPVOID pParam)
 			{
 				bytComErr=0;
 				theApp.boQueCtrLock.Lock();
-					if (theApp.queCtr.size()>0)
+					if (theApp.queCtr.size()>0)//命令队列
 					{
 						vector<BYTE> tempQueVec=theApp.queCtr.front();
 						theApp.queCtr.pop();
@@ -411,7 +417,7 @@ UINT TTLcomLoop(LPVOID pParam)
 					else if (theApp.m_MessagePrint.boPrintNow)
 					{
 						theApp.boPrintNowLock.Lock();
-						if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+						if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>13)
 						{
 							strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 							strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
@@ -434,11 +440,11 @@ UINT TTLcomLoop(LPVOID pParam)
 					}
 					else if (!theApp.m_MessagePrint.boPrintNow)
 					{
-						if (GETnBIT_from_bytReadData(6,2,1)!=_T("1"))
+						if (GETnBIT_from_bytReadData(6,2,1)!=_T("1"))//文本buf满
 						{
 							if (theApp.m_MessagePrint.boDynamic)
 							{
-								if (theApp.ForPreQue.size()>0)
+								if (theApp.ForPreQue.size()>0)//序列号队列
 								{
 									vector<BYTE> tempQueVec=theApp.ForPreQue.front();
 									theApp.ForPreQue.pop();
@@ -453,7 +459,7 @@ UINT TTLcomLoop(LPVOID pParam)
 									}
 									strTempCmdLen=tempQueVec.size();
 									strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-									if (strTempCmdLen>11)
+									if (strTempCmdLen>13)
 									{
 										//动态显示相关										
 										theApp.m_MessagePrint.intMesDis = tempQueVec;										 
@@ -470,13 +476,13 @@ UINT TTLcomLoop(LPVOID pParam)
 									strTempCmdLen=8;
 								}
 							} 
-							else
+							else//不是动态打印
 							{
-								if (theApp.m_MessagePrint.bytPrintDataAll.size()>11)
+								if (theApp.m_MessagePrint.bytPrintDataAll.size()>13)
 								{
-									strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAll,theApp.m_MessagePrint.bytPrintDataAll.size());
+									strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAll,theApp.m_MessagePrint.bytPrintDataAll.size());
 									strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAll.size();
-									if (strTempCmdLen<12)
+									if (strTempCmdLen<14)
 									{
 										strTempCmd=(LPTSTR)readArr;
 										strTempCmdLen=8;
@@ -524,9 +530,9 @@ UINT TTLcomLoop(LPVOID pParam)
 				else if(theApp.m_MessagePrint.boPrintNow)
 				{
 					theApp.boPrintNowLock.Lock();
-					if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+					if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>13)
 					{
-						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessageEdit.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
+						strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 						strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
 						theApp.m_MessagePrint.boPrintNow=false;
 						if (theApp.m_UserList.GetCount()>0)
@@ -550,6 +556,11 @@ UINT TTLcomLoop(LPVOID pParam)
 					strTempCmdLen=8;
 				}
 				theApp.boQueCtrLock.Unlock();
+			}
+			else
+			{
+				strTempCmd=(LPTSTR)readArr;
+				strTempCmdLen=8;
 			}
 		} 
 		else// if (theApp.myCIOVsd.m_pRecvBuf[0]==0x2&&theApp.myCIOVsd.m_pRecvBuf[1]==0x80&&theApp.myCIOVsd.m_pRecvBuf[3]==0x20)
@@ -603,7 +614,7 @@ UINT TTLcomLoop(LPVOID pParam)
 		//	//}
 		//	//theApp.boQueCtrLock.Unlock();
 
-		//	//if (theApp.m_MessageEdit.boDynamic)
+		//	//if (theApp.m_MessagePrint.boDynamic)
 		//	//{
 		//	//	if (theApp.ForPreQue.size()>0)
 		//	//	{
@@ -613,12 +624,12 @@ UINT TTLcomLoop(LPVOID pParam)
 		//	//		
 		//	//			strTempCmdLen=tempQueVec.size();
 		//	//			strTempCmd=(LPTSTR)VEC2ARRAY(tempQueVec,tempQueVec.size());
-		//	//			if (strTempCmdLen>11)
+		//	//			if (strTempCmdLen>13)
 		//	//			{////动态显示相关
 		//	//				vector<BYTE> intMesDis1;
 		//	//				intMesDis1.insert(intMesDis1.end(),tempQueVec.begin(),tempQueVec.end());
 		//	//				theApp.boDotForPreQue.push(intMesDis1);
-		//	//				theApp.m_MessageEdit.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
+		//	//				theApp.m_MessagePrint.intMesDis=theApp.boDotForPreQue.front();//这个其实可以不要
 		//	//				theApp.boDotForPreQue.pop();
 		//	//				vector<int> tempCountVec;
 		//	//				if (theApp.intCounNumForPreQue.size()>0)
@@ -629,7 +640,7 @@ UINT TTLcomLoop(LPVOID pParam)
 
 		//	//					for (int num=0;num<tempCountVec.size();num++)
 		//	//					{
-		//	//						theApp.m_MessageEdit.CountNumForPre[num]=tempCountVec[num];
+		//	//						theApp.m_MessagePrint.CountNumForPre[num]=tempCountVec[num];
 		//	//					}
 		//	//				}
 		//	//			} 
@@ -649,7 +660,7 @@ UINT TTLcomLoop(LPVOID pParam)
 		//			if (theApp.m_MessagePrint.boPrintNow)
 		//			{
 		//				theApp.boPrintNowLock.Lock();
-		//				if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>11)
+		//				if (theApp.m_MessagePrint.bytPrintDataAllOrder.size()>13)
 		//				{
 		//					strTempCmd=(LPTSTR)VEC2ARRAY(theApp.m_MessagePrint.bytPrintDataAllOrder,theApp.m_MessagePrint.bytPrintDataAllOrder.size());
 		//					strTempCmdLen=theApp.m_MessagePrint.bytPrintDataAllOrder.size();
@@ -686,7 +697,7 @@ UINT TTLcomLoop(LPVOID pParam)
 	return 0;
 }
 
-//生成动态变化的打印数据到m_MessageEdit.bytPrintDataAll
+//生成动态变化的打印数据到m_MessagePrint.bytPrintDataAll
 void getSerialTimeDotBuf()
 {
 	theApp.boPrintNowLock.Lock();
@@ -741,7 +752,8 @@ UINT CreateMessageThread(LPVOID pParam)
 	return 0;
 }
 
-//生成动态变化的打印数据到m_MessageEdit.bytPrintDataAll
+
+//生成动态变化的打印数据到m_MessagePrint.bytPrintDataAll
 void getBarcodeDotBuf()
 {
 	for(int i = 0; i < theApp.m_MessagePrint.OBJ_Vec.size(); i++)

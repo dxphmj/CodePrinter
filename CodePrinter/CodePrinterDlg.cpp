@@ -410,22 +410,22 @@ BOOL CCodePrinterDlg::OnInitDialog()
 	//////////////////////////////////////////////////////////////////////////
 	//theApp.SetProgressBar(100);
 	//关闭Load程序
-	HWND hWnd = NULL;
-	hWnd = ::FindWindow(NULL,_T("Load"));
-	//hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
-	if (hWnd == NULL)
-	{
-		return TRUE;
-	}
+	//HWND hWnd = NULL;
+	//hWnd = ::FindWindow(NULL,_T("Load"));
+	////hWnd = ::FindWindow(NULL,_T("\\Program Files\\Load\\Load.exe"));
+	//if (hWnd == NULL)
+	//{
+	//	return TRUE;
+	//}
 
-	DWORD dwProcessId;
-	//得到该窗口的进程ID
-	GetWindowThreadProcessId(hWnd,&dwProcessId);
-	//从进程ID打开进程句柄
-	HANDLE handle = OpenProcess(0,false,dwProcessId);
-	//强制终止进程
-	TerminateProcess(handle,0);
-	::SendMessage(hWnd,WM_CLOSE,0,0);
+	//DWORD dwProcessId;
+	////得到该窗口的进程ID
+	//GetWindowThreadProcessId(hWnd,&dwProcessId);
+	////从进程ID打开进程句柄
+	//HANDLE handle = OpenProcess(0,false,dwProcessId);
+	////强制终止进程
+	//TerminateProcess(handle,0);
+	//::SendMessage(hWnd,WM_CLOSE,0,0);
 	//////////////////////////////////////////////////////////////////////////
 #ifndef _DEBUG
 //#ifdef def_ttl
@@ -530,8 +530,18 @@ void CCodePrinterDlg::OnBnClickedFaultButton()
 	m_PicHead.SetOperationString(_T("故障信息")); //Fault System
 
 	m_Fault->GetDlgItem(IDC_MUL_LANGV_STATIC)->SetWindowText(NULL);//清空翻译
-	showDlg(IDD_FAULT_DIALOG);
-	m_Fault->ShowWindow(SW_SHOW);	
+
+	wstring tempstr;
+	CString cstr;
+	CCodePrinterDlg *pCodeDlg = (CCodePrinterDlg*)this;//获取主对话框指针
+	tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_PicHead.SetOperationString(cstr); //Fault System
+	tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
+	cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	m_PicHead.SetSecondLineOpeString(cstr);
+	m_Fault->ShowWindow(SW_SHOW);
+	//showDlg(IDD_FAULT_DIALOG);	
 }
 
 void CCodePrinterDlg::OnBnClickedSystemButton()
@@ -670,13 +680,13 @@ void CCodePrinterDlg::showDlg(int ID)
 	}
 	else if (ID == IDD_FAULT_DIALOG)
 	{
-		tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
-		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
-	    m_PicHead.SetOperationString(cstr); //Fault System
-		tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
-		cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
-		m_PicHead.SetSecondLineOpeString(cstr);
-		m_Fault->ShowWindow(SW_SHOW);
+		//tempstr=theApp.myLanguage.LanguageMap["ID_ERROR_INFORMATION"];
+		//cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+	 //   m_PicHead.SetOperationString(cstr); //Fault System
+		//tempstr=theApp.myLanguage.LanguageMap["Currenterrorlist"];
+		//cstr = pCodeDlg->m_cAbrabicconj->disposeinputtext(tempstr.c_str());
+		//m_PicHead.SetSecondLineOpeString(cstr);
+		//m_Fault->ShowWindow(SW_SHOW);
 	}
 	/*else if (ID == IDD_ONOFF_DIALOG)
 	{
@@ -754,13 +764,13 @@ void CCodePrinterDlg::showDlg(int ID)
 void CCodePrinterDlg::UpdateValve()
 {
 	//更新阀的信息
-	if (theApp.myUserPower.booInkAdvance)
+	if (theApp.myUserPower.booInkAdvance)//高级
 	{
 		HWND advan;
 		advan = m_Ink->m_inkAdv->GetSafeHwnd();
 		theApp.myStatusClass.ad_button_onoff(advan);
 	}
-	if (theApp.myUserPower.booInkUsual)
+	if (theApp.myUserPower.booInkUsual)//普通
 	{
 		HWND usua;
 		usua = m_Ink->GetSafeHwnd();
@@ -1045,7 +1055,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Pump speed abnormal"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               " + "   ";//最后加3个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1074,7 +1084,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Pressure abnormal"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               " + "   ";//最后加3个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1148,7 +1158,7 @@ void CCodePrinterDlg::GetFaultInfo()
 			CString csMsg;
 			csMsg.Format(_T("Recyle fault"));
 			string m_tmpt;
-			m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+			m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               " + "   ";//最后加3个空格与yellow对齐
 			csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 			m_Fault->m_faultList.AddString(csMsg);
 			m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1185,7 +1195,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Fan fault"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               " + "   ";//最后加3个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1273,7 +1283,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		//csMsg.Format(_T("高压故障"));//High voltage faul
 		csMsg.Format(_T("High voltage fault"));//High voltage fault
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               " + "   ";//最后加3个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1298,7 +1308,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg;
 		csMsg.Format(_T("Add solvent"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               " + "  ";//最后加2个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1316,7 +1326,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Solvent empty"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               " + "  ";//最后加2个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1331,7 +1341,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Solvent overfull"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               " + "  ";//最后加2个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1360,7 +1370,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Add ink"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               " + "  ";//最后加2个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1382,7 +1392,8 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Ink empty"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
+		//m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               " + "   ";//最后加3个空格与yellow对齐//墨水空改为红灯报警
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1404,7 +1415,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Ink overfull"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Blue" + "               " + "  ";//最后加2个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1473,7 +1484,7 @@ void CCodePrinterDlg::GetFaultInfo()
 		CString csMsg ;
 		csMsg.Format(_T("Valve fault"));
 		string m_tmpt;
-		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               ";
+		m_tmpt = m_currentDate + "               " + m_currentTime + "               " + "Red" + "               " + "   ";//最后加3个空格与yellow对齐
 		csMsg = theApp.myModuleMain.string2CString(m_tmpt) + csMsg;
 		m_Fault->m_faultList.AddString(csMsg);
 		m_Fault->m_faultList.SetFont(theApp.m_StaticFont);
@@ -1920,7 +1931,7 @@ void CCodePrinterDlg::OnTimer(UINT_PTR nIDEvent)
 		//打印计数器
 		GetDlgItem(IDC_STATIC_PRICOUNT)->SetWindowText(theApp.myModuleMain.stringToLPCWSTR(OBJ_Control::to_String(theApp.myStatusClass.staPriCou)));
 
-		theApp.refalsetimedata();
+		theApp.refalsetimedata();//没用？
 		if (theApp.m_MessagePrint.boDynamic)
 		{
 			theApp.sendCounter.clear();

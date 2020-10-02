@@ -128,7 +128,7 @@ vector<string> UserPower::split(const string& str, const string& delim)
 
 void UserPower::SaveUser()
 {
-	ofstream outUser("Storage Card\\System\\UserPower\\userName.txt", ios::trunc);
+	ofstream outUser("Storage Card\\System\\UserPower\\userName.txt", ios::trunc);//如果文件存在，把文件长度设为0
 	
 	for(map<string,UserStruct>::iterator iter=userMap.begin();iter!=userMap.end();iter++ )
 	{
@@ -152,7 +152,7 @@ vector<string> UserPower::GetPower(string filePathName)
 
 void UserPower::SavePower(string filePathName,vector<string> tempVec)
 {
-	ofstream outUser(filePathName.c_str(), ios::trunc);
+	ofstream outUser(filePathName.c_str(), ios::trunc);//如果文件存在，把文件长度设为0
 	string outStr="";
 	for (int i=0;i<tempVec.size();i++)
 	{
