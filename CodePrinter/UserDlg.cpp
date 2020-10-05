@@ -121,7 +121,7 @@ BOOL CUserDlg::OnInitDialog()
 	// 异常: OCX 属性页应返回 FALSE
 }
 
-void CUserDlg::OnBnClickedOpenButton()
+void CUserDlg::OnBnClickedOpenButton()//编辑
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CString OpenUser;
@@ -152,7 +152,7 @@ void CUserDlg::OnBnClickedOpenButton()
 	string fatherPathName="Storage Card\\System\\UserPower\\";
 	fatherPathName=fatherPathName+fatherName+".txt";
 	vector<string> fatherPower=theApp.myUserPower.GetPower(fatherPathName);
-	for(int i=0;i<fatherPower.size();i++)
+	for(int i=0;i<fatherPower.size();i++)//将在父亲中没有的权限放入未授予权限combox中
 	{
 		vector<string>::iterator findIter=find(nowUserPower.begin(),nowUserPower.end(),fatherPower.at(i));
 		if (findIter==nowUserPower.end())
@@ -171,7 +171,7 @@ void CUserDlg::OnBnClickedOpenButton()
 	showUserDlg(IDD_USER_OPEN_DIALOG);
 }
 
-void CUserDlg::OnBnClickedNewBtn()
+void CUserDlg::OnBnClickedNewBtn()//新建
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_errBox=(CListBox*)pUserNew->GetDlgItem(IDC_NOT_GRANTED_LIST);
@@ -214,7 +214,7 @@ void CUserDlg::OnBnClickedDeleteBtn()
 	showUserDlg(IDD_USER_DELETE_DIALOG);
 }
 
-void CUserDlg::OnBnClickedUserFreshBtn()
+void CUserDlg::OnBnClickedUserFreshBtn()//以不同用户登录
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CListBox* m_freBox=(CListBox*)pUserFresh->GetDlgItem(IDC_FRESH_USER_NAME_LIST);

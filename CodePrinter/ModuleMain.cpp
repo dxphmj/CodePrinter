@@ -9,7 +9,7 @@
 #include <sstream>//使用该库函数的ostringstream，将int变成string
 
 #include "qrcode\zint.h"
- 
+ bool isdelete=false;
 void StatusClass::byStatusFromSlaveState()
 {
 	theApp.bytSlaveStatusLock.Lock();
@@ -354,6 +354,7 @@ void StatusClass::download_inksystem_control05()
 BYTE* VEC2ARRAY(vector<BYTE> tempVec,int n)
 {
 	//BYTE charary[n];
+	isdelete=true;
 	BYTE *arr = new BYTE[n];
 	memcpy(arr, &tempVec[0], tempVec.size() * sizeof(tempVec[0]));
 	return arr;
@@ -384,7 +385,7 @@ CString GETnBIT_from_bytReadData(int I , int m , int n )
 //}
 int GETnBIT_from_bytStatus(int I , int m , int n )
 {
-	return (theApp.bytStatus[I] >> (m-1)) & 0x01;
+	return (theApp.bytStatus[I] >> m) & 0x01;
 }
 
 //串口线程
@@ -687,7 +688,11 @@ UINT TTLcomLoop(LPVOID pParam)
 		Sleep(10);
 		
 		theApp.readCount=theApp.myCIOVsd.Read();//返回下位机读取字节数
-
+		if (isdelete)
+		{
+			delete[] strTempCmd;
+			isdelete=false;
+		}
 	}
 	return 0;
 }
