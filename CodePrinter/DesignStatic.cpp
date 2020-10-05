@@ -42,7 +42,7 @@ void CDesignStatic::OnPaint()
 	{
 		tempNeed=theApp.m_MessageEdit.scrMaxRow*5 + 1;
 	}
-	bitmapTemp.CreateCompatibleBitmap(pDC, tempNeed, 161);//创建内存位图
+	bitmapTemp.CreateCompatibleBitmap(pDC, tempNeed, 161);//创建内存位图，先画到内存位图，再拷贝主屏显示
 	dcMem.CreateCompatibleDC(pDC); //依附窗口DC创建兼容的DC
 	//pOldBitmap = dcMem.SelectObject(&bitmapTemp);//将内存位图选入内存dc
 	dcMem.SelectObject(&bitmapTemp);

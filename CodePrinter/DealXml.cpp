@@ -100,9 +100,16 @@ bool CDealXml::WriteXml(CString FileName,CString Name,CString Value,CString Path
 		mydoc.SaveFile();
 		return true;	
 	}
-	else
+	else//没有改文件则创建
 	{	
-		return false;
+		TiXmlDocument doc(fileName);//
+
+		//TiXmlDeclaration* dec = new TiXmlDeclaration("1.0","utf-8","");   //创建一个描述，构造参数（version，encoding,standalone)
+		TiXmlElement* rootElement = new TiXmlElement("Config");      //创建一个根Config
+		//doc.LinkEndChild(dec);//文档添加描述
+		doc.LinkEndChild(rootElement);//文档添加root element
+		doc.SaveFile(fileName);//保存到文件new.xml
+		return true;
 	}
 }
 
